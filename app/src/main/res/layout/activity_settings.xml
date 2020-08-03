@@ -19,4 +19,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/set_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Language"
+        tools:layout_editor_absoluteX="143dp"
+        tools:layout_editor_absoluteY="246dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
