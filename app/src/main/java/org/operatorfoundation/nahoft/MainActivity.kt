@@ -18,12 +18,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        help_button.setOnClickListener {
+        user_guide_button.setOnClickListener {
             val intent = Intent(this, HelpActivity::class.java)
             startActivity(intent)
         }
 
-        keys_button.setOnClickListener {
+        friends_button.setOnClickListener {
             val intent = Intent(this, KeysActivity::class.java)
             startActivity(intent)
         }

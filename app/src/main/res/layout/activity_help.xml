@@ -11,7 +11,7 @@
         android:layout_width="142dp"
         android:layout_height="119dp"
         android:layout_marginTop="16dp"
-        android:text="Help View"
+        android:text="User Guide"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
