@@ -14,27 +14,37 @@
         android:layout_marginTop="116dp"
         android:layout_marginBottom="15dp"
         android:text="Mary Swenson"
-        app:layout_constraintBottom_toTopOf="@+id/message_textView"
+        app:layout_constraintBottom_toTopOf="@+id/editMessageText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/message_textView"
-        android:layout_width="338dp"
-        android:layout_height="205dp"
-        android:layout_marginTop="15dp"
-        android:background="@android:color/background_light"
-        android:clickable="true"
-        android:cursorVisible="true"
-        android:editable="true"
-        android:enabled="true"
-        android:text="How are you today?"
-        android:textIsSelectable="true"
+    <EditText
+        android:id="@+id/editMessageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="53dp"
+        android:layout_marginBottom="469dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:maxLength="140"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/friend_button" />
+
+<!--    <EditText-->
+<!--        android:id="@+id/message_text_view"-->
+<!--        android:layout_width="338dp"-->
+<!--        android:layout_height="205dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:background="@android:color/background_light"-->
+<!--        android:maxLength="140"-->
+<!--        android:inputType="textMultiLine"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/friend_button" />-->
 
     <Button
         android:id="@+id/send_as_text_button"
@@ -44,7 +54,7 @@
         android:layout_marginTop="5dp"
         android:text="Send as Text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/message_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/editMessageText" />
 
     <Button
         android:id="@+id/send_as_image_button"
@@ -54,5 +64,8 @@
         android:layout_marginEnd="65dp"
         android:text="Send As Image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/message_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/editMessageText"/>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
