@@ -24,10 +24,11 @@ class NewMessageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_message)
 
-
         friend_button.setOnClickListener {
             println("friend button clicked")
             loadContacts()
+            val intent = Intent(this, FriendsSelectionActivity::class.java)
+            startActivity(intent)
         }
 
         send_as_text_button.setOnClickListener {
