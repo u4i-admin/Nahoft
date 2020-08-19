@@ -34,7 +34,7 @@ class NewMessageActivity : AppCompatActivity() {
         send_as_text_button.setOnClickListener {
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, editMessageText.text)
+                putExtra(Intent.EXTRA_TEXT, editMessageText.text.toString())
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, null)
