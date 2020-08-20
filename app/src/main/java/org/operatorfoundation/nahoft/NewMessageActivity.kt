@@ -1,23 +1,77 @@
 package org.operatorfoundation.nahoft
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.content.ContentProvider
+import android.content.ContentResolver
+import android.content.pm.PackageManager
+import android.provider.ContactsContract
+import android.widget.Button
+import android.widget.EditText
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_new_message.*
+import org.operatorfoundation.codex.Codex
+import org.operatorfoundation.codex.Encryption
 
 class NewMessageActivity : AppCompatActivity() {
+//EditText message_text_view
+//Button send_as_text_button
+
+    val IMAGE_PICK_CODE = 1046
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        println("**New Messages Activity")
         setContentView(R.layout.activity_new_message)
 
+        friend_button.setOnClickListener {
+            println("friend button clicked")
+
+            val intent = Intent(this, FriendsSelectionActivity::class.java)
+            startActivity(intent)
+        }
+
         send_as_text_button.setOnClickListener {
+            var message = editMessageText.text.toString()
+            val codex = Codex()
+            message = codex.encode(message)
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+                putExtra(Intent.EXTRA_TEXT, message)
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, null)
             startActivity(shareIntent)
         }
+
+        send_as_image_button.setOnClickListener {
+            pickImageFromGallery()
+        }
     }
+
+    fun pickImageFromGallery() {
+        val pickImageIntent = Intent().apply {
+            action = Intent.ACTION_PICK
+            type = "image/*"
+        }
+        startActivityForResult(pickImageIntent, IMAGE_PICK_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            val shareIntent: Intent = Intent().apply{
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_STREAM, data?.data)
+                type = "image/jpeg"
+            }
+            startActivity(Intent.createChooser(shareIntent, null))
+        }
+    }
+
 }

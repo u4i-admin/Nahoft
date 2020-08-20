@@ -21,10 +21,32 @@
 
     <Button
         android:id="@+id/set_language"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
         android:text="Set Language"
-        tools:layout_editor_absoluteX="143dp"
-        tools:layout_editor_absoluteY="246dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_view" />
+
+    <Button
+        android:id="@+id/passcode"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Passcode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/set_language" />
+
+    <Button
+        android:id="@+id/application_Shortcut"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Application Shortcut"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passcode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
