@@ -2,16 +2,10 @@ package org.operatorfoundation.codex
 
 import java.util.*
 
-class Script(val elements: Array<ScriptElement>) {
+interface Script
+{
     fun encode(bits: BitSet): String
-    {
-        return "TBD"
-    }
-
     fun decode(ciphertext: String): BitSet
-    {
-        return BitSet(0)
-    }
 }
 
 interface ScriptElement

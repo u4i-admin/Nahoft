@@ -7,9 +7,15 @@ class Codex {
     fun encode(plaintext: String): String
     {
         val data = plaintext.toByteArray()
+
+        return encode(data)
+    }
+
+    fun encode(data: ByteArray): String
+    {
         val bits = makeBitSet(data)
 
-        val script = Script(emptyArray())
+        val script = AlphanumericScript()
         val result = script.encode(bits)
 
         return result
@@ -17,7 +23,12 @@ class Codex {
 
     fun decode(ciphertext: String): String
     {
-        return ciphertext
+        val script = AlphanumericScript()
+        val bits = script.decode(ciphertext)
+        val data = bits.toByteArray()
+        val result = String(data)
+
+        return result
     }
 
     fun makeBitSet(bytes: ByteArray): BitSet
