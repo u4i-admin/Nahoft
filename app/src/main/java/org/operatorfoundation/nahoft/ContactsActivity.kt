@@ -20,6 +20,7 @@ import android.widget.ListView
 import android.widget.SimpleCursorAdapter
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
+import kotlinx.android.synthetic.main.activity_contacts.*
 
 val from_columns : Array<String> = arrayOf(Contacts.DISPLAY_NAME_PRIMARY)
 
@@ -32,7 +33,7 @@ class ContactsActivity : AppCompatActivity() {
     }
 }
 
-abstract class ContactsFragment() : Fragment(), LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener,
+class ContactsFragment() : Fragment(), LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener,
     Parcelable {
     // Define global mutable variables
     // Define a ListView object
@@ -47,7 +48,7 @@ abstract class ContactsFragment() : Fragment(), LoaderManager.LoaderCallbacks<Cu
     // An adapter that binds the result Cursor to the ListView
     private var cursorAdapter: SimpleCursorAdapter? = null
     val projection:Array<String> = arrayOf(Contacts._ID,
-        Contacts.LOOKUP_KEY,Contacts.DISPLAY_NAME)
+        Contacts.LOOKUP_KEY,Contacts.DISPLAY_NAME,Contacts.PHOTO_THUMBNAIL_URI)
 
     val selectionArgs = arrayOf<String>("${Contacts.DISPLAY_NAME_PRIMARY} LIKE ?")
 
@@ -79,26 +80,26 @@ abstract class ContactsFragment() : Fragment(), LoaderManager.LoaderCallbacks<Cu
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the fragment layout
-        return inflater.inflate(R.layout.contact_list_fragment, container, false)
+        return inflater.inflate(R.layout.contacts_list_item, container, false)
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         // Gets the ListView from the View list of the parent activity
         activity?.also {
-            contactsList = it.findViewById<ListView>(R.id.contact_list)
-            // Gets a CursorAdapter
+                   // Gets a CursorAdapter
             cursorAdapter = SimpleCursorAdapter(
                 it,
                 R.layout.contacts_list_item,
                 null,
-                from_columns, TO_IDS,
+                from_columns,
+                TO_IDS,
                 0
             )
             // Sets the adapter for the ListView
-            contactsList.adapter = cursorAdapter
+            contact_list.adapter = cursorAdapter
         }
-        contactsList.onItemClickListener = this
+        contact_list.onItemClickListener = this
 
 
 
@@ -110,19 +111,27 @@ abstract class ContactsFragment() : Fragment(), LoaderManager.LoaderCallbacks<Cu
          * Makes search string into pattern and
          * stores it in the selection array
          */
-        //FIXME find out what this search sting is supposed to be
-        selectionArgs[0] = "%mSearchString%"
         // Starts the query
         return activity?.let {
             return CursorLoader(
                 it,
                 Contacts.CONTENT_URI,
                 projection,
-                "${Contacts.DISPLAY_NAME_PRIMARY} LIKE ?",
-                selectionArgs,
+                null,
+                null,
                 null
             )
         } ?: throw IllegalStateException()
+    }
+
+    override fun onLoadFinished(loader: Loader<Cursor>, cursor: Cursor) {
+        // Put the result Cursor in the adapter for the ListView
+        cursorAdapter?.swapCursor(cursor)
+    }
+
+    override fun onLoaderReset(loader: Loader<Cursor>) {
+        // Delete the reference to the existing Cursor
+        cursorAdapter?.swapCursor(null)
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

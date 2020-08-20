@@ -17,16 +17,18 @@ import kotlinx.android.synthetic.main.activity_new_message.*
 class NewMessageActivity : AppCompatActivity() {
 //EditText message_text_view
 //Button send_as_text_button
+
     val IMAGE_PICK_CODE = 1046
-    val PERMISSIONS_REQUEST_READ_CONTACTS = 100
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        println("**New Messages Activity")
         setContentView(R.layout.activity_new_message)
 
         friend_button.setOnClickListener {
             println("friend button clicked")
-            loadContacts()
+
             val intent = Intent(this, FriendsSelectionActivity::class.java)
             startActivity(intent)
         }
@@ -53,39 +55,6 @@ class NewMessageActivity : AppCompatActivity() {
         }
         startActivityForResult(pickImageIntent, IMAGE_PICK_CODE)
     }
-    fun loadContacts(){
-        var builder = StringBuilder()
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), PERMISSIONS_REQUEST_READ_CONTACTS)
-        } else {
-            builder = getContacts()
-            val contactsText = builder.toString()
-        }
-    }
-
-    fun getContacts(): StringBuilder {
-        val resolver: ContentResolver = contentResolver;
-        val builder = StringBuilder()
-        val cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI,null, null, null)
-
-        if (cursor != null) {
-            if (cursor.count > 0) {
-                while (cursor.moveToNext()) {
-                    val id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
-                    val name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                    println("found contact")
-                    println(id)
-                    println(name)
-                    builder.append("Contact ID: ").append(id).append("Name: ").append(name)
-                }
-            }
-        } else {
-            println("cursor is null")
-        }
-
-        return builder
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -100,17 +69,4 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS){
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                loadContacts()
-            } else {
-                println("No Permission For Contacts")
-            }
-        }
-    }
 }
