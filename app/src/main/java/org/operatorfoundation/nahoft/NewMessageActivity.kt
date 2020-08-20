@@ -13,6 +13,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_new_message.*
+import org.operatorfoundation.codex.Codex
+import org.operatorfoundation.codex.Encryption
 
 class NewMessageActivity : AppCompatActivity() {
 //EditText message_text_view
@@ -34,9 +36,12 @@ class NewMessageActivity : AppCompatActivity() {
         }
 
         send_as_text_button.setOnClickListener {
+            var message = editMessageText.text.toString()
+            val codex = Codex()
+            message = codex.encode(message)
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, editMessageText.text.toString())
+                putExtra(Intent.EXTRA_TEXT, message)
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, null)

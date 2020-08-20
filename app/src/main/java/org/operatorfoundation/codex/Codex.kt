@@ -7,6 +7,12 @@ class Codex {
     fun encode(plaintext: String): String
     {
         val data = plaintext.toByteArray()
+
+        return encode(data)
+    }
+
+    fun encode(data: ByteArray): String
+    {
         val bits = makeBitSet(data)
 
         val script = Script(emptyArray())
