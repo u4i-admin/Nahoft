@@ -13,12 +13,15 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_new_message.*
+import org.operatorfoundation.RecyclerAdapter
+import org.operatorfoundation.codex.Codex
 
 class NewMessageActivity : AppCompatActivity() {
 //EditText message_text_view
 //Button send_as_text_button
 
     val IMAGE_PICK_CODE = 1046
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +31,7 @@ class NewMessageActivity : AppCompatActivity() {
 
         friend_button.setOnClickListener {
             println("friend button clicked")
-
+            
             val intent = Intent(this, FriendsSelectionActivity::class.java)
             startActivity(intent)
         }
