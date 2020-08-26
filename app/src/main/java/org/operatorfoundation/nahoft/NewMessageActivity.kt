@@ -13,16 +13,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_new_message.*
-import org.operatorfoundation.RecyclerAdapter
 import org.operatorfoundation.codex.Codex
-
-//<<<<<<< HEAD
-//import org.operatorfoundation.RecyclerAdapter
-//import org.operatorfoundation.codex.Codex
-//=======
-//import org.operatorfoundation.codex.Codex
-//import org.operatorfoundation.codex.Encryption
-//>>>>>>> bb9c7679a61d3a349ab2406d3f36dfe626a45359
 
 class NewMessageActivity : AppCompatActivity() {
 //EditText message_text_view
