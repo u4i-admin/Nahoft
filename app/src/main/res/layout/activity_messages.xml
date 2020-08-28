@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".MessagesActivity">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_height="119dp"
         android:layout_marginTop="16dp"
         android:text="Messages View"
+        android:textStyle="bold"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="18sp"
