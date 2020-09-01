@@ -1,6 +1,7 @@
 package org.operatorfoundation.nahoft
 
 import android.Manifest
+import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
@@ -34,19 +35,42 @@ class FriendSelectionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        println("**Friends Selection Activity")
+        println("**FriendSelectionActivity")
         setContentView(R.layout.activity_friends_selection)
 
         linearLayoutManager = LinearLayoutManager(this)
-        adapter = FriendSelectionRecyclerAdapter(friendList)
+        adapter = FriendSelectionRecyclerAdapter(friendList) {
+            // This is the onClick listener for our Recycler
+            val result = Intent()
+            result.putExtra(FRIEND_EXTRA_TASK_DESCRIPTION, it.name)
+            setResult(Activity.RESULT_OK, result)
+
+            finish()
+        }
+
         friendsSelectionRecyclerView.layoutManager = linearLayoutManager
         friendsSelectionRecyclerView.adapter = adapter
+
     }
 
     override fun onStart() {
         super.onStart()
         //TO DO GET CONTACTS ADD THEM TO FRIEND LIST
         loadContacts()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                loadContacts()
+            } else {
+                println("No Permission For Contacts")
+            }
+        }
     }
 
     fun loadContacts() {
@@ -94,18 +118,6 @@ class FriendSelectionActivity : AppCompatActivity() {
         return builder
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                loadContacts()
-            } else {
-                println("No Permission For Contacts")
-            }
-        }
-    }
+
 }
 

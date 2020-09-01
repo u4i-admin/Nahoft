@@ -1,18 +1,15 @@
 package org.operatorfoundation.nahoft
 
-import android.content.Context
-import android.content.Intent
 import android.view.View
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.recyclerview_item_row.view.*
+import kotlinx.android.synthetic.main.friend_selection_recyclerview_item_row.view.*
 import org.operatorfoundation.inflate
 
 class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerView.Adapter<FriendsRecyclerAdapter.FriendViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
-        val inflatedView = parent.inflate(R.layout.recyclerview_item_row, false)
+        val inflatedView = parent.inflate(R.layout.friend_recyclerview_item_row, false)
         return FriendViewHolder(inflatedView)
     }
 
