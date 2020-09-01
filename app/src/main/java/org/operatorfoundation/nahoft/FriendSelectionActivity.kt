@@ -13,22 +13,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_friends_selection.*
 
 
-class FriendsSelectionActivity : AppCompatActivity() {
+class FriendSelectionActivity : AppCompatActivity() {
 
     val PERMISSIONS_REQUEST_READ_CONTACTS = 100
 
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private lateinit var adapter: FriendsRecyclerAdapter
+    private lateinit var adapter: FriendSelectionRecyclerAdapter
 
     private val lastVisibleItemPosition: Int
         get() = linearLayoutManager.findLastVisibleItemPosition()
 
-    private var friendList: ArrayList<String> = ArrayList()
+    private var friendList: ArrayList<Friend> = ArrayList()
 
     companion object {
         const val FRIEND_EXTRA_TASK_DESCRIPTION = "friend"
 
-        fun newIntent(context: Context) = Intent(context, FriendsSelectionActivity::class.java)
+        fun newIntent(context: Context) = Intent(context, FriendSelectionActivity::class.java)
         //fun getSelectedFriend(data: Intent?): String? = data?.getStringExtra(FRIEND_EXTRA_TASK_DESCRIPTION)
     }
 
@@ -37,11 +37,8 @@ class FriendsSelectionActivity : AppCompatActivity() {
         println("**Friends Selection Activity")
         setContentView(R.layout.activity_friends_selection)
 
-        //Can Add Back In Later
-        //friendList.add("Friend 1")
-        //friendList.add("Friend 2")
         linearLayoutManager = LinearLayoutManager(this)
-        adapter = FriendsRecyclerAdapter(friendList)
+        adapter = FriendSelectionRecyclerAdapter(friendList)
         friendsSelectionRecyclerView.layoutManager = linearLayoutManager
         friendsSelectionRecyclerView.adapter = adapter
     }
@@ -82,7 +79,8 @@ class FriendsSelectionActivity : AppCompatActivity() {
                         cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
                     val name =
                         cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                    friendList.add(name)
+                    val newFriend = Friend(id, name)
+                    friendList.add(newFriend)
                     println("found contact")
                     println(id)
                     println(name)

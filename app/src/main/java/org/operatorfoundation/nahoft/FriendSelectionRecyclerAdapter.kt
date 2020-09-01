@@ -3,13 +3,12 @@ package org.operatorfoundation.nahoft
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recyclerview_item_row.view.*
 import org.operatorfoundation.inflate
 
-class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerView.Adapter<FriendsRecyclerAdapter.FriendViewHolder>() {
+class FriendSelectionRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerView.Adapter<FriendSelectionRecyclerAdapter.FriendViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
         val inflatedView = parent.inflate(R.layout.recyclerview_item_row, false)
@@ -34,6 +33,18 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
 
         override fun onClick(v: View) {
             println("User Selected Friend View")
+            val context: Context = itemView.context
+
+            //Return to NewMessageActivity
+            val returnToMessageIntent = Intent(context, NewMessageActivity::class.java)
+
+            if (friend != null) {
+                returnToMessageIntent.putExtra(FRIEND_KEY, friend!!.name)
+            }
+
+            context.startActivity(returnToMessageIntent)
+
+            //Update Choose Friend Button with selected friend
         }
 
         fun bindFriend(newFriend: Friend) {

@@ -1,17 +1,9 @@
 package org.operatorfoundation.nahoft
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.content.ContentProvider
-import android.content.ContentResolver
-import android.content.pm.PackageManager
-import android.provider.ContactsContract
-import android.widget.Button
-import android.widget.EditText
-import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_new_message.*
 import org.operatorfoundation.codex.Codex
 import org.operatorfoundation.stencil.Stencil
@@ -30,8 +22,8 @@ class NewMessageActivity : AppCompatActivity() {
         friend_button.setOnClickListener {
             println("friend button clicked")
             
-            val intent = FriendsSelectionActivity.newIntent(this@NewMessageActivity)
-                Intent(this, FriendsSelectionActivity::class.java)
+            val intent = FriendSelectionActivity.newIntent(this@NewMessageActivity)
+                Intent(this, FriendSelectionActivity::class.java)
             startActivity(intent)
         }
 

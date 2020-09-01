@@ -1,6 +1,6 @@
 package org.operatorfoundation.nahoft
 
-data class Friend(val id: String) {
+data class Friend(val id: String, var name: String) {
     var status: FriendStatus = FriendStatus.Default
 }
 
