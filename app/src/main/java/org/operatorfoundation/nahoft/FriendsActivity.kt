@@ -26,7 +26,7 @@ val from_columns : Array<String> = arrayOf(Contacts.DISPLAY_NAME_PRIMARY)
 
 private val TO_IDS: IntArray = intArrayOf(android.R.id.text1)
 
-class ContactsActivity : AppCompatActivity() {
+class FriendsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contacts)

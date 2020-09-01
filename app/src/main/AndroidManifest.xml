@@ -19,9 +19,9 @@
         <activity android:name=".SettingsUserGuideActivity" />
         <activity android:name=".SendingMessagesUserGuideActivity" />
         <activity android:name=".FriendsUserGuideActivity" />
-        <activity android:name=".ContactsActivity" />
+        <activity android:name=".FriendsActivity" />
         <activity android:name=".KeysActivity" />
-        <activity android:name=".ViewContactsActivity" />
+        <activity android:name=".FriendManagementActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".HelpActivity" />
         <activity android:name=".MessagesActivity" />

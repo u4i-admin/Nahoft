@@ -14,14 +14,13 @@ import android.widget.EditText
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_new_message.*
 import org.operatorfoundation.codex.Codex
+import org.operatorfoundation.stencil.Stencil
 
 class NewMessageActivity : AppCompatActivity() {
 //EditText message_text_view
 //Button send_as_text_button
 
     val IMAGE_PICK_CODE = 1046
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +30,8 @@ class NewMessageActivity : AppCompatActivity() {
         friend_button.setOnClickListener {
             println("friend button clicked")
             
-            val intent = Intent(this, FriendsSelectionActivity::class.java)
+            val intent = FriendsSelectionActivity.newIntent(this@NewMessageActivity)
+                Intent(this, FriendsSelectionActivity::class.java)
             startActivity(intent)
         }
 
@@ -65,8 +65,20 @@ class NewMessageActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            // Get the message text
+            var message = editMessageText.text.toString()
+
+            // TODO: Unwrap the intent
+            // TODO: get data?.data as URI
+            // TODO: Get bitmap from URI and send through Stencil
+
+            val stencil = Stencil()
+            //stencil.encode(message, plainBitmap)
+            // TODO: Save bitmap received from Stencil to a URI
             val shareIntent: Intent = Intent().apply{
                 action = Intent.ACTION_SEND
+
+                // TODO: This should share the URI created to save the bitmap received from Stencil instead
                 putExtra(Intent.EXTRA_STREAM, data?.data)
                 type = "image/jpeg"
             }

@@ -11,7 +11,7 @@ class KeysActivity : AppCompatActivity() {
         setContentView(R.layout.activity_keys)
 
         view_contacts.setOnClickListener {
-            val intent = Intent(this, ContactsActivity::class.java)
+            val intent = Intent(this, FriendsActivity::class.java)
             startActivity(intent)
         }
     }

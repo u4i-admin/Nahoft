@@ -2,6 +2,8 @@ package org.operatorfoundation.nahoft
 
 import android.Manifest
 import android.content.ContentResolver
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,12 +18,19 @@ class FriendsSelectionActivity : AppCompatActivity() {
     val PERMISSIONS_REQUEST_READ_CONTACTS = 100
 
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private lateinit var adapter: RecyclerAdapter
+    private lateinit var adapter: FriendsRecyclerAdapter
 
     private val lastVisibleItemPosition: Int
         get() = linearLayoutManager.findLastVisibleItemPosition()
 
     private var friendList: ArrayList<String> = ArrayList()
+
+    companion object {
+        const val FRIEND_EXTRA_TASK_DESCRIPTION = "friend"
+
+        fun newIntent(context: Context) = Intent(context, FriendsSelectionActivity::class.java)
+        //fun getSelectedFriend(data: Intent?): String? = data?.getStringExtra(FRIEND_EXTRA_TASK_DESCRIPTION)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +41,7 @@ class FriendsSelectionActivity : AppCompatActivity() {
         //friendList.add("Friend 1")
         //friendList.add("Friend 2")
         linearLayoutManager = LinearLayoutManager(this)
-        adapter = RecyclerAdapter(friendList)
+        adapter = FriendsRecyclerAdapter(friendList)
         friendsSelectionRecyclerView.layoutManager = linearLayoutManager
         friendsSelectionRecyclerView.adapter = adapter
     }

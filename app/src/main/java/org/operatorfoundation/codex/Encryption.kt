@@ -27,6 +27,8 @@ class Encryption {
         val cipher = Cipher.getInstance("AES_256/GCM/NoPadding")
         cipher.init(Cipher.ENCRYPT_MODE, key)
         val ciphertext: ByteArray = cipher.doFinal(plaintext)
+
+        // iv (initialization vector) is our nonce
         val iv: ByteArray = cipher.iv
 
         return iv+ciphertext
