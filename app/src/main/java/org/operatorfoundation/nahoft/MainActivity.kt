@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         friends_button.setOnClickListener {
-            val intent = Intent(this, KeysActivity::class.java)
+            val intent = Intent(this, FriendsActivity::class.java)
             startActivity(intent)
         }
 
