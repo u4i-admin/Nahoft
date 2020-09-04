@@ -30,29 +30,29 @@ class Codex {
 
         return result
     }
+}
 
-    fun makeBitSet(bytes: ByteArray): BitSet
+fun makeBitSet(bytes: ByteArray): BitSet
+{
+    var result = BitSet(bytes.size * 8)
+
+    for (byteIndex in 0..bytes.size-1)
     {
-        var result = BitSet(bytes.size * 8)
+        val byte = bytes[byteIndex]
 
-        for (byteIndex in 0..bytes.size-1)
+        for (bitIndex in 0..7)
         {
-            val byte = bytes[byteIndex]
+            val byteInt = byte.toInt()
+            val bigInt = byteInt.toBigInteger()
+            val bigBit = (bigInt shl bitIndex) shr (7 - bitIndex)
+            val bit = bigBit.toInt()
+            val bool = bit != 0
 
-            for (bitIndex in 0..7)
-            {
-                val byteInt = byte.toInt()
-                val bigInt = byteInt.toBigInteger()
-                val bigBit = (bigInt shl bitIndex) shr (7 - bitIndex)
-                val bit = bigBit.toInt()
-                val bool = bit != 0
+            val resultIndex = (byteIndex * 8) + bitIndex
 
-                val resultIndex = (byteIndex * 8) + bitIndex
-
-                result.set(resultIndex, bool)
-            }
+            result.set(resultIndex, bool)
         }
-
-        return result
     }
+
+    return result
 }
