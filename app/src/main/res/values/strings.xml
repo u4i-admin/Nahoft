@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">Nahoft</string>
+
+
+    ToDo: Update all your strings here by switching what's in "" to what's inside the angle brackets
+    //Remember to keep the first word in your "" description a lower case
+    //Home Activity Strings
+    <string name="friendsButtonDescription">Friends</string>
+    <string name="Messages">MessagesButtonDescription</string>
+    <string name="Settings">SettingButtonDescription</string>
+    <string name="userGuideButtonDescription">User Guide</string>
+
+    //Messages Activity
+    <string name="MessagesView">MessagesScreenTitle</string>
+    <string name="NewMessage">NewMessageButtonTitle</string>
+
+    //New Messages Activity
+    //ToDo: the first string listed below is hardcoded text, you probably need to change this in order to localize
+    <string name="hintOnChooseFriendButton">Choose Friend</string>
+    <string name="SendAsText">SendAsTextButton</string>
+    <string name="SendAsImage">SendAsImageButton</string>
+
+    //User Guide Activity
+        //There is a string for the Title On the User Guide Activity Screen "USER GUIDE" this has already been defined
+        not certain what to do here.
+    <string name="FriendsUserGuide">FriendsUserGuideButtonName</string>
+    <string name="SendingMessagesUserGuide">SendingMessagesUserGuideButtonName</string>
+    <string name="SettingsUserGuide">SettingsUserGuideButtonName</string>
+    <string name="ReceivingMessagesUserGuide">ReceivingMessagesUserGuideButtonName</string>
+
+
+
 </resources>

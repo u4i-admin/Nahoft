@@ -3,12 +3,12 @@ package org.operatorfoundation.nahoft
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_help.*
+import kotlinx.android.synthetic.main.activity_user_guide.*
 
 class UserGuideActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_help)
+        setContentView(R.layout.activity_user_guide)
 
         friends_user_guide.setOnClickListener {
             println("message button clicked")

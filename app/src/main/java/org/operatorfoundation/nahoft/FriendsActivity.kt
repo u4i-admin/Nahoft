@@ -9,7 +9,7 @@ import android.provider.ContactsContract
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_friends.*
-import kotlinx.android.synthetic.main.activity_friends_selection.*
+import kotlinx.android.synthetic.main.activity_friend_selection.*
 
 class FriendsActivity : AppCompatActivity() {
 

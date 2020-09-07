@@ -81,7 +81,7 @@ class NewMessageActivity : AppCompatActivity() {
 
                     val friend = data?.getStringExtra(FriendSelectionActivity.FRIEND_EXTRA_TASK_DESCRIPTION)
 
-                    // If friend is not null use it to set the n=button title
+                    // If friend is not null use it to set the button title
                     friend?.let {
                         println(friend)
                         friend_button.text = friend

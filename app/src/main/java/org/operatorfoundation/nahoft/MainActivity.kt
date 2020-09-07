@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_friends_selection.*
+import kotlinx.android.synthetic.main.activity_friend_selection.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

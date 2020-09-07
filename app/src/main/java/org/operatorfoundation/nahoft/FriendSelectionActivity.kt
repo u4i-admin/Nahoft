@@ -11,7 +11,7 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_friends_selection.*
+import kotlinx.android.synthetic.main.activity_friend_selection.*
 
 
 class FriendSelectionActivity : AppCompatActivity() {
@@ -36,7 +36,7 @@ class FriendSelectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         println("**FriendSelectionActivity")
-        setContentView(R.layout.activity_friends_selection)
+        setContentView(R.layout.activity_friend_selection)
 
         linearLayoutManager = LinearLayoutManager(this)
         adapter = FriendSelectionRecyclerAdapter(friendList) {
