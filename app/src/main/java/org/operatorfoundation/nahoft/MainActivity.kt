@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         user_guide_button.setOnClickListener {
-            val intent = Intent(this, HelpActivity::class.java)
+            val intent = Intent(this, UserGuideActivity::class.java)
             startActivity(intent)
         }
 

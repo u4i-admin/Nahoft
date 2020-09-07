@@ -22,7 +22,7 @@
         <activity android:name=".SendingMessagesUserGuideActivity" />
         <activity android:name=".FriendsUserGuideActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".HelpActivity" />
+        <activity android:name=".UserGuideActivity" />
         <activity android:name=".MessagesActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
