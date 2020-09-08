@@ -12,7 +12,7 @@
         android:layout_width="142dp"
         android:layout_height="119dp"
         android:layout_marginTop="16dp"
-        android:text="User Guide"
+        android:text="@string/userGuideActivityTitle"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
@@ -28,7 +28,7 @@
         android:layout_marginBottom="20dp"
         android:background="@android:color/white"
         android:gravity="center"
-        android:text="Friends User Guide"
+        android:text="@string/friendsUserGuideButtonName"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/sending_messages_user_guide"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -40,7 +40,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/white"
-        android:text="Sending Messages User Guide"
+        android:text="@string/sendingMessagesUserGuideButtonName"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/receiving_messages_user_guide"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -52,7 +52,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/white"
-        android:text="Settings User Guide"
+        android:text="@string/settingsUserGuideButtonName"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -64,7 +64,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/white"
-        android:text="Receiving Messages User Guide"
+        android:text="@string/receivingMessagesUserGuideButtonName"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/settings_user_guide"
         app:layout_constraintEnd_toEndOf="parent" />

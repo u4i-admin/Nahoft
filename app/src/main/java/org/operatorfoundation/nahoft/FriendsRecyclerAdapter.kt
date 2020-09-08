@@ -41,9 +41,9 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         fun bindFriend(newFriend: Friend) {
             this.friend = newFriend
             this.view.friendName.text = newFriend.name
-            TODO("Set Friend Icon to Match Status")
-            var friendImage = newFriend.status.getIcon()
-            this.view.friendIcon.setImageDrawable()
+            //TODO("Set Friend Icon to Match Status")
+            //var friendImage = newFriend.status.getIcon()
+            //this.view.friendIcon.setImageDrawable()
         }
 
         companion object {

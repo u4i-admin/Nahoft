@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context=".MainActivity">
+    tools:context=".HomeActivity">
 
     <ImageButton
         android:id="@+id/messages_button"
@@ -87,7 +87,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginBottom="30dp"
         android:gravity="center"
-        android:text="Messages"
+        android:text="@string/messagesButtonDescription"
         android:textIsSelectable="false"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -102,7 +102,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginBottom="48dp"
         android:gravity="center"
-        android:text="Settings"
+        android:text="@string/settingsButtonDescription"
         android:textIsSelectable="false"
         android:textSize="24sp"
         android:textStyle="bold"

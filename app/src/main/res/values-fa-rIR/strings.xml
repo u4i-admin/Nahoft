@@ -6,25 +6,26 @@
     ToDo: For all strings that have two words you probably need to figure out how to localize this differently
     //Main Activity Strings
     <string name="friendsButtonDescription">دوستان</string>
-    <string name="Messages">پیام ها</string>
-    <string name="Settings">تنظیمات</string>
+    <string name="messagesButtonDescription">پیام ها</string>
+    <string name="settingsButtonDescription">تنظیمات</string>
     <string name="userGuideButtonDescription">راهنمای کاربر</string>
 
     //Messages Activity
-    <string name="MessagesView">نمایش پیام ها</string>
-    <string name="NewMessage">پیام جدید</string>
+    <string name="messagesScreenTitle">نمایش پیام ها</string>
+    <string name="newMessageButtonTitle">پیام جدید</string>
 
     //New Messages Activity
     //ToDo: the first string listed below is hardcoded text, you probably need to change this in order to localize
     <string name="hintOnChooseFriendButton">دوست را انتخاب کنید</string>
-    <string name="SendAsText">ارسال به عنوان متن</string>
-    <string name="SendAsImage">ارسال به عنوان تصویر</string>
+    <string name="sendAsTextButton">ارسال به عنوان متن</string>
+    <string name="sendAsImageButton">ارسال به عنوان تصویر</string>
 
     //User Guide Activity
     //There is a string for the Title On the User Guide Activity Screen "USER GUIDE" this has already been defined
     not certain what to do here.
-    <string name="FriendsUserGuide">راهنمای کاربر دوستان</string>
-    <string name="SendingMessagesUserGuide">ارسال پیام راهنمای کاربر</string>
-    <string name="SettingsUserGuide">تنظیمات راهنمای کاربر</string>
-    <string name="ReceivingMessagesUserGuide">دریافت پیام های راهنمای کاربر</string>
+    <string name="userGuideActivityTitle">راهنمای کاربر</string>
+    <string name="friendsUserGuideButtonName">راهنمای کاربر دوستان</string>
+    <string name="sendingMessagesUserGuideButtonName">ارسال پیام راهنمای کاربر</string>
+    <string name="settingsUserGuideButtonName">تنظیمات راهنمای کاربر</string>
+    <string name="receivingMessagesUserGuideButtonName">دریافت پیام های راهنمای کاربر</string>
 </resources>

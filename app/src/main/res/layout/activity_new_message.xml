@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="65dp"
         android:layout_marginTop="5dp"
-        android:text="Send as Text"
+        android:text="@string/sendAsTextButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editMessageText" />
 
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="65dp"
-        android:text="Send As Image"
+        android:text="@string/sendAsImageButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editMessageText"/>
 
