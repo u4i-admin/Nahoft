@@ -2,9 +2,11 @@ package org.operatorfoundation.nahoft
 
 import android.graphics.drawable.Drawable
 import android.media.Image
+import java.security.PublicKey
 
 data class Friend(val id: String, var name: String) {
     var status: FriendStatus = FriendStatus.Default
+    var publicKey: PublicKey? = null
 }
 
 enum class FriendStatus: StatusIcon {
