@@ -15,20 +15,26 @@
     <string name="newMessageButtonTitle">New Message</string>
 
     //New Messages Activity
-    //ToDo: the first string listed below is hardcoded text, you probably need to change this in order to localize
+    //ToDo: the first string listed below is hardcoded text, you probably need to change this in
+    order to localize
     <string name="hintOnChooseFriendButton">Choose Friend</string>
     <string name="sendAsTextButton">Send As Text</string>
     <string name="sendAsImageButton">Send As Image</string>
 
+    //Settings Activity
+    <string name="setLanguageButton">Set Language</string>
+    <string name="passcodeButton">Passcode</string>
+    <string name="applicationShortcut">Application Shortcut</string>
+
     //User Guide Activity
-        //There is a string for the Title On the User Guide Activity Screen "USER GUIDE" this has already been defined
-        not certain what to do here.
+    //There is a string for the Title On the User Guide Activity Screen "USER GUIDE" this has
+    already been defined
+    not certain what to do here.
     <string name="userGuideActivityTitle">User Guide</string>
     <string name="friendsUserGuideButtonName">Friends User Guide</string>
     <string name="sendingMessagesUserGuideButtonName">Sending Messages User Guide</string>
     <string name="settingsUserGuideButtonName">Settings User Guide</string>
     <string name="receivingMessagesUserGuideButtonName">Receiving Messages User Guide</string>
-
 
 
 </resources>

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Nahoft</string>
+    <string name="app_name">ناهفت</string>
 
-
-    ToDo: For all strings that have two words you probably need to figure out how to localize this differently
     //Main Activity Strings
     <string name="friendsButtonDescription">دوستان</string>
     <string name="messagesButtonDescription">پیام ها</string>
@@ -19,6 +17,11 @@
     <string name="hintOnChooseFriendButton">دوست را انتخاب کنید</string>
     <string name="sendAsTextButton">ارسال به عنوان متن</string>
     <string name="sendAsImageButton">ارسال به عنوان تصویر</string>
+
+    //Settings Activity
+    <string name="setLanguageButton">تنظیم زبان</string>
+    <string name="passcodeButton">رمز عبور</string>
+    <string name="applicationShortcut">میانبر برنامه</string>
 
     //User Guide Activity
     //There is a string for the Title On the User Guide Activity Screen "USER GUIDE" this has already been defined

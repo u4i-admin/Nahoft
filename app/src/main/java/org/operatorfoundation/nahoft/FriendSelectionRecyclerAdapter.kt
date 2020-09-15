@@ -50,7 +50,7 @@ class FriendSelectionRecyclerAdapter(private val friends: ArrayList<Friend>,
 
         fun bindFriend(newFriend: Friend) {
             this.friend = newFriend
-            this.view.friendName.text = newFriend.name
+            this.view.friendSelectionName.text = newFriend.name
         }
 
         companion object {

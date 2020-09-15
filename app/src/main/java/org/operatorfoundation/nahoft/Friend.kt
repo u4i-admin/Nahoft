@@ -11,32 +11,32 @@ data class Friend(val id: String, var name: String) {
 
 enum class FriendStatus: StatusIcon {
     Default {
-        override fun getIcon(): Drawable {
-            TODO("return default icon")
+        override fun getIcon(): Int {
+            return R.drawable.ic_person_plain
         }
     },
     Invited {
-        override fun getIcon(): Drawable {
-            TODO("return invited icon")
+        override fun getIcon(): Int {
+            return R.drawable.invited_friend
         }
     },
     Requested {
-        override fun getIcon(): Drawable {
-            TODO("return requested icon")
+        override fun getIcon(): Int {
+            return R.drawable.requested_friend
         }
     },
     Verified {
-        override fun getIcon(): Drawable {
-            TODO("return verified icon")
+        override fun getIcon(): Int {
+            return R.drawable.verified_friend
         }
     },
     Approved {
-        override fun getIcon(): Drawable {
-            TODO("return approved icon")
+        override fun getIcon(): Int {
+            return R.drawable.approved_friend
         }
     }
 }
 
 interface StatusIcon {
-    fun getIcon(): Drawable
+    fun getIcon(): Int
 }

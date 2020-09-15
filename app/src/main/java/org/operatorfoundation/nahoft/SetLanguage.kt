@@ -5,16 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_settings.*
 
-class SettingsActivity : AppCompatActivity() {
+class SetLanguage : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        setContentView(R.layout.activity_set_language)
 
-        set_language.setOnClickListener {
-            val setLanguageIntent = Intent(this, set_language::class.java)
-            startActivity(setLanguageIntent)
+
         }
-    }
-}
 
+    }
