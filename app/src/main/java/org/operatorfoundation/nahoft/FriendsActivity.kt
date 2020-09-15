@@ -2,24 +2,36 @@ package org.operatorfoundation.nahoft
 
 import android.Manifest
 import android.content.ContentResolver
+import android.content.Context
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_friends.*
-import kotlinx.android.synthetic.main.activity_friend_selection.*
+import org.operatorfoundation.codex.PersistenceEncryption
+import org.simpleframework.xml.core.Persister
+import java.io.*
+import java.lang.Exception
+import java.util.*
+import kotlin.collections.HashMap
 
 class FriendsActivity : AppCompatActivity() {
 
     val PERMISSIONS_REQUEST_READ_CONTACTS = 100
 
+    private lateinit var friendsFile: File
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: FriendsRecyclerAdapter
 
     private val lastVisibleItemPosition: Int
         get() = linearLayoutManager.findLastVisibleItemPosition()
+
+    private val viewModel: FriendViewModel by lazy {
+        ViewModelProviders.of(this).get(FriendViewModel::class.java)
+    }
 
     private var friendList: ArrayList<Friend> = ArrayList()
 
@@ -27,6 +39,7 @@ class FriendsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friends)
 
+        friendsFile = File(filesDir.absolutePath + File.separator + FileConstants.datasourceFilename )
         linearLayoutManager = LinearLayoutManager(this)
         adapter = FriendsRecyclerAdapter(friendList)
         friendsRecyclerView.layoutManager = linearLayoutManager
@@ -36,7 +49,8 @@ class FriendsActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        loadContacts()
+        // Load friends from file and add any new contacts
+        setupFriends()
     }
 
     override fun onRequestPermissionsResult(
@@ -46,34 +60,51 @@ class FriendsActivity : AppCompatActivity() {
     ) {
         if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
                 loadContacts()
+
             } else {
                 println("No Permission For Contacts")
             }
         }
     }
 
-    fun loadContacts() {
+    private fun setupFriends() {
+
+        // Load our existing friends list from our encrypted file
+        if (friendsFile.exists()) {
+            val friendsToAdd = viewModel.getFriends(friendsFile, applicationContext)
+            friendList.addAll(friendsToAdd)
+            adapter.notifyDataSetChanged()
+        }
+
+        // Check contacts for new friends.
+        loadContacts()
+    }
+
+    private fun loadContacts() {
         var builder = StringBuilder()
 
+        // Check if we have permission to see the user's contacts
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.READ_CONTACTS
             ) != PackageManager.PERMISSION_GRANTED
         ) {
+            // We don't have permission, ask for it
             requestPermissions(
                 arrayOf(Manifest.permission.READ_CONTACTS),
                 PERMISSIONS_REQUEST_READ_CONTACTS
             )
         } else {
-            builder = getContacts()
-            val contactsText = builder.toString()
+            // Permission granted!
+            // Let's get the contacts and convert them to friends!
+            getContacts()
         }
     }
 
-    fun getContacts(): StringBuilder {
+    fun getContacts() {
         val resolver: ContentResolver = contentResolver;
-        val builder = StringBuilder()
         val cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null)
 
         if (cursor != null) {
@@ -84,13 +115,58 @@ class FriendsActivity : AppCompatActivity() {
                     val name =
                         cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
                     val newFriend = Friend(id, name)
-                    friendList.add(newFriend)
+
+                    // TODO: Find a better way to do this,
+                    //  after the first time this runs most contacts will already be in the friends list.
+
+                    // Only add this friend if they are not already on the list
+                    if (!friendList.contains(newFriend)) {
+                        friendList.add(newFriend)
+                    } else {
+                        print("******We didn't add the contact $name, they are already in our friend list.")
+                    }
                 }
+
+                saveFriendsToFile()
             }
         } else {
             println("cursor is null")
         }
-
-        return builder
     }
+
+//    private fun createDataSource(filename: String, outFile: File) {
+//
+//        // Open the data file as an input stream
+//        val inputStream = applicationContext.assets.open(filename)
+//        val bytes = inputStream.readBytes()
+//        inputStream.close()
+//
+//        // Encrypt
+//        val map = PersistenceEncryption().encrypt(bytes)
+//
+//        // Serialize the hash map
+//        val fileOutputStream = FileOutputStream(outFile)
+//
+//        ObjectOutputStream(fileOutputStream).use {
+//
+//            // Save it to storage
+//            objectOutputStream ->  objectOutputStream.writeObject(map)
+//        }
+//    }
+
+    private fun saveFriendsToFile() {
+        val serializer = Persister()
+        val outputStream = ByteArrayOutputStream()
+
+        val friendsObject = Friends(friendList)
+        val serializedFriends = try { serializer.write(friendsObject, outputStream) } catch (e: Exception) {
+            print("Failed to serialize our friends list: $e")
+        }
+        print("serialized friends: $serializedFriends")
+        PersistenceEncryption().writeEncryptedFile(friendsFile, outputStream.toByteArray(), applicationContext)
+    }
+}
+
+object FileConstants {
+    const val datasourceFilename = "friends.xml"
 }

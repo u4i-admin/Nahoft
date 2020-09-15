@@ -12,11 +12,13 @@ import org.operatorfoundation.inflate
 class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerView.Adapter<FriendsRecyclerAdapter.FriendViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
+
         val inflatedView = parent.inflate(R.layout.friend_recyclerview_item_row, false)
         return FriendViewHolder(inflatedView)
     }
 
     override fun onBindViewHolder(holder: FriendViewHolder, position: Int) {
+
         val itemFriend = friends[position]
         holder.bindFriend(itemFriend)
     }
@@ -34,6 +36,8 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
 
         override fun onClick(v: View) {
             println("FriendClicked")
+
+            // TODO: This is just for testing status icon
             friend?.let {
                 println("Friend is not Null")
                 it.status = FriendStatus.Approved
@@ -42,20 +46,11 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         }
 
         fun bindFriend(newFriend: Friend) {
-            when(newFriend.status){
-                FriendStatus.Default -> this.view = View.inflate()
-            }
+
             this.friend = newFriend
             this.view.friendName.text = newFriend.name
-            //TODO("Set Friend Icon to Match Status")
-            //var friendImage = newFriend.status.getIcon()
             this.view.friendIcon.setImageResource(newFriend.status.getIcon())
         }
-
-        companion object {
-            private val FRIEND_KEY = "Friend"
-        }
-
     }
 
 }

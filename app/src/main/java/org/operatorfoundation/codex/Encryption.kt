@@ -11,9 +11,6 @@ import javax.crypto.KeyAgreement
 import javax.crypto.spec.SecretKeySpec
 
 class Encryption {
-    // TODO: Public Key Cryptography
-
-   // private val aesTransformation = "AES/GCM/NoPadding"
 
     private val keystoreProvider = "AndroidKeyStore"
     private val encryptionAlgorithm = "ChaCha20"
@@ -26,7 +23,7 @@ class Encryption {
 
         // Check to see if a key with this alias already exists
         if (!isSigningKey(keyAlias)) {
-            // Generate ephemeral ECDH keypair and store using Android's KeyStore
+            // Generate ephemeral keypair and store using Android's KeyStore
             val keyPairGenerator = KeyPairGenerator.getInstance(
                 KeyProperties.KEY_ALGORITHM_EC,
                 keystoreProvider

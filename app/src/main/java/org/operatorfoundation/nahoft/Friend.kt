@@ -2,12 +2,29 @@ package org.operatorfoundation.nahoft
 
 import android.graphics.drawable.Drawable
 import android.media.Image
+import org.simpleframework.xml.Element
+import org.simpleframework.xml.Root
+import java.io.Serializable
 import java.security.PublicKey
 
-data class Friend(val id: String, var name: String) {
-    var status: FriendStatus = FriendStatus.Default
-    var publicKey: PublicKey? = null
-}
+@Root(name = "friend", strict = false)
+data class Friend constructor(
+
+    @field:Element(name = "id")
+    @param:Element(name = "id")
+    val id: String,
+
+    @field:Element(name = "name")
+    @param:Element(name = "name")
+    var name: String,
+
+    @field:Element(name = "status")
+    @param:Element(name = "status")
+    var status: FriendStatus = FriendStatus.Default,
+
+    @field:Element(name = "publicKey")
+    @param:Element(name = "publicKey")
+    var publicKey: PublicKey? = null) : Serializable
 
 enum class FriendStatus: StatusIcon {
     Default {
