@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="116dp"
         android:layout_marginBottom="15dp"
-        android:hint="@string/hintOnChooseFriendButton"
+        android:text="@string/hintOnChooseFriendButton"
         app:layout_constraintBottom_toTopOf="@+id/editMessageText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
