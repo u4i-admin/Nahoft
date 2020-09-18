@@ -20,5 +20,5 @@ class PasscodeActivity : AppCompatActivity () {
             else "Login Failed"
             Toast.makeText(this,status,Toast.LENGTH_SHORT).show()
         }
-}
+    }
 }

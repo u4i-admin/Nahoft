@@ -12,7 +12,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
         set_language.setOnClickListener {
-            val setLanguageIntent = Intent(this, set_language::class.java)
+            val setLanguageIntent = Intent(this, SetLanguage::class.java)
             startActivity(setLanguageIntent)
         }
     }
