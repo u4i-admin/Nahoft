@@ -26,6 +26,9 @@
     <string name="passcodeButton">Passcode</string>
     <string name="applicationShortcut">Application Shortcut</string>
 
+    //Set Language Activity
+    <string name="setLanguageTextView">Set Language</string>
+
     //User Guide Activity
     //There is a string for the Title On the User Guide Activity Screen "USER GUIDE" this has
     already been defined
