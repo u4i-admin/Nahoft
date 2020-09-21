@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "org.operatorfoundation.nahoft"
+        applicationId "org.org.nahoft"
         minSdkVersion 29
         targetSdkVersion 30
         versionCode 1
