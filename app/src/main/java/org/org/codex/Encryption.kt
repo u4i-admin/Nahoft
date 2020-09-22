@@ -1,8 +1,11 @@
 package org.org.codex
 
+import android.content.Context
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
-import java.io.ByteArrayInputStream
+import android.util.Base64.encodeToString
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import java.nio.ByteBuffer
 import java.security.*
 import java.security.cert.CertificateFactory
@@ -13,17 +16,31 @@ import javax.crypto.Cipher
 import javax.crypto.KeyAgreement
 import javax.crypto.spec.SecretKeySpec
 
-object Encryption {
+class Encryption(context: Context) {
 
     private val keystoreProvider = "AndroidKeyStore"
     private val encryptionAlgorithm = "ChaCha20"
     private val paddingType = "PKCS1Padding"
     private val blockingMode = "NONE"
     private val keySize = 256
-    val keyPassword = "nahoft"
-    val privateKeyAlias = "nahoftPrivateKey"
-    val publicKeyAlias = "nahoftPublicKey"
-    val testKeyAlias = "keyForTesting"
+    private val keyPassword = "nahoft"
+    private val privateKeyAlias = "nahoftPrivateKey"
+    private val publicKeyAlias = "nahoftPublicKey"
+    private val testKeyAlias = "keyForTesting"
+
+    // Encrypted Shared Preferences
+    val privateKeyPreferencesKey = "NahoftPrivateKey"
+    val publicKeyPreferencesKey = "NahoftPublicKey"
+    val sharedPreferencesFilename = "NahoftEncryptedPreferences"
+    val keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC
+    val masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec)
+    val encryptedSharedPreferences = EncryptedSharedPreferences.create(
+        sharedPreferencesFilename,
+        masterKeyAlias,
+        context,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
 
     fun generateKeypair(): KeyPair {
 
@@ -39,23 +56,22 @@ object Encryption {
         println("Generated a keypair, the public key is: ")
         println(keyPair.public.toString())
 
+        // Save the keys to EncryptedSharedPreferences
+        val encoder = Base64.getEncoder()
+        val privateKeyBase64String = encoder.encodeToString(keyPair.private.encoded)
+        val publicKeyBase64String = encoder.encodeToString(keyPair.public.encoded)
+
+        encryptedSharedPreferences
+            .edit()
+            .putString(privateKeyPreferencesKey, privateKeyBase64String)
+            .putString(publicKeyPreferencesKey, publicKeyBase64String)
+            .apply()
+
         return  keyPair
     }
 
     fun createTestKeypair(): KeyPair {
-        // Generate ephemeral keypair and store using Android's KeyStore
-        val keyPairGenerator = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC)
-
-        // Set our key properties
-        val keyGenParameterSpec = ECGenParameterSpec("secp256r1")
-        keyPairGenerator.initialize(keyGenParameterSpec)
-
-        val keyPair = keyPairGenerator.generateKeyPair()
-
-        println("Generated a keypair, the public key is: ")
-        println(keyPair.public.toString())
-
-        return  keyPair
+        return ensureKeysExist()
     }
 
     fun publicKeyFromByteArray(encodedPublicKey: ByteArray): PublicKey? {
@@ -66,23 +82,58 @@ object Encryption {
         return keyFactory.generatePublic(keySpec)
     }
 
+    fun privateKeyFromByteArray(encodedPublicKey: ByteArray): PrivateKey? {
 
-    // Return true if a key using our alias already exists
-//    fun keysExist(): Boolean {
-//        val keyStore = KeyStore.getInstance(keystoreProvider)
-//        keyStore.load(null)
-//
-//        return false
-//    }
-//
-//    fun ensureKeysExist(): KeyPair {
-//        if (!keysExist()) {
-//            return generateKeypair()
-//        }
-//
-//        // TODO: Get it from encrypted shared preferences
-//        return null
-//    }
+        val keySpec = X509EncodedKeySpec(encodedPublicKey)
+        val keyFactory = KeyFactory.getInstance(KeyProperties.KEY_ALGORITHM_EC)
+
+        return keyFactory.generatePrivate(keySpec)
+    }
+
+
+    // Return KeyPair if found in EncryptedSharedPreferences
+    fun keysExist(): KeyPair? {
+        val decoder = Base64.getDecoder()
+        var privateKey: PrivateKey? = null
+        var publicKey: PublicKey? = null
+
+        // Private Key
+        val privateKeyBase64String = encryptedSharedPreferences.getString(privateKeyPreferencesKey, null)
+        privateKeyBase64String?.let {
+            try {
+                val privateKeyEncoded = decoder.decode(privateKeyBase64String)
+                privateKey = privateKeyFromByteArray(privateKeyEncoded)
+            } catch (error: Exception) {
+                println("Failed to decode key string into ByteArray: $error")
+                return null
+            }
+        }
+
+        // Public Key
+        val publicKeyBase64String = encryptedSharedPreferences.getString(publicKeyPreferencesKey, null)
+        publicKeyBase64String?.let {
+            try {
+                val publicKeyEncoded = decoder.decode(publicKeyBase64String)
+                publicKey = publicKeyFromByteArray(publicKeyEncoded)
+            } catch (error: java.lang.Exception) {
+                println("Failed to decode key string into ByteArray: $error")
+                return null
+            }
+        }
+
+        return KeyPair(publicKey, privateKey)
+    }
+
+    fun ensureKeysExist(): KeyPair {
+
+        val maybeKeyPair = generateKeypair()
+
+        if (maybeKeyPair != null) {
+            return  maybeKeyPair
+        }
+
+        return generateKeypair()
+    }
 
     private fun getCipher(): Cipher? {
         return Cipher.getInstance(
