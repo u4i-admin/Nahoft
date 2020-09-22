@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_friends.*
 import org.org.codex.PersistenceEncryption
+import org.org.nahoft.Nahoft.Companion.friendsFile
 import org.simpleframework.xml.core.Persister
 import java.io.*
 import java.lang.Exception
@@ -20,16 +21,12 @@ class FriendsActivity : AppCompatActivity() {
 
     val PERMISSIONS_REQUEST_READ_CONTACTS = 100
 
-    private lateinit var friendsFile: File
+
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: FriendsRecyclerAdapter
 
     private val lastVisibleItemPosition: Int
         get() = linearLayoutManager.findLastVisibleItemPosition()
-
-    private val viewModel: FriendViewModel by lazy {
-        ViewModelProviders.of(this).get(FriendViewModel::class.java)
-    }
 
     private var friendList: ArrayList<Friend> = ArrayList()
 
@@ -37,7 +34,6 @@ class FriendsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friends)
 
-        friendsFile = File(filesDir.absolutePath + File.separator + FileConstants.datasourceFilename )
         linearLayoutManager = LinearLayoutManager(this)
         adapter = FriendsRecyclerAdapter(friendList)
         friendsRecyclerView.layoutManager = linearLayoutManager
@@ -49,6 +45,12 @@ class FriendsActivity : AppCompatActivity() {
 
         // Load friends from file and add any new contacts
         setupFriends()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        saveFriendsToFile()
     }
 
     override fun onRequestPermissionsResult(
@@ -68,14 +70,6 @@ class FriendsActivity : AppCompatActivity() {
     }
 
     private fun setupFriends() {
-
-        // Load our existing friends list from our encrypted file
-        if (friendsFile.exists()) {
-            val friendsToAdd = viewModel.getFriends(friendsFile, applicationContext)
-            friendList.addAll(friendsToAdd)
-            adapter.notifyDataSetChanged()
-        }
-
         // Check contacts for new friends.
         loadContacts()
     }
@@ -117,8 +111,8 @@ class FriendsActivity : AppCompatActivity() {
                     // TODO: Find a better way to do this,
                     //  after the first time this runs most contacts will already be in the friends list.
 
-                    // Only add this friend if they are not already on the list
-                    if (!friendList.contains(newFriend)) {
+                    // Only add this friend if the list does not contain a frined with that ID already
+                    if (!friendList.any { it.id == newFriend.id }) {
                         friendList.add(newFriend)
                     } else {
                         print("******We didn't add the contact $name, they are already in our friend list.")
@@ -131,26 +125,6 @@ class FriendsActivity : AppCompatActivity() {
             println("cursor is null")
         }
     }
-
-//    private fun createDataSource(filename: String, outFile: File) {
-//
-//        // Open the data file as an input stream
-//        val inputStream = applicationContext.assets.open(filename)
-//        val bytes = inputStream.readBytes()
-//        inputStream.close()
-//
-//        // Encrypt
-//        val map = PersistenceEncryption().encrypt(bytes)
-//
-//        // Serialize the hash map
-//        val fileOutputStream = FileOutputStream(outFile)
-//
-//        ObjectOutputStream(fileOutputStream).use {
-//
-//            // Save it to storage
-//            objectOutputStream ->  objectOutputStream.writeObject(map)
-//        }
-//    }
 
     private fun saveFriendsToFile() {
         val serializer = Persister()

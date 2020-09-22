@@ -2,8 +2,6 @@
     <string name="app_name">Nahoft</string>
 
 
-    ToDo: Update all your strings here by switching what's in "" to what's inside the angle brackets
-    //Remember to keep the first word in your "" description a lower case
     //Home Activity Strings
     <string name="friendsButtonDescription">Friends</string>
     <string name="messagesButtonDescription">Messages</string>

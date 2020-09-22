@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_passcode.*
 
 class PasscodeActivity : AppCompatActivity () {
 
-    fun OnCreate(savedInstanceState: Bundle?){
+    override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passcode)
 

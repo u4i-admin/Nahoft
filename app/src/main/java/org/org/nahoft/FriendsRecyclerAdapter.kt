@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.friend_recyclerview_item_row.view.*
+import org.org.codex.Encryption
 import org.org.inflate
 
 class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerView.Adapter<FriendsRecyclerAdapter.FriendViewHolder>() {
@@ -37,7 +38,8 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             // TODO: This is just for testing status icon
             friend?.let {
                 println("Friend is not Null")
-                it.status = FriendStatus.Approved
+                it.status = FriendStatus.Verified
+                it.publicKeyEncoded = Encryption.createTestKeypair()
                 this.view.friendIcon.setImageResource(it.status.getIcon())
             }
         }

@@ -4,19 +4,24 @@ import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import java.nio.ByteBuffer
 import java.security.*
+import java.security.spec.ECPublicKeySpec
+import java.security.spec.EncodedKeySpec
+import java.security.spec.KeySpec
+import java.security.spec.X509EncodedKeySpec
 import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.KeyAgreement
 import javax.crypto.spec.SecretKeySpec
 
-class Encryption {
+object Encryption {
 
     private val keystoreProvider = "AndroidKeyStore"
     private val encryptionAlgorithm = "ChaCha20"
     private val paddingType = "PKCS1Padding"
     private val blockingMode = "NONE"
     private val keySize = 256
-    val keyAlias = "operatorFoundationNahoftKey"
+    val keyAlias = "nahoftKey"
+    val testKeyAlias = "keyForTesting"
 
     fun createKeypair() {
 
@@ -33,15 +38,55 @@ class Encryption {
                 keyAlias,
                 KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
             )
+                .setKeySize(keySize)
+                .build()
 
-            keyPairGenerator.initialize(keySize)
+            keyPairGenerator.initialize(keyGenParameterSpec)
             val keyPair = keyPairGenerator.generateKeyPair()
 
             print("Generated a keypair, the public key is: ")
             print(keyPair.public.toString())
         }
-
     }
+
+    fun createTestKeypair(): ByteArray? {
+
+        // Check to see if a key with this alias already exists
+        if (!isSigningKey(testKeyAlias)) {
+
+            // Generate ephemeral keypair and store using Android's KeyStore
+            val keyPairGenerator = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC, keystoreProvider)
+
+            // Set our key properties
+            val keyGenParameterSpec = KeyGenParameterSpec.Builder(
+                keyAlias,
+                KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
+                .setKeySize(keySize)
+                .build()
+
+            keyPairGenerator.initialize(keyGenParameterSpec)
+
+            val keyPair = keyPairGenerator.generateKeyPair()
+
+            print("Generated a keypair, the public key is: ")
+            print(keyPair.public.toString())
+            print(">>>Encoded format for public key is ${keyPair.public.format}")
+
+            return  keyPair.public.encoded
+        } else {
+            return getPrivateKeyEntry(testKeyAlias)?.certificate?.publicKey?.encoded
+        }
+    }
+
+    fun publicKeyFromByteArray(encodedPublicKey: ByteArray): PublicKey? {
+
+        val keyFactory = KeyFactory.getInstance(KeyProperties.KEY_ALGORITHM_EC, keystoreProvider)
+
+        val keySpec = X509EncodedKeySpec(encodedPublicKey)
+
+        return keyFactory.generatePublic(keySpec)
+    }
+
 
     // Return true if a key using our alias already exists
     fun isSigningKey(alias: String?): Boolean {
@@ -50,18 +95,6 @@ class Encryption {
 
         return keyStore.containsAlias(alias)
     }
-
-//    // Returns the private key as a string or null
-//    fun getSigningKey(alias: String?): String? {
-//        val privateKey = getPrivateKeyEntry(keyAlias)
-//
-//        privateKey?.let {
-//            val cert: Certificate = privateKey.certificate ?: return null
-//            return Base64.encodeToString(cert.getEncoded(), Base64.NO_WRAP)
-//        }
-//
-//        return null
-//    }
 
     private fun getCipher(): Cipher? {
         return Cipher.getInstance(
@@ -93,18 +126,21 @@ class Encryption {
             return entry
     }
 
-    fun encrypt(publicKey: PublicKey, plaintext: String): ByteArray? {
+    fun encrypt(encodedPublicKey: ByteArray, plaintext: String): ByteArray? {
 
-        val derivedKey = getDerivedKey(publicKey)
-        derivedKey?.let {
-            val cipher = getCipher()
+        val publicKey = publicKeyFromByteArray(encodedPublicKey)
 
-            cipher?.let {
-                cipher.init(Cipher.ENCRYPT_MODE, derivedKey)
-                return cipher.doFinal(plaintext.toByteArray())
+        publicKey?.let {
+            val derivedKey = getDerivedKey(publicKey)
+            derivedKey?.let {
+                val cipher = getCipher()
+
+                cipher?.let {
+                    cipher.init(Cipher.ENCRYPT_MODE, derivedKey)
+                    return cipher.doFinal(plaintext.toByteArray())
+                }
             }
         }
-
 
         return null
     }

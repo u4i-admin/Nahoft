@@ -20,9 +20,9 @@ data class Friend constructor(
     @param:Element(name = "status")
     var status: FriendStatus = FriendStatus.Default,
 
-    @field:Element(name = "publicKey")
-    @param:Element(name = "publicKey")
-    var publicKey: PublicKey? = null) : Serializable
+    @field:Element(name = "publicKeyEncoded", required = false)
+    @param:Element(name = "publicKeyEncoded", required = false)
+    var publicKeyEncoded: ByteArray? = null) : Serializable
 
 enum class FriendStatus: StatusIcon {
     Default {

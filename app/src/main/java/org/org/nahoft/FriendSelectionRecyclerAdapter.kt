@@ -51,10 +51,6 @@ class FriendSelectionRecyclerAdapter(private val friends: ArrayList<Friend>,
             this.view.friendSelectionName.text = newFriend.name
         }
 
-        companion object {
-            val FRIEND_KEY = "Friend"
-        }
-
     }
 
 }

@@ -5,9 +5,12 @@ import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import androidx.security.crypto.EncryptedFile
 import androidx.security.crypto.MasterKeys
+import org.org.nahoft.Friend
+import org.org.nahoft.FriendViewModel
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.security.KeyStore
+import java.util.ArrayList
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.spec.GCMParameterSpec
