@@ -29,6 +29,8 @@ object ShareUtil {
         val bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(context.contentResolver, imageUri))
         val newBitmap = Stencil().encode(message, bitmap)
 
+        // TODO: Save bitmap to image roll to get URI for sharing intent
+
         // Sharing requires a custom intent whose action must be Intent.ACTION_SEND
         val intent = Intent(Intent.ACTION_SEND).apply {
 

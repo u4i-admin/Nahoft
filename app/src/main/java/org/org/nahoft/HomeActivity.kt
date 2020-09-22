@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_home.*
+import java.io.File
 
 class HomeActivity : AppCompatActivity() {
 
@@ -30,6 +31,19 @@ class HomeActivity : AppCompatActivity() {
         settings_button.setOnClickListener {
             val settingsIntent = Intent(this, SettingsActivity::class.java)
             startActivity(settingsIntent)
+        }
+
+        loadSavedFriends()
+    }
+
+    fun loadSavedFriends() {
+
+        Nahoft.friendsFile = File(filesDir.absolutePath + File.separator + FileConstants.datasourceFilename )
+
+        // Load our existing friends list from our encrypted file
+        if (Nahoft.friendsFile.exists()) {
+            val friendsToAdd = FriendViewModel.getFriends(Nahoft.friendsFile, applicationContext)
+            Nahoft.friendList.addAll(friendsToAdd)
         }
     }
 }

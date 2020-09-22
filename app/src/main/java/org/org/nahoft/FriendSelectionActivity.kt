@@ -35,8 +35,18 @@ class FriendSelectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friend_selection)
 
+        // Only show friends that have been verified
+        var verifiedFriends = ArrayList<Friend>()
+
+        for (friend in friendList) {
+
+            if (friend.status == FriendStatus.Verified) {
+                verifiedFriends.add(friend)
+            }
+        }
+
         linearLayoutManager = LinearLayoutManager(this)
-        adapter = FriendSelectionRecyclerAdapter(friendList) {
+        adapter = FriendSelectionRecyclerAdapter(verifiedFriends) {
 
             // This is the onClick listener for our Recycler
             val result = Intent()
@@ -48,7 +58,6 @@ class FriendSelectionActivity : AppCompatActivity() {
 
         friendsSelectionRecyclerView.layoutManager = linearLayoutManager
         friendsSelectionRecyclerView.adapter = adapter
-
     }
 
     override fun onStart() {

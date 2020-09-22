@@ -9,9 +9,10 @@ import kotlinx.android.synthetic.main.activity_passcode.*
 
 class PasscodeActivity : AppCompatActivity () {
 
-    val correctPassword = "password"
-    val correctUsername = "Jessica"
-    val secondaryPassword = "secondpassword"
+    val correctPasscode = "password"
+    val secondaryPasscode = "secondpassword"
+
+    // TODO: Load status from encryptedSharedPreferences
     var status = LoginStatus.LoggedOut
 
     override fun onCreate(savedInstanceState: Bundle?){
@@ -19,47 +20,40 @@ class PasscodeActivity : AppCompatActivity () {
         setContentView(R.layout.activity_passcode)
 
         cheat_button.setOnClickListener {
-            logIn()
+            logIn(LoginStatus.NotSet)
         }
 
         login_button.setOnClickListener {
-            val enteredUsername = user_name_edit_text.text.toString()
             val enteredPassword = passcode_edit_text.text.toString()
 
-            if (enteredUsername.equals(correctUsername)) {
-
-                if (enteredPassword.equals(correctPassword)) {
-                    status = LoginStatus.LoggedIn
-                } else if (enteredPassword.equals(secondaryPassword)) {
-                    status = LoginStatus.SecondaryLogin
-                } else {
-                    status = LoginStatus.FailedLogin
-                }
+            if (enteredPassword.equals(correctPasscode)) {
+                status = LoginStatus.LoggedIn
+            } else if (enteredPassword.equals(secondaryPasscode)) {
+                status = LoginStatus.SecondaryLogin
             } else {
                 status = LoginStatus.FailedLogin
             }
 
-            when (status) {
-                LoginStatus.LoggedIn -> logIn()
-                //TODO: Change println to manage failed login according to scope
-                LoginStatus.FailedLogin -> println("Failed Log In")
-                //TODO: Change println to delete user data
-                LoginStatus.SecondaryLogin -> println("Secondary Login Successful")
-            }
-
+            logIn(status)
 
             Toast.makeText(this, status.name, Toast.LENGTH_SHORT).show()
         }
     }
 
-    fun logIn() {
-        val homeIntent = Intent(this, HomeActivity::class.java)
-        startActivity(homeIntent)
+    fun logIn(status: LoginStatus) {
+        when (status) {
+            // If the user has logged in successfully or if they didn't set a passcode
+            // Send them to the home screen
+            LoginStatus.LoggedIn, LoginStatus.NotSet -> startActivity(Intent(this, HomeActivity::class.java))
+            //TODO: Change println to delete user data
+            LoginStatus.SecondaryLogin -> println("Secondary Login Successful")
+        }
     }
 }
 
 enum class LoginStatus {
 
+    NotSet,
     LoggedIn,
     LoggedOut,
     SecondaryLogin,

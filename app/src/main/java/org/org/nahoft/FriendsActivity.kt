@@ -28,14 +28,12 @@ class FriendsActivity : AppCompatActivity() {
     private val lastVisibleItemPosition: Int
         get() = linearLayoutManager.findLastVisibleItemPosition()
 
-    private var friendList: ArrayList<Friend> = ArrayList()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friends)
 
         linearLayoutManager = LinearLayoutManager(this)
-        adapter = FriendsRecyclerAdapter(friendList)
+        adapter = FriendsRecyclerAdapter(Nahoft.friendList)
         friendsRecyclerView.layoutManager = linearLayoutManager
         friendsRecyclerView.adapter = adapter
     }
@@ -112,8 +110,8 @@ class FriendsActivity : AppCompatActivity() {
                     //  after the first time this runs most contacts will already be in the friends list.
 
                     // Only add this friend if the list does not contain a frined with that ID already
-                    if (!friendList.any { it.id == newFriend.id }) {
-                        friendList.add(newFriend)
+                    if (!Nahoft.friendList.any { it.id == newFriend.id }) {
+                        Nahoft.friendList.add(newFriend)
                     } else {
                         print("******We didn't add the contact $name, they are already in our friend list.")
                     }
@@ -130,7 +128,7 @@ class FriendsActivity : AppCompatActivity() {
         val serializer = Persister()
         val outputStream = ByteArrayOutputStream()
 
-        val friendsObject = Friends(friendList)
+        val friendsObject = Friends(Nahoft.friendList)
         val serializedFriends = try { serializer.write(friendsObject, outputStream) } catch (e: Exception) {
             print("Failed to serialize our friends list: $e")
         }

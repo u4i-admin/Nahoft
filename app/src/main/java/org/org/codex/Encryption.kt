@@ -2,11 +2,11 @@ package org.org.codex
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
+import java.io.ByteArrayInputStream
 import java.nio.ByteBuffer
 import java.security.*
-import java.security.spec.ECPublicKeySpec
-import java.security.spec.EncodedKeySpec
-import java.security.spec.KeySpec
+import java.security.cert.CertificateFactory
+import java.security.spec.ECGenParameterSpec
 import java.security.spec.X509EncodedKeySpec
 import java.util.*
 import javax.crypto.Cipher
@@ -20,81 +20,69 @@ object Encryption {
     private val paddingType = "PKCS1Padding"
     private val blockingMode = "NONE"
     private val keySize = 256
-    val keyAlias = "nahoftKey"
+    val keyPassword = "nahoft"
+    val privateKeyAlias = "nahoftPrivateKey"
+    val publicKeyAlias = "nahoftPublicKey"
     val testKeyAlias = "keyForTesting"
 
-    fun createKeypair() {
+    fun generateKeypair(): KeyPair {
 
-        // Check to see if a key with this alias already exists
-        if (!isSigningKey(keyAlias)) {
-            // Generate ephemeral keypair and store using Android's KeyStore
-            val keyPairGenerator = KeyPairGenerator.getInstance(
-                KeyProperties.KEY_ALGORITHM_EC,
-                keystoreProvider
-            )
+        // Generate ephemeral keypair and store using Android's KeyStore
+        val keyPairGenerator = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC)
 
-            // Set our key properties
-            val keyGenParameterSpec = KeyGenParameterSpec.Builder(
-                keyAlias,
-                KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
-            )
-                .setKeySize(keySize)
-                .build()
+        // Set our key properties
+        val keyGenParameterSpec = ECGenParameterSpec("secp256r1")
+        keyPairGenerator.initialize(keyGenParameterSpec)
 
-            keyPairGenerator.initialize(keyGenParameterSpec)
-            val keyPair = keyPairGenerator.generateKeyPair()
+        val keyPair = keyPairGenerator.generateKeyPair()
 
-            print("Generated a keypair, the public key is: ")
-            print(keyPair.public.toString())
-        }
+        println("Generated a keypair, the public key is: ")
+        println(keyPair.public.toString())
+
+        return  keyPair
     }
 
-    fun createTestKeypair(): ByteArray? {
+    fun createTestKeypair(): KeyPair {
+        // Generate ephemeral keypair and store using Android's KeyStore
+        val keyPairGenerator = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC)
 
-        // Check to see if a key with this alias already exists
-        if (!isSigningKey(testKeyAlias)) {
+        // Set our key properties
+        val keyGenParameterSpec = ECGenParameterSpec("secp256r1")
+        keyPairGenerator.initialize(keyGenParameterSpec)
 
-            // Generate ephemeral keypair and store using Android's KeyStore
-            val keyPairGenerator = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC, keystoreProvider)
+        val keyPair = keyPairGenerator.generateKeyPair()
 
-            // Set our key properties
-            val keyGenParameterSpec = KeyGenParameterSpec.Builder(
-                keyAlias,
-                KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
-                .setKeySize(keySize)
-                .build()
+        println("Generated a keypair, the public key is: ")
+        println(keyPair.public.toString())
 
-            keyPairGenerator.initialize(keyGenParameterSpec)
-
-            val keyPair = keyPairGenerator.generateKeyPair()
-
-            print("Generated a keypair, the public key is: ")
-            print(keyPair.public.toString())
-            print(">>>Encoded format for public key is ${keyPair.public.format}")
-
-            return  keyPair.public.encoded
-        } else {
-            return getPrivateKeyEntry(testKeyAlias)?.certificate?.publicKey?.encoded
-        }
+        return  keyPair
     }
 
     fun publicKeyFromByteArray(encodedPublicKey: ByteArray): PublicKey? {
 
-        val keyFactory = KeyFactory.getInstance(KeyProperties.KEY_ALGORITHM_EC, keystoreProvider)
-
         val keySpec = X509EncodedKeySpec(encodedPublicKey)
+        val keyFactory = KeyFactory.getInstance(KeyProperties.KEY_ALGORITHM_EC)
 
         return keyFactory.generatePublic(keySpec)
     }
 
 
     // Return true if a key using our alias already exists
-    fun isSigningKey(alias: String?): Boolean {
-        val keyStore = KeyStore.getInstance(keystoreProvider)
-        keyStore.load(null)
-
-        return keyStore.containsAlias(alias)
-    }
+//    fun keysExist(): Boolean {
+//        val keyStore = KeyStore.getInstance(keystoreProvider)
+//        keyStore.load(null)
+//
+//        return false
+//    }
+//
+//    fun ensureKeysExist(): KeyPair {
+//        if (!keysExist()) {
+//            return generateKeypair()
+//        }
+//
+//        // TODO: Get it from encrypted shared preferences
+//        return null
+//    }
 
     private fun getCipher(): Cipher? {
         return Cipher.getInstance(
@@ -107,23 +95,44 @@ object Encryption {
         )
     }
 
-    private fun getPrivateKeyEntry(alias: String): KeyStore.PrivateKeyEntry? {
-            val keyStore = KeyStore
-                .getInstance(keystoreProvider)
-            keyStore.load(null)
+    private fun getPrivateKey(alias: String): PrivateKey? {
+        val keyStore = KeyStore
+            .getInstance(keystoreProvider)
 
-            val entry = keyStore.getEntry(alias, null)
+        keyStore.load(null)
 
-            if (entry == null) {
-                print("No key found under alias: " + keyAlias)
-                return null
-            }
-            if (entry !is KeyStore.PrivateKeyEntry) {
-                print("Not an instance of a PrivateKeyEntry")
-                return null
-            }
+        val key = keyStore.getKey(alias, keyPassword.toCharArray())
 
-            return entry
+        if (key == null) {
+            print("No key found under alias: " + privateKeyAlias)
+            return null
+        }
+
+        if (key is PrivateKey) {
+            return key
+        } else {
+            return null
+        }
+    }
+
+    private fun getPublicKey(alias: String): PublicKey? {
+        val keyStore = KeyStore
+            .getInstance(keystoreProvider)
+
+        keyStore.load(null)
+
+        val key = keyStore.getKey(alias, keyPassword.toCharArray())
+
+        if (key == null) {
+            print("No key found under alias: " + publicKeyAlias)
+            return null
+        }
+
+        if (key is PublicKey) {
+            return key
+        } else {
+            return null
+        }
     }
 
     fun encrypt(encodedPublicKey: ByteArray, plaintext: String): ByteArray? {
@@ -163,29 +172,31 @@ object Encryption {
 
     fun getDerivedKey(friendPublicKey: PublicKey): Key? {
         // Perform key agreement
-        val privateKeyEntry = getPrivateKeyEntry(keyAlias)
-        privateKeyEntry?.let {
-            val ourPublicKey = privateKeyEntry.certificate.publicKey
-            val keyAgreement: KeyAgreement = KeyAgreement.getInstance("ECDH")
-            keyAgreement.init(privateKeyEntry.privateKey)
-            keyAgreement.doPhase(friendPublicKey, true)
+        val privateKey = getPrivateKey(privateKeyAlias)
+        val publicKey = getPublicKey(publicKeyAlias)
+        privateKey?.let {
+            publicKey?.let {
+                val keyAgreement: KeyAgreement = KeyAgreement.getInstance("ECDH")
+                keyAgreement.init(privateKey)
+                keyAgreement.doPhase(friendPublicKey, true)
 
-            // Read shared secret
-            val sharedSecret: ByteArray = keyAgreement.generateSecret()
+                // Read shared secret
+                val sharedSecret: ByteArray = keyAgreement.generateSecret()
 
-            // Derive a key from the shared secret and both public keys
-            val hash = MessageDigest.getInstance("SHA-256")
-            hash.update(sharedSecret)
+                // Derive a key from the shared secret and both public keys
+                val hash = MessageDigest.getInstance("SHA-256")
+                hash.update(sharedSecret)
 
-            // Simple deterministic ordering
-            val keys: List<ByteBuffer> = Arrays.asList(ByteBuffer.wrap(ourPublicKey.encoded), ByteBuffer.wrap(friendPublicKey.encoded))
-            Collections.sort(keys)
-            hash.update(keys[0])
-            hash.update(keys[1])
-            val derivedKeyBytes = hash.digest()
-            val derivedKey: Key = SecretKeySpec(derivedKeyBytes, encryptionAlgorithm)
+                // Simple deterministic ordering
+                val keys: List<ByteBuffer> = Arrays.asList(ByteBuffer.wrap(publicKey.encoded), ByteBuffer.wrap(friendPublicKey.encoded))
+                Collections.sort(keys)
+                hash.update(keys[0])
+                hash.update(keys[1])
+                val derivedKeyBytes = hash.digest()
+                val derivedKey: Key = SecretKeySpec(derivedKeyBytes, encryptionAlgorithm)
 
-            return derivedKey
+                return derivedKey
+            }
         }
 
         return null
