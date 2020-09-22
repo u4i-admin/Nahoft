@@ -17,7 +17,7 @@ import kotlin.collections.ArrayList
 
 @Suppress("DEPRECATION")
 
-class SetLanguage : AppCompatActivity() {
+class SetLanguageActivity : AppCompatActivity() {
 
     lateinit var spinner: Spinner
     lateinit var locale: Locale
@@ -79,13 +79,13 @@ class SetLanguage : AppCompatActivity() {
 
             val refresh = Intent(
                 this,
-                SetLanguage::class.java
+                SetLanguageActivity::class.java
             )
             refresh.putExtra(currentLang, localeName)
             startActivity(refresh)
         } else {
             Toast.makeText(
-                this@SetLanguage, "LANGUAGE ALREADY SELECTED", Toast.LENGTH_SHORT).show();
+                this@SetLanguageActivity, "LANGUAGE ALREADY SELECTED", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -42,10 +42,11 @@ class NewMessageActivity : AppCompatActivity() {
                 if (selectedFriend!!.publicKeyEncoded != null) {
                     ShareUtil.shareText(this, message, selectedFriend!!.publicKeyEncoded!!)
                 } else {
+                    // TODO: create a toast to tell user they can only send a message to a verified friend.
                     print("Unable to send message as text, we do not have the recipient's public key.")
                 }
             } else {
-                // TODO: Alert the user that they must first select a friend to send the message to
+                // TODO: create a toast to tell user they must select a friend to send a message
                 // TODO: We may want to simply disable the send buttons until a friend is selected
                 print("Unable to send a message as text, the recipient has not been selected.")
             }

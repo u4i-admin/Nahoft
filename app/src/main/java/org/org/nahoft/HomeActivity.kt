@@ -13,23 +13,23 @@ class HomeActivity : AppCompatActivity() {
 
         messages_button.setOnClickListener {
             println("message button clicked")
-            val intent = Intent(this, MessagesActivity::class.java)
-            startActivity(intent)
+            val messagesIntent = Intent(this, MessagesActivity::class.java)
+            startActivity(messagesIntent)
         }
 
         user_guide_button.setOnClickListener {
-            val intent = Intent(this, UserGuideActivity::class.java)
-            startActivity(intent)
+            val userGuideIntent = Intent(this, UserGuideActivity::class.java)
+            startActivity(userGuideIntent)
         }
 
         friends_button.setOnClickListener {
-            val intent = Intent(this, FriendsActivity::class.java)
-            startActivity(intent)
+            val friendsIntent = Intent(this, FriendsActivity::class.java)
+            startActivity(friendsIntent)
         }
 
         settings_button.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
+            val settingsIntent = Intent(this, SettingsActivity::class.java)
+            startActivity(settingsIntent)
         }
     }
 }

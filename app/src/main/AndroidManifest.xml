@@ -15,9 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ApplicationShortcut"/>
-        <activity android:name=".PasscodeActivity" />
-        <activity android:name=".SetLanguage" />
+        <activity android:name=".ApplicationShortcutActivity"/>
+        <activity android:name=".PasscodeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SetLanguageActivity" />
         <activity android:name=".FriendsActivity" />
         <activity android:name=".FriendSelectionActivity" />
         <activity android:name=".NewMessageActivity" />
@@ -42,13 +47,7 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".HomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".HomeActivity"/>
     </application>
 
 </manifest>

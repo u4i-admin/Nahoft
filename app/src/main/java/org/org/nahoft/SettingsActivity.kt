@@ -11,9 +11,16 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
+        // Go To SetLanguageActivity
         set_language.setOnClickListener {
-            val setLanguageIntent = Intent(this, SetLanguage::class.java)
+            val setLanguageIntent = Intent(this, SetLanguageActivity::class.java)
             startActivity(setLanguageIntent)
+        }
+
+        // Go To ApplicationShortcutActivity
+        application_shortcut.setOnClickListener {
+            val setShortcutIntent = Intent(this, ApplicationShortcutActivity::class.java)
+            startActivity(setShortcutIntent)
         }
     }
 }

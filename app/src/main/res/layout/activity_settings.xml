@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/set_language" />
 
     <Button
-        android:id="@+id/application_Shortcut"
+        android:id="@+id/application_shortcut"
         android:layout_width="160dp"
         android:layout_height="70dp"
         android:layout_marginStart="20dp"
