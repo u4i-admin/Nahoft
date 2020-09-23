@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--   color for the app bar and other primary UI elements -->
     <color name="colorPrimary">#6200EE</color>
+
+    <!--   a darker variant of the primary color, used for
+           the status bar (on Android 5.0+) and contextual app bars -->
     <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+
+    <!--   a secondary color for controls like checkboxes and text fields -->
+    <!--   previously #03DAC5  -->
+    <color name="colorAccent">#FBF8F8</color>
 </resources>

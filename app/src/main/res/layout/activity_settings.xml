@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/set_language"
+        android:id="@+id/set_language_button"
         android:layout_width="160dp"
         android:layout_height="70dp"
         android:layout_marginStart="20dp"
@@ -31,23 +31,23 @@
         app:layout_constraintTop_toBottomOf="@+id/settings_view" />
 
     <Button
-        android:id="@+id/passcode"
+        android:id="@+id/passcode_button"
         android:layout_width="160dp"
         android:layout_height="70dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:text="Passcode"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/set_language" />
+        app:layout_constraintTop_toBottomOf="@+id/set_language_button" />
 
     <Button
-        android:id="@+id/application_shortcut"
+        android:id="@+id/application_icon_button"
         android:layout_width="160dp"
         android:layout_height="70dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:text="Application Shortcut"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passcode" />
+        app:layout_constraintTop_toBottomOf="@+id/passcode_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

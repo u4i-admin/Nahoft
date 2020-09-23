@@ -7,7 +7,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_passcode.*
 
 
-class PasscodeActivity : AppCompatActivity () {
+class EnterPasscodeActivity : AppCompatActivity () {
 
     val correctPasscode = "password"
     val secondaryPasscode = "secondpassword"

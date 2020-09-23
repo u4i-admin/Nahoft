@@ -12,16 +12,22 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
         // Go To SetLanguageActivity
-        set_language.setOnClickListener {
+        set_language_button.setOnClickListener {
             val setLanguageIntent = Intent(this, SetLanguageActivity::class.java)
             startActivity(setLanguageIntent)
         }
 
         // Go To ApplicationShortcutActivity
-        application_shortcut.setOnClickListener {
+        application_icon_button.setOnClickListener {
             val setShortcutIntent = Intent(this, ApplicationShortcutActivity::class.java)
             startActivity(setShortcutIntent)
         }
+
+        // Go to SettingsActivity
+//        passcode_button.setOnClickListener {
+//            val passcodeIntent = Intent(this, EnterPasscodeActivity::class.java)
+//            startActivity(passcodeIntent)
+//        }
     }
 }
 

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
-    tools:context=".PasscodeActivity">
+    tools:context=".EnterPasscodeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,8 @@
             android:id="@+id/passcode_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Passcode"
+            android:text="Passcode"
+            android:textColor="#FBF8F8"
             android:inputType="textPassword"/>
 
         <Button

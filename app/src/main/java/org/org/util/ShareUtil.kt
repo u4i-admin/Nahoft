@@ -14,7 +14,7 @@ object ShareUtil {
 
         // Encrypt the message
         // TODO: Use encrypted message in stencil
-        val encryptedMessage = Encryption.encrypt(encodedFriendPublicKey, message)
+        val encryptedMessage = Encryption(context).encrypt(encodedFriendPublicKey, message)
 
         // Encode the image
         val newBitmap = Stencil().encode(context, encryptedMessage!!, imageUri)
@@ -42,7 +42,7 @@ object ShareUtil {
     fun shareText(context: Context, message: String, encodedFriendPublicKey: ByteArray) {
 
         val codex = Codex()
-        val encryptedMessage = Encryption.encrypt(encodedFriendPublicKey, message)
+        val encryptedMessage = Encryption(context).encrypt(encodedFriendPublicKey, message)
 
         encryptedMessage?.let {
 
