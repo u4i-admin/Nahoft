@@ -1,16 +1,13 @@
 package org.org.codex
 
 import android.content.Context
-import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
-import android.util.Base64.encodeToString
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import java.math.BigInteger
 import java.nio.ByteBuffer
 import java.security.*
-import java.security.cert.CertificateFactory
-import java.security.spec.ECGenParameterSpec
-import java.security.spec.X509EncodedKeySpec
+import java.security.spec.*
 import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.KeyAgreement
@@ -18,15 +15,11 @@ import javax.crypto.spec.SecretKeySpec
 
 class Encryption(context: Context) {
 
-    private val keystoreProvider = "AndroidKeyStore"
     private val encryptionAlgorithm = "ChaCha20"
     private val paddingType = "PKCS1Padding"
     private val blockingMode = "NONE"
+    private val ecGenParameterSpecName = "secp256r1"
     private val keySize = 256
-    private val keyPassword = "nahoft"
-    private val privateKeyAlias = "nahoftPrivateKey"
-    private val publicKeyAlias = "nahoftPublicKey"
-    private val testKeyAlias = "keyForTesting"
 
     // Encrypted Shared Preferences
     val privateKeyPreferencesKey = "NahoftPrivateKey"
@@ -48,23 +41,25 @@ class Encryption(context: Context) {
         val keyPairGenerator = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC)
 
         // Set our key properties
-        val keyGenParameterSpec = ECGenParameterSpec("secp256r1")
+        val keyGenParameterSpec = ECGenParameterSpec(ecGenParameterSpecName)
         keyPairGenerator.initialize(keyGenParameterSpec)
 
         val keyPair = keyPairGenerator.generateKeyPair()
 
-        println("Generated a keypair, the public key is: ")
-        println(keyPair.public.toString())
+        print("Public key format:")
+        print(keyPair.public.format)
+        print("Public key algorithm: ")
+        print(keyPair.public.algorithm)
+        print("Encoded public key size: ")
+        print(keyPair.public.encoded.size)
+        println("Generated a keypair, the public key hex is: ")
+        println(keyPair.public.encoded.toHexString())
 
         // Save the keys to EncryptedSharedPreferences
-        val encoder = Base64.getEncoder()
-        val privateKeyBase64String = encoder.encodeToString(keyPair.private.encoded)
-        val publicKeyBase64String = encoder.encodeToString(keyPair.public.encoded)
-
         encryptedSharedPreferences
             .edit()
-            .putString(privateKeyPreferencesKey, privateKeyBase64String)
-            .putString(publicKeyPreferencesKey, publicKeyBase64String)
+            .putString(privateKeyPreferencesKey, keyPair.private.encoded.toHexString())
+            .putString(publicKeyPreferencesKey, keyPair.public.encoded.toHexString())
             .apply()
 
         return  keyPair
@@ -74,17 +69,19 @@ class Encryption(context: Context) {
         return ensureKeysExist()
     }
 
+    // Return the ECPublicKey from encoded raw bytes
+    // The format of the encodedPublicKey is X.509
     fun publicKeyFromByteArray(encodedPublicKey: ByteArray): PublicKey? {
 
-        val keySpec = X509EncodedKeySpec(encodedPublicKey)
         val keyFactory = KeyFactory.getInstance(KeyProperties.KEY_ALGORITHM_EC)
+        val keySpec = X509EncodedKeySpec(encodedPublicKey)
 
         return keyFactory.generatePublic(keySpec)
     }
 
     fun privateKeyFromByteArray(encodedPublicKey: ByteArray): PrivateKey? {
 
-        val keySpec = X509EncodedKeySpec(encodedPublicKey)
+        val keySpec = PKCS8EncodedKeySpec(encodedPublicKey)
         val keyFactory = KeyFactory.getInstance(KeyProperties.KEY_ALGORITHM_EC)
 
         return keyFactory.generatePrivate(keySpec)
@@ -93,15 +90,16 @@ class Encryption(context: Context) {
 
     // Return KeyPair if found in EncryptedSharedPreferences
     fun keysExist(): KeyPair? {
-        val decoder = Base64.getDecoder()
+
         var privateKey: PrivateKey? = null
         var publicKey: PublicKey? = null
 
         // Private Key
-        val privateKeyBase64String = encryptedSharedPreferences.getString(privateKeyPreferencesKey, null)
-        privateKeyBase64String?.let {
+        val privateKeyHex = encryptedSharedPreferences.getString(privateKeyPreferencesKey, null)
+
+        if (privateKeyHex != null) {
             try {
-                val privateKeyEncoded = decoder.decode(privateKeyBase64String)
+                val privateKeyEncoded = privateKeyHex.hexStringToByteArray()
                 privateKey = privateKeyFromByteArray(privateKeyEncoded)
             } catch (error: Exception) {
                 println("Failed to decode key string into ByteArray: $error")
@@ -110,10 +108,11 @@ class Encryption(context: Context) {
         }
 
         // Public Key
-        val publicKeyBase64String = encryptedSharedPreferences.getString(publicKeyPreferencesKey, null)
-        publicKeyBase64String?.let {
+        val publicKeyHex = encryptedSharedPreferences.getString(publicKeyPreferencesKey, null)
+
+        if (publicKeyHex != null) {
             try {
-                val publicKeyEncoded = decoder.decode(publicKeyBase64String)
+                val publicKeyEncoded = publicKeyHex.hexStringToByteArray()
                 publicKey = publicKeyFromByteArray(publicKeyEncoded)
             } catch (error: java.lang.Exception) {
                 println("Failed to decode key string into ByteArray: $error")
@@ -146,51 +145,11 @@ class Encryption(context: Context) {
         )
     }
 
-    private fun getPrivateKey(alias: String): PrivateKey? {
-        val keyStore = KeyStore
-            .getInstance(keystoreProvider)
-
-        keyStore.load(null)
-
-        val key = keyStore.getKey(alias, keyPassword.toCharArray())
-
-        if (key == null) {
-            print("No key found under alias: " + privateKeyAlias)
-            return null
-        }
-
-        if (key is PrivateKey) {
-            return key
-        } else {
-            return null
-        }
-    }
-
-    private fun getPublicKey(alias: String): PublicKey? {
-        val keyStore = KeyStore
-            .getInstance(keystoreProvider)
-
-        keyStore.load(null)
-
-        val key = keyStore.getKey(alias, keyPassword.toCharArray())
-
-        if (key == null) {
-            print("No key found under alias: " + publicKeyAlias)
-            return null
-        }
-
-        if (key is PublicKey) {
-            return key
-        } else {
-            return null
-        }
-    }
-
     fun encrypt(encodedPublicKey: ByteArray, plaintext: String): ByteArray? {
 
         val publicKey = publicKeyFromByteArray(encodedPublicKey)
 
-        publicKey?.let {
+        if (publicKey != null) {
             val derivedKey = getDerivedKey(publicKey)
             derivedKey?.let {
                 val cipher = getCipher()
@@ -200,6 +159,9 @@ class Encryption(context: Context) {
                     return cipher.doFinal(plaintext.toByteArray())
                 }
             }
+        } else {
+            print("Failed to encrypt a message, Friend's public key could not be decoded.")
+            return null
         }
 
         return null
@@ -223,35 +185,52 @@ class Encryption(context: Context) {
 
     fun getDerivedKey(friendPublicKey: PublicKey): Key? {
         // Perform key agreement
-        val privateKey = getPrivateKey(privateKeyAlias)
-        val publicKey = getPublicKey(publicKeyAlias)
-        privateKey?.let {
-            publicKey?.let {
-                val keyAgreement: KeyAgreement = KeyAgreement.getInstance("ECDH")
-                keyAgreement.init(privateKey)
-                keyAgreement.doPhase(friendPublicKey, true)
+        val keyPair = keysExist()
 
-                // Read shared secret
-                val sharedSecret: ByteArray = keyAgreement.generateSecret()
+        if (keyPair != null) {
+            val keyAgreement: KeyAgreement = KeyAgreement.getInstance("ECDH")
+            keyAgreement.init(keyPair.private)
+            keyAgreement.doPhase(friendPublicKey, true)
 
-                // Derive a key from the shared secret and both public keys
-                val hash = MessageDigest.getInstance("SHA-256")
-                hash.update(sharedSecret)
+            // Read shared secret
+            val sharedSecret: ByteArray = keyAgreement.generateSecret()
 
-                // Simple deterministic ordering
-                val keys: List<ByteBuffer> = Arrays.asList(ByteBuffer.wrap(publicKey.encoded), ByteBuffer.wrap(friendPublicKey.encoded))
-                Collections.sort(keys)
-                hash.update(keys[0])
-                hash.update(keys[1])
-                val derivedKeyBytes = hash.digest()
-                val derivedKey: Key = SecretKeySpec(derivedKeyBytes, encryptionAlgorithm)
+            // Derive a key from the shared secret and both public keys
+            val hash = MessageDigest.getInstance("SHA-256")
+            hash.update(sharedSecret)
 
-                return derivedKey
-            }
+            // Simple deterministic ordering
+            val keys: List<ByteBuffer> = Arrays.asList(ByteBuffer.wrap(keyPair.public.encoded), ByteBuffer.wrap(friendPublicKey.encoded))
+            Collections.sort(keys)
+            hash.update(keys[0])
+            hash.update(keys[1])
+            val derivedKeyBytes = hash.digest()
+            val derivedKey: Key = SecretKeySpec(derivedKeyBytes, encryptionAlgorithm)
+
+            return derivedKey
         }
 
         return null
     }
 
 
+}
+
+@ExperimentalUnsignedTypes // just to make it clear that the experimental unsigned types are used
+fun ByteArray.toHexString() = asUByteArray().joinToString("") { it.toString(16).padStart(2, '0') }
+
+private val HEX_CHARS = "0123456789ABCDEF"
+fun String.hexStringToByteArray() : ByteArray {
+
+    val result = ByteArray(length / 2)
+
+    for (i in 0 until length step 2) {
+        val firstIndex = HEX_CHARS.indexOf(this[i]);
+        val secondIndex = HEX_CHARS.indexOf(this[i + 1]);
+
+        val octet = firstIndex.shl(4).or(secondIndex)
+        result.set(i.shr(1), octet.toByte())
+    }
+
+    return result
 }
