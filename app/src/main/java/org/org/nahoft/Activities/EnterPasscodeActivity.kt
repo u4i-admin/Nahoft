@@ -6,10 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import androidx.security.crypto.EncryptedSharedPreferences
 import kotlinx.android.synthetic.main.activity_enter_passcode.*
-import org.org.codex.PersistenceEncryption
-import org.org.codex.PersistenceEncryption.Companion.sharedPrefLoginStatusKey
-import org.org.nahoft.Nahoft.Companion.encryptedSharedPreferences
-import org.org.nahoft.Nahoft.Companion.status
 import java.lang.Exception
 
 
@@ -25,16 +21,16 @@ class EnterPasscodeActivity : AppCompatActivity () {
         setContentView(R.layout.activity_enter_passcode)
 
         // Load status from preferences
-        encryptedSharedPreferences = EncryptedSharedPreferences.create(
-            PersistenceEncryption.sharedPrefFilename,
-            PersistenceEncryption.masterKeyAlias,
+        Persist.encryptedSharedPreferences = EncryptedSharedPreferences.create(
+            Persist.sharedPrefFilename,
+            Persist.masterKeyAlias,
             this.applicationContext,
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         ) as EncryptedSharedPreferences
 
         getStatus()
-        tryLogIn(status)
+        tryLogIn(Persist.status)
 
         // Button listeners
         cheat_button.setOnClickListener {
@@ -45,39 +41,41 @@ class EnterPasscodeActivity : AppCompatActivity () {
             val enteredPassword = passcode_edit_text.text.toString()
 
             if (enteredPassword.equals(correctPasscode)) {
-                status = LoginStatus.LoggedIn
+                Persist.status = LoginStatus.LoggedIn
             } else if (enteredPassword.equals(secondaryPasscode)) {
-                status = LoginStatus.SecondaryLogin
+                Persist.status = LoginStatus.SecondaryLogin
             } else {
-                status = LoginStatus.FailedLogin
+                Persist.status = LoginStatus.FailedLogin
             }
 
             saveStatus()
-            tryLogIn(status)
+            tryLogIn(Persist.status)
 
-            Toast.makeText(this, status.name, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, Persist.status.name, Toast.LENGTH_SHORT).show()
         }
     }
 
     fun getStatus() {
 
-        val statusString = encryptedSharedPreferences.getString(sharedPrefLoginStatusKey, null)
+        val statusString = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefLoginStatusKey, null)
 
         if (statusString != null) {
 
             try {
-                status = LoginStatus.valueOf(statusString)
+                Persist.status = LoginStatus.valueOf(statusString)
             } catch (error: Exception) {
                 print("Received invalid status from EncryptedSharedPreferences. User is logged out.")
-                status = LoginStatus.LoggedOut
+                Persist.status = LoginStatus.LoggedOut
             }
+        } else {
+            Persist.status = LoginStatus.NotRequired
         }
     }
 
     fun saveStatus() {
-        encryptedSharedPreferences
+        Persist.encryptedSharedPreferences
             .edit()
-            .putString(sharedPrefLoginStatusKey, status.name)
+            .putString(Persist.sharedPrefLoginStatusKey, Persist.status.name)
             .apply()
     }
 

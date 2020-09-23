@@ -4,14 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.security.crypto.EncryptedSharedPreferences
 import kotlinx.android.synthetic.main.activity_passcode.*
-import org.org.codex.PersistenceEncryption
-import org.org.codex.PersistenceEncryption.Companion.sharedPrefPasscodeKey
-import org.org.codex.PersistenceEncryption.Companion.sharedPrefSecondaryPasscodeKey
 import org.org.nahoft.LoginStatus
-import org.org.nahoft.Nahoft
-import org.org.nahoft.Nahoft.Companion.status
+import org.org.nahoft.Persist
 import org.org.nahoft.R
-import java.lang.Exception
 
 class PasscodeActivity : AppCompatActivity() {
 
@@ -20,9 +15,9 @@ class PasscodeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_passcode)
 
         // Shared Preferences
-        Nahoft.encryptedSharedPreferences = EncryptedSharedPreferences.create(
-            PersistenceEncryption.sharedPrefFilename,
-            PersistenceEncryption.masterKeyAlias,
+        Persist.encryptedSharedPreferences = EncryptedSharedPreferences.create(
+            Persist.sharedPrefFilename,
+            Persist.masterKeyAlias,
             this.applicationContext,
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
@@ -44,17 +39,17 @@ class PasscodeActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
 
-        saveStatus()
+        Persist().saveStatus()
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
-        saveStatus()
+        Persist().saveStatus()
     }
 
     fun updateSwitch() {
-        if (status == LoginStatus.NotRequired)
+        if (Persist.status == LoginStatus.NotRequired)
         {
             updateInputs(false)
         } else {
@@ -65,15 +60,15 @@ class PasscodeActivity : AppCompatActivity() {
     fun updateInputs(passcodeRequired: Boolean) {
         if (passcodeRequired) {
             // Check for passcodes in shared preferences
-            val maybePasscode = Nahoft.encryptedSharedPreferences.getString(sharedPrefPasscodeKey, null)
-            val maybeSecondary = Nahoft.encryptedSharedPreferences.getString(sharedPrefSecondaryPasscodeKey, null)
+            val maybePasscode = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefPasscodeKey, null)
+            val maybeSecondary = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefSecondaryPasscodeKey, null)
 
             if (maybePasscode != null &&maybeSecondary != null) {
                 // Populate our text inputs
-                enter_passcode_input.setText(maybePasscode!!)
-                verify_passcode_input.setText(maybePasscode!!)
-                secondary_passcode_input.setText(maybeSecondary!!)
-                verify_secondary_passcode_input.setText(maybeSecondary!!)
+                enter_passcode_input.setText(maybePasscode)
+                verify_passcode_input.setText(maybePasscode)
+                secondary_passcode_input.setText(maybeSecondary)
+                verify_secondary_passcode_input.setText(maybeSecondary)
             }
 
             // Make sure that our passcodes are enabled
@@ -107,7 +102,7 @@ class PasscodeActivity : AppCompatActivity() {
             // We will not update the status to logged in until the user has entered valid passcodes
         } else {
             // Status is NotRequired
-            status = LoginStatus.NotRequired
+            Persist.status = LoginStatus.NotRequired
         }
 
         updateInputs(required)
@@ -118,10 +113,5 @@ class PasscodeActivity : AppCompatActivity() {
         // TODO: Verify and Save Passcodes
     }
 
-    fun saveStatus() {
-        Nahoft.encryptedSharedPreferences
-            .edit()
-            .putString(PersistenceEncryption.sharedPrefLoginStatusKey, status.name)
-            .apply()
-    }
+
 }

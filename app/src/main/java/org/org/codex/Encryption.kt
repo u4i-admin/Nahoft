@@ -4,10 +4,8 @@ import android.content.Context
 import android.security.keystore.KeyProperties
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import org.org.codex.PersistenceEncryption.Companion.masterKeyAlias
-import org.org.codex.PersistenceEncryption.Companion.sharedPrefFilename
-import java.math.BigInteger
-import org.org.nahoft.App
+import org.org.nahoft.Nahoft
+import org.org.nahoft.Persist
 import java.nio.ByteBuffer
 import java.security.*
 import java.security.spec.ECGenParameterSpec
@@ -21,7 +19,8 @@ import javax.crypto.spec.SecretKeySpec
 // The secure enclave does not appear to support EC keys at all, at this time.
 // Therefore, we store keys in the EncryptedSharedPreferences instead of the KeyStore.
 // This can be revised when the AndroidKeystore supports the required functionality.
-class Encryption(context: Context) {
+class Encryption(val context: Context) {
+
     private val encryptionAlgorithm = "ChaCha20"
     private val paddingType = "PKCS1Padding"
     private val blockingMode = "NONE"
@@ -30,20 +29,9 @@ class Encryption(context: Context) {
     // Encrypted Shared Preferences
     private val privateKeyPreferencesKey = "NahoftPrivateKey"
     private val publicKeyPreferencesKey = "NahoftPublicKey"
-    private val sharedPreferencesFilename = "NahoftEncryptedPreferences"
-    private val keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC
-    private val masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec)
-    private val encryptedSharedPreferences = EncryptedSharedPreferences.create(
-        sharedPreferencesFilename,
-        masterKeyAlias,
-        context,
-        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-    )
 
     // Generate a new keypair for this device and store it in EncryptedSharedPreferences
     private fun generateKeypair(): KeyPair {
-        val context = App.getContext()
 
         // Generate ephemeral keypair and store using Android's KeyStore
         val keyPairGenerator = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC)
@@ -54,38 +42,25 @@ class Encryption(context: Context) {
 
         val keyPair = keyPairGenerator.generateKeyPair()
 
-        print("Public key format:")
-        print(keyPair.public.format)
-        print("Public key algorithm: ")
-        print(keyPair.public.algorithm)
-        print("Encoded public key size: ")
-        print(keyPair.public.encoded.size)
-        println("Generated a keypair, the public key hex is: ")
-        println(keyPair.public.encoded.toHexString())
-
         // Save the keys to EncryptedSharedPreferences
-        encryptedSharedPreferences
+        Persist.encryptedSharedPreferences
             .edit()
             .putString(privateKeyPreferencesKey, keyPair.private.encoded.toHexString())
             .putString(publicKeyPreferencesKey, keyPair.public.encoded.toHexString())
             .apply()
 
-        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        val sharedPreferences = EncryptedSharedPreferences.create(
+            "secret_shared_prefs",
+            Persist.masterKeyAlias,
+            context,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
 
-        context?.let {
-            val sharedPreferences = EncryptedSharedPreferences.create(
-                "secret_shared_prefs",
-                masterKeyAlias,
-                context,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            )
-
-            with (sharedPreferences.edit()) {
-                putString(privateKeyPreferencesKey, keyPair.private.encoded.toHexString())
-                putString(publicKeyPreferencesKey, keyPair.public.encoded.toHexString())
-                commit()
-            }
+        with (sharedPreferences.edit()) {
+            putString(privateKeyPreferencesKey, keyPair.private.encoded.toHexString())
+            putString(publicKeyPreferencesKey, keyPair.public.encoded.toHexString())
+            commit()
         }
 
         return  keyPair
@@ -93,38 +68,35 @@ class Encryption(context: Context) {
 
     // Generate a new keypair for this device and store it in EncryptedSharedPreferences
     fun loadKeypair(): KeyPair? {
-        val context = App.getContext()
 
         val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 
-        context?.let {
-            val sharedPreferences = EncryptedSharedPreferences.create(
-                "secret_shared_prefs",
-                masterKeyAlias,
-                context,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            )
+        val sharedPreferences = EncryptedSharedPreferences.create(
+            "secret_shared_prefs",
+            masterKeyAlias,
+            context,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
 
-            val privateKeyHex = sharedPreferences.getString(privateKeyPreferencesKey, null)
-            val publicKeyHex = sharedPreferences.getString(publicKeyPreferencesKey, null)
+        val privateKeyHex = sharedPreferences.getString(privateKeyPreferencesKey, null)
+        val publicKeyHex = sharedPreferences.getString(publicKeyPreferencesKey, null)
 
-            if (privateKeyHex == null || publicKeyHex == null) {
-                return null
-            }
-
-            val privateKeyBytes = privateKeyHex.hexStringToByteArray()
-            val publicKeyBytes = publicKeyHex.hexStringToByteArray()
-
-            if (privateKeyBytes == null || publicKeyBytes == null) {
-                return null
-            }
-
-            val publicKey = publicKeyFromByteArray(publicKeyBytes)
-            val privateKey = privateKeyFromByteArray(privateKeyBytes)
-
-            return KeyPair(publicKey, privateKey)
+        if (privateKeyHex == null || publicKeyHex == null) {
+            return null
         }
+
+        val privateKeyBytes = privateKeyHex.hexStringToByteArray()
+        val publicKeyBytes = publicKeyHex.hexStringToByteArray()
+
+        if (privateKeyBytes == null || publicKeyBytes == null) {
+            return null
+        }
+
+        val publicKey = publicKeyFromByteArray(publicKeyBytes)
+        val privateKey = privateKeyFromByteArray(privateKeyBytes)
+
+        return KeyPair(publicKey, privateKey)
 
         return null
     }

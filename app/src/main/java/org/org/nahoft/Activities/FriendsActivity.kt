@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_friends.*
 import org.org.codex.PersistenceEncryption
-import org.org.nahoft.Nahoft.Companion.friendsFile
 import org.simpleframework.xml.core.Persister
 import java.io.*
 import java.lang.Exception
@@ -33,7 +32,7 @@ class FriendsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_friends)
 
         linearLayoutManager = LinearLayoutManager(this)
-        adapter = FriendsRecyclerAdapter(Nahoft.friendList)
+        adapter = FriendsRecyclerAdapter(Persist.friendList)
         friendsRecyclerView.layoutManager = linearLayoutManager
         friendsRecyclerView.adapter = adapter
     }
@@ -110,8 +109,8 @@ class FriendsActivity : AppCompatActivity() {
                     //  after the first time this runs most contacts will already be in the friends list.
 
                     // Only add this friend if the list does not contain a frined with that ID already
-                    if (!Nahoft.friendList.any { it.id == newFriend.id }) {
-                        Nahoft.friendList.add(newFriend)
+                    if (!Persist.friendList.any { it.id == newFriend.id }) {
+                        Persist.friendList.add(newFriend)
                     } else {
                         print("******We didn't add the contact $name, they are already in our friend list.")
                     }
@@ -128,12 +127,12 @@ class FriendsActivity : AppCompatActivity() {
         val serializer = Persister()
         val outputStream = ByteArrayOutputStream()
 
-        val friendsObject = Friends(Nahoft.friendList)
+        val friendsObject = Friends(Persist.friendList)
         val serializedFriends = try { serializer.write(friendsObject, outputStream) } catch (e: Exception) {
             print("Failed to serialize our friends list: $e")
         }
         print("serialized friends: $serializedFriends")
-        PersistenceEncryption().writeEncryptedFile(friendsFile, outputStream.toByteArray(), applicationContext)
+        PersistenceEncryption().writeEncryptedFile(Persist.friendsFile, outputStream.toByteArray(), applicationContext)
     }
 }
 

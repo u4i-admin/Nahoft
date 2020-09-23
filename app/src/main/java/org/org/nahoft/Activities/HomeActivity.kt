@@ -38,12 +38,12 @@ class HomeActivity : AppCompatActivity() {
 
     fun loadSavedFriends() {
 
-        Nahoft.friendsFile = File(filesDir.absolutePath + File.separator + FileConstants.datasourceFilename )
+        Persist.friendsFile = File(filesDir.absolutePath + File.separator + FileConstants.datasourceFilename )
 
         // Load our existing friends list from our encrypted file
-        if (Nahoft.friendsFile.exists()) {
-            val friendsToAdd = FriendViewModel.getFriends(Nahoft.friendsFile, applicationContext)
-            Nahoft.friendList.addAll(friendsToAdd)
+        if (Persist.friendsFile.exists()) {
+            val friendsToAdd = FriendViewModel.getFriends(Persist.friendsFile, applicationContext)
+            Persist.friendList.addAll(friendsToAdd)
         }
     }
 }

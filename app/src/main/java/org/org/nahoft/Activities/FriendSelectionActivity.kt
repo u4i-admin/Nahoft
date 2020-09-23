@@ -8,11 +8,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_friend_selection.*
-import org.org.nahoft.Nahoft.Companion.friendList
 
 
 class FriendSelectionActivity : AppCompatActivity() {
@@ -38,7 +36,7 @@ class FriendSelectionActivity : AppCompatActivity() {
         // Only show friends that have been verified
         var verifiedFriends = ArrayList<Friend>()
 
-        for (friend in friendList) {
+        for (friend in Persist.friendList) {
 
             if (friend.status == FriendStatus.Verified) {
                 verifiedFriends.add(friend)
@@ -64,7 +62,7 @@ class FriendSelectionActivity : AppCompatActivity() {
         super.onStart()
 
         print(">>>>>>>>>>>>>>>>>>>>>>Friend selection activity. Current friend list size:\n>>>>>>>>>>>>>>>>>>>>>>>")
-        print(friendList.size)
+        print(Persist.friendList.size)
     }
 
 }

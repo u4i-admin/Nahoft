@@ -1,22 +1,22 @@
 package org.org.nahoft
 
 import android.app.Application
+import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import java.io.File
 
 class Nahoft: Application() {
 
-    companion object {
+    override fun onCreate() {
+        super.onCreate()
 
-        // Initialized by EnterPasscodeActivity(main)
-        lateinit var status: LoginStatus
-        lateinit var encryptedSharedPreferences: EncryptedSharedPreferences
-
-        // Initialized by HomeActivity
-        lateinit var friendsFile: File
-
-        var friendList = ArrayList<Friend>()
+ //       application = this;
     }
+
+
+
+
 
 
 }

@@ -39,7 +39,7 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             friend?.let {
                 println("Friend is not Null")
                 it.status = FriendStatus.Verified
-                it.publicKeyEncoded = Encryption(App.getContext()!!).ensureKeysExist().public.encoded
+                it.publicKeyEncoded = Encryption(this.view.context).ensureKeysExist().public.encoded
                 this.view.friendIcon.setImageResource(it.status.getIcon())
             }
         }
