@@ -151,10 +151,11 @@ class Encryption(context: Context) {
 
         if (publicKey != null) {
             val derivedKey = getDerivedKey(publicKey)
-            derivedKey?.let {
+
+            if (derivedKey != null) {
                 val cipher = getCipher()
 
-                cipher?.let {
+                if (cipher != null) {
                     cipher.init(Cipher.ENCRYPT_MODE, derivedKey)
                     return cipher.doFinal(plaintext.toByteArray())
                 }
@@ -168,16 +169,16 @@ class Encryption(context: Context) {
     }
 
     fun decrypt(friendPublicKey: PublicKey, ciphertext: ByteArray): String? {
+
         val derivedKey = getDerivedKey(friendPublicKey)
-        derivedKey?.let {
+
+        if (derivedKey != null) {
             val cipher = getCipher()
 
-            cipher?.let {
+            if (cipher != null) {
                 cipher.init(Cipher.DECRYPT_MODE, derivedKey)
                 return String(cipher.doFinal(ciphertext))
             }
-
-            return null
         }
 
         return null
