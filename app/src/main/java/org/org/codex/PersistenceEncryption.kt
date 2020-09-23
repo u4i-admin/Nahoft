@@ -27,6 +27,15 @@ class PersistenceEncryption {
     private val keyAlias = "PersistenceKeyAlias"
     private val tagLength = 128 // in bits
 
+    companion object {
+        val sharedPrefLoginStatusKey = "NahoftLoginStatus"
+        val sharedPrefPasscodeKey = "NahoftPasscode"
+        val sharedPrefSecondaryPasscodeKey = "NahoftSecondaryPasscode"
+        val sharedPrefFilename = "NahoftEncryptedPreferences"
+        val sharedPrefKeyGenParameterSpec = MasterKeys.AES256_GCM_SPEC
+        val masterKeyAlias = MasterKeys.getOrCreate(sharedPrefKeyGenParameterSpec)
+    }
+
     init {
         createKeyStoreKey()
     }

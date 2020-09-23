@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="Nahoft"
+        android:name=".Nahoft"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:installLocation="internalOnly"
@@ -15,11 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ApplicationShortcutActivity"/>
+        <activity android:name=".Activities.PasscodeActivity"/>
+        <activity android:name=".ApplicationShortcutActivity" />
         <activity android:name=".EnterPasscodeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".SetLanguageActivity" />
@@ -32,22 +34,25 @@
         <activity android:name=".FriendsUserGuideActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".UserGuideActivity" />
-
-        <activity android:name=".MessagesActivity" >
-            // Allows other apps to share images with us
-            <intent-filter>
-                <action android:name="android.intent.action.SEND"/>
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="image/*" />
-            </intent-filter>
-            // Allows other apps to share text with us
+        <activity android:name=".MessagesActivity">
+         <!-- Allows other apps to share images with us -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            <!-- Allows other apps to share text with us -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity"/>
+        <activity android:name=".HomeActivity" />
     </application>
 
 </manifest>

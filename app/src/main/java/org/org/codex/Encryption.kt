@@ -4,6 +4,8 @@ import android.content.Context
 import android.security.keystore.KeyProperties
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import org.org.codex.PersistenceEncryption.Companion.masterKeyAlias
+import org.org.codex.PersistenceEncryption.Companion.sharedPrefFilename
 import java.math.BigInteger
 import java.nio.ByteBuffer
 import java.security.*
@@ -13,6 +15,10 @@ import javax.crypto.Cipher
 import javax.crypto.KeyAgreement
 import javax.crypto.spec.SecretKeySpec
 
+// Note: The AndroidKeystore does not support ECDH key agreement between EC keys.
+// The secure enclave does not appear to support EC keys at all, at this time.
+// Therefore, we store keys in the EncryptedSharedPreferences instead of the KeyStore.
+// This can be revised when the AndroidKeystore supports the required functionality.
 class Encryption(context: Context) {
 
     private val encryptionAlgorithm = "ChaCha20"
@@ -24,11 +30,9 @@ class Encryption(context: Context) {
     // Encrypted Shared Preferences
     val privateKeyPreferencesKey = "NahoftPrivateKey"
     val publicKeyPreferencesKey = "NahoftPublicKey"
-    val sharedPreferencesFilename = "NahoftEncryptedPreferences"
-    val keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC
-    val masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec)
+
     val encryptedSharedPreferences = EncryptedSharedPreferences.create(
-        sharedPreferencesFilename,
+        sharedPrefFilename,
         masterKeyAlias,
         context,
         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,

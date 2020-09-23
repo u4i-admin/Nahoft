@@ -36,6 +36,14 @@
     <string name="sendingMessagesUserGuideButtonName">Sending Messages User Guide</string>
     <string name="settingsUserGuideButtonName">Settings User Guide</string>
     <string name="receivingMessagesUserGuideButtonName">Receiving Messages User Guide</string>
+    <string name="require_passcode_switch_label">Require Passcode?</string>
+    <string name="verify_passcode_hint">Verify Passcode</string>
+    <string name="enter_passcode_hint">Enter Passcode</string>
+    <string name="enter_secondary_passcode_hint">Enter Secondary Passcode</string>
+    <string name="verify_secondary_passcode_hint">Verify Secondary Passcode</string>
+    <string name="passcode_enabled">Passcode Enabled</string>
+    <string name="save_passcode_button_label">Save</string>
+    <string name="passcode_disabled_label">Passcode Disabled</string>
 
 
 </resources>

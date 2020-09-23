@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_settings.*
+import org.org.nahoft.Activities.PasscodeActivity
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -24,10 +25,10 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         // Go to SettingsActivity
-//        passcode_button.setOnClickListener {
-//            val passcodeIntent = Intent(this, EnterPasscodeActivity::class.java)
-//            startActivity(passcodeIntent)
-//        }
+        passcode_button.setOnClickListener {
+            val passcodeIntent = Intent(this, PasscodeActivity::class.java)
+            startActivity(passcodeIntent)
+        }
     }
 }
 
