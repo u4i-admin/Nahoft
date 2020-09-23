@@ -42,6 +42,12 @@ class Encryption(val context: Context) {
 
         val keyPair = keyPairGenerator.generateKeyPair()
 
+        val format = keyPair.public.format
+        println(format)
+
+        val encoded = keyPair.public.encoded
+        println(encoded)
+
         // Save the keys to EncryptedSharedPreferences
         Persist.encryptedSharedPreferences
             .edit()
@@ -111,7 +117,8 @@ class Encryption(val context: Context) {
     }
 
     fun byteArrayFromPublicKey(publicKey: PublicKey): ByteArray {
-        return publicKey.encoded
+        val keySpec = X509EncodedKeySpec(publicKey.encoded)
+        return keySpec.encoded
     }
 
     fun privateKeyFromByteArray(encodedPrivateKey: ByteArray): PrivateKey? {
@@ -126,13 +133,16 @@ class Encryption(val context: Context) {
     }
 
     fun ensureKeysExist(): KeyPair {
-        val maybeKeyPair = loadKeypair()
+        return generateKeypair()
 
-        if (maybeKeyPair != null) {
-            return  maybeKeyPair
-        } else {
-            return generateKeypair()
-        }
+        // FIXME: remove this hack, just for testing
+//        val maybeKeyPair = loadKeypair()
+//
+//        if (maybeKeyPair != null) {
+//            return  maybeKeyPair
+//        } else {
+//            return generateKeypair()
+//        }
     }
 
     private fun getCipher(): Cipher? {

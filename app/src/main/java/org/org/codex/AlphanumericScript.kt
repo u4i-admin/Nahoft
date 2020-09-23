@@ -14,6 +14,7 @@ class AlphanumericScript: Script {
 
     override fun encode(bits: BitSet): String
     {
+        println("encode")
         var result: String = String()
 
         val one = 1.toBigInteger()
@@ -33,13 +34,17 @@ class AlphanumericScript: Script {
 
         integer = integer / two
 
-        print(integer)
+        println(integer)
 
         val base = alphabet.size.toBigInteger()
         while (integer > base)
         {
             val digit = integer % base
             val symbol = alphabet[digit.toInt()]
+
+            println("digit: " + digit)
+            println("symbol: " + symbol)
+
             result = result + symbol
 
             integer = integer / base
@@ -50,6 +55,7 @@ class AlphanumericScript: Script {
 
     override fun decode(ciphertext: String): BitSet
     {
+        println("decode")
         var result = BitSet(0)
 
         val one = 1.toBigInteger()
@@ -70,6 +76,9 @@ class AlphanumericScript: Script {
             }
             val digit = foundIndex.toBigInteger()
 
+            println("digit: " + digit)
+            println("symbol: " + symbol)
+
             integer = integer + digit
 
             integer = integer * base
@@ -77,7 +86,7 @@ class AlphanumericScript: Script {
 
         integer = integer / base
 
-        print(integer)
+        println(integer)
 
         var bitIndex = 0
         while (integer > one)

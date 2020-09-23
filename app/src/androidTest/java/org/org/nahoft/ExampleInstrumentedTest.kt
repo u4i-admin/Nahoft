@@ -8,6 +8,8 @@ import org.junit.runner.RunWith
 
 import org.junit.Assert.*
 
+import org.org.codex.Encryption
+
 /**
  * Instrumented test, which will execute on an Android device.
  *
@@ -20,5 +22,14 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("org.org.nahoft", appContext.packageName)
+    }
+
+    @Test
+    fun encryptionTest() {
+        // Context of the app under test.
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        assertEquals("org.org.codex.test", appContext.packageName)
+
+        val encryption = Encryption(appContext)
     }
 }
