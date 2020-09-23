@@ -1,20 +1,11 @@
 package org.org.util
 
-import android.content.ClipData
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.ImageDecoder
-import android.media.Image
 import android.net.Uri
-import android.provider.MediaStore
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.FileProvider
 import org.org.codex.Codex
 import org.org.codex.Encryption
 import org.org.stencil.Stencil
-import java.security.PublicKey
 
 
 object ShareUtil {
@@ -26,8 +17,7 @@ object ShareUtil {
         val encryptedMessage = Encryption.encrypt(encodedFriendPublicKey, message)
 
         // Encode the image
-        val bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(context.contentResolver, imageUri))
-        val newBitmap = Stencil().encode(message, bitmap)
+        val newBitmap = Stencil().encode(context, encryptedMessage!!, imageUri)
 
         // TODO: Save bitmap to image roll to get URI for sharing intent
 

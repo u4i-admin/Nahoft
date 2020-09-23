@@ -1,14 +1,19 @@
 package org.org.stencil
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
 import kotlin.math.ceil
 import kotlin.math.sqrt
 import org.org.codex.makeBitSet
 
 class Stencil {
-    fun encode(plaintext: String, cover: Bitmap): Bitmap?
+    fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri?
     {
-        val numBits = plaintext.length * 8
+        val cover = ImageDecoder.decodeBitmap(ImageDecoder.createSource(context.contentResolver, coverUri))
+
+        val numBits = encrypted.size * 8
         val numPixels = cover.height * cover.width
 
         val maxStarsByHeight = cover.height / 3
@@ -17,7 +22,7 @@ class Stencil {
 
         if (maxStars < numBits) {return null}
 
-        val bits = makeBitSet(plaintext.toByteArray())
+        val bits = makeBitSet(encrypted)
 
         var result = cover
         for (index in 0 until bits.length())
@@ -33,7 +38,11 @@ class Stencil {
         val heightCenter = heightPerBit / 2
         val widthCenter = widthPerBit / 2
 
-        return result
+        val title = ""
+        val description = ""
+        val resultUri = CapturePhotoUtils.insertImage(context.contentResolver, result, title , description);
+
+        return resultUri
     }
 
     private fun addStar(bitmap: Bitmap, index: Int, bit: Boolean, maxStarsByWidth: Int): Bitmap
