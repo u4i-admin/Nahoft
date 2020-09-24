@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Nahoft</string>
 
+    //Enter Passcode Activity Strings
+    <string name="Passcode">Passcode</string>
+    <string name="Login">Login</string>
+    <string name="CheatButton">Cheat</string>
 
     //Home Activity Strings
     <string name="friendsButtonDescription">Friends</string>
@@ -13,19 +17,32 @@
     <string name="newMessageButtonTitle">New Message</string>
 
     //New Messages Activity
-    //ToDo: the first string listed below is hardcoded text, you probably need to change this in
-    order to localize
     <string name="hintOnChooseFriendButton">Choose Friend</string>
     <string name="sendAsTextButton">Send As Text</string>
     <string name="sendAsImageButton">Send As Image</string>
 
+    //New Messages Activity Toast Texts
+    <string name="toastTextCanOnlyMessageAVerifiedFriend">Can Only Message A Verified Friend</string>
+    <string name="toastTextMustSelectAFriendToSendAMessage">Must Select A Friend To Send A Message</string>
+
     //Settings Activity
+    <string name="settingsScreenTitle">Settings View</string>
     <string name="setLanguageButton">Set Language</string>
     <string name="passcodeButton">Passcode</string>
-    <string name="applicationShortcut">Application Shortcut</string>
+    <string name="applicationShortcutButton">Application Shortcut</string>
 
     //Set Language Activity
-    <string name="setLanguageTextView">Set Language</string>
+    <string name="setLanguageScreenTitle">Set Language</string>
+
+    //Set Language Activity Array and Toast Texts
+    <string name="spinnerTitleSetLanguage">SetLanguage</string>
+    <string name="spinnerSelectionDefaultLanguage">Default Language</string>
+    <string name="spinnerSelectionEnglish">English</string>
+    <string name="spinnerSelectionPersian">Persian</string>
+    <string name="toastTextLanguageAlreadySelected">LANGUAGE ALREADY SELECTED</string>
+
+    //Application Shortcut Activity
+    <string name="setApplicationShortcut">Set Application Shortcut</string>
 
     //User Guide Activity
     //There is a string for the Title On the User Guide Activity Screen "USER GUIDE" this has
@@ -36,6 +53,8 @@
     <string name="sendingMessagesUserGuideButtonName">Sending Messages User Guide</string>
     <string name="settingsUserGuideButtonName">Settings User Guide</string>
     <string name="receivingMessagesUserGuideButtonName">Receiving Messages User Guide</string>
+
+    //Passcode Activity
     <string name="require_passcode_switch_label">Require Passcode?</string>
     <string name="verify_passcode_hint">Verify Passcode</string>
     <string name="enter_passcode_hint">Enter Passcode</string>
@@ -45,5 +64,23 @@
     <string name="save_passcode_button_label">Save</string>
     <string name="passcode_disabled_label">Passcode Disabled</string>
 
+    //Passcode Activity Strings Located in Kotlin File Toast Texts
+    <string name="toastTextPasscodeFieldIsEmpty">Passcode Field is Empty</string>
+    <string name="toastTextPasscode2FieldIsEmpty">Passcode 2 Field is Empty</string>
+    <string name="toastTextPasscodeEntriesDoNotMatch">Passcode Entries Do Not Match</string>
+    <string name="toastTextSecondaryPasscodeFieldWasEmpty">Secondary Passcode Field Was Empty</string>
+    <string name="toastTextSecondaryPasscode2CannotBeEmpty">Secondary Passcode 2 Cannot Be Empty</string>
+    <string name="toastTextSecondaryPasscodeDoesNotMatch">Secondary Passcode Does not Match</string>
+
+
+    //Friend Default Row XML
+    <string name="Name">Name</string>
+    <string name="Invite">Invite</string>
+
+    //Friends Recycler View Item Row
+    <string name="friendsNameRecyclerView">Name</string>
+
+    //Friends Selection Recyclerview Item Row
+    <string name="nameFriendsSelectionRecyclerviewItemRow">Name</string>
 
 </resources>

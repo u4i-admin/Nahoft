@@ -2,7 +2,12 @@
 <resources>
     <string name="app_name">ناهفت</string>
 
-    //Main Activity Strings
+    //Enter Passcode Activity Strings
+    <string name="Passcode">رمز عبور</string>
+    <string name="Login">رمز عبور</string>
+    <string name="CheatButton">رمز عبور</string>
+
+    //Home Activity Strings
     <string name="friendsButtonDescription">دوستان</string>
     <string name="messagesButtonDescription">پیام ها</string>
     <string name="settingsButtonDescription">تنظیمات</string>
@@ -13,25 +18,66 @@
     <string name="newMessageButtonTitle">پیام جدید</string>
 
     //New Messages Activity
-    //ToDo: the first string listed below is hardcoded text, you probably need to change this in order to localize
     <string name="hintOnChooseFriendButton">دوست را انتخاب کنید</string>
     <string name="sendAsTextButton">ارسال به عنوان متن</string>
     <string name="sendAsImageButton">ارسال به عنوان تصویر</string>
 
+    //New Messages Activity Toast Texts
+    <string name="toastTextCanOnlyMessageAVerifiedFriend">دوستانd</string>
+    <string name="toastTextMustSelectAFriendToSendAMessage">دوستان</string>
+
     //Settings Activity
+    <string name="settingsScreenTitle">تنظیم زبان</string>
     <string name="setLanguageButton">تنظیم زبان</string>
     <string name="passcodeButton">رمز عبور</string>
-    <string name="applicationShortcut">میانبر برنامه</string>
+    <string name="applicationShortcutButton">میانبر برنامه</string>
 
     //Set Language Activity
-    <string name="setLanguageTextView">تنظیم زبان</string>
+    <string name="setLanguageScreenTitle">تنظیم زبان</string>
+
+    //Set Language Activity Array and Toast Texts
+    <string name="spinnerTitleSetLanguage">دوستان</string>
+    <string name="spinnerSelectionDefaultLanguage">دوستان</string>
+    <string name="spinnerSelectionEnglish">دوستان</string>
+    <string name="spinnerSelectionPersian">دوستان</string>
+    <string name="toastTextLanguageAlreadySelected">دوستان</string>
+
+    //Application Shortcut Activity
+    <string name="setApplicationShortcut">تنظیم</string>
 
     //User Guide Activity
-    //There is a string for the Title On the User Guide Activity Screen "USER GUIDE" this has already been defined
-    not certain what to do here.
     <string name="userGuideActivityTitle">راهنمای کاربر</string>
     <string name="friendsUserGuideButtonName">راهنمای کاربر دوستان</string>
     <string name="sendingMessagesUserGuideButtonName">ارسال پیام راهنمای کاربر</string>
     <string name="settingsUserGuideButtonName">تنظیمات راهنمای کاربر</string>
     <string name="receivingMessagesUserGuideButtonName">دریافت پیام های راهنمای کاربر</string>
+
+    //Passcode Activity
+    <string name="require_passcode_switch_label">دوستان</string>
+    <string name="verify_passcode_hint">دوستان</string>
+    <string name="enter_passcode_hint">دوستان</string>
+    <string name="enter_secondary_passcode_hint">دوستان</string>
+    <string name="verify_secondary_passcode_hint">دوستان</string>
+    <string name="passcode_enabled">دوستان</string>
+    <string name="save_passcode_button_label">دوستان</string>
+    <string name="passcode_disabled_label">دوستان</string>
+
+    //Passcode Activity Strings Located in Kotlin File Toast Texts
+    <string name="toastTextPasscodeFieldIsEmpty">دوستان</string>
+    <string name="toastTextPasscode2FieldIsEmpty">دوستان</string>
+    <string name="toastTextPasscodeEntriesDoNotMatch">دوستان</string>
+    <string name="toastTextSecondaryPasscodeFieldWasEmpty">دوستان</string>
+    <string name="toastTextSecondaryPasscode2CannotBeEmpty">دوستان</string>
+    <string name="toastTextSecondaryPasscodeDoesNotMatch">دوستان</string>
+
+    //Friend Default Row XML
+    <string name="Name">دوستان</string>
+    <string name="Invite">دوستان</string>
+
+    //Friends Recycler View Item Row
+    <string name="friendsNameRecyclerView">دوستان</string>
+
+    //Friends Selection Recyclerview Item Row
+    <string name="nameFriendsSelectionRecyclerviewItemRow">دوستان</string>
+
 </resources>
