@@ -30,4 +30,11 @@ class Persist {
             .putString(sharedPrefLoginStatusKey, status.name)
             .apply()
     }
+
+    fun saveKey(key:String, value:String) {
+        encryptedSharedPreferences
+            .edit()
+            .putString(key, value)
+            .apply()
+    }
 }

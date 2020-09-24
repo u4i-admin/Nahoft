@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import androidx.security.crypto.EncryptedSharedPreferences
 import kotlinx.android.synthetic.main.activity_enter_passcode.*
+import org.org.nahoft.Persist.Companion.sharedPrefPasscodeKey
+import org.org.nahoft.Persist.Companion.sharedPrefSecondaryPasscodeKey
 import java.lang.Exception
 
 
