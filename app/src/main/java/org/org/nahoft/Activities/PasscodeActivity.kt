@@ -2,6 +2,7 @@ package org.org.nahoft.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.security.crypto.EncryptedSharedPreferences
 import kotlinx.android.synthetic.main.activity_passcode.*
 import org.org.nahoft.LoginStatus
@@ -109,8 +110,57 @@ class PasscodeActivity : AppCompatActivity() {
     }
 
     fun handleSaveButtonClick() {
+        val passcode = enter_passcode_input.text.toString()
+        val passcode2 = verify_passcode_input.text.toString()
+        val secondaryPasscode = secondary_passcode_input.text.toString()
+        val secondaryPasscode2 = verify_secondary_passcode_input.text.toString()
+        val persist = Persist()
 
-        // TODO: Verify and Save Passcodes
+        if (passcode == "") {
+            Toast.makeText(this, "Passcode Field is Empty", Toast.LENGTH_SHORT).show()
+
+           return
+        }
+
+        if (passcode2 == "") {
+            Toast.makeText(this, "Passcode 2 Field is Empty", Toast.LENGTH_SHORT).show()
+
+            return
+        }
+
+        if (passcode != passcode2){
+            Toast.makeText(this, "Passcode Entries Do Not Match", Toast.LENGTH_SHORT).show()
+
+            return
+        }
+
+        persist.saveKey(Persist.sharedPrefPasscodeKey, passcode)
+
+        if(secondaryPasscode == "") {
+
+            if (secondaryPasscode2 != "") {
+                Toast.makeText(this, "Secondary Passcode Field Was Empty", Toast.LENGTH_SHORT).show()
+
+                return
+            }
+
+        } else {
+            if (secondaryPasscode2 == "") {
+                Toast.makeText(this, "Secondary Passcode 2 Cannot Be Empty", Toast.LENGTH_SHORT).show()
+
+                return
+            }
+
+            if (secondaryPasscode != secondaryPasscode2) {
+                Toast.makeText(this, "Secondary Passcode Does not Match", Toast.LENGTH_SHORT).show()
+
+                return
+            }
+
+            persist.saveKey(Persist.sharedPrefSecondaryPasscodeKey, secondaryPasscode)
+
+        }
+
     }
 
 
