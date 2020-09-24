@@ -79,5 +79,9 @@
 
     //Friends Selection Recyclerview Item Row
     <string name="nameFriendsSelectionRecyclerviewItemRow">دوستان</string>
+    <string name="invite_friend_button_label">Invite</string>
+    <string name="friend_status_label_invited">Invited</string>
+    <string name="approve_invitation_button_label">Approve</string>
+    <string name="decline_invitation_button_label">Decline</string>
 
 </resources>

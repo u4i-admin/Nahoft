@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.PasscodeActivity"/>
+        <activity android:name=".Activities.MessageActivity"></activity>
+        <activity android:name=".Activities.PasscodeActivity" />
         <activity android:name=".ApplicationShortcutActivity" />
         <activity android:name=".EnterPasscodeActivity">
             <intent-filter>
@@ -35,7 +36,8 @@
         <activity android:name=".SettingsActivity" />
         <activity android:name=".UserGuideActivity" />
         <activity android:name=".MessagesActivity">
-         <!-- Allows other apps to share images with us -->
+
+            <!-- Allows other apps to share images with us -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -49,7 +51,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data android:mimeType="text/plain" />
+                <data android:mimeType="text/*" />
             </intent-filter>
         </activity>
         <activity android:name=".HomeActivity" />

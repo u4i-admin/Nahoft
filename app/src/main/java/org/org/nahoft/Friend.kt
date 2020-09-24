@@ -42,12 +42,12 @@ enum class FriendStatus: StatusIcon {
     },
     Verified {
         override fun getIcon(): Int {
-            return R.drawable.verified_friend
+            return R.drawable.approved_friend
         }
     },
     Approved {
         override fun getIcon(): Int {
-            return R.drawable.approved_friend
+            return R.drawable.verified_friend
         }
     }
 }

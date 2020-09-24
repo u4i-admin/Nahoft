@@ -13,7 +13,7 @@
     <string name="userGuideButtonDescription">User Guide</string>
 
     //Messages Activity
-    <string name="messagesScreenTitle">Messages View</string>
+    <string name="messagesScreenTitle">Messages</string>
     <string name="newMessageButtonTitle">New Message</string>
 
     //New Messages Activity
@@ -26,7 +26,7 @@
     <string name="toastTextMustSelectAFriendToSendAMessage">Must Select A Friend To Send A Message</string>
 
     //Settings Activity
-    <string name="settingsScreenTitle">Settings View</string>
+    <string name="settingsScreenTitle">Settings</string>
     <string name="setLanguageButton">Set Language</string>
     <string name="passcodeButton">Passcode</string>
     <string name="applicationShortcutButton">Application Shortcut</string>
@@ -82,5 +82,10 @@
 
     //Friends Selection Recyclerview Item Row
     <string name="nameFriendsSelectionRecyclerviewItemRow">Name</string>
+    <string name="unknown_sender_label">Unknown</string>
+    <string name="invite_friend_button_label">Invite</string>
+    <string name="friend_status_label_invited">Invited</string>
+    <string name="approve_invitation_button_label">Accept</string>
+    <string name="decline_invitation_button_label">Decline</string>
 
 </resources>
