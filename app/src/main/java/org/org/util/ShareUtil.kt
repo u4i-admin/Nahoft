@@ -57,7 +57,7 @@ object ShareUtil {
         encryptedMessage?.let {
 
             val encodedMessage = codex.encodeEncryptedMessage(encryptedMessage)
-            val sendIntent: Intent = Intent(Intent.ACTION_SEND).apply {
+            val sendIntent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
                 putExtra(Intent.EXTRA_TEXT, encodedMessage)
             }
@@ -66,6 +66,18 @@ object ShareUtil {
             context.startActivity(shareIntent)
         }
 
+    }
+
+    fun shareKey(context: Context, keyBytes: ByteArray) {
+        val codex = Codex()
+        val encodedKey = codex.encodeKey(keyBytes)
+        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, encodedKey)
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        context.startActivity(shareIntent)
     }
 
 }
