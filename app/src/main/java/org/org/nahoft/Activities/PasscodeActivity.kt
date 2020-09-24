@@ -117,19 +117,19 @@ class PasscodeActivity : AppCompatActivity() {
         val persist = Persist()
 
         if (passcode == "") {
-            Toast.makeText(this, "Passcode Field is Empty", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toastTextPasscodeFieldIsEmpty), Toast.LENGTH_SHORT).show()
 
            return
         }
 
         if (passcode2 == "") {
-            Toast.makeText(this, "Passcode 2 Field is Empty", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toastTextPasscode2FieldIsEmpty), Toast.LENGTH_SHORT).show()
 
             return
         }
 
         if (passcode != passcode2){
-            Toast.makeText(this, "Passcode Entries Do Not Match", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toastTextPasscodeEntriesDoNotMatch), Toast.LENGTH_SHORT).show()
 
             return
         }
@@ -139,20 +139,20 @@ class PasscodeActivity : AppCompatActivity() {
         if(secondaryPasscode == "") {
 
             if (secondaryPasscode2 != "") {
-                Toast.makeText(this, "Secondary Passcode Field Was Empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.toastTextSecondaryPasscodeFieldWasEmpty), Toast.LENGTH_SHORT).show()
 
                 return
             }
 
         } else {
             if (secondaryPasscode2 == "") {
-                Toast.makeText(this, "Secondary Passcode 2 Cannot Be Empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.toastTextSecondaryPasscode2CannotBeEmpty), Toast.LENGTH_SHORT).show()
 
                 return
             }
 
             if (secondaryPasscode != secondaryPasscode2) {
-                Toast.makeText(this, "Secondary Passcode Does not Match", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.toastTextSecondaryPasscodeDoesNotMatch), Toast.LENGTH_SHORT).show()
 
                 return
             }

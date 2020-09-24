@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +13,7 @@
         android:layout_width="142dp"
         android:layout_height="119dp"
         android:layout_marginTop="16dp"
-        android:text="Settings View"
+        android:text="@string/settingsScreenTitle"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
@@ -26,7 +27,7 @@
         android:layout_height="70dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
-        android:text="Set Language"
+        android:text="@string/setLanguageButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settings_view" />
 
@@ -36,7 +37,7 @@
         android:layout_height="70dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="Passcode"
+        android:text="@string/passcodeButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/set_language_button" />
 
@@ -46,7 +47,7 @@
         android:layout_height="70dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="Application Shortcut"
+        android:text="@string/applicationShortcutButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passcode_button" />
 

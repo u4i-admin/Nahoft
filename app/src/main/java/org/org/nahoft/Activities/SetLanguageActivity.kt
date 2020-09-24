@@ -28,13 +28,13 @@ class SetLanguageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_language)
-        title = "SetLanguage"
+        title = getString(R.string.spinnerTitleSetLanguage)
         currentLang = intent.getStringExtra(currentLang).toString()
         spinner = findViewById(R.id.setLanguage)
         val list = ArrayList<String>()
-        list.add("Default Language")
-        list.add("English")
-        list.add("Persian")
+        list.add(getString(R.string.spinnerSelectionDefaultLanguage))
+        list.add(getString(R.string.spinnerSelectionEnglish))
+        list.add(getString(R.string.spinnerSelectionPersian))
 
         println(
             getResources().getConfiguration().locale
@@ -85,7 +85,7 @@ class SetLanguageActivity : AppCompatActivity() {
             startActivity(refresh)
         } else {
             Toast.makeText(
-                this@SetLanguageActivity, "LANGUAGE ALREADY SELECTED", Toast.LENGTH_SHORT).show();
+                this@SetLanguageActivity, getString(R.string.toastTextLanguageAlreadySelected), Toast.LENGTH_SHORT).show();
         }
     }
 
