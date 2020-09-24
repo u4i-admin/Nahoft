@@ -92,7 +92,6 @@ class AlphanumericScript: Script {
         while (integer > one)
         {
             val bit = integer % two
-            var bool: Boolean
             when (bit.toInt())
             {
                 1 -> result.set(bitIndex)
