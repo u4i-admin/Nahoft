@@ -2,17 +2,29 @@ package org.org.codex
 
 import java.util.*
 
-class Codex {
-    fun encode(plaintext: String): String
-    {
-        val data = plaintext.toByteArray()
+enum class KeyOrMessage(val byte: Byte)
+{
+    Key(0),
+    EncryptedMessage(1)
+}
 
-        return encode(data)
+class DecodeResult(val type: KeyOrMessage, val payload: ByteArray)
+
+class Codex {
+    fun encodeKey(key: ByteArray): String
+    {
+        return encode(0, key)
     }
 
-    fun encode(data: ByteArray): String
+    fun encodeEncryptedMessage(message: ByteArray): String
     {
-        val bits = makeBitSet(data)
+        return encode(1, message)
+    }
+
+    private fun encode(firstByte: Byte, data: ByteArray): String
+    {
+        val typedData = byteArrayOf(firstByte) + data
+        val bits = makeBitSet(typedData)
 
         val script = AlphanumericScript()
         val result = script.encode(bits)
@@ -20,14 +32,24 @@ class Codex {
         return result
     }
 
-    fun decode(ciphertext: String): String
+    fun decode(ciphertext: String): DecodeResult?
     {
         val script = AlphanumericScript()
         val bits = script.decode(ciphertext)
         val data = bits.toByteArray()
-        val result = String(data)
 
-        return result
+        val type = data[0]
+        val payload = data.slice(1..data.lastIndex).toByteArray()
+
+        val result = String(payload)
+
+        when (type)
+        {
+            0.toByte() -> return DecodeResult(KeyOrMessage.Key, payload)
+            1.toByte() -> return DecodeResult(KeyOrMessage.EncryptedMessage, payload)
+        }
+
+        return null
     }
 }
 

@@ -21,6 +21,33 @@ import javax.crypto.spec.SecretKeySpec
 // Therefore, we store keys in the EncryptedSharedPreferences instead of the KeyStore.
 // This can be revised when the AndroidKeystore supports the required functionality.
 class Encryption(val context: Context) {
+    companion object {
+        // Return the ECPublicKey from encoded raw bytes
+        // The format of the encodedPublicKey is X.509
+        fun publicKeyFromByteArray(encodedPublicKey: ByteArray): PublicKey? {
+            val keyFactory = KeyFactory.getInstance(KeyProperties.KEY_ALGORITHM_EC)
+            val keySpec = X509EncodedKeySpec(encodedPublicKey)
+
+            return keyFactory.generatePublic(keySpec)
+        }
+
+        fun byteArrayFromPublicKey(publicKey: PublicKey): ByteArray {
+            val keySpec = X509EncodedKeySpec(publicKey.encoded)
+            return keySpec.encoded
+        }
+
+        fun privateKeyFromByteArray(encodedPrivateKey: ByteArray): PrivateKey? {
+            val keySpec = X509EncodedKeySpec(encodedPrivateKey)
+            val keyFactory = KeyFactory.getInstance(KeyProperties.KEY_ALGORITHM_EC)
+
+            return keyFactory.generatePrivate(keySpec)
+        }
+
+        fun byteArrayFromPrivateKey(publicKey: PrivateKey): ByteArray {
+            return publicKey.encoded
+        }
+    }
+
     private val KEY_LEN = 256
     private val NONCE_LEN = 12 //bytes
     private val NONCE_MIN_VAL: BigInteger = BigInteger("100000000000000000000000", 16)
@@ -113,42 +140,14 @@ class Encryption(val context: Context) {
         return null
     }
 
-    // Return the ECPublicKey from encoded raw bytes
-    // The format of the encodedPublicKey is X.509
-    fun publicKeyFromByteArray(encodedPublicKey: ByteArray): PublicKey? {
-        val keyFactory = KeyFactory.getInstance(KeyProperties.KEY_ALGORITHM_EC)
-        val keySpec = X509EncodedKeySpec(encodedPublicKey)
-
-        return keyFactory.generatePublic(keySpec)
-    }
-
-    fun byteArrayFromPublicKey(publicKey: PublicKey): ByteArray {
-        val keySpec = X509EncodedKeySpec(publicKey.encoded)
-        return keySpec.encoded
-    }
-
-    fun privateKeyFromByteArray(encodedPrivateKey: ByteArray): PrivateKey? {
-        val keySpec = X509EncodedKeySpec(encodedPrivateKey)
-        val keyFactory = KeyFactory.getInstance(KeyProperties.KEY_ALGORITHM_EC)
-
-        return keyFactory.generatePrivate(keySpec)
-    }
-
-    fun byteArrayFromPrivateKey(publicKey: PrivateKey): ByteArray {
-        return publicKey.encoded
-    }
-
     fun ensureKeysExist(): KeyPair {
-        return generateKeypair()
+        val maybeKeyPair = loadKeypair()
 
-        // FIXME: remove this hack, just for testing
-//        val maybeKeyPair = loadKeypair()
-//
-//        if (maybeKeyPair != null) {
-//            return  maybeKeyPair
-//        } else {
-//            return generateKeypair()
-//        }
+        if (maybeKeyPair != null) {
+            return  maybeKeyPair
+        } else {
+            return generateKeypair()
+        }
     }
 
     private fun getCipher(): Cipher? {
@@ -172,6 +171,7 @@ class Encryption(val context: Context) {
                 val cipher = getCipher()
 
                 if (cipher != null) {
+                    // FIXME: Nonce generation is a hack, do it properly
                     val nonce: ByteArray = getNonce()!!
                     val ivParameterSpec = IvParameterSpec(nonce)
                     cipher.init(Cipher.ENCRYPT_MODE, derivedKey, ivParameterSpec)
@@ -204,6 +204,7 @@ class Encryption(val context: Context) {
         return null
     }
 
+    // FIXME: nonce generation is a hack, do it properly
     fun getNonce(): ByteArray? {
         return if (nonceCounter.compareTo(NONCE_MAX_VAL) === -1) {
             nonceCounter.add(BigInteger.ONE).toByteArray()
