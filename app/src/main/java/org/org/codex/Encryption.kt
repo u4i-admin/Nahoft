@@ -4,8 +4,8 @@ import android.content.Context
 import android.security.keystore.KeyProperties
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import org.org.nahoft.Nahoft
 import org.org.nahoft.Persist
+import java.math.BigInteger
 import java.nio.ByteBuffer
 import java.security.*
 import java.security.spec.ECGenParameterSpec
@@ -13,6 +13,7 @@ import java.security.spec.X509EncodedKeySpec
 import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.KeyAgreement
+import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 // Note: The AndroidKeystore does not support ECDH key agreement between EC keys.
@@ -20,10 +21,15 @@ import javax.crypto.spec.SecretKeySpec
 // Therefore, we store keys in the EncryptedSharedPreferences instead of the KeyStore.
 // This can be revised when the AndroidKeystore supports the required functionality.
 class Encryption(val context: Context) {
+    private val KEY_LEN = 256
+    private val NONCE_LEN = 12 //bytes
+    private val NONCE_MIN_VAL: BigInteger = BigInteger("100000000000000000000000", 16)
+    private val NONCE_MAX_VAL: BigInteger = BigInteger("ffffffffffffffffffffffff", 16)
+    private var nonceCounter: BigInteger = NONCE_MIN_VAL
 
     private val encryptionAlgorithm = "ChaCha20"
-    private val paddingType = "PKCS1Padding"
-    private val blockingMode = "NONE"
+    private val blockingMode = "None"
+    private val paddingType = "NoPadding"
     private val ecGenParameterSpecName = "secp256r1"
 
     // Encrypted Shared Preferences
@@ -63,7 +69,7 @@ class Encryption(val context: Context) {
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
 
-        with (sharedPreferences.edit()) {
+        with(sharedPreferences.edit()) {
             putString(privateKeyPreferencesKey, keyPair.private.encoded.toHexString())
             putString(publicKeyPreferencesKey, keyPair.public.encoded.toHexString())
             commit()
@@ -166,6 +172,10 @@ class Encryption(val context: Context) {
                 val cipher = getCipher()
 
                 if (cipher != null) {
+                    val nonce: ByteArray = getNonce()!!
+                    val ivParameterSpec = IvParameterSpec(nonce)
+                    cipher.init(Cipher.ENCRYPT_MODE, derivedKey, ivParameterSpec)
+
                     cipher.init(Cipher.ENCRYPT_MODE, derivedKey)
                     return cipher.doFinal(plaintext.toByteArray())
                 }
@@ -192,6 +202,15 @@ class Encryption(val context: Context) {
         }
 
         return null
+    }
+
+    fun getNonce(): ByteArray? {
+        return if (nonceCounter.compareTo(NONCE_MAX_VAL) === -1) {
+            nonceCounter.add(BigInteger.ONE).toByteArray()
+        } else {
+            nonceCounter = NONCE_MIN_VAL
+            NONCE_MIN_VAL.toByteArray()
+        }
     }
 
     fun getDerivedKey(friendPublicKey: PublicKey): Key? {
