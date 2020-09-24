@@ -24,7 +24,7 @@ class Stencil {
 
         val bits = makeBitSet(encrypted)
 
-        var result = cover
+        var result = cover.copy(Bitmap.Config.ARGB_8888, true);
         for (index in 0 until bits.length())
         {
             var bit = bits.get(index)
