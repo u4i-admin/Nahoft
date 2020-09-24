@@ -6,17 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import androidx.security.crypto.EncryptedSharedPreferences
 import kotlinx.android.synthetic.main.activity_enter_passcode.*
+import kotlinx.android.synthetic.main.activity_passcode.*
 import org.org.nahoft.Persist.Companion.sharedPrefPasscodeKey
 import org.org.nahoft.Persist.Companion.sharedPrefSecondaryPasscodeKey
 import java.lang.Exception
 
 
 class EnterPasscodeActivity : AppCompatActivity () {
-
-    /// TEST PURPOSES ONLY
-    val correctPasscode = "password"
-    val secondaryPasscode = "secondpassword"
-    /// TEST PURPOSES ONLY
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -41,10 +37,20 @@ class EnterPasscodeActivity : AppCompatActivity () {
 
         login_button.setOnClickListener {
             val enteredPassword = passcode_edit_text.text.toString()
+            val maybePasscode = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefPasscodeKey, null)
+            val maybeSecondary = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefSecondaryPasscodeKey, null)
 
-            if (enteredPassword.equals(correctPasscode)) {
+            if (maybePasscode != null &&maybeSecondary != null) {
+                // Populate our text inputs
+                enter_passcode_input.setText(maybePasscode)
+                verify_passcode_input.setText(maybePasscode)
+                secondary_passcode_input.setText(maybeSecondary)
+                verify_secondary_passcode_input.setText(maybeSecondary)
+            }
+
+            if (enteredPassword.equals(maybePasscode)) {
                 Persist.status = LoginStatus.LoggedIn
-            } else if (enteredPassword.equals(secondaryPasscode)) {
+            } else if (enteredPassword.equals(maybeSecondary)) {
                 Persist.status = LoginStatus.SecondaryLogin
             } else {
                 Persist.status = LoginStatus.FailedLogin
