@@ -14,16 +14,16 @@
         android:layout_above="@+id/setApplicationShortcutDefault"
         android:layout_centerInParent="true"
         android:text="@string/setApplicationShortcut"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorAccent"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="normal" />
 
     <ImageButton
         android:id="@+id/setApplicationShortcutDefault"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_centerInParent="true"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorAccent"
         app:srcCompat="@drawable/app_shortcut_default" />
 
     <ImageButton
@@ -32,7 +32,7 @@
         android:layout_height="45dp"
         android:layout_below="@id/setApplicationShortcutDefault"
         android:layout_centerInParent="true"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorAccent"
         app:srcCompat="@drawable/app_shortcut_email"/>
 
 </RelativeLayout>
