@@ -16,20 +16,4 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
-
-    @Test
-    fun codexTest() {
-        val codex = Codex()
-        val encoded = codex.encode("test")
-        val decoded = codex.decode(encoded)
-
-        println()
-        println("test")
-        println(encoded)
-        println(decoded)
-    }
-
-    @Test
-    fun encryptionTest() {
-    }
 }
