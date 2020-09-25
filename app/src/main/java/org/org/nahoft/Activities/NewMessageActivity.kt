@@ -24,39 +24,41 @@ class NewMessageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        println("**New Messages Activity")
         setContentView(R.layout.activity_new_message)
 
-
+        // Select Friend Button
         friend_button.setOnClickListener {
-            println("friend button clicked")
-            
-            val intent = FriendSelectionActivity.newIntent(this@NewMessageActivity)
-                Intent(this, FriendSelectionActivity::class.java)
-            startActivityForResult(intent, FRIEND_PICK_CODE)
+            selectFriend()
         }
 
+        // Send message as text button
         send_as_text_button.setOnClickListener {
-
             var message = editMessageText.text.toString()
-
-            if (selectedFriend != null) {
-                if (selectedFriend!!.publicKeyEncoded != null) {
-                    ShareUtil.shareText(this, message, selectedFriend!!.publicKeyEncoded!!)
-                } else {
-                    Toast.makeText(this, getString(R.string.toastTextCanOnlyMessageAVerifiedFriend), Toast.LENGTH_SHORT).show()
-                    print("Unable to send message as text, we do not have the recipient's public key.")
-                }
-            } else {
-                Toast.makeText(this, getString(R.string.toastTextMustSelectAFriendToSendAMessage), Toast.LENGTH_SHORT).show()
-                // TODO: We may want to simply disable the send buttons until a friend is selected
-                print("Unable to send a message as text, the recipient has not been selected.")
-            }
+            sendAsText(message)
         }
 
+        // Send message as image button
         send_as_image_button.setOnClickListener {
             pickImageFromGallery()
         }
+
+        when {
+            intent?.action == Intent.ACTION_SEND -> {
+                // Received shared data
+                Toast.makeText(this, "Received shared data.", Toast.LENGTH_SHORT).show()
+                if ("text/plain" == intent.type) {
+                    handleSharedText(intent)
+                } else if (intent.type?.startsWith("image/") == true) {
+                    handleSharedImage(intent)
+                }
+            }
+        }
+    }
+
+    fun selectFriend() {
+        val intent = FriendSelectionActivity.newIntent(this@NewMessageActivity)
+        Intent(this, FriendSelectionActivity::class.java)
+        startActivityForResult(intent, FRIEND_PICK_CODE)
     }
 
     fun pickImageFromGallery() {
@@ -64,6 +66,36 @@ class NewMessageActivity : AppCompatActivity() {
 
         if (pickImageIntent.resolveActivity(packageManager) != null) {
             startActivityForResult(pickImageIntent, IMAGE_PICK_CODE)
+        }
+    }
+
+    fun sendAsText(message: String) {
+        if (selectedFriend != null) {
+            if (selectedFriend!!.publicKeyEncoded != null) {
+                // Share this message as a text
+                ShareUtil.shareText(this, message, selectedFriend!!.publicKeyEncoded!!)
+            } else {
+                Toast.makeText(this, getString(R.string.toastTextCanOnlyMessageAVerifiedFriend), Toast.LENGTH_SHORT).show()
+                print("Unable to send message as text, we do not have the recipient's public key.")
+            }
+        } else {
+            Toast.makeText(this, getString(R.string.toastTextMustSelectAFriendToSendAMessage), Toast.LENGTH_SHORT).show()
+            // TODO: We may want to simply disable the send buttons until a friend is selected
+            print("Unable to send a message as text, the recipient has not been selected.")
+        }
+    }
+
+    fun handleSharedText(intent: Intent) {
+        intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
+            // Update UI to reflect text being shared
+            Toast.makeText(this, "Received shared text $it.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun handleSharedImage(intent: Intent) {
+        (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
+            // Update UI to reflect image being shared
+            Toast.makeText(this, "Received shared image. $it", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -80,7 +112,7 @@ class NewMessageActivity : AppCompatActivity() {
                         // Get the message text
                         var message = editMessageText.text.toString()
 
-                        // TODO: get data?.data as URI
+                        // get data?.data as URI
                         val imageURI = data?.data as? Uri
 
                         imageURI?.let {

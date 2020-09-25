@@ -53,21 +53,23 @@ class Stencil {
         val heightOffset = (3 * row) + 2
         val widthOffset = (3 * column) + 2
 
+        var newBitmap = bitmap
+
         if (bit)
         {
-            bitmap.setPixel(widthOffset, heightOffset, 255)
+            newBitmap.setPixel(widthOffset, heightOffset, 255)
         }
         else
         {
-            bitmap.setPixel(widthOffset, heightOffset, 0)
+            newBitmap.setPixel(widthOffset, heightOffset, 0)
         }
 
-        bitmap.setPixel(widthOffset-1, heightOffset, 128)
-        bitmap.setPixel(widthOffset, heightOffset-1, 128)
-        bitmap.setPixel(widthOffset+1, heightOffset, 128)
-        bitmap.setPixel(widthOffset, heightOffset+1, 128)
+        newBitmap.setPixel(widthOffset-1, heightOffset, 128)
+        newBitmap.setPixel(widthOffset, heightOffset-1, 128)
+        newBitmap.setPixel(widthOffset+1, heightOffset, 128)
+        newBitmap.setPixel(widthOffset, heightOffset+1, 128)
 
-        return bitmap
+        return newBitmap
     }
 
     fun decode(ciphertext: Bitmap): String
