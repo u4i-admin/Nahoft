@@ -1,11 +1,12 @@
 package org.org.codex
 
+import java.security.Key
 import java.util.*
 
 enum class KeyOrMessage(val byte: Byte)
 {
-    Key(0),
-    EncryptedMessage(1)
+    Key(1),
+    EncryptedMessage(2)
 }
 
 class DecodeResult(val type: KeyOrMessage, val payload: ByteArray)
@@ -13,21 +14,20 @@ class DecodeResult(val type: KeyOrMessage, val payload: ByteArray)
 class Codex {
     fun encodeKey(key: ByteArray): String
     {
-        return encode(0, key)
+        return encode(KeyOrMessage.Key.byte, key)
     }
 
     fun encodeEncryptedMessage(message: ByteArray): String
     {
-        return encode(1, message)
+        return encode(KeyOrMessage.EncryptedMessage.byte, message)
     }
 
-    private fun encode(firstByte: Byte, data: ByteArray): String
+    fun encode(firstByte: Byte, data: ByteArray): String
     {
         val typedData = byteArrayOf(firstByte) + data
-        val bits = makeBitSet(typedData)
 
         val script = AlphanumericScript()
-        val result = script.encode(bits)
+        val result = script.encode(typedData)
 
         return result
     }
@@ -35,18 +35,15 @@ class Codex {
     fun decode(ciphertext: String): DecodeResult?
     {
         val script = AlphanumericScript()
-        val bits = script.decode(ciphertext)
-        val data = bits.toByteArray()
+        val data = script.decode(ciphertext)
 
         val type = data[0]
         val payload = data.slice(1..data.lastIndex).toByteArray()
 
-        val result = String(payload)
-
         when (type)
         {
-            0.toByte() -> return DecodeResult(KeyOrMessage.Key, payload)
-            1.toByte() -> return DecodeResult(KeyOrMessage.EncryptedMessage, payload)
+            KeyOrMessage.Key.byte -> return DecodeResult(KeyOrMessage.Key, payload)
+            KeyOrMessage.EncryptedMessage.byte -> return DecodeResult(KeyOrMessage.EncryptedMessage, payload)
         }
 
         return null
@@ -63,10 +60,7 @@ fun makeBitSet(bytes: ByteArray): BitSet
 
         for (bitIndex in 0..7)
         {
-            val byteInt = byte.toInt()
-            val bigInt = byteInt.toBigInteger()
-            val bigBit = (bigInt shl bitIndex) shr (7 - bitIndex)
-            val bit = bigBit.toInt()
+            val bit = (byte.toInt() shl bitIndex) shr (7 - bitIndex)
             val bool = bit != 0
 
             val resultIndex = (byteIndex * 8) + bitIndex
