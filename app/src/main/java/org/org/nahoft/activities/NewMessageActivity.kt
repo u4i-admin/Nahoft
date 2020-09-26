@@ -5,20 +5,14 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcelable
 import android.provider.MediaStore
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_new_message.*
-import org.org.codex.Codex
-import org.org.stencil.Stencil
+import org.org.nahoft.activities.FriendSelectionActivity
+import org.org.util.RequestCodes
 import org.org.util.ShareUtil
 
 class NewMessageActivity : AppCompatActivity() {
-//EditText message_text_view
-//Button send_as_text_button
-
-    val IMAGE_PICK_CODE = 1046
-    val FRIEND_PICK_CODE = 1045
 
     var selectedFriend: Friend? = null
 
@@ -41,31 +35,19 @@ class NewMessageActivity : AppCompatActivity() {
         send_as_image_button.setOnClickListener {
             pickImageFromGallery()
         }
-
-        when {
-            intent?.action == Intent.ACTION_SEND -> {
-                // Received shared data
-                Toast.makeText(this, "Received shared data.", Toast.LENGTH_SHORT).show()
-                if ("text/plain" == intent.type) {
-                    handleSharedText(intent)
-                } else if (intent.type?.startsWith("image/") == true) {
-                    handleSharedImage(intent)
-                }
-            }
-        }
     }
 
     fun selectFriend() {
         val intent = FriendSelectionActivity.newIntent(this@NewMessageActivity)
         Intent(this, FriendSelectionActivity::class.java)
-        startActivityForResult(intent, FRIEND_PICK_CODE)
+        startActivityForResult(intent, RequestCodes.selectFriendCode)
     }
 
     fun pickImageFromGallery() {
         val pickImageIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
 
         if (pickImageIntent.resolveActivity(packageManager) != null) {
-            startActivityForResult(pickImageIntent, IMAGE_PICK_CODE)
+            startActivityForResult(pickImageIntent, RequestCodes.selectImageCode)
         }
     }
 
@@ -85,25 +67,12 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
-    fun handleSharedText(intent: Intent) {
-        intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
-            // Update UI to reflect text being shared
-            Toast.makeText(this, "Received shared text $it.", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    fun handleSharedImage(intent: Intent) {
-        (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
-            // Update UI to reflect image being shared
-            Toast.makeText(this, "Received shared image. $it", Toast.LENGTH_SHORT).show()
-        }
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == IMAGE_PICK_CODE) {
+            if (requestCode == RequestCodes.selectImageCode) {
 
                 // We can only share an image if a recipient with a public key has been selected
                 selectedFriend?.let {
@@ -122,10 +91,10 @@ class NewMessageActivity : AppCompatActivity() {
 
                 }
 
-            } else if (requestCode == FRIEND_PICK_CODE) {
+            } else if (requestCode == RequestCodes.selectFriendCode) {
 
                 // Get Friend information from data
-                val friend = data?.getSerializableExtra(FriendSelectionActivity.FRIEND_EXTRA_TASK_DESCRIPTION) as? Friend
+                val friend = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription) as? Friend
 
                 // If friend is not null use it to set the button title and set selectedFriend
                 friend?.let {

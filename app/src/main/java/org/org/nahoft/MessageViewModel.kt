@@ -8,20 +8,20 @@ import java.io.ByteArrayInputStream
 import java.io.File
 import java.lang.Exception
 
-object FriendViewModel: ViewModel() {
+class MessageViewModel: ViewModel() {
 
-    private var friends: ArrayList<Friend>? = null
+    private var messages: ArrayList<Message>? = null
 
-    fun getFriends(file: File, context: Context): ArrayList<Friend> {
+    fun getMessages(file: File, context: Context): ArrayList<Message>? {
 
-        if (friends == null) {
-            loadFriends(file, context)
+        if (messages == null) {
+            loadMessages(file, context)
         }
 
-        return friends ?: arrayListOf()
+        return messages ?: arrayListOf()
     }
 
-    private fun loadFriends(file: File, context: Context) {
+    private fun loadMessages(file: File, context: Context) {
 
         val persistenceEncryption = PersistenceEncryption()
         val decryptedBytes = persistenceEncryption.readEncryptedFile(file, context)
@@ -29,13 +29,13 @@ object FriendViewModel: ViewModel() {
         if (decryptedBytes.isNotEmpty()) {
             val serializer = Persister()
             val inputStream = ByteArrayInputStream(decryptedBytes)
-            val friends = try { serializer.read(Friends::class.java, inputStream)
+            val messages = try { serializer.read(Messages::class.java, inputStream)
             } catch (error: Exception) {
-                print("Error loading friends: $error")
+                print("Error loading messages: $error")
                 null
             }
 
-            this.friends = friends?.list?.let { ArrayList(it)}
+            this.messages = messages?.list?.let { ArrayList(it) }
         }
     }
 }

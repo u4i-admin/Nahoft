@@ -83,5 +83,6 @@
     <string name="friend_status_label_invited">Invited</string>
     <string name="approve_invitation_button_label">Approve</string>
     <string name="decline_invitation_button_label">Decline</string>
+    <string name="which_friend_sent_this_key_prompt">Which friend sent this key?</string>
 
 </resources>
