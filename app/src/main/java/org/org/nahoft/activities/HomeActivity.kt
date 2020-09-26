@@ -90,8 +90,8 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(this, "Received shared text $it.", Toast.LENGTH_SHORT).show()
 
             val decodeResult = Codex().decode(it)
-            if (decodeResult != null) {
 
+            if (decodeResult != null) {
                 this.decodePayload = decodeResult.payload
 
                 if (decodeResult.type == KeyOrMessage.EncryptedMessage) {
@@ -105,9 +105,10 @@ class HomeActivity : AppCompatActivity() {
                     val selectSenderIntent = Intent(this, SelectKeySenderActivity::class.java)
                     startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
 
-                    // Only allow user to select a friend that we have not already received a key for (Default or Invited status)
-                    val sender = Friend("12332", "test", FriendStatus.Default, null)
+                    // TODO: Only allow user to select a friend that we have not already received a key for (Default or Invited status)
                 }
+            } else {
+                Toast.makeText(this, "Something went wrong. We were unable to decode the message.", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -139,11 +140,9 @@ class HomeActivity : AppCompatActivity() {
                         // Go to message view
                         val messageArguments = MessageActivity.Arguments(message = newMessage)
                         messageArguments.startActivity(this)
-
                     }
                 }
 
-                // TODO: Display Message
             } else if (requestCode == RequestCodes.selectKeySenderCode) {
                 val sender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)?.let { it as Friend }
 
@@ -182,7 +181,6 @@ class HomeActivity : AppCompatActivity() {
                         Persist.messageList.add(newMessage)
                     }
                 }
-                // TODO: Show message
             }
         }
     }
