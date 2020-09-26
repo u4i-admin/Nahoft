@@ -148,16 +148,15 @@ class HomeActivity : AppCompatActivity() {
 
                 // Update this friend with a new key and a new status
                 if (sender != null && decodePayload != null) {
-                    sender.publicKeyEncoded = decodePayload
 
                     when (sender.status) {
                         FriendStatus.Default -> {
-                            sender.status = FriendStatus.Requested
+                            updateFriend(friendToUpdate = sender, newStatus = FriendStatus.Requested, encodedPublicKey = decodePayload!!)
                             Toast.makeText(this, "Received an invitation from ${sender.name}. Accept their invite to start communicating.", Toast.LENGTH_LONG).show()
                         }
 
                         FriendStatus.Invited -> {
-                            sender.status = FriendStatus.Approved
+                            updateFriend(friendToUpdate = sender, newStatus = FriendStatus.Approved, encodedPublicKey = decodePayload!!)
                             Toast.makeText(this, "${sender.name} accepted your invitation. You can now communicate securely.", Toast.LENGTH_LONG).show()
                         }
 
@@ -185,6 +184,12 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateFriend(friendToUpdate: Friend, newStatus: FriendStatus, encodedPublicKey: ByteArray) {
+
+        //val friendExists = Persist.friendList.any{friend: Friend -> friend.id == friendToUpdate.id}
+        Persist.friendList.find { it.id == friendToUpdate.id }?.status = newStatus
+        Persist.friendList.find { it.id == friendToUpdate.id }?.publicKeyEncoded = encodedPublicKey
+    }
 
 }
 

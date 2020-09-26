@@ -77,7 +77,7 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
 
                 // Set friend status to Invited
                 this.friend?.status = FriendStatus.Invited
-                setupDefaultRow()
+                setupInvitedRow()
             }
         }
 
@@ -86,12 +86,14 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             if (this.friend?.publicKeyEncoded != null) {
                 // Set friend status to Accepted
                 this.friend?.status = FriendStatus.Approved
+                setupApprovedRow()
             }
         }
 
         fun declineClicked() {
             // Set Friend Status to Default
             this.friend?.status = FriendStatus.Default
+            setupDefaultRow()
         }
 
         fun setupRowByStatus(thisFriend: Friend) {

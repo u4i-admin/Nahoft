@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_select_key_sender.*
-import org.org.nahoft.Persist
-import org.org.nahoft.R
-import org.org.nahoft.SelectKeySenderRecyclerAdapter
-import org.org.nahoft.SelectMessageSenderRecyclerAdapter
+import org.org.nahoft.*
 import org.org.util.RequestCodes
 
 class SelectKeySenderActivity : AppCompatActivity() {
@@ -25,8 +22,17 @@ class SelectKeySenderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_key_sender)
 
+        // Only allow the user to select a friend that is in the default or invited state
+        val possibleKeySenders = ArrayList<Friend>()
+
+        for (friend in Persist.friendList) {
+            if (friend.status == FriendStatus.Default || friend.status == FriendStatus.Invited) {
+                possibleKeySenders.add(friend)
+            }
+        }
+
         linearLayoutManager = LinearLayoutManager(this)
-        adapter = SelectKeySenderRecyclerAdapter(Persist.friendList) {
+        adapter = SelectKeySenderRecyclerAdapter(possibleKeySenders) {
 
             // On click listener for the recycler view
             val result = Intent()
