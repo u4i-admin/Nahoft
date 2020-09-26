@@ -20,7 +20,7 @@
         <activity android:name=".activities.MessageActivity" />
         <activity android:name=".activities.PasscodeActivity" />
         <activity android:name=".ApplicationShortcutActivity" />
-        <activity android:name=".EnterPasscodeActivity">
+        <activity android:name=".activities.EnterPasscodeActivity">
                   //android:noHistory="true"
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

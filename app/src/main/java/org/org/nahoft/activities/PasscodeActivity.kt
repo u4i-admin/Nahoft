@@ -4,8 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.security.crypto.EncryptedSharedPreferences
-import kotlinx.android.synthetic.main.activity_messages.*
 import kotlinx.android.synthetic.main.activity_passcode.*
 import org.org.nahoft.*
 
@@ -14,15 +12,6 @@ class PasscodeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passcode)
-
-        // Shared Preferences
-        Persist.encryptedSharedPreferences = EncryptedSharedPreferences.create(
-            Persist.sharedPrefFilename,
-            Persist.masterKeyAlias,
-            this.applicationContext,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        ) as EncryptedSharedPreferences
 
         updateSwitch()
 
@@ -36,10 +25,6 @@ class PasscodeActivity : AppCompatActivity() {
             handleSaveButtonClick()
         }
 
-        // Enter Passcode Button Listener
-        enter_passcode_screen_button.setOnClickListener {
-            enterPasscodeScreenClick()
-        }
     }
 
     override fun onBackPressed() {
@@ -169,14 +154,5 @@ class PasscodeActivity : AppCompatActivity() {
         }
 
     }
-
-    fun enterPasscodeScreenClick() {
-
-        enter_passcode_screen_button.setOnClickListener {
-            val goToPasscodeEntryScreenIntent = Intent(this, EnterPasscodeActivity::class.java)
-            startActivity(goToPasscodeEntryScreenIntent)
-        }
-    }
-
 
 }

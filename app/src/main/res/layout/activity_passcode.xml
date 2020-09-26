@@ -81,25 +81,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/verify_secondary_passcode_layout" />
 
-        <Button
-            android:id="@+id/enter_passcode_screen_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/enter_passcode_screen"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/save_passcode_button" />
-
-        <Button
-            android:id="@+id/logout_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/logout_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/enter_passcode_screen_button" />
+        //Button
+            //android:id="@+id/logout_button"
+            //android:layout_width="wrap_content"
+            //android:layout_height="wrap_content"
+            //android:text="@string/logout_button"
+            //app:layout_constraintEnd_toEndOf="parent"
+            //app:layout_constraintHorizontal_bias="0.5"
+            //app:layout_constraintStart_toStartOf="parent"
+            //app:layout_constraintTop_toBottomOf="@+id/enter_passcode_screen_button" />
 
     </LinearLayout>
 

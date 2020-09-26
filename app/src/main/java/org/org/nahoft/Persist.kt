@@ -2,6 +2,7 @@ package org.org.nahoft
 
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import org.org.nahoft.activities.LoginStatus
 import java.io.File
 
 class Persist {
