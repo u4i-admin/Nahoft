@@ -1,4 +1,4 @@
-package org.org.nahoft
+package org.org.nahoft.activities
 
 import android.Manifest
 import android.content.ContentResolver
@@ -7,25 +7,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_friends.*
 import org.org.codex.PersistenceEncryption
+import org.org.nahoft.*
 import org.simpleframework.xml.core.Persister
 import java.io.*
 import java.lang.Exception
-import java.util.*
 
 class FriendsActivity : AppCompatActivity() {
 
-    val PERMISSIONS_REQUEST_READ_CONTACTS = 100
-
+    private val permissionsRequestReadContacts = 100
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: FriendsRecyclerAdapter
 
-    private val lastVisibleItemPosition: Int
-        get() = linearLayoutManager.findLastVisibleItemPosition()
+//    private val lastVisibleItemPosition: Int
+//        get() = linearLayoutManager.findLastVisibleItemPosition()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +53,7 @@ class FriendsActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
+        if (requestCode == permissionsRequestReadContacts) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 loadContacts()
@@ -72,8 +70,6 @@ class FriendsActivity : AppCompatActivity() {
     }
 
     private fun loadContacts() {
-        var builder = StringBuilder()
-
         // Check if we have permission to see the user's contacts
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -83,7 +79,7 @@ class FriendsActivity : AppCompatActivity() {
             // We don't have permission, ask for it
             requestPermissions(
                 arrayOf(Manifest.permission.READ_CONTACTS),
-                PERMISSIONS_REQUEST_READ_CONTACTS
+                permissionsRequestReadContacts
             )
         } else {
             // Permission granted!
@@ -92,8 +88,8 @@ class FriendsActivity : AppCompatActivity() {
         }
     }
 
-    fun getContacts() {
-        val resolver: ContentResolver = contentResolver;
+    private fun getContacts() {
+        val resolver: ContentResolver = contentResolver
         val cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null)
 
         if (cursor != null) {
@@ -116,6 +112,7 @@ class FriendsActivity : AppCompatActivity() {
                     }
                 }
 
+                cursor.close()
                 saveFriendsToFile()
             }
         } else {
@@ -128,14 +125,10 @@ class FriendsActivity : AppCompatActivity() {
         val outputStream = ByteArrayOutputStream()
 
         val friendsObject = Friends(Persist.friendList)
-        val serializedFriends = try { serializer.write(friendsObject, outputStream) } catch (e: Exception) {
+        try { serializer.write(friendsObject, outputStream) } catch (e: Exception) {
             print("Failed to serialize our friends list: $e")
         }
-        print("serialized friends: $serializedFriends")
+
         PersistenceEncryption().writeEncryptedFile(Persist.friendsFile, outputStream.toByteArray(), applicationContext)
     }
-}
-
-object FileConstants {
-    const val datasourceFilename = "friends.xml"
 }

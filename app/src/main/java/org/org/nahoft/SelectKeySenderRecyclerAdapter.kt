@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.friend_selection_recyclerview_item_row.view.*
 import org.org.inflate
 
-class FriendSelectionRecyclerAdapter(private val friends: ArrayList<Friend>,
+class SelectKeySenderRecyclerAdapter(private val friends: ArrayList<Friend>,
                                      private val listener: (Friend) -> Unit
-) : RecyclerView.Adapter<FriendSelectionRecyclerAdapter.FriendViewHolder>() {
+) : RecyclerView.Adapter<SelectKeySenderRecyclerAdapter.FriendViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
         val inflatedView = parent.inflate(R.layout.friend_selection_recyclerview_item_row, false)
@@ -23,6 +23,7 @@ class FriendSelectionRecyclerAdapter(private val friends: ArrayList<Friend>,
 
     override fun getItemCount() = friends.size
 
+    // View Holder
     class FriendViewHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
 
         private var friend: Friend? = null
@@ -41,5 +42,4 @@ class FriendSelectionRecyclerAdapter(private val friends: ArrayList<Friend>,
             this.view.friendSelectionName.text = newFriend.name
         }
     }
-
 }

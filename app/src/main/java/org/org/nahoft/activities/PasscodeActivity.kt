@@ -1,4 +1,4 @@
-package org.org.nahoft.Activities
+package org.org.nahoft.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
