@@ -1,12 +1,16 @@
 package org.org.nahoft
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
 import android.provider.MediaStore
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_new_message.*
 import org.org.codex.Codex
@@ -35,6 +39,7 @@ class NewMessageActivity : AppCompatActivity() {
         send_as_text_button.setOnClickListener {
             var message = editMessageText.text.toString()
             sendAsText(message)
+
         }
 
         // Send message as image button

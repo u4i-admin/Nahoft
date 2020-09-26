@@ -19,6 +19,7 @@
         <activity android:name=".Activities.PasscodeActivity" />
         <activity android:name=".ApplicationShortcutActivity" />
         <activity android:name=".EnterPasscodeActivity">
+                  //android:noHistory="true"
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

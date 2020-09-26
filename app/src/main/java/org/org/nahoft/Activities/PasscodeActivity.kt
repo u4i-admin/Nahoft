@@ -1,13 +1,13 @@
 package org.org.nahoft.Activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.security.crypto.EncryptedSharedPreferences
+import kotlinx.android.synthetic.main.activity_messages.*
 import kotlinx.android.synthetic.main.activity_passcode.*
-import org.org.nahoft.LoginStatus
-import org.org.nahoft.Persist
-import org.org.nahoft.R
+import org.org.nahoft.*
 
 class PasscodeActivity : AppCompatActivity() {
 
@@ -34,6 +34,11 @@ class PasscodeActivity : AppCompatActivity() {
         // Save Button Listener
         save_passcode_button.setOnClickListener {
             handleSaveButtonClick()
+        }
+
+        // Enter Passcode Button Listener
+        enter_passcode_screen_button.setOnClickListener {
+            enterPasscodeScreenClick()
         }
     }
 
@@ -115,6 +120,7 @@ class PasscodeActivity : AppCompatActivity() {
         val secondaryPasscode = secondary_passcode_input.text.toString()
         val secondaryPasscode2 = verify_secondary_passcode_input.text.toString()
         val persist = Persist()
+        val enterPasscodeIntent = Intent (this, EnterPasscodeActivity::class.java)
 
         if (passcode == "") {
             Toast.makeText(this, getString(R.string.toastTextPasscodeFieldIsEmpty), Toast.LENGTH_SHORT).show()
@@ -135,6 +141,7 @@ class PasscodeActivity : AppCompatActivity() {
         }
 
         persist.saveKey(Persist.sharedPrefPasscodeKey, passcode)
+        startActivity(enterPasscodeIntent)
 
         if(secondaryPasscode == "") {
 
@@ -161,6 +168,14 @@ class PasscodeActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    fun enterPasscodeScreenClick() {
+
+        enter_passcode_screen_button.setOnClickListener {
+            val goToPasscodeEntryScreenIntent = Intent(this, EnterPasscodeActivity::class.java)
+            startActivity(goToPasscodeEntryScreenIntent)
+        }
     }
 
 

@@ -82,10 +82,10 @@ class EnterPasscodeActivity : AppCompatActivity () {
 
     fun saveStatus() {
         Persist.encryptedSharedPreferences
-            .edit()
-            .putString(Persist.sharedPrefLoginStatusKey, Persist.status.name)
-            .apply()
-    }
+    .edit()
+    .putString(Persist.sharedPrefLoginStatusKey, Persist.status.name)
+    .apply()
+}
 
     fun tryLogIn(status: LoginStatus) {
         when (status) {
