@@ -21,7 +21,6 @@ class EnterPasscodeActivity : AppCompatActivity () {
 
         // Load status from preferences
         Persist().loadEncryptedSharedPreferences(this.applicationContext)
-
         this.getStatus()
         tryLogIn(Persist.status)
 

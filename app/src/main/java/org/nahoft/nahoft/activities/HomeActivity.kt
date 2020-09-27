@@ -26,6 +26,8 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        Persist.app = Nahoft()
+
         messages_button.setOnClickListener {
             println("message button clicked")
             val messagesIntent = Intent(this, MessagesActivity::class.java)

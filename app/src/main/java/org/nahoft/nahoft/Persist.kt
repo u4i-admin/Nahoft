@@ -1,5 +1,6 @@
 package org.nahoft.nahoft
 
+import android.app.Application
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
@@ -9,6 +10,8 @@ import java.io.File
 class Persist {
 
     companion object {
+
+
         val sharedPrefLoginStatusKey = "NahoftLoginStatus"
         val sharedPrefPasscodeKey = "NahoftPasscode"
         val sharedPrefSecondaryPasscodeKey = "NahoftSecondaryPasscode"
@@ -26,6 +29,7 @@ class Persist {
         // Initialized by HomeActivity
         lateinit var friendsFile: File
         lateinit var messagesFile: File
+        lateinit var app: Application
 
         var friendList = ArrayList<Friend>()
         var messageList = ArrayList<Message>()
