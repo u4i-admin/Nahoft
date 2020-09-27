@@ -20,8 +20,8 @@
         <activity android:name="org.nahoft.nahoft.activities.MessageActivity" />
         <activity android:name="org.nahoft.nahoft.activities.PasscodeActivity" />
         <activity android:name="org.nahoft.nahoft.ApplicationShortcutActivity" />
-        <activity android:name="org.nahoft.nahoft.activities.EnterPasscodeActivity">
-                  //android:noHistory="true"
+        <activity android:name="org.nahoft.nahoft.activities.EnterPasscodeActivity"
+                  android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
