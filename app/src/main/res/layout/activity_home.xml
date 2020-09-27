@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context=".HomeActivity">
+    tools:context=".activities.HomeActivity">
 
     <ImageButton
         android:id="@+id/messages_button"

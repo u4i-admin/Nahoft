@@ -4,7 +4,7 @@ import android.content.Context
 import android.security.keystore.KeyProperties
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import org.nahoft.Nahoft.Persist
+import org.nahoft.nahoft.Persist
 import java.math.BigInteger
 import java.nio.ByteBuffer
 import java.security.*
