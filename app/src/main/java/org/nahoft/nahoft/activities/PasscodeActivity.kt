@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_passcode.*
 import org.nahoft.nahoft.*
+import org.nahoft.nahoft.Persist.Companion.status
 
 class PasscodeActivity : AppCompatActivity() {
 
@@ -105,7 +106,6 @@ class PasscodeActivity : AppCompatActivity() {
         val secondaryPasscode = secondary_passcode_input.text.toString()
         val secondaryPasscode2 = verify_secondary_passcode_input.text.toString()
         val persist = Persist()
-        val enterPasscodeIntent = Intent (this, EnterPasscodeActivity::class.java)
 
         if (passcode == "") {
             Toast.makeText(this, getString(R.string.toastTextPasscodeFieldIsEmpty), Toast.LENGTH_SHORT).show()
@@ -126,7 +126,6 @@ class PasscodeActivity : AppCompatActivity() {
         }
 
         persist.saveKey(Persist.sharedPrefPasscodeKey, passcode)
-        startActivity(enterPasscodeIntent)
 
         if(secondaryPasscode == "") {
 
@@ -134,6 +133,13 @@ class PasscodeActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.toastTextSecondaryPasscodeFieldWasEmpty), Toast.LENGTH_SHORT).show()
 
                 return
+            } else {
+
+                // Set user status
+                status = LoginStatus.LoggedIn
+
+                // Return to previous screen
+                finish()
             }
 
         } else {
@@ -150,6 +156,12 @@ class PasscodeActivity : AppCompatActivity() {
             }
 
             persist.saveKey(Persist.sharedPrefSecondaryPasscodeKey, secondaryPasscode)
+
+            // Set user status
+            status = LoginStatus.LoggedIn
+
+            // Return to previous screen
+            finish()
 
         }
 

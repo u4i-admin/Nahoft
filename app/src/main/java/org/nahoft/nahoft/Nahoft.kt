@@ -7,7 +7,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
+import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.nahoft.activities.EnterPasscodeActivity
+import org.nahoft.nahoft.activities.LoginStatus
 import java.util.*
 
 class Nahoft: Application(), LifecycleObserver {
@@ -32,7 +34,17 @@ class Nahoft: Application(), LifecycleObserver {
             }
 
             override fun onFinish() {
-                // TODO("Logout the user if they are logged in")
+                // Logout the user if they are logged in
+
+                if (status == LoginStatus.LoggedIn) {
+                    status = LoginStatus.LoggedOut
+                    Persist().saveStatus()
+                } else if(status == LoginStatus.NotRequired) {
+                    return
+                }
+
+                // TODO Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag.
+                // Return user to the EnterPasscodeActivity
                 val enterPasscodeIntent = Intent(this@Nahoft, EnterPasscodeActivity::class.java)
                 startActivity(enterPasscodeIntent)
             }
