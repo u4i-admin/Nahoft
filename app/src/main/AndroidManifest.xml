@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.org.nahoft">
+    package="org.nahoft.Nahoft">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".Nahoft"
+        android:name="org.nahoft.Nahoft.Nahoft"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:installLocation="internalOnly"
@@ -15,27 +15,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.MessageActivity"></activity>
-        <activity android:name=".Activities.PasscodeActivity" />
-        <activity android:name=".ApplicationShortcutActivity" />
-        <activity android:name=".EnterPasscodeActivity">
+        <activity android:name="org.nahoft.Nahoft.activities.SelectKeySenderActivity"></activity>
+        <activity android:name="org.nahoft.Nahoft.activities.SelectMessageSenderActivity" />
+        <activity android:name="org.nahoft.Nahoft.activities.MessageActivity" />
+        <activity android:name="org.nahoft.Nahoft.activities.PasscodeActivity" />
+        <activity android:name="org.nahoft.Nahoft.ApplicationShortcutActivity" />
+        <activity android:name="org.nahoft.Nahoft.activities.EnterPasscodeActivity">
+                  //android:noHistory="true"
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SetLanguageActivity" />
-        <activity android:name=".FriendsActivity" />
-        <activity android:name=".FriendSelectionActivity" />
-        <activity android:name=".NewMessageActivity" />
-        <activity android:name=".ReceivingMessageUserGuideActivity" />
-        <activity android:name=".SettingsUserGuideActivity" />
-        <activity android:name=".SendingMessagesUserGuideActivity" />
-        <activity android:name=".FriendsUserGuideActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".UserGuideActivity" />
-        <activity android:name=".MessagesActivity">
+        <activity android:name="org.nahoft.Nahoft.SetLanguageActivity" />
+        <activity android:name="org.nahoft.Nahoft.activities.FriendsActivity" />
+        <activity android:name="org.nahoft.Nahoft.activities.FriendSelectionActivity" />
+        <activity android:name="org.nahoft.Nahoft.NewMessageActivity" />
+        <activity android:name="org.nahoft.Nahoft.ReceivingMessageUserGuideActivity" />
+        <activity android:name="org.nahoft.Nahoft.SettingsUserGuideActivity" />
+        <activity android:name="org.nahoft.Nahoft.SendingMessagesUserGuideActivity" />
+        <activity android:name="org.nahoft.Nahoft.FriendsUserGuideActivity" />
+        <activity android:name="org.nahoft.Nahoft.SettingsActivity" />
+        <activity android:name="org.nahoft.Nahoft.UserGuideActivity" />
+        <activity android:name="org.nahoft.Nahoft.activities.MessagesActivity" />
+        <activity android:name="org.nahoft.Nahoft.HomeActivity">
 
             <!-- Allows other apps to share images with us -->
             <intent-filter>
@@ -54,7 +58,6 @@
                 <data android:mimeType="text/*" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity" />
     </application>
 
 </manifest>

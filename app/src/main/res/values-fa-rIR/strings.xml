@@ -61,6 +61,8 @@
     <string name="passcode_enabled">دوستان</string>
     <string name="save_passcode_button_label">دوستان</string>
     <string name="passcode_disabled_label">دوستان</string>
+    <string name="enter_passcode_screen">کمه صفحه رمز عبور را وارد کنید</string>
+    <string name="logout_button">خروج</string>
 
     //Passcode Activity Strings Located in Kotlin File Toast Texts
     <string name="toastTextPasscodeFieldIsEmpty">دوستان</string>
@@ -79,9 +81,11 @@
 
     //Friends Selection Recyclerview Item Row
     <string name="nameFriendsSelectionRecyclerviewItemRow">دوستان</string>
-    <string name="invite_friend_button_label">Invite</string>
-    <string name="friend_status_label_invited">Invited</string>
-    <string name="approve_invitation_button_label">Approve</string>
-    <string name="decline_invitation_button_label">Decline</string>
+    
+    <string name="invite_friend_button_label">دعوت</string>
+    <string name="friend_status_label_invited">دعوت کرد</string>
+    <string name="approve_invitation_button_label">تایید</string>
+    <string name="decline_invitation_button_label">کاهش می یابد</string>
+    <string name="which_friend_sent_this_key_prompt">Which friend sent this key?</string>
 
 </resources>

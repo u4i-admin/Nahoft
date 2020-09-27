@@ -63,6 +63,8 @@
     <string name="passcode_enabled">Passcode Enabled</string>
     <string name="save_passcode_button_label">Save</string>
     <string name="passcode_disabled_label">Passcode Disabled</string>
+    <string name="enter_passcode_screen">Enter Passcode Screen</string>
+    <string name="logout_button">Logout</string>
 
     //Passcode Activity Strings Located in Kotlin File Toast Texts
     <string name="toastTextPasscodeFieldIsEmpty">Passcode Field is Empty</string>
@@ -82,10 +84,16 @@
 
     //Friends Selection Recyclerview Item Row
     <string name="nameFriendsSelectionRecyclerviewItemRow">Name</string>
+
+
     <string name="unknown_sender_label">Unknown</string>
     <string name="invite_friend_button_label">Invite</string>
     <string name="friend_status_label_invited">Invited</string>
     <string name="approve_invitation_button_label">Accept</string>
     <string name="decline_invitation_button_label">Decline</string>
+    <string name="which_friend_sent_this_message_prompt">Which friend sent this message?</string>
+    <string name="which_friend_sent_this_key_prompt">Which friend sent this key?</string>
+
+
 
 </resources>
