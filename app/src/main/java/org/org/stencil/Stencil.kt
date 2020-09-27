@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
+import androidx.core.graphics.get
 import kotlin.math.ceil
 import kotlin.math.sqrt
 import org.org.codex.makeBitSet
@@ -72,8 +73,64 @@ class Stencil {
         return newBitmap
     }
 
-    fun decode(ciphertext: Bitmap): String
+    fun decode(context: Context, uri: Uri): ByteArray
     {
-        return "TBD"
+        val bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(context.contentResolver, uri))
+        return decode(bitmap)
+    }
+
+    fun decode(bitmap: Bitmap): ByteArray
+    {
+        var stars = findStars(bitmap)
+        stars = verifyStars(bitmap, stars)
+
+        return decodeStars(stars)
+    }
+
+    fun findStars(bitmap: Bitmap): List<Star>
+    {
+        var result: List<Star> = listOf()
+
+        for (x in 0..bitmap.width)
+        {
+            for (y in 0..bitmap.height)
+            {
+                val value = bitmap.get(x, y)
+                if ((value == 0) or (value == 255))
+                {
+                    val star = Star(x, y)
+                    result += star
+                }
+            }
+        }
+
+        return result
+    }
+
+    fun verifyStars(bitmap: Bitmap, stars: List<Star>): List<Star>
+    {
+        var result: List<Star> = listOf()
+
+        for (star in stars)
+        {
+            val x = star.x
+            val y = star.y
+
+            if (bitmap.get(x+1, y) != 128) {continue}
+            if (bitmap.get(x+1, y+1) != 128) {continue}
+            if (bitmap.get(x, y+1) != 128) {continue}
+            if (bitmap.get(x+1, y+1) != 128) {continue}
+
+            result += star
+        }
+
+        return result
+    }
+
+    fun decodeStars(stars: List<Star>): ByteArray
+    {
+        return byteArrayOf()
     }
 }
+
+class Star(val x: Int, val y: Int)
