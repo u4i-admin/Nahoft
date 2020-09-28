@@ -20,19 +20,20 @@ class Nahoft: Application(), LifecycleObserver {
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
     }
 
-//    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-//    fun onEnterForeground() {
-//        //TODO: Check login state and act accordingly
-//        // TODO Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag.
-//        // Return user to the EnterPasscodeActivity
-//        val enterPasscodeIntent = Intent(this@Nahoft, EnterPasscodeActivity::class.java)
-//        startActivity(enterPasscodeIntent)
-//    }
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onEnterForeground() {
+        //TODO: Check login state and act accordingly
+        // TODO Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag.
+        // Return user to the EnterPasscodeActivity
+        val enterPasscodeIntent = Intent(this@Nahoft, EnterPasscodeActivity::class.java)
+        enterPasscodeIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(enterPasscodeIntent)
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onEnterBackground() {
 
-        val logoutTimer = object: CountDownTimer(5000, 1000) {
+        val logoutTimer = object: CountDownTimer(15000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 // stub
             }

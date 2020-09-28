@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,12 +7,48 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".activities.HomeActivity">
 
+    <TextView
+        android:id="@+id/user_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:gravity="center"
+        android:text="@string/userGuideButtonDescription"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/user_guide_button"
+        app:layout_constraintEnd_toStartOf="@+id/user_guide_button"
+        app:layout_constraintTop_toTopOf="@+id/user_guide_button" />
+
+    <ImageButton
+        android:id="@+id/user_guide_button"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="115dp"
+        android:background="@drawable/menu_book"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/settings_button"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/settings_icon"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/user_guide_button"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <ImageButton
         android:id="@+id/messages_button"
         android:layout_width="66dp"
         android:layout_height="66dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/messages_icon"
         android:gravity="center"
         android:textColor="@android:color/white"
@@ -24,107 +59,81 @@
         android:id="@+id/friends_button"
         android:layout_width="66dp"
         android:layout_height="66dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/ic_person_plain"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/messages_button"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageButton
-        android:id="@+id/user_guide_button"
-        android:layout_width="66dp"
-        android:layout_height="66dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/menu_book"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <TextView
+        android:id="@+id/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:gravity="center"
+        android:text="@string/settingsButtonDescription"
+        android:textColor="@color/colorAccent"
+        android:textIsSelectable="false"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/settings_button"
+        app:layout_constraintEnd_toStartOf="@+id/settings_button"
+        app:layout_constraintTop_toTopOf="@+id/settings_button" />
 
-    <ImageButton
-        android:id="@+id/settings_button"
-        android:layout_width="66dp"
-        android:layout_height="66dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/settings_icon"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/user_guide_button"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <TextView
+        android:id="@+id/messages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:gravity="center"
+        android:text="@string/messagesButtonDescription"
+        android:textColor="@color/colorAccent"
+        android:textIsSelectable="false"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/messages_button"
+        app:layout_constraintEnd_toStartOf="@+id/messages_button"
+        app:layout_constraintTop_toTopOf="@+id/messages_button" />
+
+    <TextView
+        android:id="@+id/friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:gravity="center"
+        android:text="@string/friendsButtonDescription"
+        android:textColor="@color/colorAccent"
+        android:textIsSelectable="false"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/friends_button"
+        app:layout_constraintEnd_toStartOf="@+id/friends_button"
+        app:layout_constraintTop_toTopOf="@+id/friends_button" />
 
     <ImageView
         android:id="@+id/nahoft_message_bottle"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="150dp"
-        android:layout_marginBottom="174dp"
+        android:contentDescription="Nahoft Logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_nahoft" />
 
-    <TextView
-        android:id="@+id/friends"
-        android:layout_width="200dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="30dp"
-        android:gravity="center"
-        android:text="@string/friendsButtonDescription"
-        android:textIsSelectable="false"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@+id/messages"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <TextView
-        android:id="@+id/messages"
-        android:layout_width="207dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="30dp"
-        android:gravity="center"
-        android:text="@string/messagesButtonDescription"
-        android:textIsSelectable="false"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@+id/settings"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <TextView
-        android:id="@+id/settings"
-        android:layout_width="215dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="48dp"
-        android:gravity="center"
-        android:text="@string/settingsButtonDescription"
-        android:textIsSelectable="false"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@+id/user_guide"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/user_guide"
-        android:layout_width="211dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="50dp"
-        android:gravity="center"
-        android:text="@string/userGuideButtonDescription"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        android:textColor="@color/colorAccent"
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="43dp"
+        android:onClick="logoutClicked"
+        android:text="@string/logout_button"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
 

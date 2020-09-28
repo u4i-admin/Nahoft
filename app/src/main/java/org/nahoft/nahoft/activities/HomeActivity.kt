@@ -87,6 +87,15 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    fun logoutClicked(view: android.view.View) {
+        Persist.status = LoginStatus.LoggedOut
+        Persist.saveLoginStatus()
+
+        val returnToLoginIntent = Intent(this, EnterPasscodeActivity::class.java)
+        //returnToLoginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(returnToLoginIntent)
+    }
+
     private fun getStatus() {
 
         val statusString = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefLoginStatusKey, null)
