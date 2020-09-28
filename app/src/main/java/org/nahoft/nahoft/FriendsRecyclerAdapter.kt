@@ -63,8 +63,6 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
 
         fun inviteClicked() {
             // Get user's public key to send to contact
-            // TODO: Better way to get the user's public key?
-            //encryptedSharedPreferences.getString()
             val userPublicKey = Encryption(this.view.context).ensureKeysExist().public
 
             val keyBytes = Encryption.byteArrayFromPublicKey(userPublicKey)
@@ -81,9 +79,18 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         fun acceptClicked() {
             // Make sure that we have successfully received the friend's public key
             if (this.friend?.publicKeyEncoded != null) {
-                // Set friend status to Accepted
-                this.friend?.status = FriendStatus.Approved
-                setupApprovedRow()
+
+                val userPublicKey = Encryption(this.view.context).ensureKeysExist().public
+
+                val keyBytes = Encryption.byteArrayFromPublicKey(userPublicKey)
+                if (keyBytes != null) {
+                    // Share the key
+                    ShareUtil.shareKey(this.view.context, keyBytes)
+
+                    // Set friend status to Accepted
+                    this.friend?.status = FriendStatus.Approved
+                    setupApprovedRow()
+                }
             }
         }
 

@@ -1,21 +1,31 @@
 package org.nahoft.nahoft.activities
 
+import android.Manifest
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
+import android.provider.ContactsContract
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_home.*
 import org.nahoft.nahoft.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
+import org.nahoft.codex.PersistenceEncryption
 import org.nahoft.nahoft.Persist.Companion.friendsFilename
 import org.nahoft.nahoft.Persist.Companion.messagesFilename
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
+import org.simpleframework.xml.core.Persister
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.lang.Exception
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
@@ -49,6 +59,10 @@ class HomeActivity : AppCompatActivity() {
             startActivity(settingsIntent)
         }
 
+        // Load friends from file and add any new contacts
+        setupFriends()
+        loadSavedMessages()
+
         // Receive shared messages
         when (intent?.action) {
             Intent.ACTION_SEND -> {
@@ -69,14 +83,9 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
-
-        loadSavedFriends()
-        loadSavedMessages()
     }
 
     private fun loadSavedFriends() {
-
-        Persist.friendsFile = File(filesDir.absolutePath + File.separator + friendsFilename )
 
         // Load our existing friends list from our encrypted file
         if (Persist.friendsFile.exists()) {
@@ -115,8 +124,6 @@ class HomeActivity : AppCompatActivity() {
                     // We received a key, have the user select who it is from
                     val selectSenderIntent = Intent(this, SelectKeySenderActivity::class.java)
                     startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
-
-                    // TODO: Only allow user to select a friend that we have not already received a key for (Default or Invited status)
                 }
             } else {
                 Toast.makeText(this, "Something went wrong. We were unable to decode the message.", Toast.LENGTH_LONG).show()
@@ -185,11 +192,103 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    // TODO: Move this
+    // Friend Management
+
     private fun updateFriend(friendToUpdate: Friend, newStatus: FriendStatus, encodedPublicKey: ByteArray) {
 
         //val friendExists = Persist.friendList.any{friend: Friend -> friend.id == friendToUpdate.id}
         Persist.friendList.find { it.id == friendToUpdate.id }?.status = newStatus
         Persist.friendList.find { it.id == friendToUpdate.id }?.publicKeyEncoded = encodedPublicKey
+    }
+
+    private val permissionsRequestReadContacts = 100
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == permissionsRequestReadContacts) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                loadContacts()
+
+            } else {
+                println("No Permission For Contacts")
+            }
+        }
+    }
+
+    private fun setupFriends() {
+        Persist.friendsFile = File(filesDir.absolutePath + File.separator + friendsFilename )
+        loadSavedFriends()
+
+        // Check contacts for new friends.
+        loadContacts()
+    }
+
+    private fun loadContacts() {
+        // Check if we have permission to see the user's contacts
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_CONTACTS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // We don't have permission, ask for it
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.READ_CONTACTS),
+                permissionsRequestReadContacts
+            )
+        } else {
+            // Permission granted!
+            // Let's get the contacts and convert them to friends!
+            getContacts()
+        }
+    }
+
+    private fun getContacts() {
+        val resolver: ContentResolver = contentResolver
+        val cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null)
+
+        if (cursor != null) {
+            if (cursor.count > 0) {
+                while (cursor.moveToNext()) {
+                    val id =
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
+                    val name =
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                    val newFriend = Friend(id, name)
+
+                    // TODO: Find a better way to do this,
+                    //  after the first time this runs most contacts will already be in the friends list.
+
+                    // Only add this friend if the list does not contain a frined with that ID already
+                    if (!Persist.friendList.any { it.id == newFriend.id }) {
+                        Persist.friendList.add(newFriend)
+                    } else {
+                        print("******We didn't add the contact $name, they are already in our friend list.")
+                    }
+                }
+
+                cursor.close()
+                saveFriendsToFile()
+            }
+        } else {
+            println("cursor is null")
+        }
+    }
+
+    private fun saveFriendsToFile() {
+        val serializer = Persister()
+        val outputStream = ByteArrayOutputStream()
+
+        val friendsObject = Friends(Persist.friendList)
+        try { serializer.write(friendsObject, outputStream) } catch (e: Exception) {
+            print("Failed to serialize our friends list: $e")
+        }
+
+        PersistenceEncryption().writeEncryptedFile(Persist.friendsFile, outputStream.toByteArray(), applicationContext)
     }
 
 }
