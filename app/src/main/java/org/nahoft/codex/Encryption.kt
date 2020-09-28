@@ -5,6 +5,7 @@ import android.security.keystore.KeyProperties
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import org.nahoft.nahoft.Persist
+import java.lang.Exception
 import java.math.BigInteger
 import java.nio.ByteBuffer
 import java.security.*
@@ -28,7 +29,13 @@ class Encryption(val context: Context) {
             val keyFactory = KeyFactory.getInstance(KeyProperties.KEY_ALGORITHM_EC)
             val keySpec = X509EncodedKeySpec(encodedPublicKey)
 
-            return keyFactory.generatePublic(keySpec)
+            try {
+                val publicKey = keyFactory.generatePublic(keySpec)
+                return publicKey
+            } catch (error: Exception) {
+                print("Error getting public key from ByteArray")
+                return null
+            }
         }
 
         fun byteArrayFromPublicKey(publicKey: PublicKey): ByteArray {

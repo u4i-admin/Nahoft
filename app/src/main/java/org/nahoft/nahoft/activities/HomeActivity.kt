@@ -60,6 +60,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         // Load friends from file and add any new contacts
+        getStatus()
         setupFriends()
         loadSavedMessages()
 
@@ -82,6 +83,23 @@ class HomeActivity : AppCompatActivity() {
                     handleSharedImage(intent)
                 }
             }
+        }
+    }
+
+    private fun getStatus() {
+
+        val statusString = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefLoginStatusKey, null)
+
+        if (statusString != null) {
+
+            try {
+                Persist.status = LoginStatus.valueOf(statusString)
+            } catch (error: Exception) {
+                print("Received invalid status from EncryptedSharedPreferences. User is logged out.")
+                Persist.status = LoginStatus.LoggedOut
+            }
+        } else {
+            Persist.status = LoginStatus.NotRequired
         }
     }
 
