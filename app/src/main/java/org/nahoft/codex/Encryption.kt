@@ -10,6 +10,7 @@ import java.math.BigInteger
 import java.nio.ByteBuffer
 import java.security.*
 import java.security.spec.ECGenParameterSpec
+import java.security.spec.PKCS8EncodedKeySpec
 import java.security.spec.X509EncodedKeySpec
 import java.util.*
 import javax.crypto.Cipher
@@ -44,14 +45,15 @@ class Encryption(val context: Context) {
         }
 
         fun privateKeyFromByteArray(encodedPrivateKey: ByteArray): PrivateKey? {
-            val keySpec = X509EncodedKeySpec(encodedPrivateKey)
+            val keySpec = PKCS8EncodedKeySpec(encodedPrivateKey)
             val keyFactory = KeyFactory.getInstance(KeyProperties.KEY_ALGORITHM_EC)
 
             return keyFactory.generatePrivate(keySpec)
         }
 
-        fun byteArrayFromPrivateKey(publicKey: PrivateKey): ByteArray {
-            return publicKey.encoded
+        fun byteArrayFromPrivateKey(privateKey: PrivateKey): ByteArray {
+            val keySpec = PKCS8EncodedKeySpec(privateKey.encoded)
+            return keySpec.encoded
         }
     }
 
@@ -81,33 +83,18 @@ class Encryption(val context: Context) {
         keyPairGenerator.initialize(keyGenParameterSpec)
 
         val keyPair = keyPairGenerator.generateKeyPair()
-
         val format = keyPair.public.format
         println(format)
 
-        val encoded = keyPair.public.encoded
-        println(encoded)
+        val encodedPublicKey = byteArrayFromPublicKey(keyPair.public)
+        val encodedPrivateKey = byteArrayFromPrivateKey(keyPair.private)
 
         // Save the keys to EncryptedSharedPreferences
         Persist.encryptedSharedPreferences
             .edit()
-            .putString(privateKeyPreferencesKey, keyPair.private.encoded.toHexString())
-            .putString(publicKeyPreferencesKey, keyPair.public.encoded.toHexString())
+            .putString(privateKeyPreferencesKey, encodedPrivateKey.toHexString())
+            .putString(publicKeyPreferencesKey, encodedPublicKey.toHexString())
             .apply()
-
-        val sharedPreferences = EncryptedSharedPreferences.create(
-            "secret_shared_prefs",
-            Persist.masterKeyAlias,
-            context,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
-
-        with(sharedPreferences.edit()) {
-            putString(privateKeyPreferencesKey, keyPair.private.encoded.toHexString())
-            putString(publicKeyPreferencesKey, keyPair.public.encoded.toHexString())
-            commit()
-        }
 
         return  keyPair
     }
