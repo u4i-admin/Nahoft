@@ -29,14 +29,6 @@ class EnterPasscodeActivity : AppCompatActivity () {
             val maybePasscode = Persist.encryptedSharedPreferences.getString(sharedPrefPasscodeKey, null)
             val maybeSecondary = Persist.encryptedSharedPreferences.getString(sharedPrefSecondaryPasscodeKey, null)
 
-            if (maybePasscode != null &&maybeSecondary != null) {
-                // Populate our text inputs
-                enter_passcode_input.setText(maybePasscode)
-                verify_passcode_input.setText(maybePasscode)
-                secondary_passcode_input.setText(maybeSecondary)
-                verify_secondary_passcode_input.setText(maybeSecondary)
-            }
-
             when (enteredPassword) {
                 maybePasscode -> {
                     Persist.status = LoginStatus.LoggedIn
@@ -85,8 +77,9 @@ class EnterPasscodeActivity : AppCompatActivity () {
             // If the user has logged in successfully or if they didn't set a passcode
             // Send them to the home screen
             LoginStatus.LoggedIn, LoginStatus.NotRequired -> startActivity(Intent(this, HomeActivity::class.java))
-            //TODO: Change println to delete user data
-            LoginStatus.SecondaryLogin -> println("Secondary Login Successful")
+            // Secondary passcode entered delete user data
+            // TODO: Test to see if this works
+            LoginStatus.SecondaryLogin -> Persist().clearAllData()
             else -> println("Login Status is $status")
         }
     }

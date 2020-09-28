@@ -20,10 +20,14 @@ class Nahoft: Application(), LifecycleObserver {
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onEnterForeground() {
-        //TODO: Check login state and act accordingly
-    }
+//    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+//    fun onEnterForeground() {
+//        //TODO: Check login state and act accordingly
+//        // TODO Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag.
+//        // Return user to the EnterPasscodeActivity
+//        val enterPasscodeIntent = Intent(this@Nahoft, EnterPasscodeActivity::class.java)
+//        startActivity(enterPasscodeIntent)
+//    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onEnterBackground() {
@@ -33,6 +37,7 @@ class Nahoft: Application(), LifecycleObserver {
                 // stub
             }
 
+            //TODO: Work with Brandon this is not being called.
             override fun onFinish() {
                 // Logout the user if they are logged in
 
@@ -42,11 +47,6 @@ class Nahoft: Application(), LifecycleObserver {
                 } else if(status == LoginStatus.NotRequired) {
                     return
                 }
-
-                // TODO Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag.
-                // Return user to the EnterPasscodeActivity
-                val enterPasscodeIntent = Intent(this@Nahoft, EnterPasscodeActivity::class.java)
-                startActivity(enterPasscodeIntent)
             }
         }
 

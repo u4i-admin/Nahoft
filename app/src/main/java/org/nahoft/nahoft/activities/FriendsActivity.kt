@@ -114,6 +114,7 @@ class FriendsActivity : AppCompatActivity() {
 
                 cursor.close()
                 saveFriendsToFile()
+                adapter.notifyDataSetChanged()
             }
         } else {
             println("cursor is null")
