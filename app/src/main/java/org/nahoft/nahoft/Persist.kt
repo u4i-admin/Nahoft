@@ -47,7 +47,7 @@ class Persist {
 
         fun updateFriend(context: Context, friendToUpdate: Friend, newStatus: FriendStatus, encodedPublicKey: ByteArray? = null) {
 
-            var oldFriend = Persist.friendList.find { it.id == friendToUpdate.id }
+            var oldFriend = friendList.find { it.id == friendToUpdate.id }
 
             encodedPublicKey?.let {
                 val publicKey = Encryption.publicKeyFromByteArray(encodedPublicKey)

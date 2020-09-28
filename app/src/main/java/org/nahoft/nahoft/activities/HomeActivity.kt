@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_home.*
 import org.nahoft.nahoft.*
 import org.nahoft.codex.Codex
+import org.nahoft.codex.Encryption
 import org.nahoft.codex.KeyOrMessage
 import org.nahoft.codex.PersistenceEncryption
 import org.nahoft.nahoft.Persist.Companion.friendsFilename
@@ -36,6 +37,9 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        // Testing only
+        tests()
 
         Persist.app = Nahoft()
 
@@ -152,8 +156,6 @@ class HomeActivity : AppCompatActivity() {
                     val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
                     startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
                 } else {
-                    // We received a key
-
                     // We received a key, have the user select who it is from
                     val selectSenderIntent = Intent(this, SelectKeySenderActivity::class.java)
                     startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
@@ -304,6 +306,24 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
+    fun tests() {
+        val keyPair = Encryption(this).ensureKeysExist()
+        val encodedPrivateKey = Encryption.byteArrayFromPrivateKey(keyPair.private)
+        val encodedPublicKey = Encryption.byteArrayFromPublicKey(keyPair.public)
+        val privateKey = Encryption.privateKeyFromByteArray(encodedPrivateKey)
+        val publicKey = Encryption.publicKeyFromByteArray(encodedPublicKey)
+
+        if (keyPair.private == privateKey) {
+            print("private keys match")
+        }
+
+        if (keyPair.public == publicKey) {
+            print("public keys match")
+        }
+
+        print("Test complete.")
+
+    }
 
 }
 
