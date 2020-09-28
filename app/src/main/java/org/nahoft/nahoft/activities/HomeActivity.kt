@@ -86,11 +86,16 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun loadSavedFriends() {
-
         // Load our existing friends list from our encrypted file
         if (Persist.friendsFile.exists()) {
             val friendsToAdd = FriendViewModel.getFriends(Persist.friendsFile, applicationContext)
-            Persist.friendList.addAll(friendsToAdd)
+
+            for (newFriend in friendsToAdd) {
+                // Only add this friend if the list does not contain a friend with that ID already
+                if (!Persist.friendList.any { it.id == newFriend.id }) {
+                    Persist.friendList.add(newFriend)
+                }
+            }
         }
     }
 
@@ -263,7 +268,7 @@ class HomeActivity : AppCompatActivity() {
                     // TODO: Find a better way to do this,
                     //  after the first time this runs most contacts will already be in the friends list.
 
-                    // Only add this friend if the list does not contain a frined with that ID already
+                    // Only add this friend if the list does not contain a friend with that ID already
                     if (!Persist.friendList.any { it.id == newFriend.id }) {
                         Persist.friendList.add(newFriend)
                     } else {
