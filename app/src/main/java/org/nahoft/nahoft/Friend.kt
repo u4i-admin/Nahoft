@@ -21,7 +21,15 @@ data class Friend constructor(
 
     @field:Element(name = "publicKeyEncoded", required = false)
     @param:Element(name = "publicKeyEncoded", required = false)
-    var publicKeyEncoded: ByteArray? = null) : Serializable
+    var publicKeyEncoded: ByteArray? = null) : Serializable {
+
+    // Friends represent the same person if they have the same id
+    override fun equals(other: Any?): Boolean {
+
+        val friend = other as? Friend
+        return this.id == friend?.id
+    }
+}
 
 enum class FriendStatus: StatusIcon {
     Default {

@@ -11,7 +11,6 @@ class Persist {
 
     companion object {
 
-
         val sharedPrefLoginStatusKey = "NahoftLoginStatus"
         val sharedPrefPasscodeKey = "NahoftPasscode"
         val sharedPrefSecondaryPasscodeKey = "NahoftSecondaryPasscode"
@@ -33,45 +32,59 @@ class Persist {
 
         var friendList = ArrayList<Friend>()
         var messageList = ArrayList<Message>()
+
+        fun saveLoginStatus() {
+            encryptedSharedPreferences
+                .edit()
+                .putString(sharedPrefLoginStatusKey, status.name)
+                .apply()
+        }
+
+        fun updateFriendEntry(editedFriend: Friend) {
+            // Look in our friendList for a Friend with the same id as editedFriend
+            // Please not that equals is overridden for the Friend class to only compare ids
+            val matchingFriendIndex = friendList.indexOf(editedFriend)
+            if (matchingFriendIndex > -1) {
+                // If we find a matching friend, replace that Friend with the new editedFriend
+                friendList.set(matchingFriendIndex, editedFriend)
+            } else {
+                // Otherwise just add editedFriend to the list
+                friendList.add(editedFriend)
+            }
+        }
+
+        fun saveKey(key:String, value:String) {
+            encryptedSharedPreferences
+                .edit()
+                .putString(key, value)
+                .apply()
+        }
+
+        fun loadEncryptedSharedPreferences(context: Context) {
+            encryptedSharedPreferences = EncryptedSharedPreferences.create(
+                sharedPrefFilename,
+                masterKeyAlias,
+                context,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            ) as EncryptedSharedPreferences
+        }
+
+        // TODO: Another pair of eyes, did we get everything?
+        fun clearAllData() {
+
+            if (friendsFile.exists()) { friendsFile.delete() }
+            if (messagesFile.exists()) { messagesFile.delete() }
+            friendList.clear()
+            messageList.clear()
+
+
+            // Remove Everything from EncryptedSharedPreferences
+            encryptedSharedPreferences
+                .edit()
+                .clear()
+                .apply()
+        }
     }
 
-    fun saveStatus() {
-        encryptedSharedPreferences
-            .edit()
-            .putString(sharedPrefLoginStatusKey, status.name)
-            .apply()
-    }
-
-    fun saveKey(key:String, value:String) {
-        encryptedSharedPreferences
-            .edit()
-            .putString(key, value)
-            .apply()
-    }
-
-    fun loadEncryptedSharedPreferences(context: Context) {
-        encryptedSharedPreferences = EncryptedSharedPreferences.create(
-            sharedPrefFilename,
-            masterKeyAlias,
-            context,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        ) as EncryptedSharedPreferences
-    }
-
-    // TODO: Another pair of eyes, did we get everything?
-    fun clearAllData() {
-
-        if (friendsFile.exists()) { friendsFile.delete() }
-        if (messagesFile.exists()) { messagesFile.delete() }
-        friendList.clear()
-        messageList.clear()
-
-
-        // Remove Everything from EncryptedSharedPreferences
-        encryptedSharedPreferences
-            .edit()
-            .clear()
-            .apply()
-    }
 }

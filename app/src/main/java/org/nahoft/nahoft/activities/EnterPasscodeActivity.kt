@@ -20,7 +20,7 @@ class EnterPasscodeActivity : AppCompatActivity () {
         setContentView(R.layout.activity_enter_passcode)
 
         // Load status from preferences
-        Persist().loadEncryptedSharedPreferences(this.applicationContext)
+        Persist.loadEncryptedSharedPreferences(this.applicationContext)
         this.getStatus()
         tryLogIn(Persist.status)
 
@@ -79,7 +79,7 @@ class EnterPasscodeActivity : AppCompatActivity () {
             LoginStatus.LoggedIn, LoginStatus.NotRequired -> startActivity(Intent(this, HomeActivity::class.java))
             // Secondary passcode entered delete user data
             // TODO: Test to see if this works
-            LoginStatus.SecondaryLogin -> Persist().clearAllData()
+            LoginStatus.SecondaryLogin -> Persist.clearAllData()
             else -> println("Login Status is $status")
         }
     }

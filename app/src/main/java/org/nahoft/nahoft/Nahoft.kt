@@ -43,7 +43,7 @@ class Nahoft: Application(), LifecycleObserver {
 
                 if (status == LoginStatus.LoggedIn) {
                     status = LoginStatus.LoggedOut
-                    Persist().saveStatus()
+                    Persist.saveLoginStatus()
                 } else if(status == LoginStatus.NotRequired) {
                     return
                 }

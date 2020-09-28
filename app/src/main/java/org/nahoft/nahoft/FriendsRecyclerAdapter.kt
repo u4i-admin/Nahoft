@@ -64,16 +64,15 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         fun inviteClicked() {
             // Get user's public key to send to contact
             val userPublicKey = Encryption(this.view.context).ensureKeysExist().public
-
             val keyBytes = Encryption.byteArrayFromPublicKey(userPublicKey)
-            if (keyBytes != null) {
-                // Share the key
-                ShareUtil.shareKey(this.view.context, keyBytes)
 
-                // Set friend status to Invited
-                this.friend?.status = FriendStatus.Invited
-                setupInvitedRow()
-            }
+            // Share the key
+            ShareUtil.shareKey(this.view.context, keyBytes)
+
+            // Set friend status to Invited
+            this.friend?.status = FriendStatus.Invited
+            Persist.updateFriendEntry(this.friend!!)
+            setupInvitedRow()
         }
 
         fun acceptClicked() {
@@ -81,22 +80,22 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             if (this.friend?.publicKeyEncoded != null) {
 
                 val userPublicKey = Encryption(this.view.context).ensureKeysExist().public
-
                 val keyBytes = Encryption.byteArrayFromPublicKey(userPublicKey)
-                if (keyBytes != null) {
-                    // Share the key
-                    ShareUtil.shareKey(this.view.context, keyBytes)
 
-                    // Set friend status to Accepted
-                    this.friend?.status = FriendStatus.Approved
-                    setupApprovedRow()
-                }
+                // Share the key
+                ShareUtil.shareKey(this.view.context, keyBytes)
+
+                // Set friend status to Accepted
+                this.friend?.status = FriendStatus.Approved
+                Persist.updateFriendEntry(this.friend!!)
+                setupApprovedRow()
             }
         }
 
         fun declineClicked() {
             // Set Friend Status to Default
             this.friend?.status = FriendStatus.Default
+            Persist.updateFriendEntry(this.friend!!)
             setupDefaultRow()
         }
 

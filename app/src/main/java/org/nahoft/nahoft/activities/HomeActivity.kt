@@ -71,7 +71,7 @@ class HomeActivity : AppCompatActivity() {
                 // Received shared data check LoginStatus
                 if (Persist.status == LoginStatus.NotRequired) {
                     // We may not have intialized shared preferences yet, let's do it now
-                    Persist().loadEncryptedSharedPreferences(this.applicationContext)
+                    Persist.loadEncryptedSharedPreferences(this.applicationContext)
                 } else if (Persist.status != LoginStatus.LoggedIn) {
                     //FIXME: If the status is not either NotRequired, or Logged in, request login
                     Toast.makeText(this, "Passcode required to proceed", Toast.LENGTH_LONG).show()

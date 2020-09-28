@@ -52,7 +52,7 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
-    fun sendAsText(message: String) {
+    private fun sendAsText(message: String) {
         if (selectedFriend != null) {
             if (selectedFriend!!.publicKeyEncoded != null) {
                 // Share this message as a text
@@ -80,10 +80,10 @@ class NewMessageActivity : AppCompatActivity() {
                     it.publicKeyEncoded?.let {
 
                         // Get the message text
-                        var message = editMessageText.text.toString()
+                        val message = editMessageText.text.toString()
 
                         // get data?.data as URI
-                        val imageURI = data?.data as? Uri
+                        val imageURI = data?.data
 
                         imageURI?.let {
                             ShareUtil.shareImage(this, imageURI, message, selectedFriend!!.publicKeyEncoded!!)

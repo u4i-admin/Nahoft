@@ -31,13 +31,13 @@ class PasscodeActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
 
-        Persist().saveStatus()
+        Persist.saveLoginStatus()
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
-        Persist().saveStatus()
+        Persist.saveLoginStatus()
     }
 
     fun updateSwitch() {
@@ -105,7 +105,6 @@ class PasscodeActivity : AppCompatActivity() {
         val passcode2 = verify_passcode_input.text.toString()
         val secondaryPasscode = secondary_passcode_input.text.toString()
         val secondaryPasscode2 = verify_secondary_passcode_input.text.toString()
-        val persist = Persist()
 
         if (passcode == "") {
             Toast.makeText(this, getString(R.string.toastTextPasscodeFieldIsEmpty), Toast.LENGTH_SHORT).show()
@@ -125,7 +124,7 @@ class PasscodeActivity : AppCompatActivity() {
             return
         }
 
-        persist.saveKey(Persist.sharedPrefPasscodeKey, passcode)
+        Persist.saveKey(Persist.sharedPrefPasscodeKey, passcode)
 
         if(secondaryPasscode == "") {
 
@@ -155,7 +154,7 @@ class PasscodeActivity : AppCompatActivity() {
                 return
             }
 
-            persist.saveKey(Persist.sharedPrefSecondaryPasscodeKey, secondaryPasscode)
+            Persist.saveKey(Persist.sharedPrefSecondaryPasscodeKey, secondaryPasscode)
 
             // Set user status
             status = LoginStatus.LoggedIn
