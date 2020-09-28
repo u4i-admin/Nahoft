@@ -27,8 +27,8 @@ class Encryption(val context: Context) {
         // Return the ECPublicKey from encoded raw bytes
         // The format of the encodedPublicKey is X.509
         fun publicKeyFromByteArray(encodedPublicKey: ByteArray): PublicKey? {
-            val keyFactory = KeyFactory.getInstance(KeyProperties.KEY_ALGORITHM_EC)
             val keySpec = X509EncodedKeySpec(encodedPublicKey)
+            val keyFactory = KeyFactory.getInstance(KeyProperties.KEY_ALGORITHM_EC)
 
             try {
                 val publicKey = keyFactory.generatePublic(keySpec)
