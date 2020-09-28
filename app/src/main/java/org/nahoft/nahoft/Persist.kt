@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import org.nahoft.codex.Encryption
 import org.nahoft.codex.PersistenceEncryption
 import org.nahoft.nahoft.activities.LoginStatus
 import org.simpleframework.xml.core.Persister
@@ -47,6 +48,14 @@ class Persist {
         fun updateFriend(context: Context, friendToUpdate: Friend, newStatus: FriendStatus, encodedPublicKey: ByteArray? = null) {
 
             var oldFriend = friendList.find { it.id == friendToUpdate.id }
+
+            encodedPublicKey?.let {
+                val publicKey = Encryption.publicKeyFromByteArray(encodedPublicKey)
+                if (publicKey == null) {
+                    // Fail early instead of persisting a bad public key
+                    return
+                }
+            }
 
             oldFriend?.let {
                 oldFriend.status = newStatus
