@@ -7,6 +7,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_passcode.*
 import org.nahoft.nahoft.*
 import org.nahoft.nahoft.Persist.Companion.status
+import org.nahoft.showAlert
 
 class PasscodeActivity : AppCompatActivity() {
 
@@ -107,19 +108,19 @@ class PasscodeActivity : AppCompatActivity() {
         val secondaryPasscode2 = verify_secondary_passcode_input.text.toString()
 
         if (passcode == "") {
-            Toast.makeText(this, getString(R.string.toastTextPasscodeFieldIsEmpty), Toast.LENGTH_SHORT).show()
+            this.showAlert(getString(R.string.toastTextPasscodeFieldIsEmpty))
 
            return
         }
 
         if (passcode2 == "") {
-            Toast.makeText(this, getString(R.string.toastTextPasscode2FieldIsEmpty), Toast.LENGTH_SHORT).show()
+            this.showAlert(getString(R.string.toastTextPasscode2FieldIsEmpty))
 
             return
         }
 
         if (passcode != passcode2){
-            Toast.makeText(this, getString(R.string.toastTextPasscodeEntriesDoNotMatch), Toast.LENGTH_SHORT).show()
+            this.showAlert(getString(R.string.toastTextPasscodeEntriesDoNotMatch))
 
             return
         }
@@ -129,7 +130,7 @@ class PasscodeActivity : AppCompatActivity() {
         if(secondaryPasscode == "") {
 
             if (secondaryPasscode2 != "") {
-                Toast.makeText(this, getString(R.string.toastTextSecondaryPasscodeFieldWasEmpty), Toast.LENGTH_SHORT).show()
+                this.showAlert(getString(R.string.toastTextSecondaryPasscodeFieldWasEmpty))
 
                 return
             } else {
@@ -143,13 +144,13 @@ class PasscodeActivity : AppCompatActivity() {
 
         } else {
             if (secondaryPasscode2 == "") {
-                Toast.makeText(this, getString(R.string.toastTextSecondaryPasscode2CannotBeEmpty), Toast.LENGTH_SHORT).show()
+                this.showAlert(getString(R.string.toastTextSecondaryPasscode2CannotBeEmpty))
 
                 return
             }
 
             if (secondaryPasscode != secondaryPasscode2) {
-                Toast.makeText(this, getString(R.string.toastTextSecondaryPasscodeDoesNotMatch), Toast.LENGTH_SHORT).show()
+                this.showAlert(getString(R.string.toastTextSecondaryPasscodeDoesNotMatch))
 
                 return
             }

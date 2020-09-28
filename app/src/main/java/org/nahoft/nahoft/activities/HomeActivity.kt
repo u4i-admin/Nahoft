@@ -20,6 +20,7 @@ import org.nahoft.codex.KeyOrMessage
 import org.nahoft.codex.PersistenceEncryption
 import org.nahoft.nahoft.Persist.Companion.friendsFilename
 import org.nahoft.nahoft.Persist.Companion.messagesFilename
+import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
 import org.simpleframework.xml.core.Persister
@@ -74,7 +75,7 @@ class HomeActivity : AppCompatActivity() {
                     Persist.loadEncryptedSharedPreferences(this.applicationContext)
                 } else if (Persist.status != LoginStatus.LoggedIn) {
                     //FIXME: If the status is not either NotRequired, or Logged in, request login
-                    Toast.makeText(this, "Passcode required to proceed", Toast.LENGTH_LONG).show()
+                    this.showAlert("Passcode required to proceed")
                 }
 
                 if ("text/plain" == intent.type) {
@@ -130,7 +131,7 @@ class HomeActivity : AppCompatActivity() {
     private fun handleSharedText(intent: Intent) {
         intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
             // Update UI to reflect text being shared
-            Toast.makeText(this, "Received shared text $it.", Toast.LENGTH_SHORT).show()
+            this.showAlert("Received shared text $it.")
 
             val decodeResult = Codex().decode(it)
 
@@ -149,7 +150,7 @@ class HomeActivity : AppCompatActivity() {
                     startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
                 }
             } else {
-                Toast.makeText(this, "Something went wrong. We were unable to decode the message.", Toast.LENGTH_LONG).show()
+                this.showAlert("Something went wrong. We were unable to decode the message.")
             }
         }
     }
@@ -157,7 +158,7 @@ class HomeActivity : AppCompatActivity() {
     private fun handleSharedImage(intent: Intent) {
         (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
             // Update UI to reflect image being shared
-            Toast.makeText(this, "Received shared image. $it", Toast.LENGTH_SHORT).show()
+            this.showAlert("Received shared image. $it")
 
             // Decode the message and save it locally for use after sender is selected
             this.decodePayload = Stencil().decode(this, it)
@@ -197,19 +198,19 @@ class HomeActivity : AppCompatActivity() {
                     when (sender.status) {
                         FriendStatus.Default -> {
                             updateFriend(friendToUpdate = sender, newStatus = FriendStatus.Requested, encodedPublicKey = decodePayload!!)
-                            Toast.makeText(this, "Received an invitation from ${sender.name}. Accept their invite to start communicating.", Toast.LENGTH_LONG).show()
+                            this.showAlert("Received an invitation from ${sender.name}. Accept their invite to start communicating.")
                         }
 
                         FriendStatus.Invited -> {
                             updateFriend(friendToUpdate = sender, newStatus = FriendStatus.Approved, encodedPublicKey = decodePayload!!)
-                            Toast.makeText(this, "${sender.name} accepted your invitation. You can now communicate securely.", Toast.LENGTH_LONG).show()
+                            this.showAlert("${sender.name} accepted your invitation. You can now communicate securely.")
                         }
 
                         else ->
-                            Toast.makeText(this, "Something went wrong, we were unable to update your friend status.", Toast.LENGTH_LONG).show()
+                            this.showAlert("Something went wrong, we were unable to update your friend status.")
                     }
                 } else {
-                    Toast.makeText(this, "Something went wrong, we were unable to update your friend status.", Toast.LENGTH_LONG).show()
+                    this.showAlert("Something went wrong, we were unable to update your friend status.")
                 }
             }
         }

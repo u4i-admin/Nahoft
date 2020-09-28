@@ -12,6 +12,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import android.content.res.Configuration
 import android.content.res.Resources
+import org.nahoft.showAlert
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -84,8 +85,7 @@ class SetLanguageActivity : AppCompatActivity() {
             refresh.putExtra(currentLang, localeName)
             startActivity(refresh)
         } else {
-            Toast.makeText(
-                this@SetLanguageActivity, getString(R.string.toastTextLanguageAlreadySelected), Toast.LENGTH_SHORT).show();
+            this.showAlert(getString(R.string.toastTextLanguageAlreadySelected))
         }
     }
 

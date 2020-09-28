@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_new_message.*
 import org.nahoft.nahoft.activities.FriendSelectionActivity
+import org.nahoft.showAlert
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 
@@ -58,13 +59,11 @@ class NewMessageActivity : AppCompatActivity() {
                 // Share this message as a text
                 ShareUtil.shareText(this, message, selectedFriend!!.publicKeyEncoded!!)
             } else {
-                Toast.makeText(this, getString(R.string.toastTextCanOnlyMessageAVerifiedFriend), Toast.LENGTH_SHORT).show()
-                print("Unable to send message as text, we do not have the recipient's public key.")
+                this.showAlert(getString(R.string.toastTextCanOnlyMessageAVerifiedFriend))
             }
         } else {
-            Toast.makeText(this, getString(R.string.toastTextMustSelectAFriendToSendAMessage), Toast.LENGTH_SHORT).show()
             // TODO: We may want to simply disable the send buttons until a friend is selected
-            print("Unable to send a message as text, the recipient has not been selected.")
+            this.showAlert(getString(R.string.toastTextMustSelectAFriendToSendAMessage))
         }
     }
 

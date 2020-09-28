@@ -10,6 +10,7 @@ import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.Persist.Companion.sharedPrefPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.sharedPrefSecondaryPasscodeKey
 import org.nahoft.nahoft.R
+import org.nahoft.showAlert
 import java.lang.Exception
 
 
@@ -44,7 +45,7 @@ class EnterPasscodeActivity : AppCompatActivity () {
             saveStatus()
             tryLogIn(Persist.status)
 
-            Toast.makeText(this, Persist.status.name, Toast.LENGTH_SHORT).show()
+            this.showAlert(Persist.status.name)
         }
     }
 

@@ -40,7 +40,6 @@ class Nahoft: Application(), LifecycleObserver {
             //TODO: Work with Brandon this is not being called.
             override fun onFinish() {
                 // Logout the user if they are logged in
-
                 if (status == LoginStatus.LoggedIn) {
                     status = LoginStatus.LoggedOut
                     Persist.saveLoginStatus()
