@@ -66,6 +66,12 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             val userPublicKey = Encryption(this.view.context).ensureKeysExist().public
             val keyBytes = Encryption.byteArrayFromPublicKey(userPublicKey)
 
+            val publicKey = Encryption.publicKeyFromByteArray(keyBytes)
+            if (publicKey == null) {
+                println("Bad public key")
+                return
+            }
+
             // Share the key
             ShareUtil.shareKey(this.view.context, keyBytes)
 
