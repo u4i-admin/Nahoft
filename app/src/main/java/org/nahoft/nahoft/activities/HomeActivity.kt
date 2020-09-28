@@ -206,12 +206,12 @@ class HomeActivity : AppCompatActivity() {
 
                     when (sender.status) {
                         FriendStatus.Default -> {
-                            updateFriend(friendToUpdate = sender, newStatus = FriendStatus.Requested, encodedPublicKey = decodePayload!!)
+                            Persist.updateFriend(context = this, friendToUpdate = sender, newStatus = FriendStatus.Requested, encodedPublicKey = decodePayload!!)
                             this.showAlert("Received an invitation from ${sender.name}. Accept their invite to start communicating.")
                         }
 
                         FriendStatus.Invited -> {
-                            updateFriend(friendToUpdate = sender, newStatus = FriendStatus.Approved, encodedPublicKey = decodePayload!!)
+                            Persist.updateFriend(context = this, friendToUpdate = sender, newStatus = FriendStatus.Approved, encodedPublicKey = decodePayload!!)
                             this.showAlert("${sender.name} accepted your invitation. You can now communicate securely.")
                         }
 
@@ -226,15 +226,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     // TODO: Move this
-    // Friend Management
-
-    private fun updateFriend(friendToUpdate: Friend, newStatus: FriendStatus, encodedPublicKey: ByteArray) {
-
-        //val friendExists = Persist.friendList.any{friend: Friend -> friend.id == friendToUpdate.id}
-        Persist.friendList.find { it.id == friendToUpdate.id }?.status = newStatus
-        Persist.friendList.find { it.id == friendToUpdate.id }?.publicKeyEncoded = encodedPublicKey
-    }
-
     private val permissionsRequestReadContacts = 100
 
     override fun onRequestPermissionsResult(
@@ -305,24 +296,14 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 cursor.close()
-                saveFriendsToFile()
+                Persist.saveFriendsToFile(this)
             }
         } else {
             println("cursor is null")
         }
     }
 
-    private fun saveFriendsToFile() {
-        val serializer = Persister()
-        val outputStream = ByteArrayOutputStream()
 
-        val friendsObject = Friends(Persist.friendList)
-        try { serializer.write(friendsObject, outputStream) } catch (e: Exception) {
-            print("Failed to serialize our friends list: $e")
-        }
-
-        PersistenceEncryption().writeEncryptedFile(Persist.friendsFile, outputStream.toByteArray(), applicationContext)
-    }
 
 }
 

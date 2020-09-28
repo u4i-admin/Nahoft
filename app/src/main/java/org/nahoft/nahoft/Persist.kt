@@ -4,8 +4,12 @@ import android.app.Application
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import org.nahoft.codex.PersistenceEncryption
 import org.nahoft.nahoft.activities.LoginStatus
+import org.simpleframework.xml.core.Persister
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.lang.Exception
 
 class Persist {
 
@@ -40,17 +44,16 @@ class Persist {
                 .apply()
         }
 
-        fun updateFriendEntry(editedFriend: Friend) {
-            // Look in our friendList for a Friend with the same id as editedFriend
-            // Please not that equals is overridden for the Friend class to only compare ids
-            val matchingFriendIndex = friendList.indexOf(editedFriend)
-            if (matchingFriendIndex > -1) {
-                // If we find a matching friend, replace that Friend with the new editedFriend
-                friendList.set(matchingFriendIndex, editedFriend)
-            } else {
-                // Otherwise just add editedFriend to the list
-                friendList.add(editedFriend)
+        fun updateFriend(context: Context, friendToUpdate: Friend, newStatus: FriendStatus, encodedPublicKey: ByteArray? = null) {
+
+            var oldFriend = Persist.friendList.find { it.id == friendToUpdate.id }
+
+            oldFriend?.let {
+                oldFriend.status = newStatus
+                encodedPublicKey?.let { oldFriend.publicKeyEncoded = encodedPublicKey }
             }
+
+            saveFriendsToFile(context)
         }
 
         fun saveKey(key:String, value:String) {
@@ -84,6 +87,18 @@ class Persist {
                 .edit()
                 .clear()
                 .apply()
+        }
+
+        fun saveFriendsToFile(context: Context) {
+            val serializer = Persister()
+            val outputStream = ByteArrayOutputStream()
+
+            val friendsObject = Friends(Persist.friendList)
+            try { serializer.write(friendsObject, outputStream) } catch (e: Exception) {
+                print("Failed to serialize our friends list: $e")
+            }
+
+            PersistenceEncryption().writeEncryptedFile(Persist.friendsFile, outputStream.toByteArray(), context)
         }
     }
 
