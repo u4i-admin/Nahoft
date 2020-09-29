@@ -45,11 +45,20 @@ public class CapturePhotoUtils {
         try {
             url = cr.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
-            if (source != null) {
+            if (source != null)
+            {
                 OutputStream imageOut = cr.openOutputStream(url);
-                try {
-                    source.compress(Bitmap.CompressFormat.JPEG, 50, imageOut);
-                } finally {
+
+                try
+                {
+                    source.compress(Bitmap.CompressFormat.PNG, 100, imageOut);
+                }
+                catch(Exception e)
+                {
+                    System.out.println(e);
+                }
+                finally
+                {
                     imageOut.close();
                 }
 
@@ -57,7 +66,7 @@ public class CapturePhotoUtils {
                 // Wait until MINI_KIND thumbnail is generated.
                 Bitmap miniThumb = Images.Thumbnails.getThumbnail(cr, id, Images.Thumbnails.MINI_KIND, null);
                 // This is for backward compatibility.
-                storeThumbnail(cr, miniThumb, id, 50F, 50F,Images.Thumbnails.MICRO_KIND);
+//                storeThumbnail(cr, miniThumb, id, 50F, 50F,Images.Thumbnails.MICRO_KIND);
             } else {
                 cr.delete(url, null, null);
                 url = null;

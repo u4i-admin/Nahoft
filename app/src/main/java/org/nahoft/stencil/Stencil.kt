@@ -17,20 +17,25 @@ class Stencil {
         val numBits = encrypted.size * 8
         val numPixels = cover.height * cover.width
 
-        val maxStarsByHeight = cover.height / 3
-        var maxStarsByWidth = cover.width / 3
-        val maxStars = maxStarsByHeight * maxStarsByWidth
+        val maxStars: Int = (cover.height/3) * (cover.width/3)
+        if (numBits > maxStars)
+        {
+            return null
+        }
 
         if (maxStars < numBits) {return null}
 
         val bits = makeBitSet(encrypted)
+        val bitsLen = bits.length()
 
         var result = cover.copy(Bitmap.Config.ARGB_8888, true);
         for (index in 0 until bits.length())
         {
             var bit = bits.get(index)
-            result = addStar(result, index, bit, maxStarsByWidth)
+            result = addStar(result, index, bit, bits.length())
         }
+
+//        result = destroy(result)
 
         val pixelsPerBit = numPixels.toDouble() / numBits.toDouble()
         val heightPerBit = ceil(cover.height.toDouble() / sqrt(pixelsPerBit)).toInt()
@@ -46,10 +51,34 @@ class Stencil {
         return resultUri
     }
 
-    private fun addStar(bitmap: Bitmap, index: Int, bit: Boolean, maxStarsByWidth: Int): Bitmap
+    private fun addStar(bitmap: Bitmap, index: Int, bit: Boolean, numBits: Int): Bitmap?
     {
-        val row = index / maxStarsByWidth
-        val column = index % maxStarsByWidth
+        val maxRows = bitmap.height / 3
+        val maxColumns = bitmap.width / 3
+
+        var numColumnsPicked = 0
+        var valid = false
+        for (numRows in 1..maxRows)
+        {
+            for (numColumns in 1..maxColumns)
+            {
+                val numStars = numRows * numColumns
+                if (numStars >= numBits)
+                {
+                    valid = true
+                    numColumnsPicked = numColumns
+                    break
+                }
+            }
+        }
+
+        if (!valid)
+        {
+            return null
+        }
+
+        val row = index / numColumnsPicked
+        val column = index % numColumnsPicked
 
         val heightOffset = (3 * row) + 2
         val widthOffset = (3 * column) + 2
@@ -69,6 +98,20 @@ class Stencil {
         newBitmap.setPixel(widthOffset, heightOffset-1, 128)
         newBitmap.setPixel(widthOffset+1, heightOffset, 128)
         newBitmap.setPixel(widthOffset, heightOffset+1, 128)
+
+        return newBitmap
+    }
+
+    fun destroy(bitmap: Bitmap): Bitmap
+    {
+        var newBitmap = bitmap
+        for (x in 0 until bitmap.width-1)
+        {
+            for(y in 0 until bitmap.height-1)
+            {
+                newBitmap.setPixel(x, y, 0)
+            }
+        }
 
         return newBitmap
     }
