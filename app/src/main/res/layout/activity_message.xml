@@ -14,11 +14,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent" />
 
     <TextView
         android:id="@+id/message_body_text_view"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="691dp"
         android:layout_marginTop="8dp"
         android:text="TextView"

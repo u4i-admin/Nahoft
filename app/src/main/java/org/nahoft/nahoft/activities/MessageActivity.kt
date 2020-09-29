@@ -44,7 +44,7 @@ class MessageActivity : AppCompatActivity() {
 
     fun loadMessageContent() {
 
-        sender_name_text_view.text = message.sender?.name
+        message_sender_text_view.text = message.sender?.name
 
         val senderKeyBytes = message.sender?.publicKeyEncoded?.let { it }
 
