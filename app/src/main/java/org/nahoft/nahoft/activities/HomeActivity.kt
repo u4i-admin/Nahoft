@@ -370,7 +370,7 @@ class HomeActivity : AppCompatActivity() {
         val plaintext = "a"
 
         val friendPublicKey = PublicKey(byteArrayOf(95, 60, 7, 93, -108, 19, -34, 112, 16, -114, -4, 26, -122, -85, -67, 67, -55, 98, -24, 108, -38, 59, 72, 127, 38, -102, 107, 22, 122, -100, -90, -68))
-        val friendPrivateKey = PrivateKey("")
+        val friendPrivateKey = PrivateKey(byteArrayOf(69, 90, -66, 89, -110, -27, 10, -112, -125, 4, 78, 93, -77, 101, -55, -56, -82, -31, -108, 93, 81, -1, 102, 23, -109, 5, 122, 86, -77, 123, 82, 21))
         val nonce = byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23)
         val myPublicKey = PublicKey(byteArrayOf(-83, -98, -51, 15, 44, -91, 65, 6, -76, 32, -78, -101, 81, -16, -51, -24, 40, -52, -126, 67, 101, -47, 12, -41, -107, -78, -121, -66, 63, 57, -90, -116))
         val myPrivateKey = PrivateKey("3a2ac7a3ad2b0e2acb608a8905b300f31f0d900c22a3fa61df7be23136437f79")
