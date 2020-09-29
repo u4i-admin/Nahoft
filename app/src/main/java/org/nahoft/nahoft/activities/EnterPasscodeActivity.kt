@@ -46,8 +46,6 @@ class EnterPasscodeActivity : AppCompatActivity () {
 
             saveStatus()
             tryLogIn(Persist.status)
-
-            this.showAlert(Persist.status.getDisplayName())
         }
     }
 
@@ -88,35 +86,11 @@ class EnterPasscodeActivity : AppCompatActivity () {
     }
 }
 
-enum class LoginStatus: DisplayName {
+enum class LoginStatus {
 
-    NotRequired {
-        override fun getDisplayName(): String {
-            TODO("Not yet implemented")
-        }
-    },
-    LoggedIn {
-        override fun getDisplayName(): String {
-            TODO("Not yet implemented")
-        }
-    },
-    LoggedOut {
-        override fun getDisplayName(): String {
-            TODO("Not yet implemented")
-        }
-    },
-    SecondaryLogin {
-        override fun getDisplayName(): String {
-            TODO("Not yet implemented")
-        }
-    },
-    FailedLogin {
-        override fun getDisplayName(): String {
-            TODO("Not yet implemented")
-        }
-    },
-}
-
-interface DisplayName {
-    fun getDisplayName(): String
+    NotRequired,
+    LoggedIn,
+    LoggedOut,
+    SecondaryLogin,
+    FailedLogin,
 }
