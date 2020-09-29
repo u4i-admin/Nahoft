@@ -134,7 +134,7 @@ fun bigIntegerToDigits(integer: BigInteger, base: Int): List<Int>
     val numDigits = computeNumDigits(integer, base)
 
     val placeValues = generatePlaceValues(numDigits, base)
-    println("placeValues: " + placeValues)
+    // println("placeValues: " + placeValues)
 
     working = integer
     for (placeValue in placeValues)
@@ -164,7 +164,7 @@ fun digitsToBigInteger(digits: List<Int>, base: Int): BigInteger
     val numDigits = digits.size
 
     val placeValues = generatePlaceValues(numDigits, base)
-    println("placeValues: " + placeValues)
+    // println("placeValues: " + placeValues)
 
     return computeInteger(placeValues, digits)
 }
