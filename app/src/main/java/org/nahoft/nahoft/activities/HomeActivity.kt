@@ -412,10 +412,24 @@ class HomeActivity : AppCompatActivity() {
         val privateKey1 = PrivateKey(privateKey1Hex)
         val privateKey2 = PrivateKey(privateKey2Hex)
 
-        val box3 = Box(keyPair1.publicKey, keyPair2.privateKey)
-//        val box2 = Box(friendPublicKey, keyPair2.privateKey)
-        val nonce2 = encrypted.slice(0..SodiumConstants.NONCE_BYTES - 1).toByteArray()
-        val ciphertext2 = encrypted.slice(SodiumConstants.NONCE_BYTES..encrypted.lastIndex).toByteArray()
+        val box3 = Box(publicKey2, privateKey1)
+        val nonce3 = byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23)
+        val ciphertext3 = box3.encrypt(nonce, plaintext.toByteArray())
+        val encrypted3 = nonce3 + ciphertext3
+
+        val box4 = Box(publicKey1, privateKey2)
+        val nonce4 = encrypted3.slice(0..SodiumConstants.NONCE_BYTES - 1).toByteArray()
+        val ciphertext4 = encrypted3.slice(SodiumConstants.NONCE_BYTES..encrypted.lastIndex).toByteArray()
+
+        try
+        {
+            val plaintext3 = String(box4.decrypt(nonce4, ciphertext4))
+            println(plaintext3)
+        }
+        catch(e: Exception)
+        {
+            println(e)
+        }
     }
 
     fun test_hardcoded_encrypt_decrypt(context: Context) {
