@@ -14,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_home.*
+import org.libsodium.jni.SodiumConstants
+import org.libsodium.jni.crypto.Box
+import org.libsodium.jni.crypto.Random
+import org.libsodium.jni.keys.KeyPair
 import org.libsodium.jni.keys.PrivateKey
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Codex
@@ -314,6 +318,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun tests() {
+        test_encrypt_decrypt()
+
         val keyPair = Encryption(this).ensureKeysExist()
         val encodedPrivateKey = keyPair.privateKey.toBytes()
         val encodedPublicKey = keyPair.publicKey.toBytes()
@@ -330,5 +336,34 @@ class HomeActivity : AppCompatActivity() {
 
         print("Test complete.")
 
+    }
+
+    fun test_encrypt_decrypt() {
+        val plaintext = "a"
+
+        val seed1 = Random().randomBytes(SodiumConstants.SECRETKEY_BYTES)
+        val keyPair1 = KeyPair(seed1)
+
+        val seed2 = Random().randomBytes(SodiumConstants.SECRETKEY_BYTES)
+        val keyPair2 = KeyPair(seed2)
+
+        val box = Box(keyPair2.publicKey, keyPair1.privateKey)
+        val nonce = Random().randomBytes(SodiumConstants.NONCE_BYTES)
+        val ciphertext = box.encrypt(nonce, plaintext.toByteArray())
+        val encrypted = nonce + ciphertext
+
+        val box2 = Box(keyPair1.publicKey, keyPair2.privateKey)
+        val nonce2 = encrypted.slice(0..SodiumConstants.NONCE_BYTES - 1).toByteArray()
+        val ciphertext2 = encrypted.slice(SodiumConstants.NONCE_BYTES..encrypted.lastIndex).toByteArray()
+
+        try
+        {
+            val plaintext2 = String(box2.decrypt(nonce2, ciphertext2))
+            println(plaintext2)
+        }
+        catch(e: Exception)
+        {
+            println(e)
+        }
     }
 }

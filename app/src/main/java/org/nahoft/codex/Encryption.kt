@@ -98,7 +98,7 @@ class Encryption(val context: Context) {
             val nonce = ciphertext.slice(0..SodiumConstants.NONCE_BYTES-1).toByteArray()
             val payload = ciphertext.slice(SodiumConstants.NONCE_BYTES..ciphertext.lastIndex).toByteArray()
 
-            return box.decrypt(nonce, payload).toString()
+            return String(box.decrypt(nonce, payload))
         }
 
         return null
