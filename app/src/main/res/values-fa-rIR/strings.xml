@@ -90,7 +90,10 @@
     //Friends Selection Recyclerview Item Row
     <string name="nameFriendsSelectionRecyclerviewItemRow">دوستان</string>
 
+    <!-- Message View -->
     <string name="unknown_sender_label">Unknown</string>
+    <string name="sender_label">From: %1$s</string>
+
     <string name="invite_friend_button_label">دعوت</string>
     <string name="friend_status_label_invited">دعوت کرد</string>
     <string name="approve_invitation_button_label">تایید</string>
