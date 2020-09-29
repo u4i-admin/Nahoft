@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
 import android.provider.ContactsContract
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -21,6 +22,7 @@ import org.nahoft.codex.KeyOrMessage
 import org.nahoft.codex.PersistenceEncryption
 import org.nahoft.nahoft.Persist.Companion.friendsFilename
 import org.nahoft.nahoft.Persist.Companion.messagesFilename
+import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
@@ -43,8 +45,13 @@ class HomeActivity : AppCompatActivity() {
 
         Persist.app = Nahoft()
 
+        if (status == LoginStatus.NotRequired) {
+            logout_button.visibility = View.INVISIBLE
+        } else {
+            logout_button.visibility = View.VISIBLE
+        }
+
         messages_button.setOnClickListener {
-            println("message button clicked")
             val messagesIntent = Intent(this, MessagesActivity::class.java)
             startActivity(messagesIntent)
         }
@@ -92,11 +99,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun logoutClicked(view: android.view.View) {
-        Persist.status = LoginStatus.LoggedOut
+        status = LoginStatus.LoggedOut
         Persist.saveLoginStatus()
 
         val returnToLoginIntent = Intent(this, EnterPasscodeActivity::class.java)
-        //returnToLoginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(returnToLoginIntent)
     }
 
@@ -134,11 +140,14 @@ class HomeActivity : AppCompatActivity() {
     private fun loadSavedMessages() {
         Persist.messagesFile = File(filesDir.absolutePath + File.separator + messagesFilename )
 
-        // TODO: Load messages from file
-//        if (Persist.messagesFile.exists()) {
-//            val messagesToAdd = MessageViewModel.getMessages(Persist.messagesFile, applicationContext)
-//            Persist.messageList
-//        }
+        // Load messages from file
+        if (Persist.messagesFile.exists()) {
+            val messagesToAdd = MessageViewModel().getMessages(Persist.messagesFile, applicationContext)
+            messagesToAdd?.let {
+                Persist.messageList.addAll(it)
+            }
+
+        }
     }
 
     private fun handleSharedText(intent: Intent) {
@@ -194,6 +203,7 @@ class HomeActivity : AppCompatActivity() {
 
                     val newMessage = Message(date, cipherText!!, sender)
                     Persist.messageList.add(newMessage)
+                    Persist.saveMessagesToFile(this)
 
                     // Go to message view
                     val messageArguments = MessageActivity.Arguments(message = newMessage)
