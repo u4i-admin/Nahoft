@@ -27,8 +27,8 @@ class Encryption(val context: Context) {
         // Save the keys to EncryptedSharedPreferences
         Persist.encryptedSharedPreferences
             .edit()
-            .putString(privateKeyPreferencesKey, keyPair.publicKey.toString())
-            .putString(publicKeyPreferencesKey, keyPair.privateKey.toString())
+            .putString(publicKeyPreferencesKey, keyPair.publicKey.toString())
+            .putString(privateKeyPreferencesKey, keyPair.privateKey.toString())
             .apply()
 
         return Keys(keyPair.privateKey, keyPair.publicKey)

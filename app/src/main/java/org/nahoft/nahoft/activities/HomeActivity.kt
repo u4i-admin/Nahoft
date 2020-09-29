@@ -390,26 +390,27 @@ class HomeActivity : AppCompatActivity() {
         }
 
         val privateKey1Hex = Persist.encryptedSharedPreferences.getString(
-            "keyPair1Public",
+            "keyPair1Private",
             null
         )
         val publicKey1Hex = Persist.encryptedSharedPreferences.getString(
-            "keyPair1Private",
+            "keyPair1Public",
             null
         )
 
         val privateKey2Hex = Persist.encryptedSharedPreferences.getString(
-            "keyPair2Public",
+            "keyPair2Private",
             null
         )
         val publicKey2Hex = Persist.encryptedSharedPreferences.getString(
-            "keyPair2Private",
+            "keyPair2Public",
             null
         )
 
         val publicKey1 = PublicKey(publicKey1Hex)
-        val publicKey2 = PublicKey(publicKey2Hex)
         val privateKey1 = PrivateKey(privateKey1Hex)
+
+        val publicKey2 = PublicKey(publicKey2Hex)
         val privateKey2 = PrivateKey(privateKey2Hex)
 
         val box3 = Box(publicKey2, privateKey1)
@@ -423,8 +424,8 @@ class HomeActivity : AppCompatActivity() {
 
         try
         {
-            val plaintext3 = String(box4.decrypt(nonce4, ciphertext4))
-            println(plaintext3)
+            val plaintext4 = String(box4.decrypt(nonce4, ciphertext4))
+            println(plaintext4)
         }
         catch(e: Exception)
         {
