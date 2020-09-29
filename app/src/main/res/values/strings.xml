@@ -11,6 +11,10 @@
     <string name="messagesButtonDescription">Messages</string>
     <string name="settingsButtonDescription">Setting</string>
     <string name="userGuideButtonDescription">User Guide</string>
+    <string name="passcodeRequiredToProceed">Passcode Required to Proceed</string>
+    <string name="receivedSharedTextShowAlert">Received Shared Text</string>
+    <string name="somethingWentWrongUnableToDecodeTheMessageShowAlert">Something Went Wrong. We Were Unable To Decode The Message.</string>
+    <string name="receivedSharedImageShowAlert">"Received shared Image"</string>
 
     //Messages Activity
     <string name="messagesScreenTitle">Messages</string>

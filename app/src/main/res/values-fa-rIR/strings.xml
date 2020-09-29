@@ -12,6 +12,12 @@
     <string name="messagesButtonDescription">پیام ها</string>
     <string name="settingsButtonDescription">تنظیمات</string>
     <string name="userGuideButtonDescription">راهنمای کاربر</string>
+    <string name="passcodeRequiredToProceed">رمز عبور برای ادامه کار لازم است</string>
+    <string name="receivedSharedTextShowAlert">متن مشترک دریافت شده</string>
+    <string name="somethingWentWrongUnableToDecodeTheMessageShowAlert">مشکلی پیش آمد ما قادر به رمزگشایی پیام نبودیم.</string>
+    <string name="receivedSharedImageShowAlert">"تصویر مشترک دریافت شده است"</string>
+
+
 
     //Messages Activity
     <string name="messagesScreenTitle">نمایش پیام ها</string>
@@ -81,11 +87,13 @@
 
     //Friends Selection Recyclerview Item Row
     <string name="nameFriendsSelectionRecyclerviewItemRow">دوستان</string>
-    
+
+    <string name="unknown_sender_label">Unknown</string>
     <string name="invite_friend_button_label">دعوت</string>
     <string name="friend_status_label_invited">دعوت کرد</string>
     <string name="approve_invitation_button_label">تایید</string>
     <string name="decline_invitation_button_label">کاهش می یابد</string>
+    <string name="which_friend_sent_this_message_prompt">Which friend sent this message?</string>
     <string name="which_friend_sent_this_key_prompt">Which friend sent this key?</string>
 
 </resources>
