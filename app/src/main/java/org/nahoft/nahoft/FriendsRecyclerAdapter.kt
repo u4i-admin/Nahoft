@@ -63,14 +63,8 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
 
         fun inviteClicked() {
             // Get user's public key to send to contact
-            val userPublicKey = Encryption(this.view.context).ensureKeysExist().public
-            val keyBytes = Encryption.byteArrayFromPublicKey(userPublicKey)
-
-            val publicKey = Encryption.publicKeyFromByteArray(keyBytes)
-            if (publicKey == null) {
-                println("Bad public key")
-                return
-            }
+            val userPublicKey = Encryption(this.view.context).ensureKeysExist().publicKey
+            val keyBytes = userPublicKey.toBytes()
 
             // Share the key
             ShareUtil.shareKey(this.view.context, keyBytes)
@@ -85,8 +79,8 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             // Make sure that we have successfully received the friend's public key
             if (this.friend?.publicKeyEncoded != null) {
 
-                val userPublicKey = Encryption(this.view.context).ensureKeysExist().public
-                val keyBytes = Encryption.byteArrayFromPublicKey(userPublicKey)
+                val userPublicKey = Encryption(this.view.context).ensureKeysExist().publicKey
+                val keyBytes = userPublicKey.toBytes()
 
                 // Share the key
                 ShareUtil.shareKey(this.view.context, keyBytes)

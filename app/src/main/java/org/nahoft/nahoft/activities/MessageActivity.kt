@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.message_item_row.*
 import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Message
 import org.nahoft.nahoft.R
+import org.libsodium.jni.keys.PublicKey
 
 class MessageActivity : AppCompatActivity() {
 
@@ -48,7 +49,7 @@ class MessageActivity : AppCompatActivity() {
         val senderKeyBytes = message.sender?.publicKeyEncoded?.let { it }
 
         if (senderKeyBytes != null) {
-            val senderKey = Encryption.publicKeyFromByteArray(senderKeyBytes)?.let { it }
+            val senderKey = PublicKey(senderKeyBytes)?.let { it }
 
             if (senderKey != null) {
                 val plaintext = Encryption(this).decrypt(senderKey, message.cipherText)?.let { it }

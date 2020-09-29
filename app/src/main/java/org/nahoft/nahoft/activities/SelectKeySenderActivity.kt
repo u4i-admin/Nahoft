@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_select_key_sender.*
 import org.nahoft.nahoft.*
 import org.nahoft.util.RequestCodes
+import org.libsodium.jni.keys.PublicKey
 
 class SelectKeySenderActivity : AppCompatActivity() {
 

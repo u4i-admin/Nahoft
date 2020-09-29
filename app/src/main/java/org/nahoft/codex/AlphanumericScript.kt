@@ -96,14 +96,20 @@ fun symbolsToDigits(ciphertext: String): List<Int>
     {
         val symbol = Character.toString(ciphertext[offset])
 
-        var foundIndex = 0
-        for (index in 0..alphabet.size)
+        var foundIndex = -1
+        for (index in 0..alphabet.lastIndex)
         {
             if (alphabet[index] == symbol)
             {
                 foundIndex = index
                 break
             }
+        }
+
+        if (foundIndex == -1)
+        {
+            println("Symbol not found")
+            return emptyList()
         }
 
         val digit = foundIndex
@@ -231,7 +237,14 @@ fun bytesToDigits(bytes: ByteArray): List<Int>
 
     for (byte in bytes)
     {
-        result += byte.toInt()
+        if (byte >= 0)
+        {
+            result += byte.toInt()
+        }
+        else
+        {
+            result += (-byte.toInt()) + 128
+        }
     }
 
     return result
@@ -243,8 +256,14 @@ fun digitsToBytes(digits: List<Int>): ByteArray
 
     for (digit in digits)
     {
-        val byte = digit.toByte()
-        result += byte
+        if (digit > 128)
+        {
+            result += (-(digit-128)).toByte()
+        }
+        else
+        {
+            result += digit.toByte()
+        }
     }
 
     return result

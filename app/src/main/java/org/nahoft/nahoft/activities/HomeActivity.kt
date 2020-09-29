@@ -29,9 +29,10 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.lang.Exception
 import java.util.*
+import org.libsodium.jni.keys.PublicKey
+import org.libsodium.jni.keys.PrivateKey
 
 class HomeActivity : AppCompatActivity() {
-
     private var decodePayload: ByteArray? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -308,16 +309,16 @@ class HomeActivity : AppCompatActivity() {
 
     fun tests() {
         val keyPair = Encryption(this).ensureKeysExist()
-        val encodedPrivateKey = Encryption.byteArrayFromPrivateKey(keyPair.private)
-        val encodedPublicKey = Encryption.byteArrayFromPublicKey(keyPair.public)
-        val privateKey = Encryption.privateKeyFromByteArray(encodedPrivateKey)
-        val publicKey = Encryption.publicKeyFromByteArray(encodedPublicKey)
+        val encodedPrivateKey = keyPair.privateKey.toBytes()
+        val encodedPublicKey = keyPair.publicKey.toBytes()
+        val privateKey = PrivateKey(encodedPrivateKey)
+        val publicKey = PublicKey(encodedPublicKey)
 
-        if (keyPair.private == privateKey) {
+        if (keyPair.privateKey == privateKey) {
             print("private keys match")
         }
 
-        if (keyPair.public == publicKey) {
+        if (keyPair.publicKey == publicKey) {
             print("public keys match")
         }
 

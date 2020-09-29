@@ -11,6 +11,7 @@ import org.simpleframework.xml.core.Persister
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.lang.Exception
+import org.libsodium.jni.keys.PublicKey
 
 class Persist {
 
@@ -50,7 +51,7 @@ class Persist {
             var oldFriend = friendList.find { it.id == friendToUpdate.id }
 
             encodedPublicKey?.let {
-                val publicKey = Encryption.publicKeyFromByteArray(encodedPublicKey)
+                val publicKey = PublicKey(encodedPublicKey)
                 if (publicKey == null) {
                     // Fail early instead of persisting a bad public key
                     return
