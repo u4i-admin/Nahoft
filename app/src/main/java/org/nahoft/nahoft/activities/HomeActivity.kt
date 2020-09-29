@@ -310,8 +310,7 @@ class HomeActivity : AppCompatActivity() {
             println("cursor is null")
         }
     }
-
-
+    
     fun tests() {
         val keyPair = Encryption(this).ensureKeysExist()
         val encodedPrivateKey = keyPair.privateKey.toBytes()
@@ -330,6 +329,4 @@ class HomeActivity : AppCompatActivity() {
         print("Test complete.")
 
     }
-
 }
-
