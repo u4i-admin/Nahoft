@@ -35,6 +35,8 @@ class Stencil {
             result = addStar(result, index, bit, bits.length())
         }
 
+//        result = destroy(result)
+
         val pixelsPerBit = numPixels.toDouble() / numBits.toDouble()
         val heightPerBit = ceil(cover.height.toDouble() / sqrt(pixelsPerBit)).toInt()
         val widthPerBit = ceil(cover.width.toDouble() / sqrt(pixelsPerBit)).toInt()
@@ -96,6 +98,20 @@ class Stencil {
         newBitmap.setPixel(widthOffset, heightOffset-1, 128)
         newBitmap.setPixel(widthOffset+1, heightOffset, 128)
         newBitmap.setPixel(widthOffset, heightOffset+1, 128)
+
+        return newBitmap
+    }
+
+    fun destroy(bitmap: Bitmap): Bitmap
+    {
+        var newBitmap = bitmap
+        for (x in 0 until bitmap.width-1)
+        {
+            for(y in 0 until bitmap.height-1)
+            {
+                newBitmap.setPixel(x, y, 0)
+            }
+        }
 
         return newBitmap
     }

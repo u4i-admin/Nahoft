@@ -51,7 +51,7 @@ public class CapturePhotoUtils {
 
                 try
                 {
-                    source.compress(Bitmap.CompressFormat.JPEG, 50, imageOut);
+                    source.compress(Bitmap.CompressFormat.PNG, 100, imageOut);
                 }
                 catch(Exception e)
                 {
