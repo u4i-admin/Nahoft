@@ -3,6 +3,7 @@ package org.nahoft.nahoft.activities
 import android.Manifest
 import android.app.Activity
 import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -41,7 +42,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         // Testing only
-        tests()
+        tests(this)
 
         Persist.app = Nahoft()
 
@@ -317,9 +318,9 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    fun tests() {
-        test_encrypt_decrypt()
-        test_hardcoded_encrypt_decrypt()
+    fun tests(context: Context) {
+        test_encrypt_decrypt(context)
+        test_hardcoded_encrypt_decrypt(context)
 
         val keyPair = Encryption(this).ensureKeysExist()
         val encodedPrivateKey = keyPair.privateKey.toBytes()
@@ -339,7 +340,7 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    fun test_encrypt_decrypt() {
+    fun test_encrypt_decrypt(context: Context) {
         val plaintext = "a"
 
         val seed1 = Random().randomBytes(SodiumConstants.SECRETKEY_BYTES)
@@ -348,12 +349,35 @@ class HomeActivity : AppCompatActivity() {
         val seed2 = Random().randomBytes(SodiumConstants.SECRETKEY_BYTES)
         val keyPair2 = KeyPair(seed2)
 
+        val encryption = Encryption(context)
+        val myKeypair = encryption.ensureKeysExist()
+
+        val friendPublicKey = PublicKey(byteArrayOf(95, 60, 7, 93, -108, 19, -34, 112, 16, -114, -4, 26, -122, -85, -67, 67, -55, 98, -24, 108, -38, 59, 72, 127, 38, -102, 107, 22, 122, -100, -90, -68))
+        val friendPrivateKey = PrivateKey(byteArrayOf(69, 90, -66, 89, -110, -27, 10, -112, -125, 4, 78, 93, -77, 101, -55, -56, -82, -31, -108, 93, 81, -1, 102, 23, -109, 5, 122, 86, -77, 123, 82, 21))
+
+        val myPublicKey = PublicKey("2334e5ae74e150aeb120fc5ae7f40f0aba20a32488e2512de082f74455423c82")
+        val myPrivateKey = PrivateKey("e8989eb6f07f07e29b1b071695f7da03e00ac0432efbaaa54c9912accd07cc44")
+
+        Persist.encryptedSharedPreferences
+            .edit()
+            .putString("keyPair1Public", keyPair1.publicKey.toString())
+            .putString("keyPair1Private", keyPair1.privateKey.toString())
+            .apply()
+
+        Persist.encryptedSharedPreferences
+            .edit()
+            .putString("keyPair2Public", keyPair2.publicKey.toString())
+            .putString("keyPair2Private", keyPair2.privateKey.toString())
+            .apply()
+
         val box = Box(keyPair2.publicKey, keyPair1.privateKey)
-        val nonce = Random().randomBytes(SodiumConstants.NONCE_BYTES)
+//        val box = Box(keyPair2.publicKey, friendPrivateKey)
+        val nonce = byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23)
         val ciphertext = box.encrypt(nonce, plaintext.toByteArray())
         val encrypted = nonce + ciphertext
 
         val box2 = Box(keyPair1.publicKey, keyPair2.privateKey)
+//        val box2 = Box(friendPublicKey, keyPair2.privateKey)
         val nonce2 = encrypted.slice(0..SodiumConstants.NONCE_BYTES - 1).toByteArray()
         val ciphertext2 = encrypted.slice(SodiumConstants.NONCE_BYTES..encrypted.lastIndex).toByteArray()
 
@@ -366,16 +390,46 @@ class HomeActivity : AppCompatActivity() {
         {
             println(e)
         }
+
+        val privateKey1Hex = Persist.encryptedSharedPreferences.getString(
+            "keyPair1Public",
+            null
+        )
+        val publicKey1Hex = Persist.encryptedSharedPreferences.getString(
+            "keyPair1Private",
+            null
+        )
+
+        val privateKey2Hex = Persist.encryptedSharedPreferences.getString(
+            "keyPair2Public",
+            null
+        )
+        val publicKey2Hex = Persist.encryptedSharedPreferences.getString(
+            "keyPair2Private",
+            null
+        )
+
+        val publicKey1 = PublicKey(publicKey1Hex)
+        val publicKey2 = PublicKey(publicKey2Hex)
+        val privateKey1 = PrivateKey(privateKey1Hex)
+        val privateKey2 = PrivateKey(privateKey2Hex)
+
+        val box3 = Box(keyPair1.publicKey, keyPair2.privateKey)
+//        val box2 = Box(friendPublicKey, keyPair2.privateKey)
+        val nonce2 = encrypted.slice(0..SodiumConstants.NONCE_BYTES - 1).toByteArray()
+        val ciphertext2 = encrypted.slice(SodiumConstants.NONCE_BYTES..encrypted.lastIndex).toByteArray()
     }
 
-    fun test_hardcoded_encrypt_decrypt() {
+    fun test_hardcoded_encrypt_decrypt(context: Context) {
         val plaintext = "a"
 
         val friendPublicKey = PublicKey(byteArrayOf(95, 60, 7, 93, -108, 19, -34, 112, 16, -114, -4, 26, -122, -85, -67, 67, -55, 98, -24, 108, -38, 59, 72, 127, 38, -102, 107, 22, 122, -100, -90, -68))
-        val friendPrivateKey = PrivateKey("")
+        val friendPrivateKey = PrivateKey(byteArrayOf(69, 90, -66, 89, -110, -27, 10, -112, -125, 4, 78, 93, -77, 101, -55, -56, -82, -31, -108, 93, 81, -1, 102, 23, -109, 5, 122, 86, -77, 123, 82, 21))
+
+        val myPublicKey = PublicKey("2334e5ae74e150aeb120fc5ae7f40f0aba20a32488e2512de082f74455423c82")
+        val myPrivateKey = PrivateKey("e8989eb6f07f07e29b1b071695f7da03e00ac0432efbaaa54c9912accd07cc44")
+
         val nonce = byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23)
-        val myPublicKey = PublicKey(byteArrayOf(-83, -98, -51, 15, 44, -91, 65, 6, -76, 32, -78, -101, 81, -16, -51, -24, 40, -52, -126, 67, 101, -47, 12, -41, -107, -78, -121, -66, 63, 57, -90, -116))
-        val myPrivateKey = PrivateKey("3a2ac7a3ad2b0e2acb608a8905b300f31f0d900c22a3fa61df7be23136437f79")
 
         val box = Box(friendPublicKey, myPrivateKey)
         val ciphertext = box.encrypt(nonce, plaintext.toByteArray())
@@ -386,6 +440,39 @@ class HomeActivity : AppCompatActivity() {
         val nonce2 = encrypted.slice(0..SodiumConstants.NONCE_BYTES - 1).toByteArray()
         val ciphertext2 = encrypted.slice(SodiumConstants.NONCE_BYTES..encrypted.lastIndex).toByteArray()
 
+        if (!nonce.equals(nonce2))
+        {
+            println("Nonce problems")
+        }
+
+        if (ciphertext != ciphertext2)
+        {
+            println("Cipher problems")
+        }
+
+        val encryption = Encryption(context)
+        val keypair = encryption.ensureKeysExist()
+
+        if (keypair.publicKey != myPublicKey)
+        {
+            println("The keypair loaded is not mine")
+        }
+
+        if (keypair.privateKey != myPrivateKey)
+        {
+            println("The keypair loaded is not mine")
+        }
+
+        if (keypair.publicKey != friendPublicKey)
+        {
+            println()
+        }
+
+        if (keypair.privateKey != friendPrivateKey)
+        {
+            println()
+        }
+        
         try
         {
             val plaintext2 = String(box2.decrypt(nonce2, ciphertext2))
