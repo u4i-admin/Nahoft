@@ -78,8 +78,8 @@ class Encryption(val context: Context) {
 
             if (box != null) {
                 val nonce = Random().randomBytes(SodiumConstants.NONCE_BYTES)
-
-                return box.encrypt(nonce, plaintext.toByteArray())
+                val ciphertext = box.encrypt(nonce, plaintext.toByteArray())
+                return nonce + ciphertext
             }
         } else {
             print("Failed to encrypt a message, Friend's public key could not be decoded.")
@@ -95,9 +95,10 @@ class Encryption(val context: Context) {
         val box = Box(friendPublicKey, keypair.privateKey)
 
         if (box != null) {
-            val nonce = Random().randomBytes(SodiumConstants.NONCE_BYTES)
+            val nonce = ciphertext.slice(0..SodiumConstants.NONCE_BYTES-1).toByteArray()
+            val payload = ciphertext.slice(SodiumConstants.NONCE_BYTES..ciphertext.lastIndex).toByteArray()
 
-            return box.decrypt(nonce, ciphertext).toString()
+            return box.decrypt(nonce, payload).toString()
         }
 
         return null
