@@ -98,7 +98,7 @@
     <string name="which_friend_sent_this_message_prompt">Which friend sent this message?</string>
     <string name="which_friend_sent_this_key_prompt">Which friend sent this key?</string>
 
-    <!-- Login Status -->
-    <string name="login_status_not_required">دوستان</string>
+    <!-- Alert Strings -->
+    <string name="alert_text_received_invitation">Received an invitation from %1$s. Accept their invite to start communicating.</string>
 
 </resources>

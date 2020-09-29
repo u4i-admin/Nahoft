@@ -149,8 +149,6 @@ class HomeActivity : AppCompatActivity() {
     private fun handleSharedText(intent: Intent) {
         intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
             // Update UI to reflect text being shared
-            this.showAlert("Received shared text $it.")
-
             val decodeResult = Codex().decode(it)
 
             if (decodeResult != null) {
@@ -174,7 +172,10 @@ class HomeActivity : AppCompatActivity() {
     private fun handleSharedImage(intent: Intent) {
         (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
             // Update UI to reflect image being shared
+
+            // DEV ONLY DO NOT TRANSLATE, DELETE LATER
             this.showAlert("Received shared image. $it")
+            // DEV ONLY DO NOT TRANSLATE, DELETE LATER
 
             // Decode the message and save it locally for use after sender is selected
             this.decodePayload = Stencil().decode(this, it)
@@ -215,11 +216,12 @@ class HomeActivity : AppCompatActivity() {
                     when (sender.status) {
                         FriendStatus.Default -> {
                             Persist.updateFriend(context = this, friendToUpdate = sender, newStatus = FriendStatus.Requested, encodedPublicKey = decodePayload!!)
-                            this.showAlert("Received an invitation from ${sender.name}. Accept their invite to start communicating.")
+                            this.showAlert(getString(R.string.alert_text_received_invitation, sender.name))
                         }
 
                         FriendStatus.Invited -> {
                             Persist.updateFriend(context = this, friendToUpdate = sender, newStatus = FriendStatus.Approved, encodedPublicKey = decodePayload!!)
+                            // TODO Translate
                             this.showAlert("${sender.name} accepted your invitation. You can now communicate securely.")
                         }
 
@@ -310,7 +312,7 @@ class HomeActivity : AppCompatActivity() {
             println("cursor is null")
         }
     }
-    
+
     fun tests() {
         val keyPair = Encryption(this).ensureKeysExist()
         val encodedPrivateKey = keyPair.privateKey.toBytes()
