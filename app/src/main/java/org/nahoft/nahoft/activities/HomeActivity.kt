@@ -317,6 +317,7 @@ class HomeActivity : AppCompatActivity() {
 
     fun tests() {
         test_encrypt_decrypt()
+        test_hardcoded_encrypt_decrypt()
 
         val keyPair = Encryption(this).ensureKeysExist()
         val encodedPrivateKey = keyPair.privateKey.toBytes()
@@ -351,6 +352,35 @@ class HomeActivity : AppCompatActivity() {
         val encrypted = nonce + ciphertext
 
         val box2 = Box(keyPair1.publicKey, keyPair2.privateKey)
+        val nonce2 = encrypted.slice(0..SodiumConstants.NONCE_BYTES - 1).toByteArray()
+        val ciphertext2 = encrypted.slice(SodiumConstants.NONCE_BYTES..encrypted.lastIndex).toByteArray()
+
+        try
+        {
+            val plaintext2 = String(box2.decrypt(nonce2, ciphertext2))
+            println(plaintext2)
+        }
+        catch(e: Exception)
+        {
+            println(e)
+        }
+    }
+
+    fun test_hardcoded_encrypt_decrypt() {
+        val plaintext = "a"
+
+        val friendPublicKey = PublicKey(byteArrayOf(95, 60, 7, 93, -108, 19, -34, 112, 16, -114, -4, 26, -122, -85, -67, 67, -55, 98, -24, 108, -38, 59, 72, 127, 38, -102, 107, 22, 122, -100, -90, -68))
+        val friendPrivateKey = PrivateKey("")
+        val nonce = byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23)
+        val myPublicKey = PublicKey(byteArrayOf(-83, -98, -51, 15, 44, -91, 65, 6, -76, 32, -78, -101, 81, -16, -51, -24, 40, -52, -126, 67, 101, -47, 12, -41, -107, -78, -121, -66, 63, 57, -90, -116))
+        val myPrivateKey = PrivateKey("3a2ac7a3ad2b0e2acb608a8905b300f31f0d900c22a3fa61df7be23136437f79")
+
+        val box = Box(friendPublicKey, myPrivateKey)
+        val ciphertext = box.encrypt(nonce, plaintext.toByteArray())
+
+        val encrypted = nonce + ciphertext
+
+        val box2 = Box(myPublicKey, friendPrivateKey)
         val nonce2 = encrypted.slice(0..SodiumConstants.NONCE_BYTES - 1).toByteArray()
         val ciphertext2 = encrypted.slice(SodiumConstants.NONCE_BYTES..encrypted.lastIndex).toByteArray()
 

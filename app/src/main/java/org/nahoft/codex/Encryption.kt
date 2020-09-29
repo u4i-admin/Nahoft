@@ -2,9 +2,7 @@ package org.nahoft.codex
 
 import android.content.Context
 import androidx.security.crypto.MasterKeys
-import org.libsodium.jni.Sodium
 import org.libsodium.jni.SodiumConstants
-import org.libsodium.jni.SodiumConstants.SESSIONKEYBYTES
 import org.libsodium.jni.crypto.Random
 import org.libsodium.jni.keys.KeyPair
 import org.libsodium.jni.keys.PrivateKey
@@ -70,15 +68,25 @@ class Encryption(val context: Context) {
     }
 
     fun encrypt(encodedPublicKey: ByteArray, plaintext: String): ByteArray? {
-        val publicKey = PublicKey(encodedPublicKey)
+        val friendPublicKey = PublicKey(encodedPublicKey)
         val keypair = ensureKeysExist()
 
-        if (publicKey != null) {
-            val box = Box(publicKey, keypair.privateKey)
+        if (friendPublicKey != null) {
+            val box = Box(friendPublicKey, keypair.privateKey)
 
             if (box != null) {
-                val nonce = Random().randomBytes(SodiumConstants.NONCE_BYTES)
+//                val nonce = Random().randomBytes(SodiumConstants.NONCE_BYTES)
+                val nonce = byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23)
                 val ciphertext = box.encrypt(nonce, plaintext.toByteArray())
+
+                println("your public key: " + friendPublicKey.toBytes().toList())
+                println("my public key: " + keypair.publicKey.toBytes().toList())
+                println("nonce: " + nonce.toList())
+                println("ciphertext: " + ciphertext.toList())
+
+                val nonceList = nonce.toList()
+                val ciphertextList = ciphertext.toList()
+
                 return nonce + ciphertext
             }
         } else {
@@ -102,6 +110,10 @@ class Encryption(val context: Context) {
             print("\n Private Key: \n ${keypair.privateKey.toBytes().toList()}")
             print("\nNonce: \n ${nonce.toList()}\n")
             print("\nCiphertext: \n ${ciphertext.toList()}")
+            println("your public key: " + friendPublicKey.toBytes().toList())
+            println("my public key: " + keypair.publicKey.toBytes().toList())
+            println("nonce: " + nonce.toList())
+            println("ciphertext: " + payload.toList())
 
             return String(box.decrypt(nonce, payload))
         }
