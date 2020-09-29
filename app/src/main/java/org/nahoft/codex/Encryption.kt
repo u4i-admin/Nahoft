@@ -99,13 +99,17 @@ class Encryption(val context: Context) {
 
     fun decrypt(friendPublicKey: PublicKey, ciphertext: ByteArray): String? {
         val keypair = ensureKeysExist()
-
         val box = Box(friendPublicKey, keypair.privateKey)
 
         if (box != null) {
             val nonce = ciphertext.slice(0..SodiumConstants.NONCE_BYTES-1).toByteArray()
             val payload = ciphertext.slice(SodiumConstants.NONCE_BYTES..ciphertext.lastIndex).toByteArray()
 
+            print("\nFriend Public Key: \n ${friendPublicKey.toBytes().toList()}")
+            print("\nPublic Key: \n ${keypair.publicKey.toBytes().toList()}")
+            print("\n Private Key: \n ${keypair.privateKey.toBytes().toList()}")
+            print("\nNonce: \n ${nonce.toList()}\n")
+            print("\nCiphertext: \n ${ciphertext.toList()}")
             println("your public key: " + friendPublicKey.toBytes().toList())
             println("my public key: " + keypair.publicKey.toBytes().toList())
             println("nonce: " + nonce.toList())

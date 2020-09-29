@@ -305,8 +305,6 @@ class HomeActivity : AppCompatActivity() {
                     // Only add this friend if the list does not contain a friend with that ID already
                     if (!Persist.friendList.any { it.id == newFriend.id }) {
                         Persist.friendList.add(newFriend)
-                    } else {
-                        print("******We didn't add the contact $name, they are already in our friend list.")
                     }
                 }
 
