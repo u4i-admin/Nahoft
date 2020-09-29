@@ -5,6 +5,7 @@
     <string name="Passcode">Passcode</string>
     <string name="Login">Login</string>
     <string name="CheatButton">Cheat</string>
+    <string name="LoginShowAlert">LoggedIn</string>
 
     //Home Activity Strings
     <string name="friendsButtonDescription">Friends</string>
@@ -97,6 +98,9 @@
     <string name="decline_invitation_button_label">Decline</string>
     <string name="which_friend_sent_this_message_prompt">Which friend sent this message?</string>
     <string name="which_friend_sent_this_key_prompt">Which friend sent this key?</string>
+
+    <!-- Login Status -->
+    <string name="login_status_not_required">Passcode Not Required</string>
 
 
 

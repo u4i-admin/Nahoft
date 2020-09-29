@@ -6,6 +6,8 @@
     <string name="Passcode">رمز عبور</string>
     <string name="Login">رمز عبور</string>
     <string name="CheatButton">رمز عبور</string>
+    <string name="LoginShowAlert">رمز عبور</string>
+
 
     //Home Activity Strings
     <string name="friendsButtonDescription">دوستان</string>
@@ -95,5 +97,8 @@
     <string name="decline_invitation_button_label">کاهش می یابد</string>
     <string name="which_friend_sent_this_message_prompt">Which friend sent this message?</string>
     <string name="which_friend_sent_this_key_prompt">Which friend sent this key?</string>
+
+    <!-- Login Status -->
+    <string name="login_status_not_required">دوستان</string>
 
 </resources>

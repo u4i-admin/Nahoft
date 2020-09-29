@@ -6,33 +6,28 @@ import android.content.ContentResolver
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
 import android.provider.ContactsContract
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_home.*
-import org.nahoft.nahoft.*
+import org.libsodium.jni.keys.PrivateKey
+import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
 import org.nahoft.codex.KeyOrMessage
-import org.nahoft.codex.PersistenceEncryption
+import org.nahoft.nahoft.*
 import org.nahoft.nahoft.Persist.Companion.friendsFilename
 import org.nahoft.nahoft.Persist.Companion.messagesFilename
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
-import org.simpleframework.xml.core.Persister
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.lang.Exception
 import java.util.*
-import org.libsodium.jni.keys.PublicKey
-import org.libsodium.jni.keys.PrivateKey
 
 class HomeActivity : AppCompatActivity() {
     private var decodePayload: ByteArray? = null

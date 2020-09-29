@@ -2,6 +2,7 @@ package org.nahoft.nahoft.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.content.ContentResolver
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_enter_passcode.*
@@ -46,7 +47,7 @@ class EnterPasscodeActivity : AppCompatActivity () {
             saveStatus()
             tryLogIn(Persist.status)
 
-            this.showAlert(Persist.status.name)
+            this.showAlert(Persist.status.getDisplayName())
         }
     }
 
@@ -87,11 +88,35 @@ class EnterPasscodeActivity : AppCompatActivity () {
     }
 }
 
-enum class LoginStatus {
+enum class LoginStatus: DisplayName {
 
-    NotRequired,
-    LoggedIn,
-    LoggedOut,
-    SecondaryLogin,
-    FailedLogin,
+    NotRequired {
+        override fun getDisplayName(): String {
+            TODO("Not yet implemented")
+        }
+    },
+    LoggedIn {
+        override fun getDisplayName(): String {
+            TODO("Not yet implemented")
+        }
+    },
+    LoggedOut {
+        override fun getDisplayName(): String {
+            TODO("Not yet implemented")
+        }
+    },
+    SecondaryLogin {
+        override fun getDisplayName(): String {
+            TODO("Not yet implemented")
+        }
+    },
+    FailedLogin {
+        override fun getDisplayName(): String {
+            TODO("Not yet implemented")
+        }
+    },
+}
+
+interface DisplayName {
+    fun getDisplayName(): String
 }
