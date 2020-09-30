@@ -46,9 +46,7 @@ class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : Recycl
         fun bindMessage(newMessage: Message) {
             this.message = newMessage
             this.view.sender_name_text_view.text = newMessage.sender?.name
-
-            val formattedDate = newMessage.timestamp.format(DateTimeFormatter.ofPattern("M/d/y H:m"))
-            this.view.date_text_view.text = formattedDate
+            this.view.date_text_view.text = newMessage.timestampString
         }
 
     }

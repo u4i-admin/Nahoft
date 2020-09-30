@@ -33,6 +33,7 @@ import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
 import java.io.File
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
@@ -50,21 +51,25 @@ class HomeActivity : AppCompatActivity() {
             logout_button.visibility = View.VISIBLE
         }
 
+        // Messages
         messages_button.setOnClickListener {
             val messagesIntent = Intent(this, MessagesActivity::class.java)
             startActivity(messagesIntent)
         }
 
+        // User Guide
         user_guide_button.setOnClickListener {
             val userGuideIntent = Intent(this, UserGuideActivity::class.java)
             startActivity(userGuideIntent)
         }
 
+        // Friends
         friends_button.setOnClickListener {
             val friendsIntent = Intent(this, FriendsActivity::class.java)
             startActivity(friendsIntent)
         }
 
+        // Settings
         settings_button.setOnClickListener {
             val settingsIntent = Intent(this, SettingsActivity::class.java)
             startActivity(settingsIntent)
@@ -97,6 +102,17 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        if (status == LoginStatus.NotRequired) {
+            logout_button.visibility = View.INVISIBLE
+        } else {
+            logout_button.visibility = View.VISIBLE
+        }
+    }
+
+    // Logout Button Handler
     fun logoutClicked(view: android.view.View) {
         status = LoginStatus.LoggedOut
         Persist.saveLoginStatus()
@@ -143,6 +159,7 @@ class HomeActivity : AppCompatActivity() {
         if (Persist.messagesFile.exists()) {
             val messagesToAdd = MessageViewModel().getMessages(Persist.messagesFile, applicationContext)
             messagesToAdd?.let {
+                Persist.messageList.clear()
                 Persist.messageList.addAll(it)
             }
 
@@ -167,7 +184,7 @@ class HomeActivity : AppCompatActivity() {
                     startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
                 }
             } else {
-                this.showAlert(getString(R.string.alert_text_something_went_wrong_we_were_unable_to_decode_the_message))
+                this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
             }
         }
     }
@@ -199,9 +216,10 @@ class HomeActivity : AppCompatActivity() {
                 if (sender != null && decodePayload != null) {
                     // Create Message Instance
                     val date = LocalDateTime.now()
+                    val stringDate = date.format(DateTimeFormatter.ofPattern("M/d/y H:m"))
                     val cipherText = decodePayload
 
-                    val newMessage = Message(date, cipherText!!, sender)
+                    val newMessage = Message(stringDate, cipherText!!, sender)
                     Persist.messageList.add(newMessage)
                     Persist.saveMessagesToFile(this)
 
@@ -225,14 +243,14 @@ class HomeActivity : AppCompatActivity() {
                         FriendStatus.Invited -> {
                             Persist.updateFriend(context = this, friendToUpdate = sender, newStatus = FriendStatus.Approved, encodedPublicKey = decodePayload!!)
                             // TODO Translate
-                            this.showAlert(sender.name,(R.string.alert_text_accepted_your_invitation_you_can_now_communicate_securely))
+                            this.showAlert(sender.name,(R.string.alert_text_invitation_accepted))
                         }
 
                         else ->
-                            this.showAlert(getString(R.string.alert_text_something_went_wrong_we_were_unable_to_update_your_friend_status))
+                            this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
                     }
                 } else {
-                    this.showAlert(getString(R.string.alert_text_something_went_wrong_we_were_unable_to_update_your_friend_status))
+                    this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
                 }
             }
         }

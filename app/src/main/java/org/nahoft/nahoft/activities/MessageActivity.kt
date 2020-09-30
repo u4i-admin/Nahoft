@@ -9,6 +9,7 @@ import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Message
 import org.nahoft.nahoft.R
+import org.nahoft.showAlert
 
 class MessageActivity : AppCompatActivity() {
 
@@ -53,6 +54,8 @@ class MessageActivity : AppCompatActivity() {
 
             if (plaintext != null) {
                 message_body_text_view.text = plaintext
+            } else {
+                applicationContext.showAlert(getString(R.string.alert_text_unable_to_decrypt_message))
             }
 
         } else {

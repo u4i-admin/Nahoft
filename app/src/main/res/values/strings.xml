@@ -105,8 +105,9 @@
     <string name="alert_text_received_invitation">Received an invitation from %1$s. Accept their invite to start communicating.</string>
     <string name="from_label">From:</string>
     <string name="passcode_required_to_proceed">Passcode required to proceed</string>
-    <string name="alert_text_something_went_wrong_we_were_unable_to_decode_the_message">Something went wrong. We were unable to decode the message.</string>
-    <string name="alert_text_accepted_your_invitation_you_can_now_communicate_securely">${sender.name} accepted your invitation. You can now communicate securely.</string>
-    <string name="alert_text_something_went_wrong_we_were_unable_to_update_your_friend_status">Something went wrong, we were unable to update your friend status.</string>
+    <string name="alert_text_unable_to_decode_message">Something went wrong. We were unable to decode this message.</string>
+    <string name="alert_text_unable_to_decrypt_message">We were unable to decrypt this message.</string>
+    <string name="alert_text_invitation_accepted">${sender.name} accepted your invitation. You can now communicate securely.</string>
+    <string name="alert_text_unable_to_update_friend_status">Something went wrong, we were unable to update your friend status.</string>
 
 </resources>
