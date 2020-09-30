@@ -130,15 +130,15 @@ class Stencil {
         val checkColor = newBitmap.getPixel(widthOffset, heightOffset).toUByte().toInt()
         println(checkColor)
 
-        setPixel(newBitmap, widthOffset-1, heightOffset, Color.argb(255, 128, 128, 128))
-        setPixel(newBitmap, widthOffset, heightOffset-1, Color.argb(255, 128, 128, 128))
-        setPixel(newBitmap, widthOffset+1, heightOffset, Color.argb(255, 128, 128, 128))
-        setPixel(newBitmap, widthOffset, heightOffset+1, Color.argb(255, 128, 128, 128))
+        setPixel(newBitmap, widthOffset-1, heightOffset, Color.argb(255, 255, 255, 255))
+        setPixel(newBitmap, widthOffset, heightOffset-1, Color.argb(255, 255, 255, 255))
+        setPixel(newBitmap, widthOffset+1, heightOffset, Color.argb(255, 255, 255, 255))
+        setPixel(newBitmap, widthOffset, heightOffset+1, Color.argb(255, 255, 255, 255))
 
-        setPixel(newBitmap, widthOffset-1, heightOffset+1, Color.argb(255, 128, 128, 128))
-        setPixel(newBitmap, widthOffset-1, heightOffset-1, Color.argb(255, 128, 128, 128))
-        setPixel(newBitmap, widthOffset+1, heightOffset+1, Color.argb(255, 128, 128, 128))
-        setPixel(newBitmap, widthOffset+1, heightOffset-1, Color.argb(255, 128, 128, 128))
+        setPixel(newBitmap, widthOffset-1, heightOffset+1, Color.argb(255, 255, 255, 255))
+        setPixel(newBitmap, widthOffset-1, heightOffset-1, Color.argb(255, 255, 255, 255))
+        setPixel(newBitmap, widthOffset+1, heightOffset+1, Color.argb(255, 255, 255, 255))
+        setPixel(newBitmap, widthOffset+1, heightOffset-1, Color.argb(255, 255, 255, 255))
 
         return newBitmap
     }
@@ -245,21 +245,17 @@ class Stencil {
 
         val values = listOf(r, g, b)
 
-        if (checkValues(values, 0, 11))
+        if (checkValues(values, 0, 80))
         {
             return DecodeBitResult.Zero
         }
-        else if (checkValues(values, 120, 135))
-        {
-            return DecodeBitResult.Stop
-        }
-        else if(checkValues(values, 240, 255))
+        else if(checkValues(values, 200, 255))
         {
             return DecodeBitResult.One
         }
         else
         {
-            return DecodeBitResult.Error
+            return DecodeBitResult.Stop
         }
     }
 
