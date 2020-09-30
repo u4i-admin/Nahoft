@@ -26,27 +26,31 @@ class Stencil {
 
         if (maxStars < numBits) {return null}
 
-        val bits = makeBitSet(encrypted)
-        val bitsLen = bits.length()
+        val bits = bitsFromBytes(encrypted)
+        val bitsLen = bits.size
 
         val numColumns = fitStars(cover, bitsLen)!!
 
         var result = cover.copy(Bitmap.Config.ARGB_8888, true);
-        for (index in 0 until bits.length())
+        for (index in 0 until bits.size)
         {
             var bit = bits.get(index)
 
-            if (bit)
+            if (bit == 1)
             {
                 result = addStar(result, index, 255, numColumns)
             }
-            else
+            else if (bit == 0)
             {
                 result = addStar(result, index, 0, numColumns)
             }
+            else
+            {
+                println("Bad bit! " + bit)
+            }
         }
 
-        result = addStar(result, bits.length(), 128, numColumns)
+        result = addStar(result, bits.size, 128, numColumns)
 
         // Quality check
         val decoded = decode(result)
@@ -197,21 +201,76 @@ class Stencil {
         return result
     }
 
-    fun decodeStars(stars: List<Int>): ByteArray
+    fun decodeStars(stars: List<Int>): ByteArray?
     {
-        val bits = BitSet(stars.size)
-        for (index in 0 until stars.size)
-        {
-            val star = stars[index]
-            when (star)
-            {
-                0 -> bits.clear(index)
-                1 -> bits.set(index)
-            }
-        }
-
-        return bits.toByteArray()
+        return bytesFromBits(stars)
     }
 }
 
 class Star(val x: Int, val y: Int)
+
+val masks: List<UByte> = listOf(128.toUByte(), 64.toUByte(), 32.toUByte(), 16.toUByte(), 8.toUByte(), 4.toUByte(), 2.toUByte(), 1.toUByte())
+
+fun bitsFromBytes(bytes: ByteArray): List<Int>
+{
+    var result: List<Int> = emptyList()
+
+    for (byteIndex in 0 until bytes.size)
+    {
+        val byte = bytes[byteIndex].toUByte()
+
+        for (bitIndex in 0 until 8)
+        {
+            val bit = byte and masks[bitIndex]
+
+            if (bit == 0.toUByte())
+            {
+                result += 0.toUInt().toInt()
+            }
+            else
+            {
+                result += 1.toUInt().toInt()
+            }
+        }
+    }
+
+    return result
+}
+
+fun bytesFromBits(bits: List<Int>): ByteArray?
+{
+    if (bits.size % 8 != 0)
+    {
+        return null
+    }
+
+    var result = ByteArray(bits.size / 8)
+
+    for (byteIndex in 0 until result.size)
+    {
+        var byte: UByte = 0.toUByte()
+
+        for (bitIndex in 0 until 8)
+        {
+            val arrayIndex = (byteIndex * 8) + bitIndex
+            val value = bits[arrayIndex]
+            if (value == 0)
+            {
+                continue
+            }
+            else if (value == 1)
+            {
+                val maskValue: UByte = masks[bitIndex]
+                byte = (byte + maskValue).toUByte()
+            }
+            else
+            {
+                return null
+            }
+        }
+
+        result[byteIndex] = byte.toByte()
+    }
+
+    return result
+}
