@@ -3,6 +3,7 @@ package org.nahoft.nahoft
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Root
 import java.io.Serializable
+import java.time.LocalDateTime
 import java.util.*
 
 @Root(name = "message", strict = false)
@@ -10,7 +11,7 @@ data class Message constructor(
 
     @field:Element(name = "timestamp")
     @param:Element(name = "timestamp")
-    val timestamp: Date,
+    val timestamp: LocalDateTime,
 
     @field:Element(name = "cipherText")
     @param:Element(name = "cipherText")

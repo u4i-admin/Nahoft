@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.friend_selection_recyclerview_item_row.view.*
 import org.nahoft.inflate
 
-class SelectKeySenderRecyclerAdapter(private val friends: ArrayList<Friend>,
-                                     private val listener: (Friend) -> Unit
-) : RecyclerView.Adapter<SelectKeySenderRecyclerAdapter.FriendViewHolder>() {
+class SelectKeySenderRecyclerAdapter(
+    private val friends: ArrayList<Friend>,
+    private val listener: (Friend) -> Unit) : RecyclerView.Adapter<SelectKeySenderRecyclerAdapter.FriendViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
         val inflatedView = parent.inflate(R.layout.friend_selection_recyclerview_item_row, false)

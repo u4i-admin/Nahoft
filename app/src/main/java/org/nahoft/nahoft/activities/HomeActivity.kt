@@ -32,6 +32,7 @@ import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
 import java.io.File
+import java.time.LocalDateTime
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
@@ -200,7 +201,7 @@ class HomeActivity : AppCompatActivity() {
 
                 if (sender != null && decodePayload != null) {
                     // Create Message Instance
-                    val date = Calendar.getInstance().time
+                    val date = LocalDateTime.now()
                     val cipherText = decodePayload
 
                     val newMessage = Message(date, cipherText!!, sender)

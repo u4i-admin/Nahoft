@@ -103,6 +103,7 @@
 
     <!-- Alert Strings -->
     <string name="alert_text_received_invitation">Received an invitation from %1$s. Accept their invite to start communicating.</string>
+    <string name="from_label">From:</string>
 
 
 </resources>
