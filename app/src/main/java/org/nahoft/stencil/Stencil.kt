@@ -2,6 +2,8 @@ package org.nahoft.stencil
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.ColorSpace
 import android.graphics.ImageDecoder
 import android.net.Uri
 import androidx.core.graphics.get
@@ -75,6 +77,12 @@ class Stencil {
         return resultUri
     }
 
+    private fun setPixel(bitmap: Bitmap, x: Int, y: Int, value: Int)
+    {
+        val color = Color.argb(value, value, value, value)
+        bitmap.setPixel(x, y, color)
+    }
+
     private fun fitStars(bitmap: Bitmap, numBits: Int): Int?
     {
         val maxRows = bitmap.height / 3
@@ -116,24 +124,37 @@ class Stencil {
 
         var newBitmap = bitmap
 
-        newBitmap.setPixel(widthOffset, heightOffset, color)
+        setPixel(newBitmap, widthOffset, heightOffset, Color.argb(255, color, color, color))
 
-        newBitmap.setPixel(widthOffset-1, heightOffset, 128)
-        newBitmap.setPixel(widthOffset, heightOffset-1, 128)
-        newBitmap.setPixel(widthOffset+1, heightOffset, 128)
-        newBitmap.setPixel(widthOffset, heightOffset+1, 128)
+        // Quality check
+        val checkColor = newBitmap.getPixel(widthOffset, heightOffset).toUByte().toInt()
+        println(checkColor)
+
+        setPixel(newBitmap, widthOffset-1, heightOffset, Color.argb(255, 128, 128, 128))
+        setPixel(newBitmap, widthOffset, heightOffset-1, Color.argb(255, 128, 128, 128))
+        setPixel(newBitmap, widthOffset+1, heightOffset, Color.argb(255, 128, 128, 128))
+        setPixel(newBitmap, widthOffset, heightOffset+1, Color.argb(255, 128, 128, 128))
+
+        setPixel(newBitmap, widthOffset-1, heightOffset+1, Color.argb(255, 128, 128, 128))
+        setPixel(newBitmap, widthOffset-1, heightOffset-1, Color.argb(255, 128, 128, 128))
+        setPixel(newBitmap, widthOffset+1, heightOffset+1, Color.argb(255, 128, 128, 128))
+        setPixel(newBitmap, widthOffset+1, heightOffset-1, Color.argb(255, 128, 128, 128))
 
         return newBitmap
     }
 
     fun destroy(bitmap: Bitmap): Bitmap
     {
+        val colors = arrayOf(Color.argb(0, 0, 0, 0), Color.argb(255, 255, 255, 255), Color.argb(128, 128, 128, 128))
+
+        var index = 0
         var newBitmap = bitmap
         for (x in 0 until bitmap.width-1)
         {
             for(y in 0 until bitmap.height-1)
             {
-                newBitmap.setPixel(x, y, 0)
+                newBitmap.setPixel(x, y, colors[index % 3])
+                index += 1
             }
         }
 
@@ -153,7 +174,7 @@ class Stencil {
         val maxColumns = bitmap.width / 3
 
         var bits: List<Int>? = null
-        for (numColumns in 1 until maxColumns)
+         for (numColumns in 1 until maxColumns)
         {
             bits = findStars(working, numColumns)
             if (bits != null)
@@ -179,15 +200,29 @@ class Stencil {
             val heightOffset = (3 * row) + 2
             val widthOffset = (3 * column) + 2
 
+//            for (x in 0 until bitmap.width)
+//            {
+//                for (y in 0 until bitmap.height)
+//                {
+//                    val color = bitmap.get(x, y)
+//                    val alpha = Color.alpha(color)
+//                    val r = Color.red(color)
+//                    val g = Color.green(color)
+//                    val b = Color.blue(color)
+//                    println(alpha)
+//                }
+//            }
+
             try
             {
-                val color = bitmap.getPixel(widthOffset, heightOffset)
+                val colorValue = bitmap.get(widthOffset, heightOffset)
+                val color = decodeColor(colorValue)
                 when (color)
                 {
-                    0 -> result += 0
-                    255 -> result += 1
-                    128 -> done = true
-                    else -> return null
+                    DecodeBitResult.Zero -> result += 0
+                    DecodeBitResult.One -> result += 1
+                    DecodeBitResult.Stop -> done = true
+                    DecodeBitResult.Error -> return null
                 }
             }
             catch(e: Exception)
@@ -201,6 +236,55 @@ class Stencil {
         return result
     }
 
+    fun decodeColor(color: Int): DecodeBitResult
+    {
+        val alpha = Color.alpha(color)
+        val r = Color.red(color)
+        val g = Color.green(color)
+        val b = Color.blue(color)
+
+        val values = listOf(r, g, b)
+
+        if (checkValues(values, 0, 11))
+        {
+            return DecodeBitResult.Zero
+        }
+        else if (checkValues(values, 120, 135))
+        {
+            return DecodeBitResult.Stop
+        }
+        else if(checkValues(values, 240, 255))
+        {
+            return DecodeBitResult.One
+        }
+        else
+        {
+            return DecodeBitResult.Error
+        }
+    }
+
+    fun checkValue(value: Int, lower: Int, upper: Int): Boolean
+    {
+        return (value >= lower) and (value <= upper)
+    }
+
+    fun checkValues(values: List<Int>, lower: Int, upper: Int): Boolean
+    {
+        for (value in values)
+        {
+            if (checkValue(value, lower, upper))
+            {
+                continue
+            }
+            else
+            {
+                return false
+            }
+        }
+
+        return true
+    }
+
     fun decodeStars(stars: List<Int>): ByteArray?
     {
         return bytesFromBits(stars)
@@ -208,6 +292,14 @@ class Stencil {
 }
 
 class Star(val x: Int, val y: Int)
+
+enum class DecodeBitResult(val value: Int)
+{
+    Zero(0),
+    One(255),
+    Stop(128),
+    Error(-1024)
+}
 
 val masks: List<UByte> = listOf(128.toUByte(), 64.toUByte(), 32.toUByte(), 16.toUByte(), 8.toUByte(), 4.toUByte(), 2.toUByte(), 1.toUByte())
 
