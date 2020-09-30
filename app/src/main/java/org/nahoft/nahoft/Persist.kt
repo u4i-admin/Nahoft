@@ -85,7 +85,6 @@ class Persist {
 
         // TODO: Another pair of eyes, did we get everything?
         fun clearAllData() {
-
             if (friendsFile.exists()) { friendsFile.delete() }
             if (messagesFile.exists()) { messagesFile.delete() }
             friendList.clear()
@@ -97,6 +96,11 @@ class Persist {
                 .edit()
                 .clear()
                 .apply()
+
+            // TODO: Revoke Permissions
+
+
+            status = LoginStatus.NotRequired
         }
 
         fun saveFriendsToFile(context: Context) {

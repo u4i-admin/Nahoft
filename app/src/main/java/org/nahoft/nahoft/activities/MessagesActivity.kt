@@ -1,8 +1,11 @@
 package org.nahoft.nahoft.activities
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_messages.*
 import org.nahoft.codex.PersistenceEncryption
@@ -25,6 +28,11 @@ class MessagesActivity : AppCompatActivity() {
         adapter = MessagesRecyclerAdapter(Persist.messageList)
         messages_recycler_view.layoutManager = linearLayoutManager
         messages_recycler_view.adapter = adapter
+
+        val dividerHeightInPixels = resources.getDimensionPixelSize(R.dimen.list_item_divider_height)
+        val dividerDecoration = org.nahoft.nahoft.ui.DividerItemDecoration(ContextCompat.getColor(this, R.color.colorPrimary), dividerHeightInPixels)
+        messages_recycler_view.addItemDecoration(dividerDecoration)
+
 
         // Compose new message button
         new_message.setOnClickListener {

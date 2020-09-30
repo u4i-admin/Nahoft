@@ -129,15 +129,15 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         fun setupDefaultRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Default.getIcon())
             this.view.invite_button.visibility = View.VISIBLE
-            this.view.status_label_text_view.visibility = View.GONE
+            this.view.invite_button.text = "Invite"
             this.view.accept_button.visibility = View.GONE
             this.view.decline_button.visibility = View.GONE
         }
 
         fun setupInvitedRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Invited.getIcon())
-            this.view.invite_button.visibility = View.GONE
-            this.view.status_label_text_view.visibility = View.VISIBLE
+            this.view.invite_button.visibility = View.VISIBLE
+            this.view.invite_button.text = "Invite Again"
             this.view.accept_button.visibility = View.GONE
             this.view.decline_button.visibility = View.GONE
         }
@@ -145,7 +145,6 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         fun setupRequestedRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Requested.getIcon())
             this.view.invite_button.visibility = View.GONE
-            this.view.status_label_text_view.visibility = View.GONE
             this.view.accept_button.visibility = View.VISIBLE
             this.view.decline_button.visibility = View.VISIBLE
         }
@@ -153,7 +152,6 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         fun setupVerifiedRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Verified.getIcon())
             this.view.invite_button.visibility = View.GONE
-            this.view.status_label_text_view.visibility = View.GONE
             this.view.accept_button.visibility = View.GONE
             this.view.decline_button.visibility = View.GONE
         }
@@ -161,7 +159,6 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         fun setupApprovedRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Approved.getIcon())
             this.view.invite_button.visibility = View.GONE
-            this.view.status_label_text_view.visibility = View.GONE
             this.view.accept_button.visibility = View.GONE
             this.view.decline_button.visibility = View.GONE
         }

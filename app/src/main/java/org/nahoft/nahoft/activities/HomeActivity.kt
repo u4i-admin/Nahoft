@@ -128,7 +128,7 @@ class HomeActivity : AppCompatActivity() {
         if (statusString != null) {
 
             try {
-                Persist.status = LoginStatus.valueOf(statusString)
+                status = LoginStatus.valueOf(statusString)
             } catch (error: Exception) {
                 print("Received invalid status from EncryptedSharedPreferences. User is logged out.")
                 Persist.status = LoginStatus.LoggedOut
