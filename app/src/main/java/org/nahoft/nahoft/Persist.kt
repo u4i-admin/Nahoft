@@ -91,14 +91,20 @@ class Persist {
             messageList.clear()
 
 
+            // Overwrite the keys to EncryptedSharedPreferences
+            val keyHex = "0000000000000000000000000000000000000000000000000000000000000000"
+
+            encryptedSharedPreferences
+                .edit()
+                .putString("NahoftPrivateKey", keyHex)
+                .putString("NahoftPublicKey", keyHex)
+                .apply()
+
             // Remove Everything from EncryptedSharedPreferences
             encryptedSharedPreferences
                 .edit()
                 .clear()
                 .apply()
-
-            // TODO: Revoke Permissions
-
 
             status = LoginStatus.NotRequired
         }
