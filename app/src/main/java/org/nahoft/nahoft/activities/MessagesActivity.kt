@@ -36,21 +36,9 @@ class MessagesActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
 
-        saveMessagesToFile()
+        Persist.saveMessagesToFile(this)
     }
 
-    private fun saveMessagesToFile() {
-        val serializer = Persister()
-        val outputStream = ByteArrayOutputStream()
-
-        val messagesObject = Friends(Persist.friendList)
-        try { serializer.write(messagesObject, outputStream) } catch (e: Exception) {
-            print("Failed to serialize our messages list: $e")
-            return
-        }
-
-        PersistenceEncryption().writeEncryptedFile(Persist.messagesFile, outputStream.toByteArray(), applicationContext)
-    }
 }
 
 

@@ -114,11 +114,13 @@ class Persist {
         fun saveMessagesToFile(context: Context) {
             val serializer = Persister()
             val outputStream = ByteArrayOutputStream()
-            val messagesObject = Messages(messageList)
-
+            val messagesObject = Friends(Persist.friendList)
             try { serializer.write(messagesObject, outputStream) } catch (error: Exception) {
-                print("Failed to serialize our messagesList: $error")
+                print("Failed to serialize our messages list: $error")
+                return
             }
+
+            PersistenceEncryption().writeEncryptedFile(Persist.messagesFile, outputStream.toByteArray(), context)
         }
     }
 
