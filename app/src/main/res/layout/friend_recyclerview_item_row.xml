@@ -8,21 +8,16 @@
 
     <TextView
         android:id="@+id/friendName"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|start"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="86dp"
-        android:layout_weight="1"
+        android:layout_marginStart="8dp"
         android:ellipsize="end"
-        android:maxLines="5"
         android:text="@string/friendsNameRecyclerView"
-        android:textAlignment="center"
+        android:textAlignment="viewStart"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/accept_button"
         app:layout_constraintStart_toEndOf="@+id/friendIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +25,7 @@
         android:id="@+id/friendIcon"
         android:layout_width="30dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/friendName"
@@ -49,14 +44,13 @@
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.41" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/accept_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="@string/approve_invitation_button_label"
         android:textColor="@color/colorAccent"

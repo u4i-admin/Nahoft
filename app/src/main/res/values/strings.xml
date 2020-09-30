@@ -10,7 +10,7 @@
     //Home Activity Strings
     <string name="friendsButtonDescription">Friends</string>
     <string name="messagesButtonDescription">Messages</string>
-    <string name="settingsButtonDescription">Setting</string>
+    <string name="settingsButtonDescription">Settings</string>
     <string name="userGuideButtonDescription">User Guide</string>
     <string name="passcodeRequiredToProceed">Passcode Required to Proceed</string>
     <string name="receivedSharedTextShowAlert">Received Shared Text</string>
