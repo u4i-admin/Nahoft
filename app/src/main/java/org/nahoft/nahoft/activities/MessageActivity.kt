@@ -2,14 +2,13 @@ package org.nahoft.nahoft.activities
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_message.*
-import kotlinx.android.synthetic.main.message_item_row.*
+import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Message
 import org.nahoft.nahoft.R
-import org.libsodium.jni.keys.PublicKey
 
 class MessageActivity : AppCompatActivity() {
 
@@ -42,21 +41,18 @@ class MessageActivity : AppCompatActivity() {
         loadMessageContent()
     }
 
-    fun loadMessageContent() {
+    private fun loadMessageContent() {
 
-        message_sender_text_view.text = message.sender?.name
+        message_sender_text_view.text = getString(R.string.sender_label, message.sender?.name)
 
-        val senderKeyBytes = message.sender?.publicKeyEncoded?.let { it }
+        val senderKeyBytes = message.sender?.publicKeyEncoded
 
         if (senderKeyBytes != null) {
-            val senderKey = PublicKey(senderKeyBytes)?.let { it }
+            val senderKey = PublicKey(senderKeyBytes)
+            val plaintext = Encryption(this).decrypt(senderKey, message.cipherText)
 
-            if (senderKey != null) {
-                val plaintext = Encryption(this).decrypt(senderKey, message.cipherText)?.let { it }
-
-                if (plaintext != null) {
-                    message_body_text_view.text = plaintext
-                }
+            if (plaintext != null) {
+                message_body_text_view.text = plaintext
             }
 
         } else {

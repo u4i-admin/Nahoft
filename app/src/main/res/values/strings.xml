@@ -90,8 +90,10 @@
     //Friends Selection Recyclerview Item Row
     <string name="nameFriendsSelectionRecyclerviewItemRow">Name</string>
 
-
+    <!-- Message View -->
     <string name="unknown_sender_label">Unknown</string>
+    <string name="sender_label">From: %1$s</string>
+
     <string name="invite_friend_button_label">Invite</string>
     <string name="friend_status_label_invited">Invited</string>
     <string name="approve_invitation_button_label">Accept</string>
@@ -101,6 +103,7 @@
 
     <!-- Alert Strings -->
     <string name="alert_text_received_invitation">Received an invitation from %1$s. Accept their invite to start communicating.</string>
+    <string name="from_label">From:</string>
 
 
 </resources>
