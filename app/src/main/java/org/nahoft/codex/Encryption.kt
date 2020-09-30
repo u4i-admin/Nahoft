@@ -9,6 +9,7 @@ import org.libsodium.jni.keys.PrivateKey
 import org.libsodium.jni.keys.PublicKey
 import org.libsodium.jni.crypto.Box
 import org.nahoft.nahoft.Persist
+import java.lang.Exception
 
 // Note: The AndroidKeystore does not support ECDH key agreement between EC keys.
 // The secure enclave does not appear to support EC keys at all, at this time.
@@ -115,7 +116,12 @@ class Encryption(val context: Context) {
             println("nonce: " + nonce.toList())
             println("ciphertext: " + payload.toList())
 
-            return String(box.decrypt(nonce, payload))
+            try {
+                val result = String(box.decrypt(nonce, payload))
+                return result
+            } catch (error: Exception) {
+                return null
+            }
         }
 
         return null

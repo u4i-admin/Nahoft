@@ -29,6 +29,12 @@ class PasscodeActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        updateSwitch()
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
 
@@ -42,7 +48,7 @@ class PasscodeActivity : AppCompatActivity() {
     }
 
     fun updateSwitch() {
-        if (Persist.status == LoginStatus.NotRequired)
+        if (status == LoginStatus.NotRequired)
         {
             updateInputs(false)
         } else {
@@ -95,7 +101,7 @@ class PasscodeActivity : AppCompatActivity() {
             // We will not update the status to logged in until the user has entered valid passcodes
         } else {
             // Status is NotRequired
-            Persist.status = LoginStatus.NotRequired
+            status = LoginStatus.NotRequired
         }
 
         updateInputs(required)

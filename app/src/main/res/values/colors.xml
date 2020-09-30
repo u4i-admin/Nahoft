@@ -10,4 +10,6 @@
     <!--   a secondary color for controls like checkboxes and text fields -->
     <!--   previously #03DAC5  -->
     <color name="colorAccent">#FBF8F8</color>
+
+    <color name="black">#000000</color>
 </resources>

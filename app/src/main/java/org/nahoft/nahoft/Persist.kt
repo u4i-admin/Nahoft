@@ -85,7 +85,6 @@ class Persist {
 
         // TODO: Another pair of eyes, did we get everything?
         fun clearAllData() {
-
             if (friendsFile.exists()) { friendsFile.delete() }
             if (messagesFile.exists()) { messagesFile.delete() }
             friendList.clear()
@@ -97,6 +96,11 @@ class Persist {
                 .edit()
                 .clear()
                 .apply()
+
+            // TODO: Revoke Permissions
+
+
+            status = LoginStatus.NotRequired
         }
 
         fun saveFriendsToFile(context: Context) {
@@ -108,17 +112,19 @@ class Persist {
                 print("Failed to serialize our friends list: $error")
             }
 
-            PersistenceEncryption().writeEncryptedFile(Persist.friendsFile, outputStream.toByteArray(), context)
+            PersistenceEncryption().writeEncryptedFile(friendsFile, outputStream.toByteArray(), context)
         }
 
         fun saveMessagesToFile(context: Context) {
             val serializer = Persister()
             val outputStream = ByteArrayOutputStream()
             val messagesObject = Messages(messageList)
-
             try { serializer.write(messagesObject, outputStream) } catch (error: Exception) {
-                print("Failed to serialize our messagesList: $error")
+                print("Failed to serialize our messages list: $error")
+                return
             }
+
+            PersistenceEncryption().writeEncryptedFile(messagesFile, outputStream.toByteArray(), context)
         }
     }
 

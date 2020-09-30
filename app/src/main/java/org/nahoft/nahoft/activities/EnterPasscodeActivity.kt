@@ -25,7 +25,7 @@ class EnterPasscodeActivity : AppCompatActivity () {
         // Load status from preferences
         Persist.loadEncryptedSharedPreferences(this.applicationContext)
         this.getStatus()
-        tryLogIn(Persist.status)
+        tryLogIn(status)
 
         login_button.setOnClickListener {
             val enteredPassword = passcode_edit_text.text.toString()
@@ -34,18 +34,18 @@ class EnterPasscodeActivity : AppCompatActivity () {
 
             when (enteredPassword) {
                 maybePasscode -> {
-                    Persist.status = LoginStatus.LoggedIn
+                    status = LoginStatus.LoggedIn
                 }
                 maybeSecondary -> {
-                    Persist.status = LoginStatus.SecondaryLogin
+                    status = LoginStatus.SecondaryLogin
                 }
                 else -> {
-                    Persist.status = LoginStatus.FailedLogin
+                    status = LoginStatus.FailedLogin
                 }
             }
 
             saveStatus()
-            tryLogIn(Persist.status)
+            tryLogIn(status)
         }
     }
 
@@ -56,20 +56,20 @@ class EnterPasscodeActivity : AppCompatActivity () {
         if (statusString != null) {
 
             try {
-                Persist.status = LoginStatus.valueOf(statusString)
+                status = LoginStatus.valueOf(statusString)
             } catch (error: Exception) {
                 print("Received invalid status from EncryptedSharedPreferences. User is logged out.")
-                Persist.status = LoginStatus.LoggedOut
+                status = LoginStatus.LoggedOut
             }
         } else {
-            Persist.status = LoginStatus.NotRequired
+            status = LoginStatus.NotRequired
         }
     }
 
     private fun saveStatus() {
         Persist.encryptedSharedPreferences
     .edit()
-    .putString(Persist.sharedPrefLoginStatusKey, Persist.status.name)
+    .putString(Persist.sharedPrefLoginStatusKey, status.name)
     .apply()
 }
 
@@ -80,7 +80,10 @@ class EnterPasscodeActivity : AppCompatActivity () {
             LoginStatus.LoggedIn, LoginStatus.NotRequired -> startActivity(Intent(this, HomeActivity::class.java))
             // Secondary passcode entered delete user data
             // TODO: Test to see if this works
-            LoginStatus.SecondaryLogin -> Persist.clearAllData()
+            LoginStatus.SecondaryLogin -> {
+                Persist.clearAllData()
+                startActivity(Intent(this, HomeActivity::class.java))
+            }
             else -> println("Login Status is $status")
         }
     }

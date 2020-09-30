@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.message_item_row.view.*
+import org.nahoft.codex.Encryption
 import org.nahoft.inflate
 import org.nahoft.nahoft.activities.MessageActivity
 import java.time.format.DateTimeFormatter
@@ -22,6 +23,8 @@ class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : Recycl
     }
 
     override fun getItemCount(): Int = messages.size
+    
+
 
     // ViewHolder
     class MessageViewHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
@@ -46,9 +49,7 @@ class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : Recycl
         fun bindMessage(newMessage: Message) {
             this.message = newMessage
             this.view.sender_name_text_view.text = newMessage.sender?.name
-
-            val formattedDate = newMessage.timestamp.format(DateTimeFormatter.ofPattern("M/d/y H:m"))
-            this.view.date_text_view.text = formattedDate
+            this.view.date_text_view.text = newMessage.timestampString
         }
 
     }

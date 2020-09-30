@@ -11,7 +11,7 @@ data class Message constructor(
 
     @field:Element(name = "timestamp")
     @param:Element(name = "timestamp")
-    val timestamp: LocalDateTime,
+    val timestampString: String,
 
     @field:Element(name = "cipherText")
     @param:Element(name = "cipherText")

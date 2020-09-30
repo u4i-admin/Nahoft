@@ -105,8 +105,9 @@
     <string name="alert_text_received_invitation">دعوت آنها را برای شروع ارتباط بپذیرید%1$s. دعوت آنها را برای شروع ارتباط بپذیرید.</string>
     <string name="from_label">از جانب</string>
     <string name="passcode_required_to_proceed">برای ادامه کد عبور لازم است</string>
-    <string name="alert_text_something_went_wrong_we_were_unable_to_decode_the_message">مشکلی پیش آمد ما قادر به رمزگشایی پیام نبودیم.</string>
-    <string name="alert_text_accepted_your_invitation_you_can_now_communicate_securely">  دعوت شما را پذیرفت اکنون می توانید به صورت ایمن ارتباط برقرار کنید.${sender.name}</string>
-    <string name="alert_text_something_went_wrong_we_were_unable_to_update_your_friend_status">مشکلی پیش آمد ، ما نتوانستیم وضعیت دوست شما را به روز کنیم.</string>
+    <string name="alert_text_unable_to_decode_message">مشکلی پیش آمد ما قادر به رمزگشایی پیام نبودیم.</string>
+    <string name="alert_text_unable_to_decrypt_message">مشکلی پیش آمد ما قادر به رمزگشایی پیام نبودیم.</string>
+    <string name="alert_text_invitation_accepted">  دعوت شما را پذیرفت اکنون می توانید به صورت ایمن ارتباط برقرار کنید.${sender.name}</string>
+    <string name="alert_text_unable_to_update_friend_status">مشکلی پیش آمد ، ما نتوانستیم وضعیت دوست شما را به روز کنیم.</string>
 
 </resources>
