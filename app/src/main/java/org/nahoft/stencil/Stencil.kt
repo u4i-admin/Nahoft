@@ -8,6 +8,7 @@ import androidx.core.graphics.get
 import kotlin.math.ceil
 import kotlin.math.sqrt
 import org.nahoft.codex.makeBitSet
+import java.util.*
 
 class Stencil {
     fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri?
@@ -25,14 +26,37 @@ class Stencil {
 
         if (maxStars < numBits) {return null}
 
-        val bits = makeBitSet(encrypted)
-        val bitsLen = bits.length()
+        val bits = bitsFromBytes(encrypted)
+        val bitsLen = bits.size
+
+        val numColumns = fitStars(cover, bitsLen)!!
 
         var result = cover.copy(Bitmap.Config.ARGB_8888, true);
-        for (index in 0 until bits.length())
+        for (index in 0 until bits.size)
         {
             var bit = bits.get(index)
-            result = addStar(result, index, bit, bits.length())
+
+            if (bit == 1)
+            {
+                result = addStar(result, index, 255, numColumns)
+            }
+            else if (bit == 0)
+            {
+                result = addStar(result, index, 0, numColumns)
+            }
+            else
+            {
+                println("Bad bit! " + bit)
+            }
+        }
+
+        result = addStar(result, bits.size, 128, numColumns)
+
+        // Quality check
+        val decoded = decode(result)
+        if (decoded == null)
+        {
+            return null
         }
 
 //        result = destroy(result)
@@ -51,7 +75,7 @@ class Stencil {
         return resultUri
     }
 
-    private fun addStar(bitmap: Bitmap, index: Int, bit: Boolean, numBits: Int): Bitmap?
+    private fun fitStars(bitmap: Bitmap, numBits: Int): Int?
     {
         val maxRows = bitmap.height / 3
         val maxColumns = bitmap.width / 3
@@ -77,22 +101,22 @@ class Stencil {
             return null
         }
 
-        val row = index / numColumnsPicked
-        val column = index % numColumnsPicked
+        return numColumnsPicked
+    }
+
+    private class Dimensions(val x: Int, val y: Int)
+
+    private fun addStar(bitmap: Bitmap, index: Int, color: Int, numColumns: Int): Bitmap?
+    {
+        val row = index / numColumns
+        val column = index % numColumns
 
         val heightOffset = (3 * row) + 2
         val widthOffset = (3 * column) + 2
 
         var newBitmap = bitmap
 
-        if (bit)
-        {
-            newBitmap.setPixel(widthOffset, heightOffset, 255)
-        }
-        else
-        {
-            newBitmap.setPixel(widthOffset, heightOffset, 0)
-        }
+        newBitmap.setPixel(widthOffset, heightOffset, color)
 
         newBitmap.setPixel(widthOffset-1, heightOffset, 128)
         newBitmap.setPixel(widthOffset, heightOffset-1, 128)
@@ -116,64 +140,137 @@ class Stencil {
         return newBitmap
     }
 
-    fun decode(context: Context, uri: Uri): ByteArray
+    fun decode(context: Context, uri: Uri): ByteArray?
     {
         val bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(context.contentResolver, uri))
         return decode(bitmap)
     }
 
-    fun decode(bitmap: Bitmap): ByteArray
+    fun decode(bitmap: Bitmap): ByteArray?
     {
-        var stars = findStars(bitmap)
-        stars = verifyStars(bitmap, stars)
+        var working = bitmap.copy(Bitmap.Config.ARGB_8888, true);
 
-        return decodeStars(stars)
-    }
+        val maxColumns = bitmap.width / 3
 
-    fun findStars(bitmap: Bitmap): List<Star>
-    {
-        var result: List<Star> = listOf()
-
-        for (x in 0..bitmap.width)
+        var bits: List<Int>? = null
+        for (numColumns in 1 until maxColumns)
         {
-            for (y in 0..bitmap.height)
+            bits = findStars(working, numColumns)
+            if (bits != null)
             {
-                val value = bitmap.get(x, y)
-                if ((value == 0) or (value == 255))
-                {
-                    val star = Star(x, y)
-                    result += star
-                }
+                return decodeStars(bits)
             }
         }
 
-        return result
+        return null
     }
 
-    fun verifyStars(bitmap: Bitmap, stars: List<Star>): List<Star>
+    fun findStars(bitmap: Bitmap, numColumns: Int): List<Int>?
     {
-        var result: List<Star> = listOf()
+        var result: List<Int> = emptyList()
 
-        for (star in stars)
+        var index = 0
+        var done = false
+        while (!done)
         {
-            val x = star.x
-            val y = star.y
+            val row = index / numColumns
+            val column = index % numColumns
 
-            if (bitmap.get(x+1, y) != 128) {continue}
-            if (bitmap.get(x+1, y+1) != 128) {continue}
-            if (bitmap.get(x, y+1) != 128) {continue}
-            if (bitmap.get(x+1, y+1) != 128) {continue}
+            val heightOffset = (3 * row) + 2
+            val widthOffset = (3 * column) + 2
 
-            result += star
+            try
+            {
+                val color = bitmap.getPixel(widthOffset, heightOffset)
+                when (color)
+                {
+                    0 -> result += 0
+                    255 -> result += 1
+                    128 -> done = true
+                    else -> return null
+                }
+            }
+            catch(e: Exception)
+            {
+                return null
+            }
+
+            index += 1
         }
 
         return result
     }
 
-    fun decodeStars(stars: List<Star>): ByteArray
+    fun decodeStars(stars: List<Int>): ByteArray?
     {
-        return byteArrayOf()
+        return bytesFromBits(stars)
     }
 }
 
 class Star(val x: Int, val y: Int)
+
+val masks: List<UByte> = listOf(128.toUByte(), 64.toUByte(), 32.toUByte(), 16.toUByte(), 8.toUByte(), 4.toUByte(), 2.toUByte(), 1.toUByte())
+
+fun bitsFromBytes(bytes: ByteArray): List<Int>
+{
+    var result: List<Int> = emptyList()
+
+    for (byteIndex in 0 until bytes.size)
+    {
+        val byte = bytes[byteIndex].toUByte()
+
+        for (bitIndex in 0 until 8)
+        {
+            val bit = byte and masks[bitIndex]
+
+            if (bit == 0.toUByte())
+            {
+                result += 0.toUInt().toInt()
+            }
+            else
+            {
+                result += 1.toUInt().toInt()
+            }
+        }
+    }
+
+    return result
+}
+
+fun bytesFromBits(bits: List<Int>): ByteArray?
+{
+    if (bits.size % 8 != 0)
+    {
+        return null
+    }
+
+    var result = ByteArray(bits.size / 8)
+
+    for (byteIndex in 0 until result.size)
+    {
+        var byte: UByte = 0.toUByte()
+
+        for (bitIndex in 0 until 8)
+        {
+            val arrayIndex = (byteIndex * 8) + bitIndex
+            val value = bits[arrayIndex]
+            if (value == 0)
+            {
+                continue
+            }
+            else if (value == 1)
+            {
+                val maskValue: UByte = masks[bitIndex]
+                byte = (byte + maskValue).toUByte()
+            }
+            else
+            {
+                return null
+            }
+        }
+
+        result[byteIndex] = byte.toByte()
+    }
+
+    return result
+}
