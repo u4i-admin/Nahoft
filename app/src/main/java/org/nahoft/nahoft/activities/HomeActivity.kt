@@ -85,7 +85,7 @@ class HomeActivity : AppCompatActivity() {
                     Persist.loadEncryptedSharedPreferences(this.applicationContext)
                 } else if (Persist.status != LoginStatus.LoggedIn) {
                     //FIXME: If the status is not either NotRequired, or Logged in, request login
-                    this.showAlert("Passcode required to proceed")
+                    this.showAlert(getString(R.string.passcode_required_to_proceed))
                 }
 
                 if ("text/plain" == intent.type) {
@@ -167,7 +167,7 @@ class HomeActivity : AppCompatActivity() {
                     startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
                 }
             } else {
-                this.showAlert("Something went wrong. We were unable to decode the message.")
+                this.showAlert(getString(R.string.alert_text_something_went_wrong_we_were_unable_to_decode_the_message))
             }
         }
     }
@@ -225,14 +225,14 @@ class HomeActivity : AppCompatActivity() {
                         FriendStatus.Invited -> {
                             Persist.updateFriend(context = this, friendToUpdate = sender, newStatus = FriendStatus.Approved, encodedPublicKey = decodePayload!!)
                             // TODO Translate
-                            this.showAlert("${sender.name} accepted your invitation. You can now communicate securely.")
+                            this.showAlert(sender.name,(R.string.alert_text_accepted_your_invitation_you_can_now_communicate_securely))
                         }
 
                         else ->
-                            this.showAlert("Something went wrong, we were unable to update your friend status.")
+                            this.showAlert(getString(R.string.alert_text_something_went_wrong_we_were_unable_to_update_your_friend_status))
                     }
                 } else {
-                    this.showAlert("Something went wrong, we were unable to update your friend status.")
+                    this.showAlert(getString(R.string.alert_text_something_went_wrong_we_were_unable_to_update_your_friend_status))
                 }
             }
         }
