@@ -91,18 +91,22 @@
     <string name="nameFriendsSelectionRecyclerviewItemRow">دوستان</string>
 
     <!-- Message View -->
-    <string name="unknown_sender_label">Unknown</string>
-    <string name="sender_label">From: %1$s</string>
+    <string name="unknown_sender_label">ناشناخته</string>
+    <string name="sender_label">%1$s :از جانب</string>
 
     <string name="invite_friend_button_label">دعوت</string>
     <string name="friend_status_label_invited">دعوت کرد</string>
     <string name="approve_invitation_button_label">تایید</string>
     <string name="decline_invitation_button_label">کاهش می یابد</string>
-    <string name="which_friend_sent_this_message_prompt">Which friend sent this message?</string>
-    <string name="which_friend_sent_this_key_prompt">Which friend sent this key?</string>
+    <string name="which_friend_sent_this_message_prompt">کدام دوست این پیام را ارسال کرده است؟</string>
+    <string name="which_friend_sent_this_key_prompt">کدام دوست این کلید را ارسال کرده است؟</string>
 
     <!-- Alert Strings -->
-    <string name="alert_text_received_invitation">Received an invitation from %1$s. Accept their invite to start communicating.</string>
-    <string name="from_label">From:</string>
+    <string name="alert_text_received_invitation">دعوت آنها را برای شروع ارتباط بپذیرید%1$s. دعوت آنها را برای شروع ارتباط بپذیرید.</string>
+    <string name="from_label">از جانب</string>
+    <string name="passcode_required_to_proceed">برای ادامه کد عبور لازم است</string>
+    <string name="alert_text_something_went_wrong_we_were_unable_to_decode_the_message">مشکلی پیش آمد ما قادر به رمزگشایی پیام نبودیم.</string>
+    <string name="alert_text_accepted_your_invitation_you_can_now_communicate_securely">  دعوت شما را پذیرفت اکنون می توانید به صورت ایمن ارتباط برقرار کنید.${sender.name}</string>
+    <string name="alert_text_something_went_wrong_we_were_unable_to_update_your_friend_status">مشکلی پیش آمد ، ما نتوانستیم وضعیت دوست شما را به روز کنیم.</string>
 
 </resources>
