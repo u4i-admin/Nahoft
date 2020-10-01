@@ -94,7 +94,8 @@
     <string name="unknown_sender_label">Unknown</string>
     <string name="sender_label">From: %1$s</string>
 
-    <string name="invite_friend_button_label">Invite</string>
+    <string name="button_label_invite">Invite</string>
+    <string name="button_label_invite_again">Invite Again</string>
     <string name="friend_status_label_invited">Invited</string>
     <string name="approve_invitation_button_label">Accept</string>
     <string name="decline_invitation_button_label">Decline</string>

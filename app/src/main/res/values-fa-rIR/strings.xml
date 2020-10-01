@@ -86,6 +86,8 @@
 
     //Friends Recycler View Item Row
     <string name="friendsNameRecyclerView">دوستان</string>
+    <string name="button_label_invite">دعوت</string>
+    <string name="button_label_invite_again">دعوت</string>
 
     //Friends Selection Recyclerview Item Row
     <string name="nameFriendsSelectionRecyclerviewItemRow">دوستان</string>
@@ -94,7 +96,6 @@
     <string name="unknown_sender_label">ناشناخته</string>
     <string name="sender_label">%1$s :از جانب</string>
 
-    <string name="invite_friend_button_label">دعوت</string>
     <string name="friend_status_label_invited">دعوت کرد</string>
     <string name="approve_invitation_button_label">تایید</string>
     <string name="decline_invitation_button_label">کاهش می یابد</string>

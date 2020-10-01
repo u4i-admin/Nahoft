@@ -1,5 +1,9 @@
 package org.nahoft.nahoft
 
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -129,7 +133,7 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         fun setupDefaultRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Default.getIcon())
             this.view.invite_button.visibility = View.VISIBLE
-            this.view.invite_button.text = "Invite"
+            this.view.invite_button.text = view.context.getString(R.string.button_label_invite)
             this.view.accept_button.visibility = View.GONE
             this.view.decline_button.visibility = View.GONE
         }
@@ -137,7 +141,7 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         fun setupInvitedRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Invited.getIcon())
             this.view.invite_button.visibility = View.VISIBLE
-            this.view.invite_button.text = "Invite Again"
+            this.view.invite_button.text = view.context.getString(R.string.button_label_invite_again)
             this.view.accept_button.visibility = View.GONE
             this.view.decline_button.visibility = View.GONE
         }
