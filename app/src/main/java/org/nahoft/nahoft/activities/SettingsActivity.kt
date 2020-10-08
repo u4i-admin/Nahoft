@@ -13,21 +13,17 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        // Not yet implemented
-        set_language_button.visibility = View.INVISIBLE
-//        // Go To SetLanguageActivity
-//        set_language_button.setOnClickListener {
-//            val setLanguageIntent = Intent(this, SetLanguageActivity::class.java)
-//            startActivity(setLanguageIntent)
-//        }
+       // Go To SetLanguageActivity
+       set_language_button.setOnClickListener {
+            val setLanguageIntent = Intent(this, SetLanguageActivity::class.java)
+            startActivity(setLanguageIntent)
+      }
 
-        // Not yet implemented
-        application_icon_button.visibility = View.INVISIBLE
-//        // Go To ApplicationShortcutActivity
-//        application_icon_button.setOnClickListener {
-//            val setShortcutIntent = Intent(this, ApplicationShortcutActivity::class.java)
-//            startActivity(setShortcutIntent)
-//        }
+       // Go To ApplicationShortcutActivity
+        application_icon_button.setOnClickListener {
+            val setShortcutIntent = Intent(this, ApplicationShortcutActivity::class.java)
+           startActivity(setShortcutIntent)
+      }
 
 
         // Go to SettingsActivity
