@@ -3,7 +3,6 @@ package org.nahoft.nahoft.activities
 import android.Manifest
 import android.app.Activity
 import android.content.ContentResolver
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -15,14 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_home.*
-import org.libsodium.jni.SodiumConstants
-import org.libsodium.jni.crypto.Box
-import org.libsodium.jni.crypto.Random
-import org.libsodium.jni.keys.KeyPair
-import org.libsodium.jni.keys.PrivateKey
-import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Codex
-import org.nahoft.codex.Encryption
 import org.nahoft.codex.KeyOrMessage
 import org.nahoft.nahoft.*
 import org.nahoft.nahoft.Persist.Companion.friendsFilename
@@ -34,7 +26,6 @@ import org.nahoft.util.RequestCodes
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class HomeActivity : AppCompatActivity() {
     private var decodePayload: ByteArray? = null
@@ -61,10 +52,10 @@ class HomeActivity : AppCompatActivity() {
         user_guide_button.visibility = View.INVISIBLE
         user_guide.visibility = View.INVISIBLE
 //        // User Guide
-//        user_guide_button.setOnClickListener {
-//            val userGuideIntent = Intent(this, UserGuideActivity::class.java)
-//            startActivity(userGuideIntent)
-//        }
+////        user_guide_button.setOnClickListener {
+////            val userGuideIntent = Intent(this, UserGuideActivity::class.java)
+////            startActivity(userGuideIntent)
+////        }
 
         // Friends
         friends_button.setOnClickListener {
@@ -88,10 +79,10 @@ class HomeActivity : AppCompatActivity() {
             Intent.ACTION_SEND -> {
 
                 // Received shared data check LoginStatus
-                if (Persist.status == LoginStatus.NotRequired) {
-                    // We may not have intialized shared preferences yet, let's do it now
+                if (status == LoginStatus.NotRequired || status == LoginStatus.LoggedIn) {
+                    // We may not have initialized shared preferences yet, let's do it now
                     Persist.loadEncryptedSharedPreferences(this.applicationContext)
-                } else if (Persist.status != LoginStatus.LoggedIn) {
+                } else if (status != LoginStatus.LoggedIn) {
                     //FIXME: If the status is not either NotRequired, or Logged in, request login
                     this.showAlert(getString(R.string.passcode_required_to_proceed))
                 }
@@ -116,7 +107,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     // Logout Button Handler
-    fun logoutClicked(view: android.view.View) {
+    fun logoutClicked() {
         status = LoginStatus.LoggedOut
         Persist.saveLoginStatus()
 

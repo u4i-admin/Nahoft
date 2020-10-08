@@ -4,10 +4,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.message_item_row.view.*
-import org.nahoft.codex.Encryption
 import org.nahoft.inflate
 import org.nahoft.nahoft.activities.MessageActivity
-import java.time.format.DateTimeFormatter
 
 class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : RecyclerView.Adapter<MessagesRecyclerAdapter.MessageViewHolder>()  {
 

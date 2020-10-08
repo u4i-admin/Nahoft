@@ -40,7 +40,6 @@
         <activity android:name="org.nahoft.nahoft.UserGuideActivity" />
         <activity android:name="org.nahoft.nahoft.activities.MessagesActivity" />
         <activity android:name="org.nahoft.nahoft.activities.HomeActivity">
-
             <!-- Allows other apps to share images with us -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
