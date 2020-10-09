@@ -20,6 +20,7 @@ class Persist {
         val sharedPrefLoginStatusKey = "NahoftLoginStatus"
         val sharedPrefPasscodeKey = "NahoftPasscode"
         val sharedPrefSecondaryPasscodeKey = "NahoftSecondaryPasscode"
+        val sharedPrefSecurityWordKey = "NahoftSecurityWord"
         val sharedPrefFilename = "NahoftEncryptedPreferences"
         val sharedPrefKeyGenParameterSpec = MasterKeys.AES256_GCM_SPEC
         val masterKeyAlias = MasterKeys.getOrCreate(sharedPrefKeyGenParameterSpec)

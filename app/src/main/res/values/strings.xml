@@ -90,17 +90,6 @@
     <string name="button_label_approve_invitation">Accept</string>
     <string name="button_label_decline_invitation">Decline</string>
 
-    <!-- Alert Strings -->
-    <string name="alert_text_received_invitation">Received an invitation from %1$s. Accept their invite to start communicating.</string>
-    <string name="alert_text_passcode_required_to_proceed">Passcode required to proceed</string>
-    <string name="alert_text_unable_to_decode_message">Something went wrong. We were unable to decode this message.</string>
-    <string name="alert_text_unable_to_decrypt_message">We were unable to decrypt this message.</string>
-    <string name="alert_text_invitation_accepted">${sender.name} accepted your invitation. You can now communicate securely.</string>
-    <string name="alert_text_unable_to_update_friend_status">Something went wrong, we were unable to update your friend status.</string>
-    <string name="alert_text_which_friend_sent_this_message">Which friend sent this message?</string>
-    <string name="alert_text_which_friend_sent_this_key">Which friend sent this key?</string>
-
-
     //Passcode Activity Alerts
     <string name="alert_text_passcode_field_empty">Passcode Field is Empty</string>
     <string name="alert_text_verify_passcode_field_empty">Verify Passcode Field is Empty</string>
@@ -111,4 +100,13 @@
     <string name="input_hint_enter_security_word">Enter a Security Word</string>
     <string name="activity_title_security_word">Your Security Word</string>
 
+    <!-- Alert Strings -->
+    <string name="alert_text_received_invitation">Received an invitation from %1$s. Accept their invite to start communicating.</string>
+    <string name="alert_text_passcode_required_to_proceed">Passcode required to proceed</string>
+    <string name="alert_text_unable_to_decode_message">Something went wrong. We were unable to decode this message.</string>
+    <string name="alert_text_unable_to_decrypt_message">We were unable to decrypt this message.</string>
+    <string name="alert_text_invitation_accepted">${sender.name} accepted your invitation. You can now communicate securely.</string>
+    <string name="alert_text_unable_to_update_friend_status">Something went wrong, we were unable to update your friend status.</string>
+    <string name="alert_text_which_friend_sent_this_message">Which friend sent this message?</string>
+    <string name="alert_text_which_friend_sent_this_key">Which friend sent this key?</string>
 </resources>
