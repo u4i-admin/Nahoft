@@ -1,18 +1,12 @@
 package org.nahoft.nahoft.activities
 
-import android.Manifest
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
-import android.provider.ContactsContract
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_home.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
@@ -119,16 +113,16 @@ class HomeActivity : AppCompatActivity() {
 
         val statusString = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefLoginStatusKey, null)
 
-        if (statusString != null) {
+        status = if (statusString != null) {
 
             try {
-                status = LoginStatus.valueOf(statusString)
+                LoginStatus.valueOf(statusString)
             } catch (error: Exception) {
                 print("Received invalid status from EncryptedSharedPreferences. User is logged out.")
-                Persist.status = LoginStatus.LoggedOut
+                LoginStatus.LoggedOut
             }
         } else {
-            Persist.status = LoginStatus.NotRequired
+            LoginStatus.NotRequired
         }
     }
 
@@ -250,79 +244,9 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // TODO: Move this
-    private val permissionsRequestReadContacts = 100
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == permissionsRequestReadContacts) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                loadContacts()
-
-            } else {
-                println("No Permission For Contacts")
-            }
-        }
-    }
-
     private fun setupFriends() {
         Persist.friendsFile = File(filesDir.absolutePath + File.separator + friendsFilename )
         loadSavedFriends()
-
-        // Check contacts for new friends.
-        loadContacts()
     }
 
-    private fun loadContacts() {
-        // Check if we have permission to see the user's contacts
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_CONTACTS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // We don't have permission, ask for it
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.READ_CONTACTS),
-                permissionsRequestReadContacts
-            )
-        } else {
-            // Permission granted!
-            // Let's get the contacts and convert them to friends!
-            getContacts()
-        }
-    }
-
-    private fun getContacts() {
-        val resolver: ContentResolver = contentResolver
-        val cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null)
-
-        if (cursor != null) {
-            if (cursor.count > 0) {
-                while (cursor.moveToNext()) {
-                    val id =
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
-                    val name =
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                    val newFriend = Friend(id, name)
-
-                    // TODO: Find a better way to do this,
-                    //  after the first time this runs most contacts will already be in the friends list.
-
-                    // Only add this friend if the list does not contain a friend with that ID already
-                    if (!Persist.friendList.any { it.id == newFriend.id }) {
-                        Persist.friendList.add(newFriend)
-                    }
-                }
-
-                cursor.close()
-                Persist.saveFriendsToFile(this)
-            }
-        } else {
-            println("cursor is null")
-        }
-    }
 }
