@@ -4,81 +4,70 @@
     //Enter Passcode Activity Strings
     <string name="Passcode">Passcode</string>
     <string name="Login">Login</string>
-    <string name="CheatButton">Cheat</string>
-    <string name="LoginShowAlert">LoggedIn</string>
+    <string name="alert_text_logged_in">Logged In</string>
 
-    //Home Activity Strings
-    <string name="friendsButtonDescription">Friends</string>
-    <string name="messagesButtonDescription">Messages</string>
-    <string name="settingsButtonDescription">Settings</string>
-    <string name="userGuideButtonDescription">User Guide</string>
-    <string name="passcodeRequiredToProceed">Passcode Required to Proceed</string>
-    <string name="receivedSharedTextShowAlert">Received Shared Text</string>
-    <string name="somethingWentWrongUnableToDecodeTheMessageShowAlert">Something Went Wrong. We Were Unable To Decode The Message.</string>
-    <string name="receivedSharedImageShowAlert">"Received shared Image"</string>
+    <!-- Home Activity -->
+    <string name="button_label_friends">Friends</string>
+    <string name="button_label_messages">Messages</string>
+    <string name="button_label_settings">Settings</string>
+    <string name="button_label_user_guide">User Guide</string>
 
-    //Messages Activity
-    <string name="messagesScreenTitle">Messages</string>
-    <string name="newMessageButtonTitle">New Message</string>
+    <!-- Home Activity Alerts -->
+    <string name="alert_text_passcode_required">Passcode Required to Proceed</string>
+    <string name="alert_text_received_text">Received Shared Text</string>
+    <string name="alert_text_received_image">"Received a shared Image"</string>
 
-    //New Messages Activity
+    <!-- Messages Activity -->
+    <string name="activity_title_messages">Messages</string>
+    <string name="button_label_new_message">New Message</string>
+
+    <!-- New Messages Activity -->
     <string name="hintOnChooseFriendButton">Choose Friend</string>
     <string name="sendAsTextButton">Send As Text</string>
     <string name="sendAsImageButton">Send As Image</string>
 
-    //New Messages Activity Toast Texts
-    <string name="toastTextCanOnlyMessageAVerifiedFriend">Can Only Message A Verified Friend</string>
-    <string name="toastTextMustSelectAFriendToSendAMessage">Must Select A Friend To Send A Message</string>
+    <!-- New Messages Activity Alerts -->
+    <string name="alert_text_verified_friends_only">You can only message a verified friend.</string>
+    <string name="alert_text_select_friend_to_send_message">Select a friend to send a message to.</string>
 
     //Settings Activity
-    <string name="settingsScreenTitle">Settings</string>
-    <string name="setLanguageButton">Set Language</string>
-    <string name="passcodeButton">Passcode</string>
-    <string name="applicationShortcutButton">Application Shortcut</string>
+    <string name="activity_title_settings">Settings</string>
+    <string name="button_label_set_language">Set Language</string>
+    <string name="button_label_passcode">Passcode</string>
+    <string name="button_label_security_word">Security Word</string>
+    <string name="button_label_application_shortcut">Application Shortcut</string>
 
     //Set Language Activity
-    <string name="setLanguageScreenTitle">Set Language</string>
+    <string name="activity_title_set_language">Set Language</string>
 
     //Set Language Activity Array and Toast Texts
     <string name="spinnerTitleSetLanguage">SetLanguage</string>
     <string name="spinnerSelectionDefaultLanguage">Default Language</string>
     <string name="spinnerSelectionEnglish">English</string>
     <string name="spinnerSelectionPersian">Persian</string>
-    <string name="toastTextLanguageAlreadySelected">LANGUAGE ALREADY SELECTED</string>
+    <string name="alert_text_language_already_selected">LANGUAGE ALREADY SELECTED</string>
 
     //Application Shortcut Activity
     <string name="setApplicationShortcut">Set Application Shortcut</string>
 
     //User Guide Activity
-    //There is a string for the Title On the User Guide Activity Screen "USER GUIDE" this has
-    already been defined
-    not certain what to do here.
-    <string name="userGuideActivityTitle">User Guide</string>
-    <string name="friendsUserGuideButtonName">Friends User Guide</string>
-    <string name="sendingMessagesUserGuideButtonName">Sending Messages User Guide</string>
-    <string name="settingsUserGuideButtonName">Settings User Guide</string>
-    <string name="receivingMessagesUserGuideButtonName">Receiving Messages User Guide</string>
+    <string name="activity_title_user_guide">User Guide</string>
+    <string name="button_label_friends_user_guide">Friends User Guide</string>
+    <string name="button_label_sending_messages_user_guide">Sending Messages User Guide</string>
+    <string name="button_label_settings_user_guide">Settings User Guide</string>
+    <string name="button_label_receiving_messages_user_guide">Receiving Messages User Guide</string>
 
     //Passcode Activity
-    <string name="require_passcode_switch_label">Require Passcode?</string>
+    <string name="switch_label_require_passcode">Require Passcode?</string>
     <string name="verify_passcode_hint">Verify Passcode</string>
     <string name="enter_passcode_hint">Enter Passcode</string>
     <string name="enter_secondary_passcode_hint">Enter Secondary Passcode</string>
     <string name="verify_secondary_passcode_hint">Verify Secondary Passcode</string>
     <string name="passcode_enabled">Passcode Enabled</string>
-    <string name="save_passcode_button_label">Save</string>
+    <string name="button_label_save_passcode">Save</string>
     <string name="passcode_disabled_label">Passcode Disabled</string>
     <string name="enter_passcode_screen">Enter Passcode Screen</string>
-    <string name="logout_button">Logout</string>
-
-    //Passcode Activity Strings Located in Kotlin File Toast Texts
-    <string name="toastTextPasscodeFieldIsEmpty">Passcode Field is Empty</string>
-    <string name="toastTextPasscode2FieldIsEmpty">Passcode 2 Field is Empty</string>
-    <string name="toastTextPasscodeEntriesDoNotMatch">Passcode Entries Do Not Match</string>
-    <string name="toastTextSecondaryPasscodeFieldWasEmpty">Secondary Passcode Field Was Empty</string>
-    <string name="toastTextSecondaryPasscode2CannotBeEmpty">Secondary Passcode 2 Cannot Be Empty</string>
-    <string name="toastTextSecondaryPasscodeDoesNotMatch">Secondary Passcode Does not Match</string>
-
+    <string name="button_label_logout">Logout</string>
 
     //Friend Default Row XML
     <string name="Name">Name</string>
@@ -93,22 +82,33 @@
     <!-- Message View -->
     <string name="unknown_sender_label">Unknown</string>
     <string name="sender_label">From: %1$s</string>
+    <string name="from_label">From:</string>
 
     <string name="button_label_invite">Invite</string>
     <string name="button_label_invite_again">Invite Again</string>
     <string name="friend_status_label_invited">Invited</string>
-    <string name="approve_invitation_button_label">Accept</string>
-    <string name="decline_invitation_button_label">Decline</string>
-    <string name="which_friend_sent_this_message_prompt">Which friend sent this message?</string>
-    <string name="which_friend_sent_this_key_prompt">Which friend sent this key?</string>
+    <string name="button_label_approve_invitation">Accept</string>
+    <string name="button_label_decline_invitation">Decline</string>
 
     <!-- Alert Strings -->
     <string name="alert_text_received_invitation">Received an invitation from %1$s. Accept their invite to start communicating.</string>
-    <string name="from_label">From:</string>
-    <string name="passcode_required_to_proceed">Passcode required to proceed</string>
+    <string name="alert_text_passcode_required_to_proceed">Passcode required to proceed</string>
     <string name="alert_text_unable_to_decode_message">Something went wrong. We were unable to decode this message.</string>
     <string name="alert_text_unable_to_decrypt_message">We were unable to decrypt this message.</string>
     <string name="alert_text_invitation_accepted">${sender.name} accepted your invitation. You can now communicate securely.</string>
     <string name="alert_text_unable_to_update_friend_status">Something went wrong, we were unable to update your friend status.</string>
+    <string name="alert_text_which_friend_sent_this_message">Which friend sent this message?</string>
+    <string name="alert_text_which_friend_sent_this_key">Which friend sent this key?</string>
+
+
+    //Passcode Activity Alerts
+    <string name="alert_text_passcode_field_empty">Passcode Field is Empty</string>
+    <string name="alert_text_verify_passcode_field_empty">Verify Passcode Field is Empty</string>
+    <string name="alert_text_passcode_entries_do_not_match">Passcode Entries Do Not Match</string>
+    <string name="alert_text_secondary_passcode_field_empty">Secondary Passcode Field is Empty</string>
+    <string name="alert_text_verify_secondary_passcode_empty">Verify Secondary Passcode is Empty</string>
+    <string name="alert_text_secondary_passcode_entries_do_not_match">Secondary Passcode Entries Do not Match</string>
+    <string name="input_hint_enter_security_word">Enter a Security Word</string>
+    <string name="activity_title_security_word">Your Security Word</string>
 
 </resources>

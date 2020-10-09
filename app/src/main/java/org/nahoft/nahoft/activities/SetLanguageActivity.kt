@@ -9,7 +9,6 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import android.content.res.Configuration
 import android.content.res.Resources
 import org.nahoft.showAlert
@@ -85,7 +84,7 @@ class SetLanguageActivity : AppCompatActivity() {
             refresh.putExtra(currentLang, localeName)
             startActivity(refresh)
         } else {
-            this.showAlert(getString(R.string.toastTextLanguageAlreadySelected))
+            this.showAlert(getString(R.string.alert_text_language_already_selected))
         }
     }
 

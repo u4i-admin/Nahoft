@@ -5,25 +5,24 @@
     //Enter Passcode Activity Strings
     <string name="Passcode">رمز عبور</string>
     <string name="Login">رمز عبور</string>
-    <string name="CheatButton">رمز عبور</string>
-    <string name="LoginShowAlert">رمز عبور</string>
+    <string name="alert_text_logged_in">رمز عبور</string>
 
 
     //Home Activity Strings
-    <string name="friendsButtonDescription">دوستان</string>
-    <string name="messagesButtonDescription">پیام ها</string>
-    <string name="settingsButtonDescription">تنظیمات</string>
-    <string name="userGuideButtonDescription">راهنمای کاربر</string>
-    <string name="passcodeRequiredToProceed">رمز عبور برای ادامه کار لازم است</string>
-    <string name="receivedSharedTextShowAlert">متن مشترک دریافت شده</string>
+    <string name="button_label_friends">دوستان</string>
+    <string name="button_label_messages">پیام ها</string>
+    <string name="button_label_settings">تنظیمات</string>
+    <string name="button_label_user_guide">راهنمای کاربر</string>
+    <string name="alert_text_passcode_required">رمز عبور برای ادامه کار لازم است</string>
+    <string name="alert_text_received_text">متن مشترک دریافت شده</string>
     <string name="somethingWentWrongUnableToDecodeTheMessageShowAlert">مشکلی پیش آمد ما قادر به رمزگشایی پیام نبودیم.</string>
-    <string name="receivedSharedImageShowAlert">"تصویر مشترک دریافت شده است"</string>
+    <string name="alert_text_received_image">"تصویر مشترک دریافت شده است"</string>
 
 
 
     //Messages Activity
-    <string name="messagesScreenTitle">نمایش پیام ها</string>
-    <string name="newMessageButtonTitle">پیام جدید</string>
+    <string name="activity_title_messages">نمایش پیام ها</string>
+    <string name="button_label_new_message">پیام جدید</string>
 
     //New Messages Activity
     <string name="hintOnChooseFriendButton">دوست را انتخاب کنید</string>
@@ -31,54 +30,54 @@
     <string name="sendAsImageButton">ارسال به عنوان تصویر</string>
 
     //New Messages Activity Toast Texts
-    <string name="toastTextCanOnlyMessageAVerifiedFriend">دوستانd</string>
-    <string name="toastTextMustSelectAFriendToSendAMessage">دوستان</string>
+    <string name="alert_text_verified_friends_only">دوستانd</string>
+    <string name="alert_text_select_friend_to_send_message">دوستان</string>
 
     //Settings Activity
-    <string name="settingsScreenTitle">تنظیم زبان</string>
-    <string name="setLanguageButton">تنظیم زبان</string>
-    <string name="passcodeButton">رمز عبور</string>
-    <string name="applicationShortcutButton">میانبر برنامه</string>
+    <string name="activity_title_settings">تنظیم زبان</string>
+    <string name="button_label_set_language">تنظیم زبان</string>
+    <string name="button_label_passcode">رمز عبور</string>
+    <string name="button_label_application_shortcut">میانبر برنامه</string>
 
     //Set Language Activity
-    <string name="setLanguageScreenTitle">تنظیم زبان</string>
+    <string name="activity_title_set_language">تنظیم زبان</string>
 
     //Set Language Activity Array and Toast Texts
     <string name="spinnerTitleSetLanguage">دوستان</string>
     <string name="spinnerSelectionDefaultLanguage">دوستان</string>
     <string name="spinnerSelectionEnglish">دوستان</string>
     <string name="spinnerSelectionPersian">دوستان</string>
-    <string name="toastTextLanguageAlreadySelected">دوستان</string>
+    <string name="alert_text_language_already_selected">دوستان</string>
 
     //Application Shortcut Activity
     <string name="setApplicationShortcut">تنظیم</string>
 
     //User Guide Activity
-    <string name="userGuideActivityTitle">راهنمای کاربر</string>
-    <string name="friendsUserGuideButtonName">راهنمای کاربر دوستان</string>
-    <string name="sendingMessagesUserGuideButtonName">ارسال پیام راهنمای کاربر</string>
-    <string name="settingsUserGuideButtonName">تنظیمات راهنمای کاربر</string>
-    <string name="receivingMessagesUserGuideButtonName">دریافت پیام های راهنمای کاربر</string>
+    <string name="activity_title_user_guide">راهنمای کاربر</string>
+    <string name="button_label_friends_user_guide">راهنمای کاربر دوستان</string>
+    <string name="button_label_sending_messages_user_guide">ارسال پیام راهنمای کاربر</string>
+    <string name="button_label_settings_user_guide">تنظیمات راهنمای کاربر</string>
+    <string name="button_label_receiving_messages_user_guide">دریافت پیام های راهنمای کاربر</string>
 
     //Passcode Activity
-    <string name="require_passcode_switch_label">دوستان</string>
+    <string name="switch_label_require_passcode">دوستان</string>
     <string name="verify_passcode_hint">دوستان</string>
     <string name="enter_passcode_hint">دوستان</string>
     <string name="enter_secondary_passcode_hint">دوستان</string>
     <string name="verify_secondary_passcode_hint">دوستان</string>
     <string name="passcode_enabled">دوستان</string>
-    <string name="save_passcode_button_label">دوستان</string>
+    <string name="button_label_save_passcode">دوستان</string>
     <string name="passcode_disabled_label">دوستان</string>
     <string name="enter_passcode_screen">کمه صفحه رمز عبور را وارد کنید</string>
-    <string name="logout_button">خروج</string>
+    <string name="button_label_logout">خروج</string>
 
     //Passcode Activity Strings Located in Kotlin File Toast Texts
-    <string name="toastTextPasscodeFieldIsEmpty">دوستان</string>
-    <string name="toastTextPasscode2FieldIsEmpty">دوستان</string>
-    <string name="toastTextPasscodeEntriesDoNotMatch">دوستان</string>
-    <string name="toastTextSecondaryPasscodeFieldWasEmpty">دوستان</string>
-    <string name="toastTextSecondaryPasscode2CannotBeEmpty">دوستان</string>
-    <string name="toastTextSecondaryPasscodeDoesNotMatch">دوستان</string>
+    <string name="alert_text_passcode_field_empty">دوستان</string>
+    <string name="alert_text_verify_passcode_field_empty">دوستان</string>
+    <string name="alert_text_passcode_entries_do_not_match">دوستان</string>
+    <string name="alert_text_secondary_passcode_field_empty">دوستان</string>
+    <string name="alert_text_verify_secondary_passcode_empty">دوستان</string>
+    <string name="alert_text_secondary_passcode_entries_do_not_match">دوستان</string>
 
     //Friend Default Row XML
     <string name="Name">دوستان</string>
@@ -97,18 +96,21 @@
     <string name="sender_label">%1$s :از جانب</string>
 
     <string name="friend_status_label_invited">دعوت کرد</string>
-    <string name="approve_invitation_button_label">تایید</string>
-    <string name="decline_invitation_button_label">کاهش می یابد</string>
-    <string name="which_friend_sent_this_message_prompt">کدام دوست این پیام را ارسال کرده است؟</string>
-    <string name="which_friend_sent_this_key_prompt">کدام دوست این کلید را ارسال کرده است؟</string>
+    <string name="button_label_approve_invitation">تایید</string>
+    <string name="button_label_decline_invitation">کاهش می یابد</string>
+    <string name="alert_text_which_friend_sent_this_message">کدام دوست این پیام را ارسال کرده است؟</string>
+    <string name="alert_text_which_friend_sent_this_key">کدام دوست این کلید را ارسال کرده است؟</string>
 
     <!-- Alert Strings -->
     <string name="alert_text_received_invitation">دعوت آنها را برای شروع ارتباط بپذیرید%1$s. دعوت آنها را برای شروع ارتباط بپذیرید.</string>
     <string name="from_label">از جانب</string>
-    <string name="passcode_required_to_proceed">برای ادامه کد عبور لازم است</string>
+    <string name="alert_text_passcode_required_to_proceed">برای ادامه کد عبور لازم است</string>
     <string name="alert_text_unable_to_decode_message">مشکلی پیش آمد ما قادر به رمزگشایی پیام نبودیم.</string>
     <string name="alert_text_unable_to_decrypt_message">مشکلی پیش آمد ما قادر به رمزگشایی پیام نبودیم.</string>
     <string name="alert_text_invitation_accepted">  دعوت شما را پذیرفت اکنون می توانید به صورت ایمن ارتباط برقرار کنید.${sender.name}</string>
     <string name="alert_text_unable_to_update_friend_status">مشکلی پیش آمد ، ما نتوانستیم وضعیت دوست شما را به روز کنیم.</string>
+    <string name="button_label_security_word">Security Word</string>
+    <string name="input_hint_enter_security_word">Enter a Security Word</string>
+    <string name="activity_title_security_word">Your Security Word</string>
 
 </resources>

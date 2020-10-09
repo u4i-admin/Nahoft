@@ -1,9 +1,7 @@
 package org.nahoft.nahoft.activities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_passcode.*
 import org.nahoft.nahoft.*
 import org.nahoft.nahoft.Persist.Companion.status
@@ -114,19 +112,19 @@ class PasscodeActivity : AppCompatActivity() {
         val secondaryPasscode2 = verify_secondary_passcode_input.text.toString()
 
         if (passcode == "") {
-            this.showAlert(getString(R.string.toastTextPasscodeFieldIsEmpty))
+            this.showAlert(getString(R.string.alert_text_passcode_field_empty))
 
            return
         }
 
         if (passcode2 == "") {
-            this.showAlert(getString(R.string.toastTextPasscode2FieldIsEmpty))
+            this.showAlert(getString(R.string.alert_text_verify_passcode_field_empty))
 
             return
         }
 
         if (passcode != passcode2){
-            this.showAlert(getString(R.string.toastTextPasscodeEntriesDoNotMatch))
+            this.showAlert(getString(R.string.alert_text_passcode_entries_do_not_match))
 
             return
         }
@@ -136,7 +134,7 @@ class PasscodeActivity : AppCompatActivity() {
         if(secondaryPasscode == "") {
 
             if (secondaryPasscode2 != "") {
-                this.showAlert(getString(R.string.toastTextSecondaryPasscodeFieldWasEmpty))
+                this.showAlert(getString(R.string.alert_text_secondary_passcode_field_empty))
 
                 return
             } else {
@@ -150,13 +148,13 @@ class PasscodeActivity : AppCompatActivity() {
 
         } else {
             if (secondaryPasscode2 == "") {
-                this.showAlert(getString(R.string.toastTextSecondaryPasscode2CannotBeEmpty))
+                this.showAlert(getString(R.string.alert_text_verify_secondary_passcode_empty))
 
                 return
             }
 
             if (secondaryPasscode != secondaryPasscode2) {
-                this.showAlert(getString(R.string.toastTextSecondaryPasscodeDoesNotMatch))
+                this.showAlert(getString(R.string.alert_text_secondary_passcode_entries_do_not_match))
 
                 return
             }

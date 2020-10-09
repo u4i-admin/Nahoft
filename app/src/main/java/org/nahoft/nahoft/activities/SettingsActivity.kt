@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_settings.*
 import org.nahoft.nahoft.activities.PasscodeActivity
+import org.nahoft.nahoft.activities.SecurityWordActivity
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -25,11 +26,16 @@ class SettingsActivity : AppCompatActivity() {
            startActivity(setShortcutIntent)
       }
 
-
-        // Go to SettingsActivity
+        // Go to PasscodeActivity
         passcode_button.setOnClickListener {
             val passcodeIntent = Intent(this, PasscodeActivity::class.java)
             startActivity(passcodeIntent)
+        }
+
+        // Go to SecurityWordActivity
+        security_word_button.setOnClickListener {
+            val securityWordIntent = Intent(this, SecurityWordActivity::class.java)
+            startActivity(securityWordIntent)
         }
     }
 }

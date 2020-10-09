@@ -2,11 +2,9 @@ package org.nahoft.nahoft
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_new_message.*
 import org.nahoft.nahoft.activities.FriendSelectionActivity
 import org.nahoft.showAlert
@@ -59,11 +57,11 @@ class NewMessageActivity : AppCompatActivity() {
                 // Share this message as a text
                 ShareUtil.shareText(this, message, selectedFriend!!.publicKeyEncoded!!)
             } else {
-                this.showAlert(getString(R.string.toastTextCanOnlyMessageAVerifiedFriend))
+                this.showAlert(getString(R.string.alert_text_verified_friends_only))
             }
         } else {
             // TODO: We may want to simply disable the send buttons until a friend is selected
-            this.showAlert(getString(R.string.toastTextMustSelectAFriendToSendAMessage))
+            this.showAlert(getString(R.string.alert_text_select_friend_to_send_message))
         }
     }
 

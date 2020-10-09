@@ -12,7 +12,7 @@
         android:layout_width="142dp"
         android:layout_height="119dp"
         android:layout_marginTop="16dp"
-        android:text="@string/userGuideActivityTitle"
+        android:text="@string/activity_title_user_guide"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="30sp"
@@ -29,7 +29,7 @@
         android:layout_marginBottom="20dp"
         android:background="@android:color/white"
         android:gravity="center"
-        android:text="@string/friendsUserGuideButtonName"
+        android:text="@string/button_label_friends_user_guide"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/sending_messages_user_guide"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -41,7 +41,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/white"
-        android:text="@string/sendingMessagesUserGuideButtonName"
+        android:text="@string/button_label_sending_messages_user_guide"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/receiving_messages_user_guide"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -53,7 +53,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/white"
-        android:text="@string/settingsUserGuideButtonName"
+        android:text="@string/button_label_settings_user_guide"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -65,7 +65,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/white"
-        android:text="@string/receivingMessagesUserGuideButtonName"
+        android:text="@string/button_label_receiving_messages_user_guide"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/settings_user_guide"
         app:layout_constraintEnd_toEndOf="parent" />

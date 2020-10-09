@@ -25,7 +25,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/which_friend_sent_this_message_prompt"
+        android:text="@string/alert_text_which_friend_sent_this_message"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="#070707"

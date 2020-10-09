@@ -84,7 +84,7 @@ class HomeActivity : AppCompatActivity() {
                     Persist.loadEncryptedSharedPreferences(this.applicationContext)
                 } else if (status != LoginStatus.LoggedIn) {
                     //FIXME: If the status is not either NotRequired, or Logged in, request login
-                    this.showAlert(getString(R.string.passcode_required_to_proceed))
+                    this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
                 }
 
                 if ("text/plain" == intent.type) {
