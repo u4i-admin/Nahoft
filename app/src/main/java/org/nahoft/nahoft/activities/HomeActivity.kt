@@ -63,7 +63,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(settingsIntent)
         }
 
-        // Load friends from file and add any new contacts
+        // Load friends from file
         getStatus()
         setupFriends()
         loadSavedMessages()
@@ -133,7 +133,7 @@ class HomeActivity : AppCompatActivity() {
 
             for (newFriend in friendsToAdd) {
                 // Only add this friend if the list does not contain a friend with that ID already
-                if (!Persist.friendList.any { it.id == newFriend.id }) {
+                if (!Persist.friendList.any { it.name == newFriend.name }) {
                     Persist.friendList.add(newFriend)
                 }
             }

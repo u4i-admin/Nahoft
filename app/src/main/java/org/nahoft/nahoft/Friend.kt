@@ -7,10 +7,6 @@ import java.io.Serializable
 @Root(name = "friend", strict = false)
 data class Friend constructor(
 
-    @field:Element(name = "id")
-    @param:Element(name = "id")
-    val id: String,
-
     @field:Element(name = "name")
     @param:Element(name = "name")
     var name: String,
@@ -23,11 +19,11 @@ data class Friend constructor(
     @param:Element(name = "publicKeyEncoded", required = false)
     var publicKeyEncoded: ByteArray? = null) : Serializable {
 
-    // Friends represent the same person if they have the same id
+    // Friends represent the same person if they have the same name
     override fun equals(other: Any?): Boolean {
 
         val friend = other as? Friend
-        return this.id == friend?.id
+        return this.name == friend?.name
     }
 }
 

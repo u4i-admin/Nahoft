@@ -109,4 +109,6 @@
     <string name="alert_text_unable_to_update_friend_status">Something went wrong, we were unable to update your friend status.</string>
     <string name="alert_text_which_friend_sent_this_message">Which friend sent this message?</string>
     <string name="alert_text_which_friend_sent_this_key">Which friend sent this key?</string>
+    <string name="input_hint_name">Name</string>
+    <string name="activity_title_add_friend">Add Friend</string>
 </resources>

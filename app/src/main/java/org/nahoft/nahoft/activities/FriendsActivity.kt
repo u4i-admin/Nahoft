@@ -1,5 +1,6 @@
 package org.nahoft.nahoft.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,11 @@ class FriendsActivity : AppCompatActivity() {
         adapter = FriendsRecyclerAdapter(Persist.friendList)
         friendsRecyclerView.layoutManager = linearLayoutManager
         friendsRecyclerView.adapter = adapter
+
+        add_friend_button.setOnClickListener {
+            val addFriendIntent = Intent(this, AddFriendActivity::class.java)
+            startActivity(addFriendIntent)
+        }
     }
 
 }

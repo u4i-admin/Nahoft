@@ -112,5 +112,7 @@
     <string name="button_label_security_word">Security Word</string>
     <string name="input_hint_enter_security_word">Enter a Security Word</string>
     <string name="activity_title_security_word">Your Security Word</string>
+    <string name="input_hint_name">Name</string>
+    <string name="activity_title_add_friend">Add Friend</string>
 
 </resources>
