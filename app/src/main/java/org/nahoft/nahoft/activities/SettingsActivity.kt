@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_settings.*
+import org.nahoft.nahoft.activities.ApplicationShortcutActivity
 import org.nahoft.nahoft.activities.PasscodeActivity
 import org.nahoft.nahoft.activities.SecurityWordActivity
 
@@ -22,6 +23,7 @@ class SettingsActivity : AppCompatActivity() {
 
        // Go To ApplicationShortcutActivity
         application_icon_button.setOnClickListener {
+
             val setShortcutIntent = Intent(this, ApplicationShortcutActivity::class.java)
            startActivity(setShortcutIntent)
       }
