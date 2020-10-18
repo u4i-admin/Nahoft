@@ -22,7 +22,7 @@ class SettingsActivity : AppCompatActivity() {
       }
 
        // Go To ApplicationShortcutActivity
-        application_icon_button.setOnClickListener {
+        application_shortcut_button.setOnClickListener {
 
             val setShortcutIntent = Intent(this, ApplicationShortcutActivity::class.java)
            startActivity(setShortcutIntent)
