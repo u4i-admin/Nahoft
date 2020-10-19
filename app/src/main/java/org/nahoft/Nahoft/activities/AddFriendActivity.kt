@@ -31,5 +31,6 @@ class AddFriendActivity : AppCompatActivity() {
         val newFriend = Friend(friendName, FriendStatus.Default, null)
         friendList.add(newFriend)
         Persist.saveFriendsToFile(this)
+        finish()
     }
 }

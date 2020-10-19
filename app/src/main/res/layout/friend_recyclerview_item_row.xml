@@ -25,8 +25,8 @@
         android:id="@+id/friendIcon"
         android:layout_width="30dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:tint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/friendName"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
         android:text="@string/button_label_invite"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/drag_handle"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -68,7 +68,20 @@
         android:text="@string/button_label_decline_invitation"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/drag_handle"
         app:layout_constraintTop_toTopOf="parent" />
+    
+    <ImageView
+        android:id="@+id/drag_handle"
+        android:layout_width="@dimen/drag_handle_size"
+        android:layout_height="@dimen/drag_handle_size"
+        android:contentDescription="@string/content_description_drag_handle"
+        android:scaleType="center"
+        android:src="@drawable/ic_drag_handle_24px"
+        android:tint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

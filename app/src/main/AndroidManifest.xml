@@ -35,7 +35,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".SetLanguageActivity" />
         <activity android:name=".activities.FriendsActivity" />
         <activity android:name=".activities.FriendSelectionActivity" />

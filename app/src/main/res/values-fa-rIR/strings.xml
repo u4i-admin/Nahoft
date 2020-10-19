@@ -114,5 +114,6 @@
     <string name="activity_title_security_word">Your Security Word</string>
     <string name="input_hint_name">Name</string>
     <string name="activity_title_add_friend">Add Friend</string>
+    <string name="content_description_drag_handle">Drag Handle</string>
 
 </resources>

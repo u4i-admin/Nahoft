@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.friend_recyclerview_item_row.view.*
 import org.nahoft.codex.Encryption
 import org.nahoft.inflate
+import org.nahoft.nahoft.ui.ItemDragListener
+import org.nahoft.nahoft.ui.ItemTouchHelperListener
 import org.nahoft.util.ShareUtil
 
-class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerView.Adapter<FriendsRecyclerAdapter.FriendViewHolder>() {
+class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>, private val itemDragListener: ItemDragListener) : RecyclerView.Adapter<FriendsRecyclerAdapter.FriendViewHolder>(), ItemTouchHelperListener {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
 
@@ -27,6 +29,12 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
     }
 
     override fun getItemCount() = friends.size
+
+    override fun onItemDismiss(viewHolder: RecyclerView.ViewHolder, position: Int) {
+        friends.removeAt(position)
+        Persist.saveFriendsToFile(viewHolder.itemView.context)
+        notifyItemRemoved(position)
+    }
 
     class FriendViewHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
 
@@ -49,20 +57,14 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             }
         }
 
-        override fun onClick(v: View) {
-            // TODO: This is just for testing status icon
-//            friend?.let {
-//                println("Friend is not Null")
-//                it.status = FriendStatus.Approved
-//                it.publicKeyEncoded = Encryption(this.view.context).ensureKeysExist().public.encoded
-//                this.view.friendIcon.setImageResource(it.status.getIcon())
-//            }
-        }
-
         fun bindFriend(newFriend: Friend) {
             this.friend = newFriend
             this.view.friendName.text = newFriend.name
             setupRowByStatus(newFriend)
+        }
+
+        override fun onClick(v: View?) {
+            // Stub
         }
 
         fun inviteClicked() {
@@ -167,7 +169,6 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             this.view.decline_button.visibility = View.GONE
         }
     }
-
 
 
 }
