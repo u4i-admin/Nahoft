@@ -116,5 +116,12 @@
     <string name="input_hint_name">Name</string>
     <string name="activity_title_add_friend">Add Friend</string>
     <string name="content_description_drag_handle">Drag Handle</string>
+    <string name="button_label_verify_friend">Verify</string>
+    <string name="content_description_add_friend_button">Add Friend Button</string>
+    <string name="label_verify_friend_explainer">Contact your friend outside of the app you normally use and make sure that your numbers match.</string>
+    <string name="label_verify_friend_number">Your Friend\'s Number</string>
+    <string name="label_verify_friend_user_number">Your Security Number</string>
+    <string name="button_label_verify_friend_accept">Accept</string>
+    <string name="button_label_verify_friend_reject">Reject</string>
 
 </resources>

@@ -18,9 +18,12 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ImportImageText"></activity>
+        <activity
+            android:name=".activities.VerifyFriendActivity"
+            android:parentActivityName=".activities.FriendsActivity" >
+        </activity>
+        <activity android:name=".activities.ImportImageText" />
         <activity android:name=".activities.AddFriendActivity" />
-        <activity android:name=".activities.SecurityWordActivity" />
         <activity android:name=".activities.SelectKeySenderActivity" />
         <activity android:name=".activities.SelectMessageSenderActivity" />
         <activity android:name=".activities.MessageActivity" />

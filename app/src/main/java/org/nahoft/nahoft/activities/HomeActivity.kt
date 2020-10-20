@@ -49,10 +49,6 @@ class HomeActivity : AppCompatActivity() {
         import_button.setOnClickListener{
             val importIntent = Intent(this, ImportImageText::class.java)
             startActivity(importIntent)}
-
-        // User guides are not yet implemented
-        /*user_guide_button.visibility = View.INVISIBLE
-        user_guide.visibility = View.INVISIBLE*/
         
         // User Guide
         user_guide_button.setOnClickListener {
@@ -146,6 +142,11 @@ class HomeActivity : AppCompatActivity() {
                     Persist.friendList.add(newFriend)
                 }
             }
+
+            // TODO: Testing Only
+            val fakeApprovedFriendKey = byteArrayOf(0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38)
+            val fakeApprovedFriend = Friend("Amparo", FriendStatus.Approved, fakeApprovedFriendKey)
+            Persist.friendList.add(fakeApprovedFriend)
         }
     }
 

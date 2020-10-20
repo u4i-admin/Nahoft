@@ -27,6 +27,7 @@
         android:hint="@string/input_hint_name"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
