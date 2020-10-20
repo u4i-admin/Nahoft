@@ -45,14 +45,20 @@ class HomeActivity : AppCompatActivity() {
             startActivity(messagesIntent)
         }
 
+        // Import Image Text Activity
+        import_button.setOnClickListener{
+            val importIntent = Intent(this, ImportImageText::class.java)
+            startActivity(importIntent)}
+
         // User guides are not yet implemented
-        user_guide_button.visibility = View.INVISIBLE
-        user_guide.visibility = View.INVISIBLE
-//        // User Guide
-////        user_guide_button.setOnClickListener {
-////            val userGuideIntent = Intent(this, UserGuideActivity::class.java)
-////            startActivity(userGuideIntent)
-////        }
+        /*user_guide_button.visibility = View.INVISIBLE
+        user_guide.visibility = View.INVISIBLE*/
+        
+        // User Guide
+        user_guide_button.setOnClickListener {
+            val userGuideIntent = Intent(this, UserGuideActivity::class.java)
+            startActivity(userGuideIntent)
+        }
 
         // Friends
         friends_button.setOnClickListener {

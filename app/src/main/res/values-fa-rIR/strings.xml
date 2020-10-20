@@ -17,6 +17,7 @@
     <string name="alert_text_received_text">متن مشترک دریافت شده</string>
     <string name="somethingWentWrongUnableToDecodeTheMessageShowAlert">مشکلی پیش آمد ما قادر به رمزگشایی پیام نبودیم.</string>
     <string name="alert_text_received_image">"تصویر مشترک دریافت شده است"</string>
+    <string name="import_label_messages">دوستان</string>"
 
 
 
