@@ -12,7 +12,7 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="150dp"
         android:contentDescription="Nahoft Logo"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,6 +74,35 @@
         android:background="@drawable/messages_icon"
         android:gravity="center"
         android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/import_button"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/picture_text_import"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="100dp"
+        android:gravity="center"
+        android:text="@string/import_label_messages"
+        android:textColor="@color/colorAccent"
+        android:textIsSelectable="false"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/import_button"
+        app:layout_constraintEnd_toStartOf="@+id/import_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/import_button" />
+
+    <ImageButton
+        android:id="@+id/import_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/image_text_import_button"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/settings_button"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -138,7 +167,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="75dp"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginEnd="100dp"
         android:gravity="center"
         android:text="@string/button_label_logout"
@@ -156,14 +185,14 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="75dp"
-        android:layout_marginBottom="75dp"
-        android:onClick="logout_button_clicked"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/logout_button"
+        android:onClick="logout_button_clicked"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-<!--    <Button-->
+    <!--    <Button-->
 <!--        android:id="@+id/logout_button"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->

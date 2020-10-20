@@ -9,8 +9,11 @@
     <!-- Home Activity -->
     <string name="button_label_friends">Friends</string>
     <string name="button_label_messages">Messages</string>
+    <string name="import_label_messages">Import</string>"
     <string name="button_label_settings">Settings</string>
     <string name="button_label_user_guide">User Guide</string>
+    <string name="somethingWentWrongUnableToDecodeTheMessageShowAlert">Something Went Wrong Unable to Decode the Message</string>
+
 
     <!-- Home Activity Alerts -->
     <string name="alert_text_passcode_required">Passcode Required to Proceed</string>
