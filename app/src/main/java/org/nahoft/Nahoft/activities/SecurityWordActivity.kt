@@ -34,5 +34,8 @@ class SecurityWordActivity : AppCompatActivity() {
 
         // Otherwise, save the security word
         Persist.saveKey(Persist.sharedPrefSecurityWordKey, securityWord)
+
+        // And return to the previous activity
+        finish()
     }
 }

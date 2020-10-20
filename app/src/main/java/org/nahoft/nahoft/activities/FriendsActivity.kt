@@ -11,7 +11,6 @@ import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.R
 import org.nahoft.nahoft.ui.ItemDragListener
 import org.nahoft.nahoft.ui.ItemTouchHelperCallback
-import org.nahoft.nahoft.ui.ItemTouchHelperListener
 
 class FriendsActivity : AppCompatActivity(), ItemDragListener {
 
@@ -23,7 +22,7 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
         setContentView(R.layout.activity_friends)
 
         linearLayoutManager = LinearLayoutManager(this)
-        adapter = FriendsRecyclerAdapter(Persist.friendList, this)
+        adapter = FriendsRecyclerAdapter(Persist.friendList)
         friendsRecyclerView.layoutManager = linearLayoutManager
         friendsRecyclerView.adapter = adapter
         setupItemTouchHelper()

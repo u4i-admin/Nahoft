@@ -14,7 +14,7 @@ import org.nahoft.nahoft.ui.ItemDragListener
 import org.nahoft.nahoft.ui.ItemTouchHelperListener
 import org.nahoft.util.ShareUtil
 
-class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>, private val itemDragListener: ItemDragListener) : RecyclerView.Adapter<FriendsRecyclerAdapter.FriendViewHolder>(), ItemTouchHelperListener {
+class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerView.Adapter<FriendsRecyclerAdapter.FriendViewHolder>(), ItemTouchHelperListener {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
 

@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.message_item_row.view.*
 import org.nahoft.inflate
 import org.nahoft.nahoft.activities.MessageActivity
+import org.nahoft.nahoft.ui.ItemTouchHelperListener
 
-class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : RecyclerView.Adapter<MessagesRecyclerAdapter.MessageViewHolder>()  {
-
+class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : RecyclerView.Adapter<MessagesRecyclerAdapter.MessageViewHolder>(), ItemTouchHelperListener {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
         val inflatedView = parent.inflate(R.layout.message_item_row, false)
@@ -21,8 +21,12 @@ class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : Recycl
     }
 
     override fun getItemCount(): Int = messages.size
-    
 
+    override fun onItemDismiss(viewHolder: RecyclerView.ViewHolder, position: Int) {
+        messages.removeAt(position)
+        Persist.saveFriendsToFile(viewHolder.itemView.context)
+        notifyItemRemoved(position)
+    }
 
     // ViewHolder
     class MessageViewHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
