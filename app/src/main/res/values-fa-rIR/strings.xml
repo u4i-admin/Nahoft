@@ -7,7 +7,6 @@
     <string name="Login">رمز عبور</string>
     <string name="alert_text_logged_in">رمز عبور</string>
 
-
     //Home Activity Strings
     <string name="button_label_friends">دوستان</string>
     <string name="button_label_messages">پیام ها</string>
@@ -15,11 +14,8 @@
     <string name="button_label_user_guide">راهنمای کاربر</string>
     <string name="alert_text_passcode_required">رمز عبور برای ادامه کار لازم است</string>
     <string name="alert_text_received_text">متن مشترک دریافت شده</string>
-    <string name="somethingWentWrongUnableToDecodeTheMessageShowAlert">مشکلی پیش آمد ما قادر به رمزگشایی پیام نبودیم.</string>
     <string name="alert_text_received_image">"تصویر مشترک دریافت شده است"</string>
     <string name="import_label_messages">دوستان</string>"
-
-
 
     //Messages Activity
     <string name="activity_title_messages">نمایش پیام ها</string>
@@ -102,6 +98,14 @@
     <string name="alert_text_which_friend_sent_this_message">کدام دوست این پیام را ارسال کرده است؟</string>
     <string name="alert_text_which_friend_sent_this_key">کدام دوست این کلید را ارسال کرده است؟</string>
 
+    <!-- Verify Friend View -->
+    <string name="label_verify_friend_explainer">Contact your friend outside of the app you normally use and make sure that your numbers match.</string>
+    <string name="label_verify_friend_number">%1$s\'s Number</string>
+    <string name="label_verify_friend_user_number">Your Number</string>
+    <string name="button_label_verify_friend_accept">Accept</string>
+    <string name="button_label_verify_friend_reject">Reject</string>
+    <string name="button_label_verify_friend">Verify</string>
+
     <!-- Alert Strings -->
     <string name="alert_text_received_invitation">دعوت آنها را برای شروع ارتباط بپذیرید%1$s. دعوت آنها را برای شروع ارتباط بپذیرید.</string>
     <string name="from_label">از جانب</string>
@@ -110,18 +114,11 @@
     <string name="alert_text_unable_to_decrypt_message">مشکلی پیش آمد ما قادر به رمزگشایی پیام نبودیم.</string>
     <string name="alert_text_invitation_accepted">  دعوت شما را پذیرفت اکنون می توانید به صورت ایمن ارتباط برقرار کنید.${sender.name}</string>
     <string name="alert_text_unable_to_update_friend_status">مشکلی پیش آمد ، ما نتوانستیم وضعیت دوست شما را به روز کنیم.</string>
-    <string name="button_label_security_word">Security Word</string>
-    <string name="input_hint_enter_security_word">Enter a Security Word</string>
-    <string name="activity_title_security_word">Your Security Word</string>
+    <string name="alert_text_friend_already_exists">You already have a friend with this name.</string>
     <string name="input_hint_name">Name</string>
     <string name="activity_title_add_friend">Add Friend</string>
     <string name="content_description_drag_handle">Drag Handle</string>
-    <string name="button_label_verify_friend">Verify</string>
     <string name="content_description_add_friend_button">Add Friend Button</string>
-    <string name="label_verify_friend_explainer">Contact your friend outside of the app you normally use and make sure that your numbers match.</string>
-    <string name="label_verify_friend_number">Your Friend\'s Number</string>
-    <string name="label_verify_friend_user_number">Your Security Number</string>
-    <string name="button_label_verify_friend_accept">Accept</string>
-    <string name="button_label_verify_friend_reject">Reject</string>
+
 
 </resources>

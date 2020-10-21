@@ -30,13 +30,7 @@ class VerifyFriendActivity() : AppCompatActivity() {
             finish()
         }
 
-        // Display friend public key as security number (Uppercase and Grouped by 4s)
-        val friendKeyString = PublicKey(pendingFriend.publicKeyEncoded).toString().toUpperCase()
-        friend_security_number_text.text = friendKeyString.chunked(4).joinToString(" ")
-
-        // Display user public key as security number (Uppercase and Grouped by 4s)
-        val userPublicKeyString = Encryption(this).ensureKeysExist().publicKey.toString().toUpperCase()
-        user_security_number_text.text = userPublicKeyString.chunked(4).joinToString(" ")
+        setupTextViews()
 
         // Accept Button
         accept_verification_button.setOnClickListener {
@@ -47,6 +41,19 @@ class VerifyFriendActivity() : AppCompatActivity() {
         reject_verification_button.setOnClickListener {
             rejectSecurityNumber()
         }
+    }
+
+    fun setupTextViews() {
+        // Display friend public key as security number (Uppercase and Grouped by 4s)
+        friend_security_number_label.text = getString(R.string.label_verify_friend_number, pendingFriend.name)
+
+
+        val friendKeyString = PublicKey(pendingFriend.publicKeyEncoded).toString().toUpperCase()
+        friend_security_number_text.text = friendKeyString.chunked(4).joinToString(" ")
+
+        // Display user public key as security number (Uppercase and Grouped by 4s)
+        val userPublicKeyString = Encryption(this).ensureKeysExist().publicKey.toString().toUpperCase()
+        user_security_number_text.text = userPublicKeyString.chunked(4).joinToString(" ")
     }
 
     fun verifySecurityNumber() {
