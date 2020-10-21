@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toStartOf="@+id/friendName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_person_plain"
+        app:srcCompat="@drawable/ic_person_24px"
         tools:ignore="ContentDescription" />
 
     <Button

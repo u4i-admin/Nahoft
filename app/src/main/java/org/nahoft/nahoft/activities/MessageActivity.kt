@@ -46,6 +46,7 @@ class MessageActivity : AppCompatActivity() {
         deleteButton.setOnClickListener{
             Persist.messageList.remove(message)
             Persist.saveMessagesToFile(this)
+            finish()
         }
 
     }

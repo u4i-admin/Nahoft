@@ -30,7 +30,7 @@ data class Friend constructor(
 enum class FriendStatus: StatusIcon {
     Default {
         override fun getIcon(): Int {
-            return R.drawable.ic_person_plain
+            return R.drawable.ic_person_24px
         }
     },
     Invited {

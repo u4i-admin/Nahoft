@@ -7,25 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.ImportImageText">
 
-    <TextView
-        android:id="@+id/edit_imported_information"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="185dp"
-        android:layout_marginTop="172dp"
-        android:layout_marginEnd="185dp"
-        android:layout_marginBottom="375dp"
-        android:gravity="center|top"
-        android:text="Edit"
-        android:textColor="@color/colorAccent"
-        android:textIsSelectable="false"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
@@ -34,8 +15,26 @@
         android:layout_marginTop="579dp"
         android:layout_marginEnd="162dp"
         android:layout_marginBottom="104dp"
-        android:text="Save"
+        android:text="Import"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorAccent"
+        android:ems="10"
+        android:hint="Paste Message Here"
+        android:inputType="textLongMessage"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
