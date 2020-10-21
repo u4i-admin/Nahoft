@@ -15,12 +15,8 @@ class FriendSelectionActivity : AppCompatActivity() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: FriendSelectionRecyclerAdapter
 
-//    private val lastVisibleItemPosition: Int
-//        get() = linearLayoutManager.findLastVisibleItemPosition()
-
     companion object {
         fun newIntent(context: Context) = Intent(context, FriendSelectionActivity::class.java)
-        //fun getSelectedFriend(data: Intent?): String? = data?.getStringExtra(FRIEND_EXTRA_TASK_DESCRIPTION)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +29,7 @@ class FriendSelectionActivity : AppCompatActivity() {
 
         for (friend in Persist.friendList) {
 
-            if (friend.status == FriendStatus.Approved) {
+            if (friend.status == FriendStatus.Verified) {
                 approvedFriends.add(friend)
             }
         }

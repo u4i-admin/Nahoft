@@ -17,6 +17,7 @@ class Persist {
 
     companion object {
 
+        val publicKeyPreferencesKey = "NahoftPublicKey"
         val sharedPrefLoginStatusKey = "NahoftLoginStatus"
         val sharedPrefPasscodeKey = "NahoftPasscode"
         val sharedPrefSecondaryPasscodeKey = "NahoftSecondaryPasscode"
@@ -83,7 +84,6 @@ class Persist {
             ) as EncryptedSharedPreferences
         }
 
-        // TODO: Another pair of eyes, did we get everything?
         fun clearAllData() {
             if (friendsFile.exists()) { friendsFile.delete() }
             if (messagesFile.exists()) { messagesFile.delete() }
@@ -97,7 +97,7 @@ class Persist {
             encryptedSharedPreferences
                 .edit()
                 .putString("NahoftPrivateKey", keyHex)
-                .putString("NahoftPublicKey", keyHex)
+                .putString(publicKeyPreferencesKey, keyHex)
                 .apply()
 
             // Remove Everything from EncryptedSharedPreferences

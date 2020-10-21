@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_verify_friend.*
 import kotlinx.android.synthetic.main.friend_recyclerview_item_row.*
+import org.libsodium.jni.keys.PublicKey
+import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.FriendStatus
 import org.nahoft.nahoft.Persist
+import org.nahoft.nahoft.Persist.Companion.publicKeyPreferencesKey
 import org.nahoft.nahoft.R
 import org.nahoft.util.RequestCodes
 
@@ -27,14 +30,13 @@ class VerifyFriendActivity() : AppCompatActivity() {
             finish()
         }
 
-        // Display friend public key as security number
-        friend_security_number_text.text = pendingFriend.publicKeyEncoded.toString()
+        // Display friend public key as security number (Uppercase and Grouped by 4s)
+        val friendKeyString = PublicKey(pendingFriend.publicKeyEncoded).toString().toUpperCase()
+        friend_security_number_text.text = friendKeyString.chunked(4).joinToString(" ")
 
-        // Display user public key as security number
-        user_security_number_text.text = Persist.encryptedSharedPreferences.getString(
-            "NahoftPublicKey",
-            null
-        )
+        // Display user public key as security number (Uppercase and Grouped by 4s)
+        val userPublicKeyString = Encryption(this).ensureKeysExist().publicKey.toString().toUpperCase()
+        user_security_number_text.text = userPublicKeyString.chunked(4).joinToString(" ")
 
         // Accept Button
         accept_verification_button.setOnClickListener {

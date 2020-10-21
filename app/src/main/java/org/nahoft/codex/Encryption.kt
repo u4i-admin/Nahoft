@@ -9,6 +9,7 @@ import org.libsodium.jni.keys.PrivateKey
 import org.libsodium.jni.keys.PublicKey
 import org.libsodium.jni.crypto.Box
 import org.nahoft.nahoft.Persist
+import org.nahoft.nahoft.Persist.Companion.publicKeyPreferencesKey
 import java.lang.Exception
 
 // Note: The AndroidKeystore does not support ECDH key agreement between EC keys.
@@ -18,7 +19,6 @@ import java.lang.Exception
 class Encryption(val context: Context) {
     // Encrypted Shared Preferences
     private val privateKeyPreferencesKey = "NahoftPrivateKey"
-    private val publicKeyPreferencesKey = "NahoftPublicKey"
 
     // Generate a new keypair for this device and store it in EncryptedSharedPreferences
     private fun generateKeypair(): Keys {
