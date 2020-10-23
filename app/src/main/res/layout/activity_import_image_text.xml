@@ -2,27 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorPrimaryDark"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ImportImageText">
+    android:background="@color/colorPrimaryDark"
+    tools:context=".activities.ImportImageTextActivity">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/import_text_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="579dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="104dp"
-        android:text="Import"
+        android:text="@string/button_label_import_message"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/import_message_text_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -31,11 +27,22 @@
         android:layout_marginBottom="16dp"
         android:background="@color/colorAccent"
         android:ems="10"
-        android:hint="Paste Message Here"
+        android:hint="@string/paste_message_for_import_hint"
+        android:importantForAutofill="no"
         android:inputType="textLongMessage"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/import_text_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/import_image_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="@string/button_label_import_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/import_text_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

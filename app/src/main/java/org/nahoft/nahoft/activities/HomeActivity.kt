@@ -47,7 +47,7 @@ class HomeActivity : AppCompatActivity() {
 
         // Import Image Text Activity
         import_button.setOnClickListener{
-            val importIntent = Intent(this, ImportImageText::class.java)
+            val importIntent = Intent(this, ImportImageTextActivity::class.java)
             startActivity(importIntent)}
         
         // User Guide
@@ -146,7 +146,12 @@ class HomeActivity : AppCompatActivity() {
             // TODO: Testing Only
             val fakeApprovedFriendKey = byteArrayOf(0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38,0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38)
             val fakeApprovedFriend = Friend("Amparo", FriendStatus.Approved, fakeApprovedFriendKey)
-            Persist.friendList.add(fakeApprovedFriend)
+            if (Persist.friendList.contains(fakeApprovedFriend)) {
+                Persist.updateFriend(this, fakeApprovedFriend, FriendStatus.Approved, fakeApprovedFriendKey)
+            } else {
+                Persist.friendList.add(fakeApprovedFriend)
+            }
+
         }
     }
 

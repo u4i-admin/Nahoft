@@ -22,7 +22,7 @@
             android:name=".activities.VerifyFriendActivity"
             android:parentActivityName=".activities.FriendsActivity" >
         </activity>
-        <activity android:name=".activities.ImportImageText" />
+        <activity android:name=".activities.ImportImageTextActivity" />
         <activity
             android:name=".activities.AddFriendActivity"
             android:parentActivityName=".activities.FriendsActivity">

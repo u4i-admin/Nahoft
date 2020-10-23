@@ -122,5 +122,8 @@
     <string name="activity_title_add_friend">Add Friend</string>
     <string name="content_description_drag_handle">Drag Handle</string>
     <string name="content_description_add_friend_button">Add Friend Button</string>
+    <string name="button_label_import_message">Import Message</string>
+    <string name="paste_message_for_import_hint">Paste your message here.</string>
+    <string name="button_label_import_image">Import Image</string>
 
 </resources>
