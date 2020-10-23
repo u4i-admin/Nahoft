@@ -22,31 +22,21 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
-        android:id="@+id/set_language_button"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="128dp"
-        android:text="@string/button_label_set_language"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_view" />
-
-    <Button
         android:id="@+id/passcode_button"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="188dp"
         android:text="@string/button_label_passcode"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/set_language_button" />
+        app:layout_constraintStart_toStartOf="@+id/settings_view"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/application_shortcut_button"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="176dp"
         android:text="@string/button_label_application_shortcut"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passcode_button" />
@@ -63,7 +53,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="125dp"
-        app:layout_constraintBottom_toTopOf="@+id/set_language_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settings_view" />
 

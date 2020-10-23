@@ -36,6 +36,7 @@
         <activity android:name=".activities.PasscodeActivity" />
         <activity android:name=".activities.ApplicationShortcutActivity" />
         <activity
+            android:icon="@drawable/app_shortcut_default"
             android:name=".activities.EnterPasscodeActivity"
             android:launchMode="singleTask"
             android:noHistory="true">
@@ -45,7 +46,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SetLanguageActivity" />
         <activity android:name=".activities.FriendsActivity" />
         <activity android:name=".activities.FriendSelectionActivity" />
         <activity android:name=".NewMessageActivity" />
@@ -57,6 +57,7 @@
         <activity android:name=".UserGuideActivity" />
         <activity
             android:name=".activities.MessagesActivity"
+            android:icon="@drawable/app_shortcut_email"
             android:parentActivityName=".activities.HomeActivity">
         </activity>
         <activity android:name=".activities.HomeActivity">
