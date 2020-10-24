@@ -23,16 +23,16 @@ class SelectMessageSenderActivity : AppCompatActivity() {
         setContentView(R.layout.activity_select_message_sender)
 
         // Only try to decrypt messages from friends with the Approved status
-        val approvedFriends = ArrayList<Friend>()
+        val verifiedFriends = ArrayList<Friend>()
 
         for (friend in Persist.friendList) {
-            if (friend.status == FriendStatus.Approved) {
-                approvedFriends.add(friend)
+            if (friend.status == FriendStatus.Verified) {
+                verifiedFriends.add(friend)
             }
         }
 
         linearLayoutManager = LinearLayoutManager(this)
-        adapter = SelectMessageSenderRecyclerAdapter(approvedFriends) {
+        adapter = SelectMessageSenderRecyclerAdapter(verifiedFriends) {
 
             // On click listener for the recycler view
             val result = Intent()
