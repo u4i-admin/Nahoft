@@ -9,6 +9,7 @@ import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
 import org.nahoft.nahoft.*
 import org.nahoft.showAlert
+import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -58,7 +59,9 @@ class ImportImageTextActivity : AppCompatActivity() {
     }
 
     fun handleImageImport() {
-
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, RequestCodes.selectImageCode)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -66,7 +69,8 @@ class ImportImageTextActivity : AppCompatActivity() {
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == RequestCodes.selectMessageSenderCode) {
-                val sender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)?.let { it as Friend }
+                val sender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
+                    ?.let { it as Friend }
 
                 if (sender != null && decodePayload != null) {
                     // Create Message Instance
@@ -84,21 +88,37 @@ class ImportImageTextActivity : AppCompatActivity() {
                 }
 
             } else if (requestCode == RequestCodes.selectKeySenderCode) {
-                val sender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)?.let { it as Friend }
+                val sender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
+                    ?.let { it as Friend }
 
                 // Update this friend with a new key and a new status
                 if (sender != null && decodePayload != null) {
 
                     when (sender.status) {
                         FriendStatus.Default -> {
-                            Persist.updateFriend(context = this, friendToUpdate = sender, newStatus = FriendStatus.Requested, encodedPublicKey = decodePayload!!)
-                            this.showAlert(getString(R.string.alert_text_received_invitation, sender.name))
+                            Persist.updateFriend(
+                                context = this,
+                                friendToUpdate = sender,
+                                newStatus = FriendStatus.Requested,
+                                encodedPublicKey = decodePayload!!
+                            )
+                            this.showAlert(
+                                getString(
+                                    R.string.alert_text_received_invitation,
+                                    sender.name
+                                )
+                            )
                         }
 
                         FriendStatus.Invited -> {
-                            Persist.updateFriend(context = this, friendToUpdate = sender, newStatus = FriendStatus.Approved, encodedPublicKey = decodePayload!!)
+                            Persist.updateFriend(
+                                context = this,
+                                friendToUpdate = sender,
+                                newStatus = FriendStatus.Approved,
+                                encodedPublicKey = decodePayload!!
+                            )
                             // TODO Translate
-                            this.showAlert(sender.name,(R.string.alert_text_invitation_accepted))
+                            this.showAlert(sender.name, (R.string.alert_text_invitation_accepted))
                         }
 
                         else ->
@@ -106,6 +126,17 @@ class ImportImageTextActivity : AppCompatActivity() {
                     }
                 } else {
                     this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
+                }
+            } else if (requestCode == RequestCodes.selectImageCode) {
+                // get data?.data as URI
+                val imageURI = data?.data
+                imageURI?.let {
+                    // Decode the message and save it locally for use after sender is selected
+                    this.decodePayload = Stencil().decode(this, it)
+
+                    // We received a message, have the user select who it is from
+                    val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
+                    startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
                 }
             }
         }

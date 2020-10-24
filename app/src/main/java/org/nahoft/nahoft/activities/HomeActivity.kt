@@ -194,11 +194,6 @@ class HomeActivity : AppCompatActivity() {
 
     private fun handleSharedImage(intent: Intent) {
         (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
-            // Update UI to reflect image being shared
-
-            // DEV ONLY DO NOT TRANSLATE, DELETE LATER
-            this.showAlert("Received shared image. $it")
-            // DEV ONLY DO NOT TRANSLATE, DELETE LATER
 
             // Decode the message and save it locally for use after sender is selected
             this.decodePayload = Stencil().decode(this, it)
