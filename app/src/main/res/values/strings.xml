@@ -20,7 +20,7 @@
 
     <!-- Messages Activity -->
     <string name="activity_title_messages">Messages</string>
-    <string name="button_label_new_message">New Message</string>
+    <string name="button_label_compose">Compose</string>
 
     <!-- New Messages Activity -->
     <string name="hintOnChooseFriendButton">Choose Friend</string>

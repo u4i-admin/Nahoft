@@ -1,22 +1,15 @@
 package org.nahoft.nahoft.activities
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_friends.*
 import kotlinx.android.synthetic.main.activity_messages.*
-import org.nahoft.codex.PersistenceEncryption
 import org.nahoft.nahoft.*
 import org.nahoft.nahoft.ui.ItemDragListener
 import org.nahoft.nahoft.ui.ItemTouchHelperCallback
-import org.simpleframework.xml.core.Persister
-import java.io.ByteArrayOutputStream
-import java.lang.Exception
 
 class MessagesActivity : AppCompatActivity(), ItemDragListener {
 
@@ -39,7 +32,7 @@ class MessagesActivity : AppCompatActivity(), ItemDragListener {
 
 
         // Compose new message button
-        new_message.setOnClickListener {
+        Compose.setOnClickListener {
             val newMessageIntent = Intent(this, NewMessageActivity::class.java)
             startActivity(newMessageIntent)
         }
