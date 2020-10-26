@@ -45,10 +45,7 @@ class NewMessageActivity : AppCompatActivity() {
 
     fun pickImageFromGallery() {
         val pickImageIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-
-        if (pickImageIntent.resolveActivity(packageManager) != null) {
-            startActivityForResult(pickImageIntent, RequestCodes.selectImageCode)
-        }
+        startActivityForResult(pickImageIntent, RequestCodes.selectImageCode)
     }
 
     private fun sendAsText(message: String) {
