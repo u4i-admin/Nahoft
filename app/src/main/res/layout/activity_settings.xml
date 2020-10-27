@@ -7,20 +7,6 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".SettingsActivity">
 
-    <TextView
-        android:id="@+id/settings_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/activity_title_settings"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorAccent"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <Button
         android:id="@+id/passcode_button"
         android:layout_width="wrap_content"

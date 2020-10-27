@@ -108,6 +108,7 @@ class ImportImageTextActivity : AppCompatActivity() {
                                     sender.name
                                 )
                             )
+                            finish()
                         }
 
                         FriendStatus.Invited -> {
@@ -119,6 +120,7 @@ class ImportImageTextActivity : AppCompatActivity() {
                             )
 
                             this.showAlert(sender.name, (R.string.alert_text_invitation_accepted))
+                            finish()
                         }
 
                         else ->
