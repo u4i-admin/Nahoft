@@ -1,4 +1,4 @@
-package org.nahoft.nahoft
+package org.nahoft.nahoft.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -6,14 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import kotlinx.android.synthetic.main.activity_new_message.*
-import org.nahoft.nahoft.activities.FriendSelectionActivity
+import org.nahoft.nahoft.Friend
+import org.nahoft.nahoft.R
 import org.nahoft.showAlert
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 
 class NewMessageActivity : AppCompatActivity() {
 
-    var selectedFriend: Friend? = null
+    private var selectedFriend: Friend? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +27,7 @@ class NewMessageActivity : AppCompatActivity() {
 
         // Send message as text button
         send_as_text_button.setOnClickListener {
-            var message = editMessageText.text.toString()
+            val message = editMessageText.text.toString()
             sendAsText(message)
 
         }
@@ -37,13 +38,13 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
-    fun selectFriend() {
+    private fun selectFriend() {
         val intent = FriendSelectionActivity.newIntent(this@NewMessageActivity)
         Intent(this, FriendSelectionActivity::class.java)
         startActivityForResult(intent, RequestCodes.selectFriendCode)
     }
 
-    fun pickImageFromGallery() {
+    private fun pickImageFromGallery() {
         val pickImageIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(pickImageIntent, RequestCodes.selectImageCode)
     }

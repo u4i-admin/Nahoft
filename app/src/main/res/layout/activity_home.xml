@@ -180,7 +180,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/ic_baseline_import_export_24"
-        android:onClick="logout_button_clicked"
+        android:onClick="logoutButtonClicked"
         android:textColor="@color/colorAccent"
         android:tint="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"

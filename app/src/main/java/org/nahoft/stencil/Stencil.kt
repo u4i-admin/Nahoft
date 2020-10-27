@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.ColorSpace
 import android.graphics.ImageDecoder
 import android.net.Uri
+import android.util.Log
 import androidx.core.graphics.get
 import kotlin.math.ceil
 import kotlin.math.sqrt
@@ -13,9 +14,26 @@ import org.nahoft.codex.makeBitSet
 import java.util.*
 
 class Stencil {
+
+    val listener: ImageDecoder.OnHeaderDecodedListener = object : ImageDecoder.OnHeaderDecodedListener {
+
+        override fun onHeaderDecoded(decoder: ImageDecoder, info: ImageDecoder.ImageInfo, source: ImageDecoder.Source) {
+            decoder.setOnPartialImageListener {exception->
+                Log.d("ImageDecoder",exception.error.toString())
+                true
+            }
+        }
+    }
+
     fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri?
     {
-        val cover = ImageDecoder.decodeBitmap(ImageDecoder.createSource(context.contentResolver, coverUri))
+        val source = ImageDecoder.createSource(context.contentResolver, coverUri)
+        val cover: Bitmap = try {
+            ImageDecoder.decodeBitmap(source)
+        } catch (coverError: Exception) {
+            print("Failed to decode the bitmap> Error: $coverError")
+            return null
+        }
 
         val numBits = encrypted.size * 8
         val numPixels = cover.height * cover.width
@@ -36,7 +54,7 @@ class Stencil {
         var result = cover.copy(Bitmap.Config.ARGB_8888, true);
         for (index in 0 until bits.size)
         {
-            var bit = bits.get(index)
+            val bit = bits.get(index)
 
             if (bit == 1)
             {
@@ -72,7 +90,7 @@ class Stencil {
 
         val title = ""
         val description = ""
-        val resultUri = CapturePhotoUtils.insertImage(context.contentResolver, result, title , description);
+        val resultUri = CapturePhotoUtils.insertImage(context.contentResolver, result, title , description)
 
         return resultUri
     }
@@ -122,7 +140,7 @@ class Stencil {
         val heightOffset = (3 * row) + 2
         val widthOffset = (3 * column) + 2
 
-        var newBitmap = bitmap
+        val newBitmap = bitmap
 
         setPixel(newBitmap, widthOffset, heightOffset, Color.argb(255, color, color, color))
 

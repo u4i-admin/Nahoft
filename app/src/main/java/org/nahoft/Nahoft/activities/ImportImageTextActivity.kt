@@ -33,10 +33,10 @@ class ImportImageTextActivity : AppCompatActivity() {
 
     /// If the message is decoded successfully, user will be sent to a select sender activity
     /// Message decryption and saving will be handled in the onActivityResult function
-    fun handleMessageImport() {
+    private fun handleMessageImport() {
         
         val messageText = import_message_text_view.text.toString()
-        if (messageText !=null && !messageText.isEmpty()) {
+        if (messageText.isNotEmpty()) {
 
             val decodeResult = Codex().decode(messageText)
 
@@ -58,7 +58,7 @@ class ImportImageTextActivity : AppCompatActivity() {
         }
     }
 
-    fun handleImageImport() {
+    private fun handleImageImport() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, RequestCodes.selectImageCode)
@@ -117,7 +117,7 @@ class ImportImageTextActivity : AppCompatActivity() {
                                 newStatus = FriendStatus.Approved,
                                 encodedPublicKey = decodePayload!!
                             )
-                            // TODO Translate
+
                             this.showAlert(sender.name, (R.string.alert_text_invitation_accepted))
                         }
 

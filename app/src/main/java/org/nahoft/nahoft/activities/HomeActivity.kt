@@ -30,6 +30,10 @@ class HomeActivity : AppCompatActivity() {
 
         Persist.app = Nahoft()
 
+        // Load status from preferences
+        Persist.loadEncryptedSharedPreferences(this.applicationContext)
+        getStatus()
+
         // Logout
         if (status == LoginStatus.NotRequired) {
             logout_button.visibility = View.INVISIBLE
@@ -106,7 +110,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     // Logout Button Handler
-    fun logout_button_clicked(view: View) {
+    fun logoutButtonClicked(view: View) {
         status = LoginStatus.LoggedOut
         Persist.saveLoginStatus()
 
@@ -143,14 +147,14 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
 
-            // TODO: Testing Only
-            val fakeApprovedFriendKey = byteArrayOf(0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38,0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38)
-            val fakeApprovedFriend = Friend("Amparo", FriendStatus.Approved, fakeApprovedFriendKey)
-            if (Persist.friendList.contains(fakeApprovedFriend)) {
-                Persist.updateFriend(this, fakeApprovedFriend, FriendStatus.Approved, fakeApprovedFriendKey)
-            } else {
-                Persist.friendList.add(fakeApprovedFriend)
-            }
+//            // TODO: Testing Only
+//            val fakeApprovedFriendKey = byteArrayOf(0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38,0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38)
+//            val fakeApprovedFriend = Friend("Amparo", FriendStatus.Approved, fakeApprovedFriendKey)
+//            if (Persist.friendList.contains(fakeApprovedFriend)) {
+//                Persist.updateFriend(this, fakeApprovedFriend, FriendStatus.Approved, fakeApprovedFriendKey)
+//            } else {
+//                Persist.friendList.add(fakeApprovedFriend)
+//            }
 
         }
     }
@@ -240,7 +244,6 @@ class HomeActivity : AppCompatActivity() {
 
                         FriendStatus.Invited -> {
                             Persist.updateFriend(context = this, friendToUpdate = sender, newStatus = FriendStatus.Approved, encodedPublicKey = decodePayload!!)
-                            // TODO Translate
                             this.showAlert(sender.name,(R.string.alert_text_invitation_accepted))
                         }
 

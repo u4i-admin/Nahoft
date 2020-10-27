@@ -25,7 +25,7 @@ object ShareUtil {
                 // Sharing requires a custom intent whose action must be Intent.ACTION_SEND
                 val intent = Intent(Intent.ACTION_SEND).apply {
 
-                    type = "image/jpeg"
+                    type = "image/*"
 
                     // Resolves the images local URL and adds it to the intent as Intent.EXTRA_STREAM
                     putExtra(Intent.EXTRA_STREAM, newUri)
