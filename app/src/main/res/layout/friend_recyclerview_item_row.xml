@@ -48,7 +48,7 @@
 
     <Button
         android:id="@+id/accept_button"
-        android:layout_width="wrap_content"
+        android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/colorPrimary"
@@ -85,7 +85,7 @@
 
     <ImageView
         android:id="@+id/drag_handle"
-        android:layout_width="@dimen/drag_handle_size"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/drag_handle_size"
         android:contentDescription="@string/content_description_drag_handle"
         android:scaleType="center"
@@ -93,7 +93,6 @@
         android:tint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
