@@ -34,27 +34,31 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friend_button" />
+        app:layout_constraintTop_toBottomOf="@+id/friend_button"
+        android:importantForAutofill="no" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/message_text_view"-->
-<!--        android:layout_width="338dp"-->
-<!--        android:layout_height="205dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:background="@android:color/background_light"-->
-<!--        android:maxLength="140"-->
-<!--        android:inputType="textMultiLine"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/friend_button" />-->
+    <!--    <EditText-->
+    <!--        android:id="@+id/message_text_view"-->
+    <!--        android:layout_width="338dp"-->
+    <!--        android:layout_height="205dp"-->
+    <!--        android:layout_marginTop="15dp"-->
+    <!--        android:background="@android:color/background_light"-->
+    <!--        android:maxLength="140"-->
+    <!--        android:inputType="textMultiLine"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/friend_button" />-->
 
     <Button
         android:id="@+id/send_as_text_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
         android:text="@string/sendAsTextButton"
+        app:layout_constraintEnd_toStartOf="@+id/send_as_image_button"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editMessageText" />
 
@@ -62,12 +66,14 @@
         android:id="@+id/send_as_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="65dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
         android:text="@string/sendAsImageButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editMessageText"/>
-
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/send_as_text_button"
+        app:layout_constraintTop_toBottomOf="@+id/editMessageText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
