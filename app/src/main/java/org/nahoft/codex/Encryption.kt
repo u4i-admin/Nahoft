@@ -102,7 +102,7 @@ class Encryption(val context: Context) {
         val keypair = ensureKeysExist()
         val box = Box(friendPublicKey, keypair.privateKey)
 
-        if (box != null) {
+        if (box != null && ciphertext.size > SodiumConstants.NONCE_BYTES) {
             val nonce = ciphertext.slice(0..SodiumConstants.NONCE_BYTES-1).toByteArray()
             val payload = ciphertext.slice(SodiumConstants.NONCE_BYTES..ciphertext.lastIndex).toByteArray()
 
