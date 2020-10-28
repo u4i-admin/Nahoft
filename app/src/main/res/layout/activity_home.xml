@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_nahoft" />
+        app:srcCompat="@mipmap/nahoft_icon_launcher_round" />
 
     <TextView
         android:id="@+id/friends"

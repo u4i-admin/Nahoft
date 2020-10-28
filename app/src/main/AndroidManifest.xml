@@ -36,7 +36,7 @@
         <activity android:name=".activities.PasscodeActivity" />
         <activity android:name=".activities.ApplicationShortcutActivity" />
         <activity
-            android:icon="@drawable/app_shortcut_default"
+            android:icon="@mipmap/nahoft_icon_launcher_round"
             android:name=".activities.EnterPasscodeActivity"
             android:launchMode="singleTask"
             android:noHistory="true">

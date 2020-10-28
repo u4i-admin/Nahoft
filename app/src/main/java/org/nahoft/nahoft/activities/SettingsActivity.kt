@@ -14,11 +14,11 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
        // Go To ApplicationShortcutActivity
-        application_shortcut_button.setOnClickListener {
+       /* application_shortcut_button.setOnClickListener {
 
             val setShortcutIntent = Intent(this, ApplicationShortcutActivity::class.java)
            startActivity(setShortcutIntent)
-      }
+      }*/
 
         // Go to PasscodeActivity
         passcode_button.setOnClickListener {

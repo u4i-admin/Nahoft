@@ -7,17 +7,36 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".SettingsActivity">
 
-    <Button
-        android:id="@+id/passcode_button"
+    <TextView
+        android:id="@+id/Passcode_button_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="188dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center|top"
         android:text="@string/button_label_passcode"
-        app:layout_constraintStart_toStartOf="@+id/settings_view"
+        android:textColor="@color/colorAccent"
+        android:textIsSelectable="false"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toStartOf="@+id/passcode_button"
+        app:layout_constraintTop_toTopOf="@+id/passcode_button" />
+
+    <ImageButton
+        android:id="@+id/passcode_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/passcode_icon"
+        android:text="@string/button_label_passcode"
+        android:textColor="@color/colorAccent"
+        android:tint="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+
+    <!--<Button
         android:id="@+id/application_shortcut_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,9 +44,9 @@
         android:layout_marginTop="176dp"
         android:text="@string/button_label_application_shortcut"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passcode_button" />
+        app:layout_constraintTop_toBottomOf="@+id/passcode_button" />-->
 
-    <Space
+    <!--<Space
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="94dp"
@@ -40,6 +59,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="125dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_view" />
+        app:layout_constraintTop_toBottomOf="@+id/settings_view" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
