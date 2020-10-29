@@ -39,6 +39,12 @@ class MessagesActivity : AppCompatActivity(), ItemDragListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        messages_recycler_view.adapter?.notifyDataSetChanged()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
 

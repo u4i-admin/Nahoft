@@ -8,9 +8,10 @@
 
     <TextView
         android:id="@+id/friendName"
-        android:layout_width="120dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:ellipsize="end"
         android:text="@string/friendsNameRecyclerView"
         android:textAlignment="viewStart"
@@ -18,6 +19,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/accept_button"
         app:layout_constraintStart_toEndOf="@+id/friendIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
