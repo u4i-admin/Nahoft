@@ -53,8 +53,8 @@
     <string name="activity_title_user_guide">راهنمای کاربر</string>
     <string name="button_label_friends_user_guide">راهنمای کاربر دوستان</string>
     <string name="button_label_sending_messages_user_guide">ارسال پیام راهنمای کاربر</string>
-    <string name="button_label_settings_user_guide">تنظیمات راهنمای کاربر</string>
-    <string name="button_label_receiving_messages_user_guide">دریافت پیام های راهنمای کاربر</string>
+    <string name="button_label_setting_passcodes">تنظیمات راهنمای کاربر</string>
+    <string name="button_label_importing">دریافت پیام های راهنمای کاربر</string>
 
     //Passcode Activity
     <string name="switch_label_require_passcode">دوستان</string>

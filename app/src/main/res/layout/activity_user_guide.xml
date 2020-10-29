@@ -15,7 +15,7 @@
         android:layout_marginBottom="20dp"
         android:background="@android:color/white"
         android:gravity="center"
-        android:text="@string/button_label_friends_user_guide"
+        android:text="@string/button_label_friends"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/sending_messages_user_guide"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -27,7 +27,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/white"
-        android:text="@string/button_label_sending_messages_user_guide"
+        android:text="@string/button_label_messages"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/receiving_messages_user_guide"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -39,7 +39,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/white"
-        android:text="@string/button_label_settings_user_guide"
+        android:text="@string/button_label_setting_passcodes"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -51,7 +51,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/white"
-        android:text="@string/button_label_receiving_messages_user_guide"
+        android:text="@string/button_label_importing"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/settings_user_guide"
         app:layout_constraintEnd_toEndOf="parent" />

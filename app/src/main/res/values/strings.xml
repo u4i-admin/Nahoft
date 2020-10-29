@@ -52,10 +52,10 @@
 
     //User Guide Activity
     <string name="activity_title_user_guide">User Guide</string>
-    <string name="button_label_friends_user_guide">Friends User Guide</string>
-    <string name="button_label_sending_messages_user_guide">Sending Messages User Guide</string>
-    <string name="button_label_settings_user_guide">Settings User Guide</string>
-    <string name="button_label_receiving_messages_user_guide">Receiving Messages User Guide</string>
+    <string name="button_label_friends_user_guide">Friends</string>
+    <string name="button_label_sending_messages_user_guide">Messages</string>
+    <string name="button_label_setting_passcodes">Passcodes</string>
+    <string name="button_label_importing">Importing</string>
 
     //Passcode Activity
     <string name="switch_label_require_passcode">Require Passcode?</string>
