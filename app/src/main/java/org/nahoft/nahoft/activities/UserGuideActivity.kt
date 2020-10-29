@@ -21,12 +21,12 @@ class UserGuideActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        settings_user_guide.setOnClickListener {
+        passcodes_user_guide.setOnClickListener {
             val intent = Intent(this, SettingsUserGuideActivity::class.java)
             startActivity(intent)
         }
 
-        receiving_messages_user_guide.setOnClickListener {
+        importing_user_guide.setOnClickListener {
             val intent = Intent(this, ReceivingMessageUserGuideActivity::class.java)
             startActivity(intent)
         }
