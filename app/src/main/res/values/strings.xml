@@ -125,5 +125,6 @@
     <string name="button_label_import_message">Import Message</string>
     <string name="paste_message_for_import_hint">Paste your message here.</string>
     <string name="button_label_import_image">Import Image</string>
+    <string name="error_loading_image_message">Error loading image.</string>
 
 </resources>

@@ -8,6 +8,7 @@ import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
 import org.nahoft.nahoft.*
@@ -22,7 +23,24 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class HomeActivity : AppCompatActivity() {
+
     private var decodePayload: ByteArray? = null
+
+    // Coroutines
+    private val coroutineExceptionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        coroutineScope.launch(Dispatchers.Main) {
+            homeErrorMessage.visibility = View.VISIBLE
+            homeErrorMessage.text = getString(R.string.error_loading_image_message)
+        }
+
+        GlobalScope.launch { println("Caught $throwable") }
+    }
+
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob + coroutineExceptionHandler)
+
+    companion object {
+        private val parentJob = Job()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,103 +127,9 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // Logout Button Handler
-    fun logoutButtonClicked(view: View) {
-        status = LoginStatus.LoggedOut
-        Persist.saveLoginStatus()
-
-        val returnToLoginIntent = Intent(this, EnterPasscodeActivity::class.java)
-        startActivity(returnToLoginIntent)
-    }
-
-    private fun getStatus() {
-
-        val statusString = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefLoginStatusKey, null)
-
-        status = if (statusString != null) {
-
-            try {
-                LoginStatus.valueOf(statusString)
-            } catch (error: Exception) {
-                print("Received invalid status from EncryptedSharedPreferences. User is logged out.")
-                LoginStatus.LoggedOut
-            }
-        } else {
-            LoginStatus.NotRequired
-        }
-    }
-
-    private fun loadSavedFriends() {
-        // Load our existing friends list from our encrypted file
-        if (Persist.friendsFile.exists()) {
-            val friendsToAdd = FriendViewModel.getFriends(Persist.friendsFile, applicationContext)
-
-            for (newFriend in friendsToAdd) {
-                // Only add this friend if the list does not contain a friend with that ID already
-                if (!Persist.friendList.any { it.name == newFriend.name }) {
-                    Persist.friendList.add(newFriend)
-                }
-            }
-
-//            // TODO: Testing Only
-//            val fakeApprovedFriendKey = byteArrayOf(0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38,0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38, 0x2E, 0x38)
-//            val fakeApprovedFriend = Friend("Amparo", FriendStatus.Approved, fakeApprovedFriendKey)
-//            if (Persist.friendList.contains(fakeApprovedFriend)) {
-//                Persist.updateFriend(this, fakeApprovedFriend, FriendStatus.Approved, fakeApprovedFriendKey)
-//            } else {
-//                Persist.friendList.add(fakeApprovedFriend)
-//            }
-
-        }
-    }
-
-    private fun loadSavedMessages() {
-        Persist.messagesFile = File(filesDir.absolutePath + File.separator + messagesFilename )
-
-        // Load messages from file
-        if (Persist.messagesFile.exists()) {
-            val messagesToAdd = MessageViewModel().getMessages(Persist.messagesFile, applicationContext)
-            messagesToAdd?.let {
-                Persist.messageList.clear()
-                Persist.messageList.addAll(it)
-            }
-
-        }
-    }
-
-    private fun handleSharedText(intent: Intent) {
-        intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
-            // Update UI to reflect text being shared
-            val decodeResult = Codex().decode(it)
-
-            if (decodeResult != null) {
-                this.decodePayload = decodeResult.payload
-
-                if (decodeResult.type == KeyOrMessage.EncryptedMessage) {
-                    // We received a message, have the user select who it is from
-                    val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
-                    startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
-                } else {
-                    // We received a key, have the user select who it is from
-                    val selectSenderIntent = Intent(this, SelectKeySenderActivity::class.java)
-                    startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
-                }
-            } else {
-                this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
-            }
-        }
-    }
-
-    private fun handleSharedImage(intent: Intent) {
-        (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
-
-            // Decode the message and save it locally for use after sender is selected
-            this.decodePayload = Stencil().decode(this, it)
-
-            // We received a message, have the user select who it is from
-            val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
-            startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        parentJob.cancel()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -257,9 +181,112 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun handleSharedText(intent: Intent) {
+        intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
+            // Update UI to reflect text being shared
+            val decodeResult = Codex().decode(it)
+
+            if (decodeResult != null) {
+                this.decodePayload = decodeResult.payload
+
+                if (decodeResult.type == KeyOrMessage.EncryptedMessage) {
+                    // We received a message, have the user select who it is from
+                    val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
+                    startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
+                } else {
+                    // We received a key, have the user select who it is from
+                    val selectSenderIntent = Intent(this, SelectKeySenderActivity::class.java)
+                    startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
+                }
+            } else {
+                this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
+            }
+        }
+    }
+
+    private fun handleSharedImage(intent: Intent) {
+        (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
+            coroutineScope.launch(Dispatchers.Main) {
+
+                // Decode the message and save it locally for use after sender is selected
+                val decodedImage = decodeImageAsync(it)
+
+                decodedImage?.let {
+                    saveDecodedPayload(decodedImage)
+                }
+
+                // We received a message, have the user select who it is from
+                val selectSenderIntent = Intent(applicationContext, SelectMessageSenderActivity::class.java)
+                startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
+            }
+        }
+    }
+
+    private suspend fun decodeImageAsync(imageURI: Uri): ByteArray? = withContext(Dispatchers.IO) {
+        return@withContext Stencil().decode(applicationContext, imageURI)
+    }
+
+    private fun saveDecodedPayload(payload: ByteArray) {
+        decodePayload = payload
+    }
+
+    private fun loadSavedFriends() {
+        // Load our existing friends list from our encrypted file
+        if (Persist.friendsFile.exists()) {
+            val friendsToAdd = FriendViewModel.getFriends(Persist.friendsFile, applicationContext)
+
+            for (newFriend in friendsToAdd) {
+                // Only add this friend if the list does not contain a friend with that ID already
+                if (!Persist.friendList.any { it.name == newFriend.name }) {
+                    Persist.friendList.add(newFriend)
+                }
+            }
+        }
+    }
+
     private fun setupFriends() {
         Persist.friendsFile = File(filesDir.absolutePath + File.separator + friendsFilename )
         loadSavedFriends()
+    }
+
+    private fun loadSavedMessages() {
+        Persist.messagesFile = File(filesDir.absolutePath + File.separator + messagesFilename )
+
+        // Load messages from file
+        if (Persist.messagesFile.exists()) {
+            val messagesToAdd = MessageViewModel().getMessages(Persist.messagesFile, applicationContext)
+            messagesToAdd?.let {
+                Persist.messageList.clear()
+                Persist.messageList.addAll(it)
+            }
+
+        }
+    }
+
+    private fun getStatus() {
+
+        val statusString = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefLoginStatusKey, null)
+
+        status = if (statusString != null) {
+
+            try {
+                LoginStatus.valueOf(statusString)
+            } catch (error: Exception) {
+                print("Received invalid status from EncryptedSharedPreferences. User is logged out.")
+                LoginStatus.LoggedOut
+            }
+        } else {
+            LoginStatus.NotRequired
+        }
+    }
+
+    // Logout Button Handler
+    fun logoutButtonClicked(view: View) {
+        status = LoginStatus.LoggedOut
+        Persist.saveLoginStatus()
+
+        val returnToLoginIntent = Intent(this, EnterPasscodeActivity::class.java)
+        startActivity(returnToLoginIntent)
     }
 
 }

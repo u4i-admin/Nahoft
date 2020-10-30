@@ -12,10 +12,22 @@
         android:id="@+id/composeMessageContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_standard"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:orientation="vertical" >
 
+        <TextView
+            android:id="@+id/composeErrorMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#FDCFCF"
+            android:textSize="15sp"
+            android:visibility="gone"
+            tools:text="@string/error_loading_image_message" />
         <Button
             android:id="@+id/friend_button"
             android:layout_width="wrap_content"

@@ -3,15 +3,12 @@ package org.nahoft.stencil
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.ColorSpace
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.util.Log
 import androidx.core.graphics.get
 import kotlin.math.ceil
 import kotlin.math.sqrt
-import org.nahoft.codex.makeBitSet
-import java.util.*
 
 class Stencil {
 
@@ -51,7 +48,7 @@ class Stencil {
 
         val numColumns = fitStars(cover, bitsLen)!!
 
-        var result = cover.copy(Bitmap.Config.ARGB_8888, true);
+        var result = cover.copy(Bitmap.Config.ARGB_8888, true)
         for (index in 0 until bits.size)
         {
             val bit = bits.get(index)

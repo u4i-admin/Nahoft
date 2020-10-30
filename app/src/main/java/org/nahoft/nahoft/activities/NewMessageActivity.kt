@@ -2,10 +2,14 @@ package org.nahoft.nahoft.activities
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_new_message.*
+import kotlinx.coroutines.*
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.R
 import org.nahoft.showAlert
@@ -15,6 +19,22 @@ import org.nahoft.util.ShareUtil
 class NewMessageActivity : AppCompatActivity() {
 
     private var selectedFriend: Friend? = null
+
+    // Coroutines
+    private val coroutineExceptionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        coroutineScope.launch(Dispatchers.Main) {
+            composeErrorMessage.visibility = View.VISIBLE
+            composeErrorMessage.text = getString(R.string.error_loading_image_message)
+        }
+
+        GlobalScope.launch { println("Caught $throwable") }
+    }
+
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob + coroutineExceptionHandler)
+
+    companion object {
+        private val parentJob = Job()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +101,7 @@ class NewMessageActivity : AppCompatActivity() {
                         val imageURI = data?.data
 
                         imageURI?.let {
-                            ShareUtil.shareImage(this, imageURI, message, selectedFriend!!.publicKeyEncoded!!)
+                            shareAsImage(imageURI, message, selectedFriend!!.publicKeyEncoded!!)
                         }
                     }
 
@@ -99,6 +119,16 @@ class NewMessageActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun shareAsImage(imageURI: Uri, message: String, publicKeyEncoded: ByteArray) {
+        coroutineScope.launch(Dispatchers.Main) {
+            shareAsImageAsync(imageURI, message, publicKeyEncoded)
+        }
+    }
+
+    private suspend fun shareAsImageAsync(imageURI: Uri, message: String, publicKeyEncoded: ByteArray) = withContext(Dispatchers.Default) {
+        ShareUtil.shareImage(applicationContext, imageURI, message, publicKeyEncoded)
     }
 
 
