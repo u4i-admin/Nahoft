@@ -22,19 +22,16 @@ object ShareUtil {
             // Save bitmap to image roll to get URI for sharing intent
             if (newUri != null) {
 
-                // Sharing requires a custom intent whose action must be Intent.ACTION_SEND
-                val intent = Intent(Intent.ACTION_SEND).apply {
-
+                val sendIntent = Intent(Intent.ACTION_SEND).apply {
                     type = "image/*"
-
-                    // Resolves the images local URL and adds it to the intent as Intent.EXTRA_STREAM
                     putExtra(Intent.EXTRA_STREAM, newUri)
-
-                    // You need this flag to let the intent read local data and stream the image content to another app.
-                    flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
                 }
+                sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
-                context.startActivity(Intent.createChooser(intent, null))
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+                context.startActivity(shareIntent)
             } else {
                 print("Unable to send message as photo, we were unable to encode the selected image.")
                 return

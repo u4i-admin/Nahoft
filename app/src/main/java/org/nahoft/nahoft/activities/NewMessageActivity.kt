@@ -101,7 +101,7 @@ class NewMessageActivity : AppCompatActivity() {
                         val imageURI = data?.data
 
                         imageURI?.let {
-                            shareAsImage(imageURI, message, selectedFriend!!.publicKeyEncoded!!)
+                            ShareUtil.shareImage(applicationContext, imageURI, message, selectedFriend!!.publicKeyEncoded!!)
                         }
                     }
 
@@ -121,15 +121,15 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
-    private fun shareAsImage(imageURI: Uri, message: String, publicKeyEncoded: ByteArray) {
-        coroutineScope.launch(Dispatchers.Main) {
-            shareAsImageAsync(imageURI, message, publicKeyEncoded)
-        }
-    }
-
-    private suspend fun shareAsImageAsync(imageURI: Uri, message: String, publicKeyEncoded: ByteArray) = withContext(Dispatchers.Default) {
-        ShareUtil.shareImage(applicationContext, imageURI, message, publicKeyEncoded)
-    }
+//    private fun shareAsImage(imageURI: Uri, message: String, publicKeyEncoded: ByteArray) {
+//        coroutineScope.launch(Dispatchers.Main) {
+//            shareAsImageAsync(imageURI, message, publicKeyEncoded)
+//        }
+//    }
+//
+//    private suspend fun shareAsImageAsync(imageURI: Uri, message: String, publicKeyEncoded: ByteArray) = withContext(Dispatchers.Default) {
+//
+//    }
 
 
 }
