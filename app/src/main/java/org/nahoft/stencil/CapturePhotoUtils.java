@@ -34,7 +34,7 @@ public class CapturePhotoUtils {
         values.put(Images.Media.TITLE, title);
         values.put(Images.Media.DISPLAY_NAME, title);
         values.put(Images.Media.DESCRIPTION, description);
-        values.put(Images.Media.MIME_TYPE, "image/webp");
+        values.put(Images.Media.MIME_TYPE, "image/png");
         // Add the date meta data to ensure the image is added at the front of the gallery
         values.put(Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000);
         values.put(Images.Media.DATE_TAKEN, System.currentTimeMillis());
@@ -51,7 +51,7 @@ public class CapturePhotoUtils {
 
                 try
                 {
-                    source.compress(Bitmap.CompressFormat.WEBP, 100, imageOut);
+                    source.compress(Bitmap.CompressFormat.PNG, 100, imageOut);
                 }
                 catch(Exception e)
                 {

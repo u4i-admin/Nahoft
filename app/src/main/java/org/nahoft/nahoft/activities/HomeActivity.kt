@@ -8,7 +8,6 @@ import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
 import org.nahoft.nahoft.*
@@ -25,22 +24,6 @@ import java.time.format.DateTimeFormatter
 class HomeActivity : AppCompatActivity() {
 
     private var decodePayload: ByteArray? = null
-
-    // Coroutines
-    private val coroutineExceptionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        coroutineScope.launch(Dispatchers.Main) {
-            homeErrorMessage.visibility = View.VISIBLE
-            homeErrorMessage.text = getString(R.string.error_loading_image_message)
-        }
-
-        GlobalScope.launch { println("Caught $throwable") }
-    }
-
-    private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob + coroutineExceptionHandler)
-
-    companion object {
-        private val parentJob = Job()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,11 +110,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        parentJob.cancel()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -206,28 +184,8 @@ class HomeActivity : AppCompatActivity() {
 
     private fun handleSharedImage(intent: Intent) {
         (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
-            coroutineScope.launch(Dispatchers.Main) {
-
-                // Decode the message and save it locally for use after sender is selected
-                val decodedImage = decodeImageAsync(it)
-
-                decodedImage?.let {
-                    saveDecodedPayload(decodedImage)
-                }
-
-                // We received a message, have the user select who it is from
-                val selectSenderIntent = Intent(applicationContext, SelectMessageSenderActivity::class.java)
-                startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
-            }
+            decodePayload = Stencil().decode(applicationContext, it)
         }
-    }
-
-    private suspend fun decodeImageAsync(imageURI: Uri): ByteArray? = withContext(Dispatchers.IO) {
-        return@withContext Stencil().decode(applicationContext, imageURI)
-    }
-
-    private fun saveDecodedPayload(payload: ByteArray) {
-        decodePayload = payload
     }
 
     private fun loadSavedFriends() {

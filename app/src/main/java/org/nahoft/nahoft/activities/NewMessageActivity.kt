@@ -74,6 +74,7 @@ class NewMessageActivity : AppCompatActivity() {
             if (selectedFriend!!.publicKeyEncoded != null) {
                 // Share this message as a text
                 ShareUtil.shareText(this, message, selectedFriend!!.publicKeyEncoded!!)
+                editMessageText.text.clear()
             } else {
                 this.showAlert(getString(R.string.alert_text_verified_friends_only))
             }
@@ -102,6 +103,7 @@ class NewMessageActivity : AppCompatActivity() {
 
                         imageURI?.let {
                             ShareUtil.shareImage(applicationContext, imageURI, message, selectedFriend!!.publicKeyEncoded!!)
+                            editMessageText.text.clear()
                         }
                     }
 
@@ -128,6 +130,7 @@ class NewMessageActivity : AppCompatActivity() {
 //    }
 //
 //    private suspend fun shareAsImageAsync(imageURI: Uri, message: String, publicKeyEncoded: ByteArray) = withContext(Dispatchers.Default) {
+//
 //
 //    }
 
