@@ -15,7 +15,8 @@
         android:textSize="15sp"
         android:padding="20sp"
         android:scrollHorizontally="true"
-        android:text="* Start by clicking the Friends icon on the home page.
+        android:text="ADDING FRIENDS
+                                                                        * Start by clicking the Friends icon on the home page.
                                                                                     * Press the + icon at the bottom of the Friends screen to add a friend.
                                                                         * Type the name of the friend you want to add and press save.
                                                                                         * Click the invite button beside your new friends name.
@@ -27,4 +28,5 @@
                                                             * Return to the Friends screen and select the verify button beside the friend you received the key from.
                                                                                 * Confirm with your friend that your numbers match. If yes, click accept. If no, click reject.
                                                                                                     * To delete a friend select the = beside the name and swipe. "/>
+
 </LinearLayout>

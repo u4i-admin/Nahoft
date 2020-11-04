@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsUserGuideActivity">
+    android:orientation="vertical"
+    tools:context=".ReceivingMessageUserGuideActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:padding="20sp"
+        android:scrollHorizontally="true"
+        android:text="SETTING PASSCODES
+                                                                    * Click the settings icon.
+                                                                                                    * Click the passcode icon.
+                                                                                                                    * Move the toggle switch to allow the user to require a passcode.
+                                                                                                                                        * The first two passcode lines set the passcode to gain entry into the app.
+                                                                                                                                                                * The last two secondary passcode lines set the secondary passcode that exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.
+                                                                                                                                                                                                * Hit save to keep all changes."/>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
