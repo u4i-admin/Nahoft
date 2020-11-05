@@ -41,12 +41,8 @@ class Stencil {
             return null
         }
 
-        if (maxStars < numBits) {return null}
-
         val bits = bitsFromBytes(encrypted)
         val bitsLen = bits.size
-
-        val numColumns = fitStars(cover, bitsLen)!!
 
         var result = cover.copy(Bitmap.Config.ARGB_8888, true)
         for (index in 0 until bits.size)
@@ -55,11 +51,11 @@ class Stencil {
 
             if (bit == 1)
             {
-                result = addStar(result, index, 255, numColumns)
+                result = addStar(result, index, 255)
             }
             else if (bit == 0)
             {
-                result = addStar(result, index, 0, numColumns)
+                result = addStar(result, index, 0)
             }
             else
             {
@@ -67,7 +63,9 @@ class Stencil {
             }
         }
 
-        result = addStar(result, bits.size, 128, numColumns)
+        result = addStar(result, bits.size, 128)
+
+        result = fill(result, bits.size+1)
 
         // Quality check
         val decoded = decode(result)
@@ -98,44 +96,94 @@ class Stencil {
         bitmap.setPixel(x, y, color)
     }
 
-    private fun fitStars(bitmap: Bitmap, numBits: Int): Int?
+    private fun fitStar(bitmap: Bitmap, index: Int): Pair<Int, Int>
     {
-        val maxRows = bitmap.height / 3
-        val maxColumns = bitmap.width / 3
+        var row = 0
+        var column = 0
 
-        var numColumnsPicked = 0
-        var valid = false
-        for (numRows in 1..maxRows)
+        val originalRight = (bitmap.width / 3) - 1
+        var originalLeft = (bitmap.height / 3) - 1
+
+        var left = 1
+        var right = (bitmap.width / 3) - 1
+        var top = 1
+        var bottom = (bitmap.height / 3) - 1
+
+        var direction = Pair(1, 0)
+
+        for (offset in 0 until index)
         {
-            for (numColumns in 1..maxColumns)
+            val xoff = direction.first
+            val yoff = direction.second
+
+            val newColumn = column + xoff
+            val newRow = row + yoff
+
+            if (xoff == 1) // Right
             {
-                val numStars = numRows * numColumns
-                if (numStars >= numBits)
+                if (newColumn > right)
                 {
-                    valid = true
-                    numColumnsPicked = numColumns
-                    break
+                    right -= 1
+                    direction = Pair(0, 1)
+                }
+                else
+                {
+                    column = newColumn
+                }
+            }
+            else if(yoff == 1) // Down
+            {
+                if (newRow > bottom)
+                {
+                    bottom -= 1
+                    direction = Pair(-1, 0)
+                }
+                else
+                {
+                    row = newRow
+                }
+            }
+            else if (xoff == -1) // Left
+            {
+                if (newColumn < left)
+                {
+                    left += 1
+                    direction = Pair(0, -1)
+                }
+                else
+                {
+                    column = newColumn
+                }
+            }
+            else if(yoff == -1) // Up
+            {
+                if (newRow < top)
+                {
+                    top += 1
+                    direction = Pair(0, 1)
+                }
+                else
+                {
+                    row = newRow
                 }
             }
         }
 
-        if (!valid)
+        if((column < 0) || (row < 0))
         {
-            return null
+            print("break!")
         }
 
-        return numColumnsPicked
+        return Pair((column*3)+1, (row*3)+1)
     }
 
     private class Dimensions(val x: Int, val y: Int)
 
-    private fun addStar(bitmap: Bitmap, index: Int, color: Int, numColumns: Int): Bitmap?
+    private fun addStar(bitmap: Bitmap, index: Int, color: Int): Bitmap?
     {
-        val row = index / numColumns
-        val column = index % numColumns
-
-        val heightOffset = (3 * row) + 2
-        val widthOffset = (3 * column) + 2
+        val position = fitStar(bitmap, index)
+        val widthOffset = position.first
+        val heightOffset = position.second
 
         val newBitmap = bitmap
 
@@ -156,6 +204,33 @@ class Stencil {
         setPixel(newBitmap, widthOffset+1, heightOffset-1, Color.argb(255, 255, 255, 255))
 
         return newBitmap
+    }
+
+    fun fill(bitmap: Bitmap, startIndex: Int): Bitmap
+    {
+        var index = startIndex
+        var position = fitStar(bitmap, index)
+        var widthOffset = position.first
+        var heightOffset = position.second
+        var result = bitmap
+
+        // Until we reach a top-left corner
+        while ((widthOffset != heightOffset) || (widthOffset > bitmap.width / 2))
+        {
+            // Easy, (not very random) psuedo-random color generator.
+            val color = ((index % 3) % 2) * 255
+            val newBitmap = addStar(result, index, color)
+            newBitmap?.let {
+                result = newBitmap
+            }
+
+            index += 1
+            position = fitStar(bitmap, index)
+            widthOffset = position.first
+            heightOffset = position.second
+        }
+
+        return result
     }
 
     fun destroy(bitmap: Bitmap): Bitmap
@@ -186,22 +261,16 @@ class Stencil {
     {
         var working = bitmap.copy(Bitmap.Config.ARGB_8888, true);
 
-        val maxColumns = bitmap.width / 3
-
-        var bits: List<Int>? = null
-         for (numColumns in 1 until maxColumns)
+        val bits = findStars(working)
+        if (bits != null)
         {
-            bits = findStars(working, numColumns)
-            if (bits != null)
-            {
-                return decodeStars(bits)
-            }
+            return decodeStars(bits)
         }
 
         return null
     }
 
-    fun findStars(bitmap: Bitmap, numColumns: Int): List<Int>?
+    fun findStars(bitmap: Bitmap): List<Int>?
     {
         var result: List<Int> = emptyList()
 
@@ -209,28 +278,12 @@ class Stencil {
         var done = false
         while (!done)
         {
-            val row = index / numColumns
-            val column = index % numColumns
-
-            val heightOffset = (3 * row) + 2
-            val widthOffset = (3 * column) + 2
-
-//            for (x in 0 until bitmap.width)
-//            {
-//                for (y in 0 until bitmap.height)
-//                {
-//                    val color = bitmap.get(x, y)
-//                    val alpha = Color.alpha(color)
-//                    val r = Color.red(color)
-//                    val g = Color.green(color)
-//                    val b = Color.blue(color)
-//                    println(alpha)
-//                }
-//            }
-
             try
             {
-                val colorValue = bitmap.get(widthOffset, heightOffset)
+                val position = fitStar(bitmap, index)
+                index += 1
+
+                val colorValue = bitmap.get(position.first, position.second)
                 val color = decodeColor(colorValue)
                 when (color)
                 {
@@ -244,8 +297,6 @@ class Stencil {
             {
                 return null
             }
-
-            index += 1
         }
 
         return result
