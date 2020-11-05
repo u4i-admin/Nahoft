@@ -20,6 +20,7 @@
     //Messages Activity
     <string name="activity_title_messages">نمایش پیام ها</string>
     <string name="button_label_compose">ساختن </string>
+    <string name="choose_friend_button_icon">دوست را انتخاب کنید</string>
 
     //New Messages Activity
     <string name="hintOnChooseFriendButton">دوست را انتخاب کنید</string>

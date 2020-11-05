@@ -30,6 +30,7 @@
     <!-- New Messages Activity Alerts -->
     <string name="alert_text_verified_friends_only">You can only message a verified friend.</string>
     <string name="alert_text_select_friend_to_send_message">Select a friend to send a message to.</string>
+    <string name="choose_friend_button_icon">Choose Friend</string>
 
     //Settings Activity
     <string name="activity_title_settings">Settings</string>

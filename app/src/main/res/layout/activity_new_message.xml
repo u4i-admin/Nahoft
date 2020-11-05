@@ -28,12 +28,32 @@
             android:textSize="15sp"
             android:visibility="gone"
             tools:text="@string/error_loading_image_message" />
+
         <Button
             android:id="@+id/friend_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/hintOnChooseFriendButton"/>
+
+       <!-- <ImageButton
+            android:id="@+id/friend_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="@string/hintOnChooseFriendButton"
+            android:background="@drawable/verified_friend"/>-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_friend_button_icon"
+            android:textColor="@color/colorAccent"
+            android:textIsSelectable="false"
+            android:textSize="24sp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textStyle="normal"/>
 
         <EditText
             android:id="@+id/editMessageText"
