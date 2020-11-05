@@ -6,6 +6,6 @@ import android.os.Bundle
 class ReceivingMessageUserGuideActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_receiving_message_user_guide)
+        setContentView(R.layout.activity_import_user_guide)
     }
 }

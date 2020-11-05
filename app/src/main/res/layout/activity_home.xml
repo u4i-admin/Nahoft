@@ -12,7 +12,7 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="150dp"
         android:contentDescription="Nahoft Logo"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/friends"
-        android:layout_width="79dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
@@ -40,7 +40,7 @@
         android:id="@+id/friends_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/ic_group_24px"
         android:textColor="@color/colorAccent"
@@ -162,7 +162,6 @@
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:gravity="center"
         android:text="@string/button_label_logout"
@@ -179,12 +178,13 @@
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/ic_baseline_import_export_24"
+        android:background="@drawable/logout_button"
         android:onClick="logoutButtonClicked"
         android:textColor="@color/colorAccent"
         android:tint="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_guide_button" />
+
 
     <TextView
         android:id="@+id/homeErrorMessage"
@@ -196,6 +196,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nahoft_message_bottle" />
+
 
     <!--    <Button-->
     <!--        android:id="@+id/logout_button"-->

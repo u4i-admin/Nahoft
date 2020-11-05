@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SendingMessagesUserGuideActivity">
+    android:orientation="vertical"
+    tools:context=".ReceivingMessageUserGuideActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:padding="20sp"
+        android:scrollHorizontally="true"
+        android:text="SENDING MESSAGES
+                                                                        * Users must have validated friends in order to send a message.
+                                                                                                    * Click messages on the home screen.
+                                                                                                                            * Next click the pencil icon on the Messages screen.
+                                                                                                                                                        * Choose the friend you would like to message
+                                                                                                                                                                        * Write your message on the compose message screen.
+                                                                                                                                                                                                * By choosing send as text your message will be encrypted and obfuscated to still look like a written message. Whereas choosing send as Image it will look like the picture you choose from your gallery. Next, this will prompt the send as screen and you can choose to send your message via your preferred messaging app.
+                                                                                                                                                                                                * Click share to send."/>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
