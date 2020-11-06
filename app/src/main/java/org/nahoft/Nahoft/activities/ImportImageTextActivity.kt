@@ -52,11 +52,9 @@ class ImportImageTextActivity : AppCompatActivity() {
                     // We received a key, have the user select who it is from
                     val selectSenderIntent = Intent(this, SelectKeySenderActivity::class.java)
                     startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
-                    editMessageText.text.clear()
                 }
             } else {
                 this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
-                editMessageText.text.clear()
             }
         }
     }
