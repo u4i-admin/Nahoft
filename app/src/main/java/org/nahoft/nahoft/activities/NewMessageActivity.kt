@@ -2,12 +2,10 @@ package org.nahoft.nahoft.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_new_message.*
 import kotlinx.coroutines.*
 import org.nahoft.nahoft.Friend
@@ -47,14 +45,12 @@ class NewMessageActivity : AppCompatActivity() {
 
         // Send message as text button
         send_as_text_button.setOnClickListener {
-            val message = editMessageText.text.toString()
-            sendAsText(message)
-
+            trySendingMessage(false)
         }
 
         // Send message as image button
         send_as_image_button.setOnClickListener {
-            pickImageFromGallery()
+            trySendingMessage(true)
         }
     }
 
@@ -69,31 +65,44 @@ class NewMessageActivity : AppCompatActivity() {
         startActivityForResult(pickImageIntent, RequestCodes.selectImageCode)
     }
 
-    private fun sendAsText(message: String) {
-        if (selectedFriend != null) {
+    private fun trySendingMessage(isImage: Boolean) {
+
+        // Make sure there is a message to send
+        val message = editMessageText.text.toString()
+        if (message.isBlank()) {
+            showAlert("Write a message to send.")
+            return
+        }
+
+        // Make sure there is a friend to create the message for.
+        if (selectedFriend == null) {
+            this.showAlert(getString(R.string.alert_text_select_friend_to_send_message))
+            return
+        }
+
+        if (isImage == true) {
+            // If the message is sent as an image
+            pickImageFromGallery()
+        } else {
+            // If the message is sent as text
             if (selectedFriend!!.publicKeyEncoded != null) {
                 // Share this message as a text
                 ShareUtil.shareText(this, message, selectedFriend!!.publicKeyEncoded!!)
                 editMessageText.text.clear()
             } else {
                 this.showAlert(getString(R.string.alert_text_verified_friends_only))
+                return
             }
-        } else {
-            // TODO: We may want to simply disable the send buttons until a friend is selected
-            this.showAlert(getString(R.string.alert_text_select_friend_to_send_message))
         }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == RequestCodes.selectImageCode) {
-
-                // We can only share an image if a recipient with a public key has been selected
-                selectedFriend?.let {
-                    it.publicKeyEncoded?.let {
+                if (selectedFriend != null) {
+                    selectedFriend?.publicKeyEncoded?.let {
 
                         // Get the message text
                         val message = editMessageText.text.toString()
@@ -106,8 +115,11 @@ class NewMessageActivity : AppCompatActivity() {
                             editMessageText.text.clear()
                         }
                     }
-
+                } else {
+                    // TODO: Create a toast for selecting a friend before sending a message
                 }
+
+                // We can only share an image if a recipient with a public key has been selected
 
             } else if (requestCode == RequestCodes.selectFriendCode) {
 

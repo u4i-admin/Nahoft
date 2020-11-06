@@ -11,6 +11,7 @@ import java.net.URL;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
@@ -31,10 +32,10 @@ public class CapturePhotoUtils {
      * that is inserted manually gets saved at the end of the gallery (because date is not populated).
      * @see android.provider.MediaStore.Images.Media#insertImage(ContentResolver, Bitmap, String, String)
      */
-    public static final Uri insertImage(ContentResolver cr,
-                                           Bitmap source,
-                                           String title,
-                                           String description) {
+    public static final Uri insertImage(Context context,
+                                        Bitmap source,
+                                        String title,
+                                        String description) {
 
         ContentValues values = new ContentValues();
         values.put(Images.Media.TITLE, title);
@@ -49,7 +50,7 @@ public class CapturePhotoUtils {
 //        String stringUrl = null;    /* value to be returned */
 
         try {
-            File tempFile = File.createTempFile("encodedImage", ".png", Persist.app.getApplicationContext().getCacheDir());
+            File tempFile = File.createTempFile("encodedImage", ".png", context.getCacheDir());
             FileOutputStream outputStream = new FileOutputStream(tempFile);
 
             Uri fileUri = Uri.fromFile(tempFile);
@@ -72,8 +73,6 @@ public class CapturePhotoUtils {
         } catch (Exception error) {
             return null;
         }
-
-
 
 //        try {
 //            url = cr.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);

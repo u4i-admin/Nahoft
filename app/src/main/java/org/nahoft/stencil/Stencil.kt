@@ -85,7 +85,7 @@ class Stencil {
 
         val title = ""
         val description = ""
-        val resultUri = CapturePhotoUtils.insertImage(context.contentResolver, result, title , description)
+        val resultUri = CapturePhotoUtils.insertImage(context, result, title , description)
 
         return resultUri
     }
