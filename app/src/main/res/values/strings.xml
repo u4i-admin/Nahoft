@@ -1,5 +1,22 @@
 <resources>
+
+    //App Screen Names
     <string name="app_name">Nahoft</string>
+    <string name="import_screen_name">Import</string>
+    <string name="add_friends_screen_name">Add Friends</string>
+    <string name="create_passcodes_screen_name">Create Passcodes</string>
+    <string name="friends_screen_name">Friends</string>
+    <string name="choose_friend_to_message">Choose Friend to Message</string>
+    <string name="compose_message_screen_name">Compose Message</string>
+    <string name="imports_user_guide_screen_name">Imports User Guide</string>
+    <string name="passcodes_user_guide_screen_name">Passcodes User Guide</string>
+    <string name="messages_user_guide_screen_name">Messages User Guide</string>
+    <string name="friends_user_guide_screen_name">Friends User Guide</string>
+    <string name="passcode_screen_name">Passcode</string>
+    <string name="user_guides_screen_name">User Guides</string>
+    <string name="messages_screen_name">Messages</string>
+    <string name="home_screen_name">Home</string>
+
 
     //Enter Passcode Activity Strings
     <string name="Passcode">Passcode</string>
@@ -128,4 +145,48 @@
     <string name="button_label_import_image">Import Image</string>
     <string name="error_loading_image_message">Error loading image.</string>
 
+    //Friends User Guide
+    <string name="friends_user_guide">ADDING FRIENDS
+                                                                        * Start by clicking the Friends icon on the home page.
+                                                                                    * Press the + icon at the bottom of the Friends screen to add a friend.
+                                                                                                    * Type the name of the friend you want to add and press save.
+                                                                                        * Click the invite button beside your new friends name.
+                                                                                    * Generated is a key.
+                                                                                                    * Populated is the sharing screen.
+                                                                                                                                    * Share your key with your friend via your favorite sharing app.
+                                                                                    * Accept a key by copying it from the app you received it from.
+                                                                                                    * Paste it in the import screen with a long click and select import message.
+                                                                                                                                        * Return to the Friends screen and select the verify button beside the friend you received the key from.
+                                                                                * Confirm with your friend that your numbers match. If yes, click accept. If no, click reject.
+                                                                                                    * To delete a friend select the = beside the name and swipe.</string>
+
+    //Sending Messages User Guide
+    <string name="sending_messages_user_guide">SENDING MESSAGES
+
+* Users must have validated friends in order to send a message.
+                                                                                           * Click messages on the home screen.
+                                                                                                                   * Next click the pencil icon on the Messages screen.
+                                                                                                                                               * Choose the friend you would like to message
+                                                                                                                                                               * Write your message on the compose message screen.
+                                                                                                                                                                                       * By choosing send as text your message will be encrypted and obfuscated to still look like a written message. Whereas choosing send as Image it will look like the picture you choose from your gallery. Next, this will prompt the send as screen and you can choose to send your message via your preferred messaging app.
+                                                                                                                                                                                       * Click share to send.
+</string>
+
+
+    //Settings User Guide
+    <string name="settings_user_guide">SETTING PASSCODES
+                                                                    * Click the settings icon.
+                                                                                                    * Click the passcode icon.
+                                                                                                                    * Move the toggle switch to allow the user to require a passcode.
+                                                                                                                                        * The first two passcode lines set the passcode to gain entry into the app.
+                                                                                                                                                                * The last two secondary passcode lines set the secondary passcode that exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.
+                                                                                                                                                                                                * Hit save to keep all changes.</string>
+    //Imports User Guide
+    <string name="imports_user_guide">IMPORTING MESSAGES
+
+* When you receive a coded message through your preferred messaging app copy the text or image and paste it in the import screen with a long click.
+                                                                                           * Next choose the icon that corresponds to your message type image or text.
+                                                                                                           * All successfully received messages can be viewed in the Messages Screen.
+                                                                                                                               * To delete the message select the = on the message and swipe left.
+</string>
 </resources>

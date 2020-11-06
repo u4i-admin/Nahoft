@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_import_image_text.*
+import kotlinx.android.synthetic.main.activity_new_message.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
 import org.nahoft.nahoft.*
@@ -51,9 +52,11 @@ class ImportImageTextActivity : AppCompatActivity() {
                     // We received a key, have the user select who it is from
                     val selectSenderIntent = Intent(this, SelectKeySenderActivity::class.java)
                     startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
+                    editMessageText.text.clear()
                 }
             } else {
                 this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
+                editMessageText.text.clear()
             }
         }
     }

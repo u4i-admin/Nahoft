@@ -14,13 +14,6 @@
         android:textSize="15sp"
         android:padding="20sp"
         android:scrollHorizontally="true"
-        android:text="SETTING PASSCODES
-                                                                    * Click the settings icon.
-                                                                                                    * Click the passcode icon.
-                                                                                                                    * Move the toggle switch to allow the user to require a passcode.
-                                                                                                                                        * The first two passcode lines set the passcode to gain entry into the app.
-                                                                                                                                                                * The last two secondary passcode lines set the secondary passcode that exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.
-                                                                                                                                                                                                * Hit save to keep all changes."/>
-
+        android:text="@string/sending_messages_user_guide"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

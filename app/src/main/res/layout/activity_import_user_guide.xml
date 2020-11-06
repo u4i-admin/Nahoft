@@ -14,12 +14,6 @@
         android:textSize="15sp"
         android:padding="20sp"
         android:scrollHorizontally="true"
-        android:text="IMPORTING MESSAGES
-                                                                    * When you receive a coded message through your preferred messaging app, copy the text or image and paste it in the import screen with a long click.
-                                                                                                    * Next choose the icon that corresponds to your message type image or text.
-                                                                                                                    * All succesfully received messages can be viewed in the Messages Screen.
-                                                                                                                                        * To delete the message select the = on the message and swipe left.
-                           "/>
-
+        android:text="@string/imports_user_guide"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

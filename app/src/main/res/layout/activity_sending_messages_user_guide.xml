@@ -14,14 +14,6 @@
         android:textSize="15sp"
         android:padding="20sp"
         android:scrollHorizontally="true"
-        android:text="SENDING MESSAGES
-                                                                        * Users must have validated friends in order to send a message.
-                                                                                                    * Click messages on the home screen.
-                                                                                                                            * Next click the pencil icon on the Messages screen.
-                                                                                                                                                        * Choose the friend you would like to message
-                                                                                                                                                                        * Write your message on the compose message screen.
-                                                                                                                                                                                                * By choosing send as text your message will be encrypted and obfuscated to still look like a written message. Whereas choosing send as Image it will look like the picture you choose from your gallery. Next, this will prompt the send as screen and you can choose to send your message via your preferred messaging app.
-                                                                                                                                                                                                * Click share to send."/>
-
+        android:text="@string/sending_messages_user_guide"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

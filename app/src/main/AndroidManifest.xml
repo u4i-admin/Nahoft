@@ -22,17 +22,17 @@
             android:name=".activities.VerifyFriendActivity" />
         <activity
             android:name=".activities.ImportImageTextActivity"
-            android:label="Import"/>
+            android:label="@string/import_screen_name"/>
         <activity
             android:name=".activities.AddFriendActivity"
-            android:label="Add Friends"/>
+            android:label="@string/add_friends_screen_name"/>
         <activity android:name=".activities.SelectKeySenderActivity" />
         <activity android:name=".activities.SelectMessageSenderActivity"/>
         <activity
             android:name=".activities.MessageActivity"/>
         <activity
             android:name=".activities.PasscodeActivity"
-            android:label="Create Passcodes"/>
+            android:label="@string/create_passcodes_screen_name"/>
         <activity android:name=".activities.ApplicationShortcutActivity" />
         <activity
             android:icon="@mipmap/nahoft_icon_launcher_round"
@@ -47,38 +47,38 @@
         </activity>
         <activity
             android:name=".activities.FriendsActivity"
-            android:label="Friends"/>
+            android:label="@string/friends_screen_name"/>
         <activity
             android:name=".activities.FriendSelectionActivity"
-            android:label="Choose Friend to Message"/>
+            android:label="@string/choose_friend_to_message"/>
         <activity
             android:name=".activities.NewMessageActivity"
-            android:label="Compose Message"/>
+            android:label="@string/compose_message_screen_name"/>
         <activity
             android:name=".ReceivingMessageUserGuideActivity"
-            android:label="Imports User Guide"/>
+            android:label="@string/imports_user_guide_screen_name"/>
         <activity
             android:name=".SettingsUserGuideActivity"
-            android:label="Passcodes User Guide"/>
+            android:label="@string/passcodes_user_guide_screen_name"/>
         <activity
             android:name=".SendingMessagesUserGuideActivity"
-            android:label="Messages User Guide"/>
+            android:label="@string/messages_user_guide_screen_name"/>
         <activity
             android:name=".FriendsUserGuideActivity"
-            android:label="Friends User Guide"/>
+            android:label="@string/friends_user_guide_screen_name"/>
         <activity
             android:name=".SettingsActivity"
-            android:label="Passcode"/>
+            android:label="@string/passcode_screen_name"/>
         <activity
             android:name=".UserGuideActivity"
-            android:label="User Guides"/>
+            android:label="@string/user_guides_screen_name"/>
         <activity
             android:name=".activities.MessagesActivity"
-            android:label="Messages"
+            android:label="@string/messages_screen_name"
             android:icon="@drawable/app_shortcut_email"/>
         <activity
             android:name=".activities.HomeActivity"
-            android:label="Home">
+            android:label="@string/home_screen_name">
 
             <!-- Allows other apps to share images with us -->
             <intent-filter>
