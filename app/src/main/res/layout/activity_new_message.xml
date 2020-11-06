@@ -33,8 +33,10 @@
             android:id="@+id/friend_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAccent"
             android:gravity="center"
-            android:text="@string/hintOnChooseFriendButton"/>
+            android:text="@string/hintOnChooseFriendButton"
+            android:textColor="@color/colorPrimary" />
 
        <!-- <ImageButton
             android:id="@+id/friend_button"
@@ -57,14 +59,14 @@
 
         <EditText
             android:id="@+id/editMessageText"
-            android:paddingTop="@dimen/padding_standard"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAccent"
+            android:layout_height="fill_parent"
+            android:background="@color/colorAccent"
             android:ems="16"
+            android:importantForAutofill="no"
             android:inputType="textMultiLine|textCapSentences"
-            android:textColor="@color/colorAccent"
-            android:importantForAutofill="no" />
+            android:paddingTop="@dimen/padding_standard"
+            android:textColor="@color/colorPrimaryDark" />
 
     </LinearLayout>
 
@@ -82,13 +84,17 @@
             android:id="@+id/send_as_text_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sendAsTextButton" />
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/sendAsTextButton"
+            android:textColor="@color/colorPrimary" />
 
         <Button
             android:id="@+id/send_as_image_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sendAsImageButton" />
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/sendAsImageButton"
+            android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
 

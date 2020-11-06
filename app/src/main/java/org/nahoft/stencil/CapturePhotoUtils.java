@@ -1,8 +1,12 @@
 package org.nahoft.stencil;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URI;
+import java.net.URL;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -12,6 +16,8 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
+
+import org.nahoft.nahoft.Persist;
 
 /**
  * Android internals have been modified to store images in the media folder with
@@ -39,50 +45,77 @@ public class CapturePhotoUtils {
         values.put(Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000);
         values.put(Images.Media.DATE_TAKEN, System.currentTimeMillis());
 
-        Uri url = null;
-        String stringUrl = null;    /* value to be returned */
+//        Uri url = null;
+//        String stringUrl = null;    /* value to be returned */
 
         try {
-            url = cr.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            File tempFile = File.createTempFile("encodedImage", ".png", Persist.app.getApplicationContext().getCacheDir());
+            FileOutputStream outputStream = new FileOutputStream(tempFile);
 
-            if (source != null)
+            Uri fileUri = Uri.fromFile(tempFile);
+
+            try
             {
-                OutputStream imageOut = cr.openOutputStream(url);
-
-                try
-                {
-                    source.compress(Bitmap.CompressFormat.PNG, 100, imageOut);
-                }
-                catch(Exception e)
-                {
-                    System.out.println(e);
-                }
-                finally
-                {
-                    imageOut.close();
-                }
-
-                long id = ContentUris.parseId(url);
-                // Wait until MINI_KIND thumbnail is generated.
-                Bitmap miniThumb = Images.Thumbnails.getThumbnail(cr, id, Images.Thumbnails.MINI_KIND, null);
-                // This is for backward compatibility.
-//                storeThumbnail(cr, miniThumb, id, 50F, 50F,Images.Thumbnails.MICRO_KIND);
-            } else {
-                cr.delete(url, null, null);
-                url = null;
+                source.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                return fileUri;
             }
-        } catch (Exception e) {
-            if (url != null) {
-                cr.delete(url, null, null);
-                url = null;
+            catch(Exception e)
+            {
+                System.out.println(e);
+                return null;
             }
-        }
+            finally
+            {
+                outputStream.close();
+            }
 
-        if (url != null) {
-            return url;
-        } else {
+        } catch (Exception error) {
             return null;
         }
+
+
+
+//        try {
+//            url = cr.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+//
+//            if (source != null)
+//            {
+//                OutputStream imageOut = cr.openOutputStream(url);
+//
+//                try
+//                {
+//                    source.compress(Bitmap.CompressFormat.PNG, 100, imageOut);
+//                }
+//                catch(Exception e)
+//                {
+//                    System.out.println(e);
+//                }
+//                finally
+//                {
+//                    imageOut.close();
+//                }
+//
+//                long id = ContentUris.parseId(url);
+//                // Wait until MINI_KIND thumbnail is generated.
+//                Bitmap miniThumb = Images.Thumbnails.getThumbnail(cr, id, Images.Thumbnails.MINI_KIND, null);
+//                // This is for backward compatibility.
+////                storeThumbnail(cr, miniThumb, id, 50F, 50F,Images.Thumbnails.MICRO_KIND);
+//            } else {
+//                cr.delete(url, null, null);
+//                url = null;
+//            }
+//        } catch (Exception e) {
+//            if (url != null) {
+//                cr.delete(url, null, null);
+//                url = null;
+//            }
+//        }
+
+//        if (url != null) {
+//            return url;
+//        } else {
+//            return null;
+//        }
     }
 
     /**
