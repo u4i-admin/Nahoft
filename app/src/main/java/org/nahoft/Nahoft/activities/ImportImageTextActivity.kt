@@ -52,11 +52,9 @@ class ImportImageTextActivity : AppCompatActivity() {
                     // We received a key, have the user select who it is from
                     val selectSenderIntent = Intent(this, SelectKeySenderActivity::class.java)
                     startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
-                    editMessageText.text.clear()
                 }
             } else {
                 this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
-                editMessageText.text.clear()
             }
         }
     }
@@ -81,9 +79,15 @@ class ImportImageTextActivity : AppCompatActivity() {
                     val stringDate = date.format(DateTimeFormatter.ofPattern("M/d/y H:m"))
                     val cipherText = decodePayload
 
+                    // TODO do not perisist messages that cannot be decrypted, let user know that message could not be saved/decrypted
+
+                    // TODO add decrypted snippet to list view
+
                     val newMessage = Message(stringDate, cipherText!!, sender)
                     Persist.messageList.add(newMessage)
                     Persist.saveMessagesToFile(this)
+
+                    // TODO Clear out text view here
 
                     // Go to message view
                     val messageArguments = MessageActivity.Arguments(message = newMessage)

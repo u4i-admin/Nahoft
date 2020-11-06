@@ -1,5 +1,6 @@
 package org.nahoft.util
 
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -22,10 +23,10 @@ object ShareUtil {
             // Save bitmap to image roll to get URI for sharing intent
             if (newUri != null) {
 
-                val sendIntent = Intent(Intent.ACTION_SEND).apply {
-                    type = "image/*"
-                    putExtra(Intent.EXTRA_STREAM, newUri)
-                }
+                val sendIntent = Intent(Intent.ACTION_SEND)
+                //sendIntent.setClipData(ClipData.newRawUri("", newUri))
+                sendIntent.putExtra(Intent.EXTRA_STREAM, newUri)
+                sendIntent.type = "image/*"
                 sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
                 val shareIntent = Intent.createChooser(sendIntent, null)
@@ -41,7 +42,6 @@ object ShareUtil {
             print("Unable to send message as photo, we were unable to encrypt the message.")
             return
         }
-
     }
 
     fun shareText(context: Context, message: String, encodedFriendPublicKey: ByteArray) {
@@ -60,7 +60,6 @@ object ShareUtil {
             val shareIntent = Intent.createChooser(sendIntent, null)
             context.startActivity(shareIntent)
         }
-
     }
 
     fun shareKey(context: Context, keyBytes: ByteArray) {

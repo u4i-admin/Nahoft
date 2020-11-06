@@ -20,6 +20,8 @@ import android.provider.MediaStore.Images;
 
 import org.nahoft.nahoft.Persist;
 
+import static androidx.core.content.FileProvider.getUriForFile;
+
 /**
  * Android internals have been modified to store images in the media folder with
  * the correct date meta data
@@ -53,7 +55,7 @@ public class CapturePhotoUtils {
             File tempFile = File.createTempFile("encodedImage", ".png", context.getCacheDir());
             FileOutputStream outputStream = new FileOutputStream(tempFile);
 
-            Uri fileUri = Uri.fromFile(tempFile);
+            Uri fileUri = getUriForFile(context, "org.nahoft.nahoft.fileprovider", tempFile);
 
             try
             {
