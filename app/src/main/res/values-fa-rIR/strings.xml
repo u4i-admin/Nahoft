@@ -11,7 +11,7 @@
     <string name="passcodes_user_guide_screen_name">راهنمای کاربر رمزهای عبور</string>
     <string name="messages_user_guide_screen_name">راهنمای کاربر پیام ها</string>
     <string name="friends_user_guide_screen_name">راهنمای کاربر دوستان</string>
-    <string name="passcode_screen_name">رمز عبور</string>
+    <string name="settings_screen_name">رمز عبور</string>
     <string name="user_guides_screen_name">راهنمای استفاده</string>
     <string name="messages_screen_name">پیام ها</string>
     <string name="home_screen_name">خانه</string>

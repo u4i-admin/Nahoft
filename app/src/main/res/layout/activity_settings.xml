@@ -1,64 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
     tools:context=".SettingsActivity">
 
-    <TextView
-        android:id="@+id/Passcode_button_id"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/logoContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:gravity="center|top"
-        android:text="@string/button_label_passcode"
-        android:textColor="@color/colorAccent"
-        android:textIsSelectable="false"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toStartOf="@+id/passcode_button"
-        app:layout_constraintTop_toTopOf="@+id/passcode_button" />
+        android:gravity="right"
+        android:orientation="vertical"
+        android:paddingTop="32dp">
 
-    <ImageButton
-        android:id="@+id/passcode_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="228dp"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/passcode_icon"
-        android:text="@string/button_label_passcode"
-        android:textColor="@color/colorAccent"
-        android:tint="@color/colorAccent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:id="@+id/passcode_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/padding_standard"
+            android:paddingRight="32dp"
+            android:background="@android:color/transparent"
+            android:text="@string/button_label_passcode"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            android:drawableEnd="@drawable/passcode_icon"
+            android:drawablePadding="8dp" />
+
+    </LinearLayout>
 
 
-    <!--<Button
-        android:id="@+id/application_shortcut_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="176dp"
-        android:text="@string/button_label_application_shortcut"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passcode_button" />-->
-
-    <!--<Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="94dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/application_shortcut_button" />
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="125dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_view" />-->
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

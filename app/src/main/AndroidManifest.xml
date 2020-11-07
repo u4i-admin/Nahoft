@@ -74,7 +74,7 @@
             android:label="@string/friends_user_guide_screen_name"/>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/passcode_screen_name"/>
+            android:label="@string/settings_screen_name"/>
         <activity
             android:name=".UserGuideActivity"
             android:label="@string/user_guides_screen_name"/>
