@@ -38,10 +38,8 @@ class HomeActivity : AppCompatActivity() {
         // Logout
         if (status == LoginStatus.NotRequired) {
             logout_button.visibility = View.INVISIBLE
-            logout.visibility = View.INVISIBLE
         } else {
             logout_button.visibility = View.VISIBLE
-            logout.visibility = View.VISIBLE
         }
 
         // Messages
