@@ -10,72 +10,73 @@
     <LinearLayout
         android:id="@+id/composeMessageContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/composeErrorMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="#FDCFCF"
-            android:textSize="15sp"
-            android:visibility="gone"
-            tools:text="@string/error_loading_image_message" />
 
         <Button
             android:id="@+id/friend_button"
+            android:drawableEnd="@drawable/ic_person_24px"
+            android:drawablePadding="@dimen/padding_half"
+            android:drawableTint="@color/colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorAccent"
-            android:gravity="center"
+            android:layout_margin="@dimen/padding_standard"
             android:text="@string/hintOnChooseFriendButton"
+            android:textAllCaps="false"
             android:textColor="@color/colorPrimary" />
 
         <EditText
             android:id="@+id/editMessageText"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="250dp"
             android:background="@color/colorAccent"
-            android:ems="16"
             android:importantForAutofill="no"
             android:inputType="textMultiLine|textCapSentences"
-            android:paddingTop="@dimen/padding_standard"
-            android:textColor="@color/colorPrimaryDark" />
+            android:gravity="top"
+            android:paddingTop="@dimen/padding_standard" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_standard"
+            >
+
+            <Button
+                android:id="@+id/send_as_text_button"
+                android:drawableEnd="@drawable/ic_article_24px"
+                android:drawablePadding="@dimen/padding_half"
+                android:drawableTint="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_half"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/sendAsTextButton"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/send_as_image_button"
+                android:drawableEnd="@drawable/ic_photo_24px"
+                android:drawablePadding="@dimen/padding_half"
+                android:drawableTint="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_half"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/sendAsImageButton"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/composeMessageContainer"
-        android:padding="@dimen/padding_standard"
-         >
 
-        <Button
-            android:id="@+id/send_as_text_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAccent"
-            android:text="@string/sendAsTextButton"
-            android:textColor="@color/colorPrimary" />
-
-        <Button
-            android:id="@+id/send_as_image_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAccent"
-            android:text="@string/sendAsImageButton"
-            android:textColor="@color/colorPrimary" />
-
-    </LinearLayout>
 
 </RelativeLayout>

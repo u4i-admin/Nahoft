@@ -26,8 +26,8 @@
             android:text="@string/button_label_passcode"
             android:textColor="@color/colorAccent"
             android:textSize="24sp"
-            android:drawableEnd="@drawable/passcode_icon"
-            android:drawablePadding="8dp" />
+            android:drawableRight="@drawable/passcode_icon"
+            android:drawablePadding="@dimen/padding_half" />
 
     </LinearLayout>
 
