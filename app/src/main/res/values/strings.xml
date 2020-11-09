@@ -40,7 +40,7 @@
     <string name="button_label_compose">Compose</string>
 
     <!-- New Messages Activity -->
-    <string name="hintOnChooseFriendButton">Choose Friend</string>
+    <string name="hintOnChooseFriendButton">Select Recipient</string>
     <string name="sendAsTextButton">Send As Text</string>
     <string name="sendAsImageButton">Send As Image</string>
 

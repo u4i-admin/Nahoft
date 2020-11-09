@@ -46,7 +46,7 @@
         android:layout_height="@dimen/drag_handle_size"
         android:contentDescription="@string/content_description_drag_handle"
         android:scaleType="center"
-        android:src="@drawable/ic_drag_handle_24px"
+        android:src="@drawable/ic_round_delete_sweep_24px"
         android:tint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

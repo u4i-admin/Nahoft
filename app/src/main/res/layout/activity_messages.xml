@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,73 +8,25 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".activities.MessagesActivity">
 
-    <!--<TextView
-        android:id="@+id/message_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/activity_title_messages"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorAccent"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--
-    <Button
-        android:id="@+id/Compose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/button_label_compose"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
--->
-    <ImageButton
-        android:id="@+id/Compose"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="75dp"
-        android:background="@drawable/ic_baseline_create_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-
-    <TextView
-        android:id="@+id/picture_text_Compose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="33dp"
-        android:gravity="center"
-        android:text="@string/button_label_compose"
-        android:textColor="@color/colorAccent"
-        android:textIsSelectable="false"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Compose" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messages_recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:foregroundTint="@color/colorAccent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/Compose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/padding_standard"
+        android:layout_marginBottom="@dimen/padding_standard"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:foreground="@drawable/ic_baseline_create_24"
+        android:foregroundGravity="center"
+        android:tint="@color/colorAccent"
+        app:fabSize="auto" />
+
+</RelativeLayout>

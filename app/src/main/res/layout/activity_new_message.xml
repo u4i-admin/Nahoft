@@ -18,14 +18,14 @@
             android:id="@+id/friend_button"
             android:drawableEnd="@drawable/ic_person_24px"
             android:drawablePadding="@dimen/padding_half"
-            android:drawableTint="@color/colorPrimary"
+            android:drawableTint="@color/colorAccent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAccent"
+            android:background="@android:color/transparent"
             android:layout_margin="@dimen/padding_standard"
             android:text="@string/hintOnChooseFriendButton"
             android:textAllCaps="false"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorAccent" />
 
         <EditText
             android:id="@+id/editMessageText"
