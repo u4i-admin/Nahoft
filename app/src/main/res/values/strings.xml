@@ -189,5 +189,11 @@
                                                                                                            * All successfully received messages can be viewed in the Messages Screen.
                                                                                                                                * To delete the message select the = on the message and swipe left.
 </string>
+
     <string name="or_label">- or -</string>
+
+    //Content Descriptions
+
+    <string name="access_friends_content_description">Access Friends</string>
+
 </resources>

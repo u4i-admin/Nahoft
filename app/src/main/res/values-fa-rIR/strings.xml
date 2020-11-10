@@ -218,4 +218,9 @@
     <string name="or_label">- or -</string>
 
 
+    //Content Descriptions
+
+    <string name="access_friends_content_description">به دوستان دسترسی پیدا کنید</string>
+
+
 </resources>

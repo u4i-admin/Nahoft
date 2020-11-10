@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_import_image_text.*
+import kotlinx.android.synthetic.main.activity_import_user_guide.view.*
 import kotlinx.android.synthetic.main.activity_new_message.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
@@ -88,6 +89,8 @@ class ImportImageTextActivity : AppCompatActivity() {
                     Persist.saveMessagesToFile(this)
 
                     // TODO Clear out text view here
+                    
+                    import_message_text_view.text.clear()
 
                     // Go to message view
                     val messageArguments = MessageActivity.Arguments(message = newMessage)
