@@ -25,6 +25,10 @@ class PasscodeActivity : AppCompatActivity() {
             handleSaveButtonClick()
         }
 
+        delete_passcode_button.setOnClickListener {
+            handleDeletePasscodeClick()
+        }
+
     }
 
     override fun onResume() {
@@ -75,6 +79,7 @@ class PasscodeActivity : AppCompatActivity() {
             verify_secondary_passcode_input.isEnabled = true
 
             save_passcode_button.isEnabled = true
+            delete_passcode_button.isEnabled = true
 
         } else {
 
@@ -89,6 +94,7 @@ class PasscodeActivity : AppCompatActivity() {
             verify_secondary_passcode_input.isEnabled = false
 
             save_passcode_button.isEnabled = false
+            delete_passcode_button.isEnabled = false
         }
     }
 
@@ -103,6 +109,12 @@ class PasscodeActivity : AppCompatActivity() {
         }
 
         updateInputs(required)
+    }
+
+    private fun handleDeletePasscodeClick() {
+        Persist.deletePasscode()
+        status = LoginStatus.NotRequired
+        finish()
     }
 
     fun handleSaveButtonClick() {

@@ -53,6 +53,10 @@ class HomeActivity : AppCompatActivity() {
             logout_button.visibility = View.VISIBLE
         }
 
+        logout_button.setOnClickListener {
+            logoutButtonClicked()
+        }
+
         // Messages
         messages_button.setOnClickListener {
             val messagesIntent = Intent(this, MessagesActivity::class.java)
@@ -98,8 +102,6 @@ class HomeActivity : AppCompatActivity() {
                     showAlert(getString(R.string.alert_text_unable_to_process_request))
                 }
             }
-
-            else -> showAlert(getString(R.string.alert_text_unable_to_process_request))
         }
     }
 
@@ -250,7 +252,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     // Logout Button Handler
-    fun logoutButtonClicked(view: View) {
+    fun logoutButtonClicked() {
         status = LoginStatus.LoggedOut
         Persist.saveLoginStatus()
 

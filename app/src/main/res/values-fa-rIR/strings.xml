@@ -228,6 +228,8 @@
     <string name="content_description_add_friend_button">اضافه کردن دوست</string>
     <string name="content_description_create_message">ایجاد پیام</string>
     <string name="access_friends_content_description">به دوستان دسترسی پیدا کنید</string>
+    <string name="button_label_import_invitation">Import</string>
+    <string name="button_label_delete_passcode">Delete Passcode</string>
 
 
 </resources>

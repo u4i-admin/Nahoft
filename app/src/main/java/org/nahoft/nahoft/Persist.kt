@@ -74,6 +74,18 @@ class Persist {
                 .apply()
         }
 
+        fun deleteKey(key:String) {
+            encryptedSharedPreferences
+                .edit()
+                .remove(key)
+                .apply()
+        }
+
+        fun deletePasscode() {
+            deleteKey(sharedPrefPasscodeKey)
+            deleteKey(sharedPrefSecondaryPasscodeKey)
+        }
+
         fun loadEncryptedSharedPreferences(context: Context) {
             encryptedSharedPreferences = EncryptedSharedPreferences.create(
                 sharedPrefFilename,

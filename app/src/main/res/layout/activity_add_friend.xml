@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:layout_marginTop="64dp"
     tools:context="org.nahoft.nahoft.activities.AddFriendActivity">
 
     <EditText
@@ -16,7 +17,7 @@
         android:layout_margin="@dimen/padding_standard"
         android:hint="@string/input_hint_name"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textCapWords"
         android:textAlignment="center"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent" />

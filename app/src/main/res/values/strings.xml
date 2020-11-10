@@ -79,10 +79,10 @@
 
     //Passcode Activity
     <string name="switch_label_require_passcode">Require Passcode?</string>
-    <string name="initial_passcode_definition">Initial Passcode Sets Password to Enter App</string>
+    <string name="initial_passcode_definition">Create a passcode so that login is required to use the app.</string>
     <string name="verify_passcode_hint">Verify Passcode</string>
     <string name="enter_passcode_hint">Enter Passcode</string>
-    <string name="secondary_passcode_definition">Secondary Passcode Will Remove All Sensitive Data</string>
+    <string name="secondary_passcode_definition">Entering a secondary passcode at login will delete all sensitive data.</string>
     <string name="enter_secondary_passcode_hint">Enter Secondary Passcode</string>
     <string name="verify_secondary_passcode_hint">Verify Secondary Passcode</string>
     <string name="passcode_enabled">Passcode Enabled</string>
@@ -197,5 +197,7 @@
     <string name="content_description_add_friend_button">Add Friend</string>
     <string name="content_description_create_message">Create Message</string>
     <string name="access_friends_content_description">Access Friends</string>
+    <string name="button_label_import_invitation">Import</string>
+    <string name="button_label_delete_passcode">Delete Passcode</string>
 
 </resources>

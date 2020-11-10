@@ -14,12 +14,12 @@
         android:layout_marginTop="32dp"
         android:orientation="vertical">
 
-    <Switch
-        android:id="@+id/passcode_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_standard"
-        android:text="@string/switch_label_require_passcode" />
+        <Switch
+            android:id="@+id/passcode_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_standard"
+            android:text="@string/switch_label_require_passcode" />
 
         <TextView
             android:id="@+id/initial_passcode_definition"
@@ -69,15 +69,31 @@
         android:hint="@string/verify_secondary_passcode_hint"
         android:inputType="textVisiblePassword"/>
 
-    <Button
-        android:id="@+id/save_passcode_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_standard"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:text="@string/button_label_save_passcode"
-        android:textAllCaps="false"
-        android:textColor="@color/colorAccent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/save_passcode_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="@string/button_label_save_passcode"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent" />
+            <Button
+                android:id="@+id/delete_passcode_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="@string/button_label_delete_passcode"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </android.widget.RelativeLayout>
