@@ -134,7 +134,6 @@
     <string name="input_hint_name">نام</string>
     <string name="activity_title_add_friend">اضافه کردن دوست</string>
     <string name="content_description_drag_handle">دستگیره را بکشید</string>
-    <string name="content_description_add_friend_button">دکمه دوست را اضافه کنید</string>
     <string name="button_label_import_message">وارد کردن پیام</string>
     <string name="paste_message_for_import_hint">پیام خود را اینجا بچسبانید.</string>
     <string name="button_label_import_image">وارد کردن تصویر</string>
@@ -221,6 +220,7 @@
 
     //Content Descriptions
 
+    <string name="content_description_add_friend_button">اضافه کردن دوست</string>
     <string name="access_friends_content_description">به دوستان دسترسی پیدا کنید</string>
 
 
