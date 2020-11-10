@@ -72,28 +72,29 @@ class ImportImageTextActivity : AppCompatActivity() {
                 val sender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
                     ?.let { it as Friend }
 
-                if (sender != null && decodePayload != null) {
-                    // Create Message Instance
-                    val date = LocalDateTime.now()
-                    val stringDate = date.format(DateTimeFormatter.ofPattern("M/d/y H:m"))
-                    val cipherText = decodePayload
+                if (sender != null) {
+                    if (decodePayload != null) {
+                        // Create Message Instance
+                        val date = LocalDateTime.now()
+                        val stringDate = date.format(DateTimeFormatter.ofPattern("M/d/y H:m"))
+                        val cipherText = decodePayload
+                        val newMessage = Message(stringDate, cipherText!!, sender)
+                        
+                        Persist.messageList.add(newMessage)
+                        Persist.saveMessagesToFile(this)
 
-                    // TODO do not perisist messages that cannot be decrypted, let user know that message could not be saved/decrypted
+                        import_message_text_view.text.clear()
 
-                    // TODO add decrypted snippet to list view
-
-                    val newMessage = Message(stringDate, cipherText!!, sender)
-                    Persist.messageList.add(newMessage)
-                    Persist.saveMessagesToFile(this)
-
-                    // TODO Clear out text view here
-                    
-                    import_message_text_view.text.clear()
-
-                    // Go to message view
-                    val messageArguments = MessageActivity.Arguments(message = newMessage)
-                    messageArguments.startActivity(this)
+                        // Go to message view
+                        val messageArguments = MessageActivity.Arguments(message = newMessage)
+                        messageArguments.startActivity(this)
+                    } else {
+                        showAlert(getString(R.string.alert_text_unable_to_decode_message))
+                    }
+                } else {
+                    showAlert(getString(R.string.alert_text_unable_to_process_request))
                 }
+
 
             } else if (requestCode == RequestCodes.selectKeySenderCode) {
                 val sender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
@@ -141,12 +142,18 @@ class ImportImageTextActivity : AppCompatActivity() {
                 // get data?.data as URI
                 val imageURI = data?.data
                 imageURI?.let {
-                    // Decode the message and save it locally for use after sender is selected
-                    this.decodePayload = Stencil().decode(this, it)
+                    val decodeImageResult = Stencil().decode(this, it)
 
-                    // We received a message, have the user select who it is from
-                    val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
-                    startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
+                    if (decodeImageResult != null) {
+                        // Decode the message and save it locally for use after sender is selected
+                        this.decodePayload = decodeImageResult
+
+                        // We received a message, have the user select who it is from
+                        val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
+                        startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
+                    } else {
+                        showAlert(getString(R.string.alert_text_unable_to_decode_message))
+                    }
                 }
             }
         }
