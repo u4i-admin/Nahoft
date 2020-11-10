@@ -17,7 +17,6 @@ import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
-import org.simpleframework.xml.Default
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

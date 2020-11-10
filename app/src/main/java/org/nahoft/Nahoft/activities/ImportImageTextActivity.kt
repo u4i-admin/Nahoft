@@ -5,8 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_import_image_text.*
-import kotlinx.android.synthetic.main.activity_import_user_guide.view.*
-import kotlinx.android.synthetic.main.activity_new_message.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
 import org.nahoft.nahoft.*

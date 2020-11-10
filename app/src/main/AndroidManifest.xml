@@ -70,7 +70,7 @@
             android:name=".SendingMessagesUserGuideActivity"
             android:label="@string/messages_user_guide_screen_name"/>
         <activity
-            android:name=".FriendsUserGuideActivity"
+            android:name=".activities.FriendsUserGuideActivity"
             android:label="@string/friends_user_guide_screen_name"/>
         <activity
             android:name=".SettingsActivity"

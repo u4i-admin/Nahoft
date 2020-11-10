@@ -1,21 +1,13 @@
 package org.nahoft.nahoft.activities
 
-import android.app.role.RoleManager
-import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.graphics.drawable.Icon
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_application_shortcut.*
-import kotlinx.android.synthetic.main.activity_home.*
 import org.nahoft.nahoft.R
-import org.nahoft.nahoft.R.layout.activity_application_shortcut
-import org.nahoft.nahoft.UserGuideActivity
 import java.util.*
 
 class ApplicationShortcutActivity : AppCompatActivity() {
@@ -29,7 +21,7 @@ class ApplicationShortcutActivity : AppCompatActivity() {
 
     }
 
-    fun createShorcut() {
+    private fun createShorcut() {
         val sM = getSystemService(ShortcutManager::class.java)
 
         val intent1 = Intent(getApplicationContext(), EnterPasscodeActivity::class.java)
