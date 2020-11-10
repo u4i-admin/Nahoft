@@ -84,6 +84,11 @@ class Persist {
             ) as EncryptedSharedPreferences
         }
 
+        fun deleteMessage(context: Context, message: Message) {
+            messageList.remove(message)
+            saveMessagesToFile(context)
+        }
+
         fun clearAllData() {
             if (friendsFile.exists()) { friendsFile.delete() }
             if (messagesFile.exists()) { messagesFile.delete() }

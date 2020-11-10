@@ -139,6 +139,7 @@
     <string name="paste_message_for_import_hint">پیام خود را اینجا بچسبانید.</string>
     <string name="button_label_import_image">وارد کردن تصویر</string>
     <string name="error_loading_image_message">خطا در بارگیری تصویر.</string>
+    <string name="alert_text_unable_to_process_request">"Something went wrong. We were unable to process your request."</string>
 
     //Friends User Guide
     <string name="friends_user_guide">*افزودن دوستان

@@ -10,6 +10,7 @@ import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Message
 import org.nahoft.nahoft.Nahoft
 import org.nahoft.nahoft.Persist
+import org.nahoft.nahoft.Persist.Companion.deleteMessage
 import org.nahoft.nahoft.R
 import org.nahoft.showAlert
 
@@ -44,9 +45,7 @@ class MessageActivity : AppCompatActivity() {
         loadMessageContent()
 
         deleteButton.setOnClickListener{
-            Persist.messageList.remove(message)
-            Persist.saveMessagesToFile(this)
-            finish()
+            deleteMessage(this, message)
         }
 
     }
@@ -65,13 +64,14 @@ class MessageActivity : AppCompatActivity() {
                 message_body_text_view.text = plaintext
             } else {
                 applicationContext.showAlert(getString(R.string.alert_text_unable_to_decrypt_message))
+                deleteMessage(this, message)
+                finish()
             }
 
         } else {
             print("Failed to get sender public key for a message")
             return
         }
-
     }
 
 }

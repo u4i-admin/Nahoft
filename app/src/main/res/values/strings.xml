@@ -117,8 +117,6 @@
     <string name="button_label_verify_friend">Verify</string>
 
     <!-- Alert Strings -->
-
-    //Passcode Activity Alerts
     <string name="alert_text_passcode_field_empty">Passcode Field is Empty</string>
     <string name="alert_text_verify_passcode_field_empty">Verify Passcode Field is Empty</string>
     <string name="alert_text_passcode_entries_do_not_match">Passcode Entries Do Not Match</string>
@@ -135,12 +133,13 @@
     <string name="alert_text_which_friend_sent_this_message">Which friend sent this message?</string>
     <string name="alert_text_which_friend_sent_this_key">Which friend sent this key?</string>
     <string name="alert_text_friend_already_exists">You already have a friend with this name.</string>
+    <string name="alert_text_unable_to_process_request">"Something went wrong. We were unable to process your request."</string>
 
     <string name="input_hint_name">Name</string>
     <string name="activity_title_add_friend">Add Friend</string>
     <string name="content_description_drag_handle">Drag Handle</string>
     <string name="content_description_add_friend_button">Add Friend Button</string>
-    <string name="button_label_import_message">Import Message</string>
+    <string name="button_label_import_message">Import Text</string>
     <string name="paste_message_for_import_hint">Paste text here to see your message.</string>
     <string name="button_label_import_image">Import Image</string>
     <string name="error_loading_image_message">Error loading image.</string>
