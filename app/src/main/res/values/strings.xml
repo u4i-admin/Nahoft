@@ -41,6 +41,7 @@
 
     <!-- New Messages Activity -->
     <string name="hintOnChooseFriendButton">Select Recipient</string>
+    <string name="enter_message_here_hint">Enter Message Here</string>
     <string name="sendAsTextButton">Send As Text</string>
     <string name="sendAsImageButton">Send As Image</string>
 
@@ -190,6 +191,7 @@
     //Content Descriptions
 
     <string name="content_description_add_friend_button">Add Friend</string>
+    <string name="content_description_create_message">Create Message</string>
     <string name="access_friends_content_description">Access Friends</string>
 
 </resources>

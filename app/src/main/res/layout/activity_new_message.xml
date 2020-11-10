@@ -31,11 +31,12 @@
             android:id="@+id/editMessageText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="250dp"
             android:background="@color/colorAccent"
             android:importantForAutofill="no"
+            android:hint="@string/enter_message_here_hint"
+            android:textAlignment="center"
             android:inputType="textMultiLine|textCapSentences"
-            android:gravity="top"
+            android:minHeight="250dp"
             android:paddingTop="@dimen/padding_standard" />
 
         <LinearLayout
