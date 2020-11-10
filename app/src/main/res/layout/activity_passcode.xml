@@ -21,6 +21,13 @@
         android:layout_margin="@dimen/padding_standard"
         android:text="@string/switch_label_require_passcode" />
 
+        <TextView
+            android:id="@+id/initial_passcode_definition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_standard"
+            android:text="@string/initial_passcode_definition" />
+
 
     <EditText
         android:id="@+id/enter_passcode_input"
@@ -37,6 +44,14 @@
         android:layout_margin="@dimen/padding_standard"
         android:hint="@string/verify_passcode_hint"
         android:inputType="textVisiblePassword" />
+
+        <TextView
+            android:id="@+id/secondary_passcode_definition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_standard"
+            android:text="@string/secondary_passcode_definition" />
+
 
     <EditText
         android:id="@+id/secondary_passcode_input"

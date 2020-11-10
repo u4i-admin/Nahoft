@@ -98,7 +98,8 @@ class NewMessageActivity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    // TODO: Create a toast for selecting a friend before sending a message
+                    this.showAlert(getString(R.string.alert_text_verified_friends_only))
+                    return
                 }
 
                 // We can only share an image if a recipient with a public key has been selected

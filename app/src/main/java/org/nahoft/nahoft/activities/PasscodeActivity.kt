@@ -159,6 +159,12 @@ class PasscodeActivity : AppCompatActivity() {
                 return
             }
 
+            if (secondaryPasscode == passcode) {
+                this.showAlert(getString(R.string.alert_text_secondary_passcode_and_passcode_may_not_match))
+
+                return
+            }
+
             Persist.saveKey(Persist.sharedPrefSecondaryPasscodeKey, secondaryPasscode)
 
             // Set user status

@@ -35,7 +35,7 @@
     //Messages Activity
     <string name="activity_title_messages">نمایش پیام ها</string>
     <string name="button_label_compose">ساختن </string>
-    <string name="choose_friend_button_icon">دوست را انتخاب کنید</string>
+
 
     //New Messages Activity
     <string name="hintOnChooseFriendButton">دوست را انتخاب کنید</string>
@@ -43,9 +43,11 @@
     <string name="sendAsTextButton">ارسال به عنوان متن</string>
     <string name="sendAsImageButton">ارسال به عنوان تصویر</string>
 
-    //New Messages Activity Toast Texts
+    <!-- New Messages Activity Alerts -->
     <string name="alert_text_verified_friends_only">دوستانd</string>
     <string name="alert_text_select_friend_to_send_message">دوستان</string>
+    <string name="choose_friend_button_icon">دوست را انتخاب کنید</string>
+    <string name="alert_text_write_a_message_to_send">برای ارسال پیام بنویسید</string>
 
     //Settings Activity
     <string name="activity_title_settings">تنظیم زبان</string>
@@ -75,8 +77,10 @@
 
     //Passcode Activity
     <string name="switch_label_require_passcode">دوستان</string>
+    <string name="initial_passcode_definition">رمز ورود اولیه رمز ورود را برای ورود به برنامه تنظیم می کند</string>
     <string name="verify_passcode_hint">دوستان</string>
     <string name="enter_passcode_hint">دوستان</string>
+    <string name="secondary_passcode_definition">رمز عبور ثانویه تمام داده های حساس را حذف می کند</string>
     <string name="enter_secondary_passcode_hint">دوستان</string>
     <string name="verify_secondary_passcode_hint">دوستان</string>
     <string name="passcode_enabled">دوستان</string>
@@ -139,8 +143,8 @@
     <string name="paste_message_for_import_hint">پیام خود را اینجا بچسبانید.</string>
     <string name="button_label_import_image">وارد کردن تصویر</string>
     <string name="error_loading_image_message">خطا در بارگیری تصویر.</string>
-    <string name="alert_text_unable_to_process_request">"Something went wrong. We were unable to process your request."</string>
-
+    <string name="alert_text_unable_to_process_request">"مشکلی پیش آمد ما قادر به پردازش درخواست شما نبودیم."</string>
+    <string name="alert_text_secondary_passcode_and_passcode_may_not_match">ورودی های رمز عبور ثانویه و اولیه نباید مطابقت داشته باشند.</string>
     //Friends User Guide
     <string name="friends_user_guide">*افزودن دوستان
 
