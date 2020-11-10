@@ -41,11 +41,9 @@
         <LinearLayout
             android:orientation="horizontal"
             android:gravity="center"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding_standard"
-            >
+            android:padding="@dimen/padding_standard">
 
             <Button
                 android:id="@+id/send_as_text_button"

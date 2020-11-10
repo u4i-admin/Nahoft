@@ -1,138 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorPrimaryDark"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".UserGuideActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="32dp"
+        android:padding="@dimen/padding_standard"
+        android:gravity="right">
 
-    <ImageButton
-        android:id="@+id/friends_user_guide"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="203dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/ic_baseline_import_contacts_24"
-        android:textColor="@color/colorAccent"
-        android:tint="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@+id/sending_messages_user_guide"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/friends_user_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_standard"
+            android:drawableRight="@drawable/ic_baseline_import_contacts_24"
+            android:drawablePadding="@dimen/padding_standard"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorAccent"
+            android:textAllCaps="false"
+            android:text="@string/button_label_friends"
+            android:textSize="@dimen/detail_name_text_size"
+            android:tint="@color/colorAccent"/>
 
-    <TextView
-        android:id="@+id/friends"
-        android:layout_width="79dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="212dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="55dp"
-        android:gravity="center|top"
-        android:text="@string/button_label_friends"
-        android:textColor="@color/colorAccent"
-        android:textIsSelectable="false"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/messages"
-        app:layout_constraintEnd_toStartOf="@+id/friends_user_guide"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/sending_messages_user_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_standard"
+            android:drawableRight="@drawable/ic_baseline_import_contacts_24"
+            android:drawablePadding="@dimen/padding_standard"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorAccent"
+            android:textAllCaps="false"
+            android:text="@string/button_label_messages"
+            android:textSize="@dimen/detail_name_text_size"
+            android:tint="@color/colorAccent"/>
 
-    <ImageButton
-        android:id="@+id/sending_messages_user_guide"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/ic_baseline_import_contacts_24"
-        android:text="@string/button_label_messages"
-        android:textColor="@color/colorAccent"
-        android:tint="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@+id/passcodes_user_guide"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friends_user_guide" />
+        <Button
+            android:id="@+id/passcodes_user_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_standard"
+            android:drawableRight="@drawable/ic_baseline_import_contacts_24"
+            android:drawablePadding="@dimen/padding_standard"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorAccent"
+            android:textAllCaps="false"
+            android:text="@string/button_label_passcode"
+            android:textSize="@dimen/detail_name_text_size"
+            android:tint="@color/colorAccent"/>
 
-    <TextView
-        android:id="@+id/messages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="55dp"
-        android:gravity="center"
-        android:text="@string/button_label_messages"
-        android:textColor="@color/colorAccent"
-        android:textIsSelectable="false"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/passcodes"
-        app:layout_constraintEnd_toStartOf="@+id/sending_messages_user_guide"
-        app:layout_constraintTop_toBottomOf="@+id/friends" />
-
-    <ImageButton
-        android:id="@+id/passcodes_user_guide"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/ic_baseline_import_contacts_24"
-        android:text="@string/button_label_setting_passcodes"
-        android:textColor="@color/colorAccent"
-        android:tint="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@+id/importing_user_guide"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sending_messages_user_guide" />
-
-    <TextView
-        android:id="@+id/passcodes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="55dp"
-        android:gravity="center"
-        android:text="@string/button_label_passcode"
-        android:textColor="@color/colorAccent"
-        android:textIsSelectable="false"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/importing"
-        app:layout_constraintEnd_toStartOf="@+id/passcodes_user_guide"
-        app:layout_constraintTop_toBottomOf="@+id/messages" />
-
-    <ImageButton
-        android:id="@+id/importing_user_guide"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="232dp"
-        android:background="@drawable/ic_baseline_import_contacts_24"
-        android:text="@string/button_label_importing"
-        android:textColor="@color/colorAccent"
-        android:tint="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passcodes_user_guide" />
-
-    <TextView
-        android:id="@+id/importing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="241dp"
-        android:gravity="center"
-        android:text="@string/button_label_importing"
-        android:textColor="@color/colorAccent"
-        android:textIsSelectable="false"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/importing_user_guide"
-        app:layout_constraintTop_toBottomOf="@+id/passcodes" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/importing_user_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_standard"
+            android:drawableRight="@drawable/ic_baseline_import_contacts_24"
+            android:drawablePadding="@dimen/padding_standard"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorAccent"
+            android:textAllCaps="false"
+            android:text="@string/button_label_importing"
+            android:textSize="@dimen/detail_name_text_size"
+            android:tint="@color/colorAccent"/>
+    </LinearLayout>
+</RelativeLayout>

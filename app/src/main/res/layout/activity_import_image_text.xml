@@ -1,49 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".activities.ImportImageTextActivity">
+
+    <EditText
+        android:id="@+id/import_message_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="250dp"
+        android:layout_marginVertical="@dimen/padding_standard"
+        android:background="@color/colorAccent"
+        android:hint="@string/paste_message_for_import_hint"
+        android:importantForAutofill="no"
+        android:inputType="textLongMessage|textMultiLine"
+        android:scrollHorizontally="false"
+        android:textAlignment="center"/>
 
     <Button
         android:id="@+id/import_text_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_label_import_message"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_margin="@dimen/padding_standard"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="false"
+        android:text="@string/button_label_import_message" />
 
-    <EditText
-        android:id="@+id/import_message_text_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/colorAccent"
-        android:ems="10"
-        android:hint="@string/paste_message_for_import_hint"
-        android:importantForAutofill="no"
-        android:inputType="textLongMessage|textMultiLine"
-        android:scrollHorizontally="false"
+    <TextView
+        android:id="@+id/importOrLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_standard"
+        android:textColor="@color/colorAccent"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/import_text_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="@dimen/detail_name_text_size"
+        android:text="@string/or_label" />
 
     <Button
         android:id="@+id/import_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text="@string/button_label_import_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/import_text_button" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_margin="@dimen/padding_standard"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="false"
+        android:text="@string/button_label_import_image"/>
+
+</LinearLayout>

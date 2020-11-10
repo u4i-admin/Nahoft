@@ -11,86 +11,58 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="32dp"
         android:orientation="vertical">
 
     <Switch
         android:id="@+id/passcode_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/switch_label_require_passcode"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_margin="@dimen/padding_standard"
+        android:text="@string/switch_label_require_passcode" />
 
 
     <EditText
         android:id="@+id/enter_passcode_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_standard"
         android:hint="@string/enter_passcode_hint"
-        android:inputType="textVisiblePassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:inputType="textVisiblePassword" />
 
     <EditText
         android:id="@+id/verify_passcode_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_standard"
         android:hint="@string/verify_passcode_hint"
-        android:inputType="textVisiblePassword"
-        app:layout_constraintBottom_toTopOf="@+id/save_passcode_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:inputType="textVisiblePassword" />
 
     <EditText
         android:id="@+id/secondary_passcode_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_standard"
         android:hint="@string/enter_secondary_passcode_hint"
-        android:inputType="textVisiblePassword"
-        app:layout_constraintBottom_toTopOf="@+id/save_passcode_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:inputType="textVisiblePassword"/>
 
     <EditText
         android:id="@+id/verify_secondary_passcode_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_standard"
         android:hint="@string/verify_secondary_passcode_hint"
-        android:inputType="textVisiblePassword"
-        app:layout_constraintBottom_toTopOf="@+id/save_passcode_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:inputType="textVisiblePassword"/>
 
     <Button
         android:id="@+id/save_passcode_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_standard"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:text="@string/button_label_save_passcode"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/verify_secondary_passcode_layout" />
-
-        //Button
-            //android:id="@+id/logout_button"
-            //android:layout_width="wrap_content"
-            //android:layout_height="wrap_content"
-            //android:text="@string/logout_button"
-            //app:layout_constraintEnd_toEndOf="parent"
-            //app:layout_constraintHorizontal_bias="0.5"
-            //app:layout_constraintStart_toStartOf="parent"
-            //app:layout_constraintTop_toBottomOf="@+id/enter_passcode_screen_button" />
-
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent" />
     </LinearLayout>
 
 </android.widget.RelativeLayout>
