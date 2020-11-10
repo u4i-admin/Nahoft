@@ -1,6 +1,5 @@
 package org.nahoft.nahoft
 
-import android.app.Activity
 import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
@@ -75,7 +74,7 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             // Stub
         }
 
-        fun inviteClicked() {
+        private fun inviteClicked() {
             // Get user's public key to send to contact
             val userPublicKey = Encryption(this.view.context).ensureKeysExist().publicKey
             val keyBytes = userPublicKey.toBytes()
@@ -89,12 +88,12 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             setupInvitedRow()
         }
 
-        fun importInvitationClicked() {
+        private fun importInvitationClicked() {
             val importIntent = Intent(this.view.context, ImportImageTextActivity::class.java)
             this.view.context.startActivity(importIntent)
         }
 
-        fun acceptClicked() {
+        private fun acceptClicked() {
             // Make sure that we have successfully received the friend's public key
             if (this.friend?.publicKeyEncoded != null) {
 
@@ -111,14 +110,14 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             }
         }
 
-        fun declineClicked() {
+        private fun declineClicked() {
             // Set Friend Status to Default
             this.friend?.status = FriendStatus.Default
             Persist.updateFriend(view.context, this.friend!!, FriendStatus.Default)
             setupDefaultRow()
         }
 
-        fun verifyClicked() {
+        private fun verifyClicked() {
             if (friend != null) {
                 val verifyFriendIntent = Intent(this.view.context, VerifyFriendActivity::class.java)
                 verifyFriendIntent.putExtra(RequestCodes.friendExtraTaskDescription, friend)
@@ -127,13 +126,12 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
 
         }
 
-        fun setupRowByStatus(thisFriend: Friend) {
+        private fun setupRowByStatus(thisFriend: Friend) {
             when (thisFriend.status) {
                 FriendStatus.Default -> {
                     setupDefaultRow()
                 }
 
-                // TODO: User may want to send the key again.
                 FriendStatus.Invited -> {
                     setupInvitedRow()
                 }
@@ -146,14 +144,13 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
                     setupApprovedRow()
                 }
 
-                // TODO: This status is not currently implemented. We should not get here, but if we do, show nothing.
                 FriendStatus.Verified -> {
                     setupVerifiedRow()
                 }
             }
         }
 
-        fun setupDefaultRow() {
+        private fun setupDefaultRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Default.getIcon())
             this.view.invite_button.visibility = View.VISIBLE
             this.view.invite_button.text = view.context.getString(R.string.button_label_invite)
@@ -163,7 +160,7 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             this.view.verify_button.visibility = View.GONE
         }
 
-        fun setupInvitedRow() {
+        private fun setupInvitedRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Invited.getIcon())
             this.view.invite_button.visibility = View.VISIBLE
             this.view.invite_button.text = view.context.getString(R.string.button_label_invite_again)
@@ -173,25 +170,27 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             this.view.verify_button.visibility = View.GONE
         }
 
-        fun setupRequestedRow() {
+        private fun setupRequestedRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Requested.getIcon())
             this.view.invite_button.visibility = View.GONE
             this.view.import_button.visibility = View.GONE
             this.view.accept_button.visibility = View.VISIBLE
+            this.view.accept_button.text = view.context.getString(R.string.button_label_invite)
             this.view.decline_button.visibility = View.VISIBLE
             this.view.verify_button.visibility = View.GONE
         }
 
-        fun setupApprovedRow() {
+        private fun setupApprovedRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Verified.getIcon())
             this.view.invite_button.visibility = View.GONE
             this.view.import_button.visibility = View.GONE
             this.view.accept_button.visibility = View.VISIBLE
+            this.view.accept_button.text = view.context.getString(R.string.button_label_invite_again)
             this.view.decline_button.visibility = View.INVISIBLE
             this.view.verify_button.visibility = View.VISIBLE
         }
 
-        fun setupVerifiedRow() {
+        private fun setupVerifiedRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Approved.getIcon())
             this.view.invite_button.visibility = View.GONE
             this.view.import_button.visibility = View.GONE

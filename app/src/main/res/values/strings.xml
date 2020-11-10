@@ -144,7 +144,7 @@
     <string name="activity_title_add_friend">Add Friend</string>
     <string name="content_description_drag_handle">Drag Handle</string>
     <string name="button_label_import_message">Import Text</string>
-    <string name="paste_message_for_import_hint">Paste text here to see your message.</string>
+    <string name="paste_message_for_import_hint">Paste text here and tap the \'Import Text\' button to see your message or connect with a new friend.</string>
     <string name="button_label_import_image">Import Image</string>
     <string name="error_loading_image_message">Error loading image.</string>
 
