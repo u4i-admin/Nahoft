@@ -11,6 +11,14 @@ import kotlin.math.ceil
 import kotlin.math.sqrt
 
 class Stencil {
+    var cachedIndex: Int? = null
+    var cachedRow: Int = 0
+    var cachedCol: Int = 0
+    var cachedLeft: Int = 0
+    var cachedRight: Int = 0
+    var cachedTop: Int = 0
+    var cachedBottom: Int = 0
+    var cachedDirection: Int = 0
 
     val listener: ImageDecoder.OnHeaderDecodedListener = object : ImageDecoder.OnHeaderDecodedListener {
 
@@ -179,9 +187,8 @@ class Stencil {
 
     private class Dimensions(val x: Int, val y: Int)
 
-    private fun addStar(bitmap: Bitmap, index: Int, color: Int): Bitmap?
+    private fun addStar(bitmap: Bitmap, position: Pair<Int,Int>, color: Int): Bitmap?
     {
-        val position = fitStar(bitmap, index)
         val widthOffset = position.first
         val heightOffset = position.second
 
@@ -219,7 +226,7 @@ class Stencil {
         {
             // Easy, (not very random) psuedo-random color generator.
             val color = ((index % 3) % 2) * 255
-            val newBitmap = addStar(result, index, color)
+            val newBitmap = addStar(result, position, color)
             newBitmap?.let {
                 result = newBitmap
             }
