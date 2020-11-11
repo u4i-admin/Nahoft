@@ -41,8 +41,6 @@ class Stencil {
         }
 
         val numBits = encrypted.size * 8
-        val numPixels = cover.height * cover.width
-
         val maxStars: Int = (cover.height/3) * (cover.width/3)
         if (numBits > maxStars)
         {
@@ -50,7 +48,6 @@ class Stencil {
         }
 
         val bits = bitsFromBytes(encrypted)
-        val bitsLen = bits.size
 
         var result = cover.copy(Bitmap.Config.ARGB_8888, true)
         for (index in 0 until bits.size)
@@ -72,7 +69,6 @@ class Stencil {
         }
 
         result = addStar(result, bits.size, 128)
-
         result = fill(result, bits.size+1)
 
         // Quality check
@@ -81,15 +77,6 @@ class Stencil {
         {
             return null
         }
-
-//        result = destroy(result)
-
-        val pixelsPerBit = numPixels.toDouble() / numBits.toDouble()
-        val heightPerBit = ceil(cover.height.toDouble() / sqrt(pixelsPerBit)).toInt()
-        val widthPerBit = ceil(cover.width.toDouble() / sqrt(pixelsPerBit)).toInt()
-
-        val heightCenter = heightPerBit / 2
-        val widthCenter = widthPerBit / 2
 
         val title = ""
         val description = ""
@@ -112,7 +99,7 @@ class Stencil {
         val originalRight = (bitmap.width / 3) - 1
         var originalLeft = (bitmap.height / 3) - 1
 
-        var left = 1
+        var left = 0
         var right = (bitmap.width / 3) - 1
         var top = 1
         var bottom = (bitmap.height / 3) - 1
@@ -195,10 +182,6 @@ class Stencil {
         val newBitmap = bitmap
 
         setPixel(newBitmap, widthOffset, heightOffset, Color.argb(255, color, color, color))
-
-        // Quality check
-        val checkColor = newBitmap.getPixel(widthOffset, heightOffset).toUByte().toInt()
-        println(checkColor)
 
         setPixel(newBitmap, widthOffset-1, heightOffset, Color.argb(255, 255, 255, 255))
         setPixel(newBitmap, widthOffset, heightOffset-1, Color.argb(255, 255, 255, 255))

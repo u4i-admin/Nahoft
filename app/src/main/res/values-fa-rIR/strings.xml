@@ -117,7 +117,6 @@
     <string name="button_label_approve_invitation">تایید</string>
     <string name="button_label_decline_invitation">کاهش می یابد</string>
     <string name="alert_text_which_friend_sent_this_message">کدام دوست این پیام را ارسال کرده است؟</string>
-    <string name="alert_text_which_friend_sent_this_key">کدام دوست این کلید را ارسال کرده است؟</string>
 
     <!-- Verify Friend View -->
     <string name="label_verify_friend_explainer">در خارج از برنامه ای که معمولاً از آن استفاده می کنید با دوست خود تماس بگیرید و مطمئن شوید که شماره های شما مطابقت دارد.</string>
@@ -212,7 +211,7 @@
 
 * برای حذف پیام = را روی پیام انتخاب کرده و صفحه را به سمت چپ بکشید.
 </string>
-    <string name="or_label">- or -</string>
+    <string name="or_label">- یا -</string>
 
 
     //Content Descriptions
