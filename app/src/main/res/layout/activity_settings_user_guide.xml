@@ -10,10 +10,10 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:layout_height="match_parent"
         android:padding="20sp"
         android:scrollHorizontally="true"
-        android:text="@string/sending_messages_user_guide"/>
+        android:text="@string/settings_user_guide"
+        android:textSize="15sp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

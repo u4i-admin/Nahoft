@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_settings.*
-import org.nahoft.nahoft.activities.ApplicationShortcutActivity
 import org.nahoft.nahoft.activities.PasscodeActivity
 
 class SettingsActivity : AppCompatActivity() {

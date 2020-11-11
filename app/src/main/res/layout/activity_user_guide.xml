@@ -19,14 +19,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
+            android:background="@android:color/transparent"
             android:drawableRight="@drawable/ic_baseline_import_contacts_24"
             android:drawablePadding="@dimen/padding_standard"
-            android:background="@android:color/transparent"
-            android:textColor="@color/colorAccent"
-            android:textAllCaps="false"
             android:text="@string/button_label_friends"
-            android:textSize="@dimen/detail_name_text_size"
-            android:tint="@color/colorAccent"/>
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/detail_name_text_size" />
 
         <Button
             android:id="@+id/sending_messages_user_guide"

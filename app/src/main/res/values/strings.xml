@@ -149,50 +149,52 @@
     <string name="error_loading_image_message">Error loading image.</string>
 
     //Friends User Guide
-    <string name="friends_user_guide">ADDING FRIENDS
-     * Start by clicking the Friends icon on the home page.
-     * Press the + icon at the bottom of the Friends screen to add a friend.
-     * Type the name of the friend you want to add and press save.
-     * Click the invite button beside your new friends name.
-     * The next screen you see will be the sharing screen with the key as the message to send. The key is intended to look like a sentence in the Persian language.
-     * Now share your key with the friend you are adding via your preferred messaging app such as share with nearby phone, telegram, messages, or bluetooth.
-     * The friend you are adding must follow these same steps and send you a key as well.
-     * Accept the key you receive from your friend by copying it.
-     * Return to the Nahoft App and return to the home screen.
-     * Navigate to the import screen.
-     * Paste the key your friend send you in the import screen with a long click and select import text.
-     * The Nahoft app will ask you Which Friend Sent this Key, and you will have to select the friends name it came from.
-     * Return to the Friends screen and select the verify button beside the friend you received the key from.
-     * Contact your Friend outside of the app you normally use to confirm your keys match.
-     * If the keys match, click accept. If not, click reject.
-     * To delete a friend swipe the friends name to the right or left.</string>
+    <string name="friends_user_guide">ADDING FRIENDS\n
+        \n- Tap the Friends icon on the home page.\n
+        \n- Press the + icon at the bottom of the Friends screen to add a friend.\n
+        \n- Type the name of the friend you want to add and tap save.\n
+        \n- Tap the invite button beside your friend\'s name.\n
+        \n- You will see the sharing prompt with the key as a message to send (it will look like a random series of characters).\n
+        \n- You can share your key with the friend you are adding via your preferred messaging app, or if you are near them, using the \'nearby\' option.\n
+        \n- The friend you are adding must follow these same steps to send you their key.\n
+        \n- There are several ways to accept the key you receive from your friend.
+        \nIf you have the key copied to your clipboard: Tap the import button next to their name, or the import button on the home screen.
+        Paste the key with a long press and select import text.
+        \nIf you are sharing the key from another app: Select Nahoft as the app you want to share to.\n
+        \n- When prompted, select the friend that sent the key.\n
+        \n- Return to the Friends screen and select the verify button beside the friend you received the key from.\n
+        \n- Contact your Friend outside of the app you normally use to confirm your keys match.\n
+        \n- If the keys match, tap accept. If not, tap reject.\n
+        \n- To delete a friend swipe the friends name to the right or left.\n\n</string>
 
     //Sending Messages User Guide
-    <string name="sending_messages_user_guide">SENDING MESSAGES
-     * Users must have validated friends in order to send a message.
-     * Click messages on the home screen.
-     * Next click the pencil icon on the Messages screen.
-     * Choose the friend you would like to message
-     * Write your message on the compose message screen.
-     * By choosing send as text your message will be encrypted and obfuscated to still look like a written message. Whereas choosing send as Image it will look like the picture you choose from your gallery. Next, this will prompt the send as screen and you can choose to send your message via your preferred messaging app.
-     * Click share to send.</string>
+    <string name="sending_messages_user_guide">SENDING MESSAGES\n
+        \nYou can only send messages to \'verified\' friends.\n
+        \n- Tap messages on the home screen.\n
+        \n- Tap the pencil icon in the bottom corner of the Messages screen.\n
+        \n- Tap \'Select Recipient\' to choose the friend you would like to send a message to.\n
+        \n- Write your message in the window that says \'Enter Message Here\'.\n
+        \n- Tap send as text to encrypt your message and transform it into a different series of characters.\n
+        \n- Tap send as Image to encrypt your message and embed it in the image you select.\n
+        \n- Once you have made your selection, you will be prompted to share the image or text, here you can select your preferred messaging app, or save it to your clipboard.\n</string>
 
 
     //Settings User Guide
-    <string name="settings_user_guide">SETTING PASSCODES
-     * Click the settings icon.
-     * Click the passcode icon.
-     * Move the toggle switch to allow the user to require a passcode.
-     * The first two passcode lines set the passcode to gain entry into the app.
-     * The last two secondary passcode lines set the secondary passcode that exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.
-     * Hit save to keep all changes.</string>
+    <string name="settings_user_guide">SETTING PASSCODES\n
+        \n- Click the settings icon.
+        \n- Click the passcode icon.
+        \n- Move the toggle switch to allow the user to require a passcode.
+        \n- The first two passcode lines set the passcode to gain entry into the app.
+        \n- The last two secondary passcode lines set the secondary passcode that exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.
+        \n- Hit save to keep all changes.\n</string>
 
     //Imports User Guide
-    <string name="imports_user_guide">IMPORTING MESSAGES
-     * When you receive a coded message through your preferred messaging app copy the text or image and paste it in the import screen with a long click.
-     * Next choose the icon that corresponds to your message type image or text.
-     * All successfully received messages can be viewed in the Messages Screen.
-     * To delete the message select the message and swipe left or right.</string>
+    <string name="imports_user_guide">IMPORTING MESSAGES\n
+        \You can import your messages using this screen. It is also possible to share received messages directly to the Nahoft app if the app where you received the message allows it.\n
+        \n- When you receive a coded text message you can copy the text and paste it in the import screen with a long press.\n
+        \n- Tap \'Import Text\', and select the sender when prompted.\n
+        \n- If you have received an image, tap \'Import Image\', select the image when propmpted, and the sender when prompted.\n
+        \n- If the message is successfully imported, you will see the original text.\n</string>
 
     <string name="or_label">- or -</string>
 

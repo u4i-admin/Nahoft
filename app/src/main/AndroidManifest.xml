@@ -40,7 +40,6 @@
         <activity
             android:name=".activities.PasscodeActivity"
             android:label="@string/create_passcodes_screen_name"/>
-        <activity android:name=".activities.ApplicationShortcutActivity" />
         <activity
             android:icon="@mipmap/nahoft_icon_launcher_round"
             android:name=".activities.EnterPasscodeActivity"
