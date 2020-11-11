@@ -18,7 +18,7 @@ class Stencil {
     var cachedRight: Int = 0
     var cachedTop: Int = 0
     var cachedBottom: Int = 0
-    var cachedDirection: Int = 0
+    var cachedDirection: Pair<Int,Int> = Pair<Int,Int>(0, 0)
 
     val listener: ImageDecoder.OnHeaderDecodedListener = object : ImageDecoder.OnHeaderDecodedListener {
 
@@ -99,9 +99,6 @@ class Stencil {
         var row = 0
         var column = 0
 
-        val originalRight = (bitmap.width / 3) - 1
-        var originalLeft = (bitmap.height / 3) - 1
-
         var left = 0
         var right = (bitmap.width / 3) - 1
         var top = 1
@@ -109,7 +106,26 @@ class Stencil {
 
         var direction = Pair(1, 0)
 
-        for (offset in 0 until index)
+        var startOffset = 0
+
+        if (cachedIndex != null)
+        {
+            val oldIndex = cachedIndex!!
+
+            if(index == oldIndex + 1)
+            {
+                row = cachedRow
+                column = cachedCol
+                left = cachedLeft
+                right = cachedRight
+                top = cachedTop
+                bottom = cachedBottom
+                direction = cachedDirection
+                startOffset = oldIndex
+            }
+        }
+
+        for (offset in startOffset until index)
         {
             val xoff = direction.first
             val yoff = direction.second
@@ -171,6 +187,15 @@ class Stencil {
         {
             print("break!")
         }
+
+        cachedIndex = index
+        cachedRow = row
+        cachedCol = column
+        cachedLeft = left
+        cachedRight = right
+        cachedTop = top
+        cachedBottom = bottom
+        cachedDirection = direction
 
         return Pair((column*3)+1, (row*3)+1)
     }
