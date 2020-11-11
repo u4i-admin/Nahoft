@@ -5,30 +5,25 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.ImageDecoder
 import android.net.Uri
-import android.util.Log
 import androidx.core.graphics.get
-import kotlin.math.ceil
-import kotlin.math.sqrt
 
 class Stencil {
-    var cachedIndex: Int? = null
-    var cachedRow: Int = 0
-    var cachedCol: Int = 0
-    var cachedLeft: Int = 0
-    var cachedRight: Int = 0
-    var cachedTop: Int = 0
-    var cachedBottom: Int = 0
-    var cachedDirection: Pair<Int,Int> = Pair<Int,Int>(0, 0)
+    private var cachedIndex: Int? = null
+    private var cachedRow: Int = 0
+    private var cachedCol: Int = 0
+    private var cachedLeft: Int = 0
+    private var cachedRight: Int = 0
+    private var cachedTop: Int = 0
+    private var cachedBottom: Int = 0
+    private var cachedDirection: Pair<Int,Int> = Pair<Int,Int>(0, 0)
 
-    val listener: ImageDecoder.OnHeaderDecodedListener = object : ImageDecoder.OnHeaderDecodedListener {
-
-        override fun onHeaderDecoded(decoder: ImageDecoder, info: ImageDecoder.ImageInfo, source: ImageDecoder.Source) {
-            decoder.setOnPartialImageListener {exception->
-                Log.d("ImageDecoder",exception.error.toString())
-                true
-            }
-        }
-    }
+//    val listener: ImageDecoder.OnHeaderDecodedListener =
+//        ImageDecoder.OnHeaderDecodedListener { decoder, info, source ->
+//            decoder.setOnPartialImageListener {exception->
+//                Log.d("ImageDecoder",exception.error.toString())
+//                true
+//            }
+//        }
 
     fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri?
     {
@@ -174,7 +169,7 @@ class Stencil {
                 if (newRow < top)
                 {
                     top += 1
-                    direction = Pair(0, 1)
+                    direction = Pair(1, 0)
                 }
                 else
                 {
