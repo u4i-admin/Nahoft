@@ -155,9 +155,9 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             this.view.invite_button.visibility = View.VISIBLE
             this.view.invite_button.text = view.context.getString(R.string.button_label_invite)
             this.view.import_button.visibility = View.VISIBLE
-            this.view.accept_button.visibility = View.GONE
-            this.view.decline_button.visibility = View.GONE
-            this.view.verify_button.visibility = View.GONE
+            this.view.accept_button.visibility = View.INVISIBLE
+            this.view.decline_button.visibility = View.INVISIBLE
+            this.view.verify_button.visibility = View.INVISIBLE
         }
 
         private fun setupInvitedRow() {
@@ -165,25 +165,25 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             this.view.invite_button.visibility = View.VISIBLE
             this.view.invite_button.text = view.context.getString(R.string.button_label_invite_again)
             this.view.import_button.visibility = View.VISIBLE
-            this.view.accept_button.visibility = View.GONE
-            this.view.decline_button.visibility = View.GONE
-            this.view.verify_button.visibility = View.GONE
+            this.view.accept_button.visibility = View.INVISIBLE
+            this.view.decline_button.visibility = View.INVISIBLE
+            this.view.verify_button.visibility = View.INVISIBLE
         }
 
         private fun setupRequestedRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Requested.getIcon())
-            this.view.invite_button.visibility = View.GONE
-            this.view.import_button.visibility = View.GONE
+            this.view.invite_button.visibility = View.INVISIBLE
+            this.view.import_button.visibility = View.INVISIBLE
             this.view.accept_button.visibility = View.VISIBLE
             this.view.accept_button.text = view.context.getString(R.string.button_label_invite)
             this.view.decline_button.visibility = View.VISIBLE
-            this.view.verify_button.visibility = View.GONE
+            this.view.verify_button.visibility = View.INVISIBLE
         }
 
         private fun setupApprovedRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Verified.getIcon())
-            this.view.invite_button.visibility = View.GONE
-            this.view.import_button.visibility = View.GONE
+            this.view.invite_button.visibility = View.INVISIBLE
+            this.view.import_button.visibility = View.INVISIBLE
             this.view.accept_button.visibility = View.VISIBLE
             this.view.accept_button.text = view.context.getString(R.string.button_label_invite_again)
             this.view.decline_button.visibility = View.INVISIBLE
@@ -192,11 +192,11 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
 
         private fun setupVerifiedRow() {
             this.view.friendIcon.setImageResource(FriendStatus.Approved.getIcon())
-            this.view.invite_button.visibility = View.GONE
-            this.view.import_button.visibility = View.GONE
-            this.view.accept_button.visibility = View.GONE
-            this.view.decline_button.visibility = View.GONE
-            this.view.verify_button.visibility = View.GONE
+            this.view.invite_button.visibility = View.INVISIBLE
+            this.view.import_button.visibility = View.INVISIBLE
+            this.view.accept_button.visibility = View.INVISIBLE
+            this.view.decline_button.visibility = View.INVISIBLE
+            this.view.verify_button.visibility = View.INVISIBLE
         }
     }
 }

@@ -189,7 +189,7 @@
 
     //Imports User Guide
     <string name="imports_user_guide">IMPORTING MESSAGES\n
-        \You can import your messages using this screen. It is also possible to share received messages directly to the Nahoft app if the app where you received the message allows it.\n
+        \nYou can import your messages using this screen. It is also possible to share received messages directly to the Nahoft app if the app where you received the message allows it.\n
         \n- When you receive a coded text message you can copy the text and paste it in the import screen with a long press.\n
         \n- Tap \'Import Text\', and select the sender when prompted.\n
         \n- If you have received an image, tap \'Import Image\', select the image when propmpted, and the sender when prompted.\n
