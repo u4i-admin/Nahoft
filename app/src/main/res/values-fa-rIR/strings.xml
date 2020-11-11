@@ -120,12 +120,12 @@
     <string name="alert_text_which_friend_sent_this_key">کدام دوست این کلید را ارسال کرده است؟</string>
 
     <!-- Verify Friend View -->
-    <string name="label_verify_friend_explainer">Contact your friend outside of the app you normally use and make sure that your numbers match.</string>
-    <string name="label_verify_friend_number">%1$s\'s Number</string>
-    <string name="label_verify_friend_user_number">Your Number</string>
-    <string name="button_label_verify_friend_accept">Accept</string>
-    <string name="button_label_verify_friend_reject">Reject</string>
-    <string name="button_label_verify_friend">Verify</string>
+    <string name="label_verify_friend_explainer">در خارج از برنامه ای که معمولاً از آن استفاده می کنید با دوست خود تماس بگیرید و مطمئن شوید که شماره های شما مطابقت دارد.</string>
+    <string name="label_verify_friend_number">شماره٪ 1 $ s</string>
+    <string name="label_verify_friend_user_number">شماره شما</string>
+    <string name="button_label_verify_friend_accept">تایید کنید</string>
+    <string name="button_label_verify_friend_reject">رد کردن</string>
+    <string name="button_label_verify_friend">تأیید کنید</string>
 
     <!-- Alert Strings -->
     <string name="alert_text_received_invitation">دعوت آنها را برای شروع ارتباط بپذیرید%1$s. دعوت آنها را برای شروع ارتباط بپذیرید.</string>
@@ -228,8 +228,8 @@
     <string name="content_description_add_friend_button">اضافه کردن دوست</string>
     <string name="content_description_create_message">ایجاد پیام</string>
     <string name="access_friends_content_description">به دوستان دسترسی پیدا کنید</string>
-    <string name="button_label_import_invitation">Import</string>
-    <string name="button_label_delete_passcode">Delete Passcode</string>
+    <string name="button_label_import_invitation">وارد كردن</string>
+    <string name="button_label_delete_passcode">رمز عبور را حذف کنید</string>
 
 
 </resources>
