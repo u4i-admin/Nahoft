@@ -56,11 +56,13 @@ class Stencil {
 
             if (bit == 1)
             {
-                result = addStar(result, index, 255)
+                val position = fitStar(result, index)
+                result = addStar(result, position, 255)
             }
             else if (bit == 0)
             {
-                result = addStar(result, index, 0)
+                val position = fitStar(result, index)
+                result = addStar(result, position, 0)
             }
             else
             {
@@ -68,7 +70,8 @@ class Stencil {
             }
         }
 
-        result = addStar(result, bits.size, 128)
+        val position = fitStar(result, bits.size)
+        result = addStar(result, position, 128)
         result = fill(result, bits.size+1)
 
         // Quality check
