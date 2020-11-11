@@ -36,8 +36,7 @@ class Encryption(val context: Context) {
     }
 
     // Generate a new keypair for this device and store it in EncryptedSharedPreferences
-    fun loadKeypair(): Keys? {
-        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+    private fun loadKeypair(): Keys? {
 
         val privateKeyHex = Persist.encryptedSharedPreferences.getString(
             privateKeyPreferencesKey,
@@ -61,10 +60,10 @@ class Encryption(val context: Context) {
     fun ensureKeysExist(): Keys {
         val maybeKeyPair = loadKeypair()
 
-        if (maybeKeyPair != null) {
-            return  maybeKeyPair
+        return if (maybeKeyPair != null) {
+            maybeKeyPair
         } else {
-            return generateKeypair()
+            generateKeypair()
         }
     }
 
@@ -75,18 +74,11 @@ class Encryption(val context: Context) {
         if (friendPublicKey != null) {
             val box = Box(friendPublicKey, keypair.privateKey)
 
+            // TODO: Real Nonce
             if (box != null) {
 //                val nonce = Random().randomBytes(SodiumConstants.NONCE_BYTES)
                 val nonce = byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23)
                 val ciphertext = box.encrypt(nonce, plaintext.toByteArray())
-
-                println("your public key: " + friendPublicKey.toBytes().toList())
-                println("my public key: " + keypair.publicKey.toBytes().toList())
-                println("nonce: " + nonce.toList())
-                println("ciphertext: " + ciphertext.toList())
-
-                val nonceList = nonce.toList()
-                val ciphertextList = ciphertext.toList()
 
                 return nonce + ciphertext
             }
@@ -105,16 +97,6 @@ class Encryption(val context: Context) {
         if (box != null && ciphertext.size > SodiumConstants.NONCE_BYTES) {
             val nonce = ciphertext.slice(0..SodiumConstants.NONCE_BYTES-1).toByteArray()
             val payload = ciphertext.slice(SodiumConstants.NONCE_BYTES..ciphertext.lastIndex).toByteArray()
-
-            print("\nFriend Public Key: \n ${friendPublicKey.toBytes().toList()}")
-            print("\nPublic Key: \n ${keypair.publicKey.toBytes().toList()}")
-            print("\n Private Key: \n ${keypair.privateKey.toBytes().toList()}")
-            print("\nNonce: \n ${nonce.toList()}\n")
-            print("\nCiphertext: \n ${ciphertext.toList()}")
-            println("your public key: " + friendPublicKey.toBytes().toList())
-            println("my public key: " + keypair.publicKey.toBytes().toList())
-            println("nonce: " + nonce.toList())
-            println("ciphertext: " + payload.toList())
 
             try {
                 val result = String(box.decrypt(nonce, payload))
