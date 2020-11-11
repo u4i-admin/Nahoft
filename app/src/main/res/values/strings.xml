@@ -154,14 +154,18 @@
      * Press the + icon at the bottom of the Friends screen to add a friend.
      * Type the name of the friend you want to add and press save.
      * Click the invite button beside your new friends name.
-     * Generated is a key.
-     * Populated is the sharing screen.
-     * Share your key with your friend via your favorite sharing app.
-     * Accept a key by copying it from the app you received it from.
-     * Paste it in the import screen with a long click and select import message.
+     * The next screen you see will be the sharing screen with the key as the message to send. The key is intended to look like a sentence in the Persian language.
+     * Now share your key with the friend you are adding via your preferred messaging app such as share with nearby phone, telegram, messages, or bluetooth.
+     * The friend you are adding must follow these same steps and send you a key as well.
+     * Accept the key you receive from your friend by copying it.
+     * Return to the Nahoft App and return to the home screen.
+     * Navigate to the import screen.
+     * Paste the key your friend send you in the import screen with a long click and select import text.
+     * The Nahoft app will ask you Which Friend Sent this Key, and you will have to select the friends name it came from.
      * Return to the Friends screen and select the verify button beside the friend you received the key from.
-     * Confirm with your friend that your numbers match. If yes, click accept. If no, click reject.
-     * To delete a friend select the = beside the name and swipe.</string>
+     * Contact your Friend outside of the app you normally use to confirm your keys match.
+     * If the keys match, click accept. If not, click reject.
+     * To delete a friend swipe the friends name to the right or left.</string>
 
     //Sending Messages User Guide
     <string name="sending_messages_user_guide">SENDING MESSAGES
