@@ -7,13 +7,16 @@
     android:orientation="vertical"
     tools:context=".ReceivingMessageUserGuideActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:padding="20sp"
-        android:scrollHorizontally="true"
-        android:text="@string/settings_user_guide"
-        android:textSize="15sp" />
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20sp"
+            android:scrollHorizontally="true"
+            android:text="@string/settings_user_guide"
+            android:textSize="15sp" />
+    </ScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>

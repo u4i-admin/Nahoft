@@ -9,18 +9,22 @@
     android:gravity="center"
     tools:context=".activities.ImportImageTextActivity">
 
-    <EditText
-        android:id="@+id/import_message_text_view"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="250dp"
-        android:layout_marginVertical="@dimen/padding_standard"
-        android:background="@color/colorAccent"
-        android:hint="@string/paste_message_for_import_hint"
-        android:importantForAutofill="no"
-        android:inputType="textLongMessage|textMultiLine"
-        android:scrollHorizontally="false"
-        android:textAlignment="center"/>
+        android:layout_height="250dp">
+        <EditText
+            android:id="@+id/import_message_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="250dp"
+            android:layout_marginVertical="@dimen/padding_standard"
+            android:background="@color/colorAccent"
+            android:hint="@string/paste_message_for_import_hint"
+            android:importantForAutofill="no"
+            android:inputType="textLongMessage|textMultiLine"
+            android:scrollHorizontally="false"
+            android:textAlignment="center"/>
+    </ScrollView>
 
     <Button
         android:id="@+id/import_text_button"

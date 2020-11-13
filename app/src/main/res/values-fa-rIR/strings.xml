@@ -65,9 +65,6 @@
     <string name="spinnerSelectionPersian">دوستان</string>
     <string name="alert_text_language_already_selected">دوستان</string>
 
-    //Application Shortcut Activity
-    <string name="setApplicationShortcut">تنظیم</string>
-
     //User Guide Activity
     <string name="activity_title_user_guide">راهنمای کاربر</string>
     <string name="button_label_friends_user_guide">راهنمای کاربر دوستان</string>
@@ -97,17 +94,10 @@
     <string name="alert_text_verify_secondary_passcode_empty">دوستان</string>
     <string name="alert_text_secondary_passcode_entries_do_not_match">دوستان</string>
 
-    //Friend Default Row XML
-    <string name="Name">دوستان</string>
-    <string name="Invite">دوستان</string>
-
     //Friends Recycler View Item Row
-    <string name="friendsNameRecyclerView">دوستان</string>
+    <string name="friendNameRecyclerView">دوستان</string>
     <string name="button_label_invite">دعوت</string>
     <string name="button_label_invite_again">دعوت</string>
-
-    //Friends Selection Recyclerview Item Row
-    <string name="nameFriendsSelectionRecyclerviewItemRow">دوستان</string>
 
     <!-- Message View -->
     <string name="unknown_sender_label">ناشناخته</string>
@@ -128,7 +118,6 @@
 
     <!-- Alert Strings -->
     <string name="alert_text_received_invitation">دعوت آنها را برای شروع ارتباط بپذیرید%1$s. دعوت آنها را برای شروع ارتباط بپذیرید.</string>
-    <string name="from_label">از جانب</string>
     <string name="alert_text_passcode_required_to_proceed">برای ادامه کد عبور لازم است</string>
     <string name="alert_text_unable_to_decode_message">مشکلی پیش آمد ما قادر به رمزگشایی پیام نبودیم.</string>
     <string name="alert_text_unable_to_decrypt_message">مشکلی پیش آمد ما قادر به رمزگشایی پیام نبودیم.</string>
@@ -145,23 +134,23 @@
     <string name="alert_text_unable_to_process_request">"مشکلی پیش آمد ما قادر به پردازش درخواست شما نبودیم."</string>
     <string name="alert_text_secondary_passcode_and_passcode_may_not_match">ورودی های رمز عبور ثانویه و اولیه نباید مطابقت داشته باشند.</string>
     //Friends User Guide
-    <string name="friends_user_guide">افزودن دوستان
-     * با کلیک بر روی نماد دوستان در صفحه اصلی شروع کنید.
-     * برای اضافه کردن یک دوست ، نماد + را در پایین صفحه دوستان فشار دهید.
-     * نام دوستی را که می خواهید اضافه کنید تایپ کنید و ذخیره را فشار دهید.
-     * روی دکمه دعوت در کنار نام دوستان جدید خود کلیک کنید.
-     * صفحه بعدی که مشاهده می کنید صفحه اشتراک گذاری با کلید به عنوان پیام برای ارسال خواهد بود. کلید در نظر گرفته شده است تا به صورت یک جمله در زبان فارسی به نظر برسد.
-     * اکنون کلید خود را با دوستی که اضافه می کنید از طریق برنامه پیام رسانی دلخواه خود مانند اشتراک گذاری با تلفن نزدیک ، تلگرام ، پیام ها یا بلوتوث به اشتراک بگذارید
-     * دوستی که اضافه می کنید باید همین مراحل را دنبال کند و همچنین یک کلید برای شما ارسال کند.
-     * با کپی کردن ، کلیدی را که از دوست خود دریافت می کنید ، بپذیرید.
-     * بازگشت به برنامه Nahoft و بازگشت به صفحه اصلی.
-     * به صفحه وارد کردن بروید.
-     * کلیدی را که دوست شما برای شما در صفحه واردات ارسال می کند با یک کلیک طولانی پیست کرده و متن واردات را انتخاب کنید.
-     * برنامه Nahoft از شما می پرسد که کدام دوست این کلید را ارسال کرده است ، و شما باید نام دوستان خود را از آنجا انتخاب کنید.
-     * به صفحه Fدوستان برگردید و دکمه تأیید را در کنار دوستی که کلید را از آن دریافت کرده اید ، انتخاب کنید.
-     * با دوست خود در خارج از برنامه ای که معمولاً برای تأیید مطابقت کلیدهایتان استفاده می کنید ، تماس بگیرید.
-     * اگر کلیدها مطابقت دارند ، روی قبول کلیک کنید. در غیر این صورت ، رد را کلیک کنید.
-     * برای حذف یک دوست ، نام دوستان را به سمت راست یا چپ بکشید.
+    <string name="friends_user_guide">افزودن دوستانn/n/
+     /n* با کلیک بر روی نماد دوستان در صفحه اصلی شروع کنید.
+     * برای اضافه کردن یک دوست ، نماد + را در پایین صفحه دوستان فشار دهید.n/
+     /n* نام دوستی را که می خواهید اضافه کنید تایپ کنید و ذخیره را فشار دهید.
+     /n* روی دکمه دعوت در کنار نام دوستان جدید خود کلیک کنید.
+     /n* صفحه بعدی که مشاهده می کنید صفحه اشتراک گذاری با کلید به عنوان پیام برای ارسال خواهد بود. کلید در نظر گرفته شده است تا به صورت یک جمله در زبان فارسی به نظر برسد.
+     /n* اکنون کلید خود را با دوستی که اضافه می کنید از طریق برنامه پیام رسانی دلخواه خود مانند اشتراک گذاری با تلفن نزدیک ، تلگرام ، پیام ها یا بلوتوث به اشتراک بگذارید
+     /n* دوستی که اضافه می کنید باید همین مراحل را دنبال کند و همچنین یک کلید برای شما ارسال کند.
+     /n* با کپی کردن ، کلیدی را که از دوست خود دریافت می کنید ، بپذیرید.
+     /n* بازگشت به برنامه Nahoft و بازگشت به صفحه اصلی.
+     /n* به صفحه وارد کردن بروید.
+     /n* کلیدی را که دوست شما برای شما در صفحه واردات ارسال می کند با یک کلیک طولانی پیست کرده و متن واردات را انتخاب کنید.
+     /n* برنامه Nahoft از شما می پرسد که کدام دوست این کلید را ارسال کرده است ، و شما باید نام دوستان خود را از آنجا انتخاب کنید.
+     /n* به صفحه Fدوستان برگردید و دکمه تأیید را در کنار دوستی که کلید را از آن دریافت کرده اید ، انتخاب کنید.
+     * با دوست خود در خارج از برنامه ای که معمولاً برای تأیید مطابقت کلیدهایتان استفاده می کنید ، تماس بگیرید.n/
+     /n* اگر کلیدها مطابقت دارند ، روی قبول کلیک کنید. در غیر این صورت ، رد را کلیک کنید.
+     * برای حذف یک دوست ، نام دوستان را به سمت راست یا چپ بکشید.n/n/
 
 </string>
 
@@ -221,6 +210,7 @@
     <string name="access_friends_content_description">به دوستان دسترسی پیدا کنید</string>
     <string name="button_label_import_invitation">وارد كردن</string>
     <string name="button_label_delete_passcode">رمز عبور را حذف کنید</string>
+    <string name="from">:از جانب</string>
 
 
 </resources>

@@ -15,7 +15,7 @@
         android:layout_weight="1"
         android:ellipsize="end"
         android:maxLines="5"
-        android:text="@string/nameFriendsSelectionRecyclerviewItemRow"
+        android:text=""
         android:textAlignment="center"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"

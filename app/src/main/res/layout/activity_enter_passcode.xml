@@ -9,10 +9,28 @@
     tools:context=".activities.EnterPasscodeActivity">
 
     <LinearLayout
+        android:id="@+id/passcodeLogoContainer"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="64dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true">
+        <ImageView
+            android:id="@+id/nahoft_message_bottle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/nahoft_icon_launcher_round" />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_standard"
+        android:layout_margin="32dp"
         android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/passcodeLogoContainer"
         android:orientation="vertical">
 
         <EditText
@@ -22,20 +40,18 @@
             android:layout_margin="@dimen/padding_standard"
             android:text=""
             android:textColor="@color/colorAccent"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            app:backgroundTint="@color/colorAccent"/>
 
         <Button
             android:id="@+id/login_button"
-            android:drawableEnd="@drawable/ic_baseline_login_24"
-            android:drawablePadding="@dimen/padding_half"
-            android:drawableTint="@color/colorAccent"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
             android:layout_gravity="center"
-            android:background="@android:color/transparent"
+            android:background="@color/colorAccent"
             android:text="@string/Login"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorPrimaryDark"/>
 
     </LinearLayout>
 

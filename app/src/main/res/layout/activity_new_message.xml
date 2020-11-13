@@ -11,6 +11,7 @@
         android:id="@+id/composeMessageContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/padding_standard"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
 
@@ -18,26 +19,31 @@
             android:id="@+id/friend_button"
             android:drawableEnd="@drawable/ic_person_24px"
             android:drawablePadding="@dimen/padding_half"
-            android:drawableTint="@color/colorAccent"
+            android:padding="8dp"
+            android:drawableTint="@color/colorPrimaryDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:layout_margin="@dimen/padding_standard"
+            android:background="@color/colorAccent"
             android:text="@string/hintOnChooseFriendButton"
             android:textAllCaps="false"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorPrimaryDark" />
 
-        <EditText
-            android:id="@+id/editMessageText"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:importantForAutofill="no"
-            android:hint="@string/enter_message_here_hint"
-            android:textAlignment="center"
-            android:inputType="textMultiLine|textCapSentences"
-            android:minHeight="250dp"
-            android:paddingTop="@dimen/padding_standard" />
+            android:layout_height="250dp"
+            android:padding="@dimen/padding_standard">
+            <EditText
+                android:id="@+id/editMessageText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="250dp"
+                android:background="@color/colorAccent"
+                android:importantForAutofill="no"
+                android:hint="@string/enter_message_here_hint"
+                android:textAlignment="center"
+                android:inputType="textMultiLine|textCapSentences"
+                android:paddingTop="@dimen/padding_standard" />
+        </ScrollView>
 
         <LinearLayout
             android:orientation="horizontal"

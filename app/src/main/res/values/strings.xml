@@ -20,7 +20,7 @@
 
     //Enter Passcode Activity Strings
     <string name="Passcode">Passcode</string>
-    <string name="Login">Login</string>
+    <string name="Login">Enter Passcode</string>
     <string name="alert_text_logged_in">Logged In</string>
 
     <!-- Home Activity -->
@@ -51,33 +51,30 @@
     <string name="choose_friend_button_icon">Choose Friend</string>
     <string name="alert_text_write_a_message_to_send">Write a message to send</string>
 
-    //Settings Activity
+<!--    Settings Activity-->
     <string name="activity_title_settings">Settings</string>
     <string name="button_label_set_language">Set Language</string>
     <string name="button_label_passcode">Passcode</string>
     <string name="button_label_application_shortcut">Application Shortcut</string>
 
-    //Set Language Activity
+<!--    Set Language Activity-->
     <string name="activity_title_set_language">Set Language</string>
 
-    //Set Language Activity Array and Toast Texts
+<!--    Set Language Activity Array and Toast Texts-->
     <string name="spinnerTitleSetLanguage">SetLanguage</string>
     <string name="spinnerSelectionDefaultLanguage">Default Language</string>
     <string name="spinnerSelectionEnglish">English</string>
     <string name="spinnerSelectionPersian">Persian</string>
     <string name="alert_text_language_already_selected">LANGUAGE ALREADY SELECTED</string>
 
-    //Application Shortcut Activity
-    <string name="setApplicationShortcut">Set Application Shortcut</string>
-
-    //User Guide Activity
+<!--    User Guide Activity-->
     <string name="activity_title_user_guide">User Guide</string>
     <string name="button_label_friends_user_guide">Friends</string>
     <string name="button_label_sending_messages_user_guide">Messages</string>
     <string name="button_label_setting_passcodes">Passcodes</string>
     <string name="button_label_importing">Importing</string>
 
-    //Passcode Activity
+<!--    Passcode Activity-->
     <string name="switch_label_require_passcode">Require Passcode?</string>
     <string name="initial_passcode_definition">Create a passcode so that login is required to use the app.</string>
     <string name="verify_passcode_hint">Verify Passcode</string>
@@ -91,20 +88,12 @@
     <string name="enter_passcode_screen">Enter Passcode Screen</string>
     <string name="button_label_logout">Logout</string>
 
-    //Friend Default Row XML
-    <string name="Name">Name</string>
-    <string name="Invite">Invite</string>
-
-    //Friends Recycler View Item Row
-    <string name="friendsNameRecyclerView">Name</string>
-
-    //Friends Selection Recyclerview Item Row
-    <string name="nameFriendsSelectionRecyclerviewItemRow">Name</string>
+<!--    Friends Recycler View Item Row-->
+    <string name="friendNameRecyclerView">Name</string>
 
     <!-- Message View -->
     <string name="unknown_sender_label">Unknown</string>
     <string name="sender_label">From: %1$s</string>
-    <string name="from_label">From:</string>
 
     <string name="button_label_invite">Invite</string>
     <string name="button_label_invite_again">Invite Again</string>
@@ -164,7 +153,24 @@
         \n- Return to the Friends screen and select the verify button beside the friend you received the invitation from.\n
         \n- Contact your Friend outside of the app you normally use to confirm your numbers on the verification screen match.\n
         \n- If the numbers on the verification screen match, tap accept. If not, tap reject.\n
-        \n- To delete a friend swipe the friends name to the right or left.\n\n</string>
+        \n- To delete a friend swipe the friends name to the right or left.\n\n
+    \nافزودن دوستان
+        \n با کلیک بر روی نماد دوستان در صفحه اصلی شروع کنید.
+     \n برای اضافه کردن یک دوست ، نماد + را در پایین صفحه دوستان فشار دهید.
+        نام دوستی را که می خواهید اضافه کنید تایپ کنید و ذخیره را فشار دهید.
+     \n روی دکمه دعوت در کنار نام دوستان جدید خود کلیک کنید.
+     \n صفحه بعدی که مشاهده می کنید صفحه اشتراک گذاری با کلید به عنوان پیام برای ارسال خواهد بود. کلید در نظر گرفته شده است تا به صورت یک جمله در زبان فارسی به نظر برسد.
+     \n اکنون کلید خود را با دوستی که اضافه می کنید از طریق برنامه پیام رسانی دلخواه خود مانند اشتراک گذاری با تلفن نزدیک ، تلگرام ، پیام ها یا بلوتوث به اشتراک بگذارید
+     \n دوستی که اضافه می کنید باید همین مراحل را دنبال کند و همچنین یک کلید برای شما ارسال کند.
+     \n با کپی کردن ، کلیدی را که از دوست خود دریافت می کنید ، بپذیرید.
+     \n بازگشت به برنامه Nahoft و بازگشت به صفحه اصلی.
+     \n به صفحه وارد کردن بروید.
+     \n کلیدی را که دوست شما برای شما در صفحه واردات ارسال می کند با یک کلیک طولانی پیست کرده و متن واردات را انتخاب کنید.
+     \n برنامه Nahoft از شما می پرسد که کدام دوست این کلید را ارسال کرده است ، و شما باید نام دوستان خود را از آنجا انتخاب کنید.
+     \n به صفحه دوستان برگردید و دکمه تأیید را در کنار دوستی که کلید را از آن دریافت کرده اید ، انتخاب کنید.
+     * با دوست خود در خارج از برنامه ای که معمولاً برای تأیید مطابقت کلیدهایتان استفاده می کنید ، تماس بگیرید.n\
+     \nاگر کلیدها مطابقت دارند ، روی قبول کلیک کنید. در غیر این صورت ، رد را کلیک کنید
+        برای حذف یک دوست ، نام دوستان را به سمت راست یا چپ بکشید.n\n\</string>
 
     //Sending Messages User Guide
     <string name="sending_messages_user_guide">SENDING MESSAGES\n
@@ -204,5 +210,6 @@
     <string name="access_friends_content_description">Access Friends</string>
     <string name="button_label_import_invitation">Import</string>
     <string name="button_label_delete_passcode">Delete Passcode</string>
+    <string name="from">From:</string>
 
 </resources>

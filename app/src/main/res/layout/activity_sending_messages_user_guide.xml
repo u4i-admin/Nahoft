@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ReceivingMessageUserGuideActivity">
 
-    <TextView
-        android:id="@+id/textView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20sp"
-        android:scrollHorizontally="true"
-        android:text="@string/sending_messages_user_guide"
-        android:textSize="15sp" />
-
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20sp"
+            android:scrollHorizontally="true"
+            android:text="@string/sending_messages_user_guide"
+            android:textSize="15sp" />
+    </ScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>
