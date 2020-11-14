@@ -42,18 +42,26 @@ class NewMessageActivity : AppCompatActivity() {
         startActivityForResult(intent, RequestCodes.selectFriendCode)
     }
 
-    private fun pickImageFromGallery() {
+    private fun pickImageFromGallery()
+    {
         val pickImageIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(pickImageIntent, RequestCodes.selectImageCode)
     }
 
-    private fun trySendingMessage(isImage: Boolean) {
+    private fun trySendingMessage(isImage: Boolean)
+    {
 
         // Make sure there is a message to send
         val message = editMessageText.text.toString()
-        if (message.isBlank()) {
-            showAlert("Write a message to send.")
+        if (message.isBlank())
+        {
+            showAlert(getString(R.string.alert_text_write_a_message_to_send))
             return
+        }
+
+        if (message.length > 1000)
+        {
+            showAlert(getString(R.string.alert_text_message_too_long))
         }
 
         // Make sure there is a friend to create the message for.
@@ -70,7 +78,7 @@ class NewMessageActivity : AppCompatActivity() {
             if (selectedFriend!!.publicKeyEncoded != null) {
                 // Share this message as a text
                 ShareUtil.shareText(this, message, selectedFriend!!.publicKeyEncoded!!)
-                editMessageText.text.clear()
+                editMessageText.text?.clear()
             } else {
                 this.showAlert(getString(R.string.alert_text_verified_friends_only))
                 return
@@ -94,7 +102,7 @@ class NewMessageActivity : AppCompatActivity() {
 
                         imageURI?.let {
                             ShareUtil.shareImage(applicationContext, imageURI, message, selectedFriend!!.publicKeyEncoded!!)
-                            editMessageText.text.clear()
+                            editMessageText.text?.clear()
                         }
                     }
                 } else {

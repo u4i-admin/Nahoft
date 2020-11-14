@@ -38,6 +38,12 @@ class ImportImageTextActivity : AppCompatActivity() {
         val messageText = import_message_text_view.text.toString()
         if (messageText.isNotEmpty()) {
 
+            if (messageText.length > 1000)
+            {
+                showAlert(getString(R.string.alert_text_message_too_long))
+                return
+            }
+
             val decodeResult = Codex().decode(messageText)
 
             if (decodeResult != null) {
@@ -83,7 +89,7 @@ class ImportImageTextActivity : AppCompatActivity() {
                         Persist.messageList.add(newMessage)
                         Persist.saveMessagesToFile(this)
 
-                        import_message_text_view.text.clear()
+                        import_message_text_view.text?.clear()
 
                         // Go to message view
                         val messageArguments = MessageActivity.Arguments(message = newMessage)

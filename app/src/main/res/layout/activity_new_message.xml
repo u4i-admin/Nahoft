@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimaryDark"
     tools:context=".activities.NewMessageActivity">
 
@@ -11,7 +11,7 @@
         android:id="@+id/composeMessageContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/padding_standard"
+        android:paddingVertical="@dimen/padding_standard"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
 
@@ -19,64 +19,65 @@
             android:id="@+id/friend_button"
             android:drawableEnd="@drawable/ic_person_24px"
             android:drawablePadding="@dimen/padding_half"
-            android:padding="8dp"
+            android:paddingHorizontal="@dimen/padding_half"
             android:drawableTint="@color/colorPrimaryDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_half"
             android:background="@color/colorAccent"
             android:text="@string/hintOnChooseFriendButton"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark" />
 
-        <ScrollView
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:padding="@dimen/padding_standard">
-            <EditText
+            android:layout_height="300dp"
+            app:counterEnabled="true"
+            app:counterTextColor="@color/colorAccent"
+            app:counterMaxLength="1000">
+            <com.google.android.material.textfield.TextInputEditText
+                app:textInputLayoutFocusedRectEnabled="true"
                 android:id="@+id/editMessageText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="250dp"
-                android:background="@color/colorAccent"
+                android:layout_height="240dp"
+                android:padding="@dimen/padding_standard"
                 android:importantForAutofill="no"
-                android:hint="@string/enter_message_here_hint"
-                android:textAlignment="center"
                 android:inputType="textMultiLine|textCapSentences"
-                android:paddingTop="@dimen/padding_standard" />
-        </ScrollView>
+                android:hint="@string/enter_message_here_hint"
+                android:background="@color/colorAccent"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding_standard">
-
+            android:layout_height="wrap_content">
             <Button
                 android:id="@+id/send_as_text_button"
                 android:drawableEnd="@drawable/ic_article_24px"
                 android:drawablePadding="@dimen/padding_half"
-                android:drawableTint="@color/colorPrimary"
+                android:drawableTint="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_half"
                 android:backgroundTint="@color/colorAccent"
                 android:text="@string/sendAsTextButton"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimaryDark" />
 
             <Button
                 android:id="@+id/send_as_image_button"
                 android:drawableEnd="@drawable/ic_photo_24px"
                 android:drawablePadding="@dimen/padding_half"
-                android:drawableTint="@color/colorPrimary"
+                android:drawableTint="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_half"
                 android:backgroundTint="@color/colorAccent"
                 android:text="@string/sendAsImageButton"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimaryDark" />
 
         </LinearLayout>
 

@@ -211,6 +211,7 @@
     <string name="button_label_import_invitation">وارد كردن</string>
     <string name="button_label_delete_passcode">رمز عبور را حذف کنید</string>
     <string name="from">:از جانب</string>
+    <string name="alert_text_message_too_long">Your message is too long.</string>
 
 
 </resources>

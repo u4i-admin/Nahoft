@@ -41,7 +41,7 @@
 
     <!-- New Messages Activity -->
     <string name="hintOnChooseFriendButton">Select Recipient</string>
-    <string name="enter_message_here_hint">Enter Message Here</string>
+    <string name="enter_message_here_hint">Message Body</string>
     <string name="sendAsTextButton">Send As Text</string>
     <string name="sendAsImageButton">Send As Image</string>
 
@@ -132,7 +132,7 @@
     <string name="activity_title_add_friend">Add Friend</string>
     <string name="content_description_drag_handle">Drag Handle</string>
     <string name="button_label_import_message">Import Text</string>
-    <string name="paste_message_for_import_hint">Paste text here and tap the \'Import Text\' button to see your message or connect with a new friend.</string>
+    <string name="paste_message_for_import_hint">Paste text here to import.</string>
     <string name="button_label_import_image">Import Image</string>
     <string name="error_loading_image_message">Error loading image.</string>
 
@@ -213,5 +213,6 @@
     <string name="button_label_import_invitation">Import</string>
     <string name="button_label_delete_passcode">Delete Passcode</string>
     <string name="from">From:</string>
+    <string name="alert_text_message_too_long">Your message is too long.</string>
 
 </resources>
