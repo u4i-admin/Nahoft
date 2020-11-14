@@ -181,7 +181,7 @@
         \n- Write your message in the window that says \'Enter Message Here\'.\n
         \n- Tap send as text to encrypt your message and transform it into a different series of characters.\n
         \n- Tap send as Image to encrypt your message and embed it in the image you select.\n
-        \n- Once you have made your selection, you will be prompted to share the image or text, here you can select your preferred messaging app, or save it to your clipboard.\n</string>
+        \n- Once you have made your selection, you will be prompted to share the image or text, here you can select your preferred messaging app, or save it to your clipboard.\n\n</string>
 
 
     //Settings User Guide
@@ -191,7 +191,9 @@
         \n- Move the toggle switch to allow the user to require a passcode.
         \n- The first two passcode lines set the passcode to gain entry into the app.
         \n- The last two secondary passcode lines set the secondary passcode that exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.
-        \n- Hit save to keep all changes.\n</string>
+        \n- Hit save to keep all changes.\n\n
+
+    </string>
 
     //Imports User Guide
     <string name="imports_user_guide">IMPORTING MESSAGES\n
@@ -199,7 +201,7 @@
         \n- When you receive a coded text message you can copy the text and paste it in the import screen with a long press.\n
         \n- Tap \'Import Text\', and select the sender when prompted.\n
         \n- If you have received an image, tap \'Import Image\', select the image when propmpted, and the sender when prompted.\n
-        \n- If the message is successfully imported, you will see the original text.\n</string>
+        \n- If the message is successfully imported, you will see the original text.\n\n</string>
 
     <string name="or_label">- or -</string>
 
