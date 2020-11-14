@@ -24,9 +24,10 @@
             android:paddingRight="32dp"
             android:background="@android:color/transparent"
             android:text="@string/button_label_passcode"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorWarmWhite"
             android:textSize="24sp"
             android:drawableRight="@drawable/passcode_icon"
+            android:drawableTint="@color/colorWarmWhite"
             android:drawablePadding="@dimen/padding_half" />
 
     </LinearLayout>

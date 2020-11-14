@@ -28,6 +28,10 @@ class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : Recycl
         notifyItemRemoved(position)
     }
 
+    override fun onCancel(position: Int) {
+        notifyItemChanged(position)
+    }
+
     // ViewHolder
     class MessageViewHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
 

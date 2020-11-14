@@ -3,6 +3,7 @@ package org.nahoft.nahoft.ui
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,7 @@ class ItemTouchHelperCallback(private val listener: ItemTouchHelperListener, pri
         viewHolder: RecyclerView.ViewHolder
     ): Int {
         // Pay attention if the user drags/swipes the item left or right
-        return makeMovementFlags(0, ItemTouchHelper.START or ItemTouchHelper.END)
+        return makeMovementFlags(0, ItemTouchHelper.START)
     }
 
     override fun onMove(
@@ -35,7 +36,18 @@ class ItemTouchHelperCallback(private val listener: ItemTouchHelperListener, pri
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        listener.onItemDismiss(viewHolder, viewHolder.adapterPosition)
+        val alertBuilder = AlertDialog.Builder(viewHolder.itemView.context)
+            .setTitle(context.getString(R.string.alert_title_confirm_delete))
+            .setMessage(context.getString(R.string.alert_text_confirm_delete))
+            .setPositiveButton(R.string.button_label_delete){
+                    dialog, id -> listener.onItemDismiss(viewHolder, viewHolder.adapterPosition)
+            }
+            .setNegativeButton("Cancel"){
+                    dialog, id -> listener.onCancel(viewHolder.adapterPosition)
+            }
+
+        val deleteAlert = alertBuilder.create()
+        deleteAlert.show()
     }
 
     override fun onChildDraw(

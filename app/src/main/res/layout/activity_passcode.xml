@@ -14,7 +14,7 @@
         android:layout_marginTop="32dp"
         android:orientation="vertical">
 
-        <Switch
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/passcode_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:text="@string/button_label_save_passcode"
                 android:textAllCaps="false"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorWarmWhite" />
             <Button
                 android:id="@+id/delete_passcode_button"
                 android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:text="@string/button_label_delete_passcode"
                 android:textAllCaps="false"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorWarmWhite" />
         </LinearLayout>
 
     </LinearLayout>

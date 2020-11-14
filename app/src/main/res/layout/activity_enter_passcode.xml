@@ -39,9 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
             android:text=""
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorWarmWhite"
             android:inputType="textPassword"
-            app:backgroundTint="@color/colorAccent"/>
+            app:backgroundTint="@color/colorWarmWhite"/>
 
         <Button
             android:id="@+id/login_button"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
             android:layout_gravity="center"
-            android:background="@color/colorAccent"
+            android:background="@color/colorWarmWhite"
             android:text="@string/Login"
             android:textColor="@color/colorPrimaryDark"/>
 

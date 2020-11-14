@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_half"
-            android:background="@color/colorAccent"
+            android:background="@color/colorWarmWhite"
             android:text="@string/hintOnChooseFriendButton"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark" />
@@ -44,7 +44,7 @@
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine|textCapSentences"
                 android:hint="@string/enter_message_here_hint"
-                android:background="@color/colorAccent"
+                android:background="@color/colorWarmWhite"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_half"
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="@color/colorWarmWhite"
                 android:text="@string/sendAsTextButton"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimaryDark" />
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_half"
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="@color/colorWarmWhite"
                 android:text="@string/sendAsImageButton"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimaryDark" />

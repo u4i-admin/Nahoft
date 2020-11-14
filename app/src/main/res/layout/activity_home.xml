@@ -43,9 +43,10 @@
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@android:color/transparent"
                 android:text="@string/button_label_friends"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorWarmWhite"
                 android:textSize="@dimen/detail_name_text_size"
                 android:drawableRight="@drawable/ic_group_24px"
+                android:drawableTint="@color/colorWarmWhite"
                 android:drawablePadding="@dimen/padding_standard" />
 
             <Button
@@ -56,9 +57,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@android:color/transparent"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorWarmWhite"
                 android:textSize="@dimen/detail_name_text_size"
                 android:drawableRight="@drawable/ic_message_24px"
+                android:drawableTint="@color/colorWarmWhite"
                 android:drawablePadding="@dimen/padding_standard"/>
 
             <Button
@@ -69,9 +71,10 @@
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@android:color/transparent"
                 android:text="@string/import_label_messages"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorWarmWhite"
                 android:textSize="@dimen/detail_name_text_size"
                 android:drawableRight="@drawable/image_text_import_button"
+                android:drawableTint="@color/colorWarmWhite"
                 android:drawablePadding="@dimen/padding_standard"/>
 
             <Button
@@ -82,9 +85,10 @@
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@android:color/transparent"
                 android:text="@string/button_label_settings"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorWarmWhite"
                 android:textSize="@dimen/detail_name_text_size"
                 android:drawableRight="@drawable/ic_baseline_settings_24"
+                android:drawableTint="@color/colorWarmWhite"
                 android:drawablePadding="@dimen/padding_standard"/>
 
             <Button
@@ -95,9 +99,10 @@
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@android:color/transparent"
                 android:text="@string/button_label_user_guide"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorWarmWhite"
                 android:textSize="@dimen/detail_name_text_size"
                 android:drawableRight="@drawable/ic_menu_book_24px"
+                android:drawableTint="@color/colorWarmWhite"
                 android:drawablePadding="@dimen/padding_standard"/>
 
             <Button
@@ -108,9 +113,10 @@
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@android:color/transparent"
                 android:text="@string/button_label_logout"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorWarmWhite"
                 android:textSize="@dimen/detail_name_text_size"
                 android:drawableRight="@drawable/logout_button"
+                android:drawableTint="@color/colorWarmWhite"
                 android:drawablePadding="@dimen/padding_standard"/>
 
         </LinearLayout>

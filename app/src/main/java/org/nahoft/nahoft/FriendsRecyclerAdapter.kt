@@ -35,6 +35,10 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         notifyItemRemoved(position)
     }
 
+    override fun onCancel(position: Int) {
+        notifyItemChanged(position)
+    }
+
     class FriendViewHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
 
         private var friend: Friend? = null

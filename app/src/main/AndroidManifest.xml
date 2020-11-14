@@ -82,8 +82,7 @@
             android:label="@string/messages_screen_name"
             android:icon="@drawable/app_shortcut_email"/>
         <activity
-            android:name=".activities.HomeActivity"
-            android:label="@string/home_screen_name">
+            android:name=".activities.HomeActivity">
             <!-- Allows other apps to share images with us -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />

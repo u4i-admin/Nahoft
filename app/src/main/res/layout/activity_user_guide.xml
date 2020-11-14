@@ -15,58 +15,63 @@
         android:gravity="right">
 
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:id="@+id/friends_user_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
             android:background="@android:color/transparent"
             android:drawableRight="@drawable/ic_baseline_import_contacts_24"
+            android:drawableTint="@color/colorWarmWhite"
             android:drawablePadding="@dimen/padding_standard"
             android:text="@string/button_label_friends"
             android:textAllCaps="false"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorWarmWhite"
             android:textSize="@dimen/detail_name_text_size" />
 
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:id="@+id/sending_messages_user_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
             android:drawableRight="@drawable/ic_baseline_import_contacts_24"
+            android:drawableTint="@color/colorWarmWhite"
             android:drawablePadding="@dimen/padding_standard"
             android:background="@android:color/transparent"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorWarmWhite"
             android:textAllCaps="false"
             android:text="@string/button_label_messages"
-            android:textSize="@dimen/detail_name_text_size"
-            android:tint="@color/colorAccent"/>
+            android:textSize="@dimen/detail_name_text_size"/>
 
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:id="@+id/passcodes_user_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
             android:drawableRight="@drawable/ic_baseline_import_contacts_24"
+            android:drawableTint="@color/colorWarmWhite"
             android:drawablePadding="@dimen/padding_standard"
             android:background="@android:color/transparent"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorWarmWhite"
             android:textAllCaps="false"
             android:text="@string/button_label_passcode"
-            android:textSize="@dimen/detail_name_text_size"
-            android:tint="@color/colorAccent"/>
+            android:textSize="@dimen/detail_name_text_size"/>
 
         <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:id="@+id/importing_user_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
             android:drawableRight="@drawable/ic_baseline_import_contacts_24"
+            android:drawableTint="@color/colorWarmWhite"
             android:drawablePadding="@dimen/padding_standard"
             android:background="@android:color/transparent"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorWarmWhite"
             android:textAllCaps="false"
             android:text="@string/button_label_importing"
-            android:textSize="@dimen/detail_name_text_size"
-            android:tint="@color/colorAccent"/>
+            android:textSize="@dimen/detail_name_text_size" />
     </LinearLayout>
 </RelativeLayout>

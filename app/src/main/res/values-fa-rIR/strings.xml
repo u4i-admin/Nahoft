@@ -212,6 +212,9 @@
     <string name="button_label_delete_passcode">رمز عبور را حذف کنید</string>
     <string name="from">:از جانب</string>
     <string name="alert_text_message_too_long">Your message is too long.</string>
+    <string name="alert_title_confirm_delete">Confirm Delete</string>
+    <string name="alert_text_confirm_delete">Are you sure you want to delete this?</string>
+    <string name="button_label_delete">delete</string>
 
 
 </resources>

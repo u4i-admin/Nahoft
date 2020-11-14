@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:layout_marginTop="64dp"
+    android:background="@color/colorPrimaryDark"
     tools:context="org.nahoft.nahoft.activities.AddFriendActivity">
 
     <EditText
@@ -15,20 +14,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_standard"
+        android:paddingTop="64dp"
         android:hint="@string/input_hint_name"
+        android:textColorHint="@color/colorHintText"
         android:importantForAutofill="no"
         android:inputType="textPersonName|textCapWords"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textColor="@color/colorWarmWhite"
+        android:backgroundTint="@color/colorWarmWhite" />
 
     <Button
         android:id="@+id/saveFriendButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_standard"
-        android:backgroundTint="@color/colorPrimary"
         android:text="@string/button_label_save_passcode"
         android:textAllCaps="false"
-        android:textColor="@color/colorAccent" />
+        android:backgroundTint="@color/colorWarmWhite"
+        android:textColor="@color/colorPrimaryDark" />
 </LinearLayout>
