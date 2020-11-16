@@ -60,22 +60,22 @@
             android:name=".activities.NewMessageActivity"
             android:label="@string/compose_message_screen_name"/>
         <activity
-            android:name=".ReceivingMessageUserGuideActivity"
+            android:name=".activities.ReceivingMessageUserGuideActivity"
             android:label="@string/imports_user_guide_screen_name"/>
         <activity
-            android:name=".SettingsUserGuideActivity"
+            android:name=".activities.SettingsUserGuideActivity"
             android:label="@string/passcodes_user_guide_screen_name"/>
         <activity
-            android:name=".SendingMessagesUserGuideActivity"
+            android:name=".activities.SendingMessagesUserGuideActivity"
             android:label="@string/messages_user_guide_screen_name"/>
         <activity
             android:name=".activities.FriendsUserGuideActivity"
             android:label="@string/friends_user_guide_screen_name"/>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:label="@string/settings_screen_name"/>
         <activity
-            android:name=".UserGuideActivity"
+            android:name=".activities.UserGuideActivity"
             android:label="@string/user_guides_screen_name"/>
         <activity
             android:name=".activities.MessagesActivity"

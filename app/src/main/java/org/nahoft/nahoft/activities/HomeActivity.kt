@@ -252,7 +252,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     // Logout Button Handler
-    fun logoutButtonClicked() {
+    private fun logoutButtonClicked() {
         status = LoginStatus.LoggedOut
         Persist.saveLoginStatus()
 

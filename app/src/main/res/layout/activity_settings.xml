@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context=".SettingsActivity">
+    tools:context=".activities.SettingsActivity">
 
     <LinearLayout
         android:id="@+id/logoContainer"

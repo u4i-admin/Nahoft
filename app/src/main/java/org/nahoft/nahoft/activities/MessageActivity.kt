@@ -8,8 +8,6 @@ import kotlinx.android.synthetic.main.activity_message.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Message
-import org.nahoft.nahoft.Nahoft
-import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.Persist.Companion.deleteMessage
 import org.nahoft.nahoft.R
 import org.nahoft.showAlert

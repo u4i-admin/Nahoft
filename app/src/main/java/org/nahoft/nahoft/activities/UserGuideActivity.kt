@@ -1,10 +1,10 @@
-package org.nahoft.nahoft
+package org.nahoft.nahoft.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_user_guide.*
-import org.nahoft.nahoft.activities.FriendsUserGuideActivity
+import org.nahoft.nahoft.R
 
 class UserGuideActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

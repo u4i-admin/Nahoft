@@ -3,19 +3,17 @@ package org.nahoft.nahoft.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_verify_friend.*
-import kotlinx.android.synthetic.main.friend_recyclerview_item_row.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.FriendStatus
 import org.nahoft.nahoft.Persist
-import org.nahoft.nahoft.Persist.Companion.publicKeyPreferencesKey
 import org.nahoft.nahoft.R
 import org.nahoft.util.RequestCodes
 
 class VerifyFriendActivity() : AppCompatActivity() {
 
-    lateinit var pendingFriend: Friend
+    private lateinit var pendingFriend: Friend
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

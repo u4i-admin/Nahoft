@@ -49,7 +49,7 @@ class PasscodeActivity : AppCompatActivity() {
         Persist.saveLoginStatus()
     }
 
-    fun updateSwitch() {
+    private fun updateSwitch() {
         if (status == LoginStatus.NotRequired)
         {
             updateInputs(false)
@@ -58,7 +58,7 @@ class PasscodeActivity : AppCompatActivity() {
         }
     }
 
-    fun updateInputs(passcodeRequired: Boolean) {
+    private fun updateInputs(passcodeRequired: Boolean) {
         if (passcodeRequired) {
             // Check for passcodes in shared preferences
             val maybePasscode = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefPasscodeKey, null)
@@ -98,7 +98,7 @@ class PasscodeActivity : AppCompatActivity() {
         }
     }
 
-    fun handlePasscodeRequirementChange(required: Boolean) {
+    private fun handlePasscodeRequirementChange(required: Boolean) {
 
         if (required) {
             // If there aren't already saved passcodes prompt user
@@ -117,7 +117,7 @@ class PasscodeActivity : AppCompatActivity() {
         finish()
     }
 
-    fun handleSaveButtonClick() {
+    private fun handleSaveButtonClick() {
         val passcode = enter_passcode_input.text.toString()
         val passcode2 = verify_passcode_input.text.toString()
         val secondaryPasscode = secondary_passcode_input.text.toString()
