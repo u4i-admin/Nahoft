@@ -30,9 +30,7 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
     override fun getItemCount() = friends.size
 
     override fun onItemDismiss(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        friends[position].publicKeyEncoded = null
-        friends.removeAt(position)
-        Persist.saveFriendsToFile(viewHolder.itemView.context)
+        Persist.removeFriendAt(viewHolder.itemView.context, friends[position])
         notifyItemRemoved(position)
     }
 
@@ -76,7 +74,6 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         }
 
         override fun onClick(v: View?) {
-            // Stub
             showVerifyActivity()
         }
 

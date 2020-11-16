@@ -149,6 +149,17 @@ class Persist {
 
             PersistenceEncryption().writeEncryptedFile(messagesFile, outputStream.toByteArray(), context)
         }
+
+        fun removeFriendAt(context: Context, friend: Friend)
+        {
+            var byeFriend = friendList.find { it.name == friend.name }
+            messageList.removeIf({it.sender == byeFriend})
+            byeFriend?.publicKeyEncoded = null
+            friendList.remove(byeFriend)
+
+            saveMessagesToFile(context)
+            saveFriendsToFile(context)
+        }
     }
 
 }
