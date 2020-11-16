@@ -29,6 +29,7 @@
     <string name="import_label_messages">Import</string>"
     <string name="button_label_settings">Settings</string>
     <string name="button_label_user_guide">User Guide</string>
+    <string name="button_label_logout">Logout</string>
 
     <!-- Home Activity Alerts -->
     <string name="alert_text_passcode_required">Passcode Required to Proceed</string>
@@ -86,7 +87,6 @@
     <string name="button_label_save_passcode">Save</string>
     <string name="passcode_disabled_label">Passcode Disabled</string>
     <string name="enter_passcode_screen">Enter Passcode Screen</string>
-    <string name="button_label_logout">Logout</string>
 
 <!--    Friends Recycler View Item Row-->
     <string name="friendNameRecyclerView">Name</string>

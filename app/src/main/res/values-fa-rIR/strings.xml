@@ -27,6 +27,7 @@
     <string name="button_label_messages">پیام ها</string>
     <string name="button_label_settings">تنظیمات</string>
     <string name="button_label_user_guide">راهنمای کاربر</string>
+    <string name="button_label_logout">Logout</string>
     <string name="alert_text_passcode_required">رمز عبور برای ادامه کار لازم است</string>
     <string name="alert_text_received_text">متن مشترک دریافت شده</string>
     <string name="alert_text_received_image">"تصویر مشترک دریافت شده است"</string>
@@ -84,7 +85,6 @@
     <string name="button_label_save_passcode">دوستان</string>
     <string name="passcode_disabled_label">دوستان</string>
     <string name="enter_passcode_screen">کمه صفحه رمز عبور را وارد کنید</string>
-    <string name="button_label_logout">خروج</string>
 
     //Passcode Activity Strings Located in Kotlin File Toast Texts
     <string name="alert_text_passcode_field_empty">دوستان</string>
