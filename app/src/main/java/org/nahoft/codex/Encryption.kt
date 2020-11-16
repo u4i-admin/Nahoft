@@ -1,7 +1,6 @@
 package org.nahoft.codex
 
 import android.content.Context
-import androidx.security.crypto.MasterKeys
 import org.libsodium.jni.SodiumConstants
 import org.libsodium.jni.crypto.Random
 import org.libsodium.jni.keys.KeyPair
@@ -57,14 +56,9 @@ class Encryption(val context: Context) {
         return Keys(privateKey, publicKey)
     }
 
-    fun ensureKeysExist(): Keys {
-        val maybeKeyPair = loadKeypair()
-
-        return if (maybeKeyPair != null) {
-            maybeKeyPair
-        } else {
-            generateKeypair()
-        }
+    fun ensureKeysExist(): Keys
+    {
+        return loadKeypair() ?: generateKeypair()
     }
 
     fun encrypt(encodedPublicKey: ByteArray, plaintext: String): ByteArray? {
@@ -76,8 +70,8 @@ class Encryption(val context: Context) {
 
             // TODO: Real Nonce
             if (box != null) {
-//                val nonce = Random().randomBytes(SodiumConstants.NONCE_BYTES)
-                val nonce = byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23)
+                val nonce = Random().randomBytes(SodiumConstants.NONCE_BYTES)
+                //val nonce = byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23)
                 val ciphertext = box.encrypt(nonce, plaintext.toByteArray())
 
                 return nonce + ciphertext
@@ -99,8 +93,7 @@ class Encryption(val context: Context) {
             val payload = ciphertext.slice(SodiumConstants.NONCE_BYTES..ciphertext.lastIndex).toByteArray()
 
             try {
-                val result = String(box.decrypt(nonce, payload))
-                return result
+                return String(box.decrypt(nonce, payload))
             } catch (error: Exception) {
                 return null
             }

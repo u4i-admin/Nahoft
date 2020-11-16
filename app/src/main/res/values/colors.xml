@@ -5,11 +5,11 @@
 
     <!--   a darker variant of the primary color, used for
            the status bar (on Android 5.0+) and contextual app bars -->
-    <color name="colorPrimaryDark">#FF374661</color>
+    <color name="colorPrimaryDark">#36465d</color>
 
     <!--   a secondary color for controls like checkboxes and text fields -->
     <!--   previously #03DAC5  -->
-    <color name="colorAccent">#f7be00</color>
+    <color name="colorAccent">#ffcd40</color>
     <color name="colorWarmWhite">#FBF8F8</color>
     <color name="colorHintText">#FFC7D4EC</color>
     <color name="black">#000000</color>

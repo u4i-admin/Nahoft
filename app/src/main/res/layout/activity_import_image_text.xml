@@ -24,7 +24,7 @@
             android:importantForAutofill="no"
             android:inputType="textMultiLine|textCapSentences"
             android:hint="@string/paste_message_for_import_hint"
-            android:background="@color/colorAccent"
+            android:background="@color/colorWarmWhite"
             />
     </com.google.android.material.textfield.TextInputLayout>
     <Button
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_standard"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/colorWarmWhite"
         android:textColor="@color/colorPrimary"
         android:textAllCaps="false"
         android:text="@string/button_label_import_message" />
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_standard"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorWarmWhite"
         android:textAlignment="center"
         android:textSize="@dimen/detail_name_text_size"
         android:text="@string/or_label" />
@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_standard"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/colorWarmWhite"
         android:textColor="@color/colorPrimary"
         android:textAllCaps="false"
         android:text="@string/button_label_import_image"/>
