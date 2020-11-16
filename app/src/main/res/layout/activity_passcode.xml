@@ -8,92 +8,99 @@
     android:layout_height="match_parent"
     tools:context=".activities.PasscodeActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:orientation="vertical">
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/passcode_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_standard"
-            android:text="@string/switch_label_require_passcode" />
-
-        <TextView
-            android:id="@+id/initial_passcode_definition"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_standard"
-            android:text="@string/initial_passcode_definition" />
-
-
-    <EditText
-        android:id="@+id/enter_passcode_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_standard"
-        android:hint="@string/enter_passcode_hint"
-        android:inputType="textVisiblePassword" />
-
-    <EditText
-        android:id="@+id/verify_passcode_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_standard"
-        android:hint="@string/verify_passcode_hint"
-        android:inputType="textVisiblePassword" />
-
-        <TextView
-            android:id="@+id/secondary_passcode_definition"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_standard"
-            android:text="@string/secondary_passcode_definition" />
-
-
-    <EditText
-        android:id="@+id/secondary_passcode_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_standard"
-        android:hint="@string/enter_secondary_passcode_hint"
-        android:inputType="textVisiblePassword"/>
-
-    <EditText
-        android:id="@+id/verify_secondary_passcode_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_standard"
-        android:hint="@string/verify_secondary_passcode_hint"
-        android:inputType="textVisiblePassword"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:paddingBottom="@dimen/padding_standard"
+            android:layout_marginVertical="32dp"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/save_passcode_button"
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/passcode_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_standard"
-                android:backgroundTint="@color/colorPrimaryDark"
-                android:text="@string/button_label_save_passcode"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWarmWhite" />
-            <Button
-                android:id="@+id/delete_passcode_button"
+                android:text="@string/switch_label_require_passcode" />
+
+            <TextView
+                android:id="@+id/initial_passcode_definition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_standard"
-                android:backgroundTint="@color/colorPrimaryDark"
-                android:text="@string/button_label_delete_passcode"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWarmWhite" />
+                android:text="@string/initial_passcode_definition" />
+
+
+            <EditText
+                android:id="@+id/enter_passcode_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:hint="@string/enter_passcode_hint"
+                android:inputType="textVisiblePassword" />
+
+            <EditText
+                android:id="@+id/verify_passcode_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:hint="@string/verify_passcode_hint"
+                android:inputType="textVisiblePassword" />
+
+            <TextView
+                android:id="@+id/secondary_passcode_definition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:text="@string/secondary_passcode_definition" />
+
+
+            <EditText
+                android:id="@+id/secondary_passcode_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:hint="@string/enter_secondary_passcode_hint"
+                android:inputType="textVisiblePassword" />
+
+            <EditText
+                android:id="@+id/verify_secondary_passcode_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:hint="@string/verify_secondary_passcode_hint"
+                android:inputType="textVisiblePassword" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/save_passcode_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_standard"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:text="@string/button_label_save_passcode"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWarmWhite" />
+
+                <Button
+                    android:id="@+id/delete_passcode_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_standard"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:text="@string/button_label_delete_passcode"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWarmWhite" />
+            </LinearLayout>
+
         </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
 </android.widget.RelativeLayout>

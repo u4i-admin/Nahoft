@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".activities.MessagesMenuActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="32dp">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:srcCompat="@drawable/ic_chat_white_18dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="182dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:gravity="right"
+        android:layout_marginVertical="64dp"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/view_messages_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_half"
+            android:background="@android:color/transparent"
+            android:drawableRight="@drawable/ic_chat_white_18dp"
+            android:drawablePadding="@dimen/padding_standard"
+            android:drawableTint="@color/colorWarmWhite"
+            android:text="@string/button_label_view_messages"
+            android:textColor="@color/colorWarmWhite"
+            android:textSize="@dimen/detail_name_text_size" />
+
+        <Button
+            android:id="@+id/compose_messages_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_half"
+            android:background="@android:color/transparent"
+            android:drawableRight="@drawable/ic_baseline_create_24"
+            android:drawablePadding="@dimen/padding_standard"
+            android:drawableTint="@color/colorWarmWhite"
+            android:text="@string/button_label_compose_messages"
+            android:textColor="@color/colorWarmWhite"
+            android:textSize="@dimen/detail_name_text_size" />
+
+        <Button
+            android:id="@+id/import_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_half"
+            android:background="@android:color/transparent"
+            android:drawableRight="@drawable/image_text_import_button"
+            android:drawablePadding="@dimen/padding_standard"
+            android:drawableTint="@color/colorWarmWhite"
+            android:text="@string/import_label_messages"
+            android:textColor="@color/colorWarmWhite"
+            android:textSize="@dimen/detail_name_text_size" />
+    </LinearLayout>
+
+</RelativeLayout>

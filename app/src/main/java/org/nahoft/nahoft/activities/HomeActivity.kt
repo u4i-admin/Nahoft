@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import org.nahoft.codex.Codex
@@ -39,6 +40,19 @@ class HomeActivity : AppCompatActivity() {
         if (status == LoginStatus.NotRequired || status == LoginStatus.LoggedIn) {
             // We may not have initialized shared preferences yet, let's do it now
             Persist.loadEncryptedSharedPreferences(this.applicationContext)
+
+            // Receive shared messages
+            when (intent?.action) {
+                Intent.ACTION_SEND -> {
+                    if ("text/plain" == intent.type) {
+                        handleSharedText(intent)
+                    } else if (intent.type?.startsWith("image/") == true) {
+                        handleSharedImage(intent)
+                    } else {
+                        showAlert(getString(R.string.alert_text_unable_to_process_request))
+                    }
+                }
+            }
         } else {
             // If the status is not either NotRequired, or Logged in, request login
             this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
@@ -59,14 +73,9 @@ class HomeActivity : AppCompatActivity() {
 
         // Messages
         messages_button.setOnClickListener {
-            val messagesIntent = Intent(this, MessagesActivity::class.java)
+            val messagesIntent = Intent(this, MessagesMenuActivity::class.java)
             startActivity(messagesIntent)
         }
-
-        // Import Image Text Activity
-        import_button.setOnClickListener{
-            val importIntent = Intent(this, ImportImageTextActivity::class.java)
-            startActivity(importIntent)}
         
         // User Guide
         user_guide_button.setOnClickListener {
@@ -91,18 +100,7 @@ class HomeActivity : AppCompatActivity() {
         setupFriends()
         loadSavedMessages()
 
-        // Receive shared messages
-        when (intent?.action) {
-            Intent.ACTION_SEND -> {
-                if ("text/plain" == intent.type) {
-                    handleSharedText(intent)
-                } else if (intent.type?.startsWith("image/") == true) {
-                    handleSharedImage(intent)
-                } else {
-                    showAlert(getString(R.string.alert_text_unable_to_process_request))
-                }
-            }
-        }
+
     }
 
     override fun onResume() {

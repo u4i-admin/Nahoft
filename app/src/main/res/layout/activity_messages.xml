@@ -15,19 +15,4 @@
         android:background="#FFFFFF"
         android:foregroundTint="@color/colorAccent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/Compose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="@dimen/padding_standard"
-        android:layout_marginBottom="@dimen/padding_standard"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:contentDescription="@string/content_description_create_message"
-        android:foreground="@drawable/ic_baseline_create_24"
-        android:foregroundGravity="center"
-        android:tint="@color/colorAccent"
-        app:fabSize="auto" />
-
 </RelativeLayout>

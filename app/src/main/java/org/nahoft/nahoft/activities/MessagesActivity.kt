@@ -30,13 +30,6 @@ class MessagesActivity : AppCompatActivity(), ItemDragListener {
         val dividerHeightInPixels = resources.getDimensionPixelSize(R.dimen.list_item_divider_height)
         val dividerDecoration = org.nahoft.nahoft.ui.DividerItemDecoration(ContextCompat.getColor(this, R.color.colorPrimary), dividerHeightInPixels)
         messages_recycler_view.addItemDecoration(dividerDecoration)
-
-
-        // Compose new message button
-        Compose.setOnClickListener {
-            val newMessageIntent = Intent(this, NewMessageActivity::class.java)
-            startActivity(newMessageIntent)
-        }
     }
 
     override fun onResume() {

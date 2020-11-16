@@ -30,6 +30,7 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
     override fun getItemCount() = friends.size
 
     override fun onItemDismiss(viewHolder: RecyclerView.ViewHolder, position: Int) {
+        friends[position].publicKeyEncoded = null
         friends.removeAt(position)
         Persist.saveFriendsToFile(viewHolder.itemView.context)
         notifyItemRemoved(position)
@@ -76,6 +77,7 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
 
         override fun onClick(v: View?) {
             // Stub
+            showVerifyActivity()
         }
 
         private fun inviteClicked() {
@@ -117,17 +119,14 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         private fun declineClicked() {
             // Set Friend Status to Default
             this.friend?.status = FriendStatus.Default
+            friend?.publicKeyEncoded = null
             Persist.updateFriend(view.context, this.friend!!, FriendStatus.Default)
             setupDefaultRow()
         }
 
-        private fun verifyClicked() {
-            if (friend != null) {
-                val verifyFriendIntent = Intent(this.view.context, VerifyFriendActivity::class.java)
-                verifyFriendIntent.putExtra(RequestCodes.friendExtraTaskDescription, friend)
-                this.view.context.startActivity(verifyFriendIntent)
-            }
-
+        private fun verifyClicked()
+        {
+            showVerifyActivity()
         }
 
         private fun setupRowByStatus(thisFriend: Friend) {
@@ -150,6 +149,19 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
 
                 FriendStatus.Verified -> {
                     setupVerifiedRow()
+                }
+            }
+        }
+
+        private fun showVerifyActivity()
+        {
+            if (friend != null)
+            {
+                if (friend!!.status == FriendStatus.Approved || friend!!.status == FriendStatus.Verified)
+                {
+                    val verifyFriendIntent = Intent(this.view.context, VerifyFriendActivity::class.java)
+                    verifyFriendIntent.putExtra(RequestCodes.friendExtraTaskDescription, friend)
+                    this.view.context.startActivity(verifyFriendIntent)
                 }
             }
         }
@@ -181,6 +193,7 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             this.view.accept_button.visibility = View.VISIBLE
             this.view.accept_button.text = view.context.getString(R.string.button_label_invite)
             this.view.decline_button.visibility = View.VISIBLE
+            view.decline_button.text = view.context.getString(R.string.button_label_decline_invitation)
             this.view.verify_button.visibility = View.INVISIBLE
         }
 
@@ -199,7 +212,8 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             this.view.invite_button.visibility = View.INVISIBLE
             this.view.import_button.visibility = View.INVISIBLE
             this.view.accept_button.visibility = View.INVISIBLE
-            this.view.decline_button.visibility = View.INVISIBLE
+            this.view.decline_button.visibility = View.VISIBLE
+            view.decline_button.text = view.context.getString(R.string.button_label_reset)
             this.view.verify_button.visibility = View.INVISIBLE
         }
     }
