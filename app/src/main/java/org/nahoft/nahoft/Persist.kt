@@ -48,7 +48,7 @@ class Persist {
 
         fun updateFriend(context: Context, friendToUpdate: Friend, newStatus: FriendStatus, encodedPublicKey: ByteArray? = null) {
 
-            var oldFriend = friendList.find { it.name == friendToUpdate.name }
+            val oldFriend = friendList.find { it.name == friendToUpdate.name }
 
             encodedPublicKey?.let {
                 val publicKey = PublicKey(encodedPublicKey)
@@ -73,7 +73,7 @@ class Persist {
                 .apply()
         }
 
-        fun deleteKey(key:String) {
+        private fun deleteKey(key:String) {
             encryptedSharedPreferences
                 .edit()
                 .remove(key)
@@ -151,8 +151,8 @@ class Persist {
 
         fun removeFriendAt(context: Context, friend: Friend)
         {
-            var byeFriend = friendList.find { it.name == friend.name }
-            messageList.removeIf({it.sender == byeFriend})
+            val byeFriend = friendList.find { it.name == friend.name }
+            messageList.removeIf { it.sender == byeFriend }
             byeFriend?.publicKeyEncoded = null
             friendList.remove(byeFriend)
 

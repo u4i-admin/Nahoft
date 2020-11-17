@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
-import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import org.nahoft.codex.Codex

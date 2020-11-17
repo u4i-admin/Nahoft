@@ -70,7 +70,7 @@ class NewMessageActivity : AppCompatActivity() {
             return
         }
 
-        if (isImage == true) {
+        if (isImage) {
             // If the message is sent as an image
             pickImageFromGallery()
         } else {

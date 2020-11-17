@@ -11,7 +11,7 @@ import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.R
 import org.nahoft.util.RequestCodes
 
-class VerifyFriendActivity() : AppCompatActivity() {
+class VerifyFriendActivity : AppCompatActivity() {
 
     private lateinit var pendingFriend: Friend
 
@@ -41,7 +41,7 @@ class VerifyFriendActivity() : AppCompatActivity() {
         }
     }
 
-    fun setupTextViews() {
+    private fun setupTextViews() {
         // Display friend public key as security number (Uppercase and Grouped by 4s)
         friend_security_number_label.text = getString(R.string.label_verify_friend_number, pendingFriend.name)
 
@@ -54,12 +54,12 @@ class VerifyFriendActivity() : AppCompatActivity() {
         user_security_number_text.text = userPublicKeyString.chunked(4).joinToString(" ")
     }
 
-    fun verifySecurityNumber() {
+    private fun verifySecurityNumber() {
         Persist.updateFriend(this, pendingFriend, FriendStatus.Verified, pendingFriend.publicKeyEncoded)
         finish()
     }
 
-    fun rejectSecurityNumber() {
+    private fun rejectSecurityNumber() {
         Persist.updateFriend(this, pendingFriend, FriendStatus.Default)
         finish()
     }
