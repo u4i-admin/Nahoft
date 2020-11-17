@@ -227,6 +227,11 @@
     <string name="content_description_add_friend_button">Add Friend</string>
     <string name="content_description_create_message">Create Message</string>
     <string name="access_friends_content_description">Access Friends</string>
+    <string name="content_description_verify_button">Verify</string>
+    <string name="content_description_decline_button">Decline</string>
+    <string name="content_description_accept_button">Accept</string>
+    <string name="content_description_import_button">Import</string>
+    <string name="content_description_invite_button">Invite</string>
     <string name="button_label_import_invitation">Import</string>
     <string name="button_label_delete_passcode">Delete Passcode</string>
     <string name="from">From:</string>
