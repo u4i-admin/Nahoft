@@ -75,7 +75,6 @@ class EnterPasscodeActivity : AppCompatActivity () {
             // Send them to the home screen
             LoginStatus.LoggedIn, LoginStatus.NotRequired -> startActivity(Intent(this, HomeActivity::class.java))
             // Secondary passcode entered delete user data
-            // TODO: Test to see if this works
             LoginStatus.SecondaryLogin -> {
                 Persist.clearAllData()
                 startActivity(Intent(this, HomeActivity::class.java))

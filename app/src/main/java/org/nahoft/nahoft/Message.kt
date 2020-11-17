@@ -3,8 +3,6 @@ package org.nahoft.nahoft
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Root
 import java.io.Serializable
-import java.time.LocalDateTime
-import java.util.*
 
 @Root(name = "message", strict = false)
 data class Message constructor(
