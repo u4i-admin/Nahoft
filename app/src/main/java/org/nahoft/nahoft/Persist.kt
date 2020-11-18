@@ -149,6 +149,16 @@ class Persist {
             PersistenceEncryption().writeEncryptedFile(messagesFile, outputStream.toByteArray(), context)
         }
 
+        fun resetFriend(context: Context, friend: Friend)
+        {
+            messageList.removeIf { it.sender == friend }
+            friend.publicKeyEncoded = null
+            updateFriend(context, friend, FriendStatus.Default)
+
+            saveMessagesToFile(context)
+            saveFriendsToFile(context)
+        }
+
         fun removeFriendAt(context: Context, friend: Friend)
         {
             val byeFriend = friendList.find { it.name == friend.name }

@@ -1,11 +1,10 @@
 package org.nahoft.nahoft.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_verify_friend.*
-import kotlinx.android.synthetic.main.friend_recyclerview_item_row.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Friend
@@ -27,7 +26,7 @@ class VerifyFriendActivity : AppCompatActivity()
         // Get our pending friend
         val maybeFriend = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription) as? Friend
 
-        if (maybeFriend != null  && maybeFriend.publicKeyEncoded != null) {
+        if (maybeFriend?.publicKeyEncoded != null) {
             pendingFriend = maybeFriend
         } else {
             finish()
@@ -112,8 +111,7 @@ class VerifyFriendActivity : AppCompatActivity()
 
     private fun resetFriend()
     {
-        pendingFriend.publicKeyEncoded = null
-        Persist.updateFriend(this, pendingFriend, FriendStatus.Default)
+        Persist.resetFriend(this, pendingFriend)
         finish()
     }
 }
