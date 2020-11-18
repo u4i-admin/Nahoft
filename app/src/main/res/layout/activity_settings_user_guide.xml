@@ -1,21 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activities.ReceivingMessageUserGuideActivity">
+    android:background="@color/colorPrimaryDark"
+    tools:context=".activities.SettingsUserGuideActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Button
+            android:id="@+id/settings_ug_english_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_half"
+            android:text="@string/button_label_english"
+            android:backgroundTint="@color/colorWarmWhite"
+            android:textColor="@color/colorPrimaryDark"/>
+            <Button
+            android:id="@+id/settings_ug_persian_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_half"
+            android:text="@string/button_label_persian"
+            android:textColor="@color/colorPrimaryDark"
+            android:backgroundTint="@color/colorWarmWhite"/>
+        </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/settings_ug_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20sp"
-            android:scrollHorizontally="true"
-            android:text="@string/settings_user_guide"
-            android:textSize="15sp" />
+            android:padding="@dimen/padding_standard"
+            android:textSize="15sp"
+            android:isScrollContainer="true"
+            android:background="@color/colorWarmWhite"
+            android:text="@string/passcodes_user_guide_persian" />
     </ScrollView>
-</androidx.appcompat.widget.LinearLayoutCompat>
+
+    </LinearLayout>
+
+</RelativeLayout>

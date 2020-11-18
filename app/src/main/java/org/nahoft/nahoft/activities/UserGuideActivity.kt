@@ -28,7 +28,7 @@ class UserGuideActivity : AppCompatActivity() {
         }
 
         importing_user_guide.setOnClickListener {
-            val intent = Intent(this, ReceivingMessageUserGuideActivity::class.java)
+            val intent = Intent(this, ImportingUserGuideActivity::class.java)
             startActivity(intent)
         }
     }

@@ -62,7 +62,7 @@
             android:name=".activities.NewMessageActivity"
             android:label="@string/compose_message_screen_name" />
         <activity
-            android:name=".activities.ReceivingMessageUserGuideActivity"
+            android:name=".activities.ImportingUserGuideActivity"
             android:label="@string/imports_user_guide_screen_name" />
         <activity
             android:name=".activities.SettingsUserGuideActivity"

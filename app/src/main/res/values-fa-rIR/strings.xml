@@ -137,7 +137,8 @@
     <string name="alert_text_secondary_passcode_and_passcode_may_not_match">ورودی های رمز عبور ثانویه و اولیه نباید مطابقت داشته باشند.</string>
 
     <!-- Friends User Guide -->
-    <string name="friends_user_guide_english">ADDING FRIENDS\n
+    <string name="friends_user_guide_english">
+        ADDING FRIENDS\n
         \n- Tap the Friends icon on the home page.\n
         \n- Press the + icon at the bottom of the Friends screen to add a friend.\n
         \n- Type the name of the friend you want to add and tap save.\n
@@ -177,17 +178,42 @@
     </string>
 
     <!-- Messages User Guide -->
-    <string name="sending_messages_user_guide">\n ارسال پیام ها \n
+    <string name="sending_messages_user_guide_english">
+        SENDING MESSAGES\n
+    \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.
+    The encrypted message will be transformed into your choice of either a text message or an image in order to hide the fact that it is encrypted.\n
+    \n- You can only send messages to \'verified\' friends.\n
+    \n- Tap messages on the home screen.\n
+    \n- Tap the pencil icon in the bottom corner of the Messages screen.\n
+    \n- Tap \'Select Recipient\' to choose the friend you would like to send a message to.\n
+    \n- Write your message in the window that says \'Enter Message Here\'.\n
+    \n- Tap send as text to encrypt your message and transform it into a different series of characters.\n
+    \n- Tap send as Image to encrypt your message and embed it in the image you select.\n
+    \n- Once you have made your selection, you will be prompted to share the image or text, here you can select your preferred messaging app, or save it to your clipboard.\n\n</string>
+
+    <string name="sending_messages_user_guide_persian">
+        \n ارسال پیام ها \n
      \n روی پیامهای صفحه اصلی ضربه بزنید. \n
      \n روی نماد مداد در گوشه پایین صفحه پیام ها ضربه بزنید. \n
      \n برای انتخاب دوستی که می خواهید برای او پیام ارسال کنید ، روی \ "گیرنده را انتخاب کنید \" ضربه بزنید. \n
      \n پیام خود را در پنجره ای بنویسید که \ "پیام را اینجا وارد کنید \" را بنویسید. \n
      \n برای رمزگذاری پیام و ارسال آن به یک سری دیگر از نویسه ها ، روی ارسال به عنوان متن ضربه بزنید. \n
      \n برای رمزگذاری پیام خود روی ارسال به عنوان تصویر ضربه بزنید و آن را در تصویری که انتخاب می کنید جاسازی کنید. \n
-     \n هنگامی که انتخاب خود را انجام دادید ، از شما خواسته می شود تصویر یا متن را به اشتراک بگذارید ، در اینجا می توانید برنامه پیام رسانی مورد نظر خود را انتخاب کنید یا آن را در کلیپ بورد خود ذخیره کنید. \n\n</string>
+     \n هنگامی که انتخاب خود را انجام دادید ، از شما خواسته می شود تصویر یا متن را به اشتراک بگذارید ، در اینجا می توانید برنامه پیام رسانی مورد نظر خود را انتخاب کنید یا آن را در کلیپ بورد خود ذخیره کنید. \n\n
+    </string>
 
     <!-- Passcode User Guide -->
-    <string name="settings_user_guide">\n روی نماد تنظیمات کلیک کنید. \n
+    <string name="passcodes_user_guide_english">
+        SETTING PASSCODES\n
+        \n- Tap the settings icon.\n
+        \n- Tap the passcode icon.\n
+        \n- Move the toggle switch to allow the user to require a passcode.\n
+        \n- The first two passcode lines set the passcode to gain entry into the app.\n
+        \n- The last two secondary passcode lines set the secondary passcode that exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.\n
+        \n- Hit save to keep all changes.\n\n</string>
+
+    <string name="passcodes_user_guide_persian">
+        \n روی نماد تنظیمات کلیک کنید. \n
      \n روی نماد رمز عبور کلیک کنید. \n
      \n سوئیچ ضامن را حرکت دهید تا به کاربر اجازه دهید تا رمز عبور داشته باشد. \n
      \n دو خط رمز عبور اول ، کد عبور را تنظیم می کند تا وارد برنامه شود. \n
@@ -195,7 +221,8 @@
      \n برای حفظ همه تغییرات ، ذخیره را بزنید. \n\n</string>
 
     <!-- Importing User Guide -->
-    <string name="imports_user_guide_english">IMPORTING MESSAGES\n
+    <string name="importing_user_guide_english">
+        IMPORTING MESSAGES\n
         \n- You can import your messages using this screen. It is also possible to share received messages directly to the Nahoft app if the app where you received the message allows it.\n
         \n- When you receive a coded text message you can copy the text and paste it in the import screen with a long press.\n
         \n- Tap \'Import Text\', and select the sender when prompted.\n
@@ -203,7 +230,7 @@
         \n- If the message is successfully imported, you will see the original text.\n\n
      </string>
 
-    <string name="imports_user_guide_persian">
+    <string name="importing_user_guide_persian">
         \n وارد کردن پیام ها \n
      \n هنگامی که پیام متنی رمزگذاری شده دریافت می کنید می توانید متن را کپی کرده و با فشار دادن طولانی در صفحه واردات جایگذاری کنید. \n
      \n بر روی "وارد کردن متن" ضربه بزنید ، و در صورت درخواست فرستنده را انتخاب کنید. \n
@@ -230,8 +257,8 @@
     <string name="alert_title_confirm_delete">تایید حذف</string>
     <string name="alert_text_confirm_delete">آیا مطمئن هستید که می خواهید این را حذف کنید؟</string>
     <string name="button_label_delete">حذف</string>
-    <string name="button_label_english">English</string>
-    <string name="button_label_persian">Persian</string>
+    <string name="button_label_english">انگلیسی</string>
+    <string name="button_label_persian">فارسی</string>
 
 
 </resources>
