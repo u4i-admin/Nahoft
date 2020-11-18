@@ -25,7 +25,8 @@ public class SodiumWrapper
                 messageBytes,
                 messageBytes.length,
                 nonce,
-                receiverPublicKey, senderPrivateKey);
+                receiverPublicKey,
+                senderPrivateKey);
 
         // Return nonce + cipher text
         byte[] fullMessage = new byte[SodiumConstants.NONCE_BYTES + cipherText.length];

@@ -1,16 +1,13 @@
 package org.nahoft.codex
 
 import android.content.Context
-import org.libsodium.jni.Sodium
 import org.libsodium.jni.SodiumConstants
 import org.libsodium.jni.crypto.Random
 import org.libsodium.jni.keys.KeyPair
 import org.libsodium.jni.keys.PrivateKey
 import org.libsodium.jni.keys.PublicKey
-import org.libsodium.jni.crypto.Box
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.Persist.Companion.publicKeyPreferencesKey
-import java.lang.Exception
 
 // Note: The AndroidKeystore does not support ECDH key agreement between EC keys.
 // The secure enclave does not appear to support EC keys at all, at this time.
@@ -77,23 +74,25 @@ class Encryption(val context: Context) {
             friendPublicKey.toBytes(),
             privateKey.toBytes())
 
-        return result
+        return if (result.size <= nonce.size) {
+            null
+        } else {
+            result
+        }
     }
 
-    fun decrypt(friendPublicKey: PublicKey, ciphertext: ByteArray): String? {
+    fun decrypt(friendPublicKey: PublicKey, ciphertext: ByteArray): String?
+    {
         val keypair = ensureKeysExist()
         val result = SodiumWrapper().decrypt(ciphertext, friendPublicKey.toBytes(), keypair.privateKey.toBytes())
 
-        return String(result)
-    }
-
-    fun getBox(friendPublicKey: PublicKey): Box {
-        // Perform key agreement
-        val keypair = ensureKeysExist()
-
-        return Box(friendPublicKey, keypair.privateKey)
+        return if (result.size <= SodiumConstants.NONCE_BYTES) {
+            null
+        } else {
+            String(result)
+        }
     }
 }
 
 class Keys(val privateKey: PrivateKey, val publicKey: PublicKey)
-class DerivedKeys(val encryptKey: ByteArray, val decryptKey: ByteArray)
+//class DerivedKeys(val encryptKey: ByteArray, val decryptKey: ByteArray)

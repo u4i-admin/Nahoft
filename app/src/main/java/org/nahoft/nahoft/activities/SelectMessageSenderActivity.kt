@@ -15,7 +15,7 @@ class SelectMessageSenderActivity : AppCompatActivity() {
     private lateinit var adapter: SelectMessageSenderRecyclerAdapter
 
     companion object {
-        fun newIntent(context: Context) = Intent(context, SelectKeySenderActivity::class.java)
+        fun newIntent(context: Context) = Intent(context, SelectMessageSenderActivity::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
