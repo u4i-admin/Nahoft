@@ -38,7 +38,7 @@ class ImportImageTextActivity : AppCompatActivity() {
         val messageText = import_message_text_view.text.toString()
         if (messageText.isNotEmpty()) {
 
-            if (messageText.length > 1000)
+            if (messageText.length > import_message_text_layout.counterMaxLength)
             {
                 showAlert(getString(R.string.alert_text_message_too_long))
                 return

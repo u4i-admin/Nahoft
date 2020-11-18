@@ -19,6 +19,7 @@
             android:id="@+id/friend_button"
             android:drawableEnd="@drawable/ic_person_24px"
             android:drawablePadding="@dimen/padding_half"
+            android:padding="@dimen/padding_half"
             android:drawableTint="@color/colorPrimaryDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,11 +30,18 @@
             android:textColor="@color/colorPrimaryDark" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/compose_message_text_layout"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="260dp"
+            android:layout_margin="@dimen/padding_standard"
             app:counterEnabled="true"
+            app:counterMaxLength="1000"
             app:counterTextColor="@color/colorAccent"
-            app:counterMaxLength="1000">
+            app:endIconMode="clear_text"
+            app:errorEnabled="true"
+            app:boxBackgroundMode="outline"
+            app:hintEnabled="false"
+            >
             <com.google.android.material.textfield.TextInputEditText
                 app:textInputLayoutFocusedRectEnabled="true"
                 android:id="@+id/editMessageText"

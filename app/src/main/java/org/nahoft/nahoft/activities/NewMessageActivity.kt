@@ -59,9 +59,10 @@ class NewMessageActivity : AppCompatActivity() {
             return
         }
 
-        if (message.length > 1000)
+        if (message.length > compose_message_text_layout.counterMaxLength)
         {
             showAlert(getString(R.string.alert_text_message_too_long))
+            return
         }
 
         // Make sure there is a friend to create the message for.
