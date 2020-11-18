@@ -259,6 +259,10 @@
     <string name="button_label_delete">حذف</string>
     <string name="button_label_english">انگلیسی</string>
     <string name="button_label_persian">فارسی</string>
+    <string name="alert_text_confirm_friend_delete">\"Are you sure you want to delete this contact? This will also delete all messages received from them.\"</string>
+    <string name="alert_title_confirm_friend_reset">Reset this friend?</string>
+    <string name="alert_text_confirm_friend_reset">Any messages you have received from this friend will be deleted.</string>
+    <string name="button_label_cancel">Cancel</string>
 
 
 </resources>

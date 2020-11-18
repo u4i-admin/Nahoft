@@ -209,8 +209,7 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             this.view.invite_button.visibility = View.INVISIBLE
             this.view.import_button.visibility = View.INVISIBLE
             this.view.accept_button.visibility = View.INVISIBLE
-            this.view.decline_button.visibility = View.VISIBLE
-            view.decline_button.text = view.context.getString(R.string.button_label_reset)
+            this.view.decline_button.visibility = View.INVISIBLE
             this.view.verify_button.visibility = View.INVISIBLE
         }
     }

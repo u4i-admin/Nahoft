@@ -7,13 +7,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import org.nahoft.nahoft.FriendsRecyclerAdapter
 import org.nahoft.nahoft.R
 
 class ItemTouchHelperCallback(private val listener: ItemTouchHelperListener, private val context: Context) : ItemTouchHelper.Callback() {
 
     override fun isLongPressDragEnabled()= false
     override fun isItemViewSwipeEnabled() = true
-
 
     private val background = ColorDrawable()
     private val backgroundColor = Color.parseColor("#f44336")
@@ -31,19 +31,26 @@ class ItemTouchHelperCallback(private val listener: ItemTouchHelperListener, pri
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
-    ): Boolean {
+    ): Boolean
+    {
         return false
     }
 
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int)
+    {
+        var confirmationMessage = context.getString(R.string.alert_text_confirm_delete)
+        if (viewHolder is FriendsRecyclerAdapter.FriendViewHolder)
+        {
+            confirmationMessage = context.getString(R.string.alert_text_confirm_friend_delete)
+        }
         val alertBuilder = AlertDialog.Builder(viewHolder.itemView.context)
             .setTitle(context.getString(R.string.alert_title_confirm_delete))
-            .setMessage(context.getString(R.string.alert_text_confirm_delete))
-            .setPositiveButton(R.string.button_label_delete){
-                    dialog, id -> listener.onItemDismiss(viewHolder, viewHolder.adapterPosition)
+            .setMessage(confirmationMessage)
+            .setPositiveButton(R.string.button_label_delete){ _, _ ->
+                listener.onItemDismiss(viewHolder, viewHolder.adapterPosition)
             }
-            .setNegativeButton("Cancel"){
-                    dialog, id -> listener.onCancel(viewHolder.adapterPosition)
+            .setNegativeButton(R.string.button_label_cancel){  _, _ ->
+                listener.onCancel(viewHolder.adapterPosition)
             }
 
         val deleteAlert = alertBuilder.create()

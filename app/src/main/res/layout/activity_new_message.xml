@@ -19,7 +19,6 @@
             android:id="@+id/friend_button"
             android:drawableEnd="@drawable/ic_person_24px"
             android:drawablePadding="@dimen/padding_half"
-            android:paddingHorizontal="@dimen/padding_half"
             android:drawableTint="@color/colorPrimaryDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

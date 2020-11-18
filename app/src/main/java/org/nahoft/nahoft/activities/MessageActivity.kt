@@ -44,6 +44,7 @@ class MessageActivity : AppCompatActivity() {
 
         deleteButton.setOnClickListener{
             deleteMessage(this, message)
+            finish()
         }
 
     }

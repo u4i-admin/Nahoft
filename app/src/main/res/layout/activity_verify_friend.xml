@@ -1,101 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.nahoft.nahoft.activities.VerifyFriendActivity">
 
-    <TextView
-        android:id="@+id/verify_friend_explainer_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/label_verify_friend_explainer"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <TextView
+            android:id="@+id/verify_friend_explainer_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_standard"
+            android:text="@string/label_verify_friend_explainer"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorPrimaryDark" />
 
-    <TextView
-        android:id="@+id/friend_security_number_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/label_verify_friend_number"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/verify_friend_explainer_text" />
+        <TextView
+            android:id="@+id/friend_security_number_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/padding_standard"
+            android:text="@string/label_verify_friend_number"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/friend_security_number_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:autoSizeTextType="uniform"
-        android:textSize="18sp"
-        android:typeface="monospace"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friend_security_number_label" />
+        <TextView
+            android:id="@+id/friend_security_number_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_standard"
+            android:autoSizeTextType="uniform"
+            android:textSize="18sp"
+            android:typeface="monospace" />
 
-    <TextView
-        android:id="@+id/user_security_number_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/label_verify_friend_user_number"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friend_security_number_text" />
+        <TextView
+            android:id="@+id/user_security_number_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="@dimen/padding_standard"
+            android:text="@string/label_verify_friend_user_number"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/user_security_number_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:autoSizeTextType="uniform"
-        android:textSize="18sp"
-        android:typeface="monospace"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_security_number_label" />
+        <TextView
+            android:id="@+id/user_security_number_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_standard"
+            android:autoSizeTextType="uniform"
+            android:textSize="18sp"
+            android:typeface="monospace" />
 
-    <Button
-        android:id="@+id/accept_verification_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:text="@string/button_label_verify_friend_accept"
-        android:textColor="@color/colorWarmWhite"
-        app:layout_constraintEnd_toStartOf="@+id/reject_verification_button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_security_number_text" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
 
-    <Button
-        android:id="@+id/reject_verification_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:text="@string/button_label_verify_friend_reject"
-        android:textColor="@color/colorWarmWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/accept_verification_button"
-        app:layout_constraintTop_toBottomOf="@+id/user_security_number_text" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/accept_verification_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="@string/button_label_verify_friend_accept"
+                android:textColor="@color/colorWarmWhite" />
+
+            <Button
+                android:id="@+id/reject_verification_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="@string/button_label_verify_friend_reject"
+                android:textColor="@color/colorWarmWhite" />
+
+            <Button
+                android:id="@+id/reset_friend_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="@string/button_label_reset"
+                android:textColor="@color/colorWarmWhite" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</RelativeLayout>
