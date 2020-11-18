@@ -1,6 +1,7 @@
 package org.nahoft.codex
 
 import android.content.Context
+import org.libsodium.jni.Sodium
 import org.libsodium.jni.SodiumConstants
 import org.libsodium.jni.crypto.Random
 import org.libsodium.jni.keys.KeyPair
@@ -61,44 +62,29 @@ class Encryption(val context: Context) {
         return loadKeypair() ?: generateKeypair()
     }
 
-    fun encrypt(encodedPublicKey: ByteArray, plaintext: String): ByteArray? {
+    fun encrypt(encodedPublicKey: ByteArray, plaintext: String): ByteArray?
+    {
+        val plaintTextBytes = plaintext.encodeToByteArray()
+        val nonce = Random().randomBytes(SodiumConstants.NONCE_BYTES)
         val friendPublicKey = PublicKey(encodedPublicKey)
-        val keypair = ensureKeysExist()
+        val privateKey = ensureKeysExist().privateKey
 
-        if (friendPublicKey != null) {
-            val box = Box(friendPublicKey, keypair.privateKey)
+        // Uses XSalsa20Poly1305
+        // Returns nonce + ciphertext
+        val result = SodiumWrapper().encrypt(
+            plaintTextBytes,
+            nonce,
+            friendPublicKey.toBytes(),
+            privateKey.toBytes())
 
-            // TODO: Real Nonce
-            if (box != null) {
-                val nonce = Random().randomBytes(SodiumConstants.NONCE_BYTES)
-                val ciphertext = box.encrypt(nonce, plaintext.toByteArray())
-
-                return nonce + ciphertext
-            }
-        } else {
-            print("Failed to encrypt a message, Friend's public key could not be decoded.")
-            return null
-        }
-
-        return null
+        return result
     }
 
     fun decrypt(friendPublicKey: PublicKey, ciphertext: ByteArray): String? {
         val keypair = ensureKeysExist()
-        val box = Box(friendPublicKey, keypair.privateKey)
+        val result = SodiumWrapper().decrypt(ciphertext, friendPublicKey.toBytes(), keypair.privateKey.toBytes())
 
-        if (box != null && ciphertext.size > SodiumConstants.NONCE_BYTES) {
-            val nonce = ciphertext.slice(0..SodiumConstants.NONCE_BYTES-1).toByteArray()
-            val payload = ciphertext.slice(SodiumConstants.NONCE_BYTES..ciphertext.lastIndex).toByteArray()
-
-            try {
-                return String(box.decrypt(nonce, payload))
-            } catch (error: Exception) {
-                return null
-            }
-        }
-
-        return null
+        return String(result)
     }
 
     fun getBox(friendPublicKey: PublicKey): Box {

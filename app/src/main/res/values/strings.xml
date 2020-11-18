@@ -137,7 +137,7 @@
     <string name="error_loading_image_message">Error loading image.</string>
 
     <!-- Friends User Guide -->
-    <string name="friends_user_guide">ADDING FRIENDS\n
+    <string name="friends_user_guide_english">ADDING FRIENDS\n
         \n- Tap the Friends icon on the home page.\n
         \n- Press the + icon at the bottom of the Friends screen to add a friend.\n
         \n- Type the name of the friend you want to add and tap save.\n
@@ -154,7 +154,10 @@
         \n- Contact your Friend outside of the app you normally use to confirm your numbers on the verification screen match.\n
         \n- If the numbers on the verification screen match, tap accept. If not, tap reject.\n
         \n- To delete a friend swipe the friends name to the right or left.\n\n
-     \n افزودن دوستان \n
+     </string>
+
+    <string name="friends_user_guide_persian">
+        \n افزودن دوستان \n
      \n روی نماد دوستان در صفحه اصلی ضربه بزنید. \n
      \n برای اضافه کردن یک دوست ، نماد + را در پایین صفحه دوستان فشار دهید. \n
      \n نام دوستی را که می خواهید اضافه کنید تایپ کنید و روی ذخیره ضربه بزنید. \n
@@ -170,10 +173,13 @@
      \n به صفحه دوستان برگردید و دکمه تأیید را در کنار دوستی که دعوت نامه را از آن دریافت کرده اید ، انتخاب کنید. \n
      \n در خارج از برنامه ای که معمولاً برای تأیید شماره های خود در صفحه تأیید صحت استفاده می کنید ، با دوست خود تماس بگیرید. \n
      \n اگر شماره های صفحه تأیید مطابقت دارند ، روی «قبول» ضربه بزنید. در غیر این صورت ، روی رد ضربه بزنید. \n
-     \n برای حذف یک دوست ، نام دوستان را به سمت راست یا چپ بکشید. \n</string>
+     \n برای حذف یک دوست ، نام دوستان را به سمت راست یا چپ بکشید. \n
+    </string>
 
     <!-- Messages User Guide -->
     <string name="sending_messages_user_guide">SENDING MESSAGES\n
+        \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.
+        The encrypted message will be transformed into your choice of either a text message or an image in order to hide the fact that it is encrypted.\n
         \n- You can only send messages to \'verified\' friends.\n
         \n- Tap messages on the home screen.\n
         \n- Tap the pencil icon in the bottom corner of the Messages screen.\n
@@ -194,8 +200,8 @@
 
     <!-- Passcode User Guide -->
     <string name="settings_user_guide">SETTING PASSCODES\n
-        \n- Click the settings icon.\n
-        \n- Click the passcode icon.\n
+        \n- Tap the settings icon.\n
+        \n- Tap the passcode icon.\n
         \n- Move the toggle switch to allow the user to require a passcode.\n
         \n- The first two passcode lines set the passcode to gain entry into the app.\n
         \n- The last two secondary passcode lines set the secondary passcode that exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.\n
@@ -208,17 +214,21 @@
      \n برای حفظ همه تغییرات ، ذخیره را بزنید. \n\n</string>
 
     <!-- Imports User Guide -->
-    <string name="imports_user_guide">IMPORTING MESSAGES\n
+    <string name="imports_user_guide_english">IMPORTING MESSAGES\n
         \n- You can import your messages using this screen. It is also possible to share received messages directly to the Nahoft app if the app where you received the message allows it.\n
         \n- When you receive a coded text message you can copy the text and paste it in the import screen with a long press.\n
         \n- Tap \'Import Text\', and select the sender when prompted.\n
         \n- If you have received an image, tap \'Import Image\', select the image when propmpted, and the sender when prompted.\n
         \n- If the message is successfully imported, you will see the original text.\n\n
-     \n وارد کردن پیام ها \n
+     </string>
+
+    <string name="imports_user_guide_persian">
+        \n وارد کردن پیام ها \n
      \n هنگامی که پیام متنی رمزگذاری شده دریافت می کنید می توانید متن را کپی کرده و با فشار دادن طولانی در صفحه واردات جایگذاری کنید. \n
      \n بر روی "وارد کردن متن" ضربه بزنید ، و در صورت درخواست فرستنده را انتخاب کنید. \n
      \n اگر تصویری دریافت کرده اید ، بر روی "وارد کردن تصویر" ضربه بزنید ، تصویر را هنگامی که از روی صفحه نمایش کشیده شده است و فرستنده را از شما درخواست کنید. \n
-     \n اگر پیام با موفقیت وارد شود ، متن اصلی را مشاهده خواهید کرد. \n\n</string>
+     \n اگر پیام با موفقیت وارد شود ، متن اصلی را مشاهده خواهید کرد. \n\n
+    </string>
 
     <string name="or_label">- or -</string>
 
@@ -240,5 +250,7 @@
     <string name="alert_text_confirm_delete">Are you sure you want to delete this?</string>
     <string name="button_label_delete">delete</string>
     <string name="button_label_reset">Reset</string>
+    <string name="button_label_english">English</string>
+    <string name="button_label_persian">Persian</string>
 
 </resources>
