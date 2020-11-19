@@ -14,13 +14,9 @@
     <string name="settings_screen_name">رمز عبور</string>
     <string name="user_guides_screen_name">راهنمای استفاده</string>
     <string name="messages_screen_name">پیام ها</string>
-    <string name="home_screen_name">خانه</string>
-
 
     <!-- Enter Passcode Activity Strings -->
-    <string name="Passcode">رمز عبور</string>
     <string name="Login">رمز عبور</string>
-    <string name="alert_text_logged_in">رمز عبور</string>
 
     <!-- Home Activity Strings -->
     <string name="button_label_friends">دوستان</string>
@@ -49,30 +45,12 @@
     <!-- New Messages Activity Alerts -->
     <string name="alert_text_verified_friends_only">دوستان</string>
     <string name="alert_text_select_friend_to_send_message">دوستان</string>
-    <string name="choose_friend_button_icon">دوست را انتخاب کنید</string>
     <string name="alert_text_write_a_message_to_send">برای ارسال پیام بنویسید</string>
 
     <!-- Settings Activity -->
-    <string name="activity_title_settings">تنظیم زبان</string>
-    <string name="button_label_set_language">تنظیم زبان</string>
     <string name="button_label_passcode">رمز عبور</string>
-    <string name="button_label_application_shortcut">میانبر برنامه</string>
-
-    <!-- Set Language Activity -->
-    <string name="activity_title_set_language">تنظیم زبان</string>
-
-    <!-- Set Language Activity Array and Toast Texts -->
-    <string name="spinnerTitleSetLanguage">دوستان</string>
-    <string name="spinnerSelectionDefaultLanguage">دوستان</string>
-    <string name="spinnerSelectionEnglish">دوستان</string>
-    <string name="spinnerSelectionPersian">دوستان</string>
-    <string name="alert_text_language_already_selected">دوستان</string>
 
     <!-- User Guide Activity -->
-    <string name="activity_title_user_guide">راهنمای کاربر</string>
-    <string name="button_label_friends_user_guide">راهنمای کاربر دوستان</string>
-    <string name="button_label_sending_messages_user_guide">ارسال پیام راهنمای کاربر</string>
-    <string name="button_label_setting_passcodes">تنظیمات راهنمای کاربر</string>
     <string name="button_label_importing">دریافت پیام های راهنمای کاربر</string>
 
     <!-- Passcode Activity -->
@@ -83,10 +61,7 @@
     <string name="secondary_passcode_definition">رمز عبور ثانویه تمام داده های حساس را حذف می کند</string>
     <string name="enter_secondary_passcode_hint">دوستان</string>
     <string name="verify_secondary_passcode_hint">دوستان</string>
-    <string name="passcode_enabled">دوستان</string>
     <string name="button_label_save_passcode">دوستان</string>
-    <string name="passcode_disabled_label">دوستان</string>
-    <string name="enter_passcode_screen">کمه صفحه رمز عبور را وارد کنید</string>
 
     <!-- Passcode Activity Strings Located in Kotlin File Toast Texts -->
     <string name="alert_text_passcode_field_empty">دوستان</string>
@@ -259,10 +234,10 @@
     <string name="button_label_delete">حذف</string>
     <string name="button_label_english">انگلیسی</string>
     <string name="button_label_persian">فارسی</string>
-    <string name="alert_text_confirm_friend_delete">\"Are you sure you want to delete this contact? This will also delete all messages received from them.\"</string>
-    <string name="alert_title_confirm_friend_reset">Reset this friend?</string>
-    <string name="alert_text_confirm_friend_reset">Any messages you have received from this friend will be deleted.</string>
-    <string name="button_label_cancel">Cancel</string>
+    <string name="alert_text_confirm_friend_delete">\ "آیا مطمئن هستید که می خواهید این مخاطب را حذف کنید؟ با این کار همه پیام های دریافتی از آنها نیز حذف می شوند."</string>
+    <string name="alert_title_confirm_friend_reset">این دوست ریست شود؟</string>
+    <string name="alert_text_confirm_friend_reset">هر پیامی که از این دوست دریافت کرده اید حذف خواهد شد.</string>
+    <string name="button_label_cancel">لغو</string>
 
 
 </resources>
