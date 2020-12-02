@@ -20,7 +20,9 @@ class Persist {
         val sharedPrefLoginStatusKey = "NahoftLoginStatus"
         val sharedPrefPasscodeKey = "NahoftPasscode"
         val sharedPrefSecondaryPasscodeKey = "NahoftSecondaryPasscode"
+
         val sharedPrefFilename = "NahoftEncryptedPreferences"
+
         val sharedPrefKeyGenParameterSpec = MasterKeys.AES256_GCM_SPEC
         val masterKeyAlias = MasterKeys.getOrCreate(sharedPrefKeyGenParameterSpec)
 
@@ -66,6 +68,7 @@ class Persist {
             saveFriendsToFile(context)
         }
 
+        // Save something to Encrypted Shared Preferences
         fun saveKey(key:String, value:String) {
             encryptedSharedPreferences
                 .edit()
@@ -73,6 +76,7 @@ class Persist {
                 .apply()
         }
 
+        // Remove something from Encrypted Shared Preferences
         private fun deleteKey(key:String) {
             encryptedSharedPreferences
                 .edit()
@@ -130,7 +134,8 @@ class Persist {
             val outputStream = ByteArrayOutputStream()
             val friendsObject = Friends(friendList)
 
-            try { serializer.write(friendsObject, outputStream) } catch (error: Exception) {
+            try { serializer.write(friendsObject, outputStream) }
+            catch (error: Exception) {
                 print("Failed to serialize our friends list: $error")
             }
 
@@ -141,7 +146,8 @@ class Persist {
             val serializer = Persister()
             val outputStream = ByteArrayOutputStream()
             val messagesObject = Messages(messageList)
-            try { serializer.write(messagesObject, outputStream) } catch (error: Exception) {
+            try { serializer.write(messagesObject, outputStream) }
+            catch (error: Exception) {
                 print("Failed to serialize our messages list: $error")
                 return
             }
