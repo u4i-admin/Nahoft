@@ -49,26 +49,29 @@ class MessageActivity : AppCompatActivity() {
 
     }
 
-    private fun loadMessageContent() {
-
+    private fun loadMessageContent()
+    {
         message_sender_text_view.text = getString(R.string.sender_label, message.sender?.name)
 
         val senderKeyBytes = message.sender?.publicKeyEncoded
 
-        if (senderKeyBytes != null) {
+        if (senderKeyBytes != null)
+        {
             val senderKey = PublicKey(senderKeyBytes)
-            val plaintext = Encryption(this).decrypt(senderKey, message.cipherText)
 
-            if (plaintext != null) {
+            try {
+                val plaintext = Encryption(this).decrypt(senderKey, message.cipherText)
                 message_body_text_view.text = plaintext
-            } else {
+            } catch (exception: SecurityException) {
                 applicationContext.showAlert(getString(R.string.alert_text_unable_to_decrypt_message))
                 deleteMessage(this, message)
                 finish()
             }
 
-        } else {
-            print("Failed to get sender public key for a message")
+        }
+        else
+        {
+            applicationContext.showAlert(getString(R.string.alert_text_unable_to_decrypt_message))
             return
         }
     }
