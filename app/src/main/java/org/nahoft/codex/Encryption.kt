@@ -86,11 +86,11 @@ class Encryption(val context: Context) {
         val keypair = ensureKeysExist()
         val result = SodiumWrapper().decrypt(ciphertext, friendPublicKey.toBytes(), keypair.privateKey.toBytes())
 
-        return if (result.size <= SodiumConstants.NONCE_BYTES) {
-            null
-        } else {
-            String(result)
-        }
+        return if (result.isEmpty()) {
+           null
+       } else {
+           String(result)
+       }
     }
 }
 
