@@ -59,40 +59,46 @@ class Encryption(val context: Context) {
         return loadKeypair() ?: generateKeypair()
     }
 
-    fun encrypt(encodedPublicKey: ByteArray, plaintext: String): ByteArray?
+    @Throws(SecurityException::class)
+    fun encrypt(encodedPublicKey: ByteArray, plaintext: String): ByteArray
     {
         val plaintTextBytes = plaintext.encodeToByteArray()
         val nonce = Random().randomBytes(SodiumConstants.NONCE_BYTES)
         val friendPublicKey = PublicKey(encodedPublicKey)
         val privateKey = ensureKeysExist().privateKey
 
-        // Uses XSalsa20Poly1305
-        // Returns nonce + ciphertext
-        val result = SodiumWrapper().encrypt(
-            plaintTextBytes,
-            nonce,
-            friendPublicKey.toBytes(),
-            privateKey.toBytes())
+        try {
+            // Uses XSalsa20Poly1305
+            // Returns nonce + ciphertext
+            val result = SodiumWrapper().encrypt(
+                plaintTextBytes,
+                nonce,
+                friendPublicKey.toBytes(),
+                privateKey.toBytes())
 
-        return if (result.size <= nonce.size) {
-            null
-        } else {
-            result
+            if (result.size <= nonce.size) {
+                throw SecurityException("Failed to encrypt the message.")
+            } else {
+                return result
+            }
+
+        } catch (exception: SecurityException) {
+            throw exception
         }
     }
 
-    fun decrypt(friendPublicKey: PublicKey, ciphertext: ByteArray): String?
+    @Throws(SecurityException::class)
+    fun decrypt(friendPublicKey: PublicKey, ciphertext: ByteArray): String
     {
         val keypair = ensureKeysExist()
-        val result = SodiumWrapper().decrypt(ciphertext, friendPublicKey.toBytes(), keypair.privateKey.toBytes())
 
-        return if (result.isEmpty()) {
-           null
-       } else {
-           String(result)
-       }
+        try {
+            val result = SodiumWrapper().decrypt(ciphertext, friendPublicKey.toBytes(), keypair.privateKey.toBytes())
+            return String(result)
+        } catch (exception: SecurityException) {
+            throw exception
+        }
     }
 }
 
 class Keys(val privateKey: PrivateKey, val publicKey: PublicKey)
-//class DerivedKeys(val encryptKey: ByteArray, val decryptKey: ByteArray)

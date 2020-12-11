@@ -12,15 +12,14 @@ public class SodiumWrapper
         NaCl.sodium(); // required to load the native C library
     }
 
-    public byte[] encrypt(byte[] messageBytes, byte[] nonce, byte[] receiverPublicKey, byte[] senderPrivateKey)
+    public byte[] encrypt(byte[] messageBytes, byte[] nonce, byte[] receiverPublicKey, byte[] senderPrivateKey) throws SecurityException
     {
-
         // cipherText should be at least crypto_box_MACBYTES + messageBytes.length bytes long
         byte[] cipherText = new byte[Sodium.crypto_box_macbytes() + messageBytes.length];
 
         //This function writes the authentication tag, whose length is crypto_box_MACBYTES bytes, in cipherText,
         // immediately followed by the encrypted message, whose length is the same as the messageBytes
-        Sodium.crypto_box_easy(
+        int result = Sodium.crypto_box_easy(
                 cipherText,
                 messageBytes,
                 messageBytes.length,
@@ -28,15 +27,19 @@ public class SodiumWrapper
                 receiverPublicKey,
                 senderPrivateKey);
 
-        // Return nonce + cipher text
-        byte[] fullMessage = new byte[SodiumConstants.NONCE_BYTES + cipherText.length];
-        System.arraycopy(nonce, 0, fullMessage, 0, nonce.length);
-        System.arraycopy(cipherText, 0, fullMessage, nonce.length, cipherText.length);
+        if (result != 0 ) {
+            throw new SecurityException("Failed to encrypt the message.");
+        } else {
+            // Return nonce + cipher text
+            byte[] fullMessage = new byte[SodiumConstants.NONCE_BYTES + cipherText.length];
+            System.arraycopy(nonce, 0, fullMessage, 0, nonce.length);
+            System.arraycopy(cipherText, 0, fullMessage, nonce.length, cipherText.length);
 
-        return fullMessage;
+            return fullMessage;
+        }
     }
 
-    public byte[] decrypt(byte[] encryptedBytes, byte[] senderPublicKey, byte[] receiverPrivateKey)
+    public byte[] decrypt(byte[] encryptedBytes, byte[] senderPublicKey, byte[] receiverPrivateKey) throws SecurityException
     {
         // Get the nonce from the encrypted bytes
         byte[] nonce = new byte[SodiumConstants.NONCE_BYTES];
@@ -49,8 +52,8 @@ public class SodiumWrapper
         // container for the decrypt results
         byte[] decryptedMessageBytes = new byte[(int) (cipherText.length - Sodium.crypto_box_macbytes())];
 
-
-        Sodium.crypto_box_open_easy(
+        // The function returns -1 if the verification fails, and 0 on success.
+        int result = Sodium.crypto_box_open_easy(
                 decryptedMessageBytes,
                 cipherText,
                 cipherText.length,
@@ -58,6 +61,10 @@ public class SodiumWrapper
                 senderPublicKey,
                 receiverPrivateKey
         );
+
+        if (result != 0 ) {
+            throw new SecurityException("Failed to decrypt the message.");
+        }
 
         return decryptedMessageBytes;
     }
