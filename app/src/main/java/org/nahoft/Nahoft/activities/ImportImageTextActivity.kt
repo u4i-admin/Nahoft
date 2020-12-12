@@ -5,12 +5,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_import_image_text.*
+import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
 import org.nahoft.nahoft.*
 import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
+import org.nahoft.util.ShareUtil
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -148,20 +150,33 @@ class ImportImageTextActivity : AppCompatActivity() {
                 // get data?.data as URI
                 val imageURI = data?.data
                 imageURI?.let {
-                    val decodeImageResult = Stencil().decode(this, it)
 
-                    if (decodeImageResult != null) {
-                        // Decode the message and save it locally for use after sender is selected
-                        this.decodePayload = decodeImageResult
-
-                        // We received a message, have the user select who it is from
-                        val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
-                        startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
-                    } else {
-                        showAlert(getString(R.string.alert_text_unable_to_decode_message))
+                    val decodeResult: Deferred<ByteArray?> = ShareUtil.coroutineScope.async(Dispatchers.IO) {
+                        return@async Stencil().decode(applicationContext, it)
                     }
+
+                    ShareUtil.coroutineScope.launch(Dispatchers.Main) {
+                        val maybeBytes = decodeResult.await()
+                        handleImageDecodeResult(maybeBytes)
+                    }
+
+
                 }
             }
+        }
+    }
+
+    private fun handleImageDecodeResult(maybeBytes: ByteArray?)
+    {
+        if (maybeBytes != null) {
+            // Decode the message and save it locally for use after sender is selected
+            this.decodePayload = maybeBytes
+
+            // We received a message, have the user select who it is from
+            val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
+            startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
+        } else {
+            showAlert(getString(R.string.alert_text_unable_to_decode_message))
         }
     }
 }

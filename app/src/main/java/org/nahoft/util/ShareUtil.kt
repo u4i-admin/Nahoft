@@ -3,6 +3,7 @@ package org.nahoft.util
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.R
@@ -12,6 +13,8 @@ import org.nahoft.stencil.Stencil
 
 object ShareUtil
 {
+    val parentJob = Job()
+    val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
 
     fun shareImage(context: Context, imageUri: Uri, message: String, encodedFriendPublicKey: ByteArray)
     {
@@ -20,25 +23,30 @@ object ShareUtil
             val encryptedMessage = Encryption(context).encrypt(encodedFriendPublicKey, message)
 
             // Encode the image
-            val newUri = Stencil().encode(context, encryptedMessage, imageUri)
+            val newUri: Deferred<Uri?> =
+                coroutineScope.async(Dispatchers.IO) {
+                    return@async Stencil().encode(context, encryptedMessage, imageUri)
+                }
 
-            // Save bitmap to image roll to get URI for sharing intent
-            if (newUri != null) {
+            coroutineScope.launch(Dispatchers.Main) {
+                val maybeUri = newUri.await()
+                // Save bitmap to image roll to get URI for sharing intent
+                if (maybeUri != null) {
 
-                val sendIntent = Intent(Intent.ACTION_SEND)
-                //sendIntent.setClipData(ClipData.newRawUri("", newUri))
-                sendIntent.putExtra(Intent.EXTRA_STREAM, newUri)
-                sendIntent.type = "image/*"
-                sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    val sendIntent = Intent(Intent.ACTION_SEND)
+                    //sendIntent.setClipData(ClipData.newRawUri("", newUri))
+                    sendIntent.putExtra(Intent.EXTRA_STREAM, maybeUri)
+                    sendIntent.type = "image/*"
+                    sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
-                val shareIntent = Intent.createChooser(sendIntent, null)
-                shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    val shareIntent = Intent.createChooser(sendIntent, null)
+                    shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
-                context.startActivity(shareIntent)
-            } else {
-                context.showAlert(context.getString(R.string.alert_text_unable_to_process_request))
-                print("Unable to send message as photo, we were unable to encode the selected image.")
-                return
+                    context.startActivity(shareIntent)
+                } else {
+                    context.showAlert(context.getString(R.string.alert_text_unable_to_process_request))
+                    print("Unable to send message as photo, we were unable to encode the selected image.")
+                }
             }
         } catch (exception: SecurityException) {
             context.showAlert(context.getString(R.string.alert_text_unable_to_process_request))

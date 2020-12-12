@@ -6,6 +6,12 @@ import android.graphics.Color
 import android.graphics.ImageDecoder
 import android.net.Uri
 import androidx.core.graphics.get
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.request.FutureTarget
+import kotlinx.coroutines.*
+import kotlin.concurrent.thread
+
 
 class Stencil {
     private var cachedIndex: Int? = null
@@ -15,7 +21,7 @@ class Stencil {
     private var cachedRight: Int = 0
     private var cachedTop: Int = 0
     private var cachedBottom: Int = 0
-    private var cachedDirection: Pair<Int,Int> = Pair<Int,Int>(0, 0)
+    private var cachedDirection: Pair<Int, Int> = Pair<Int, Int>(0, 0)
 
 //    val listener: ImageDecoder.OnHeaderDecodedListener =
 //        ImageDecoder.OnHeaderDecodedListener { decoder, info, source ->
@@ -27,58 +33,58 @@ class Stencil {
 
     fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri?
     {
-        val source = ImageDecoder.createSource(context.contentResolver, coverUri)
-        val cover: Bitmap = try {
-            ImageDecoder.decodeBitmap(source)
-        } catch (coverError: Exception) {
-            print("Failed to decode the bitmap> Error: $coverError")
-            return null
-        }
+        val width = 150
+        val height = 150
+        val cover = Glide.with(context)
+            .asBitmap()
+            .load(coverUri)
+            .submit(width, height)
+            .get()
+
+//        val source = ImageDecoder.createSource(context.contentResolver, coverUri)
+//        val cover: Bitmap = try {
+//            ImageDecoder.decodeBitmap(source)
+//        } catch (coverError: Exception) {
+//            print("Failed to decode the bitmap> Error: $coverError")
+//            return null
+//        }
 
         val numBits = encrypted.size * 8
-        val maxStars: Int = (cover.height/3) * (cover.width/3)
-        if (numBits > maxStars)
-        {
+        val maxStars: Int = (cover.height / 3) * (cover.width / 3)
+        if (numBits > maxStars) {
             return null
         }
 
         val bits = bitsFromBytes(encrypted)
 
         var result = cover.copy(Bitmap.Config.ARGB_8888, true)
-        for (index in 0 until bits.size)
-        {
+        for (index in 0 until bits.size) {
             val bit = bits.get(index)
 
-            if (bit == 1)
-            {
+            if (bit == 1) {
                 val position = fitStar(result, index)
                 result = addStar(result, position, 255)
-            }
-            else if (bit == 0)
-            {
+            } else if (bit == 0) {
                 val position = fitStar(result, index)
                 result = addStar(result, position, 0)
-            }
-            else
-            {
+            } else {
                 println("Bad bit! " + bit)
             }
         }
 
         val position = fitStar(result, bits.size)
         result = addStar(result, position, 128)
-        result = fill(result, bits.size+1)
+        result = fill(result, bits.size + 1)
 
         // Quality check
         val decoded = decode(result)
-        if (decoded == null)
-        {
+        if (decoded == null) {
             return null
         }
 
         val title = ""
         val description = ""
-        val resultUri = CapturePhotoUtils.insertImage(context, result, title , description)
+        val resultUri = CapturePhotoUtils.insertImage(context, result, title, description)
 
         return resultUri
     }
@@ -192,12 +198,12 @@ class Stencil {
         cachedBottom = bottom
         cachedDirection = direction
 
-        return Pair((column*3)+1, (row*3)+1)
+        return Pair((column * 3) + 1, (row * 3) + 1)
     }
 
     private class Dimensions(val x: Int, val y: Int)
 
-    private fun addStar(bitmap: Bitmap, position: Pair<Int,Int>, color: Int): Bitmap?
+    private fun addStar(bitmap: Bitmap, position: Pair<Int, Int>, color: Int): Bitmap?
     {
         val widthOffset = position.first
         val heightOffset = position.second
@@ -206,15 +212,15 @@ class Stencil {
 
         setPixel(newBitmap, widthOffset, heightOffset, Color.argb(255, color, color, color))
 
-        setPixel(newBitmap, widthOffset-1, heightOffset, Color.argb(255, 255, 255, 255))
-        setPixel(newBitmap, widthOffset, heightOffset-1, Color.argb(255, 255, 255, 255))
-        setPixel(newBitmap, widthOffset+1, heightOffset, Color.argb(255, 255, 255, 255))
-        setPixel(newBitmap, widthOffset, heightOffset+1, Color.argb(255, 255, 255, 255))
+        setPixel(newBitmap, widthOffset - 1, heightOffset, Color.argb(255, 255, 255, 255))
+        setPixel(newBitmap, widthOffset, heightOffset - 1, Color.argb(255, 255, 255, 255))
+        setPixel(newBitmap, widthOffset + 1, heightOffset, Color.argb(255, 255, 255, 255))
+        setPixel(newBitmap, widthOffset, heightOffset + 1, Color.argb(255, 255, 255, 255))
 
-        setPixel(newBitmap, widthOffset-1, heightOffset+1, Color.argb(255, 255, 255, 255))
-        setPixel(newBitmap, widthOffset-1, heightOffset-1, Color.argb(255, 255, 255, 255))
-        setPixel(newBitmap, widthOffset+1, heightOffset+1, Color.argb(255, 255, 255, 255))
-        setPixel(newBitmap, widthOffset+1, heightOffset-1, Color.argb(255, 255, 255, 255))
+        setPixel(newBitmap, widthOffset - 1, heightOffset + 1, Color.argb(255, 255, 255, 255))
+        setPixel(newBitmap, widthOffset - 1, heightOffset - 1, Color.argb(255, 255, 255, 255))
+        setPixel(newBitmap, widthOffset + 1, heightOffset + 1, Color.argb(255, 255, 255, 255))
+        setPixel(newBitmap, widthOffset + 1, heightOffset - 1, Color.argb(255, 255, 255, 255))
 
         return newBitmap
     }
@@ -248,7 +254,14 @@ class Stencil {
 
     fun destroy(bitmap: Bitmap): Bitmap
     {
-        val colors = arrayOf(Color.argb(0, 0, 0, 0), Color.argb(255, 255, 255, 255), Color.argb(128, 128, 128, 128))
+        val colors = arrayOf(
+            Color.argb(0, 0, 0, 0), Color.argb(255, 255, 255, 255), Color.argb(
+                128,
+                128,
+                128,
+                128
+            )
+        )
 
         var index = 0
         var newBitmap = bitmap
@@ -266,7 +279,23 @@ class Stencil {
 
     fun decode(context: Context, uri: Uri): ByteArray?
     {
-        val bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(context.contentResolver, uri))
+        val width = 150
+        val height = 150
+
+        val futureTarget: FutureTarget<Bitmap> = Glide.with(context)
+            .asBitmap()
+            .load(uri)
+            .submit(width, height)
+
+        val bitmap = futureTarget.get()
+
+//        val bitmap = ImageDecoder.decodeBitmap(
+//            ImageDecoder.createSource(
+//                context.contentResolver,
+//                uri
+//            )
+//        )
+//
         return decode(bitmap)
     }
 
@@ -306,7 +335,7 @@ class Stencil {
                     DecodeBitResult.Error -> return null
                 }
             }
-            catch(e: Exception)
+            catch (e: Exception)
             {
                 return null
             }
@@ -376,7 +405,16 @@ enum class DecodeBitResult(val value: Int)
     Error(-1024)
 }
 
-val masks: List<UByte> = listOf(128.toUByte(), 64.toUByte(), 32.toUByte(), 16.toUByte(), 8.toUByte(), 4.toUByte(), 2.toUByte(), 1.toUByte())
+val masks: List<UByte> = listOf(
+    128.toUByte(),
+    64.toUByte(),
+    32.toUByte(),
+    16.toUByte(),
+    8.toUByte(),
+    4.toUByte(),
+    2.toUByte(),
+    1.toUByte()
+)
 
 fun bitsFromBytes(bytes: ByteArray): List<Int>
 {

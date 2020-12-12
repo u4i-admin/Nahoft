@@ -8,6 +8,7 @@ import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
 import org.nahoft.nahoft.*
@@ -17,6 +18,7 @@ import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
+import org.nahoft.util.ShareUtil
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -184,17 +186,29 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleSharedImage(intent: Intent) {
+    private fun handleSharedImage(intent: Intent)
+    {
         (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
-            val decodeResult = Stencil().decode(applicationContext, it)
 
-            if (decodeResult != null) {
-                this.decodePayload = decodeResult
-                val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
-                startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
-            } else {
-                this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
+            val decodeResult: Deferred<ByteArray?> = ShareUtil.coroutineScope.async(Dispatchers.IO) {
+                return@async Stencil().decode(applicationContext, it)
             }
+
+            ShareUtil.coroutineScope.launch(Dispatchers.Main) {
+                val maybeBytes = decodeResult.await()
+                handleDecodeImageResult(maybeBytes)
+            }
+        }
+    }
+
+    private fun handleDecodeImageResult(maybeBytes: ByteArray?)
+    {
+        if (maybeBytes != null) {
+            this.decodePayload = maybeBytes
+            val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
+            startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
+        } else {
+            this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
         }
     }
 
