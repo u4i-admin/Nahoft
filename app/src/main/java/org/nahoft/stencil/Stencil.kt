@@ -3,14 +3,10 @@ package org.nahoft.stencil
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.ImageDecoder
 import android.net.Uri
 import androidx.core.graphics.get
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.request.FutureTarget
-import kotlinx.coroutines.*
-import kotlin.concurrent.thread
 
 
 class Stencil {
