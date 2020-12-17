@@ -3,7 +3,10 @@ package org.nahoft.stencil
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.get
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.FutureTarget
@@ -29,21 +32,29 @@ class Stencil {
 
     fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri?
     {
-        val width = 150
-        val height = 150
-        val cover = Glide.with(context)
-            .asBitmap()
-            .load(coverUri)
-            .submit(width, height)
-            .get()
 
-//        val source = ImageDecoder.createSource(context.contentResolver, coverUri)
-//        val cover: Bitmap = try {
-//            ImageDecoder.decodeBitmap(source)
-//        } catch (coverError: Exception) {
-//            print("Failed to decode the bitmap> Error: $coverError")
-//            return null
-//        }
+        var cover: Bitmap
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+        {
+            val source = ImageDecoder.createSource(context.contentResolver, coverUri)
+            cover = try {
+                ImageDecoder.decodeBitmap(source)
+            } catch (coverError: Exception) {
+                print("Failed to decode the bitmap> Error: $coverError")
+                return null
+            }
+        }
+        else
+        {
+            val width = 150
+            val height = 150
+            cover = Glide.with(context)
+                .asBitmap()
+                .load(coverUri)
+                .submit(width, height)
+                .get()
+        }
 
         val numBits = encrypted.size * 8
         val maxStars: Int = (cover.height / 3) * (cover.width / 3)
