@@ -2,14 +2,14 @@ package org.nahoft.stencil
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.get
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.FutureTarget
+
 
 
 class Stencil {
@@ -49,11 +49,11 @@ class Stencil {
         {
             val width = 150
             val height = 150
-            cover = Glide.with(context)
-                .asBitmap()
-                .load(coverUri)
-                .submit(width, height)
-                .get()
+            cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
+                //.asBitmap()
+                //.load(coverUri)
+                //.submit(width, height)
+                //.get()
         }
 
         val numBits = encrypted.size * 8
@@ -288,13 +288,15 @@ class Stencil {
     {
         val width = 150
         val height = 150
+        cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
 
-        val futureTarget: FutureTarget<Bitmap> = Glide.with(context)
-            .asBitmap()
-            .load(uri)
-            .submit(width, height)
 
-        val bitmap = futureTarget.get()
+        //val futureTarget: FutureTarget<Bitmap> = Glide.with(context)
+            //.asBitmap()
+            //.load(uri)
+            //.submit(width, height)
+
+        //val bitmap = futureTarget.get()
 
 //        val bitmap = ImageDecoder.decodeBitmap(
 //            ImageDecoder.createSource(
@@ -302,7 +304,7 @@ class Stencil {
 //                uri
 //            )
 //        )
-//
+
         return decode(bitmap)
     }
 
