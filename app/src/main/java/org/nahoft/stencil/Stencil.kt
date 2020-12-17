@@ -4,10 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.get
 
 
@@ -30,31 +27,25 @@ class Stencil {
 //            }
 //        }
 
+    @ExperimentalUnsignedTypes
     fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri?
     {
+        val cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
 
-        var cover: Bitmap
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-        {
-            val source = ImageDecoder.createSource(context.contentResolver, coverUri)
-            cover = try {
-                ImageDecoder.decodeBitmap(source)
-            } catch (coverError: Exception) {
-                print("Failed to decode the bitmap> Error: $coverError")
-                return null
-            }
-        }
-        else
-        {
-            val width = 150
-            val height = 150
-            cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
-                //.asBitmap()
-                //.load(coverUri)
-                //.submit(width, height)
-                //.get()
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+//        {
+//            val source = ImageDecoder.createSource(context.contentResolver, coverUri)
+//            cover = try {
+//                ImageDecoder.decodeBitmap(source)
+//            } catch (coverError: Exception) {
+//                print("Failed to decode the bitmap> Error: $coverError")
+//                return null
+//            }
+//        }
+//        else
+//        {
+//            cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
+//        }
 
         val numBits = encrypted.size * 8
         val maxStars: Int = (cover.height / 3) * (cover.width / 3)
@@ -65,8 +56,9 @@ class Stencil {
         val bits = bitsFromBytes(encrypted)
 
         var result = cover.copy(Bitmap.Config.ARGB_8888, true)
-        for (index in 0 until bits.size) {
-            val bit = bits.get(index)
+        for (index in bits.indices)
+        {
+            val bit = bits[index]
 
             if (bit == 1) {
                 val position = fitStar(result, index)
@@ -84,10 +76,7 @@ class Stencil {
         result = fill(result, bits.size + 1)
 
         // Quality check
-        val decoded = decode(result)
-        if (decoded == null) {
-            return null
-        }
+        val decoded = decode(result) ?: return null
 
         val title = ""
         val description = ""
@@ -208,7 +197,7 @@ class Stencil {
         return Pair((column * 3) + 1, (row * 3) + 1)
     }
 
-    private class Dimensions(val x: Int, val y: Int)
+    //private class Dimensions(val x: Int, val y: Int)
 
     private fun addStar(bitmap: Bitmap, position: Pair<Int, Int>, color: Int): Bitmap?
     {
@@ -286,17 +275,7 @@ class Stencil {
 
     fun decode(context: Context, uri: Uri): ByteArray?
     {
-        val width = 150
-        val height = 150
-        cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
-
-
-        //val futureTarget: FutureTarget<Bitmap> = Glide.with(context)
-            //.asBitmap()
-            //.load(uri)
-            //.submit(width, height)
-
-        //val bitmap = futureTarget.get()
+        val bitmap = BitmapFactory.decodeStream(context.contentResolver.openInputStream(uri))
 
 //        val bitmap = ImageDecoder.decodeBitmap(
 //            ImageDecoder.createSource(
@@ -414,6 +393,7 @@ enum class DecodeBitResult(val value: Int)
     Error(-1024)
 }
 
+@ExperimentalUnsignedTypes
 val masks: List<UByte> = listOf(
     128.toUByte(),
     64.toUByte(),
@@ -425,6 +405,7 @@ val masks: List<UByte> = listOf(
     1.toUByte()
 )
 
+@ExperimentalUnsignedTypes
 fun bitsFromBytes(bytes: ByteArray): List<Int>
 {
     var result: List<Int> = emptyList()
