@@ -79,6 +79,10 @@ class Encryption(val context: Context) {
             if (result.size <= nonce.size) {
                 throw SecurityException("Failed to encrypt the message.")
             } else {
+                println("--------------Encrypted A Message")
+                val hex = result.joinToString("") { String.format("%02X", (it.toInt() and 0xFF)) }
+                println(hex)
+                println("Encryption Result:" + result.size)
                 return result
             }
 
