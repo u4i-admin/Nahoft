@@ -95,6 +95,9 @@ class Encryption(val context: Context) {
     fun decrypt(friendPublicKey: PublicKey, ciphertext: ByteArray): String
     {
         val keypair = ensureKeysExist()
+        println("----->> Ciphertext count = " + ciphertext.size)
+        val hex = ciphertext.joinToString("") { String.format("%02X", (it.toInt() and 0xFF)) }
+        println(hex)
 
         try {
             val result = SodiumWrapper().decrypt(ciphertext, friendPublicKey.toBytes(), keypair.privateKey.toBytes())
