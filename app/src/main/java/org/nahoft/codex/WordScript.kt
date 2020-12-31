@@ -104,16 +104,17 @@ class WordScript {
         val integer = digitsToBigInteger(byteDigits, 256)
         println("integer: " + integer)
 
-        val digits = bigIntegerToDigits(integer, alphabet.size)
+        val digits = bigIntegerToDigits(integer, wordList.size)
         println("digits: " + digits)
 
+        // takes a series of digits, looks it up in the word list and gives back a string of words
         return digitsToSymbols(digits)
     }
 
     fun decode(ciphertext: String): ByteArray {
         var result = byteArrayOf()
 
-        val base = alphabet.size
+        val base = wordList.size
 
         val digits = symbolsToDigits(ciphertext)
         println("digits: " + digits)
@@ -129,26 +130,31 @@ class WordScript {
         return bytes
     }
 
+    // takes a series of digits, looks it up in the word list and gives back a string of words
     fun digitsToSymbols(digits: List<Int>): String {
         var result: String = String()
 
         for (digit in digits) {
-            val symbol = alphabet[digit.toInt()]
-            result = result + symbol
+            val word = wordList[digit.toInt()]
+            result = result + word + " "
         }
         println("symbol: " + result)
 
-        return result
+        return result.trim()
     }
 
+    // takes a string of words with spaces in them, breaks them up into individual word
+    // removing the spaces, then looks up each word in word list and gives the index and
+    // returns a list of the index
     fun symbolsToDigits(ciphertext: String): List<Int> {
         var digits: List<Int> = listOf()
-        for (offset in 0..ciphertext.lastIndex) {
-            val symbol = Character.toString(ciphertext[offset])
+        val noSpace = ciphertext.split(" ")
+        for (offset in 0..noSpace.lastIndex) {
+            val word = noSpace[offset]
 
             var foundIndex = -1
-            for (index in 0..alphabet.lastIndex) {
-                if (alphabet[index] == symbol) {
+            for (index in 0..wordList.lastIndex) {
+                if (wordList[index] == word) {
                     foundIndex = index
                     break
                 }
