@@ -61,17 +61,17 @@ class Stencil {
             val bit = bits[index]
 
             if (bit == 1) {
-                val position = fitStar(result, index)
+                val position = fitStar(result.height, result.width, index)
                 result = addStar(result, position, 255)
             } else if (bit == 0) {
-                val position = fitStar(result, index)
+                val position = fitStar(result.height, result.width, index)
                 result = addStar(result, position, 0)
             } else {
                 println("Bad bit! " + bit)
             }
         }
 
-        val position = fitStar(result, bits.size)
+        val position = fitStar(result.height, result.width, bits.size)
         result = addStar(result, position, 128)
         result = fill(result, bits.size + 1)
 
@@ -91,15 +91,15 @@ class Stencil {
         bitmap.setPixel(x, y, color)
     }
 
-    private fun fitStar(bitmap: Bitmap, index: Int): Pair<Int, Int>
+    public fun fitStar(height: Int, width: Int, index: Int): Pair<Int, Int>
     {
         var row = 0
         var column = 0
 
         var left = 0
-        var right = (bitmap.width / 3) - 1
+        var right = (width / 3) - 1
         var top = 1
-        var bottom = (bitmap.height / 3) - 1
+        var bottom = (height / 3) - 1
 
         var direction = Pair(1, 0)
 
@@ -224,7 +224,7 @@ class Stencil {
     fun fill(bitmap: Bitmap, startIndex: Int): Bitmap
     {
         var index = startIndex
-        var position = fitStar(bitmap, index)
+        var position = fitStar(bitmap.height, bitmap.width, index)
         var widthOffset = position.first
         var heightOffset = position.second
         var result = bitmap
@@ -240,7 +240,7 @@ class Stencil {
             }
 
             index += 1
-            position = fitStar(bitmap, index)
+            position = fitStar(bitmap.height, bitmap.width, index)
             widthOffset = position.first
             heightOffset = position.second
         }
@@ -310,7 +310,7 @@ class Stencil {
         {
             try
             {
-                val position = fitStar(bitmap, index)
+                val position = fitStar(bitmap.height, bitmap.width, index)
                 index += 1
 
                 val colorValue = bitmap.get(position.first, position.second)
