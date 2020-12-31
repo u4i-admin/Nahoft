@@ -20,11 +20,50 @@ class CodexUnitTest {
     }
 
     @Test
+    fun word_dedup() {
+        val codex = WordScript()
+
+        var results: Array<String> = arrayOf()
+        for (index1 in 0 until WordScript.wordList.size)
+        {
+            val letter = WordScript.wordList[index1]
+
+            var foundDup = false
+            for (index2 in index1 + 1 until WordScript.wordList.size)
+            {
+                val letter2 = WordScript.wordList[index2]
+                if (letter == letter2)
+                {
+                    foundDup = true
+                    break
+                }
+            }
+
+            if (!foundDup)
+            {
+                results += letter
+            }
+
+            foundDup = false
+        }
+
+//        println(results.joinToString(" ,", "public val wordList: Array<String> = arrayOf(", ")") {"\"" + it + "\""})
+        assertArrayEquals(WordScript.wordList, results)
+    }
+
+    @Test
+    fun word_checkAlphabet() {
+        val codex = WordScript()
+        val success = codex.checkAlphabet()
+        assertTrue(success)
+    }
+
+    @Test
     fun alphanumeric_encode() {
         val input = 1.toByte()
         val codex = Codex()
         val output = codex.encode(input, byteArrayOf())
-        println("output: " + output)
+//        println("output: " + output)
     }
 
     @Test
@@ -32,9 +71,9 @@ class CodexUnitTest {
         val input = 1.toByte()
         val codex = Codex()
         val output = codex.encode(input, byteArrayOf())
-        println("output: " + output)
+//        println("output: " + output)
         val decoded = codex.decode(output)
-        println("decoded: " + decoded)
+//        println("decoded: " + decoded)
         assertEquals(KeyOrMessage.Key, decoded!!.type)
     }
 
@@ -60,21 +99,22 @@ class CodexUnitTest {
     @Test
     fun alphanumeric_digits() {
         val bytes = byteArrayOf(1, 1, 2, 3)
-        val byteDigits = bytesToDigits(bytes)
-        println("byteDigits: " + byteDigits)
+        val codex = BaseScript()
+        val byteDigits = codex.bytesToDigits(bytes)
+//        println("byteDigits: " + byteDigits)
 
-        val integer = digitsToBigInteger(byteDigits, 256)
-        println("integer: " + integer)
+        val integer = codex.digitsToBigInteger(byteDigits, 256)
+//        println("integer: " + integer)
 
-        val digits = bigIntegerToDigits(integer, 52)
-        println("digits: " + digits)
+        val digits = codex.bigIntegerToDigits(integer, 52)
+//        println("digits: " + digits)
 
-        val integer2 = digitsToBigInteger(digits, 52)
-        println("integer2: " + integer2)
+        val integer2 = codex.digitsToBigInteger(digits, 52)
+//        println("integer2: " + integer2)
         assertEquals(integer, integer2)
 
-        val digits2 = bigIntegerToDigits(integer2, 256)
-        println("digits2: " + digits2)
+        val digits2 = codex.bigIntegerToDigits(integer2, 256)
+//        println("digits2: " + digits2)
     }
 
     @Test
@@ -140,60 +180,66 @@ class CodexUnitTest {
     @Test
     fun bigInteger_Base2_0() {
         val input = 0.toBigInteger()
-        val digits = bigIntegerToDigits(input, 2)
-        print(digits)
+        val codex = BaseScript()
+        val digits = codex.bigIntegerToDigits(input, 2)
+//        print(digits)
 
-        val result = digitsToBigInteger(digits, 2)
+        val result = codex.digitsToBigInteger(digits, 2)
         assertEquals(input, result)
     }
 
     @Test
     fun bigInteger_Base2_1() {
         val input = 1.toBigInteger()
-        val digits = bigIntegerToDigits(input, 2)
-        print(digits)
+        val codex = BaseScript()
+        val digits = codex.bigIntegerToDigits(input, 2)
+//        print(digits)
 
-        val result = digitsToBigInteger(digits, 2)
+        val result = codex.digitsToBigInteger(digits, 2)
         assertEquals(input, result)
     }
 
     @Test
     fun bigInteger_Base2_2() {
         val input = 2.toBigInteger()
-        val digits = bigIntegerToDigits(input, 2)
-        print(digits)
+        val codex = BaseScript()
+        val digits = codex.bigIntegerToDigits(input, 2)
+//        print(digits)
 
-        val result = digitsToBigInteger(digits, 2)
+        val result = codex.digitsToBigInteger(digits, 2)
         assertEquals(input, result)
     }
 
     @Test
     fun bigInteger_Base2_3() {
         val input = 3.toBigInteger()
-        val digits = bigIntegerToDigits(input, 2)
-        print(digits)
+        val codex = BaseScript()
+        val digits = codex.bigIntegerToDigits(input, 2)
+//        print(digits)
 
-        val result = digitsToBigInteger(digits, 2)
+        val result = codex.digitsToBigInteger(digits, 2)
         assertEquals(input, result)
     }
 
     @Test
     fun bigInteger_Base10_100() {
         val input = 100.toBigInteger()
-        val digits = bigIntegerToDigits(input, 10)
-        print(digits)
+        val codex = BaseScript()
+        val digits = codex.bigIntegerToDigits(input, 10)
+//        print(digits)
 
-        val result = digitsToBigInteger(digits, 10)
+        val result = codex.digitsToBigInteger(digits, 10)
         assertEquals(input, result)
     }
 
     @Test
     fun bigInteger_Base52_100() {
         val input = 100.toBigInteger()
-        val digits = bigIntegerToDigits(input, 52)
-        print(digits)
+        val codex = BaseScript()
+        val digits = codex.bigIntegerToDigits(input, 52)
+//        print(digits)
 
-        val result = digitsToBigInteger(digits, 52)
+        val result = codex.digitsToBigInteger(digits, 52)
         assertEquals(input, result)
     }
 }
