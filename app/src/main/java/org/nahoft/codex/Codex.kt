@@ -25,7 +25,7 @@ class Codex {
     {
         val typedData = byteArrayOf(firstByte) + data
 
-        val script = AlphanumericScript()
+        val script = WordScript()
         val result = script.encode(typedData)
 
         return result
@@ -33,7 +33,7 @@ class Codex {
 
     fun decode(ciphertext: String): DecodeResult?
     {
-        val script = AlphanumericScript()
+        val script = WordScript()
         val data = script.decode(ciphertext)
 
         val type = data[0]
