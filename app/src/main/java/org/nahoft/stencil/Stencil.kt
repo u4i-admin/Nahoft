@@ -136,6 +136,7 @@ class Stencil {
                 {
                     right -= 1
                     direction = Pair(0, 1)
+                    row = row + 1
                 }
                 else
                 {
@@ -148,6 +149,7 @@ class Stencil {
                 {
                     bottom -= 1
                     direction = Pair(-1, 0)
+                    column = column - 1
                 }
                 else
                 {
@@ -160,6 +162,7 @@ class Stencil {
                 {
                     left += 1
                     direction = Pair(0, -1)
+                    row = row - 1
                 }
                 else
                 {
@@ -172,6 +175,7 @@ class Stencil {
                 {
                     top += 1
                     direction = Pair(1, 0)
+                    column = column + 1
                 }
                 else
                 {
