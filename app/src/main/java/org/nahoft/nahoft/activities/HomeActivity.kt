@@ -189,15 +189,17 @@ class HomeActivity : AppCompatActivity() {
     private fun handleSharedImage(intent: Intent)
     {
         (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
+            val decodeResult = Stencil().decode(applicationContext, it)
+            handleDecodeImageResult(decodeResult)
 
-            val decodeResult: Deferred<ByteArray?> = ShareUtil.coroutineScope.async(Dispatchers.IO) {
+            /*val decodeResult: Deferred<ByteArray?> = ShareUtil.coroutineScope.async(Dispatchers.IO) {
                 return@async Stencil().decode(applicationContext, it)
             }
 
             ShareUtil.coroutineScope.launch(Dispatchers.Main) {
                 val maybeBytes = decodeResult.await()
                 handleDecodeImageResult(maybeBytes)
-            }
+            }*/
         }
     }
 
