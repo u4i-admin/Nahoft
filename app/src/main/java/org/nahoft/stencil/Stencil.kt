@@ -75,8 +75,8 @@ class Stencil {
         result = addStar(result, position, 128)
         result = fill(result, bits.size + 1)
 
-        // Quality check
-        val decoded = decode(result) ?: return null
+        // Quality check - comment out for speed increase
+        // val decoded = decode(result) ?: return null
 
         val title = ""
         val description = ""
@@ -410,9 +410,9 @@ val masks: List<UByte> = listOf(
 )
 
 @ExperimentalUnsignedTypes
-fun bitsFromBytes(bytes: ByteArray): List<Int>
+fun bitsFromBytes(bytes: ByteArray): IntArray
 {
-    var result: List<Int> = emptyList()
+    var result: IntArray = IntArray(bytes.size * 8)
 
     for (byteIndex in 0 until bytes.size)
     {
@@ -420,15 +420,16 @@ fun bitsFromBytes(bytes: ByteArray): List<Int>
 
         for (bitIndex in 0 until 8)
         {
+            val arrayIndex = byteIndex * 8 + bitIndex
             val bit = byte and masks[bitIndex]
 
             if (bit == 0.toUByte())
             {
-                result += 0.toUInt().toInt()
+                result[arrayIndex] = 0
             }
             else
             {
-                result += 1.toUInt().toInt()
+                result[arrayIndex] = 1
             }
         }
     }
