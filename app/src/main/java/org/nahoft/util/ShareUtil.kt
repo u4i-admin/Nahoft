@@ -43,6 +43,7 @@ object ShareUtil
                     shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
                     context.startActivity(shareIntent)
+                    context.showAlert("Sharing is enabled, please wait for host")
                 } else {
                     context.showAlert(context.getString(R.string.alert_text_unable_to_process_request))
                     print("Unable to send message as photo, we were unable to encode the selected image.")
