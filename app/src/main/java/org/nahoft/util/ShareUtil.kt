@@ -42,8 +42,9 @@ object ShareUtil
                     val shareIntent = Intent.createChooser(sendIntent, null)
                     shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
+                    //likely need to end animation here
+
                     context.startActivity(shareIntent)
-                    context.showAlert("Sharing is enabled, please wait for host")
                 } else {
                     context.showAlert(context.getString(R.string.alert_text_unable_to_process_request))
                     print("Unable to send message as photo, we were unable to encode the selected image.")
@@ -51,7 +52,7 @@ object ShareUtil
             }
         } catch (exception: SecurityException) {
             context.showAlert(context.getString(R.string.alert_text_unable_to_process_request))
-            print("Unable to send message as photo, we were unable to encrypt the message.")
+            print("Unable to send message as photo, we were unable to encrypt the mess56age.")
             return
         }
     }

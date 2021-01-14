@@ -3,7 +3,11 @@ package org.nahoft.nahoft.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_new_message.*
 import org.nahoft.nahoft.Friend
@@ -101,9 +105,13 @@ class NewMessageActivity : AppCompatActivity() {
                         // get data?.data as URI
                         val imageURI = data?.data
 
+                        // Likely need to start the animation here or just before ShareUtil
+
                         imageURI?.let {
+                            imageShareProgressBar.visibility = View.VISIBLE
                             ShareUtil.shareImage(applicationContext, imageURI, message, selectedFriend!!.publicKeyEncoded!!)
                             editMessageText.text?.clear()
+                            imageShareProgressBar.visibility = View.INVISIBLE
                         }
                     }
                 } else {
