@@ -34,7 +34,7 @@ class Codex {
     fun decode(ciphertext: String): DecodeResult?
     {
         val script = WordScript()
-        val data = script.decode(ciphertext)
+        val data = script.decode(ciphertext.trim())
 
         val type = data[0]
         val payload = data.slice(1..data.lastIndex).toByteArray()
