@@ -8,6 +8,7 @@ import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_new_message.*
 import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
@@ -18,7 +19,6 @@ import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
-import org.nahoft.util.ShareUtil
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -26,6 +26,8 @@ import java.time.format.DateTimeFormatter
 class HomeActivity : AppCompatActivity() {
 
     private var decodePayload: ByteArray? = null
+    private val parentJob = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -189,17 +191,25 @@ class HomeActivity : AppCompatActivity() {
     private fun handleSharedImage(intent: Intent)
     {
         (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
-            val decodeResult = Stencil().decode(applicationContext, it)
-            handleDecodeImageResult(decodeResult)
 
-            /*val decodeResult: Deferred<ByteArray?> = ShareUtil.coroutineScope.async(Dispatchers.IO) {
-                return@async Stencil().decode(applicationContext, it)
+            val decodeResult: Deferred<ByteArray?> =
+                coroutineScope.async(Dispatchers.IO) {
+                    return@async Stencil().decode(applicationContext, it)
+                }
+
+            coroutineScope.launch(Dispatchers.Main) {
+                val maybeDecodeResult = decodeResult.await()
+
+                if (maybeDecodeResult != null) {
+                    handleDecodeImageResult(maybeDecodeResult)
+                } else {
+                    applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
+                    print("Unable to decode the shared image.")
+                }
             }
 
-            ShareUtil.coroutineScope.launch(Dispatchers.Main) {
-                val maybeBytes = decodeResult.await()
-                handleDecodeImageResult(maybeBytes)
-            }*/
+            //val decodeResult = Stencil().decode(applicationContext, it)
+            //handleDecodeImageResult(decodeResult)
         }
     }
 

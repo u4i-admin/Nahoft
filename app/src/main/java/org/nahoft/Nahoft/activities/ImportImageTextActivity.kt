@@ -12,7 +12,6 @@ import org.nahoft.nahoft.*
 import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
-import org.nahoft.util.ShareUtil
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -20,6 +19,8 @@ class ImportImageTextActivity: AppCompatActivity() {
 
     private var decodePayload: ByteArray? = null
     private var sender: Friend? = null
+    private val parentJob = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
 
     companion object {
         const val SENDER = "Sender"
@@ -132,11 +133,11 @@ class ImportImageTextActivity: AppCompatActivity() {
                 val imageURI = data?.data
                 imageURI?.let {
 
-                    val decodeResult: Deferred<ByteArray?> = ShareUtil.coroutineScope.async(Dispatchers.IO) {
+                    val decodeResult: Deferred<ByteArray?> = coroutineScope.async(Dispatchers.IO) {
                         return@async Stencil().decode(applicationContext, it)
                     }
 
-                    ShareUtil.coroutineScope.launch(Dispatchers.Main) {
+                    coroutineScope.launch(Dispatchers.Main) {
                         val maybeBytes = decodeResult.await()
                         handleImageDecodeResult(maybeBytes)
                     }

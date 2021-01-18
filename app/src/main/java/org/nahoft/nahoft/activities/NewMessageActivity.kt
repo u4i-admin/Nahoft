@@ -2,6 +2,7 @@ package org.nahoft.nahoft.activities
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,15 +11,20 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_new_message.*
+import kotlinx.coroutines.*
+import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.R
 import org.nahoft.showAlert
+import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 
 class NewMessageActivity : AppCompatActivity() {
 
     private var selectedFriend: Friend? = null
+    private val parentJob = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,9 +115,8 @@ class NewMessageActivity : AppCompatActivity() {
 
                         imageURI?.let {
                             imageShareProgressBar.visibility = View.VISIBLE
-                            ShareUtil.shareImage(applicationContext, imageURI, message, selectedFriend!!.publicKeyEncoded!!)
+                            shareAsImage(imageURI, message, selectedFriend!!.publicKeyEncoded!!)
                             editMessageText.text?.clear()
-                            imageShareProgressBar.visibility = View.INVISIBLE
                         }
                     }
                 } else {
@@ -135,11 +140,34 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
-//    private fun shareAsImage(imageURI: Uri, message: String, publicKeyEncoded: ByteArray) {
-//        coroutineScope.launch(Dispatchers.Main) {
-//            shareAsImageAsync(imageURI, message, publicKeyEncoded)
-//        }
-//    }
+    private fun shareAsImage(imageUri: Uri, message: String, encodedFriendPublicKey: ByteArray) {
+        try {
+            // Encrypt the message
+            val encryptedMessage = Encryption(applicationContext).encrypt(encodedFriendPublicKey, message)
+
+            // Encode the image
+            val newUri: Deferred<Uri?> =
+                coroutineScope.async(Dispatchers.IO) {
+                    return@async Stencil().encode(applicationContext, encryptedMessage, imageUri)
+                }
+
+            coroutineScope.launch(Dispatchers.Main) {
+                val maybeUri = newUri.await()
+                // Save bitmap to image roll to get URI for sharing intent
+                if (maybeUri != null) {
+                    imageShareProgressBar.visibility = View.INVISIBLE
+                    ShareUtil.shareImage(applicationContext, maybeUri!!)
+                } else {
+                    applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
+                    print("Unable to send message as photo, we were unable to encode the selected image.")
+                }
+            }
+        } catch (exception: SecurityException) {
+            applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
+            print("Unable to send message as photo, we were unable to encrypt the mess56age.")
+            return
+        }
+    }
 //
 //    private suspend fun shareAsImageAsync(imageURI: Uri, message: String, publicKeyEncoded: ByteArray) = withContext(Dispatchers.Default) {
 //

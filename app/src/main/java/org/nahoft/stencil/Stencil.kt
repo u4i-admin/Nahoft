@@ -6,7 +6,9 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import androidx.core.graphics.get
-
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 
 
 class Stencil {
@@ -31,22 +33,6 @@ class Stencil {
     fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri?
     {
         val cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-//        {
-//            val source = ImageDecoder.createSource(context.contentResolver, coverUri)
-//            cover = try {
-//                ImageDecoder.decodeBitmap(source)
-//            } catch (coverError: Exception) {
-//                print("Failed to decode the bitmap> Error: $coverError")
-//                return null
-//            }
-//        }
-//        else
-//        {
-//            cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
-//        }
-
         val numBits = encrypted.size * 8
         val maxStars: Int = (cover.height / 3) * (cover.width / 3)
         if (numBits > maxStars) {
@@ -280,14 +266,6 @@ class Stencil {
     fun decode(context: Context, uri: Uri): ByteArray?
     {
         val bitmap = BitmapFactory.decodeStream(context.contentResolver.openInputStream(uri))
-
-//        val bitmap = ImageDecoder.decodeBitmap(
-//            ImageDecoder.createSource(
-//                context.contentResolver,
-//                uri
-//            )
-//        )
-
         return decode(bitmap)
     }
 
