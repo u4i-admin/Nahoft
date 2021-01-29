@@ -42,7 +42,7 @@
             android:text="@string/button_label_friends"
             android:textColor="@color/colorWarmWhite"
             android:textSize="@dimen/detail_name_text_size"
-            android:drawableRight="@drawable/ic_group_24px"
+            android:drawableRight="@drawable/smiley_face"
             android:drawableTint="@color/colorWarmWhite"
             android:drawablePadding="@dimen/padding_standard" />
 
