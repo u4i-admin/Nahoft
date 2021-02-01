@@ -24,7 +24,7 @@
             tools:ignore="ContentDescription" />
     </LinearLayout>
 
-    <GridLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/logoContainer"
@@ -36,11 +36,47 @@
         android:paddingBottom="32dp">
 
         <Button
+            android:id="@+id/settings_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="64dp"
+            android:background="@android:color/transparent"
+            android:drawableEnd="@drawable/gear_asset"
+            android:drawablePadding="@dimen/padding_standard"
+            android:drawableTint="@color/colorWarmWhite"
+            android:textSize="@dimen/detail_name_text_size" />
+
+        <Button
+            android:id="@+id/user_guide_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="50dp"
+            android:background="@android:color/transparent"
+            android:drawableEnd="@drawable/smiley_face"
+            android:drawablePadding="@dimen/padding_standard"
+            android:drawableTint="@color/colorWarmWhite"
+            android:textColor="@color/colorWarmWhite"
+            android:textSize="@dimen/detail_name_text_size" />
+
+        <Button
             android:id="@+id/friends_button"
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_margin="@dimen/padding_half"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="50dp"
             android:background="@android:color/transparent"
             android:drawableEnd="@drawable/key_asset"
             android:drawablePadding="@dimen/padding_standard"
@@ -52,11 +88,12 @@
         <Button
             android:id="@+id/messages_button"
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_row="1"
-            android:layout_column="0"
-            android:layout_margin="@dimen/padding_half"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="50dp"
+            android:layout_marginBottom="50dp"
             android:background="@android:color/transparent"
             android:drawableEnd="@drawable/message_asset"
             android:drawablePadding="@dimen/padding_standard"
@@ -64,34 +101,7 @@
             android:textColor="@color/colorWarmWhite"
             android:textSize="@dimen/detail_name_text_size" />
 
-        <Button
-            android:id="@+id/settings_button"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_row="0"
-            android:layout_column="9"
-            android:layout_margin="@dimen/padding_half"
-            android:background="@android:color/transparent"
-            android:drawableEnd="@drawable/gear_asset"
-            android:drawablePadding="@dimen/padding_standard"
-            android:drawableTint="@color/colorWarmWhite"
-            android:textColor="@color/colorWarmWhite"
-            android:textSize="@dimen/detail_name_text_size" />
-
-        <Button
-            android:id="@+id/user_guide_button"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_margin="@dimen/padding_half"
-            android:background="@android:color/transparent"
-            android:drawableEnd="@drawable/smiley_face"
-            android:drawablePadding="@dimen/padding_standard"
-            android:drawableTint="@color/colorWarmWhite"
-            android:textColor="@color/colorWarmWhite"
-            android:textSize="@dimen/detail_name_text_size" />
-    </GridLayout>
+    </RelativeLayout>
 
         <Button
             android:id="@+id/logout_button"
