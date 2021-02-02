@@ -1,120 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="20dp"
+    android:gravity="center_horizontal"
     android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
     tools:context=".activities.HomeActivity">
+
+    <ImageView
+        android:id="@+id/nahoft_message_bottle"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:srcCompat="@drawable/logo_clear_message_bottle"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:id="@+id/logoContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:paddingTop="25dp"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:paddingTop="@dimen/padding_standard"
         android:orientation="vertical" >
-
-        <ImageView
-            android:id="@+id/nahoft_message_bottle"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            app:srcCompat="@drawable/logo_clear_message_bottle"
-            tools:ignore="ContentDescription" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/logoContainer"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="50dp"
-        android:orientation="vertical"
-        android:paddingBottom="32dp">
-
-        <Button
-            android:id="@+id/settings_button"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="64dp"
-            android:background="@android:color/transparent"
-            android:drawableEnd="@drawable/gear_asset"
-            android:drawablePadding="@dimen/padding_standard"
-            android:drawableTint="@color/colorWarmWhite"
-            android:textSize="@dimen/detail_name_text_size" />
-
-        <Button
-            android:id="@+id/user_guide_button"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="50dp"
-            android:background="@android:color/transparent"
-            android:drawableEnd="@drawable/smiley_face"
-            android:drawablePadding="@dimen/padding_standard"
-            android:drawableTint="@color/colorWarmWhite"
-            android:textColor="@color/colorWarmWhite"
-            android:textSize="@dimen/detail_name_text_size" />
-
-        <Button
-            android:id="@+id/friends_button"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginBottom="50dp"
-            android:background="@android:color/transparent"
-            android:drawableEnd="@drawable/key_asset"
-            android:drawablePadding="@dimen/padding_standard"
-            android:drawableTint="@color/colorWarmWhite"
-            android:text="@string/button_label_friends"
-            android:textColor="@color/colorWarmWhite"
-            android:textSize="@dimen/detail_name_text_size" />
-
-        <Button
-            android:id="@+id/messages_button"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="50dp"
-            android:layout_marginBottom="50dp"
-            android:background="@android:color/transparent"
-            android:drawableEnd="@drawable/message_asset"
-            android:drawablePadding="@dimen/padding_standard"
-            android:drawableTint="@color/colorWarmWhite"
-            android:textColor="@color/colorWarmWhite"
-            android:textSize="@dimen/detail_name_text_size" />
-
-    </RelativeLayout>
-
-        <Button
-            android:id="@+id/logout_button"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_half"
-            android:background="@android:color/transparent"
-            android:drawableRight="@drawable/logout_button"
-            android:drawablePadding="@dimen/padding_standard"
-            android:drawableTint="@color/colorWarmWhite"
-            android:text="@string/button_label_logout"
-            android:textColor="@color/colorWarmWhite"
-            android:textSize="@dimen/detail_name_text_size" />
+            android:layout_gravity="center_horizontal"
+            android:alignmentMode="alignBounds"
+            android:columnCount="2"
+            android:rowCount="3"
+            android:orientation="horizontal">
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/settings_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:background="@drawable/home_button_background"
+                android:drawableEnd="@drawable/gear_asset"
+                android:drawableTint="@color/colorPrimaryDark" />
+
+            <Button
+                android:id="@+id/user_guide_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:background="@drawable/home_button_background"
+                android:drawableEnd="@drawable/smiley_face"
+                android:drawableTint="@color/colorPrimaryDark"/>
+
+            <Button
+                android:id="@+id/friends_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:background="@drawable/home_button_background"
+                android:drawableEnd="@drawable/key_asset"
+                android:drawableTint="@color/colorPrimaryDark"/>
+
+            <Button
+                android:id="@+id/messages_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:background="@drawable/home_button_background"
+                android:drawableEnd="@drawable/message_asset"
+                android:drawableTint="@color/colorPrimaryDark"/>
+
+            <Button
+                android:id="@+id/logout_button"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:layout_gravity="end"
+                android:background="@android:color/transparent"
+                android:drawableEnd="@drawable/logout_button"
+                android:drawablePadding="@dimen/padding_standard"
+                android:drawableTint="@color/colorWarmWhite"
+                android:text="@string/button_label_logout"
+                android:textColor="@color/colorWarmWhite"
+                android:textSize="@dimen/detail_name_text_size" />
+
+        </GridLayout>
+    </LinearLayout>
+</LinearLayout>

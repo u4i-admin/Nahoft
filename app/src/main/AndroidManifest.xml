@@ -9,10 +9,9 @@
         android:name=".Nahoft"
         android:allowBackup="false"
         android:configChanges="keyboardHidden|orientation"
-        android:icon="@drawable/nahoft_icon_launcher_foreground"
         android:installLocation="internalOnly"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/nahoft_icon_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -43,7 +42,6 @@
             android:label="@string/create_passcodes_screen_name" />
         <activity
             android:name=".activities.EnterPasscodeActivity"
-            android:icon="@mipmap/nahoft_icon_launcher_round"
             android:launchMode="singleTask"
             android:noHistory="true">
             <intent-filter>

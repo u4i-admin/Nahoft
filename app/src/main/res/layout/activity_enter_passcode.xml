@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background"
+    android:background="@color/colorPrimaryDark"
     tools:context=".activities.EnterPasscodeActivity">
 
     <LinearLayout
@@ -20,7 +20,7 @@
             android:id="@+id/nahoft_message_bottle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/nahoft_icon_launcher_round" />
+            app:srcCompat="@drawable/logo_clear_message_bottle" />
     </LinearLayout>
 
 
