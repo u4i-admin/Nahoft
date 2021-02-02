@@ -39,8 +39,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_standard"
+                android:gravity="center"
                 android:background="@drawable/home_button_background"
-                android:drawableEnd="@drawable/gear_asset"
+                android:drawableEnd="@drawable/gear_asset_smaller"
                 android:drawableTint="@color/colorPrimaryDark" />
 
             <Button
@@ -49,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@drawable/home_button_background"
-                android:drawableEnd="@drawable/smiley_face"
+                android:drawableEnd="@drawable/smiley_face_asset_smaller"
                 android:drawableTint="@color/colorPrimaryDark"/>
 
             <Button
@@ -58,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@drawable/home_button_background"
-                android:drawableEnd="@drawable/key_asset"
+                android:drawableEnd="@drawable/key_asset_smaller"
                 android:drawableTint="@color/colorPrimaryDark"/>
 
             <Button
@@ -67,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@drawable/home_button_background"
-                android:drawableEnd="@drawable/message_asset"
+                android:drawableEnd="@drawable/message_asset_smaller"
                 android:drawableTint="@color/colorPrimaryDark"/>
 
             <Button
