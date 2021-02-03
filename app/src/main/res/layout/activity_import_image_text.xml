@@ -32,6 +32,7 @@
             android:background="@color/colorWarmWhite"
             />
     </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/import_text_button"
         android:drawableEnd="@drawable/ic_post_add_24px"

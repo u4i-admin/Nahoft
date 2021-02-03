@@ -5,11 +5,12 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
+import android.widget.Toast
 import androidx.core.graphics.get
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-
+import kotlin.math.roundToInt
 
 class Stencil {
     private var cachedIndex: Int? = null
@@ -40,8 +41,18 @@ class Stencil {
         }
 
         val bits = bitsFromBytes(encrypted)
-
         var result = cover.copy(Bitmap.Config.ARGB_8888, true)
+
+        // TODO: resize result if it is larger than 4mb
+        val sizeBytes = result.height * result.width * 4
+        if (sizeBytes > 4000000)
+        {
+            Toast.makeText( context, "Resizing Image", Toast.LENGTH_SHORT).show()
+
+            // TODO: Figure out the desired height and width
+            result = Bitmap.createScaledBitmap(result, (result.width * 0.75).roundToInt(), (result.height * 0.75).roundToInt(), true)
+        }
+
         for (index in bits.indices)
         {
             val bit = bits[index]
