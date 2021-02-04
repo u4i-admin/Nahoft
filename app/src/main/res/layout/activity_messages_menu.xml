@@ -16,16 +16,16 @@
         android:paddingTop="32dp">
 
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            app:srcCompat="@drawable/ic_chat_white_18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/message_asset_75"
             tools:ignore="ContentDescription" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="182dp"
+        android:layout_height="250dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:gravity="right"
         android:layout_marginVertical="64dp"
         android:orientation="vertical" >
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_half"
             android:background="@android:color/transparent"
-            android:drawableRight="@drawable/gear_asset_smaller"
+            android:drawableRight="@drawable/megaphone_50"
             android:drawablePadding="@dimen/padding_standard"
             android:drawableTint="@color/colorWarmWhite"
             android:text="@string/button_label_view_messages"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_half"
             android:background="@android:color/transparent"
-            android:drawableRight="@drawable/ic_baseline_create_24"
+            android:drawableRight="@drawable/compose_message_50"
             android:drawablePadding="@dimen/padding_standard"
             android:drawableTint="@color/colorWarmWhite"
             android:text="@string/button_label_compose_messages"
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_half"
             android:background="@android:color/transparent"
-            android:drawableRight="@drawable/image_text_import_button"
+            android:drawableRight="@drawable/import_50"
             android:drawablePadding="@dimen/padding_standard"
             android:drawableTint="@color/colorWarmWhite"
             android:text="@string/import_label_messages"
