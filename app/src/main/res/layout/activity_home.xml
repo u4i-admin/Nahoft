@@ -40,7 +40,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@drawable/home_button_background"
-                android:src="@drawable/gear_asset_75"
+                android:src="@drawable/gear_asset_50"
                 android:tint="@color/colorPrimaryDark"
                 android:contentDescription="@string/settings_button_description" />
 
@@ -50,7 +50,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@drawable/home_button_background"
-                android:src="@drawable/smiley_face_asset_75"
+                android:src="@drawable/smiley_face_asset_50"
                 android:tint="@color/colorPrimaryDark"
                 android:contentDescription="@string/user_guide_button_description" />
 
@@ -60,7 +60,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@drawable/home_button_background"
-                android:src="@drawable/key_asset_75"
+                android:src="@drawable/key_asset_50"
                 android:tint="@color/colorPrimaryDark"
                 android:contentDescription="@string/friends_button_description" />
 
@@ -70,7 +70,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@drawable/home_button_background"
-                android:src="@drawable/message_asset_75"
+                android:src="@drawable/message_asset_50"
                 android:tint="@color/colorPrimaryDark"
                 android:contentDescription="@string/messages_button_description" />
 
