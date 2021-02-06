@@ -243,5 +243,9 @@
 <string name="alert_title_confirm_friend_reset">این دوست بازنشانی شود؟</string>
 <string name="alert_text_confirm_friend_reset">هر پیامی که از این دوست دریافت کرده‌اید، حذف خواهد شد.</string>
 <string name="button_label_cancel">لغو</string>
+    <string name="user_guide_button_description">Button to take you to the user guides.</string>
+    <string name="settings_button_description">Button to go to the settings menu.</string>
+    <string name="friends_button_description">Button to go to the friends menu.</string>
+    <string name="messages_button_description">Button to take you to the messages menu.</string>
 
 </resources>

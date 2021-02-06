@@ -34,45 +34,48 @@
             android:rowCount="3"
             android:orientation="horizontal">
 
-            <Button
+            <ImageButton
                 android:id="@+id/settings_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@drawable/home_button_background"
-                android:drawableEnd="@drawable/gear_asset_75"
-                android:drawableTint="@color/colorPrimaryDark" />
+                android:src="@drawable/gear_asset_75"
+                android:tint="@color/colorPrimaryDark"
+                android:contentDescription="@string/settings_button_description" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/user_guide_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@drawable/home_button_background"
-                android:drawableEnd="@drawable/smiley_face_asset_75"
-                android:drawableTint="@color/colorPrimaryDark"/>
+                android:src="@drawable/smiley_face_asset_75"
+                android:tint="@color/colorPrimaryDark"
+                android:contentDescription="@string/user_guide_button_description" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/friends_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@drawable/home_button_background"
-                android:drawableEnd="@drawable/key_asset_75"
-                android:drawableTint="@color/colorPrimaryDark"/>
+                android:src="@drawable/key_asset_75"
+                android:tint="@color/colorPrimaryDark"
+                android:contentDescription="@string/friends_button_description" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/messages_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@drawable/home_button_background"
-                android:drawableEnd="@drawable/message_asset_75"
-                android:drawableTint="@color/colorPrimaryDark"/>
+                android:src="@drawable/message_asset_75"
+                android:tint="@color/colorPrimaryDark"
+                android:contentDescription="@string/messages_button_description" />
 
             <Button
                 android:id="@+id/logout_button"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnSpan="2"
