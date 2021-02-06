@@ -2,20 +2,20 @@
 <resources>
 
 <!-- App Screen Names -->
-<string name="app_name">Nahoft</string>
-<string name="import_screen_name">وارد کردن</string>
-<string name="add_friends_screen_name">افزودن دوستان</string>
-<string name="create_passcodes_screen_name">ایجاد کدهای عبور</string>
-<string name="friends_screen_name">دوستان</string>
+<string name="app_name"> </string>
+<string name="import_screen_name"> </string>
+<string name="add_friends_screen_name"> </string>
+<string name="create_passcodes_screen_name"> </string>
+<string name="friends_screen_name"> </string>
 <string name="choose_friend_to_message">انتخاب دوست برای ارسال پیام</string>
-<string name="compose_message_screen_name">نوشتن پیام</string>
-<string name="imports_user_guide_screen_name">راهنمای کاربر موارد واردشده</string>
-<string name="passcodes_user_guide_screen_name">راهنمای کاربر کدهای عبوری</string>
-<string name="messages_user_guide_screen_name">راهنمای کاربر پیام‌ها</string>
-<string name="friends_user_guide_screen_name">راهنمای کاربر دوستان</string>
-<string name="settings_screen_name">تنظیمات</string>
-<string name="user_guides_screen_name">راهنماهای کاربر</string>
-<string name="messages_screen_name">پیام‌ها</string>
+<string name="compose_message_screen_name"> </string>
+<string name="imports_user_guide_screen_name"> </string>
+<string name="passcodes_user_guide_screen_name"> </string>
+<string name="messages_user_guide_screen_name"> </string>
+<string name="friends_user_guide_screen_name"> </string>
+<string name="settings_screen_name"> </string>
+<string name="user_guides_screen_name"> </string>
+<string name="messages_screen_name"> </string>
 
 <!-- Enter Passcode Activity Strings -->
 <string name="Login">وارد کردن کدعبور</string>
