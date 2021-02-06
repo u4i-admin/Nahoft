@@ -1,12 +1,10 @@
 <resources>
 
     <!-- App Screen Names -->
-    <string name="app_name"> </string>
-    <string name="import_screen_name"> </string>
     <string name="add_friends_screen_name"> </string>
     <string name="create_passcodes_screen_name"> </string>
     <string name="friends_screen_name"> </string>
-    <string name="choose_friend_to_message">Choose Friend to Message</string>
+    <string name="choose_friend_to_message"> </string>
     <string name="compose_message_screen_name"> </string>
     <string name="imports_user_guide_screen_name"> </string>
     <string name="passcodes_user_guide_screen_name"> </string>
