@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="20dp"
+    android:layout_gravity="center_horizontal"
     android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
     tools:context=".activities.EnterPasscodeActivity">
 
     <LinearLayout
@@ -13,25 +16,12 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="64dp"
-        android:layout_centerInParent="true"
-        android:layout_alignParentTop="true">
+        android:layout_margin="64dp">
         <ImageView
             android:id="@+id/nahoft_message_bottle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/logo_clear_message_bottle" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="32dp"
-        android:layout_centerInParent="true"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/passcodeLogoContainer"
-        android:orientation="vertical">
 
         <EditText
             android:id="@+id/passcode_edit_text"
@@ -51,8 +41,9 @@
             android:layout_gravity="center"
             android:background="@color/colorWarmWhite"
             android:text="@string/Login"
+            android:drawablePadding="16dp"
             android:textColor="@color/colorPrimaryDark"/>
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
