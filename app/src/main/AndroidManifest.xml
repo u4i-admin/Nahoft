@@ -11,7 +11,7 @@
         android:configChanges="keyboardHidden|orientation"
         android:installLocation="internalOnly"
         android:icon="@mipmap/ic_launcher"
-        android:label=""
+        android:label="Nahoft"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

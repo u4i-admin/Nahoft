@@ -17,14 +17,14 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginTop="80dp"
-        android:layout_marginBottom="80dp"
         app:srcCompat="@drawable/logo_clear_message_bottle" />
 
     <LinearLayout
         android:id="@+id/passcodeLogoContainer"
         android:orientation="vertical"
+        android:gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <EditText
             android:id="@+id/passcode_edit_text"
