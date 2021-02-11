@@ -9,10 +9,9 @@
         android:name=".Nahoft"
         android:allowBackup="false"
         android:configChanges="keyboardHidden|orientation"
-        android:icon="@drawable/nahoft_icon_launcher_foreground"
         android:installLocation="internalOnly"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/nahoft_icon_launcher_round"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Nahoft"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -30,20 +29,16 @@
 
         <activity android:name=".activities.VerifyFriendActivity" />
         <activity
-            android:name=".activities.ImportImageTextActivity"
-            android:label="@string/import_screen_name" />
+            android:name=".activities.ImportImageTextActivity" />
         <activity
-            android:name=".activities.AddFriendActivity"
-            android:label="@string/add_friends_screen_name" />
+            android:name=".activities.AddFriendActivity" />
         <activity android:name=".activities.SelectKeySenderActivity" />
         <activity android:name=".activities.SelectMessageSenderActivity" />
         <activity android:name=".activities.MessageActivity" />
         <activity
-            android:name=".activities.PasscodeActivity"
-            android:label="@string/create_passcodes_screen_name" />
+            android:name=".activities.PasscodeActivity" />
         <activity
             android:name=".activities.EnterPasscodeActivity"
-            android:icon="@mipmap/nahoft_icon_launcher_round"
             android:launchMode="singleTask"
             android:noHistory="true">
             <intent-filter>
@@ -53,36 +48,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.FriendsActivity"
-            android:label="@string/friends_screen_name" />
+            android:name=".activities.FriendsActivity" />
         <activity
-            android:name=".activities.FriendSelectionActivity"
-            android:label="@string/choose_friend_to_message" />
+            android:name=".activities.FriendSelectionActivity" />
         <activity
-            android:name=".activities.NewMessageActivity"
-            android:label="@string/compose_message_screen_name" />
+            android:name=".activities.NewMessageActivity" />
         <activity
-            android:name=".activities.ImportingUserGuideActivity"
-            android:label="@string/imports_user_guide_screen_name" />
+            android:name=".activities.ImportingUserGuideActivity" />
         <activity
-            android:name=".activities.SettingsUserGuideActivity"
-            android:label="@string/passcodes_user_guide_screen_name" />
+            android:name=".activities.SettingsUserGuideActivity" />
         <activity
-            android:name=".activities.SendingMessagesUserGuideActivity"
-            android:label="@string/messages_user_guide_screen_name" />
+            android:name=".activities.SendingMessagesUserGuideActivity" />
         <activity
-            android:name=".activities.FriendsUserGuideActivity"
-            android:label="@string/friends_user_guide_screen_name" />
+            android:name=".activities.FriendsUserGuideActivity" />
         <activity
-            android:name=".activities.SettingsActivity"
-            android:label="@string/settings_screen_name" />
+            android:name=".activities.SettingsActivity" />
         <activity
-            android:name=".activities.UserGuideActivity"
-            android:label="@string/user_guides_screen_name" />
+            android:name=".activities.UserGuideActivity" />
         <activity
             android:name=".activities.MessagesActivity"
-            android:icon="@drawable/app_shortcut_email"
-            android:label="@string/messages_screen_name" />
+            android:icon="@drawable/app_shortcut_email" />
         <activity android:name=".activities.HomeActivity">
 
             <!-- Allows other apps to share images with us -->

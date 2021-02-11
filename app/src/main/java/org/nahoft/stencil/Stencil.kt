@@ -5,9 +5,12 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
+import android.widget.Toast
 import androidx.core.graphics.get
-
-
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlin.math.roundToInt
 
 class Stencil {
     private var cachedIndex: Int? = null
@@ -31,22 +34,6 @@ class Stencil {
     fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri?
     {
         val cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-//        {
-//            val source = ImageDecoder.createSource(context.contentResolver, coverUri)
-//            cover = try {
-//                ImageDecoder.decodeBitmap(source)
-//            } catch (coverError: Exception) {
-//                print("Failed to decode the bitmap> Error: $coverError")
-//                return null
-//            }
-//        }
-//        else
-//        {
-//            cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
-//        }
-
         val numBits = encrypted.size * 8
         val maxStars: Int = (cover.height / 3) * (cover.width / 3)
         if (numBits > maxStars) {
@@ -54,8 +41,18 @@ class Stencil {
         }
 
         val bits = bitsFromBytes(encrypted)
-
         var result = cover.copy(Bitmap.Config.ARGB_8888, true)
+
+        // TODO: resize result if it is larger than 4mb
+        val sizeBytes = result.height * result.width * 4
+        if (sizeBytes > 4000000)
+        {
+            Toast.makeText( context, "Resizing Image", Toast.LENGTH_SHORT).show()
+
+            // TODO: Figure out the desired height and width
+            result = Bitmap.createScaledBitmap(result, (result.width * 0.75).roundToInt(), (result.height * 0.75).roundToInt(), true)
+        }
+
         for (index in bits.indices)
         {
             val bit = bits[index]
@@ -280,14 +277,6 @@ class Stencil {
     fun decode(context: Context, uri: Uri): ByteArray?
     {
         val bitmap = BitmapFactory.decodeStream(context.contentResolver.openInputStream(uri))
-
-//        val bitmap = ImageDecoder.decodeBitmap(
-//            ImageDecoder.createSource(
-//                context.contentResolver,
-//                uri
-//            )
-//        )
-
         return decode(bitmap)
     }
 

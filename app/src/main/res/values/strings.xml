@@ -1,20 +1,18 @@
 <resources>
 
     <!-- App Screen Names -->
-    <string name="app_name">Nahoft</string>
-    <string name="import_screen_name">Import</string>
-    <string name="add_friends_screen_name">Add Friends</string>
-    <string name="create_passcodes_screen_name">Create Passcodes</string>
-    <string name="friends_screen_name">Friends</string>
-    <string name="choose_friend_to_message">Choose Friend to Message</string>
-    <string name="compose_message_screen_name">Compose Message</string>
-    <string name="imports_user_guide_screen_name">Imports User Guide</string>
-    <string name="passcodes_user_guide_screen_name">Passcodes User Guide</string>
-    <string name="messages_user_guide_screen_name">Messages User Guide</string>
-    <string name="friends_user_guide_screen_name">Friends User Guide</string>
-    <string name="settings_screen_name">Settings</string>
-    <string name="user_guides_screen_name">User Guides</string>
-    <string name="messages_screen_name">Messages</string>
+    <string name="add_friends_screen_name"> </string>
+    <string name="create_passcodes_screen_name"> </string>
+    <string name="friends_screen_name"> </string>
+    <string name="choose_friend_to_message"> </string>
+    <string name="compose_message_screen_name"> </string>
+    <string name="imports_user_guide_screen_name"> </string>
+    <string name="passcodes_user_guide_screen_name"> </string>
+    <string name="messages_user_guide_screen_name"> </string>
+    <string name="friends_user_guide_screen_name"> </string>
+    <string name="settings_screen_name"> </string>
+    <string name="user_guides_screen_name"> </string>
+    <string name="messages_screen_name"> </string>
 
     <!-- Enter Passcode Activity Strings -->
     <string name="Login">Enter Passcode</string>
@@ -239,5 +237,9 @@
     <string name="alert_title_confirm_friend_reset">Reset this friend?</string>
     <string name="alert_text_confirm_friend_reset">Any messages you have received from this friend will be deleted.</string>
     <string name="button_label_cancel">Cancel</string>
+    <string name="user_guide_button_description">Button to take you to the user guides.</string>
+    <string name="settings_button_description">Button to go to the settings menu.</string>
+    <string name="friends_button_description">Button to go to the friends menu.</string>
+    <string name="messages_button_description">Button to go to the messages menu.</string>
 
 </resources>

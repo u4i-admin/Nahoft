@@ -93,6 +93,7 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
 
         private fun importInvitationClicked() {
             val importIntent = Intent(this.view.context, ImportImageTextActivity::class.java)
+            importIntent.putExtra(ImportImageTextActivity.SENDER, this.friend)
             this.view.context.startActivity(importIntent)
         }
 

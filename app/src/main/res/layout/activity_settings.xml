@@ -17,9 +17,9 @@
 
         <ImageView
             android:id="@+id/settings_menu_logo"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            app:srcCompat="@drawable/ic_settings_24px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/gear_asset_100"
             app:tint="@color/colorWarmWhite" />
     </LinearLayout>
 
@@ -44,7 +44,7 @@
             android:text="@string/button_label_passcode"
             android:textColor="@color/colorWarmWhite"
             android:textSize="24sp"
-            android:drawableRight="@drawable/passcode_icon"
+            android:drawableRight="@drawable/lock_50"
             android:drawableTint="@color/colorWarmWhite"
             android:drawablePadding="@dimen/padding_half" />
 

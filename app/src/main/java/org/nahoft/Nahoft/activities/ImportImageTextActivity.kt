@@ -12,17 +12,26 @@ import org.nahoft.nahoft.*
 import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
-import org.nahoft.util.ShareUtil
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class ImportImageTextActivity : AppCompatActivity() {
+class ImportImageTextActivity: AppCompatActivity() {
 
     private var decodePayload: ByteArray? = null
+    private var sender: Friend? = null
+    private val parentJob = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    companion object {
+        const val SENDER = "Sender"
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_import_image_text)
+
+        sender = intent.getSerializableExtra(SENDER) as Friend?
 
         import_text_button.setOnClickListener {
             handleMessageImport()
@@ -55,7 +64,13 @@ class ImportImageTextActivity : AppCompatActivity() {
                     // We received a message, have the user select who it is from
                     val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
                     startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
-                } else {
+                }
+                else if (sender != null)
+                {
+                    updateKeyAndStatus(sender!!, decodePayload!!)
+                }
+                else
+                {
                     // We received a key, have the user select who it is from
                     val selectSenderIntent = Intent(this, SelectKeySenderActivity::class.java)
                     startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
@@ -77,21 +92,15 @@ class ImportImageTextActivity : AppCompatActivity() {
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == RequestCodes.selectMessageSenderCode) {
-                val sender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
+                val selectedSender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
                     ?.let { it as Friend }
 
-                if (sender != null) {
-                    if (decodePayload != null) {
+                if (selectedSender != null)
+                {
+                    if (decodePayload != null)
+                    {
                         // Create Message Instance
-                        val date = LocalDateTime.now()
-                        val stringDate = date.format(DateTimeFormatter.ofPattern("M/d/y H:m"))
-                        val cipherText = decodePayload
-                        val newMessage = Message(stringDate, cipherText!!, sender)
-                        
-                        Persist.messageList.add(newMessage)
-                        Persist.saveMessagesToFile(this)
-
-                        import_message_text_view.text?.clear()
+                        val newMessage = createAndSaveMessage(selectedSender, decodePayload!!)
 
                         // Go to message view
                         val messageArguments = MessageActivity.Arguments(message = newMessage)
@@ -105,62 +114,33 @@ class ImportImageTextActivity : AppCompatActivity() {
 
 
             } else if (requestCode == RequestCodes.selectKeySenderCode) {
-                val sender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
+                val selectedSender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
                     ?.let { it as Friend }
 
                 // Update this friend with a new key and a new status
-                if (sender != null && decodePayload != null) {
-
-                    when (sender.status) {
-                        FriendStatus.Default -> {
-                            Persist.updateFriend(
-                                context = this,
-                                friendToUpdate = sender,
-                                newStatus = FriendStatus.Requested,
-                                encodedPublicKey = decodePayload!!
-                            )
-                            this.showAlert(
-                                getString(
-                                    R.string.alert_text_received_invitation,
-                                    sender.name
-                                )
-                            )
-                            finish()
-                        }
-
-                        FriendStatus.Invited -> {
-                            Persist.updateFriend(
-                                context = this,
-                                friendToUpdate = sender,
-                                newStatus = FriendStatus.Approved,
-                                encodedPublicKey = decodePayload!!
-                            )
-
-                            this.showAlert(sender.name, (R.string.alert_text_invitation_accepted))
-                            finish()
-                        }
-
-                        else ->
-                            this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
-                    }
-                } else {
+                if (selectedSender != null && decodePayload != null)
+                {
+                    updateKeyAndStatus(selectedSender, decodePayload!!)
+                }
+                else
+                {
                     this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
                 }
-            } else if (requestCode == RequestCodes.selectImageCode) {
+            }
+            else if (requestCode == RequestCodes.selectImageCode)
+            {
                 // get data?.data as URI
                 val imageURI = data?.data
                 imageURI?.let {
 
-                    val decodeResult: Deferred<ByteArray?> = ShareUtil.coroutineScope.async(Dispatchers.IO) {
+                    val decodeResult: Deferred<ByteArray?> = coroutineScope.async(Dispatchers.IO) {
                         return@async Stencil().decode(applicationContext, it)
                     }
 
-                    ShareUtil.coroutineScope.launch(Dispatchers.Main) {
+                    coroutineScope.launch(Dispatchers.Main) {
                         val maybeBytes = decodeResult.await()
                         handleImageDecodeResult(maybeBytes)
                     }
-
-
                 }
             }
         }
@@ -177,6 +157,59 @@ class ImportImageTextActivity : AppCompatActivity() {
             startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
         } else {
             showAlert(getString(R.string.alert_text_unable_to_decode_message))
+        }
+    }
+
+    private fun createAndSaveMessage(messageSender: Friend, messageData: ByteArray): Message
+    {
+        val date = LocalDateTime.now()
+        val stringDate = date.format(DateTimeFormatter.ofPattern("M/d/y H:m"))
+        val newMessage = Message(stringDate, messageData, messageSender)
+
+        Persist.messageList.add(newMessage)
+        Persist.saveMessagesToFile(this)
+
+        import_message_text_view.text?.clear()
+
+        return newMessage
+    }
+
+    private fun updateKeyAndStatus(keySender: Friend, keyData: ByteArray)
+    {
+        when (keySender.status)
+        {
+            FriendStatus.Default ->
+            {
+                Persist.updateFriend(
+                    context = this,
+                    friendToUpdate = keySender,
+                    newStatus = FriendStatus.Requested,
+                    encodedPublicKey = keyData
+                )
+                this.showAlert(
+                    getString(
+                        R.string.alert_text_received_invitation,
+                        keySender.name
+                    )
+                )
+                finish()
+            }
+
+            FriendStatus.Invited ->
+            {
+                Persist.updateFriend(
+                    context = this,
+                    friendToUpdate = keySender,
+                    newStatus = FriendStatus.Approved,
+                    encodedPublicKey = keyData
+                )
+
+                this.showAlert(keySender.name, (R.string.alert_text_invitation_accepted))
+                finish()
+            }
+
+            else ->
+                this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
         }
     }
 }

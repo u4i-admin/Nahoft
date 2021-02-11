@@ -86,6 +86,12 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimaryDark" />
 
+            <ProgressBar
+                android:id="@+id/imageShareProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"/>
+
         </LinearLayout>
 
     </LinearLayout>
