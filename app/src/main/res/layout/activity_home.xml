@@ -12,6 +12,14 @@
     tools:context=".activities.HomeActivity">
 
     <ImageView
+        android:id="@+id/help_button"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/help_outline_24px"
+        android:layout_gravity="right"/>
+
+
+    <ImageView
         android:id="@+id/nahoft_message_bottle"
         android:layout_width="150dp"
         android:layout_height="150dp"
