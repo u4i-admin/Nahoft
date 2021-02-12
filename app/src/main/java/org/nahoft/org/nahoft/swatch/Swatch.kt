@@ -8,6 +8,7 @@ import android.net.Uri
 import androidx.core.graphics.get
 import org.nahoft.stencil.CapturePhotoUtils
 import java.nio.ByteBuffer
+import kotlin.random.Random
 
 class Swatch {
     val minimumPatchSize = 2
@@ -55,10 +56,57 @@ class Swatch {
 
     @ExperimentalUnsignedTypes
     fun encode(cover: Bitmap, message1: IntArray, message2: IntArray): Bitmap? {
+        val numPixels = cover.height * cover.width
+
+        val patch1Size = numPixels / message1.size
+        val patch2Size = numPixels / message2.size
+
+        // FIXME - Proper seeds
+        val rules1 = makeRules(1, cover, message1)
+        val rules2 = makeRules(2, cover, message2)
+
         return null
     }
 
-        private fun setPixel(bitmap: Bitmap, x: Int, y: Int, value: Int)
+    fun makeRules(key: Int, cover: Bitmap, message: IntArray): Array<Rule>
+    {
+        val random1 = Random(1)
+        val pixels1 = getPixelArray(cover)
+        pixels1.shuffle(random1)
+        val chunks1 = pixels1.asList().chunked(message.size)
+        val patches1 = chunks1.map { Patch(it) }
+        val pairs1 = patches1.chunked(2)
+        var rules: Array<Rule> = arrayOf()
+        for (index in 0 until pairs1.size)
+        {
+            val bit = message[index]
+            val (patch1, patch2) = pairs1[index]
+            when (bit)
+            {
+                1 -> rules += Rule(patch1, patch2, Constraint.GREATER)
+                2 -> rules += Rule(patch1, patch2, Constraint.LESS)
+            }
+        }
+
+        return rules
+    }
+
+    fun getPixelArray(bitmap: Bitmap): Array<Pair<Int,Int>>
+    {
+        var results: Array<Pair<Int,Int>> = arrayOf()
+
+        for (x in 0 until bitmap.width)
+        {
+            for (y in 0 until bitmap.height)
+            {
+                results += Pair<Int,Int>(x, y)
+            }
+        }
+
+        return results
+    }
+
+    private fun setPixel(bitmap: Bitmap, x: Int, y: Int, value: Int)
     {
         val color = Color.argb(value, value, value, value)
         bitmap.setPixel(x, y, color)
@@ -148,6 +196,21 @@ fun bytesFromBits(bits: List<Int>): ByteArray?
     }
 
     return result
+}
+
+class Rule(patch0: Patch, patch1: Patch, constraint: Constraint)
+{
+}
+
+class Patch(points: List<Pair<Int,Int>>)
+{
+}
+
+enum class Constraint(val constraint: Int)
+{
+    GREATER(1),
+    EQUAL(0),
+    LESS(-1)
 }
 
 @ExperimentalUnsignedTypes
