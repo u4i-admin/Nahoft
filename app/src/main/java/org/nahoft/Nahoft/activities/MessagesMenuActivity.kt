@@ -3,7 +3,9 @@ package org.nahoft.nahoft.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_messages_menu.*
+import kotlinx.android.synthetic.main.activity_messages_menu.help_button
 import org.nahoft.nahoft.R
 
 class MessagesMenuActivity : AppCompatActivity()
@@ -13,6 +15,10 @@ class MessagesMenuActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_messages_menu)
 
+        // Help Button
+        help_button.setOnClickListener{
+            println("Help Button Clicked")
+        }
 
         // View Messages Button
         view_messages_button.setOnClickListener {

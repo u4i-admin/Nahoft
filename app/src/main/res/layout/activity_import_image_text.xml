@@ -10,6 +10,13 @@
     android:gravity="center_horizontal"
     tools:context=".activities.ImportImageTextActivity">
 
+    <ImageButton
+        android:id="@+id/help_button"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="right"
+        app:srcCompat="@drawable/help_outline_24px" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/import_message_text_layout"
         android:layout_width="match_parent"

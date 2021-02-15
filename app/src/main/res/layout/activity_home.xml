@@ -18,7 +18,6 @@
         app:srcCompat="@drawable/help_outline_24px"
         android:layout_gravity="right"/>
 
-
     <ImageView
         android:id="@+id/nahoft_message_bottle"
         android:layout_width="150dp"

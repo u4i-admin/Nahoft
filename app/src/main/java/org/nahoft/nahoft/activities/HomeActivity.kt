@@ -63,6 +63,11 @@ class HomeActivity : AppCompatActivity() {
             startActivity(loginIntent)
         }
 
+        // Help Button
+        help_button.setOnClickListener{
+            println("Help Button Clicked")
+        }
+
         // Logout Button
         if (status == LoginStatus.NotRequired) {
             logout_button.visibility = View.INVISIBLE
