@@ -64,7 +64,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         // Help Button
-        help_button.setOnClickListener{
+        home_help_button.setOnClickListener{
             println("Help Button Clicked")
         }
 

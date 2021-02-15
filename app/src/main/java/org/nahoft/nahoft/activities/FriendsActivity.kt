@@ -6,8 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_friends.*
-import kotlinx.android.synthetic.main.activity_friends.help_button
-import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_friends.friends_help_button
 import org.nahoft.nahoft.FriendsRecyclerAdapter
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.R
@@ -30,7 +29,7 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
         setupItemTouchHelper()
 
         // Help Button
-        help_button.setOnClickListener{
+        friends_help_button.setOnClickListener{
             println("Help Button Clicked")
         }
 

@@ -16,7 +16,7 @@
         android:paddingTop="32dp">
 
         <ImageView
-        android:id="@+id/help_button"
+        android:id="@+id/messages_menu_help_button"
         android:layout_width="20dp"
         android:layout_height="20dp"
         app:srcCompat="@drawable/help_outline_24px"

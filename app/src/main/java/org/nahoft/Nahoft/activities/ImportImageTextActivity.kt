@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_import_image_text.*
-import kotlinx.android.synthetic.main.activity_import_image_text.help_button
+import kotlinx.android.synthetic.main.activity_import_image_text.import_help_button
 import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
@@ -36,7 +36,7 @@ class ImportImageTextActivity: AppCompatActivity() {
         sender = intent.getSerializableExtra(SENDER) as Friend?
 
         // Help Button
-        help_button.setOnClickListener{
+        import_help_button.setOnClickListener{
             println("Help Button Clicked")
         }
 
