@@ -156,9 +156,9 @@
         The encrypted message will be transformed into your choice of either a text message or an image in order to hide the fact that it is encrypted.\n
         \n- You can only send messages to \'verified\' friends.\n
         \n- Tap messages on the home screen.\n
-        \n- Tap the pencil icon in the bottom corner of the Messages screen.\n
+        \n- Tap the Compose A Message icon in the bottom corner of the Messages screen.\n
         \n- Tap \'Select Recipient\' to choose the friend you would like to send a message to.\n
-        \n- Write your message in the window that says \'Enter Message Here\'.\n
+        \n- Write your message in the window that says \'Message Body\'.\n
         \n- Tap send as text to encrypt your message and transform it into a different series of characters.\n
         \n- Tap send as Image to encrypt your message and embed it in the image you select.\n
         \n- Once you have made your selection, you will be prompted to share the image or text, here you can select your preferred messaging app, or save it to your clipboard.\n\n
@@ -199,7 +199,7 @@
         \n- You can import your messages using this screen. It is also possible to share received messages directly to the Nahoft app if the app where you received the message allows it.\n
         \n- When you receive a coded text message you can copy the text and paste it in the import screen with a long press.\n
         \n- Tap \'Import Text\', and select the sender when prompted.\n
-        \n- If you have received an image, tap \'Import Image\', select the image when propmpted, and the sender when prompted.\n
+        \n- If you have received an image, tap \'Import Image\', select the image when prompted, and the sender when prompted.\n
         \n- If the message is successfully imported, you will see the original text.\n\n
      </string>
 
