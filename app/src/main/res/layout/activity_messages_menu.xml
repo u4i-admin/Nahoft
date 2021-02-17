@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_half"
             android:background="@android:color/transparent"
-            android:drawableRight="@drawable/megaphone_50"
+            android:drawableRight="@drawable/new_read_messages_1_50"
             android:drawablePadding="@dimen/padding_standard"
             android:drawableTint="@color/colorWarmWhite"
             android:text="@string/button_label_view_messages"

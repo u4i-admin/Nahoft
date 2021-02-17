@@ -57,7 +57,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@drawable/home_button_background"
-                android:src="@drawable/smiley_face_asset_50"
+                android:src="@drawable/new_user_guide_1"
                 android:tint="@color/colorPrimaryDark"
                 android:contentDescription="@string/user_guide_button_description" />
 
@@ -67,7 +67,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
                 android:background="@drawable/home_button_background"
-                android:src="@drawable/key_asset_50"
+                android:src="@drawable/new_friends_button"
                 android:tint="@color/colorPrimaryDark"
                 android:contentDescription="@string/friends_button_description" />
 
@@ -88,7 +88,7 @@
                 android:layout_columnSpan="2"
                 android:layout_gravity="end"
                 android:background="@android:color/transparent"
-                android:drawableEnd="@drawable/logout_button"
+                android:drawableEnd="@drawable/new_logout_button_25"
                 android:drawablePadding="@dimen/padding_standard"
                 android:drawableTint="@color/colorWarmWhite"
                 android:text="@string/button_label_logout"
