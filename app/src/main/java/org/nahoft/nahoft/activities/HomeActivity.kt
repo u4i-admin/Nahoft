@@ -1,12 +1,17 @@
 package org.nahoft.nahoft.activities
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
+import android.app.PendingIntent.getActivity
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_new_message.*
 import kotlinx.coroutines.*
@@ -20,6 +25,7 @@ import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
 import java.io.File
+import java.lang.IllegalStateException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -64,9 +70,29 @@ class HomeActivity : AppCompatActivity() {
         }
 
         // Help Button
-        home_help_button.setOnClickListener{
-            println("Help Button Clicked")
-        }
+        // home_help_button.setOnClickListener{
+           // println("Help Button Clicked")
+       // }
+
+       class HomeHelpButtonDialogFragment : DialogFragment() {
+
+           override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+                return activity?.let {
+                    val builder = AlertDialog.Builder(it)
+                    builder.setMessage(R.string.button_home_help)
+                        .setPositiveButton(R.string.ok_button,
+                            DialogInterface.OnClickListener { dialog, id ->
+                                // Home Help Button
+                            })
+                        .setNegativeButton(R.string.cancel_button,
+                            DialogInterface.OnClickListener { dialog, id ->
+                                // User Cancelled the Dialog
+                            })
+                    // Create the AlertDialog object and return it
+                    builder.create()
+                } ?: throw IllegalStateException("Activity cannot be null")
+                }
+           }
 
         // Logout Button
         if (status == LoginStatus.NotRequired) {

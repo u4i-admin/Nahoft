@@ -246,4 +246,15 @@
     <string name="friends_button_description">Button to go to the friends menu.</string>
     <string name="messages_button_description">Button to take you to the messages menu.</string>
 
+Help Dialog Buttons
+<string name="button_home_help">
+    \n نماد دنده شما را به صفحه تنظیم رمز عبور می رساند \n
+    \n نماد صورتک شما را به صفحه راهنماهای کاربر می رساند \n
+    \n شما را به لیست دوستانتان می آورد که می توانید کلیدها را با آنها به اشتراک بگذارید تا بتوانید پیام رسانی را برای آنها شروع کنید نماد کلید \n
+    \n نماد پیام ها به شما امکان می دهد پیام های رمزگذاری شده را ارسال کنید \n
+</string>
+
+    <string name="ok_button">خوب</string>
+    <string name="cancel_button">لغو کردن</string>
+
 </resources>

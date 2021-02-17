@@ -242,4 +242,16 @@
     <string name="friends_button_description">Button to go to the friends menu.</string>
     <string name="messages_button_description">Button to go to the messages menu.</string>
 
+    Help Dialog Buttons
+    <string name="button_home_help">
+        \n Gear Icon brings you to the Password Setting Screen. \n
+        \n Smiley Face Icon brings you to the User Guides Screens. \n
+        \n Key Icon brings you to your list of friends that you can share keys with so you can start messaging them \n
+        \n Messages Icon allows you to start sending encrypted messages. \n
+    </string>
+
+    <string name="ok_button">ok</string>
+    <string name="cancel_button">ok</string>
+
+
 </resources>
