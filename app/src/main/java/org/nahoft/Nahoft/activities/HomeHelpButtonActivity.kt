@@ -15,7 +15,7 @@ class HomeHelpButtonActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home_help_button)
     }
 
-    class HomeHelpButtonDialogFragment : DialogFragment() {
+    /*class HomeHelpButtonDialogFragment : DialogFragment() {
 
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             return activity?.let {
@@ -29,6 +29,5 @@ class HomeHelpButtonActivity : AppCompatActivity() {
                 builder.create()
             } ?: throw IllegalStateException("Activity cannot be null")
         }
-    }
-
+    }*/
 }
