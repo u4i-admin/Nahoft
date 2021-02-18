@@ -9,13 +9,14 @@
         android:name=".Nahoft"
         android:allowBackup="false"
         android:configChanges="keyboardHidden|orientation"
-        android:installLocation="internalOnly"
         android:icon="@mipmap/ic_launcher"
+        android:installLocation="internalOnly"
         android:label="Nahoft"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MessagesMenuActivity"></activity>
+        <activity android:name=".activities.HomeHelpButtonActivity"></activity>
+        <activity android:name=".activities.MessagesMenuActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -28,15 +29,12 @@
         </provider>
 
         <activity android:name=".activities.VerifyFriendActivity" />
-        <activity
-            android:name=".activities.ImportImageTextActivity" />
-        <activity
-            android:name=".activities.AddFriendActivity" />
+        <activity android:name=".activities.ImportImageTextActivity" />
+        <activity android:name=".activities.AddFriendActivity" />
         <activity android:name=".activities.SelectKeySenderActivity" />
         <activity android:name=".activities.SelectMessageSenderActivity" />
         <activity android:name=".activities.MessageActivity" />
-        <activity
-            android:name=".activities.PasscodeActivity" />
+        <activity android:name=".activities.PasscodeActivity" />
         <activity
             android:name=".activities.EnterPasscodeActivity"
             android:launchMode="singleTask"
@@ -47,24 +45,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.FriendsActivity" />
-        <activity
-            android:name=".activities.FriendSelectionActivity" />
-        <activity
-            android:name=".activities.NewMessageActivity" />
-        <activity
-            android:name=".activities.ImportingUserGuideActivity" />
-        <activity
-            android:name=".activities.SettingsUserGuideActivity" />
-        <activity
-            android:name=".activities.SendingMessagesUserGuideActivity" />
-        <activity
-            android:name=".activities.FriendsUserGuideActivity" />
-        <activity
-            android:name=".activities.SettingsActivity" />
-        <activity
-            android:name=".activities.UserGuideActivity" />
+        <activity android:name=".activities.FriendsActivity" />
+        <activity android:name=".activities.FriendSelectionActivity" />
+        <activity android:name=".activities.NewMessageActivity" />
+        <activity android:name=".activities.ImportingUserGuideActivity" />
+        <activity android:name=".activities.SettingsUserGuideActivity" />
+        <activity android:name=".activities.SendingMessagesUserGuideActivity" />
+        <activity android:name=".activities.FriendsUserGuideActivity" />
+        <activity android:name=".activities.SettingsActivity" />
+        <activity android:name=".activities.UserGuideActivity" />
         <activity
             android:name=".activities.MessagesActivity"
             android:icon="@drawable/app_shortcut_email" />

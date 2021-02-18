@@ -70,29 +70,15 @@ class HomeActivity : AppCompatActivity() {
         }
 
         // Help Button
+
         // home_help_button.setOnClickListener{
-           // println("Help Button Clicked")
-       // }
+        // println("Help Button Clicked")
+        // }
 
-       class HomeHelpButtonDialogFragment : DialogFragment() {
-
-           override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-                return activity?.let {
-                    val builder = AlertDialog.Builder(it)
-                    builder.setMessage(R.string.button_home_help)
-                        .setPositiveButton(R.string.ok_button,
-                            DialogInterface.OnClickListener { dialog, id ->
-                                // Home Help Button
-                            })
-                        .setNegativeButton(R.string.cancel_button,
-                            DialogInterface.OnClickListener { dialog, id ->
-                                // User Cancelled the Dialog
-                            })
-                    // Create the AlertDialog object and return it
-                    builder.create()
-                } ?: throw IllegalStateException("Activity cannot be null")
-                }
-           }
+        home_help_button.setOnClickListener {
+            val homeHelpButtonIntent = Intent(this, HomeHelpButtonActivity::class.java)
+            startActivity(homeHelpButtonIntent)
+        }
 
         // Logout Button
         if (status == LoginStatus.NotRequired) {
