@@ -67,7 +67,7 @@
             android:layout_margin="@dimen/padding_half"
             android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/button_label_verify_friend_accept"
-            android:textColor="@color/colorWarmWhite" />
+            android:textColor="@drawable/button_text_color_light" />
 
         <Button
             android:id="@+id/reject_verification_button"
@@ -76,7 +76,7 @@
             android:layout_margin="@dimen/padding_half"
             android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/button_label_verify_friend_reject"
-            android:textColor="@color/colorWarmWhite" />
+            android:textColor="@drawable/button_text_color_light" />
 
         <Button
             android:id="@+id/reset_friend_button"
@@ -85,6 +85,6 @@
             android:layout_margin="@dimen/padding_half"
             android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/button_label_reset"
-            android:textColor="@color/colorWarmWhite" />
+            android:textColor="@drawable/button_text_color_light" />
     </LinearLayout>
 </LinearLayout>

@@ -46,9 +46,9 @@
             android:background="@android:color/transparent"
             android:drawableRight="@drawable/new_read_messages_1_50"
             android:drawablePadding="@dimen/padding_standard"
-            android:drawableTint="@color/colorWarmWhite"
+            android:drawableTint="@drawable/button_text_color_light"
             android:text="@string/button_label_view_messages"
-            android:textColor="@color/colorWarmWhite"
+            android:textColor="@drawable/button_text_color_light"
             android:textSize="@dimen/detail_name_text_size" />
 
         <Button
@@ -60,9 +60,9 @@
             android:background="@android:color/transparent"
             android:drawableRight="@drawable/compose_message_50"
             android:drawablePadding="@dimen/padding_standard"
-            android:drawableTint="@color/colorWarmWhite"
+            android:drawableTint="@drawable/button_text_color_light"
             android:text="@string/button_label_compose_messages"
-            android:textColor="@color/colorWarmWhite"
+            android:textColor="@drawable/button_text_color_light"
             android:textSize="@dimen/detail_name_text_size" />
 
         <Button
@@ -74,9 +74,9 @@
             android:background="@android:color/transparent"
             android:drawableRight="@drawable/import_50"
             android:drawablePadding="@dimen/padding_standard"
-            android:drawableTint="@color/colorWarmWhite"
+            android:drawableTint="@drawable/button_text_color_light"
             android:text="@string/import_label_messages"
-            android:textColor="@color/colorWarmWhite"
+            android:textColor="@drawable/button_text_color_light"
             android:textSize="@dimen/detail_name_text_size" />
     </LinearLayout>
 

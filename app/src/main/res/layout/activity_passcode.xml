@@ -86,7 +86,7 @@
                     android:backgroundTint="@color/colorPrimaryDark"
                     android:text="@string/button_label_save_passcode"
                     android:textAllCaps="false"
-                    android:textColor="@color/colorWarmWhite" />
+                    android:textColor="@drawable/button_text_color_light" />
 
                 <Button
                     android:id="@+id/delete_passcode_button"
@@ -96,7 +96,7 @@
                     android:backgroundTint="@color/colorPrimaryDark"
                     android:text="@string/button_label_delete_passcode"
                     android:textAllCaps="false"
-                    android:textColor="@color/colorWarmWhite" />
+                    android:textColor="@drawable/button_text_color_light" />
             </LinearLayout>
 
         </LinearLayout>

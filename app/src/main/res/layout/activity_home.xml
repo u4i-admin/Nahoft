@@ -94,9 +94,9 @@
                 android:background="@android:color/transparent"
                 android:drawableEnd="@drawable/new_logout_button_25"
                 android:drawablePadding="@dimen/padding_standard"
-                android:drawableTint="@color/colorWarmWhite"
+                android:drawableTint="@drawable/button_text_color_light"
                 android:text="@string/button_label_logout"
-                android:textColor="@color/colorWarmWhite"
+                android:textColor="@drawable/button_text_color_light"
                 android:textSize="@dimen/detail_name_text_size" />
 
         </GridLayout>
