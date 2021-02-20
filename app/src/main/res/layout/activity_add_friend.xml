@@ -30,5 +30,5 @@
         android:text="@string/button_label_save_passcode"
         android:textAllCaps="false"
         android:backgroundTint="@color/colorWarmWhite"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textColor="@drawable/button_text_color_dark" />
 </LinearLayout>

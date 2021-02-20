@@ -44,12 +44,12 @@
         android:id="@+id/import_text_button"
         android:drawableEnd="@drawable/new_import_as_text_25pxl"
         android:drawablePadding="@dimen/padding_half"
-        android:drawableTint="@color/colorPrimaryDark"
+        android:drawableTint="@drawable/button_text_color_dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_half"
         android:backgroundTint="@color/colorWarmWhite"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@drawable/button_text_color_dark"
         android:textAllCaps="false"
         android:text="@string/button_label_import_message" />
 
@@ -67,12 +67,12 @@
         android:id="@+id/import_image_button"
         android:drawableEnd="@drawable/new_import_as_image_25pxl"
         android:drawablePadding="@dimen/padding_half"
-        android:drawableTint="@color/colorPrimaryDark"
+        android:drawableTint="@drawable/button_text_color_dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_half"
         android:backgroundTint="@color/colorWarmWhite"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@drawable/button_text_color_dark"
         android:textAllCaps="false"
         android:text="@string/button_label_import_image"/>
 

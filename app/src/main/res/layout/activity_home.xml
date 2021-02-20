@@ -49,7 +49,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:background="@drawable/home_button_background"
                 android:src="@drawable/gear_asset_50"
-                android:tint="@color/colorPrimaryDark"
+                android:tint="@drawable/button_text_color_dark"
                 android:contentDescription="@string/settings_button_description" />
 
             <ImageButton
@@ -60,7 +60,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:background="@drawable/home_button_background"
                 android:src="@drawable/new_user_guide_1"
-                android:tint="@color/colorPrimaryDark"
+                android:tint="@drawable/button_text_color_dark"
                 android:contentDescription="@string/user_guide_button_description" />
 
             <ImageButton
@@ -71,7 +71,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:background="@drawable/home_button_background"
                 android:src="@drawable/new_friends_button"
-                android:tint="@color/colorPrimaryDark"
+                android:tint="@drawable/button_text_color_dark"
                 android:contentDescription="@string/friends_button_description" />
 
             <ImageButton
@@ -82,7 +82,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:background="@drawable/home_button_background"
                 android:src="@drawable/message_asset_50"
-                android:tint="@color/colorPrimaryDark"
+                android:tint="@drawable/button_text_color_dark"
                 android:contentDescription="@string/messages_button_description" />
 
             <Button

@@ -19,14 +19,14 @@
             android:id="@+id/friend_button"
             android:drawableEnd="@drawable/ic_person_24px"
             android:drawablePadding="@dimen/padding_half"
-            android:drawableTint="@color/colorPrimaryDark"
+            android:drawableTint="@drawable/button_text_color_dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_half"
             android:backgroundTint="@color/colorWarmWhite"
             android:text="@string/hintOnChooseFriendButton"
             android:textAllCaps="false"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@drawable/button_text_color_dark" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/compose_message_text_layout"
@@ -63,14 +63,14 @@
                 android:id="@+id/send_as_text_button"
                 android:drawableEnd="@drawable/ic_article_24px"
                 android:drawablePadding="@dimen/padding_half"
-                android:drawableTint="@color/colorPrimaryDark"
+                android:drawableTint="@drawable/button_text_color_dark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_half"
                 android:backgroundTint="@color/colorWarmWhite"
                 android:text="@string/sendAsTextButton"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@drawable/button_text_color_dark" />
 
             <ProgressBar
                 android:id="@+id/imageShareProgressBar"
@@ -82,14 +82,14 @@
                 android:id="@+id/send_as_image_button"
                 android:drawableEnd="@drawable/ic_photo_24px"
                 android:drawablePadding="@dimen/padding_half"
-                android:drawableTint="@color/colorPrimaryDark"
+                android:drawableTint="@drawable/button_text_color_dark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_half"
                 android:backgroundTint="@color/colorWarmWhite"
                 android:text="@string/sendAsImageButton"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@drawable/button_text_color_dark" />
 
         </LinearLayout>
 
