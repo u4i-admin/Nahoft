@@ -11,7 +11,7 @@
         android:id="@+id/composeMessageContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingVertical="@dimen/padding_standard"
+        android:paddingTop="@dimen/padding_standard"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
 
@@ -19,12 +19,11 @@
             android:id="@+id/friend_button"
             android:drawableEnd="@drawable/ic_person_24px"
             android:drawablePadding="@dimen/padding_half"
-            android:padding="@dimen/padding_half"
             android:drawableTint="@color/colorPrimaryDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_half"
-            android:background="@color/colorWarmWhite"
+            android:backgroundTint="@color/colorWarmWhite"
             android:text="@string/hintOnChooseFriendButton"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark" />
@@ -73,6 +72,12 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimaryDark" />
 
+            <ProgressBar
+                android:id="@+id/imageShareProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
+
             <Button
                 android:id="@+id/send_as_image_button"
                 android:drawableEnd="@drawable/ic_photo_24px"
@@ -85,12 +90,6 @@
                 android:text="@string/sendAsImageButton"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimaryDark" />
-
-            <ProgressBar
-                android:id="@+id/imageShareProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"/>
 
         </LinearLayout>
 
