@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toStartOf="@+id/friendName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_person_24px"
+        app:srcCompat="@drawable/new_friends_button"
         tools:ignore="ContentDescription"
         app:tint="@color/colorPrimaryDark" />
 

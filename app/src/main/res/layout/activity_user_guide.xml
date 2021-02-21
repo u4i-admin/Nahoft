@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/smiley_face_asset_75"
+            app:srcCompat="@drawable/new_user_guide_1_75"
             tools:ignore="ContentDescription" />
     </LinearLayout>
     <LinearLayout
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
             android:background="@android:color/transparent"
-            android:drawableRight="@drawable/key_50"
+            android:drawableRight="@drawable/new_friends_button"
             android:drawableTint="@drawable/button_text_color_light"
             android:drawablePadding="@dimen/padding_standard"
             android:text="@string/button_label_friends"
@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
-            android:drawableRight="@drawable/lock_50"
+            android:drawableRight="@drawable/gear_asset_50"
             android:drawableTint="@drawable/button_text_color_light"
             android:drawablePadding="@dimen/padding_standard"
             android:background="@android:color/transparent"

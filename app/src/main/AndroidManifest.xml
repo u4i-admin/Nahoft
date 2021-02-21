@@ -55,8 +55,7 @@
         <activity android:name=".activities.SettingsActivity" />
         <activity android:name=".activities.UserGuideActivity" />
         <activity
-            android:name=".activities.MessagesActivity"
-            android:icon="@drawable/app_shortcut_email" />
+            android:name=".activities.MessagesActivity" />
         <activity android:name=".activities.HomeActivity">
 
             <!-- Allows other apps to share images with us -->
