@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_new_message.*
 import kotlinx.coroutines.*
@@ -63,16 +64,20 @@ class HomeActivity : AppCompatActivity() {
             startActivity(loginIntent)
         }
 
+             fun showDialogButtonHomeHelp() {
+            MaterialAlertDialogBuilder(this, R.style.MyDialogTheme)
+                .setTitle(resources.getString(R.string.dialog_button_home_help_title))
+                .setMessage(resources.getString(R.string.dialog_button_home_help))
+                .setNeutralButton(resources.getString(R.string.ok_button)) {
+                    dialog, _ ->
+                    dialog.cancel()
+                }
+                .show()
+        }
+
         // Help Button
 
-        // home_help_button.setOnClickListener{
-        // println("Help Button Clicked")
-        // }
-
-        home_help_button.setOnClickListener {
-            val homeHelpButtonIntent = Intent(this, HomeHelpButtonActivity::class.java)
-            startActivity(homeHelpButtonIntent)
-        }
+            home_help_button.setOnClickListener {showDialogButtonHomeHelp()}
 
         // Logout Button
         if (status == LoginStatus.NotRequired) {
@@ -113,7 +118,6 @@ class HomeActivity : AppCompatActivity() {
         getStatus()
         setupFriends()
         loadSavedMessages()
-
 
     }
 

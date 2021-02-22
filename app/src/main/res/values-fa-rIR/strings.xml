@@ -247,7 +247,9 @@
     <string name="messages_button_description">Button to take you to the messages menu.</string>
 
 Help Dialog Buttons
-<string name="button_home_help">
+
+<string name="dialog_button_home_help_title"> Home Help </string>
+<string name="dialog_button_home_help">
     \n نماد دنده شما را به صفحه تنظیم رمز عبور می رساند \n
     \n نماد صورتک شما را به صفحه راهنماهای کاربر می رساند \n
     \n شما را به لیست دوستانتان می آورد که می توانید کلیدها را با آنها به اشتراک بگذارید تا بتوانید پیام رسانی را برای آنها شروع کنید نماد کلید \n

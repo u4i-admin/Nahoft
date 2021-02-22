@@ -15,7 +15,7 @@
             android:background="@color/colorWarmWhite"
             android:isScrollContainer="true"
             android:padding="@dimen/padding_standard"
-            android:text="@string/button_home_help"
+            android:text="@string/dialog_button_home_help"
             android:textSize="15sp" />
 
     <Button

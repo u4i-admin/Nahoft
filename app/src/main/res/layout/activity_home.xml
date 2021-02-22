@@ -16,7 +16,8 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         app:srcCompat="@drawable/help_outline_24px"
-        android:layout_gravity="right"/>
+        android:layout_gravity="right"
+        android:theme="@style/MyDialogTheme"/>
 
     <ImageView
         android:id="@+id/nahoft_message_bottle"
