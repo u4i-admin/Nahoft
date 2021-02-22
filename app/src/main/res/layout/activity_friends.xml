@@ -6,16 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activities.FriendsActivity">
 
-    <ImageView
-        android:id="@+id/friends_help_button"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/friend_help_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:tint="@color/colorPrimaryDark"
+        android:contentDescription="Help Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/help_outline_25px" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friendsRecyclerView"
