@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_import_image_text.*
 import kotlinx.android.synthetic.main.activity_import_image_text.import_help_button
@@ -35,10 +36,20 @@ class ImportImageTextActivity: AppCompatActivity() {
 
         sender = intent.getSerializableExtra(SENDER) as Friend?
 
-        // Help Button
-        import_help_button.setOnClickListener{
-            println("Help Button Clicked")
+        fun showDialogButtonImportHelp() {
+            MaterialAlertDialogBuilder(this, R.style.MyDialogTheme)
+                .setTitle(resources.getString(R.string.dialog_button_import_help_title))
+                .setMessage(resources.getString(R.string.dialog_button_import_help))
+                .setNeutralButton(resources.getString(R.string.ok_button)) {
+                        dialog, _ ->
+                    dialog.cancel()
+                }
+                .show()
         }
+
+        // Help Button
+
+        import_help_button.setOnClickListener {showDialogButtonImportHelp()}
 
         import_text_button.setOnClickListener {
             handleMessageImport()

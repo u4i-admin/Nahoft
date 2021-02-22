@@ -288,8 +288,10 @@ Help Dialog Buttons
         \n- Write your message in the window that says \'Message Body\'.\n
         \n- Tap send as text to encrypt your message and transform it into a different series of characters.\n
         \n- Tap send as Image to encrypt your message and embed it in the image you select.\n
-        \n- Once you have made your selection, you will be prompted to share the image or text, here you can select your preferred messaging app, or save it to your clipboard.\n\
+        \n- Once you have made your selection, you will be prompted to share the image or text, here you can select your preferred messaging app, or save it to your clipboard.\n\ </string>
 
+    <string name="dialog_button_import_help_title"> Importing Help </string>
+    <string name="dialog_button_import_help">
         IMPORTING MESSAGES\n
         \n- You can import your messages using this screen. It is also possible to share received messages directly to the Nahoft app if the app where you received the message allows it.\n
         \n- When you receive a coded text message you can copy the text and paste it in the import screen with a long press.\n
