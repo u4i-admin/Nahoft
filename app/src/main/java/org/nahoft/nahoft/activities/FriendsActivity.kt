@@ -5,8 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_friends.*
 import kotlinx.android.synthetic.main.activity_friends.friend_help_button
+import kotlinx.android.synthetic.main.activity_home.*
 import org.nahoft.nahoft.FriendsRecyclerAdapter
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.R
@@ -28,16 +30,23 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
         friendsRecyclerView.adapter = adapter
         setupItemTouchHelper()
 
-        // Help Button
-        friend_help_button.setOnClickListener{
-            println("Help Button Clicked")
+        // Friends Help Button
+
+        fun showDialogButtonFriendsHelp() {
+            MaterialAlertDialogBuilder(this, R.style.MyDialogTheme)
+                .setTitle(resources.getString(R.string.dialog_button_friends_help_title))
+                .setMessage(resources.getString(R.string.dialog_button_friends_help))
+                .setNeutralButton(resources.getString(R.string.ok_button)) {
+                        dialog, _ ->
+                    dialog.cancel()
+                }
+                .show()
         }
 
-        add_friend_button.setOnClickListener {
-            val addFriendIntent = Intent(this, AddFriendActivity::class.java)
-            startActivity(addFriendIntent)
+        // Friends Help Button
+
+        friend_help_button.setOnClickListener {showDialogButtonFriendsHelp()}
         }
-    }
 
     override fun onResume() {
         super.onResume()

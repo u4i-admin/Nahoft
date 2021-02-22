@@ -251,6 +251,26 @@
         \n Select the People button to create a list of friends. These screens allow you to invite and verify friends you want to share messages with. \n
         \n Select the Conversation button to begin sending encrypted messages. \n
     </string>
+    <string name="dialog_button_friends_help_title"> Friends Help </string>
+    <string name="dialog_button_friends_help">
+        \n- Tap the Friends icon on the home page.\n
+        \n- Press the + icon at the bottom of the Friends screen to add a friend.\n
+        \n- Type the name of the friend you want to add and tap save.\n
+        \n- Tap the invite button beside your friend\'s name.\n
+        \n- You will see the sharing prompt with invitation to your friend as a message to send (it will look like random text).\n
+        \n- You can share your invitation with the friend you are adding via your preferred messaging app, or if you are near them, using the \'nearby\' or Bluetooth options.\n
+        \n- The friend you are adding must also follow these same steps to send you an invitation as well.\n
+        \n- There are several ways to accept the invitation you receive from your friend.\n
+        \n- If you have the invitation message copied to your clipboard: Tap the import button next to their name, or the import button on the home screen.\n
+        \n- Paste the invitation message with a long press and select import text.\n
+        \n- If you are sharing the invitation from another app: Select Nahoft as the app you want to share to.\n
+        \n- When prompted, select the friend that sent the invitation.\n
+        \n- Return to the Friends screen and select the verify button beside the friend you received the invitation from.\n
+        \n- Contact your Friend outside of the app you normally use to confirm your numbers on the verification screen match.\n
+        \n- If the numbers on the verification screen match, tap accept. If not, tap reject.\n
+        \n- To delete a friend swipe the friends name to the right or left.\n\n
+    </string>
+
 
     <string name="ok_button">ok</string>
     <string name="cancel_button">ok</string>
