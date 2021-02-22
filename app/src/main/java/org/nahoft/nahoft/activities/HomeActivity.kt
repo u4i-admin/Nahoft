@@ -64,7 +64,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(loginIntent)
         }
 
-             fun showDialogButtonHomeHelp() {
+        fun showDialogButtonHomeHelp() {
             MaterialAlertDialogBuilder(this, R.style.MyDialogTheme)
                 .setTitle(resources.getString(R.string.dialog_button_home_help_title))
                 .setMessage(resources.getString(R.string.dialog_button_home_help))

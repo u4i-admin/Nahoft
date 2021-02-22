@@ -246,10 +246,10 @@
 
     <string name="dialog_button_home_help_title"> Home Help </string>
     <string name="dialog_button_home_help">
-        \n Gear Icon brings you to the Password Setting Screen. \n
-        \n Smiley Face Icon brings you to the User Guides Screens. \n
-        \n Key Icon brings you to your list of friends that you can share keys with so you can start messaging them \n
-        \n Messages Icon allows you to start sending encrypted messages. \n
+        \n Select the Gear to create passwords. Both the primary and secondary passwords can be managed here. \n
+        \n Select the File button to see all User Guides. \n
+        \n Select the People button to create a list of friends. These screens allow you to invite and verify friends you want to share messages with. \n
+        \n Select the Conversation button to begin sending encrypted messages. \n
     </string>
 
     <string name="ok_button">ok</string>

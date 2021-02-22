@@ -15,7 +15,6 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.HomeHelpButtonActivity"></activity>
         <activity android:name=".activities.MessagesMenuActivity" />
 
         <provider
