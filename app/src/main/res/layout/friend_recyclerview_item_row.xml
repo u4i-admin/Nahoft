@@ -111,10 +111,10 @@
         android:layout_height="@dimen/drag_handle_size"
         android:contentDescription="@string/content_description_drag_handle"
         android:scaleType="center"
-        android:src="@drawable/ic_round_delete_sweep_24px"
+        android:src="@drawable/ic_baseline_delete_forever_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/colorAccent" />
+        app:tint="@color/colorPrimaryDark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
