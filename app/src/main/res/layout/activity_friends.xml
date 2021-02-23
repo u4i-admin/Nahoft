@@ -14,9 +14,10 @@
         android:layout_marginEnd="8dp"
         android:clickable="true"
         android:focusable="true"
-        android:contentDescription="Help Button"
+        android:contentDescription="@string/help_button_content_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="right"
         app:srcCompat="@drawable/help_outline_25px"
         android:theme="@style/MyDialogTheme"/>
 
@@ -27,8 +28,7 @@
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/import_help_button" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_friend_button"

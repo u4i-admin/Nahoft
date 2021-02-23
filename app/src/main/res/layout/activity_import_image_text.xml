@@ -14,8 +14,13 @@
         android:id="@+id/import_help_button"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/help_button_content_description"
         app:srcCompat="@drawable/help_outline_24px"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:theme="@style/MyDialogTheme"/>
 
     <com.google.android.material.textfield.TextInputLayout

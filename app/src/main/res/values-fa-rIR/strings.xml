@@ -303,4 +303,7 @@ Help Dialog Buttons
     <string name="ok_button">خوب</string>
     <string name="cancel_button">لغو کردن</string>
 
+    //New Content Descriptions
+    <string name="help_button_content_description"> Help Buttons </string>
+
 </resources>
