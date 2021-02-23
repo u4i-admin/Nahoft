@@ -246,16 +246,15 @@
 
     <string name="dialog_button_home_help_title"> Home Help </string>
     <string name="dialog_button_home_help">
-        \n Select the Gear to create passwords. Both the primary and secondary passwords can be managed here. \n
-        \n Select the File button to see all User Guides. \n
-        \n Select the People button to create a list of friends. These screens allow you to invite and verify friends you want to share messages with. \n
-        \n Select the Conversation button to begin sending encrypted messages. \n
+        \nSelect the Gear to create passwords. Both the primary and secondary passwords can be managed here. \n
+        \nSelect the File button to see all User Guides. \n
+        \nSelect the Conversation button to begin sending encrypted messages. \n
+        \nSelect the People button to create a list of friends. These screens allow you to invite and verify friends you want to share messages with. \n
     </string>
 
     <string name="dialog_button_friends_help_title"> Friends Help </string>
     <string name="dialog_button_friends_help">
-        \n- Tap the Friends icon on the home page.\n
-        \n- Press the + icon at the bottom of the Friends screen to add a friend.\n
+        \n- To add a Friend, press the + icon at the bottom of the Friends Screen.\n
         \n- Type the name of the friend you want to add and tap save.\n
         \n- Tap the invite button beside your friend\'s name.\n
         \n- You will see the sharing prompt with invitation to your friend as a message to send (it will look like random text).\n

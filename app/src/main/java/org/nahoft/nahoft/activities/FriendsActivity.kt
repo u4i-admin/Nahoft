@@ -30,6 +30,11 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
         friendsRecyclerView.adapter = adapter
         setupItemTouchHelper()
 
+        add_friend_button.setOnClickListener() {
+            val addFriendIntent = Intent(this, AddFriendActivity::class.java)
+            startActivity(addFriendIntent)
+        }
+
         // Friends Help Button
 
         fun showDialogButtonFriendsHelp() {
