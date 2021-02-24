@@ -1,6 +1,7 @@
 package org.nahoft.nahoft.activities
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -64,17 +65,6 @@ class HomeActivity : AppCompatActivity() {
             startActivity(loginIntent)
         }
 
-        fun showDialogButtonHomeHelp() {
-            MaterialAlertDialogBuilder(this, R.style.MyDialogTheme)
-                .setTitle(resources.getString(R.string.dialog_button_home_help_title))
-                .setMessage(resources.getString(R.string.dialog_button_home_help))
-                .setNeutralButton(resources.getString(R.string.ok_button)) {
-                    dialog, _ ->
-                    dialog.cancel()
-                }
-                .show()
-        }
-
         // Help Button
 
             home_help_button.setOnClickListener {showDialogButtonHomeHelp()}
@@ -129,6 +119,18 @@ class HomeActivity : AppCompatActivity() {
         } else {
             logout_button.visibility = View.VISIBLE
         }
+    }
+
+    fun showDialogButtonHomeHelp() {
+        AlertDialog.Builder(this)
+            .setTitle(resources.getString(R.string.dialog_button_home_help_title))
+            .setMessage(resources.getString(R.string.dialog_button_home_help))
+            .setPositiveButton(resources.getString(R.string.ok_button)) {
+                    dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

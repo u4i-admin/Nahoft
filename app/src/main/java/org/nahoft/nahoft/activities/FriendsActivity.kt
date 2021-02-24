@@ -2,6 +2,7 @@ package org.nahoft.nahoft.activities
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,27 +37,26 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
         }
 
         // Friends Help Button
-
-        fun showDialogButtonFriendsHelp() {
-            MaterialAlertDialogBuilder(this, R.style.MyDialogTheme)
-                .setTitle(resources.getString(R.string.dialog_button_friends_help_title))
-                .setMessage(resources.getString(R.string.dialog_button_friends_help))
-                .setNeutralButton(resources.getString(R.string.ok_button)) {
-                        dialog, _ ->
-                    dialog.cancel()
-                }
-                .show()
-        }
-
-        // Friends Help Button
-
         friend_help_button.setOnClickListener {showDialogButtonFriendsHelp()}
-        }
+    }
 
     override fun onResume() {
         super.onResume()
 
         adapter.notifyDataSetChanged()
+    }
+
+    // Friends Help Button
+    fun showDialogButtonFriendsHelp() {
+        AlertDialog.Builder(this)
+            .setTitle(resources.getString(R.string.dialog_button_friends_help_title))
+            .setMessage(resources.getString(R.string.dialog_button_friends_help))
+            .setPositiveButton(resources.getString(R.string.ok_button)) {
+                    dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
     }
 
     private fun setupItemTouchHelper() {

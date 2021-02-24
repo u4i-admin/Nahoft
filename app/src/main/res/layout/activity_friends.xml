@@ -25,8 +25,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_gravity="end"
-        app:srcCompat="@drawable/help_outline_25px"
-        android:theme="@style/MyDialogTheme"/>
+        app:srcCompat="@drawable/help_outline_25px"/>
 
     </LinearLayout>
 
@@ -60,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:clickable="true"
             android:contentDescription="@string/content_description_add_friend_button"

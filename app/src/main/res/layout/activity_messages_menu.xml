@@ -25,8 +25,7 @@
         android:focusable="true"
         android:contentDescription="@string/help_button_content_description"
         app:srcCompat="@drawable/help_outline_24px"
-        android:layout_gravity="end"
-        android:theme="@style/MyDialogTheme"/>
+        android:layout_gravity="end"/>
 
         <ImageView
             android:layout_width="wrap_content"
