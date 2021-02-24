@@ -9,7 +9,7 @@
     android:gravity="center_horizontal"
     tools:context=".activities.FriendsActivity">
 
-      <ImageView
+    <ImageView
         android:id="@+id/friend_help_button"
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -29,16 +29,16 @@
         android:scrollbars="vertical"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_friend_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="20dp"
-            android:clickable="true"
-            android:contentDescription="@string/content_description_add_friend_button"
-            android:tint="@color/colorPrimaryDark"
-            app:srcCompat="@android:drawable/ic_input_add" />
+        android:id="@+id/add_friend_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="20dp"
+        android:clickable="true"
+        android:contentDescription="@string/content_description_add_friend_button"
+        android:tint="@color/colorPrimaryDark"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 </LinearLayout>
