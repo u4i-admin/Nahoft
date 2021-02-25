@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="@dimen/padding_standard">
 
     <TextView
         android:id="@+id/friendName"
@@ -108,10 +108,10 @@
     <ImageView
         android:id="@+id/drag_handle"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/drag_handle_size"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/content_description_drag_handle"
         android:scaleType="center"
-        android:src="@drawable/ic_baseline_delete_forever_24"
+        android:src="@drawable/drag_indicator_24px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
