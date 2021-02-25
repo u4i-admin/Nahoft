@@ -7,5 +7,5 @@ object RequestCodes {
     val selectKeySenderCode = 1048
 
     const val friendExtraTaskDescription = "friend"
-    const val imageUriStringDescription = "imageUriString"
+    const val imageUriDescription = "imageUriString"
 }

@@ -22,6 +22,7 @@ import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
 import java.io.File
+import java.net.URI
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -153,9 +154,9 @@ class HomeActivity : AppCompatActivity() {
                 // Received string message
                 handleSharedText(intent)
             }
-            intent.getStringExtra(RequestCodes.imageUriStringDescription)?.let {
+            (intent.getParcelableExtra<Parcelable>(RequestCodes.imageUriDescription) as? Uri)?.let {
                 // Received image message
-                homeActivityIntent.putExtra(RequestCodes.imageUriStringDescription, intent)
+                decodeImage(it)
             }
 
         } else {
@@ -170,10 +171,11 @@ class HomeActivity : AppCompatActivity() {
             when (intent?.action) {
                 Intent.ACTION_SEND -> {
                     if ("text/plain" == intent.type) {
-                        loginIntent.putExtra(Intent.EXTRA_TEXT, intent)
+                        val messageString = intent.getStringExtra(Intent.EXTRA_TEXT)
+                        loginIntent.putExtra(Intent.EXTRA_TEXT, messageString)
                     } else if (intent.type?.startsWith("image/") == true) {
                         (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let{
-                         loginIntent.putExtra(RequestCodes.imageUriStringDescription, intent)
+                         loginIntent.putExtra(RequestCodes.imageUriDescription, intent)
                         }
                     } else {
                         showAlert(getString(R.string.alert_text_unable_to_process_request))
@@ -271,26 +273,33 @@ class HomeActivity : AppCompatActivity() {
 
     private fun handleSharedImage(intent: Intent)
     {
-        (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
+        val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
+        if (extraStream != null){
+            (extraStream as? Uri)?.let {
+                decodeImage(it)
+            }
+        }
+        else {
+            println("Extra Stream is Null")
+        }
+    }
 
-            val decodeResult: Deferred<ByteArray?> =
-                coroutineScope.async(Dispatchers.IO) {
-                    return@async Stencil().decode(applicationContext, it)
-                }
-
-            coroutineScope.launch(Dispatchers.Main) {
-                val maybeDecodeResult = decodeResult.await()
-
-                if (maybeDecodeResult != null) {
-                    handleDecodeImageResult(maybeDecodeResult)
-                } else {
-                    applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
-                    print("Unable to decode the shared image.")
-                }
+    private fun decodeImage(imageUri: Uri)
+    {
+        val decodeResult: Deferred<ByteArray?> =
+            coroutineScope.async(Dispatchers.IO) {
+                return@async Stencil().decode(applicationContext, imageUri)
             }
 
-            //val decodeResult = Stencil().decode(applicationContext, it)
-            //handleDecodeImageResult(decodeResult)
+        coroutineScope.launch(Dispatchers.Main) {
+            val maybeDecodeResult = decodeResult.await()
+
+            if (maybeDecodeResult != null) {
+                handleDecodeImageResult(maybeDecodeResult)
+            } else {
+                applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
+                print("Unable to decode the shared image.")
+            }
         }
     }
 

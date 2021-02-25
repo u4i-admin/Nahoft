@@ -1,7 +1,9 @@
 package org.nahoft.nahoft.activities
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_enter_passcode.*
 import org.nahoft.nahoft.Persist
@@ -83,9 +85,9 @@ class EnterPasscodeActivity : AppCompatActivity () {
                     // Received string message
                     homeActivityIntent.putExtra(Intent.EXTRA_TEXT, it)
                 }
-                intent.getStringExtra(RequestCodes.imageUriStringDescription)?.let {
+                (intent.getParcelableExtra<Parcelable>(RequestCodes.imageUriDescription) as? Uri)?.let {
                     // Received image message
-                    homeActivityIntent.putExtra(RequestCodes.imageUriStringDescription, it)
+                    homeActivityIntent.putExtra(RequestCodes.imageUriDescription, it)
                 }
                 startActivity(homeActivityIntent)
             }
