@@ -9,6 +9,7 @@ import org.nahoft.nahoft.Persist.Companion.sharedPrefPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.sharedPrefSecondaryPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.nahoft.R
+import org.nahoft.util.RequestCodes
 import java.lang.Exception
 
 
@@ -67,13 +68,28 @@ class EnterPasscodeActivity : AppCompatActivity () {
     .edit()
     .putString(Persist.sharedPrefLoginStatusKey, status.name)
     .apply()
-}
+    }
 
     private fun tryLogIn(status: LoginStatus) {
         when (status) {
             // If the user has logged in successfully or if they didn't set a passcode
             // Send them to the home screen
-            LoginStatus.LoggedIn, LoginStatus.NotRequired -> startActivity(Intent(this, HomeActivity::class.java))
+            LoginStatus.LoggedIn, LoginStatus.NotRequired -> {
+
+                val homeActivityIntent = Intent(this, HomeActivity::class.java)
+
+                // Check to see if we received a send intent
+                intent.getStringExtra(Intent.EXTRA_TEXT)?.let{
+                    // Received string message
+                    homeActivityIntent.putExtra(Intent.EXTRA_TEXT, it)
+                }
+                intent.getStringExtra(RequestCodes.imageUriStringDescription)?.let {
+                    // Received image message
+                    homeActivityIntent.putExtra(RequestCodes.imageUriStringDescription, it)
+                }
+                startActivity(homeActivityIntent)
+            }
+
             // Secondary passcode entered delete user data
             LoginStatus.SecondaryLogin -> {
                 Persist.clearAllData()

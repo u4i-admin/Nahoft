@@ -27,9 +27,10 @@ import java.time.format.DateTimeFormatter
 
 class HomeActivity : AppCompatActivity() {
 
-    private var decodePayload: ByteArray? = null
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
+
+    private var decodePayload: ByteArray? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,12 +65,20 @@ class HomeActivity : AppCompatActivity() {
 
             // Send user to the EnterPasscode Activity
             val loginIntent = Intent(applicationContext, EnterPasscodeActivity::class.java)
+
+            // We received a shared message but the user is not logged in
+            // Save the intent
+            when (intent?.action) {
+                Intent.ACTION_SEND -> {
+                    loginIntent.putExtras(intent)
+                }
+            }
+
             startActivity(loginIntent)
         }
 
         // Help Button
-
-            home_help_button.setOnClickListener {showDialogButtonHomeHelp()}
+        home_help_button.setOnClickListener {showDialogButtonHomeHelp()}
 
         // Logout Button
         if (status == LoginStatus.NotRequired) {
@@ -128,7 +137,7 @@ class HomeActivity : AppCompatActivity() {
             Persist.loadEncryptedSharedPreferences(this.applicationContext)
 
             // Receive shared messages
-            when (intent?.action) {
+            /*when (intent?.action) {
                 Intent.ACTION_SEND -> {
                     if ("text/plain" == intent.type) {
                         handleSharedText(intent)
@@ -138,13 +147,40 @@ class HomeActivity : AppCompatActivity() {
                         showAlert(getString(R.string.alert_text_unable_to_process_request))
                     }
                 }
+            }*/
+            // Check to see if we received a send intent
+            intent.getStringExtra(Intent.EXTRA_TEXT)?.let{
+                // Received string message
+                handleSharedText(intent)
             }
+            intent.getStringExtra(RequestCodes.imageUriStringDescription)?.let {
+                // Received image message
+                homeActivityIntent.putExtra(RequestCodes.imageUriStringDescription, intent)
+            }
+
         } else {
             // If the status is not either NotRequired, or Logged in, request login
             this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
 
             // Send user to the EnterPasscode Activity
             val loginIntent = Intent(applicationContext, EnterPasscodeActivity::class.java)
+
+            // We received a shared message but the user is not logged in
+            // Save the intent
+            when (intent?.action) {
+                Intent.ACTION_SEND -> {
+                    if ("text/plain" == intent.type) {
+                        loginIntent.putExtra(Intent.EXTRA_TEXT, intent)
+                    } else if (intent.type?.startsWith("image/") == true) {
+                        (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let{
+                         loginIntent.putExtra(RequestCodes.imageUriStringDescription, intent)
+                        }
+                    } else {
+                        showAlert(getString(R.string.alert_text_unable_to_process_request))
+                    }
+                }
+            }
+
             startActivity(loginIntent)
         }
     }
