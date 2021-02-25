@@ -85,10 +85,18 @@ class EnterPasscodeActivity : AppCompatActivity () {
                     // Received string message
                     homeActivityIntent.putExtra(Intent.EXTRA_TEXT, it)
                 }
-                (intent.getParcelableExtra<Parcelable>(RequestCodes.imageUriDescription) as? Uri)?.let {
-                    // Received image message
-                    homeActivityIntent.putExtra(RequestCodes.imageUriDescription, it)
+
+                // See if we received an image message
+                val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
+                if (extraStream != null){
+                    val extraUri = Uri.parse(extraStream.toString())
+                    homeActivityIntent.putExtra(Intent.EXTRA_STREAM, extraUri)
                 }
+                else
+                {
+                    println("Extra Stream is Null")
+                }
+
                 startActivity(homeActivityIntent)
             }
 

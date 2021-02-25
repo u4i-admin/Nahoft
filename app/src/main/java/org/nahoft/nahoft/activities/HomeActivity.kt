@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_new_message.*
 import kotlinx.coroutines.*
@@ -22,7 +21,6 @@ import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
 import java.io.File
-import java.net.URI
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -33,7 +31,8 @@ class HomeActivity : AppCompatActivity() {
 
     private var decodePayload: ByteArray? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
@@ -44,38 +43,50 @@ class HomeActivity : AppCompatActivity() {
         getStatus()
 
         // Check LoginStatus
-        if (status == LoginStatus.NotRequired || status == LoginStatus.LoggedIn) {
+        if (status == LoginStatus.NotRequired || status == LoginStatus.LoggedIn)
+        {
             // We may not have initialized shared preferences yet, let's do it now
             Persist.loadEncryptedSharedPreferences(this.applicationContext)
 
             // Receive shared messages
-            when (intent?.action) {
-                Intent.ACTION_SEND -> {
-                    if ("text/plain" == intent.type) {
-                        handleSharedText(intent)
-                    } else if (intent.type?.startsWith("image/") == true) {
-                        handleSharedImage(intent)
-                    } else {
-                        showAlert(getString(R.string.alert_text_unable_to_process_request))
-                    }
+            if (intent?.action == Intent.ACTION_SEND)
+            {
+                if (intent.type == "text/plain")
+                {
+                    handleSharedText(intent)
+                }
+                else if (intent.type?.startsWith("image/") == true)
+                {
+                    handleSharedImage(intent)
+                }
+                else
+                {
+                    showAlert(getString(R.string.alert_text_unable_to_process_request))
                 }
             }
-        } else {
-            // If the status is not either NotRequired, or Logged in, request login
-            this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
+            else // See if we got intent extras from the EnterPasscode Activity
+            {
+                // Check to see if we received a send intent
+                intent.getStringExtra(Intent.EXTRA_TEXT)?.let{
+                    // Received string message
+                    decodeStringMessage(it)
+                }
 
-            // Send user to the EnterPasscode Activity
-            val loginIntent = Intent(applicationContext, EnterPasscodeActivity::class.java)
-
-            // We received a shared message but the user is not logged in
-            // Save the intent
-            when (intent?.action) {
-                Intent.ACTION_SEND -> {
-                    loginIntent.putExtras(intent)
+                // See if we received an image message
+                val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
+                if (extraStream != null){
+                    val extraUri = Uri.parse(extraStream.toString())
+                    decodeImage(extraUri)
+                }
+                else
+                {
+                    println("Extra Stream is Null")
                 }
             }
-
-            startActivity(loginIntent)
+        }
+        else
+        {
+            sendToLogin()
         }
 
         // Help Button
@@ -132,59 +143,70 @@ class HomeActivity : AppCompatActivity() {
             logout_button.visibility = View.VISIBLE
         }
 
-        // Check LoginStatus
-        if (status == LoginStatus.NotRequired || status == LoginStatus.LoggedIn) {
-            // We may not have initialized shared preferences yet, let's do it now
-            Persist.loadEncryptedSharedPreferences(this.applicationContext)
+//        // Check LoginStatus
+//        if (status == LoginStatus.NotRequired || status == LoginStatus.LoggedIn)
+//        {
+//            // We may not have initialized shared preferences yet, let's do it now
+//            Persist.loadEncryptedSharedPreferences(this.applicationContext)
+//
+//            // Check to see if we received a send intent
+//            intent.getStringExtra(Intent.EXTRA_TEXT)?.let{
+//                // Received string message
+//                handleSharedText(intent)
+//            }
+//
+//            (intent.getParcelableExtra<Parcelable>(RequestCodes.imageUriDescription) as? Uri)?.let {
+//                // Received image message
+//                decodeImage(it)
+//            }
+//
+//        }
+//        else
+//        {
+//            sendToLogin()
+//        }
+    }
 
-            // Receive shared messages
-            /*when (intent?.action) {
-                Intent.ACTION_SEND -> {
-                    if ("text/plain" == intent.type) {
-                        handleSharedText(intent)
-                    } else if (intent.type?.startsWith("image/") == true) {
-                        handleSharedImage(intent)
-                    } else {
-                        showAlert(getString(R.string.alert_text_unable_to_process_request))
-                    }
+    fun sendToLogin()
+    {
+        // If the status is not either NotRequired, or Logged in, request login
+        this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
+
+        // Send user to the EnterPasscode Activity
+        val loginIntent = Intent(applicationContext, EnterPasscodeActivity::class.java)
+
+        // We received a shared message but the user is not logged in
+        // Save the intent
+        if (intent?.action == Intent.ACTION_SEND)
+        {
+            if (intent.type == "text/plain")
+            {
+                val messageString = intent.getStringExtra(Intent.EXTRA_TEXT)
+                loginIntent.putExtra(Intent.EXTRA_TEXT, messageString)
+            }
+            else if (intent.type?.startsWith("image/") == true)
+            {
+//                (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
+//                    loginIntent.putExtra(RequestCodes.imageUriDescription, it)
+//                }
+
+                val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
+                if (extraStream != null){
+                    val extraUri = Uri.parse(extraStream.toString())
+                    loginIntent.putExtra(Intent.EXTRA_STREAM, extraUri)
                 }
-            }*/
-            // Check to see if we received a send intent
-            intent.getStringExtra(Intent.EXTRA_TEXT)?.let{
-                // Received string message
-                handleSharedText(intent)
-            }
-            (intent.getParcelableExtra<Parcelable>(RequestCodes.imageUriDescription) as? Uri)?.let {
-                // Received image message
-                decodeImage(it)
-            }
-
-        } else {
-            // If the status is not either NotRequired, or Logged in, request login
-            this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
-
-            // Send user to the EnterPasscode Activity
-            val loginIntent = Intent(applicationContext, EnterPasscodeActivity::class.java)
-
-            // We received a shared message but the user is not logged in
-            // Save the intent
-            when (intent?.action) {
-                Intent.ACTION_SEND -> {
-                    if ("text/plain" == intent.type) {
-                        val messageString = intent.getStringExtra(Intent.EXTRA_TEXT)
-                        loginIntent.putExtra(Intent.EXTRA_TEXT, messageString)
-                    } else if (intent.type?.startsWith("image/") == true) {
-                        (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let{
-                         loginIntent.putExtra(RequestCodes.imageUriDescription, intent)
-                        }
-                    } else {
-                        showAlert(getString(R.string.alert_text_unable_to_process_request))
-                    }
+                else
+                {
+                    println("Extra Stream is Null")
                 }
             }
-
-            startActivity(loginIntent)
+            else
+            {
+                showAlert(getString(R.string.alert_text_unable_to_process_request))
+            }
         }
+
+        startActivity(loginIntent)
     }
 
     fun showDialogButtonHomeHelp() {
@@ -221,12 +243,13 @@ class HomeActivity : AppCompatActivity() {
                     messageArguments.startActivity(this)
                 }
 
-            } else if (requestCode == RequestCodes.selectKeySenderCode) {
+            } else if (requestCode == RequestCodes.selectKeySenderCode)
+            {
                 val sender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)?.let { it as Friend }
 
                 // Update this friend with a new key and a new status
-                if (sender != null && decodePayload != null) {
-
+                if (sender != null && decodePayload != null)
+                {
                     when (sender.status) {
                         FriendStatus.Default -> {
                             Persist.updateFriend(context = this, friendToUpdate = sender, newStatus = FriendStatus.Requested, encodedPublicKey = decodePayload!!)
@@ -241,33 +264,40 @@ class HomeActivity : AppCompatActivity() {
                         else ->
                             this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
                     }
-                } else {
+                } else
+                {
                     this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
                 }
             }
         }
     }
 
-    private fun handleSharedText(intent: Intent) {
+    private fun handleSharedText(intent: Intent)
+    {
         intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
-            // Update UI to reflect text being shared
-            val decodeResult = Codex().decode(it)
+            decodeStringMessage(it)
+        }
+    }
 
-            if (decodeResult != null) {
-                this.decodePayload = decodeResult.payload
+    private fun decodeStringMessage(messageString: String)
+    {
+        // Update UI to reflect text being shared
+        val decodeResult = Codex().decode(messageString)
 
-                if (decodeResult.type == KeyOrMessage.EncryptedMessage) {
-                    // We received a message, have the user select who it is from
-                    val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
-                    startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
-                } else {
-                    // We received a key, have the user select who it is from
-                    val selectSenderIntent = Intent(this, SelectKeySenderActivity::class.java)
-                    startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
-                }
+        if (decodeResult != null) {
+            this.decodePayload = decodeResult.payload
+
+            if (decodeResult.type == KeyOrMessage.EncryptedMessage) {
+                // We received a message, have the user select who it is from
+                val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
+                startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
             } else {
-                this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
+                // We received a key, have the user select who it is from
+                val selectSenderIntent = Intent(this, SelectKeySenderActivity::class.java)
+                startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
             }
+        } else {
+            this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
         }
     }
 
