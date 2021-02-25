@@ -1,6 +1,7 @@
 package org.nahoft.nahoft.activities
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,26 +30,13 @@ class ImportImageTextActivity: AppCompatActivity() {
         const val SENDER = "Sender"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_import_image_text)
 
         sender = intent.getSerializableExtra(SENDER) as Friend?
 
-        fun showDialogButtonImportHelp() {
-            MaterialAlertDialogBuilder(this, R.style.MyDialogTheme)
-                .setTitle(resources.getString(R.string.dialog_button_import_help_title))
-                .setMessage(resources.getString(R.string.dialog_button_import_help))
-                .setNeutralButton(resources.getString(R.string.ok_button)) {
-                        dialog, _ ->
-                    dialog.cancel()
-                }
-                .show()
-        }
-
         // Help Button
-
         import_help_button.setOnClickListener {showDialogButtonImportHelp()}
 
         import_text_button.setOnClickListener {
@@ -58,6 +46,18 @@ class ImportImageTextActivity: AppCompatActivity() {
         import_image_button.setOnClickListener {
             handleImageImport()
         }
+    }
+
+    fun showDialogButtonImportHelp() {
+        AlertDialog.Builder(this)
+            .setTitle(resources.getString(R.string.dialog_button_import_help_title))
+            .setMessage(resources.getString(R.string.dialog_button_import_help))
+            .setPositiveButton(resources.getString(R.string.ok_button)) {
+                    dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
     }
 
     /// If the message is decoded successfully, user will be sent to a select sender activity

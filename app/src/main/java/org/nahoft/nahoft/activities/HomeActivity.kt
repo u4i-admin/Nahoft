@@ -1,6 +1,7 @@
 package org.nahoft.nahoft.activities
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -64,17 +65,6 @@ class HomeActivity : AppCompatActivity() {
             // Send user to the EnterPasscode Activity
             val loginIntent = Intent(applicationContext, EnterPasscodeActivity::class.java)
             startActivity(loginIntent)
-        }
-
-        fun showDialogButtonHomeHelp() {
-            MaterialAlertDialogBuilder(this, R.style.MyDialogTheme)
-                .setTitle(resources.getString(R.string.dialog_button_home_help_title))
-                .setMessage(resources.getString(R.string.dialog_button_home_help))
-                .setNeutralButton(resources.getString(R.string.ok_button)) {
-                    dialog, _ ->
-                    dialog.cancel()
-                }
-                .show()
         }
 
         // Help Button
@@ -157,6 +147,18 @@ class HomeActivity : AppCompatActivity() {
             val loginIntent = Intent(applicationContext, EnterPasscodeActivity::class.java)
             startActivity(loginIntent)
         }
+    }
+
+    fun showDialogButtonHomeHelp() {
+        AlertDialog.Builder(this)
+            .setTitle(resources.getString(R.string.dialog_button_home_help_title))
+            .setMessage(resources.getString(R.string.dialog_button_home_help))
+            .setPositiveButton(resources.getString(R.string.ok_button)) {
+                    dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
+            .show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

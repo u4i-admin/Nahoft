@@ -13,20 +13,19 @@
         android:orientation="vertical"
         android:gravity="center">
 
-    <ImageView
-        android:id="@+id/friend_help_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:contentDescription="@string/help_button_content_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_gravity="end"
-        app:srcCompat="@drawable/help_outline_25px"
-        android:theme="@style/MyDialogTheme"/>
+        <ImageView
+            android:id="@+id/friend_help_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/help_button_content_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_gravity="end"
+            app:srcCompat="@drawable/help_outline_25px"/>
 
     </LinearLayout>
 
@@ -60,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:clickable="true"
             android:contentDescription="@string/content_description_add_friend_button"

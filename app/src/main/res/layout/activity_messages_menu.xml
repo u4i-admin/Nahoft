@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
     tools:context=".activities.MessagesMenuActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:paddingTop="32dp">
-
-        <ImageView
+    <ImageView
         android:id="@+id/messages_menu_help_button"
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -25,22 +20,20 @@
         android:focusable="true"
         android:contentDescription="@string/help_button_content_description"
         app:srcCompat="@drawable/help_outline_24px"
-        android:layout_gravity="end"
-        android:theme="@style/MyDialogTheme"/>
+        android:layout_gravity="end"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/message_asset_75"
-            tools:ignore="ContentDescription" />
-    </LinearLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/message_asset_75"
+        tools:ignore="ContentDescription" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
-        android:gravity="right"
-        android:layout_marginVertical="64dp"
+        android:gravity="end"
+        android:layout_marginVertical="250dp"
         android:orientation="vertical" >
 
         <Button
@@ -50,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_half"
             android:background="@android:color/transparent"
-            android:drawableRight="@drawable/new_read_messages_1_50"
+            android:drawableEnd="@drawable/new_read_messages_1_50"
             android:drawablePadding="@dimen/padding_standard"
             android:drawableTint="@drawable/button_text_color_light"
             android:text="@string/button_label_view_messages"
@@ -64,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_half"
             android:background="@android:color/transparent"
-            android:drawableRight="@drawable/compose_message_50"
+            android:drawableEnd="@drawable/compose_message_50"
             android:drawablePadding="@dimen/padding_standard"
             android:drawableTint="@drawable/button_text_color_light"
             android:text="@string/button_label_compose_messages"
@@ -78,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_half"
             android:background="@android:color/transparent"
-            android:drawableRight="@drawable/import_50"
+            android:drawableEnd="@drawable/import_50"
             android:drawablePadding="@dimen/padding_standard"
             android:drawableTint="@drawable/button_text_color_light"
             android:text="@string/import_label_messages"
@@ -86,4 +79,4 @@
             android:textSize="@dimen/detail_name_text_size" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

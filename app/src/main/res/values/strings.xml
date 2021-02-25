@@ -247,10 +247,10 @@
     <string name="dialog_button_home_help_title"> Home Help </string>
     <string name="dialog_button_home_help">
         \nSelect the Gear to create passwords. Both the primary and secondary passwords can be managed here. \n
-        \nThe Logout button will only appear once a password is set. \n
+        \nThe Logout button will only appear once a passcode is set. \n
         \nSelect the File button to see all User Guides. \n
-        \nSelect the Conversation button to begin sending encrypted messages. \n
         \nSelect the People button to create a list of friends. These screens allow you to invite and verify friends you want to share messages with. \n
+        \nSelect the Conversation button to begin sending encrypted messages. \n
     </string>
 
     <string name="dialog_button_friends_help_title"> Friends Help </string>
@@ -294,8 +294,8 @@
         \nIf the message is successfully imported, you will see the original text.\n\n
     </string>
 
-    <string name="ok_button">ok</string>
-    <string name="cancel_button">ok</string>
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">OK</string>
 
     //New Content Descriptions
     <string name="help_button_content_description"> Help Buttons </string>

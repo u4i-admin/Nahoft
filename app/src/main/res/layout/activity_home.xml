@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="20dp"
     android:gravity="center_horizontal"
     android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
@@ -21,8 +20,7 @@
         android:focusable="true"
         android:contentDescription="@string/help_button_content_description"
         app:srcCompat="@drawable/help_outline_24px"
-        android:layout_gravity="end"
-        android:theme="@style/MyDialogTheme"/>
+        android:layout_gravity="end"/>
 
     <ImageView
         android:id="@+id/nahoft_message_bottle"
@@ -38,6 +36,7 @@
         android:gravity="bottom"
         android:paddingTop="@dimen/padding_standard"
         android:orientation="vertical" >
+
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
