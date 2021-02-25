@@ -60,6 +60,8 @@ class HomeActivity : AppCompatActivity() {
         } else {
             // If the status is not either NotRequired, or Logged in, request login
             this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
+
+            // Send user to the EnterPasscode Activity
             val loginIntent = Intent(applicationContext, EnterPasscodeActivity::class.java)
             startActivity(loginIntent)
         }
@@ -128,6 +130,32 @@ class HomeActivity : AppCompatActivity() {
             logout_button.visibility = View.INVISIBLE
         } else {
             logout_button.visibility = View.VISIBLE
+        }
+
+        // Check LoginStatus
+        if (status == LoginStatus.NotRequired || status == LoginStatus.LoggedIn) {
+            // We may not have initialized shared preferences yet, let's do it now
+            Persist.loadEncryptedSharedPreferences(this.applicationContext)
+
+            // Receive shared messages
+            when (intent?.action) {
+                Intent.ACTION_SEND -> {
+                    if ("text/plain" == intent.type) {
+                        handleSharedText(intent)
+                    } else if (intent.type?.startsWith("image/") == true) {
+                        handleSharedImage(intent)
+                    } else {
+                        showAlert(getString(R.string.alert_text_unable_to_process_request))
+                    }
+                }
+            }
+        } else {
+            // If the status is not either NotRequired, or Logged in, request login
+            this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
+
+            // Send user to the EnterPasscode Activity
+            val loginIntent = Intent(applicationContext, EnterPasscodeActivity::class.java)
+            startActivity(loginIntent)
         }
     }
 

@@ -13,6 +13,10 @@ import kotlin.random.Random
 class Swatch {
     val minimumPatchSize = 2
 
+    // Maximum Message Size:
+    // 1,000 characters * 4 bytes per character (as a guess) * number of bits in a byte
+    val maxMessageSizeBits = 1000 * 4 * 8
+
     @ExperimentalUnsignedTypes
     fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri? {
         val cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
@@ -34,7 +38,10 @@ class Swatch {
         val lengthBitsSize = lengthBits.size
 
         // Convert message size from bytes to bits
-        val messageBits = bitsFromBytes(encrypted)
+        // Pad the message bits to be of max size
+        var messageBits = bitsFromBytes(encrypted)
+        val paddingArray = IntArray(maxMessageSizeBits - messageBits.size)
+        messageBits = messageBits + paddingArray
         val messageBitsSize = messageBits.size
 
         // The number of pixels is the image height (in pixels) times the image width (in pixels)
@@ -68,14 +75,30 @@ class Swatch {
         return null
     }
 
+    /// Generates a set of rules.
+    /// Each rule returns 2 patches and whether or not they are lighter or darker that each other
+    /// Greater is a 1
+    /// Less is a 0
     fun makeRules(key: Int, cover: Bitmap, message: IntArray): Array<Rule>
     {
+        // Random number generator
+        // Seed is  based on the message so that the same random number generator will be used for encoding/decoding
+        // FIXME: Create seed from message
         val random1 = Random(1)
+
+        // Get an array of all of the pixel locations (x,y) and randomize the order using our number generator
         val pixels1 = getPixelArray(cover)
         pixels1.shuffle(random1)
-        val chunks1 = pixels1.asList().chunked(message.size)
+
+        // Create patches by chunking the array into (message.size * 2) chunks
+        // The number of patches should be equal to the number of bits in the message * 2
+        val chunks1 = pixels1.asList().chunked(message.size * 2)
         val patches1 = chunks1.map { Patch(it) }
+
+        // Group our patches into pairs
         val pairs1 = patches1.chunked(2)
+
+        // Take each pair and a bit from the message and turn it into a rule (2 patches and a constraint)
         var rules: Array<Rule> = arrayOf()
         for (index in 0 until pairs1.size)
         {
@@ -84,7 +107,7 @@ class Swatch {
             when (bit)
             {
                 1 -> rules += Rule(patch1, patch2, Constraint.GREATER)
-                2 -> rules += Rule(patch1, patch2, Constraint.LESS)
+                0 -> rules += Rule(patch1, patch2, Constraint.LESS)
             }
         }
 
@@ -209,8 +232,8 @@ class Patch(points: List<Pair<Int,Int>>)
 enum class Constraint(val constraint: Int)
 {
     GREATER(1),
-    EQUAL(0),
-    LESS(-1)
+    EQUAL(-1),
+    LESS(0)
 }
 
 @ExperimentalUnsignedTypes
