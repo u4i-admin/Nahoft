@@ -47,7 +47,6 @@ class Stencil {
         val sizeBytes = result.height * result.width * 4
         if (sizeBytes > 4000000)
         {
-            Toast.makeText( context, "Resizing Image", Toast.LENGTH_SHORT).show()
 
             // TODO: Figure out the desired height and width
             result = Bitmap.createScaledBitmap(result, (result.width * 0.75).roundToInt(), (result.height * 0.75).roundToInt(), true)
