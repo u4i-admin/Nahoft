@@ -11,6 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 class Stencil {
     private var cachedIndex: Int? = null
@@ -43,13 +44,15 @@ class Stencil {
         val bits = bitsFromBytes(encrypted)
         var result = cover.copy(Bitmap.Config.ARGB_8888, true)
 
-        // TODO: resize result if it is larger than 4mb
+        // Resize result if it is larger than 4mb
         val sizeBytes = result.height * result.width * 4
-        if (sizeBytes > 4000000)
+        val targetSizeBytes = 4000000
+        if (sizeBytes > targetSizeBytes)
         {
-
-            // TODO: Figure out the desired height and width
-            result = Bitmap.createScaledBitmap(result, (result.width * 0.75).roundToInt(), (result.height * 0.75).roundToInt(), true)
+            val originalSize = ImageSize(result.height, result.width, result.density)
+            val scaledSize = resizePreservingAspectRatio(originalSize, targetSizeBytes)
+            
+            result = Bitmap.createScaledBitmap(result, scaledSize.width, scaledSize.height, true)
         }
 
         for (index in bits.indices)
@@ -79,6 +82,16 @@ class Stencil {
         val resultUri = CapturePhotoUtils.insertImage(context, result, title, description)
 
         return resultUri
+    }
+
+    private fun resizePreservingAspectRatio(originalSize: ImageSize, targetSizeBytes: Int): ImageSize
+    {
+        val aspectRatio = originalSize.height/originalSize.width
+        val targetSizePixels = targetSizeBytes/originalSize.colorDepthBytes
+        val scaledWidth = sqrt(targetSizePixels.toDouble()/aspectRatio)
+        val scaledHeight = aspectRatio * scaledWidth
+
+        return  ImageSize(scaledHeight.roundToInt(), scaledWidth.roundToInt(), originalSize.colorDepthBytes)
     }
 
     private fun setPixel(bitmap: Bitmap, x: Int, y: Int, value: Int)
@@ -462,3 +475,5 @@ fun bytesFromBits(bits: List<Int>): ByteArray?
 
     return result
 }
+
+private data class ImageSize(val height: Int, val width: Int, val colorDepthBytes: Int)
