@@ -46,13 +46,13 @@ class Stencil {
 
         // Resize result if it is larger than 4mb
         val sizeBytes = result.height * result.width * 4
-        val targetSizeBytes = 4000000
+        val targetSizeBytes = 4000000.0
         if (sizeBytes > targetSizeBytes)
         {
-            val originalSize = ImageSize(result.height, result.width, result.density)
+            val originalSize = ImageSize(result.height.toDouble(), result.width.toDouble(), result.density.toDouble())
             val scaledSize = resizePreservingAspectRatio(originalSize, targetSizeBytes)
             
-            result = Bitmap.createScaledBitmap(result, scaledSize.width, scaledSize.height, true)
+            result = Bitmap.createScaledBitmap(result, scaledSize.width.roundToInt(), scaledSize.height.roundToInt(), true)
         }
 
         for (index in bits.indices)
@@ -84,14 +84,14 @@ class Stencil {
         return resultUri
     }
 
-    private fun resizePreservingAspectRatio(originalSize: ImageSize, targetSizeBytes: Int): ImageSize
+    private fun resizePreservingAspectRatio(originalSize: ImageSize, targetSizeBytes: Double): ImageSize
     {
         val aspectRatio = originalSize.height/originalSize.width
         val targetSizePixels = targetSizeBytes/originalSize.colorDepthBytes
-        val scaledWidth = sqrt(targetSizePixels.toDouble()/aspectRatio)
+        val scaledWidth = sqrt(targetSizePixels/aspectRatio)
         val scaledHeight = aspectRatio * scaledWidth
 
-        return  ImageSize(scaledHeight.roundToInt(), scaledWidth.roundToInt(), originalSize.colorDepthBytes)
+        return  ImageSize(scaledHeight, scaledWidth, originalSize.colorDepthBytes)
     }
 
     private fun setPixel(bitmap: Bitmap, x: Int, y: Int, value: Int)
@@ -476,4 +476,4 @@ fun bytesFromBits(bits: List<Int>): ByteArray?
     return result
 }
 
-private data class ImageSize(val height: Int, val width: Int, val colorDepthBytes: Int)
+private data class ImageSize(val height: Double, val width: Double, val colorDepthBytes: Double)
