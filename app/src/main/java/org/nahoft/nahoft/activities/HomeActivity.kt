@@ -31,6 +31,7 @@ class HomeActivity : AppCompatActivity() {
 
     private var decodePayload: ByteArray? = null
 
+    @ExperimentalUnsignedTypes
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -301,6 +302,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    @ExperimentalUnsignedTypes
     private fun handleSharedImage(intent: Intent)
     {
         val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
@@ -314,6 +316,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    @ExperimentalUnsignedTypes
     private fun decodeImage(imageUri: Uri)
     {
         val decodeResult: Deferred<ByteArray?> =

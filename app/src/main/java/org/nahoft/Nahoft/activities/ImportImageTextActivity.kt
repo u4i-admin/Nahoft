@@ -105,6 +105,7 @@ class ImportImageTextActivity: AppCompatActivity() {
         startActivityForResult(intent, RequestCodes.selectImageCode)
     }
 
+    @ExperimentalUnsignedTypes
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

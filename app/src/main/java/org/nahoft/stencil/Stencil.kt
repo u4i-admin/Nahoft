@@ -281,11 +281,13 @@ class Stencil {
         return newBitmap
     }
 
+    @ExperimentalUnsignedTypes
     fun decode(context: Context, uri: Uri): ByteArray? {
         val bitmap = BitmapFactory.decodeStream(context.contentResolver.openInputStream(uri))
         return decode(bitmap)
     }
 
+    @ExperimentalUnsignedTypes
     fun decode(bitmap: Bitmap): ByteArray? {
         val working = bitmap.copy(Bitmap.Config.ARGB_8888, true);
 
@@ -356,6 +358,7 @@ class Stencil {
         return true
     }
 
+    @ExperimentalUnsignedTypes
     private fun decodeStars(stars: List<Int>): ByteArray? {
         return bytesFromBits(stars)
     }
@@ -404,6 +407,7 @@ fun bitsFromBytes(bytes: ByteArray): IntArray {
     return result
 }
 
+@ExperimentalUnsignedTypes
 fun bytesFromBits(bits: List<Int>): ByteArray? {
     if (bits.size % 8 != 0) {
         return null
