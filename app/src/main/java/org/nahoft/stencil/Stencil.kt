@@ -63,23 +63,28 @@ class Stencil {
         val bits = bitsFromBytes(encrypted)
         var result = cover.copy(Bitmap.Config.ARGB_8888, true)
 
-<<<<<<< HEAD
         for (index in bits.indices) {
-=======
-        // Resize result if it is larger than 4mb
-        val sizeBytes = result.height * result.width * 4
-        val targetSizeBytes = 4000000.0
-        if (sizeBytes > targetSizeBytes)
-        {
-            val originalSize = ImageSize(result.height.toDouble(), result.width.toDouble(), result.density.toDouble())
-            val scaledSize = resizePreservingAspectRatio(originalSize, targetSizeBytes)
 
-            result = Bitmap.createScaledBitmap(result, scaledSize.width.roundToInt(), scaledSize.height.roundToInt(), true)
+            // Resize result if it is larger than 4mb
+            val sizeBytes = result.height * result.width * 4
+            val targetSizeBytes = 4000000.0
+            if (sizeBytes > targetSizeBytes) {
+                val originalSize = ImageSize(
+                    result.height.toDouble(),
+                    result.width.toDouble(),
+                    result.density.toDouble()
+                )
+                val scaledSize = resizePreservingAspectRatio(originalSize, targetSizeBytes)
+                result = Bitmap.createScaledBitmap(
+                    result,
+                    scaledSize.width.roundToInt(),
+                    scaledSize.height.roundToInt(),
+                    true
+                )
+            }
         }
-
         for (index in bits.indices)
         {
->>>>>>> 2e9ead880dee0d3762d805dbd1a5759f0dadaa2f
             val bit = bits[index]
 
             if (bit == 1) {
@@ -103,11 +108,7 @@ class Stencil {
         return result
     }
 
-<<<<<<< HEAD
-    private fun setPixel(bitmap: Bitmap, x: Int, y: Int, value: Int) {
-=======
-    private fun resizePreservingAspectRatio(originalSize: ImageSize, targetSizeBytes: Double): ImageSize
-    {
+    private fun resizePreservingAspectRatio(originalSize: ImageSize, targetSizeBytes: Double): ImageSize {
         val aspectRatio = originalSize.height/originalSize.width
         val targetSizePixels = targetSizeBytes/originalSize.colorDepthBytes
         val scaledWidth = sqrt(targetSizePixels/aspectRatio)
@@ -116,9 +117,7 @@ class Stencil {
         return  ImageSize(scaledHeight, scaledWidth, originalSize.colorDepthBytes)
     }
 
-    private fun setPixel(bitmap: Bitmap, x: Int, y: Int, value: Int)
-    {
->>>>>>> 2e9ead880dee0d3762d805dbd1a5759f0dadaa2f
+    private fun setPixel(bitmap: Bitmap, x: Int, y: Int, value: Int) {
         val color = Color.argb(value, value, value, value)
         bitmap.setPixel(x, y, color)
     }
@@ -214,7 +213,6 @@ class Stencil {
     }
 
     //private class Dimensions(val x: Int, val y: Int)
-
     private fun addStar(bitmap: Bitmap, position: Pair<Int, Int>, color: Int): Bitmap? {
         val widthOffset = position.first
         val heightOffset = position.second
@@ -325,7 +323,7 @@ class Stencil {
         return result
     }
 
-    fun decodeColor(color: Int): DecodeBitResult {
+    private fun decodeColor(color: Int): DecodeBitResult {
         val alpha = Color.alpha(color)
         val r = Color.red(color)
         val g = Color.green(color)
@@ -342,11 +340,11 @@ class Stencil {
         }
     }
 
-    fun checkValue(value: Int, lower: Int, upper: Int): Boolean {
+    private fun checkValue(value: Int, lower: Int, upper: Int): Boolean {
         return (value >= lower) and (value <= upper)
     }
 
-    fun checkValues(values: List<Int>, lower: Int, upper: Int): Boolean {
+    private fun checkValues(values: List<Int>, lower: Int, upper: Int): Boolean {
         for (value in values) {
             if (checkValue(value, lower, upper)) {
                 continue
@@ -358,7 +356,7 @@ class Stencil {
         return true
     }
 
-    fun decodeStars(stars: List<Int>): ByteArray? {
+    private fun decodeStars(stars: List<Int>): ByteArray? {
         return bytesFromBits(stars)
     }
 }
@@ -435,4 +433,4 @@ fun bytesFromBits(bits: List<Int>): ByteArray? {
     return result
 }
 
-private data class ImageSize(val height: Double, val width: Double, val colorDepthBytes: Double)
+data class ImageSize(val height: Double, val width: Double, val colorDepthBytes: Double)
