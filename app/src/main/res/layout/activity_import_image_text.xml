@@ -14,8 +14,13 @@
         android:id="@+id/import_help_button"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/help_button_content_description"
         app:srcCompat="@drawable/help_outline_24px"
-        android:layout_gravity="right"/>
+        android:layout_gravity="end"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/import_message_text_layout"
@@ -27,29 +32,30 @@
         app:counterMaxLength="1000"
         app:boxBackgroundMode="outline"
         app:hintEnabled="false">
-        <com.google.android.material.textfield.TextInputEditText
-            app:textInputLayoutFocusedRectEnabled="true"
-            android:id="@+id/import_message_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:padding="@dimen/padding_standard"
-            android:importantForAutofill="no"
-            android:inputType="textMultiLine|textCapSentences"
-            android:hint="@string/paste_message_for_import_hint"
-            android:background="@color/colorWarmWhite"
-            />
+
+    <com.google.android.material.textfield.TextInputEditText
+        app:textInputLayoutFocusedRectEnabled="true"
+        android:id="@+id/import_message_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:padding="@dimen/padding_standard"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine|textCapSentences"
+        android:hint="@string/paste_message_for_import_hint"
+        android:background="@color/colorWarmWhite" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/import_text_button"
         android:drawableEnd="@drawable/new_import_as_text_25pxl"
         android:drawablePadding="@dimen/padding_half"
-        android:drawableTint="@color/colorPrimaryDark"
+        android:drawableTint="@drawable/button_text_color_dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_half"
         android:backgroundTint="@color/colorWarmWhite"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@drawable/button_text_color_dark"
         android:textAllCaps="false"
         android:text="@string/button_label_import_message" />
 
@@ -67,12 +73,12 @@
         android:id="@+id/import_image_button"
         android:drawableEnd="@drawable/new_import_as_image_25pxl"
         android:drawablePadding="@dimen/padding_half"
-        android:drawableTint="@color/colorPrimaryDark"
+        android:drawableTint="@drawable/button_text_color_dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_half"
         android:backgroundTint="@color/colorWarmWhite"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@drawable/button_text_color_dark"
         android:textAllCaps="false"
         android:text="@string/button_label_import_image"/>
 

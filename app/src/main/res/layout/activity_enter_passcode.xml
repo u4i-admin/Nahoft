@@ -43,7 +43,7 @@
             android:layout_margin="@dimen/padding_standard"
             android:background="@color/colorWarmWhite"
             android:text="@string/Login"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:textColor="@drawable/button_text_color_dark"/>
 
     </LinearLayout>
 

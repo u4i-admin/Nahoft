@@ -33,7 +33,8 @@
                 android:layout_height="24dp"
                 android:layout_gravity="end"
                 android:layout_weight="0"
-                app:srcCompat="@drawable/ic_round_delete_24px" />
+                android:tint="@drawable/button_text_color_dark"
+                android:src="@drawable/ic_round_delete_24px" />
         </LinearLayout>
 
 

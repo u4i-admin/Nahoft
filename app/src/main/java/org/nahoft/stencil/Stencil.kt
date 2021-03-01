@@ -7,10 +7,8 @@ import android.graphics.Color
 import android.net.Uri
 import android.widget.Toast
 import androidx.core.graphics.get
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 class Stencil {
     private var cachedIndex: Int? = null
@@ -20,7 +18,7 @@ class Stencil {
     private var cachedRight: Int = 0
     private var cachedTop: Int = 0
     private var cachedBottom: Int = 0
-    private var cachedDirection: Pair<Int, Int> = Pair<Int, Int>(0, 0)
+    private var cachedDirection: Pair<Int, Int> = Pair(0, 0)
 
 //    val listener: ImageDecoder.OnHeaderDecodedListener =
 //        ImageDecoder.OnHeaderDecodedListener { decoder, info, source ->
@@ -31,30 +29,57 @@ class Stencil {
 //        }
 
     @ExperimentalUnsignedTypes
-    fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri?
-    {
+    fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri? {
         val cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
+        var result = encode(encrypted, cover)
+
+        // TODO: resize result if it is larger than 4mb
+        val sizeBytes = result!!.height * result.width * 4
+        if (sizeBytes > 4000000) {
+            Toast.makeText(context, "Resizing Image", Toast.LENGTH_SHORT).show()
+
+            // TODO: Figure out the desired height and width
+            result = Bitmap.createScaledBitmap(
+                result,
+                (result.width * 0.75).roundToInt(),
+                (result.height * 0.75).roundToInt(),
+                true
+            )
+        }
+
+        val title = ""
+        val description = ""
+
+        return CapturePhotoUtils.insertImage(context, result, title, description)
+    }
+
+    @ExperimentalUnsignedTypes
+    fun encode(encrypted: ByteArray, cover: Bitmap): Bitmap? {
         val numBits = encrypted.size * 8
         val maxStars: Int = (cover.height / 3) * (cover.width / 3)
         if (numBits > maxStars) {
             return null
         }
-
         val bits = bitsFromBytes(encrypted)
         var result = cover.copy(Bitmap.Config.ARGB_8888, true)
 
-        // TODO: resize result if it is larger than 4mb
+<<<<<<< HEAD
+        for (index in bits.indices) {
+=======
+        // Resize result if it is larger than 4mb
         val sizeBytes = result.height * result.width * 4
-        if (sizeBytes > 4000000)
+        val targetSizeBytes = 4000000.0
+        if (sizeBytes > targetSizeBytes)
         {
-            Toast.makeText( context, "Resizing Image", Toast.LENGTH_SHORT).show()
+            val originalSize = ImageSize(result.height.toDouble(), result.width.toDouble(), result.density.toDouble())
+            val scaledSize = resizePreservingAspectRatio(originalSize, targetSizeBytes)
 
-            // TODO: Figure out the desired height and width
-            result = Bitmap.createScaledBitmap(result, (result.width * 0.75).roundToInt(), (result.height * 0.75).roundToInt(), true)
+            result = Bitmap.createScaledBitmap(result, scaledSize.width.roundToInt(), scaledSize.height.roundToInt(), true)
         }
 
         for (index in bits.indices)
         {
+>>>>>>> 2e9ead880dee0d3762d805dbd1a5759f0dadaa2f
             val bit = bits[index]
 
             if (bit == 1) {
@@ -64,7 +89,7 @@ class Stencil {
                 val position = fitStar(result.height, result.width, index)
                 result = addStar(result, position, 0)
             } else {
-                println("Bad bit! " + bit)
+                println("Bad bit! $bit")
             }
         }
 
@@ -75,21 +100,30 @@ class Stencil {
         // Quality check - comment out for speed increase
         // val decoded = decode(result) ?: return null
 
-        val title = ""
-        val description = ""
-        val resultUri = CapturePhotoUtils.insertImage(context, result, title, description)
+        return result
+    }
 
-        return resultUri
+<<<<<<< HEAD
+    private fun setPixel(bitmap: Bitmap, x: Int, y: Int, value: Int) {
+=======
+    private fun resizePreservingAspectRatio(originalSize: ImageSize, targetSizeBytes: Double): ImageSize
+    {
+        val aspectRatio = originalSize.height/originalSize.width
+        val targetSizePixels = targetSizeBytes/originalSize.colorDepthBytes
+        val scaledWidth = sqrt(targetSizePixels/aspectRatio)
+        val scaledHeight = aspectRatio * scaledWidth
+
+        return  ImageSize(scaledHeight, scaledWidth, originalSize.colorDepthBytes)
     }
 
     private fun setPixel(bitmap: Bitmap, x: Int, y: Int, value: Int)
     {
+>>>>>>> 2e9ead880dee0d3762d805dbd1a5759f0dadaa2f
         val color = Color.argb(value, value, value, value)
         bitmap.setPixel(x, y, color)
     }
 
-    public fun fitStar(height: Int, width: Int, index: Int): Pair<Int, Int>
-    {
+    fun fitStar(height: Int, width: Int, index: Int): Pair<Int, Int> {
         var row = 0
         var column = 0
 
@@ -102,12 +136,10 @@ class Stencil {
 
         var startOffset = 0
 
-        if (cachedIndex != null)
-        {
+        if (cachedIndex != null) {
             val oldIndex = cachedIndex!!
 
-            if(index == oldIndex + 1)
-            {
+            if (index == oldIndex + 1) {
                 row = cachedRow
                 column = cachedCol
                 left = cachedLeft
@@ -119,8 +151,7 @@ class Stencil {
             }
         }
 
-        for (offset in startOffset until index)
-        {
+        for (offset in startOffset until index) {
             val xoff = direction.first
             val yoff = direction.second
 
@@ -129,60 +160,44 @@ class Stencil {
 
             if (xoff == 1) // Right
             {
-                if (newColumn > right)
-                {
+                if (newColumn > right) {
                     right -= 1
                     direction = Pair(0, 1)
                     row = row + 1
-                }
-                else
-                {
+                } else {
                     column = newColumn
                 }
-            }
-            else if(yoff == 1) // Down
+            } else if (yoff == 1) // Down
             {
-                if (newRow > bottom)
-                {
+                if (newRow > bottom) {
                     bottom -= 1
                     direction = Pair(-1, 0)
-                    column = column - 1
-                }
-                else
-                {
+                    column -= 1
+                } else {
                     row = newRow
                 }
-            }
-            else if (xoff == -1) // Left
+            } else if (xoff == -1) // Left
             {
-                if (newColumn < left)
-                {
+                if (newColumn < left) {
                     left += 1
                     direction = Pair(0, -1)
-                    row = row - 1
-                }
-                else
-                {
+                    row -= 1
+                } else {
                     column = newColumn
                 }
-            }
-            else if(yoff == -1) // Up
+            } else if (yoff == -1) // Up
             {
-                if (newRow < top)
-                {
+                if (newRow < top) {
                     top += 1
                     direction = Pair(1, 0)
-                    column = column + 1
-                }
-                else
-                {
+                    column += 1
+                } else {
                     row = newRow
                 }
             }
         }
 
-        if((column < 0) || (row < 0))
-        {
+        if ((column < 0) || (row < 0)) {
             print("break!")
         }
 
@@ -200,8 +215,7 @@ class Stencil {
 
     //private class Dimensions(val x: Int, val y: Int)
 
-    private fun addStar(bitmap: Bitmap, position: Pair<Int, Int>, color: Int): Bitmap?
-    {
+    private fun addStar(bitmap: Bitmap, position: Pair<Int, Int>, color: Int): Bitmap? {
         val widthOffset = position.first
         val heightOffset = position.second
 
@@ -222,8 +236,7 @@ class Stencil {
         return newBitmap
     }
 
-    fun fill(bitmap: Bitmap, startIndex: Int): Bitmap
-    {
+    private fun fill(bitmap: Bitmap, startIndex: Int): Bitmap {
         var index = startIndex
         var position = fitStar(bitmap.height, bitmap.width, index)
         var widthOffset = position.first
@@ -231,8 +244,7 @@ class Stencil {
         var result = bitmap
 
         // Until we reach a top-left corner
-        while ((widthOffset != heightOffset) || (widthOffset > bitmap.width / 2))
-        {
+        while ((widthOffset != heightOffset) || (widthOffset > bitmap.width / 2)) {
             // Easy, (not very random) psuedo-random color generator.
             val color = ((index % 3) % 2) * 255
             val newBitmap = addStar(result, position, color)
@@ -249,8 +261,7 @@ class Stencil {
         return result
     }
 
-    fun destroy(bitmap: Bitmap): Bitmap
-    {
+    fun destroy(bitmap: Bitmap): Bitmap {
         val colors = arrayOf(
             Color.argb(0, 0, 0, 0), Color.argb(255, 255, 255, 255), Color.argb(
                 128,
@@ -261,11 +272,9 @@ class Stencil {
         )
 
         var index = 0
-        var newBitmap = bitmap
-        for (x in 0 until bitmap.width-1)
-        {
-            for(y in 0 until bitmap.height-1)
-            {
+        val newBitmap = bitmap
+        for (x in 0 until bitmap.width - 1) {
+            for (y in 0 until bitmap.height - 1) {
                 newBitmap.setPixel(x, y, colors[index % 3])
                 index += 1
             }
@@ -274,50 +283,41 @@ class Stencil {
         return newBitmap
     }
 
-    fun decode(context: Context, uri: Uri): ByteArray?
-    {
+    fun decode(context: Context, uri: Uri): ByteArray? {
         val bitmap = BitmapFactory.decodeStream(context.contentResolver.openInputStream(uri))
         return decode(bitmap)
     }
 
-    fun decode(bitmap: Bitmap): ByteArray?
-    {
-        var working = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+    fun decode(bitmap: Bitmap): ByteArray? {
+        val working = bitmap.copy(Bitmap.Config.ARGB_8888, true);
 
         val bits = findStars(working)
-        if (bits != null)
-        {
+        if (bits != null) {
             return decodeStars(bits)
         }
 
         return null
     }
 
-    fun findStars(bitmap: Bitmap): List<Int>?
-    {
+    private fun findStars(bitmap: Bitmap): List<Int>? {
         var result: List<Int> = emptyList()
 
         var index = 0
         var done = false
-        while (!done)
-        {
-            try
-            {
+        while (!done) {
+            try {
                 val position = fitStar(bitmap.height, bitmap.width, index)
                 index += 1
 
                 val colorValue = bitmap.get(position.first, position.second)
                 val color = decodeColor(colorValue)
-                when (color)
-                {
+                when (color) {
                     DecodeBitResult.Zero -> result += 0
                     DecodeBitResult.One -> result += 1
                     DecodeBitResult.Stop -> done = true
                     DecodeBitResult.Error -> return null
                 }
-            }
-            catch (e: Exception)
-            {
+            } catch (e: Exception) {
                 return null
             }
         }
@@ -325,8 +325,7 @@ class Stencil {
         return result
     }
 
-    fun decodeColor(color: Int): DecodeBitResult
-    {
+    fun decodeColor(color: Int): DecodeBitResult {
         val alpha = Color.alpha(color)
         val r = Color.red(color)
         val g = Color.green(color)
@@ -334,35 +333,24 @@ class Stencil {
 
         val values = listOf(r, g, b)
 
-        if (checkValues(values, 0, 80))
-        {
+        if (checkValues(values, 0, 80)) {
             return DecodeBitResult.Zero
-        }
-        else if(checkValues(values, 200, 255))
-        {
+        } else if (checkValues(values, 200, 255)) {
             return DecodeBitResult.One
-        }
-        else
-        {
+        } else {
             return DecodeBitResult.Stop
         }
     }
 
-    fun checkValue(value: Int, lower: Int, upper: Int): Boolean
-    {
+    fun checkValue(value: Int, lower: Int, upper: Int): Boolean {
         return (value >= lower) and (value <= upper)
     }
 
-    fun checkValues(values: List<Int>, lower: Int, upper: Int): Boolean
-    {
-        for (value in values)
-        {
-            if (checkValue(value, lower, upper))
-            {
+    fun checkValues(values: List<Int>, lower: Int, upper: Int): Boolean {
+        for (value in values) {
+            if (checkValue(value, lower, upper)) {
                 continue
-            }
-            else
-            {
+            } else {
                 return false
             }
         }
@@ -370,16 +358,14 @@ class Stencil {
         return true
     }
 
-    fun decodeStars(stars: List<Int>): ByteArray?
-    {
+    fun decodeStars(stars: List<Int>): ByteArray? {
         return bytesFromBits(stars)
     }
 }
 
 class Star(val x: Int, val y: Int)
 
-enum class DecodeBitResult(val value: Int)
-{
+enum class DecodeBitResult(val value: Int) {
     Zero(0),
     One(255),
     Stop(128),
@@ -399,25 +385,19 @@ val masks: List<UByte> = listOf(
 )
 
 @ExperimentalUnsignedTypes
-fun bitsFromBytes(bytes: ByteArray): IntArray
-{
+fun bitsFromBytes(bytes: ByteArray): IntArray {
     var result: IntArray = IntArray(bytes.size * 8)
 
-    for (byteIndex in 0 until bytes.size)
-    {
+    for (byteIndex in 0 until bytes.size) {
         val byte = bytes[byteIndex].toUByte()
 
-        for (bitIndex in 0 until 8)
-        {
+        for (bitIndex in 0 until 8) {
             val arrayIndex = byteIndex * 8 + bitIndex
             val bit = byte and masks[bitIndex]
 
-            if (bit == 0.toUByte())
-            {
+            if (bit == 0.toUByte()) {
                 result[arrayIndex] = 0
-            }
-            else
-            {
+            } else {
                 result[arrayIndex] = 1
             }
         }
@@ -426,34 +406,25 @@ fun bitsFromBytes(bytes: ByteArray): IntArray
     return result
 }
 
-fun bytesFromBits(bits: List<Int>): ByteArray?
-{
-    if (bits.size % 8 != 0)
-    {
+fun bytesFromBits(bits: List<Int>): ByteArray? {
+    if (bits.size % 8 != 0) {
         return null
     }
 
     var result = ByteArray(bits.size / 8)
 
-    for (byteIndex in 0 until result.size)
-    {
+    for (byteIndex in 0 until result.size) {
         var byte: UByte = 0.toUByte()
 
-        for (bitIndex in 0 until 8)
-        {
+        for (bitIndex in 0 until 8) {
             val arrayIndex = (byteIndex * 8) + bitIndex
             val value = bits[arrayIndex]
-            if (value == 0)
-            {
+            if (value == 0) {
                 continue
-            }
-            else if (value == 1)
-            {
+            } else if (value == 1) {
                 val maskValue: UByte = masks[bitIndex]
                 byte = (byte + maskValue).toUByte()
-            }
-            else
-            {
+            } else {
                 return null
             }
         }
@@ -463,3 +434,5 @@ fun bytesFromBits(bits: List<Int>): ByteArray?
 
     return result
 }
+
+private data class ImageSize(val height: Double, val width: Double, val colorDepthBytes: Double)

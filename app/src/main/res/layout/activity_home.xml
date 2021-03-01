@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="20dp"
     android:gravity="center_horizontal"
     android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
@@ -13,10 +12,15 @@
 
     <ImageView
         android:id="@+id/home_help_button"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/help_button_content_description"
         app:srcCompat="@drawable/help_outline_24px"
-        android:layout_gravity="right"/>
+        android:layout_gravity="end"/>
 
     <ImageView
         android:id="@+id/nahoft_message_bottle"
@@ -32,6 +36,7 @@
         android:gravity="bottom"
         android:paddingTop="@dimen/padding_standard"
         android:orientation="vertical" >
+
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,9 +51,10 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:background="@drawable/home_button_background"
                 android:src="@drawable/gear_asset_50"
-                android:tint="@color/colorPrimaryDark"
+                android:tint="@drawable/button_text_color_dark"
                 android:contentDescription="@string/settings_button_description" />
 
             <ImageButton
@@ -56,9 +62,10 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:background="@drawable/home_button_background"
                 android:src="@drawable/new_user_guide_1"
-                android:tint="@color/colorPrimaryDark"
+                android:tint="@drawable/button_text_color_dark"
                 android:contentDescription="@string/user_guide_button_description" />
 
             <ImageButton
@@ -66,9 +73,10 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:background="@drawable/home_button_background"
                 android:src="@drawable/new_friends_button"
-                android:tint="@color/colorPrimaryDark"
+                android:tint="@drawable/button_text_color_dark"
                 android:contentDescription="@string/friends_button_description" />
 
             <ImageButton
@@ -76,9 +84,10 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:background="@drawable/home_button_background"
                 android:src="@drawable/message_asset_50"
-                android:tint="@color/colorPrimaryDark"
+                android:tint="@drawable/button_text_color_dark"
                 android:contentDescription="@string/messages_button_description" />
 
             <Button
@@ -90,9 +99,9 @@
                 android:background="@android:color/transparent"
                 android:drawableEnd="@drawable/new_logout_button_25"
                 android:drawablePadding="@dimen/padding_standard"
-                android:drawableTint="@color/colorWarmWhite"
+                android:drawableTint="@drawable/button_text_color_light"
                 android:text="@string/button_label_logout"
-                android:textColor="@color/colorWarmWhite"
+                android:textColor="@drawable/button_text_color_light"
                 android:textSize="@dimen/detail_name_text_size" />
 
         </GridLayout>

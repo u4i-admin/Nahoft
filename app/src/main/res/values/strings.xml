@@ -243,15 +243,60 @@
     <string name="messages_button_description">Button to go to the messages menu.</string>
 
     Help Dialog Buttons
-    <string name="button_home_help">
-        \n Gear Icon brings you to the Password Setting Screen. \n
-        \n Smiley Face Icon brings you to the User Guides Screens. \n
-        \n Key Icon brings you to your list of friends that you can share keys with so you can start messaging them \n
-        \n Messages Icon allows you to start sending encrypted messages. \n
+
+    <string name="dialog_button_home_help_title"> Home Help </string>
+    <string name="dialog_button_home_help">
+        \nSelect the Gear to create passwords. Both the primary and secondary passwords can be managed here. \n
+        \nThe Logout button will only appear once a passcode is set. \n
+        \nSelect the File button to see all User Guides. \n
+        \nSelect the People button to create a list of friends. These screens allow you to invite and verify friends you want to share messages with. \n
+        \nSelect the Conversation button to begin sending encrypted messages. \n
     </string>
 
-    <string name="ok_button">ok</string>
-    <string name="cancel_button">ok</string>
+    <string name="dialog_button_friends_help_title"> Friends Help </string>
+    <string name="dialog_button_friends_help">
+        \nTo add a Friend, press the + icon at the bottom of the Friends Screen.\n
+        \nType the name of the friend you want to add and tap save.\n
+        \nTap the invite button beside your friend\'s name.\n
+        \nYou will see the sharing prompt with invitation to your friend as a message to send (it will look like random text).\n
+        \nYou can share your invitation with the friend you are adding via your preferred messaging app, or if you are near them, using the \'nearby\' or Bluetooth options.\n
+        \nThe friend you are adding must also follow these same steps to send you an invitation as well.\n
+        \nThere are several ways to accept the invitation you receive from your friend.\n
+        \nIf you have the invitation message copied to your clipboard: Tap the import button next to their name, or the import button on the home screen.\n
+        \nPaste the invitation message with a long press and select import text.\n
+        \nIf you are sharing the invitation from another app: Select Nahoft as the app you want to share to.\n
+        \nWhen prompted, select the friend that sent the invitation.\n
+        \nReturn to the Friends screen and select the verify button beside the friend you received the invitation from.\n
+        \nContact your Friend outside of the app you normally use to confirm your numbers on the verification screen match.\n
+        \nIf the numbers on the verification screen match, tap accept. If not, tap reject.\n
+        \nTo delete a friend swipe the friends name to the right or left.\n\n
+    </string>
 
+    <string name="dialog_button_messages_menu_help_title"> Sending Messages </string>
+    <string name="dialog_button_messages_menu_help">
+        \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.
+        \nThe encrypted message will be transformed into your choice of either a text message or an image in order to hide the fact that it is encrypted.\n
+        \nYou can only send messages to \'verified\' friends.\n
+        \nTap messages on the home screen.\n
+        \nTap the Compose A Message icon in the bottom corner of the Messages screen.\n
+        \nTap \'Select Recipient\' to choose the friend you would like to send a message to.\n
+        \nWrite your message in the window that says \'Message Body\'.\n
+        \nTap send as text to encrypt your message and transform it into a different series of characters.\n
+        \nTap send as Image to encrypt your message and embed it in the image you select.\n
+        \nOnce you have made your selection, you will be prompted to share the image or text, here you can select your preferred messaging app, or save it to your clipboard.\n\ </string>
 
-</resources>
+    <string name="dialog_button_import_help_title"> Importing Messages </string>
+    <string name="dialog_button_import_help">
+        \nYou can import your messages using this screen. It is also possible to share received messages directly to the Nahoft app if the app where you received the message allows it.\n
+        \nWhen you receive a coded text message you can copy the text and paste it in the import screen with a long press.\n
+        \nTap \'Import Text\', and select the sender when prompted.\n
+        \nIf you have received an image, tap \'Import Image\', select the image when prompted, and the sender when prompted.\n
+        \nIf the message is successfully imported, you will see the original text.\n\n
+    </string>
+
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">OK</string>
+
+    //New Content Descriptions
+    <string name="help_button_content_description"> Help Buttons </string>
+ </resources>

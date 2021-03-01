@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.nahoft.nahoft">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -15,7 +16,6 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.HomeHelpButtonActivity"></activity>
         <activity android:name=".activities.MessagesMenuActivity" />
 
         <provider
@@ -54,25 +54,19 @@
         <activity android:name=".activities.FriendsUserGuideActivity" />
         <activity android:name=".activities.SettingsActivity" />
         <activity android:name=".activities.UserGuideActivity" />
-        <activity
-            android:name=".activities.MessagesActivity"
-            android:icon="@drawable/app_shortcut_email" />
+        <activity android:name=".activities.MessagesActivity" />
         <activity android:name=".activities.HomeActivity">
 
             <!-- Allows other apps to share images with us -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="image/*" />
             </intent-filter>
             <!-- Allows other apps to share text with us -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="text/*" />
             </intent-filter>
         </activity>
