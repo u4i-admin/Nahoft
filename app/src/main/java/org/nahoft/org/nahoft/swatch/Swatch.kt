@@ -156,7 +156,69 @@ class Swatch {
 
     fun decode(bitmap: Bitmap): ByteArray?
     {
-        return null
+        val lengthBitsSize = java.lang.Integer.BYTES * 8
+        val lengthBitsKey = 1 // FIXME - use proper keys
+
+        val lengthBits = decode(bitmap, lengthBitsKey, lengthBitsSize)
+        if (lengthBits == null) { return null }
+        lengthBits?.let {
+            val lengthBytes = bytesFromBits(lengthBits)
+            val length = ByteBuffer.wrap(lengthBytes).getInt()
+
+            val messageKey = 2 // FIXME - use proper keys
+            val messageBits = decode(bitmap, messageKey, length)
+            if (messageBits == null) { return null }
+            return bytesFromBits(messageBits)
+        }
+    }
+
+    fun decode(bitmap: Bitmap, key: Int, size: Int): List<Int>?
+    {
+        val numPixels = bitmap.height * bitmap.width
+
+        val patchSize = numPixels / size
+
+        if (patchSize < minimumPatchSize) {
+            return null
+        }
+
+        // Random number generator
+        // Seed is  based on the message so that the same random number generator will be used for encoding/decoding
+        // FIXME: Create seed from message
+        val random = Random(key)
+
+        // Get an array of all of the pixel locations (x,y) and randomize the order using our number generator
+        val pixels = getPixelArray(bitmap)
+        pixels.shuffle(random)
+
+        // Create patches by chunking the array into (message.size * 2) chunks
+        // The number of patches should be equal to the number of bits in the message * 2
+        val chunks = pixels.asList().chunked(size * 2)
+        val patches = chunks.map { Patch(it) }
+
+        // Group our patches into pairs
+        val pairs = patches.chunked(2)
+
+        var message: IntArray = IntArray(size)
+
+        // Take each pair and a bit from the message and turn it into a rule (2 patches and a constraint)
+        var rules: Array<Rule> = arrayOf()
+        for (index in 0 until pairs.size)
+        {
+            val (patch1, patch2) = pairs[index]
+
+            val bit = 0
+            message[index] = bit
+
+            val rule = Rule(patch1, patch2, bitmap)
+            when (rule.constraint)
+            {
+                Constraint.GREATER -> message[index] = 1
+                Constraint.LESS -> message[index] = 0
+            }
+        }
+
+        return message.toList()
     }
 }
 
@@ -261,8 +323,27 @@ class Pixel(val x: Int, val y: Int)
     }
 }
 
-class Rule(var patch0: Patch, var patch1: Patch, val constraint: Constraint)
+class Rule(var patch0: Patch, var patch1: Patch, var constraint: Constraint)
 {
+    constructor(patch0: Patch, patch1: Patch, bitmap: Bitmap): this(patch0, patch1, Constraint.EQUAL)
+    {
+        val b0 = patch0.brightness(bitmap)
+        val b1 = patch1.brightness(bitmap)
+
+        if (b0 > b1)
+        {
+            constraint = Constraint.GREATER
+        }
+        else if (b0 < b1)
+        {
+            constraint = Constraint.LESS
+        }
+        else
+        {
+            constraint = Constraint.EQUAL
+        }
+    }
+
     fun validate(bitmap: Bitmap): Boolean
     {
         val b0 = patch0.brightness(bitmap)
