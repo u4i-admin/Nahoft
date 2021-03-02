@@ -32,21 +32,6 @@ class Stencil {
     fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri? {
         val cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
         var result = encode(encrypted, cover)
-
-        // TODO: resize result if it is larger than 4mb
-        val sizeBytes = result!!.height * result.width * 4
-        if (sizeBytes > 4000000) {
-            Toast.makeText(context, "Resizing Image", Toast.LENGTH_SHORT).show()
-
-            // TODO: Figure out the desired height and width
-            result = Bitmap.createScaledBitmap(
-                result,
-                (result.width * 0.75).roundToInt(),
-                (result.height * 0.75).roundToInt(),
-                true
-            )
-        }
-
         val title = ""
         val description = ""
 
@@ -63,26 +48,24 @@ class Stencil {
         val bits = bitsFromBytes(encrypted)
         var result = cover.copy(Bitmap.Config.ARGB_8888, true)
 
-        for (index in bits.indices) {
-
-            // Resize result if it is larger than 4mb
-            val sizeBytes = result.height * result.width * 4
-            val targetSizeBytes = 4000000.0
-            if (sizeBytes > targetSizeBytes) {
-                val originalSize = ImageSize(
-                    result.height.toDouble(),
-                    result.width.toDouble(),
-                    result.density.toDouble()
-                )
-                val scaledSize = resizePreservingAspectRatio(originalSize, targetSizeBytes)
-                result = Bitmap.createScaledBitmap(
-                    result,
-                    scaledSize.width.roundToInt(),
-                    scaledSize.height.roundToInt(),
-                    true
-                )
-            }
+        // Resize result if it is larger than 4mb
+        val sizeBytes = result.height * result.width * 4
+        val targetSizeBytes = 4000000.0
+        if (sizeBytes > targetSizeBytes) {
+            val originalSize = ImageSize(
+                result.height.toDouble(),
+                result.width.toDouble(),
+                result.density.toDouble()
+            )
+            val scaledSize = resizePreservingAspectRatio(originalSize, targetSizeBytes)
+            result = Bitmap.createScaledBitmap(
+                result,
+                scaledSize.width.roundToInt(),
+                scaledSize.height.roundToInt(),
+                true
+            )
         }
+
         for (index in bits.indices)
         {
             val bit = bits[index]
