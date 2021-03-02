@@ -5,6 +5,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
+import androidx.core.graphics.get
+import androidx.core.graphics.set
+import org.nahoft.org.nahoft.swatch.Solver
 import org.nahoft.stencil.CapturePhotoUtils
 import java.nio.ByteBuffer
 import kotlin.random.Random
@@ -71,6 +74,9 @@ class Swatch {
         val rules1 = makeRules(1, cover, message1)
         val rules2 = makeRules(2, cover, message2)
 
+        val solver = Solver(cover, rules1, rules2)
+        val solution = solver.solve()
+
         return null
     }
 
@@ -83,7 +89,7 @@ class Swatch {
         // Random number generator
         // Seed is  based on the message so that the same random number generator will be used for encoding/decoding
         // FIXME: Create seed from message
-        val random1 = Random(1)
+        val random1 = Random(key)
 
         // Get an array of all of the pixel locations (x,y) and randomize the order using our number generator
         val pixels1 = getPixelArray(cover)
@@ -113,15 +119,15 @@ class Swatch {
         return rules
     }
 
-    fun getPixelArray(bitmap: Bitmap): Array<Pair<Int,Int>>
+    fun getPixelArray(bitmap: Bitmap): Array<Pixel>
     {
-        var results: Array<Pair<Int,Int>> = arrayOf()
+        var results: Array<Pixel> = arrayOf()
 
         for (x in 0 until bitmap.width)
         {
             for (y in 0 until bitmap.height)
             {
-                results += Pair<Int,Int>(x, y)
+                results += Pixel(x, y)
             }
         }
 
@@ -220,19 +226,178 @@ fun bytesFromBits(bits: List<Int>): ByteArray?
     return result
 }
 
-class Rule(patch0: Patch, patch1: Patch, constraint: Constraint)
+class Pixel(val x: Int, val y: Int)
 {
+    fun brightness(bitmap: Bitmap): Float
+    {
+        var hsv = FloatArray(3)
+        val color = bitmap.getPixel(x, y)
+        Color.colorToHSV(color, hsv)
+        return hsv[2] // V
+    }
+
+    fun brighten(bitmap: Bitmap): Int
+    {
+        val colorInt = bitmap.getPixel(x, y)
+        val color = Color.valueOf(colorInt)
+        val a = color.alpha()
+        val r = color.red()
+        val g = color.green()
+        val b = color.blue()
+        val newColor = Color.argb(a, r + 1, g + 1, b + 1)
+        return newColor
+    }
+
+    fun darken(bitmap: Bitmap): Int
+    {
+        val colorInt = bitmap.getPixel(x, y)
+        val color = Color.valueOf(colorInt)
+        val a = color.alpha()
+        val r = color.red()
+        val g = color.green()
+        val b = color.blue()
+        val newColor = Color.argb(a, r - 1, g - 1, b - 1)
+        return newColor
+    }
 }
 
-class Patch(points: List<Pair<Int,Int>>)
+class Rule(var patch0: Patch, var patch1: Patch, val constraint: Constraint)
 {
+    fun validate(bitmap: Bitmap): Boolean
+    {
+        val b0 = patch0.brightness(bitmap)
+        val b1 = patch1.brightness(bitmap)
+
+        when (constraint)
+        {
+            Constraint.GREATER -> return b0 > b1
+            Constraint.EQUAL -> return b0 == b1
+            Constraint.LESS -> return b0 < b1
+        }
+    }
+
+    fun constrain(bitmap: Bitmap, directions: Bitmap): Bitmap
+    {
+        var working = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+
+        while (!validate(working))
+        {
+            if (Random.nextBoolean())
+            {
+                when (constraint)
+                {
+                    Constraint.GREATER -> working = patch0.brighten(working, directions)
+                    Constraint.LESS -> working = patch0.darken(working, directions)
+                    Constraint.EQUAL -> working = balanceBrighten(working, directions)
+                }
+            }
+            else
+            {
+                when (constraint)
+                {
+                    Constraint.GREATER -> working = patch1.darken(working, directions)
+                    Constraint.LESS -> working = patch1.brighten(working, directions)
+                    Constraint.EQUAL -> working = balanceDarken(working, directions)
+                }
+            }
+        }
+
+        return working
+    }
+
+    fun balanceBrighten(bitmap: Bitmap, directions: Bitmap): Bitmap
+    {
+        if (patch0.brightness(bitmap) > patch1.brightness(bitmap))
+        {
+            return patch1.brighten(bitmap, directions)
+        }
+        else
+        {
+            return patch0.brighten(bitmap, directions)
+        }
+    }
+
+    fun balanceDarken(bitmap: Bitmap, directions: Bitmap): Bitmap
+    {
+        if (patch0.brightness(bitmap) > patch1.brightness(bitmap))
+        {
+            return patch0.darken(bitmap, directions)
+        }
+        else
+        {
+            return patch1.darken(bitmap, directions)
+        }
+    }
+}
+
+class Patch(pixels: List<Pixel>)
+{
+    var points = pixels.toTypedArray()
+
+    fun brightness(bitmap: Bitmap): Float
+    {
+        val values = points.map { pixel -> pixel.brightness(bitmap) }
+        return values.sum()
+    }
+
+    fun brighten(bitmap: Bitmap, directions: Bitmap): Bitmap
+    {
+        var workingBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+
+        var pointsCopy = points.toMutableList()
+        pointsCopy.shuffle()
+
+        var stillWorking = true
+        while (stillWorking)
+        {
+            val point = pointsCopy.removeFirst()
+
+            val direction = directions.getPixel(point.x, point.y)
+            if (direction == 2)
+            {
+                val newValue = point.brighten(workingBitmap)
+                workingBitmap.set(point.x, point.y, newValue)
+                stillWorking = false
+            }
+        }
+
+        return workingBitmap
+    }
+
+    fun darken(bitmap: Bitmap, directions: Bitmap): Bitmap
+    {
+        var workingBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+
+        var pointsCopy = points.toMutableList()
+        pointsCopy.shuffle()
+
+        var stillWorking = true
+        while (stillWorking)
+        {
+            val point = pointsCopy.removeFirst()
+
+            val direction = directions.getPixel(point.x, point.y)
+            if (direction == -2)
+            {
+                val newValue = point.darken(workingBitmap)
+                workingBitmap.set(point.x, point.y, newValue)
+                stillWorking = false
+            }
+        }
+
+        return workingBitmap
+    }
 }
 
 enum class Constraint(val constraint: Int)
 {
     GREATER(1),
-    EQUAL(-1),
-    LESS(0)
+    EQUAL(0),
+    LESS(-1)
+}
+
+class SetPixel(pixel: Pixel, value: Int)
+{
 }
 
 @ExperimentalUnsignedTypes
