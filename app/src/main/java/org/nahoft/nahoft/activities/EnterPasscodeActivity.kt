@@ -27,7 +27,7 @@ class EnterPasscodeActivity : AppCompatActivity () {
         tryLogIn(status)
 
         login_button.setOnClickListener {
-            val enteredPassword = passcode_edit_text.text.toString()
+            val enteredPassword = passcode_digit_1.text.toString()
             val maybePasscode = Persist.encryptedSharedPreferences.getString(sharedPrefPasscodeKey, null)
             val maybeSecondary = Persist.encryptedSharedPreferences.getString(sharedPrefSecondaryPasscodeKey, null)
 

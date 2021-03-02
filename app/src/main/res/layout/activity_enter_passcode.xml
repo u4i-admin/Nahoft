@@ -21,26 +21,109 @@
 
     <LinearLayout
         android:id="@+id/passcodeLogoContainer"
-        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="375dp"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/passcode_digit_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:layout_weight="1"
+            android:imeOptions="actionDone"
+            android:inputType="numberPassword|number"
+            android:maxLength="2"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textColor="@color/colorWarmWhite"
+            app:backgroundTint="@color/colorWarmWhite" />
+
+        <EditText
+            android:id="@+id/passcode_digit_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:layout_weight="1"
+            android:imeOptions="actionDone"
+            android:inputType="numberPassword|number"
+            android:maxLength="2"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textColor="@color/colorWarmWhite"
+            app:backgroundTint="@color/colorWarmWhite" />
+
+        <EditText
+            android:id="@+id/passcode_digit_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:layout_weight="1"
+            android:imeOptions="actionDone"
+            android:inputType="numberPassword|number"
+            android:maxLength="2"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textColor="@color/colorWarmWhite"
+            app:backgroundTint="@color/colorWarmWhite" />
+
+        <EditText
+            android:id="@+id/passcode_digit_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:layout_weight="1"
+            android:imeOptions="actionDone"
+            android:inputType="numberPassword|number"
+            android:maxLength="2"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textColor="@color/colorWarmWhite"
+            app:backgroundTint="@color/colorWarmWhite" />
+
+        <EditText
+            android:id="@+id/passcode_digit_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:layout_weight="1"
+            android:imeOptions="actionDone"
+            android:inputType="numberPassword|number"
+            android:maxLength="2"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textColor="@color/colorWarmWhite"
+            app:backgroundTint="@color/colorWarmWhite" />
+
+        <EditText
+            android:id="@+id/passcode_digit_6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:layout_weight="1"
+            android:imeOptions="actionDone"
+            android:inputType="numberPassword|number"
+            android:maxLength="2"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textColor="@color/colorWarmWhite"
+            app:backgroundTint="@color/colorWarmWhite" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <EditText
-            android:id="@+id/passcode_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_standard"
-            android:text=""
-            android:textColor="@color/colorWarmWhite"
-            android:inputType="textPassword"
-            app:backgroundTint="@color/colorWarmWhite"/>
 
         <Button
             android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
+            android:layout_gravity="center"
             android:background="@color/colorWarmWhite"
             android:text="@string/Login"
             android:textColor="@drawable/button_text_color_dark"/>
