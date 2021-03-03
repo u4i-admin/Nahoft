@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/logo_clear_message_bottle" />
 
     <LinearLayout
-        android:id="@+id/passcodeLogoContainer"
+        android:id="@+id/passcodeContainer"
         android:layout_width="match_parent"
         android:layout_height="375dp"
         android:gravity="bottom"

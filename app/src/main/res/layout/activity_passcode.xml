@@ -39,77 +39,17 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/enter_passcode_input_1"
+                android:id="@+id/enter_passcode_input"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="13dp"
                 android:layout_weight="1"
                 android:imeOptions="actionDone"
-                android:inputType="textVisiblePassword"
-                android:maxLength="2"
+                android:inputType="numberPassword|number"
+                android:maxLength="6"
                 android:maxLines="1"
                 android:textAlignment="center"
                 android:hint="@string/enter_passcode_hint"/>
-
-            <EditText
-                android:id="@+id/enter_passcode_input_2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="13dp"
-                android:layout_weight="1"
-                android:imeOptions="actionDone"
-                android:inputType="textVisiblePassword"
-                android:maxLength="2"
-                android:maxLines="1"
-                android:textAlignment="center"/>
-
-            <EditText
-                android:id="@+id/enter_passcode_input_3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="13dp"
-                android:layout_weight="1"
-                android:imeOptions="actionDone"
-                android:inputType="textVisiblePassword"
-                android:maxLength="2"
-                android:maxLines="1"
-                android:textAlignment="center"/>
-
-            <EditText
-                android:id="@+id/enter_passcode_input_4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="13dp"
-                android:layout_weight="1"
-                android:imeOptions="actionDone"
-                android:inputType="textVisiblePassword"
-                android:maxLength="2"
-                android:maxLines="1"
-                android:textAlignment="center"/>
-
-            <EditText
-                android:id="@+id/enter_passcode_input_5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="13dp"
-                android:layout_weight="1"
-                android:imeOptions="actionDone"
-                android:inputType="textVisiblePassword"
-                android:maxLength="2"
-                android:maxLines="1"
-                android:textAlignment="center"/>
-
-            <EditText
-                android:id="@+id/enter_passcode_input_6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="13dp"
-                android:layout_weight="1"
-                android:imeOptions="actionDone"
-                android:inputType="textVisiblePassword"
-                android:maxLength="2"
-                android:maxLines="1"
-                android:textAlignment="center"/>
 
             </LinearLayout>
 
@@ -120,77 +60,17 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/verify_passcode_input_1"
+                    android:id="@+id/verify_passcode_input"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="13dp"
                     android:layout_weight="1"
                     android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
+                    android:inputType="numberPassword|number"
+                    android:maxLength="6"
                     android:maxLines="1"
                     android:textAlignment="center"
                     android:hint="@string/verify_passcode_hint"/>
-
-                <EditText
-                    android:id="@+id/verify_passcode_input_2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
-
-                <EditText
-                    android:id="@+id/verify_passcode_input_3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
-
-                <EditText
-                    android:id="@+id/verify_passcode_input_4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
-
-                <EditText
-                    android:id="@+id/verify_passcode_input_5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
-
-                <EditText
-                    android:id="@+id/verify_passcode_input_6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
 
             </LinearLayout>
 
@@ -209,77 +89,17 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/enter_secondary_passcode_input_1"
+                    android:id="@+id/enter_secondary_passcode_input"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="13dp"
                     android:layout_weight="1"
                     android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
+                    android:inputType="numberPassword|number"
+                    android:maxLength="6"
                     android:maxLines="1"
                     android:textAlignment="center"
                     android:hint="@string/enter_secondary_passcode_hint"/>
-
-                <EditText
-                    android:id="@+id/enter_secondary_passcode_input_2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
-
-                <EditText
-                    android:id="@+id/enter_secondary_passcode_input_3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
-
-                <EditText
-                    android:id="@+id/enter_secondary_passcode_input_4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
-
-                <EditText
-                    android:id="@+id/enter_secondary_passcode_input_5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
-
-                <EditText
-                    android:id="@+id/enter_secondary_passcode_input_6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
 
             </LinearLayout>
 
@@ -290,77 +110,17 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/verify_secondary_passcode_input_1"
+                    android:id="@+id/verify_secondary_passcode_input"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="13dp"
                     android:layout_weight="1"
                     android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
+                    android:inputType="numberPassword|number"
+                    android:maxLength="6"
                     android:maxLines="1"
                     android:textAlignment="center"
                     android:hint="@string/verify_secondary_passcode_hint"/>
-
-                <EditText
-                    android:id="@+id/verify_secondary_passcode_input_2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
-
-                <EditText
-                    android:id="@+id/verify_secondary_passcode_input_3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
-
-                <EditText
-                    android:id="@+id/verify_secondary_passcode_input_4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
-
-                <EditText
-                    android:id="@+id/verify_secondary_passcode_input_5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
-
-                <EditText
-                    android:id="@+id/verify_secondary_passcode_input_6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="13dp"
-                    android:layout_weight="1"
-                    android:imeOptions="actionDone"
-                    android:inputType="textVisiblePassword"
-                    android:maxLength="2"
-                    android:maxLines="1"
-                    android:textAlignment="center"/>
 
             </LinearLayout>
 
