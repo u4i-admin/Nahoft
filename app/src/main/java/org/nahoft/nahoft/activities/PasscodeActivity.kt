@@ -222,20 +222,26 @@ class PasscodeActivity : AppCompatActivity() {
     // Returns true if the passcode provided is non sequential numbers.
     fun isPasscodeNonSequential(passcode: String): Boolean {
 
-        val digitArray = passcode.map { it.toInt() }.toTypedArray()
+        val digitArray = passcode.map { it.toString().toInt() }.toTypedArray()
         val max = digitArray.maxOrNull()
         val min = digitArray.minOrNull()
 
+        // This is unexpected behavior. The input type only allows numbers.
         if (max == null || min == null){
             showAlert(getString(R.string.invalid_passcode_alert))
             return false
         }
 
-        // If the difference between the maximum and minimum element in the array is equal to (array.size - 1)
-        // Then the array contains consecutive integers
-        if (max - min == digitArray.size - 1){
-            showAlert(getString(R.string.alert_text_passcode_is_sequential))
-            return false
+        // If the difference between the maximum and minimum element in the array is equal to (array.size - 1),
+        // and each element in the array is distinct,
+        // then the array contains consecutive integers.
+        if (max - min == digitArray.size - 1)
+        {
+            if (digitArray.distinct().size == digitArray.size)
+            {
+                showAlert(getString(R.string.alert_text_passcode_is_sequential))
+                return false
+            }
         }
 
         return true
