@@ -200,13 +200,19 @@ class PasscodeActivity : AppCompatActivity() {
     fun passcodeMeetsRequirements(passcode: String): Boolean {
 
         return (isPasscodeCorrectLength(passcode) && isPasscodeNonSequential(passcode) && isPasscodeNonRepeating(passcode))
-
     }
 
     fun isPasscodeCorrectLength(passcode: String): Boolean {
 
-       return (passcode.length == 6)
-
+        if (passcode.length == 6)
+        {
+            return true
+        }
+        else
+        {
+            showAlert(getString(R.string.alert_text_incorrect_passcode_length))
+            return false
+        }
     }
 
     // Returns true if the passcode provided is non sequential numbers.

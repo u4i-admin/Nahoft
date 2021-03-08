@@ -308,5 +308,6 @@ Help Dialog Buttons
     <string name="invalid_passcode_alert">This passcode is invalid.</string>
     <string name="alert_text_passcode_is_sequential">Sequential passcodes are not allowed.</string>
     <string name="alert_text_passcode_is_a_repeated_digit">The passcode cannot be a repeated digit.</string>
+    <string name="alert_text_incorrect_passcode_length">The passcode must be 6 digits long.</string>
 
 </resources>
