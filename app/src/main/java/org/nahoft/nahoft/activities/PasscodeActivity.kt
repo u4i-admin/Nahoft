@@ -141,8 +141,13 @@ class PasscodeActivity : AppCompatActivity() {
             return
         }
 
+        if (!passcodeMeetsRequirements(passcode)) return
+
         Persist.saveKey(Persist.sharedPrefPasscodeKey, passcode)
 
+        // If the user puts something in the verify secondary passcode field
+        // but did not put something in the first secondary passcode field
+        // show an error.
         if(secondaryPasscode == "") {
 
             if (secondaryPasscode2 != "") {
@@ -158,7 +163,8 @@ class PasscodeActivity : AppCompatActivity() {
                 finish()
             }
 
-        } else {
+        } else { // User has entered a secondary passcode in the first field.
+
             if (secondaryPasscode2 == "") {
                 this.showAlert(getString(R.string.alert_text_verify_secondary_passcode_empty))
 
@@ -177,6 +183,8 @@ class PasscodeActivity : AppCompatActivity() {
                 return
             }
 
+            if (!passcodeMeetsRequirements(secondaryPasscode)) return
+
             Persist.saveKey(Persist.sharedPrefSecondaryPasscodeKey, secondaryPasscode)
 
             // Set user status
@@ -187,6 +195,58 @@ class PasscodeActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    fun passcodeMeetsRequirements(passcode: String): Boolean {
+
+        return (isPasscodeCorrectLength(passcode) && isPasscodeNonSequential(passcode) && isPasscodeNonRepeating(passcode))
+
+    }
+
+    fun isPasscodeCorrectLength(passcode: String): Boolean {
+
+       return (passcode.length == 6)
+
+    }
+
+    // Returns true if the passcode provided is non sequential numbers.
+    fun isPasscodeNonSequential(passcode: String): Boolean {
+
+        val digitArray = passcode.map { it.toInt() }.toTypedArray()
+        val max = digitArray.maxOrNull()
+        val min = digitArray.minOrNull()
+
+        if (max == null || min == null){
+            showAlert(getString(R.string.invalid_passcode_alert))
+            return false
+        }
+
+        // If the difference between the maximum and minimum element in the array is equal to (array.size - 1)
+        // Then the array contains consecutive integers
+        if (max - min == digitArray.size - 1){
+            showAlert(getString(R.string.alert_text_passcode_is_sequential))
+            return false
+        }
+
+        return true
+    }
+
+    // Returns true if all the numbers in the passcode are not the same.
+
+    fun isPasscodeNonRepeating(passcode: String): Boolean {
+
+        val firstChar = passcode[0]
+
+        for (index in 1 until passcode.length){
+            val char = passcode[index]
+
+            if (char != firstChar){
+                return true
+            }
+        }
+
+        showAlert(getString(R.string.alert_text_passcode_is_a_repeated_digit))
+        return false
     }
 
 }

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:minLines="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.PasscodeActivity">
 
     <ScrollView
@@ -46,8 +47,11 @@
                 android:layout_weight="1"
                 android:imeOptions="actionDone"
                 android:inputType="numberPassword|number"
+                android:autoSizeTextType="uniform"
                 android:maxLength="6"
-                android:maxLines="1"
+                android:autoSizeMinTextSize="6dp"
+                android:maxLines="6"
+                android:minLines="6"
                 android:textAlignment="center"
                 android:hint="@string/enter_passcode_hint"/>
 
@@ -98,6 +102,7 @@
                     android:inputType="numberPassword|number"
                     android:maxLength="6"
                     android:maxLines="1"
+                    android:minLines="6"
                     android:textAlignment="center"
                     android:hint="@string/enter_secondary_passcode_hint"/>
 
@@ -118,6 +123,7 @@
                     android:imeOptions="actionDone"
                     android:inputType="numberPassword|number"
                     android:maxLength="6"
+                    android:minLines="6"
                     android:maxLines="1"
                     android:textAlignment="center"
                     android:hint="@string/verify_secondary_passcode_hint"/>

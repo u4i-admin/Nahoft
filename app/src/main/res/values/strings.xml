@@ -90,7 +90,7 @@
     <string name="alert_text_verify_passcode_field_empty">Verify Passcode Field is Empty</string>
     <string name="alert_text_passcode_entries_do_not_match">Passcode Entries Do Not Match</string>
     <string name="alert_text_secondary_passcode_field_empty">Secondary Passcode Field is Empty</string>
-    <string name="alert_text_verify_secondary_passcode_empty">Verify Secondary Passcode is Empty</string>
+    <string name="alert_text_verify_secondary_passcode_empty">Please verify your secondary passcode.</string>
     <string name="alert_text_secondary_passcode_entries_do_not_match">Secondary Passcode Entries Do not Match</string>
     <string name="alert_text_secondary_passcode_and_passcode_may_not_match">Secondary and Initial Passcode Entries Must not Match.</string>
     <string name="alert_text_received_invitation">Received an invitation from %1$s. Accept their invite to start communicating.</string>
@@ -299,5 +299,8 @@
 
     //New Content Descriptions
     <string name="help_button_content_description"> Help Buttons </string>
+    <string name="invalid_passcode_alert">This passcode is invalid.</string>
+    <string name="alert_text_passcode_is_sequential">Sequential passcodes are not allowed.</string>
+    <string name="alert_text_passcode_is_a_repeated_digit">The passcode cannot be a repeated digit.</string>
 
- </resources>
+</resources>

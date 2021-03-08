@@ -305,5 +305,8 @@ Help Dialog Buttons
 
     //New Content Descriptions
     <string name="help_button_content_description"> Help Buttons </string>
+    <string name="invalid_passcode_alert">This passcode is invalid.</string>
+    <string name="alert_text_passcode_is_sequential">Sequential passcodes are not allowed.</string>
+    <string name="alert_text_passcode_is_a_repeated_digit">The passcode cannot be a repeated digit.</string>
 
 </resources>
