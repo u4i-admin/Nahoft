@@ -31,12 +31,6 @@ class PasscodeActivity : AppCompatActivity() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        updateSwitch()
-    }
-
     override fun onBackPressed() {
         super.onBackPressed()
 
@@ -64,10 +58,17 @@ class PasscodeActivity : AppCompatActivity() {
             val maybePasscode = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefPasscodeKey, null)
             val maybeSecondary = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefSecondaryPasscodeKey, null)
 
-            if (maybePasscode != null &&maybeSecondary != null) {
+            // Passcode
+            if (maybePasscode != null) {
+                passcode_switch.isChecked = true
                 // Populate our text inputs
                 enter_passcode_input.setText(maybePasscode)
                 verify_passcode_input.setText(maybePasscode)
+            }
+
+            // Secondary Passcode
+            if (maybeSecondary != null) {
+                // Populate our text inputs
                 enter_secondary_passcode_input.setText(maybeSecondary)
                 verify_secondary_passcode_input.setText(maybeSecondary)
             }
@@ -82,6 +83,7 @@ class PasscodeActivity : AppCompatActivity() {
             delete_passcode_button.isEnabled = true
 
         } else {
+            passcode_switch.isChecked = false
 
             // Disable passcode inputs and clear them out
             enter_passcode_input.text?.clear()
@@ -197,9 +199,11 @@ class PasscodeActivity : AppCompatActivity() {
 
     }
 
-    fun passcodeMeetsRequirements(passcode: String): Boolean {
-
-        return (isPasscodeCorrectLength(passcode) && isPasscodeNonSequential(passcode) && isPasscodeNonRepeating(passcode))
+    fun passcodeMeetsRequirements(passcode: String): Boolean
+    {
+        return (isPasscodeCorrectLength(passcode) &&
+                isPasscodeNonSequential(passcode) &&
+                isPasscodeNonRepeating(passcode))
     }
 
     fun isPasscodeCorrectLength(passcode: String): Boolean {
