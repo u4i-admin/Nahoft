@@ -93,7 +93,7 @@ class Swatch {
 
         // Get an array of all of the pixel locations (x,y) and randomize the order using our number generator
         val pixels1 = getPixelArray(cover)
-        pixels1.shuffle(random1)
+                pixels1.shuffle(random1)
 
         // Create patches by chunking the array into (message.size * 2) chunks
         // The number of patches should be equal to the number of bits in the message * 2
