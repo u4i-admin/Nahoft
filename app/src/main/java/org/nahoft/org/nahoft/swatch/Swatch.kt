@@ -36,21 +36,19 @@ class Swatch {
         val messageLength = encrypted.size.toInt() // Length measured in bytes
         val lengthBytes =
             ByteBuffer.allocate(java.lang.Integer.BYTES).putInt(messageLength).array()
-        val lengthBits = bitsFromBytes(encrypted)
+        val lengthBits = bitsFromBytes(lengthBytes)
         val lengthBitsSize = lengthBits.size
 
         // Convert message size from bytes to bits
         // Pad the message bits to be of max size
         var messageBits = bitsFromBytes(encrypted)
-        val paddingArray = IntArray(maxMessageSizeBits - messageBits.size)
-        messageBits = messageBits + paddingArray
         val messageBitsSize = messageBits.size
 
         // The number of pixels is the image height (in pixels) times the image width (in pixels)
         val numPixels = cover.height * cover.width
 
-        val lengthPatchSize = numPixels / lengthBitsSize
-        val messagePatchSize = numPixels / messageBitsSize
+        val lengthPatchSize = numPixels / (lengthBitsSize*2)
+        val messagePatchSize = numPixels / (messageBitsSize*2)
 
         if (lengthPatchSize < minimumPatchSize) {
             return null
@@ -67,8 +65,8 @@ class Swatch {
     fun encode(cover: Bitmap, message1: IntArray, message2: IntArray): Bitmap? {
         val numPixels = cover.height * cover.width
 
-        val patch1Size = numPixels / message1.size
-        val patch2Size = numPixels / message2.size
+        val patch1Size = numPixels / (message1.size*2)
+        val patch2Size = numPixels / (message2.size*2)
 
         // FIXME - Proper seeds
         val rules1 = makeRules(1, cover, message1)
@@ -91,47 +89,25 @@ class Swatch {
         // FIXME: Create seed from message
         val random1 = Random(key)
 
-        // Get an array of all of the pixel locations (x,y) and randomize the order using our number generator
-        val pixels1 = getPixelArray(cover)
-                pixels1.shuffle(random1)
+        val numPixels = cover.height * cover.width
+        val patchSize = numPixels / (message.size*2)
 
-        // Create patches by chunking the array into (message.size * 2) chunks
-        // The number of patches should be equal to the number of bits in the message * 2
-        val chunks1 = pixels1.asList().chunked(message.size * 2)
-        val patches1 = chunks1.map { Patch(it) }
-
-        // Group our patches into pairs
-        val pairs1 = patches1.chunked(2)
-
-        // Take each pair and a bit from the message and turn it into a rule (2 patches and a constraint)
         var rules: Array<Rule> = arrayOf()
-        for (index in 0 until pairs1.size)
+        var pixelArrayIndex = 0
+        for (index in message.indices)
         {
             val bit = message[index]
-            val (patch1, patch2) = pairs1[index]
+            var constraint: Constraint? = null
             when (bit)
             {
-                1 -> rules += Rule(patch1, patch2, Constraint.GREATER)
-                0 -> rules += Rule(patch1, patch2, Constraint.LESS)
+                1 -> constraint = Constraint.GREATER
+                0 -> constraint = Constraint.LESS
             }
+            val rule = Rule(Patch(index*2, patchSize), Patch(index*2+1, patchSize), constraint!!)
+            rules += rule
         }
 
         return rules
-    }
-
-    fun getPixelArray(bitmap: Bitmap): Array<Pixel>
-    {
-        var results: Array<Pixel> = arrayOf()
-
-        for (x in 0 until bitmap.width)
-        {
-            for (y in 0 until bitmap.height)
-            {
-                results += Pixel(x, y)
-            }
-        }
-
-        return results
     }
 
     private fun setPixel(bitmap: Bitmap, x: Int, y: Int, value: Int)
@@ -176,7 +152,7 @@ class Swatch {
     {
         val numPixels = bitmap.height * bitmap.width
 
-        val patchSize = numPixels / size
+        val patchSize = numPixels / (size*2)
 
         if (patchSize < minimumPatchSize) {
             return null
@@ -187,30 +163,13 @@ class Swatch {
         // FIXME: Create seed from message
         val random = Random(key)
 
-        // Get an array of all of the pixel locations (x,y) and randomize the order using our number generator
-        val pixels = getPixelArray(bitmap)
-        pixels.shuffle(random)
-
-        // Create patches by chunking the array into (message.size * 2) chunks
-        // The number of patches should be equal to the number of bits in the message * 2
-        val chunks = pixels.asList().chunked(size * 2)
-        val patches = chunks.map { Patch(it) }
-
-        // Group our patches into pairs
-        val pairs = patches.chunked(2)
-
         var message: IntArray = IntArray(size)
 
-        // Take each pair and a bit from the message and turn it into a rule (2 patches and a constraint)
         var rules: Array<Rule> = arrayOf()
-        for (index in 0 until pairs.size)
+        var pixelArrayIndex = 0
+        for (index in message.indices)
         {
-            val (patch1, patch2) = pairs[index]
-
-            val bit = 0
-            message[index] = bit
-
-            val rule = Rule(patch1, patch2, bitmap)
+            val rule = Rule(Patch(index*2, patchSize), Patch(index*2+1, patchSize), bitmap)
             when (rule.constraint)
             {
                 Constraint.GREATER -> message[index] = 1
@@ -288,10 +247,22 @@ fun bytesFromBits(bits: List<Int>): ByteArray?
     return result
 }
 
-class Pixel(val x: Int, val y: Int)
+class Pixel(val index: Int)
 {
+    fun toX(bitmap: Bitmap): Int
+    {
+        return index % bitmap.width
+    }
+
+    fun toY(bitmap: Bitmap): Int
+    {
+        return index / bitmap.width
+    }
+
     fun brightness(bitmap: Bitmap): Float
     {
+        val y = toY(bitmap)
+        val x = toX(bitmap)
         var hsv = FloatArray(3)
         val color = bitmap.getPixel(x, y)
         Color.colorToHSV(color, hsv)
@@ -300,6 +271,8 @@ class Pixel(val x: Int, val y: Int)
 
     fun brighten(bitmap: Bitmap): Int
     {
+        val y = toY(bitmap)
+        val x = toX(bitmap)
         val colorInt = bitmap.getPixel(x, y)
         val color = Color.valueOf(colorInt)
         val a = color.alpha()
@@ -312,6 +285,8 @@ class Pixel(val x: Int, val y: Int)
 
     fun darken(bitmap: Bitmap): Int
     {
+        val y = toY(bitmap)
+        val x = toX(bitmap)
         val colorInt = bitmap.getPixel(x, y)
         val color = Color.valueOf(colorInt)
         val a = color.alpha()
@@ -411,9 +386,9 @@ class Rule(var patch0: Patch, var patch1: Patch, var constraint: Constraint)
     }
 }
 
-class Patch(pixels: List<Pixel>)
+class Patch(val patchIndex: Int, val size: Int)
 {
-    var points = pixels.toTypedArray()
+    var points = IntArray(size).mapIndexed {index, value -> Pixel(patchIndex*size + index)}
 
     fun brightness(bitmap: Bitmap): Float
     {
@@ -429,17 +404,25 @@ class Patch(pixels: List<Pixel>)
         pointsCopy.shuffle()
 
         var stillWorking = true
-        while (stillWorking)
+        while (stillWorking && pointsCopy.isNotEmpty())
         {
             val point = pointsCopy.removeFirst()
 
-            val direction = directions.getPixel(point.x, point.y)
+            val y = point.toY(bitmap)
+            val x = point.toX(bitmap)
+
+            val direction = directions.getPixel(x, y)
             if (direction == 2)
             {
                 val newValue = point.brighten(workingBitmap)
-                workingBitmap.set(point.x, point.y, newValue)
+                workingBitmap.set(x, y, newValue)
                 stillWorking = false
             }
+        }
+
+        if (stillWorking && pointsCopy.isEmpty())
+        {
+            print("Failure to modify image")
         }
 
         return workingBitmap
@@ -457,11 +440,13 @@ class Patch(pixels: List<Pixel>)
         {
             val point = pointsCopy.removeFirst()
 
-            val direction = directions.getPixel(point.x, point.y)
+            val y = point.toY(bitmap)
+            val x = point.toX(bitmap)
+            val direction = directions.getPixel(x, y)
             if (direction == -2)
             {
                 val newValue = point.darken(workingBitmap)
-                workingBitmap.set(point.x, point.y, newValue)
+                workingBitmap.set(x, y, newValue)
                 stillWorking = false
             }
         }

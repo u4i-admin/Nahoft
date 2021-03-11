@@ -5,7 +5,6 @@ import org.nahoft.swatch.Rule;
 import org.nahoft.swatch.SetPixel
 import org.nahoft.swatch.Pixel
 import java.util.*
-import java.util.List
 
 public class Solver(val bitmap: Bitmap, var rules1: Array<Rule>, var rules2: Array<Rule>)
 {
@@ -26,29 +25,61 @@ public class Solver(val bitmap: Bitmap, var rules1: Array<Rule>, var rules2: Arr
         {
             for (pixel in rule.patch0.points)
             {
-                conflicts.setPixel(pixel.x, pixel.y, rule.constraint.constraint)
+                val y = pixel.toY(bitmap)
+                val x = pixel.toX(bitmap)
+
+                if (x >= conflicts.width)
+                {
+                    print("Error")
+                }
+
+                if (y >= conflicts.height)
+                {
+                    print("Error")
+                }
+
+                conflicts.setPixel(x, y, rule.constraint.constraint)
             }
 
             for (pixel in rule.patch1.points)
             {
-                conflicts.setPixel(pixel.x, pixel.y, rule.constraint.constraint)
+                val y = pixel.toY(bitmap)
+                val x = pixel.toX(bitmap)
+
+                if (x >= conflicts.width)
+                {
+                    print("Error")
+                }
+
+                if (y >= conflicts.height)
+                {
+                    print("Error")
+                }
+
+                conflicts.setPixel(x, y, rule.constraint.constraint)
             }
+
+            print("Done")
         }
 
         for (rule in rules2)
         {
             for (pixel in rule.patch0.points)
             {
-                val oldValue = conflicts.getPixel(pixel.x, pixel.y)
+                val y = pixel.toY(bitmap)
+                val x = pixel.toX(bitmap)
+                val oldValue = conflicts.getPixel(x, y)
                 val newValue = oldValue + rule.constraint.constraint
-                conflicts.setPixel(pixel.x, pixel.y, newValue)
+                conflicts.setPixel(x, y, newValue)
             }
 
             for (pixel in rule.patch1.points)
             {
-                val oldValue = conflicts.getPixel(pixel.x, pixel.y)
+                val y = pixel.toY(bitmap)
+                val x = pixel.toX(bitmap)
+                val oldValue = conflicts.getPixel(x, y)
                 val newValue = oldValue + rule.constraint.constraint
-                conflicts.setPixel(pixel.x, pixel.y, newValue)
+                conflicts.setPixel(x, y, newValue)
             }
         }
     }
