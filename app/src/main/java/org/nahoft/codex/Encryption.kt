@@ -20,6 +20,10 @@ class Encryption(val context: Context) {
     // Generate a new keypair for this device and store it in EncryptedSharedPreferences
     private fun generateKeypair(): Keys {
         val seed = Random().randomBytes(SodiumConstants.SECRETKEY_BYTES)
+        return generateKeypair(seed)
+    }
+
+    private fun generateKeypair(seed: ByteArray): Keys {
         val keyPair = KeyPair(seed)
 
         // Save the keys to EncryptedSharedPreferences
@@ -60,12 +64,41 @@ class Encryption(val context: Context) {
     }
 
     @Throws(SecurityException::class)
+    fun encryptLengthData(encodedPublicKey: ByteArray, plaintext: String): ByteArray
+    {
+        val seed = byteArrayOf(7, 7, 8, 8)
+        val keypair = generateKeypair(seed)
+
+        try {
+            val result = encrypt(encodedPublicKey, keypair.privateKey, plaintext)
+            return result
+
+        } catch (exception: SecurityException) {
+            throw exception
+        }
+    }
+
+    @Throws(SecurityException::class)
     fun encrypt(encodedPublicKey: ByteArray, plaintext: String): ByteArray
+    {
+        val privateKey = ensureKeysExist().privateKey
+
+        try {
+            val result = encrypt(encodedPublicKey, privateKey, plaintext)
+            return result
+
+        } catch (exception: SecurityException) {
+            throw exception
+        }
+    }
+
+    @Throws(SecurityException::class)
+    fun encrypt(encodedPublicKey: ByteArray, privateKey: PrivateKey, plaintext: String): ByteArray
     {
         val plaintTextBytes = plaintext.encodeToByteArray()
         val nonce = Random().randomBytes(SodiumConstants.NONCE_BYTES)
         val friendPublicKey = PublicKey(encodedPublicKey)
-        val privateKey = ensureKeysExist().privateKey
+
 
         try {
             // Uses XSalsa20Poly1305
