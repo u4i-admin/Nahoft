@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.net.Uri
 import androidx.core.graphics.get
 import androidx.core.graphics.set
+import org.nahoft.codex.Encryption
 import org.nahoft.org.nahoft.swatch.Solver
 import org.nahoft.stencil.CapturePhotoUtils
 import java.nio.ByteBuffer
@@ -22,7 +23,7 @@ class Swatch {
     @ExperimentalUnsignedTypes
     fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri? {
         val cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
-        val result = encode(encrypted, cover)
+        val result = encode(context, encrypted, cover)
 
         val title = ""
         val description = ""
@@ -32,11 +33,12 @@ class Swatch {
     }
 
     @ExperimentalUnsignedTypes
-    fun encode(encrypted: ByteArray, cover: Bitmap): Bitmap? {
+    fun encode(context: Context, encrypted: ByteArray, cover: Bitmap): Bitmap? {
         val messageLength = encrypted.size.toInt() // Length measured in bytes
         val lengthBytes =
             ByteBuffer.allocate(java.lang.Integer.BYTES).putInt(messageLength).array()
-        val lengthBits = bitsFromBytes(lengthBytes)
+        val encryptedLengthBytes = Encryption(context).encryptLengthData(lengthBytes)
+        val lengthBits = bitsFromBytes(encryptedLengthBytes)
         val lengthBitsSize = lengthBits.size
 
         // Convert message size from bytes to bits
@@ -127,25 +129,29 @@ class Swatch {
 //            )
 //        )
 
-        return decode(bitmap)
+        return decode(context, bitmap)
     }
 
-    fun decode(bitmap: Bitmap): ByteArray?
+    fun decode(context: Context, bitmap: Bitmap): ByteArray?
     {
         val lengthBitsSize = java.lang.Integer.BYTES * 8
         val lengthBitsKey = 1 // FIXME - use proper keys
-
         val lengthBits = decode(bitmap, lengthBitsKey, lengthBitsSize)
+
         if (lengthBits == null) { return null }
         lengthBits?.let {
-            val lengthBytes = bytesFromBits(lengthBits)
-            val length = ByteBuffer.wrap(lengthBytes).getInt()
-
-            val messageKey = 2 // FIXME - use proper keys
-            val messageBits = decode(bitmap, messageKey, length)
-            if (messageBits == null) { return null }
-            return bytesFromBits(messageBits)
+            val encryptedLengthBytes = bytesFromBits(lengthBits)
+            encryptedLengthBytes?.let {
+                val lengthBytes = Encryption(context).decryptLengthData(encryptedLengthBytes)
+                val length = ByteBuffer.wrap(lengthBytes).getInt()
+                val messageKey = 2 // FIXME - use proper keys
+                val messageBits = decode(bitmap, messageKey, length)
+                if (messageBits == null) { return null }
+                return bytesFromBits(messageBits)
+            }
         }
+
+        return null
     }
 
     fun decode(bitmap: Bitmap, key: Int, size: Int): List<Int>?

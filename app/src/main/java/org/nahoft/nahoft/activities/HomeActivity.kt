@@ -132,7 +132,6 @@ class HomeActivity : AppCompatActivity() {
         getStatus()
         setupFriends()
         loadSavedMessages()
-
     }
 
     override fun onResume() {

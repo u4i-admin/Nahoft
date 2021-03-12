@@ -72,7 +72,7 @@ class Encryption(val context: Context)
         return loadKeypair() ?: generateKeypair()
     }
 
-    fun encryptLengthData(plaintext: String): ByteArray
+    fun encryptLengthData(lengthData: ByteArray): ByteArray
     {
         val base64Decoder = Base64.getDecoder()
         val keyBytes: ByteArray = base64Decoder.decode(messageLengthKey)
@@ -81,11 +81,11 @@ class Encryption(val context: Context)
         val iv = IvParameterSpec(ivBytes)
         val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
         cipher.init(Cipher.ENCRYPT_MODE, key, iv)
-        val ciphertext: ByteArray = cipher.doFinal(plaintext.encodeToByteArray())
+        val ciphertext: ByteArray = cipher.doFinal(lengthData)
         return  ciphertext
     }
 
-    fun decryptLengthData(ciphertext: ByteArray): String
+    fun decryptLengthData(ciphertext: ByteArray): ByteArray
     {
         val base64Decoder = Base64.getDecoder()
         val keyBytes: ByteArray = base64Decoder.decode(messageLengthKey)
@@ -94,8 +94,8 @@ class Encryption(val context: Context)
         val iv = IvParameterSpec(ivBytes)
         val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
         cipher.init(Cipher.DECRYPT_MODE, key, iv)
-        val plaintext = cipher.doFinal(ciphertext).decodeToString()
-        return plaintext
+        val lengthData = cipher.doFinal(ciphertext)
+        return lengthData
     }
 
     @Throws(SecurityException::class)
