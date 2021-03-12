@@ -8,14 +8,23 @@ import org.libsodium.jni.keys.PrivateKey
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.Persist.Companion.publicKeyPreferencesKey
+import java.util.*
+import javax.crypto.Cipher
+import javax.crypto.KeyGenerator
+import javax.crypto.SecretKey
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
 
 // Note: The AndroidKeystore does not support ECDH key agreement between EC keys.
 // The secure enclave does not appear to support EC keys at all, at this time.
 // Therefore, we store keys in the EncryptedSharedPreferences instead of the KeyStore.
 // This can be revised when the AndroidKeystore supports the required functionality.
-class Encryption(val context: Context) {
+class Encryption(val context: Context)
+{
     // Encrypted Shared Preferences
     private val privateKeyPreferencesKey = "NahoftPrivateKey"
+    private val messageLengthKey = "s2BcD9ZZ8VjeDPJsexECCeUt4G1br+k3yyuWYS4UVBY="
+    private val messageLengthIV = "B9p8zEglCBtRkvAEpMp90w=="
 
     // Generate a new keypair for this device and store it in EncryptedSharedPreferences
     private fun generateKeypair(): Keys {
@@ -63,19 +72,30 @@ class Encryption(val context: Context) {
         return loadKeypair() ?: generateKeypair()
     }
 
-    @Throws(SecurityException::class)
-    fun encryptLengthData(encodedPublicKey: ByteArray, plaintext: String): ByteArray
+    fun encryptLengthData(plaintext: String): ByteArray
     {
-        val seed = byteArrayOf(7, 7, 8, 8)
-        val keypair = generateKeypair(seed)
+        val base64Decoder = Base64.getDecoder()
+        val keyBytes: ByteArray = base64Decoder.decode(messageLengthKey)
+        val key = SecretKeySpec(keyBytes, "AES")
+        val ivBytes = base64Decoder.decode(messageLengthIV)
+        val iv = IvParameterSpec(ivBytes)
+        val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
+        cipher.init(Cipher.ENCRYPT_MODE, key, iv)
+        val ciphertext: ByteArray = cipher.doFinal(plaintext.encodeToByteArray())
+        return  ciphertext
+    }
 
-        try {
-            val result = encrypt(encodedPublicKey, keypair.privateKey, plaintext)
-            return result
-
-        } catch (exception: SecurityException) {
-            throw exception
-        }
+    fun decryptLengthData(ciphertext: ByteArray): String
+    {
+        val base64Decoder = Base64.getDecoder()
+        val keyBytes: ByteArray = base64Decoder.decode(messageLengthKey)
+        val key = SecretKeySpec(keyBytes, "AES")
+        val ivBytes = base64Decoder.decode(messageLengthIV)
+        val iv = IvParameterSpec(ivBytes)
+        val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
+        cipher.init(Cipher.DECRYPT_MODE, key, iv)
+        val plaintext = cipher.doFinal(ciphertext).decodeToString()
+        return plaintext
     }
 
     @Throws(SecurityException::class)
@@ -99,7 +119,6 @@ class Encryption(val context: Context) {
         val nonce = Random().randomBytes(SodiumConstants.NONCE_BYTES)
         val friendPublicKey = PublicKey(encodedPublicKey)
 
-
         try {
             // Uses XSalsa20Poly1305
             // Returns nonce + ciphertext
@@ -107,7 +126,8 @@ class Encryption(val context: Context) {
                 plaintTextBytes,
                 nonce,
                 friendPublicKey.toBytes(),
-                privateKey.toBytes())
+                privateKey.toBytes()
+            )
 
             if (result.size <= nonce.size) {
                 throw SecurityException("Failed to encrypt the message.")
@@ -133,7 +153,11 @@ class Encryption(val context: Context) {
         println(hex)
 
         try {
-            val result = SodiumWrapper().decrypt(ciphertext, friendPublicKey.toBytes(), keypair.privateKey.toBytes())
+            val result = SodiumWrapper().decrypt(
+                ciphertext,
+                friendPublicKey.toBytes(),
+                keypair.privateKey.toBytes()
+            )
             return String(result)
         } catch (exception: SecurityException) {
             throw exception
