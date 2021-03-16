@@ -228,7 +228,7 @@ class PasscodeActivity : AppCompatActivity() {
 
         // This is unexpected behavior. The input type only allows numbers.
         if (max == null || min == null){
-            showAlert(getString(R.string.invalid_passcode_alert))
+            showAlert(getString(R.string.alert_text_invalid_passcode))
             return false
         }
 

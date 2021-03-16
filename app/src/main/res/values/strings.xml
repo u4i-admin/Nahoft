@@ -1,34 +1,19 @@
 <resources>
 
-    <!-- App Screen Names -->
-    <string name="add_friends_screen_name"> </string>
-    <string name="create_passcodes_screen_name"> </string>
-    <string name="friends_screen_name"> </string>
-    <string name="choose_friend_to_message"> </string>
-    <string name="compose_message_screen_name"> </string>
-    <string name="imports_user_guide_screen_name"> </string>
-    <string name="passcodes_user_guide_screen_name"> </string>
-    <string name="messages_user_guide_screen_name"> </string>
-    <string name="friends_user_guide_screen_name"> </string>
-    <string name="settings_screen_name"> </string>
-    <string name="user_guides_screen_name"> </string>
-    <string name="messages_screen_name"> </string>
-
     <!-- Enter Passcode Activity Strings -->
     <string name="Login">Enter Passcode</string>
 
     <!-- Home Activity -->
     <string name="button_label_friends">Friends</string>
     <string name="button_label_messages">Messages</string>
-    <string name="import_label_messages">Import</string>"
     <string name="button_label_settings">Settings</string>
     <string name="button_label_user_guide">User Guide</string>
     <string name="button_label_logout">Logout</string>
 
     <!-- Home Activity Alerts -->
-    <string name="alert_text_passcode_required">Passcode Required to Proceed</string>
-    <string name="alert_text_received_text">Received Shared Text</string>
-    <string name="alert_text_received_image">"Received a shared Image"</string>
+    <string name="alert_text_passcode_required">Passcode is required to proceed.</string>
+    <string name="alert_text_received_text">Received a shared text.</string>
+    <string name="alert_text_received_image">"Received a shared image."</string>
 
     <!-- Messages Activity -->
     <string name="activity_title_messages">Messages</string>
@@ -41,11 +26,12 @@
     <string name="sendAsImageButton">Send As Image</string>
     <string name="button_label_view_messages">Read Messages</string>
     <string name="button_label_compose_messages">Compose a Message</string>
+    <string name="button_import_message_label">Import</string>
 
     <!-- New Messages Activity Alerts -->
     <string name="alert_text_verified_friends_only">You can only message a verified friend.</string>
     <string name="alert_text_select_friend_to_send_message">Select a friend to send a message to.</string>
-    <string name="alert_text_write_a_message_to_send">Write a message to send</string>
+    <string name="alert_text_write_a_message_to_send">Write a message to send.</string>
 
     <!--    Settings Activity-->
     <string name="button_label_passcode">Passcode</string>
@@ -55,7 +41,7 @@
 
     <!--    Passcode Activity-->
     <string name="switch_label_require_passcode">Require Passcode?</string>
-    <string name="initial_passcode_definition">Create a passcode so that login is required to use the app.</string>
+    <string name="initial_passcode_definition">Create a passcode so that a login will be required to use the app.</string>
     <string name="verify_passcode_hint">Verify Passcode</string>
     <string name="enter_passcode_hint">Enter Passcode</string>
     <string name="secondary_passcode_definition">Entering a secondary passcode at login will delete all sensitive data.</string>
@@ -86,15 +72,15 @@
     <string name="button_label_verify_friend">Verify</string>
 
     <!-- Alert Strings -->
-    <string name="alert_text_passcode_field_empty">Passcode Field is Empty</string>
-    <string name="alert_text_verify_passcode_field_empty">Verify Passcode Field is Empty</string>
-    <string name="alert_text_passcode_entries_do_not_match">Passcode Entries Do Not Match</string>
-    <string name="alert_text_secondary_passcode_field_empty">Secondary Passcode Field is Empty</string>
+    <string name="alert_text_passcode_field_empty">Passcode field is empty.</string>
+    <string name="alert_text_verify_passcode_field_empty">Verify passcode field is empty.</string>
+    <string name="alert_text_passcode_entries_do_not_match">Passcode entries do not match.</string>
+    <string name="alert_text_secondary_passcode_field_empty">Secondary passcode field is empty.</string>
     <string name="alert_text_verify_secondary_passcode_empty">Please verify your secondary passcode.</string>
-    <string name="alert_text_secondary_passcode_entries_do_not_match">Secondary Passcode Entries Do not Match</string>
-    <string name="alert_text_secondary_passcode_and_passcode_may_not_match">Secondary and Initial Passcode Entries Must not Match.</string>
+    <string name="alert_text_secondary_passcode_entries_do_not_match">Secondary passcode entries do not match.</string>
+    <string name="alert_text_secondary_passcode_and_passcode_may_not_match">Secondary and initial passcode entries must not match.</string>
     <string name="alert_text_received_invitation">Received an invitation from %1$s. Accept their invite to start communicating.</string>
-    <string name="alert_text_passcode_required_to_proceed">Passcode required to proceed</string>
+    <string name="alert_text_passcode_required_to_proceed">Passcode required to proceed.</string>
     <string name="alert_text_unable_to_decode_message">Something went wrong. We were unable to decode this message.</string>
     <string name="alert_text_unable_to_decrypt_message">We were unable to decrypt this message.</string>
     <string name="alert_text_invitation_accepted">${sender.name} accepted your invitation. You can now communicate securely.</string>
@@ -112,22 +98,22 @@
 
     <!-- Friends User Guide -->
     <string name="friends_user_guide_english">ADDING FRIENDS\n
-        \n- Tap the Friends icon on the home page.\n
-        \n- Press the + icon at the bottom of the Friends screen to add a friend.\n
-        \n- Type the name of the friend you want to add and tap save.\n
-        \n- Tap the invite button beside your friend\'s name.\n
-        \n- You will see the sharing prompt with invitation to your friend as a message to send (it will look like random text).\n
-        \n- You can share your invitation with the friend you are adding via your preferred messaging app, or if you are near them, using the \'nearby\' or Bluetooth options.\n
-        \n- The friend you are adding must also follow these same steps to send you an invitation as well.\n
-        \n- There are several ways to accept the invitation you receive from your friend.\n
-        \n- If you have the invitation message copied to your clipboard: Tap the import button next to their name, or the import button on the home screen.\n
-        \n- Paste the invitation message with a long press and select import text.\n
-        \n- If you are sharing the invitation from another app: Select Nahoft as the app you want to share to.\n
-        \n- When prompted, select the friend that sent the invitation.\n
-        \n- Return to the Friends screen and select the verify button beside the friend you received the invitation from.\n
-        \n- Contact your Friend outside of the app you normally use to confirm your numbers on the verification screen match.\n
-        \n- If the numbers on the verification screen match, tap accept. If not, tap reject.\n
-        \n- To delete a friend swipe the friends name to the right or left.\n\n
+        \nTap the friends icon on the home page.\n
+        \nPress the + icon at the bottom of the friends screen to add a friend.\n
+        \nType the name of the friend you want to add and tap save.\n
+        \nTap the invite button beside your friend\'s name.\n
+        \nYou will see the sharing prompt with invitation to your friend as a message to send (it will look like random Persian text).\n
+        \nYou can share your invitation with the friend you are adding via your preferred messaging app. If you are physically near them try sharing by using the \'nearby\' or bluetooth options.\n
+        \nThe friend you are adding must also follow these same steps to send you an invitation as well.\n
+        \nThere are several ways to accept the invitation you receive from your friend.\n
+        \nIf you have the invitation message copied to your clipboard: Tap the messages button on the home screen, and then the import button in the messages menu screen.\n
+        \nPaste the invitation message with a long press and select import text.\n
+        \nIf you are sharing the invitation from another app: Select Nahoft as the app you want to share to.\n
+        \nWhen prompted, select the friend that sent the invitation.\n
+        \nReturn to the Friends screen and select the verify button beside the friend you received the invitation from.\n
+        \nContact your Friend, outside of the app you normally use, to confirm your numbers on the verification screen match.\n
+        \nIf the numbers on the verification screen match, tap accept. If not, tap reject.\n
+        \nTo delete a friend swipe the friends name to the right or left.\n\n
      </string>
 
     <string name="friends_user_guide_persian">
@@ -154,14 +140,14 @@
     <string name="sending_messages_user_guide_english">SENDING MESSAGES\n
         \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.
         The encrypted message will be transformed into your choice of either a text message or an image in order to hide the fact that it is encrypted.\n
-        \n- You can only send messages to \'verified\' friends.\n
-        \n- Tap messages on the home screen.\n
-        \n- Tap the Compose A Message icon in the bottom corner of the Messages screen.\n
-        \n- Tap \'Select Recipient\' to choose the friend you would like to send a message to.\n
-        \n- Write your message in the window that says \'Message Body\'.\n
-        \n- Tap send as text to encrypt your message and transform it into a different series of characters.\n
-        \n- Tap send as Image to encrypt your message and embed it in the image you select.\n
-        \n- Once you have made your selection, you will be prompted to share the image or text, here you can select your preferred messaging app, or save it to your clipboard.\n\n
+        \nYou can only send messages to \'verified\' friends.\n
+        \nTap the conversation icon on the home screen.\n
+        \nTap the compose a message icon in the messages menu screen.\n
+        \nTap \'Select Recipient\' to choose the friend you would like to send a message to.\n
+        \nWrite your message in the window that says \'Message Body\'.\n
+        \nTap send as text to encrypt your message and transform it into a different series of characters.\n
+        \nTap send as Image to encrypt your message and embed it in the image you select.\n
+        \nOnce you have made your selection you will be prompted to share the image or text. Here you can select your preferred messaging app or copy it to your clipboard to import it directly back into the app.\n\n
     </string>
 
     <string name="sending_messages_user_guide_persian">
@@ -178,12 +164,12 @@
     <!-- Passcode User Guide -->
     <string name="passcodes_user_guide_english">
         SETTING PASSCODES\n
-        \n- Tap the settings icon.\n
-        \n- Tap the passcode icon.\n
-        \n- Move the toggle switch to allow the user to require a passcode.\n
-        \n- The first two passcode lines set the passcode to gain entry into the app.\n
-        \n- The last two secondary passcode lines set the secondary passcode that exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.\n
-        \n- Hit save to keep all changes.\n\n</string>
+        \nTap the gear icon on the home screen.\n
+        \nNext, tap the passcode icon.\n
+        \nMove the toggle switch to allow the user to require a passcode.\n
+        \nThe first two passcode lines set the passcode to gain entry into the app.\n
+        \nThe last two passcode lines set the secondary passcode. The secondary passcode exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.\n
+        \nHit save to keep all changes.\n\n</string>
 
     <string name="passcodes_user_guide_persian">
      \n روی نماد تنظیمات کلیک کنید. \n
@@ -196,11 +182,18 @@
     <!-- Importing User Guide -->
     <string name="importing_user_guide_english">
     IMPORTING MESSAGES\n
-        \n- You can import your messages using this screen. It is also possible to share received messages directly to the Nahoft app if the app where you received the message allows it.\n
-        \n- When you receive a coded text message you can copy the text and paste it in the import screen with a long press.\n
-        \n- Tap \'Import Text\', and select the sender when prompted.\n
-        \n- If you have received an image, tap \'Import Image\', select the image when prompted, and the sender when prompted.\n
-        \n- If the message is successfully imported, you will see the original text.\n\n
+        \nThere are multiple ways to import a message. It is possible to share a received message directly to the Nahoft app from your preferred messaging app by clicking on the message, pressing select all, and share.
+        \n This will generate a sharing menu and Nahoft will be amongst the apps to choose from to share to.
+        \n The Nahoft app will pop up a message that states: "Which friend sent this message?"
+        \n Choose the friend that sent the message.
+        \n Lastly, the message will appear.
+        \n Another way to import a message is to copy the message or image to your clipboard.
+        \nTap the conversation icon on the home page.
+        \nNext, tap the import button on the messages menu screen.
+        \nLong press on the white space that states, "Paste text here to import".\n
+        \nTap \'Import Text\', and select the sender when prompted.\n
+        \nIf you have received an image, tap \'Import Image\', select the image when prompted, and the sender when prompted.\n
+        \nIf the message is successfully imported, you will see the original text.\n\n\n
      </string>
 
     <string name="importing_user_guide_persian">
@@ -229,7 +222,7 @@
     <string name="alert_text_message_too_long">Your message is too long.</string>
     <string name="alert_title_confirm_delete">Confirm Delete</string>
     <string name="alert_text_confirm_delete">Are you sure you want to delete this?</string>
-    <string name="button_label_delete">delete</string>
+    <string name="button_label_delete">Delete</string>
     <string name="button_label_reset">Reset</string>
     <string name="button_label_english">English</string>
     <string name="button_label_persian">فارسی</string>
@@ -246,43 +239,43 @@
 
     <string name="dialog_button_home_help_title"> Home Help </string>
     <string name="dialog_button_home_help">
-        \nSelect the Gear to create passwords. Both the primary and secondary passwords can be managed here. \n
-        \nThe Logout button will only appear once a passcode is set. \n
-        \nSelect the File button to see all User Guides. \n
-        \nSelect the People button to create a list of friends. These screens allow you to invite and verify friends you want to share messages with. \n
-        \nSelect the Conversation button to begin sending encrypted messages. \n
+        \nSelect the gear to create passwords. Both the primary and secondary passwords can be managed here. \n
+        \nThe logout button will only appear once a passcode is set. \n
+        \nSelect the button that looks like a book to see all user guides. \n
+        \nSelect the people button to create a list of friends. These screens allow you to invite and verify friends you want to share messages with. \n
+        \nSelect the conversation button to begin sending encrypted messages. \n
     </string>
 
     <string name="dialog_button_friends_help_title"> Friends Help </string>
     <string name="dialog_button_friends_help">
-        \nTo add a Friend, press the + icon at the bottom of the Friends Screen.\n
+        \nTo add a friend, press the + icon at the bottom of the friends screen.\n
         \nType the name of the friend you want to add and tap save.\n
         \nTap the invite button beside your friend\'s name.\n
         \nYou will see the sharing prompt with invitation to your friend as a message to send (it will look like random text).\n
-        \nYou can share your invitation with the friend you are adding via your preferred messaging app, or if you are near them, using the \'nearby\' or Bluetooth options.\n
+        \nYou can share your invitation with the friend you are adding via your preferred messaging app. If you are physically near them try sharing by using the \'nearby\' or bluetooth options.\n
         \nThe friend you are adding must also follow these same steps to send you an invitation as well.\n
         \nThere are several ways to accept the invitation you receive from your friend.\n
-        \nIf you have the invitation message copied to your clipboard: Tap the import button next to their name, or the import button on the home screen.\n
+        \nIf you have the invitation message copied to your clipboard: Tap the import button next to their name in the friends screen, or the conversation button on the home screen.\n
         \nPaste the invitation message with a long press and select import text.\n
         \nIf you are sharing the invitation from another app: Select Nahoft as the app you want to share to.\n
         \nWhen prompted, select the friend that sent the invitation.\n
-        \nReturn to the Friends screen and select the verify button beside the friend you received the invitation from.\n
-        \nContact your Friend outside of the app you normally use to confirm your numbers on the verification screen match.\n
+        \nReturn to the friends screen and select the verify button beside the friend you received the invitation from.\n
+        \nContact your friend outside of the app you normally use to confirm your numbers on the verification screen match.\n
         \nIf the numbers on the verification screen match, tap accept. If not, tap reject.\n
-        \nTo delete a friend swipe the friends name to the right or left.\n\n
+        \nTo delete a friend swipe the friends name to the right or left. Whether you swipe right or left will depend on your screen and/or language format.\n\n
     </string>
 
     <string name="dialog_button_messages_menu_help_title"> Sending Messages </string>
     <string name="dialog_button_messages_menu_help">
-        \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.
+        \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.\n
         \nThe encrypted message will be transformed into your choice of either a text message or an image in order to hide the fact that it is encrypted.\n
         \nYou can only send messages to \'verified\' friends.\n
         \nTap messages on the home screen.\n
-        \nTap the Compose A Message icon in the bottom corner of the Messages screen.\n
+        \nTap the compose a message icon in the messages screen.\n
         \nTap \'Select Recipient\' to choose the friend you would like to send a message to.\n
         \nWrite your message in the window that says \'Message Body\'.\n
         \nTap send as text to encrypt your message and transform it into a different series of characters.\n
-        \nTap send as Image to encrypt your message and embed it in the image you select.\n
+        \nTap send as image to encrypt your message and embed it in the image you select.\n
         \nOnce you have made your selection, you will be prompted to share the image or text, here you can select your preferred messaging app, or save it to your clipboard.\n\ </string>
 
     <string name="dialog_button_import_help_title"> Importing Messages </string>
@@ -299,7 +292,7 @@
 
     //New Content Descriptions
     <string name="help_button_content_description"> Help Buttons </string>
-    <string name="invalid_passcode_alert">This passcode is invalid.</string>
+    <string name="alert_text_invalid_passcode">This passcode is invalid.</string>
     <string name="alert_text_passcode_is_sequential">Sequential passcodes are not allowed.</string>
     <string name="alert_text_passcode_is_a_repeated_digit">The passcode cannot be a repeated digit.</string>
     <string name="alert_text_incorrect_passcode_length">The passcode must be 6 digits long.</string>

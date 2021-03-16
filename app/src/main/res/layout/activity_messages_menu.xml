@@ -74,7 +74,7 @@
             android:drawableEnd="@drawable/import_50"
             android:drawablePadding="@dimen/padding_standard"
             android:drawableTint="@drawable/button_text_color_light"
-            android:text="@string/import_label_messages"
+            android:text="@string/button_import_message_label"
             android:textColor="@drawable/button_text_color_light"
             android:textSize="@dimen/detail_name_text_size" />
     </LinearLayout>

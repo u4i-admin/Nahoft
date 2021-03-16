@@ -1,27 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<!-- App Screen Names -->
-<string name="add_friends_screen_name"> </string>
-<string name="create_passcodes_screen_name"> </string>
-<string name="friends_screen_name"> </string>
-<string name="choose_friend_to_message"> </string>
-<string name="compose_message_screen_name"> </string>
-<string name="imports_user_guide_screen_name"> </string>
-<string name="passcodes_user_guide_screen_name"> </string>
-<string name="messages_user_guide_screen_name"> </string>
-<string name="friends_user_guide_screen_name"> </string>
-<string name="settings_screen_name"> </string>
-<string name="user_guides_screen_name"> </string>
-<string name="messages_screen_name"> </string>
-
 <!-- Enter Passcode Activity Strings -->
 <string name="Login">وارد کردن کدعبور</string>
 
 <!-- Home Activity -->
 <string name="button_label_friends">دوستان</string>
 <string name="button_label_messages">پیام‌ها</string>
-<string name="import_label_messages">وارد کردن</string>"
 <string name="button_label_settings">تنظیمات</string>
 <string name="button_label_user_guide">راهنمای کاربر</string>
 <string name="button_label_logout">خروج از سیستم</string>
@@ -42,6 +27,7 @@
 <string name="sendAsImageButton">ارسال به‌عنوان تصویر</string>
 <string name="button_label_view_messages">خواندن پیام‌ها</string>
 <string name="button_label_compose_messages">نوشتن پیام</string>
+<string name="button_import_message_label">وارد کردن</string>
 
 <!-- New Messages Activity Alerts -->
 <string name="alert_text_verified_friends_only">فقط می‌توانید برای یک دوست تأییدشده پیام بفرستید.</string>
@@ -305,7 +291,7 @@ Help Dialog Buttons
 
     //New Content Descriptions
     <string name="help_button_content_description"> Help Buttons </string>
-    <string name="invalid_passcode_alert">This passcode is invalid.</string>
+    <string name="alert_text_invalid_passcode">This passcode is invalid.</string>
     <string name="alert_text_passcode_is_sequential">Sequential passcodes are not allowed.</string>
     <string name="alert_text_passcode_is_a_repeated_digit">The passcode cannot be a repeated digit.</string>
     <string name="alert_text_incorrect_passcode_length">The passcode must be 6 digits long.</string>
