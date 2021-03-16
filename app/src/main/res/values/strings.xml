@@ -99,19 +99,20 @@
     <!-- Friends User Guide -->
     <string name="friends_user_guide_english">ADDING FRIENDS\n
         \nTap the friends icon on the home page.\n
-        \nPress the + icon at the bottom of the friends screen to add a friend.\n
+        \nPress the + icon at the bottom of the friends screen.\n
         \nType the name of the friend you want to add and tap save.\n
         \nTap the invite button beside your friend\'s name.\n
-        \nYou will see the sharing prompt with invitation to your friend as a message to send (it will look like random Persian text).\n
-        \nYou can share your invitation with the friend you are adding via your preferred messaging app. If you are physically near them try sharing by using the \'nearby\' or bluetooth options.\n
-        \nThe friend you are adding must also follow these same steps to send you an invitation as well.\n
+        \nA share menu will pop up. You will see your invitation to your friend as a message to send (it will look like random Persian text).\n
+        \nShare your invitation via your preferred messaging app here. If you are physically near your friend and their device try sharing by using the \'nearby\' or bluetooth options.\n
+        \nThe friend you are adding must also follow these same steps to send you an invitation back.\n
         \nThere are several ways to accept the invitation you receive from your friend.\n
-        \nIf you have the invitation message copied to your clipboard: Tap the messages button on the home screen, and then the import button in the messages menu screen.\n
+        \nIf you have the invitation message copied to your clipboard: tap the conversation button on the home screen, and then the import button in the messages menu screen.\n
         \nPaste the invitation message with a long press and select import text.\n
-        \nIf you are sharing the invitation from another app: Select Nahoft as the app you want to share to.\n
+        \nTo share your invite directly from another app, find the text in your preferred messaging app, select all, and choose share.\n
+        \nSelect Nahoft as the app you want to share to.\n
         \nWhen prompted, select the friend that sent the invitation.\n
-        \nReturn to the Friends screen and select the verify button beside the friend you received the invitation from.\n
-        \nContact your Friend, outside of the app you normally use, to confirm your numbers on the verification screen match.\n
+        \nReturn to the friends screen and select the verify button beside the friend you received the invitation from.\n
+        \nContact your friend, outside of the app you normally use, to confirm your numbers on the verification screen match.\n
         \nIf the numbers on the verification screen match, tap accept. If not, tap reject.\n
         \nTo delete a friend swipe the friends name to the right or left.\n\n
      </string>
@@ -139,7 +140,7 @@
     <!-- Messages User Guide -->
     <string name="sending_messages_user_guide_english">SENDING MESSAGES\n
         \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.
-        The encrypted message will be transformed into your choice of either a text message or an image in order to hide the fact that it is encrypted.\n
+        The encrypted message will be transformed into your choice of either a text or an image in order to hide the fact that it is encrypted.\n
         \nYou can only send messages to \'verified\' friends.\n
         \nTap the conversation icon on the home screen.\n
         \nTap the compose a message icon in the messages menu screen.\n
@@ -147,7 +148,7 @@
         \nWrite your message in the window that says \'Message Body\'.\n
         \nTap send as text to encrypt your message and transform it into a different series of characters.\n
         \nTap send as Image to encrypt your message and embed it in the image you select.\n
-        \nOnce you have made your selection you will be prompted to share the image or text. Here you can select your preferred messaging app or copy it to your clipboard to import it directly back into the app.\n\n
+        \nOnce you have made your selection you will be prompted to share the image or text. Here you can select your preferred messaging app or copy it to your clipboard to paste it directly into your preferred messaging app.\n\n
     </string>
 
     <string name="sending_messages_user_guide_persian">
@@ -168,7 +169,8 @@
         \nNext, tap the passcode icon.\n
         \nMove the toggle switch to allow the user to require a passcode.\n
         \nThe first two passcode lines set the passcode to gain entry into the app.\n
-        \nThe last two passcode lines set the secondary passcode. The secondary passcode exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.\n
+        \nThe last two passcode lines set the secondary passcode.\n
+        \nThe secondary passcode exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.\n
         \nHit save to keep all changes.\n\n</string>
 
     <string name="passcodes_user_guide_persian">
@@ -182,15 +184,15 @@
     <!-- Importing User Guide -->
     <string name="importing_user_guide_english">
     IMPORTING MESSAGES\n
-        \nThere are multiple ways to import a message. It is possible to share a received message directly to the Nahoft app from your preferred messaging app by clicking on the message, pressing select all, and share.\n
-        \n This will generate a sharing menu and Nahoft will be amongst the apps to choose from to share to.\n
-        \n The Nahoft app will pop up a message that states: "Which friend sent this message?"\n
-        \n Choose the friend that sent the message.\n
-        \n Lastly, the message will appear.\n
-        \n Another way to import a message is to copy the message or image to your clipboard.\n
+        \nTo share a received message directly to the Nahoft app from your preferred messaging app click on the message, press select all, and share.\n
+        \nThis will generate a sharing menu and Nahoft will be amongst the apps you can to share to.\n
+        \nThe Nahoft app will pop up a message that states: "Which friend sent this message?"\n
+        \nChoose the friend that sent the message.\n
+        \nNext, the message will appear.\n
+        \nAnother way to import a message is to copy the message or image to your clipboard.\n
         \nTap the conversation icon on the home page.\n
         \nNext, tap the import button on the messages menu screen.\n
-        \nLong press on the white space that states, "Paste text here to import".\n
+        \nLong press on the white space that states, \'Paste text here to import\'.\n
         \nTap \'Import Text\', and select the sender when prompted.\n
         \nIf you have received an image, tap \'Import Image\', select the image when prompted, and the sender when prompted.\n
         \nIf the message is successfully imported, you will see the original text.\n\n\n
@@ -276,7 +278,7 @@
         \nWrite your message in the window that says \'Message Body\'.\n
         \nTap send as text to encrypt your message and transform it into a different series of characters.\n
         \nTap send as image to encrypt your message and embed it in the image you select.\n
-        \nOnce you have made your selection, you will be prompted to share the image or text, here you can select your preferred messaging app, or save it to your clipboard.\n\ </string>
+        \nOnce you have made your selection, you will be prompted to share the image or text. Here you can select your preferred messaging app, or copy it to your clipboard.\n\ </string>
 
     <string name="dialog_button_import_help_title"> Importing Messages </string>
     <string name="dialog_button_import_help">
