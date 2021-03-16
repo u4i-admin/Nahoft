@@ -41,7 +41,7 @@
 
     <!--    Passcode Activity-->
     <string name="switch_label_require_passcode">Require Passcode?</string>
-    <string name="initial_passcode_definition">Create a passcode so that a login will be required to use the app.</string>
+    <string name="initial_passcode_definition">Create a passcode so that a login will be required to use the app. Passcode rules are non-sequential, non-repeating, numbers only. </string>
     <string name="verify_passcode_hint">Verify Passcode</string>
     <string name="enter_passcode_hint">Enter Passcode</string>
     <string name="secondary_passcode_definition">Entering a secondary passcode at login will delete all sensitive data.</string>
