@@ -148,7 +148,8 @@
         \nWrite your message in the window that says \'Message Body\'.\n
         \nTap send as text to encrypt your message and transform it into a different series of characters.\n
         \nTap send as Image to encrypt your message and embed it in the image you select.\n
-        \nOnce you have made your selection you will be prompted to share the image or text. Here you can select your preferred messaging app or copy it to your clipboard to paste it directly into your preferred messaging app.\n\n
+        \nOnce you have made your selection you will be prompted to share the image or text. Here you can select your preferred messaging app or copy it to your clipboard to paste it directly into your preferred messaging app.\n
+        \nTo delete a message click on the message you want to remove and swipe right or left depending on your language preferences.\n\n
     </string>
 
     <string name="sending_messages_user_guide_persian">
@@ -253,7 +254,7 @@
         \nTo add a friend, press the + icon at the bottom of the friends screen.\n
         \nType the name of the friend you want to add and tap save.\n
         \nTap the invite button beside your friend\'s name.\n
-        \nYou will see the sharing prompt with invitation to your friend as a message to send (it will look like random text).\n
+        \nYou will see the sharing prompt with invitation to your friend as a message to send (it will look like random Persian text).\n
         \nYou can share your invitation with the friend you are adding via your preferred messaging app. If you are physically near them try sharing by using the \'nearby\' or bluetooth options.\n
         \nThe friend you are adding must also follow these same steps to send you an invitation as well.\n
         \nThere are several ways to accept the invitation you receive from your friend.\n
@@ -278,7 +279,8 @@
         \nWrite your message in the window that says \'Message Body\'.\n
         \nTap send as text to encrypt your message and transform it into a different series of characters.\n
         \nTap send as image to encrypt your message and embed it in the image you select.\n
-        \nOnce you have made your selection, you will be prompted to share the image or text. Here you can select your preferred messaging app, or copy it to your clipboard.\n\ </string>
+        \nOnce you have made your selection, you will be prompted to share the image or text. Here you can select your preferred messaging app, or copy it to your clipboard.\n
+        \nTo delete a message click on the message you want to remove and swipe right or left depending on your language preferences.\n\ </string>
 
     <string name="dialog_button_import_help_title"> Importing Messages </string>
     <string name="dialog_button_import_help">
