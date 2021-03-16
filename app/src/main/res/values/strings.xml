@@ -182,14 +182,14 @@
     <!-- Importing User Guide -->
     <string name="importing_user_guide_english">
     IMPORTING MESSAGES\n
-        \nThere are multiple ways to import a message. It is possible to share a received message directly to the Nahoft app from your preferred messaging app by clicking on the message, pressing select all, and share.
-        \n This will generate a sharing menu and Nahoft will be amongst the apps to choose from to share to.
-        \n The Nahoft app will pop up a message that states: "Which friend sent this message?"
-        \n Choose the friend that sent the message.
-        \n Lastly, the message will appear.
-        \n Another way to import a message is to copy the message or image to your clipboard.
-        \nTap the conversation icon on the home page.
-        \nNext, tap the import button on the messages menu screen.
+        \nThere are multiple ways to import a message. It is possible to share a received message directly to the Nahoft app from your preferred messaging app by clicking on the message, pressing select all, and share.\n
+        \n This will generate a sharing menu and Nahoft will be amongst the apps to choose from to share to.\n
+        \n The Nahoft app will pop up a message that states: "Which friend sent this message?"\n
+        \n Choose the friend that sent the message.\n
+        \n Lastly, the message will appear.\n
+        \n Another way to import a message is to copy the message or image to your clipboard.\n
+        \nTap the conversation icon on the home page.\n
+        \nNext, tap the import button on the messages menu screen.\n
         \nLong press on the white space that states, "Paste text here to import".\n
         \nTap \'Import Text\', and select the sender when prompted.\n
         \nIf you have received an image, tap \'Import Image\', select the image when prompted, and the sender when prompted.\n
