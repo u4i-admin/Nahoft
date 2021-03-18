@@ -234,7 +234,7 @@
 
 Help Dialog Buttons
 
-<string name="dialog_button_home_help_title"> Home Help </string>
+<string name="dialog_button_home_help_title"> صفحه اصلی راهنما </string>
 <string name="dialog_button_home_help">
     \n نماد دنده شما را به صفحه تنظیم رمز عبور می رساند \n
     \n نماد صورتک شما را به صفحه راهنماهای کاربر می رساند \n
@@ -242,48 +242,48 @@ Help Dialog Buttons
     \n نماد پیام ها به شما امکان می دهد پیام های رمزگذاری شده را ارسال کنید \n
 </string>
 
-    <string name="dialog_button_friends_help_title"> Friends Help </string>
+    <string name="dialog_button_friends_help_title"> دوستان راهنما </string>
     <string name="dialog_button_friends_help">
-        \n- Tap the Friends icon on the home page.\n
-        \n- Press the + icon at the bottom of the Friends screen to add a friend.\n
-        \n- Type the name of the friend you want to add and tap save.\n
-        \n- Tap the invite button beside your friend\'s name.\n
-        \n- You will see the sharing prompt with invitation to your friend as a message to send (it will look like random text).\n
-        \n- You can share your invitation with the friend you are adding via your preferred messaging app, or if you are near them, using the \'nearby\' or Bluetooth options.\n
-        \n- The friend you are adding must also follow these same steps to send you an invitation as well.\n
-        \n- There are several ways to accept the invitation you receive from your friend.\n
-        \n- If you have the invitation message copied to your clipboard: Tap the import button next to their name, or the import button on the home screen.\n
-        \n- Paste the invitation message with a long press and select import text.\n
-        \n- If you are sharing the invitation from another app: Select Nahoft as the app you want to share to.\n
-        \n- When prompted, select the friend that sent the invitation.\n
-        \n- Return to the Friends screen and select the verify button beside the friend you received the invitation from.\n
-        \n- Contact your Friend outside of the app you normally use to confirm your numbers on the verification screen match.\n
-        \n- If the numbers on the verification screen match, tap accept. If not, tap reject.\n
-        \n- To delete a friend swipe the friends name to the right or left.\n\n
+        \n- روی نماد دوستان در صفحه اصلی ضربه بزنید.\n
+        \n- برای اضافه کردن یک دوست ، نماد + را در پایین صفحه دوستان فشار دهید.\n
+        \n- نام دوستی را که می خواهید اضافه کنید تایپ کنید و روی ذخیره ضربه بزنید.\n
+        \n- روی دکمه دعوت در کنار نام دوست خود ضربه بزنید.\n
+        \n- پیام اشتراک را با دعوت از دوست خود به عنوان پیامی برای ارسال مشاهده خواهید کرد. مانند یک متن تصادفی به نظر می رسد.\n
+        \n- می توانید دعوت خود را با دوستی که به آن اضافه می کنید از طریق برنامه پیام رسانی دلخواه خود به اشتراک بگذارید ، یا اگر در نزدیکی او هستید ، با استفاده از گزینه های "نزدیک" یا بلوتوث\n
+        \n- دوستی که اضافه می کنید نیز باید همین مراحل را برای ارسال دعوتنامه برای شما دنبال کند.\n
+        \n- روش های مختلفی برای پذیرش دعوت نامه ای که از دوست خود دریافت می کنید وجود دارد.\n
+        \n- اگر پیام دعوت را در کلیپ بورد خود کپی کرده اید: روی دکمه وارد کردن در کنار نام وی یا روی دکمه وارد کردن در صفحه اصلی ضربه بزنید.\n
+        \n- پیام دعوت را با فشار طولانی بچسبانید و متن واردات را انتخاب کنید.\n
+        \n- اگر دعوت نامه را از برنامه دیگری به اشتراک می گذارید: Nahoft را به عنوان برنامه ای که می خواهید در آن به اشتراک بگذارید ، انتخاب کنید.\n
+        \n- وقتی از شما خواسته شد ، دوستی را که دعوت نامه را ارسال کرده است انتخاب کنید.\n
+        \n- به صفحه دوستان برگردید و دکمه تأیید را در کنار دوستی که دعوت نامه را از آن دریافت کرده اید ، انتخاب کنید.\n
+        \n- در خارج از برنامه ای که معمولاً برای تأیید شماره های خود در صفحه تأیید صحت استفاده می کنید ، با دوست خود تماس بگیرید.\n
+        \n- اگر شماره های صفحه تأیید مطابقت دارند ، روی «قبول» ضربه بزنید. در غیر این صورت ، روی رد ضربه بزنید.\n
+        \n- برای حذف یک دوست ، نام دوستان را به سمت راست یا چپ بکشید.\n\n
     </string>
 
-    <string name="dialog_button_messages_menu_help_title"> Messages Menu </string>
+    <string name="dialog_button_messages_menu_help_title"> منوی پیام ها </string>
     <string name="dialog_button_messages_menu_help">
-        \n SENDING MESSAGES\n
-        \n- Nahoft allows you to send encrypted messages to your friends using the strongest encryption available.
-        \n- The encrypted message will be transformed into your choice of either a text message or an image in order to hide the fact that it is encrypted.\n
-        \n- You can only send messages to \'verified\' friends.\n
-        \n- Tap messages on the home screen.\n
-        \n- Tap the Compose A Message icon in the bottom corner of the Messages screen.\n
-        \n- Tap \'Select Recipient\' to choose the friend you would like to send a message to.\n
-        \n- Write your message in the window that says \'Message Body\'.\n
-        \n- Tap send as text to encrypt your message and transform it into a different series of characters.\n
-        \n- Tap send as Image to encrypt your message and embed it in the image you select.\n
-        \n- Once you have made your selection, you will be prompted to share the image or text, here you can select your preferred messaging app, or save it to your clipboard.\n\ </string>
+        \n ارسال پیام ها\n
+        \n- Nahoft به شما امکان می دهد با استفاده از قوی ترین رمزگذاری موجود پیام های رمزگذاری شده را برای دوستان خود ارسال کنید.
+        \n- پیام رمزگذاری شده به انتخاب شما از طریق پیام متنی یا تصویری تبدیل می شود تا رمزگذاری آن را پنهان کند.\n
+        \n- فقط می توانید برای دوستان \ "تأیید شده \" پیام ارسال کنید.\n
+        \n- روی پیامهای صفحه اصلی ضربه بزنید.\n
+        \n- روی نماد نوشتن پیام در گوشه پایین صفحه پیام ها ضربه بزنید.\n
+        \n- برای انتخاب دوستی که می خواهید برای او پیام ارسال کنید ، روی \ گیرنده را انتخاب کنید \ ضربه بزنید.\n
+        \n- پیام خود را در پنجره ای بنویسید که "متن پیام" است.\n
+        \n- برای رمزگذاری پیام خود و تبدیل آن به یک سری دیگر از نویسه ها ، روی ارسال به عنوان متن ضربه بزنید.\n
+        \n- برای رمزگذاری پیام خود روی ارسال به عنوان تصویر ضربه بزنید و آن را در تصویری که انتخاب می کنید جاسازی کنید.\n
+        \n- هنگامی که انتخاب خود را انجام دادید ، از شما خواسته می شود تصویر یا متن را به اشتراک بگذارید ، در اینجا می توانید برنامه پیام رسانی دلخواه خود را انتخاب کنید یا آن را در کلیپ بورد خود ذخیره کنید.\n\ </string>
 
-    <string name="dialog_button_import_help_title"> Importing Help </string>
+    <string name="dialog_button_import_help_title"> وارد کردن راهنما </string>
     <string name="dialog_button_import_help">
-        IMPORTING MESSAGES\n
-        \n- You can import your messages using this screen. It is also possible to share received messages directly to the Nahoft app if the app where you received the message allows it.\n
-        \n- When you receive a coded text message you can copy the text and paste it in the import screen with a long press.\n
-        \n- Tap \'Import Text\', and select the sender when prompted.\n
-        \n- If you have received an image, tap \'Import Image\', select the image when prompted, and the sender when prompted.\n
-        \n- If the message is successfully imported, you will see the original text.\n\n
+        وارد کردن پیام ها\n
+        \n- با استفاده از این صفحه می توانید پیام های خود را وارد کنید. همچنین اگر برنامه ای که پیام را در آن دریافت کرده اید اجازه می دهد پیام های دریافت شده را مستقیماً در برنامه Nahoft به اشتراک بگذارید.\n
+        \n- هنگامی که پیام متنی رمزگذاری شده دریافت می کنید می توانید متن را کپی کرده و با فشار دادن طولانی در صفحه وارد کنید.\n
+        \n- بر روی "وارد کردن متن" ضربه بزنید ، و در صورت درخواست فرستنده را انتخاب کنید.\n
+        \n- اگر تصویری دریافت کرده اید ، بر روی "وارد کردن تصویر" ضربه بزنید ، تصویر را در صورت درخواست و فرستنده را هنگام درخواست انتخاب کنید.\n
+        \n- اگر پیام با موفقیت وارد شود ، متن اصلی را مشاهده خواهید کرد.\n\n
     </string>
 
     <string name="ok_button">خوب</string>
