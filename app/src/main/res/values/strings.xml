@@ -103,7 +103,7 @@
         \nType the name of the friend you want to add and tap save.\n
         \nTap the invite button beside your friend\'s name.\n
         \nA share menu will pop up. You will see your invitation to your friend as a message to send (it will look like random Persian text).\n
-        \nShare your invitation via your preferred messaging app here. If you are physically near your friend and their device try sharing by using the \'nearby\' or bluetooth options.\n
+        \nShare your invitation via your preferred messaging app here. If you are physically near your friend and their device, try sharing by using the \'nearby\' or bluetooth options.\n
         \nThe friend you are adding must also follow these same steps to send you an invitation back.\n
         \nThere are several ways to accept the invitation you receive from your friend.\n
         \nIf you have the invitation message copied to your clipboard: tap the conversation button on the home screen, then tap the import button in the messages menu screen.\n
@@ -185,7 +185,7 @@
     <!-- Importing User Guide -->
     <string name="importing_user_guide_english">
     IMPORTING MESSAGES\n
-        \nTo share a received message directly to the Nahoft app from your preferred messaging app click on the message, press select all, and share.\n
+        \nTo share a received message directly to the Nahoft app from your preferred messaging app: click on the message, press select all, and share.\n
         \nThis will generate a sharing menu and Nahoft will be amongst the apps you can to share to.\n
         \nThe Nahoft app will pop up a message that states: "Which friend sent this message?"\n
         \nChoose the friend that sent the message.\n
@@ -255,8 +255,8 @@
         \nType the name of the friend you want to add and tap save.\n
         \nTap the invite button beside your friend\'s name.\n
         \nYou will see the sharing prompt with invitation to your friend as a message to send (it will look like random Persian text).\n
-        \nYou can share your invitation with the friend you are adding via your preferred messaging app. If you are physically near them try sharing by using the \'nearby\' or bluetooth options.\n
-        \nThe friend you are adding must also follow these same steps to send you an invitation back.\n
+        \nYou can share your invitation with the friend you are adding via your preferred messaging app. If you are physically near them, try sharing by using the \'nearby\' or bluetooth options.\n
+        \nThe friend you are adding must also follow these steps to send you an invitation back.\n
         \nThere are several ways to accept the invitation you receive from your friend.\n
         \nIf you have the invitation message copied to your clipboard: tap the conversation button on the home screen, then tap the import button in the messages menu screen.\n
         \nPaste the invitation message with a long press and select import text.\n
@@ -285,9 +285,9 @@
     <string name="dialog_button_import_help_title"> Importing Messages Help</string>
     <string name="dialog_button_import_help">
         \nYou can import your messages using this screen. It is also possible to share received messages directly to the Nahoft app if the app where you received the message allows it.\n
-        \nWhen you receive a coded text message you can copy the text and paste it in the import screen with a long press.\n
+        \nWhen you receive a coded text message, copy the text and paste it in the import screen with a long press.\n
         \nTap \'Import Text\', and select the sender when prompted.\n
-        \nIf you have received an image, tap \'Import Image\', select the image when prompted, and the sender when prompted.\n
+        \nIf you received an image, tap \'Import Image\', select the image when prompted, and the sender when prompted.\n
         \nIf the message is successfully imported, you will see the original text.\n\n
     </string>
 
