@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/padding_standard">
+    android:padding="@dimen/padding_half">
 
     <TextView
         android:id="@+id/friendName"
@@ -12,9 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:padding="@dimen/padding_half"
         android:ellipsize="end"
+        android:gravity="center"
         android:text="@string/friendNameRecyclerView"
-        android:textAlignment="viewStart"
         android:textColor="@android:color/background_dark"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -56,6 +57,8 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/content_description_import_button"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:padding="@dimen/padding_half"
         android:backgroundTint="@color/colorPrimaryDark"
         android:text="@string/button_label_import_invitation"
         android:textColor="@drawable/button_text_color_light"
@@ -70,6 +73,8 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/content_description_accept_button"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:padding="@dimen/padding_half"
         android:backgroundTint="@color/colorPrimaryDark"
         android:text="@string/button_label_approve_invitation"
         android:textColor="@drawable/button_text_color_light"
@@ -114,7 +119,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/colorPrimaryDark"/>
+        app:tint="@color/colorPrimaryDark"
+        android:src="@drawable/drag_indicator_24px"/>
         <!--android:src="@drawable/drag_indicator_24px"-->
 
 

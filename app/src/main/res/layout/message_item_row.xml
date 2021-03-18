@@ -34,9 +34,11 @@
         android:id="@+id/date_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintEnd_toStartOf="@id/drag_handle"
+        app:layout_constraintStart_toEndOf="@+id/sender_name_text_view"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -48,9 +50,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/colorAccent" />
-<!--
-        android:src="@drawable/ic_baseline_delete_forever_24"
--->
+        app:tint="@color/colorAccent"
+        android:src="@drawable/ic_baseline_delete_forever_24"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

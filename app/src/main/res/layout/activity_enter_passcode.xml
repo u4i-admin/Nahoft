@@ -22,7 +22,7 @@
     <LinearLayout
         android:id="@+id/passcodeContainer"
         android:layout_width="match_parent"
-        android:layout_height="375dp"
+        android:layout_height="300dp"
         android:gravity="bottom"
         android:orientation="horizontal">
 
@@ -122,11 +122,11 @@
             android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_standard"
             android:layout_gravity="center"
+            android:layout_margin="@dimen/padding_standard"
             android:background="@color/colorWarmWhite"
             android:text="@string/Login"
-            android:textColor="@drawable/button_text_color_dark"/>
+            android:textColor="@drawable/button_text_color_dark" />
 
     </LinearLayout>
 
