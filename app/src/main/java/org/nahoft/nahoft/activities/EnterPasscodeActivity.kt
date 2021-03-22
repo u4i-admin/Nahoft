@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_enter_passcode.*
+import kotlinx.android.synthetic.main.activity_verify_friend.*
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.Persist.Companion.sharedPrefFailedLoginAttemptsKey
 import org.nahoft.nahoft.Persist.Companion.sharedPrefFailedLoginTimeKey
@@ -19,6 +20,7 @@ import org.nahoft.nahoft.Persist.Companion.sharedPrefPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.sharedPrefSecondaryPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.nahoft.R
+import org.nahoft.showAlert
 import java.lang.Exception
 
 class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
@@ -249,37 +251,45 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
     private fun getLockoutMinutes(): Int {
 
        if (failedLoginAttempts >= 11) {
-           println("Failed Login $failedLoginAttempts times, all information has been erased")
+           showAlert(getString(R.string.alert_text_eleven_login_attempts))
+           //println("Failed Login $failedLoginAttempts times, all information has been erased")
 
            return 1000
        }
         else if (failedLoginAttempts == 10) {
-           println("Failed Login $failedLoginAttempts times, 1 hour timeout")
+            showAlert(getString(R.string.alert_text_tenth_login_attempt))
+           //println("Failed Login $failedLoginAttempts times, 1 hour timeout")
 
            return 60
        }
         else if (failedLoginAttempts == 9) {
-            println("Failed Login $failedLoginAttempts times, 30 minute timeout")
+            showAlert(getString(R.string.alert_text_nineth_login_attempt))
+            //println("Failed Login $failedLoginAttempts times, 30 minute timeout")
 
            return 30
        }
         else if (failedLoginAttempts == 8) {
-            println("Failed Login $failedLoginAttempts times, 15 minute timeout" )
+            showAlert(getString(R.string.alert_text_eigth_login_attempt))
+            //println("Failed Login $failedLoginAttempts times, 15 minute timeout" )
 
            return 15
        }
         else if (failedLoginAttempts == 7) {
-            println("Failed Login $failedLoginAttempts times, 5 minute timeout")
+            showAlert(getString(R.string.alert_text_seventh_login_attempt))
+            //println("Failed Login $failedLoginAttempts times, 5 minute timeout")
 
            return 5
        }
         else if (failedLoginAttempts == 6) {
-            println("Failed Login $failedLoginAttempts times, 1 minute timeout")
+            showAlert(getString(R.string.alert_text_sixth_login_attempt))
+            //println("Failed Login $failedLoginAttempts times, 1 minute timeout")
 
            return 1
        }
         else {
-            println("Failed Login $failedLoginAttempts times")
+           showAlert(getString(R.string.alert_text_zero_to_five_login_attempts))
+            //println("Failed Login $failedLoginAttempts times")
+           //friend_security_number_label.text = getString(R.string.label_verify_friend_number, pendingFriend.name)
 
            return 0
        }
@@ -293,7 +303,11 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
         if (millisToWait == 0) { return true }
         else if (millisToWait > 60) {
             //TODO: Delete everything like a secondary passcode.
-            //TODO: Write a toast to let the user know what is happening.
+                //Persist.clearAllData()
+                //startActivity(Intent(this, HomeActivity::class.java))
+
+            showAlert(getString(R.string.alert_text_eleven_login_attempts))
+
             return false
         }
 
