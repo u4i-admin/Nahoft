@@ -20,6 +20,8 @@ class Persist {
         val sharedPrefLoginStatusKey = "NahoftLoginStatus"
         val sharedPrefPasscodeKey = "NahoftPasscode"
         val sharedPrefSecondaryPasscodeKey = "NahoftSecondaryPasscode"
+        val sharedPrefFailedLoginAttemptsKey = "NahoftFailedLogins"
+        val sharedPrefFailedLoginTimeKey = "NahoftFailedLoginTime"
 
         val sharedPrefFilename = "NahoftEncryptedPreferences"
 
@@ -46,6 +48,24 @@ class Persist {
                 .edit()
                 .putString(sharedPrefLoginStatusKey, status.name)
                 .apply()
+        }
+
+        fun saveLoginFailure(failedLoginAttempts: Int) {
+            // Save number of failed login attempts
+            encryptedSharedPreferences
+                .edit()
+                .putInt(sharedPrefFailedLoginAttemptsKey, failedLoginAttempts)
+                .apply()
+
+            if (failedLoginAttempts == 0) {
+                deleteKey(sharedPrefFailedLoginTimeKey)
+            } else {
+                // Save failure date
+                encryptedSharedPreferences
+                    .edit()
+                    .putLong(sharedPrefFailedLoginTimeKey, System.currentTimeMillis())
+                    .apply()
+            }
         }
 
         fun updateFriend(context: Context, friendToUpdate: Friend, newStatus: FriendStatus, encodedPublicKey: ByteArray? = null) {

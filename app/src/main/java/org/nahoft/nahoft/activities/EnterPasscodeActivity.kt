@@ -13,14 +13,18 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_enter_passcode.*
 import org.nahoft.nahoft.Persist
+import org.nahoft.nahoft.Persist.Companion.sharedPrefFailedLoginAttemptsKey
+import org.nahoft.nahoft.Persist.Companion.sharedPrefFailedLoginTimeKey
 import org.nahoft.nahoft.Persist.Companion.sharedPrefPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.sharedPrefSecondaryPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.nahoft.R
 import java.lang.Exception
 
-
 class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
+
+    var failedLoginAttempts = 0
+    var lastFailedLoginTimeMillis: Long? = null
 
     private val editTextArray: ArrayList<EditText> = ArrayList(NUM_OF_DIGITS)
     companion object {
@@ -67,12 +71,24 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
         tryLogIn(status)
 
         login_button.setOnClickListener {
-            val enteredPasscode = getEnteredPasscode()
-            if (enteredPasscode != null) {
-               verifyCode(enteredPasscode)
-            }
+            handleLoginPress()
         }
     }
+
+    fun handleLoginPress() {
+        val enteredPasscode = getEnteredPasscode()
+        if (enteredPasscode != null) {
+            failedLoginAttempts = Persist.encryptedSharedPreferences.getInt(
+                sharedPrefFailedLoginAttemptsKey, 0)
+            val savedTimeStamp = Persist.encryptedSharedPreferences.getLong(
+                sharedPrefFailedLoginTimeKey, 0)
+            if (savedTimeStamp == 0.toLong()) { lastFailedLoginTimeMillis = null}
+            else {lastFailedLoginTimeMillis = savedTimeStamp}
+
+            verifyCode(enteredPasscode)
+        }
+    }
+
     // Checks encryptedSharedPreferences for a valid login status and saves it to the status property
     private fun getStatus() {
 
@@ -197,6 +213,8 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     private fun verifyCode(verificationCode: String) {
         if (verificationCode.isNotEmpty()) {
+            //Check to see if the user is allowed to try to login.
+            if (!loginAllowed()) { return }
 
             val maybePasscode = Persist.encryptedSharedPreferences.getString(sharedPrefPasscodeKey, null)
             val maybeSecondary = Persist.encryptedSharedPreferences.getString(sharedPrefSecondaryPasscodeKey, null)
@@ -204,17 +222,97 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
             when (verificationCode) {
                 maybePasscode -> {
                     status = LoginStatus.LoggedIn
+                    failedLoginAttempts = 0
+                    lastFailedLoginTimeMillis = null
+                    Persist.saveLoginFailure(0)
                 }
                 maybeSecondary -> {
                     status = LoginStatus.SecondaryLogin
                 }
+                // Failed Login
                 else -> {
                     status = LoginStatus.FailedLogin
+                    failedLoginAttempts += 1
+                    lastFailedLoginTimeMillis = System.currentTimeMillis()
+                    Persist.saveLoginFailure(failedLoginAttempts)
+                    if (failedLoginAttempts >= 11){
+                        println("Failed Login 11 times, all information has been erased")
+                    }
                 }
             }
 
             saveStatus()
             tryLogIn(status)
+        }
+    }
+
+    private fun getLockoutMinutes(): Int {
+
+       if (failedLoginAttempts >= 11) {
+           println("Failed Login $failedLoginAttempts times, all information has been erased")
+
+           return 1000
+       }
+        else if (failedLoginAttempts == 10) {
+           println("Failed Login $failedLoginAttempts times, 1 hour timeout")
+
+           return 60
+       }
+        else if (failedLoginAttempts == 9) {
+            println("Failed Login $failedLoginAttempts times, 30 minute timeout")
+
+           return 30
+       }
+        else if (failedLoginAttempts == 8) {
+            println("Failed Login $failedLoginAttempts times, 15 minute timeout" )
+
+           return 15
+       }
+        else if (failedLoginAttempts == 7) {
+            println("Failed Login $failedLoginAttempts times, 5 minute timeout")
+
+           return 5
+       }
+        else if (failedLoginAttempts == 6) {
+            println("Failed Login $failedLoginAttempts times, 1 minute timeout")
+
+           return 1
+       }
+        else {
+            println("Failed Login $failedLoginAttempts times")
+
+           return 0
+       }
+
+    }
+
+    private fun loginAllowed(): Boolean {
+        //how long is the user locked out for?
+        val millisToWait = getLockoutMinutes() * 1000 * 60
+
+        if (millisToWait == 0) { return true }
+        else if (millisToWait > 60) {
+            //TODO: Delete everything like a secondary passcode.
+            //TODO: Write a toast to let the user know what is happening.
+            return false
+        }
+
+        //get the current time
+        val currentTimeMillis = System.currentTimeMillis()
+
+        //compare the current time to the last failed attempt time
+        if (lastFailedLoginTimeMillis != null){
+
+            val elapsedTimeMillis = currentTimeMillis - lastFailedLoginTimeMillis!!
+            if (elapsedTimeMillis >= millisToWait) { return true }
+            else {
+                //TODO: Write a toast to let the user know what is happening. Can put here elaspsedTimeMillis and subtract
+                    // millisToWait be sure to convert to minutes and seconds.
+                return false }
+        }
+        else {
+            println("ERROR: Last failed login timestamp is null, but user has more than 5 failed login attempts.")
+            return false
         }
     }
 }
