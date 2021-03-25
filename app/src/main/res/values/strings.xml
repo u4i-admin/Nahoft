@@ -309,5 +309,7 @@
     <string name="alert_text_eigth_login_attempt">The passcode entered is incorrect. Please try again after this 15 minute lockout.</string>
     <string name="alert_text_nineth_login_attempt">The passcode entered is incorrect. Please try again after this 30 minute lockout.</string>
     <string name="alert_text_tenth_login_attempt">The passcode entered is incorrect. This is your final 1 hour lockout. All data will be cleared after the next failed login attempt</string>
+    <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">Please wait, %1$d minutes %2$d seconds before attempting to login again</string>
+
 
 </resources>

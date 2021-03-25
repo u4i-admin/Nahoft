@@ -10,6 +10,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_enter_passcode.*
 import kotlinx.android.synthetic.main.activity_verify_friend.*
@@ -22,6 +23,7 @@ import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.nahoft.R
 import org.nahoft.showAlert
 import java.lang.Exception
+import java.util.concurrent.TimeUnit
 
 class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
@@ -218,9 +220,11 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
             //Check to see if the user is allowed to try to login.
             if (!loginAllowed()) { return }
 
+            // check to see if the user has saved a passcode or a secondary passcode.
             val maybePasscode = Persist.encryptedSharedPreferences.getString(sharedPrefPasscodeKey, null)
             val maybeSecondary = Persist.encryptedSharedPreferences.getString(sharedPrefSecondaryPasscodeKey, null)
 
+            // check to see if the passcode is correct.
             when (verificationCode) {
                 maybePasscode -> {
                     status = LoginStatus.LoggedIn
@@ -237,9 +241,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
                     failedLoginAttempts += 1
                     lastFailedLoginTimeMillis = System.currentTimeMillis()
                     Persist.saveLoginFailure(failedLoginAttempts)
-                    if (failedLoginAttempts >= 11){
-                        println("Failed Login 11 times, all information has been erased")
-                    }
+                    showLoginFailureAlert()
                 }
             }
 
@@ -250,63 +252,66 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     private fun getLockoutMinutes(): Int {
 
-       if (failedLoginAttempts >= 11) {
-           showAlert(getString(R.string.alert_text_eleven_login_attempts))
-           //println("Failed Login $failedLoginAttempts times, all information has been erased")
+        if (failedLoginAttempts >= 11) { return 1000 }
+        else if (failedLoginAttempts == 10) { return 60 }
+        else if (failedLoginAttempts == 9) { return 30 }
+        else if (failedLoginAttempts == 8) { return 15 }
+        else if (failedLoginAttempts == 7) { return 5 }
+        else if (failedLoginAttempts == 6) { return 1 }
+        else { return 0 }
+    }
 
-           return 1000
-       }
-        else if (failedLoginAttempts == 10) {
+    private fun showLoginFailureAlert() {
+        if (failedLoginAttempts >= 11) {
+            showAlert(getString(R.string.alert_text_eleven_login_attempts))
+            println("Failed Login $failedLoginAttempts times, all information has been erased")
+
+            //Delete everything like you would if user had entered a secondary passcode.
+            Persist.clearAllData()
+            startActivity(Intent(this, HomeActivity::class.java))
+
+        } else if (failedLoginAttempts == 10) {
             showAlert(getString(R.string.alert_text_tenth_login_attempt))
-           //println("Failed Login $failedLoginAttempts times, 1 hour timeout")
+            println("Failed Login $failedLoginAttempts times, 1 hour timeout")
 
-           return 60
-       }
-        else if (failedLoginAttempts == 9) {
+        } else if (failedLoginAttempts == 9) {
             showAlert(getString(R.string.alert_text_nineth_login_attempt))
-            //println("Failed Login $failedLoginAttempts times, 30 minute timeout")
+            println("Failed Login $failedLoginAttempts times, 30 minute timeout")
 
-           return 30
-       }
-        else if (failedLoginAttempts == 8) {
+        } else if (failedLoginAttempts == 8) {
             showAlert(getString(R.string.alert_text_eigth_login_attempt))
-            //println("Failed Login $failedLoginAttempts times, 15 minute timeout" )
+            println("Failed Login $failedLoginAttempts times, 15 minute timeout")
 
-           return 15
-       }
-        else if (failedLoginAttempts == 7) {
+        } else if (failedLoginAttempts == 7) {
             showAlert(getString(R.string.alert_text_seventh_login_attempt))
-            //println("Failed Login $failedLoginAttempts times, 5 minute timeout")
+            println("Failed Login $failedLoginAttempts times, 5 minute timeout")
 
-           return 5
-       }
-        else if (failedLoginAttempts == 6) {
+        } else if (failedLoginAttempts == 6) {
             showAlert(getString(R.string.alert_text_sixth_login_attempt))
-            //println("Failed Login $failedLoginAttempts times, 1 minute timeout")
+            println("Failed Login $failedLoginAttempts times, 1 minute timeout")
 
-           return 1
-       }
+        } else if (failedLoginAttempts <= 5 && failedLoginAttempts > 0) {
+            showAlert(getString(R.string.alert_text_zero_to_five_login_attempts))
+            println("Failed Login $failedLoginAttempts times")
+
+        }
         else {
-           showAlert(getString(R.string.alert_text_zero_to_five_login_attempts))
-            //println("Failed Login $failedLoginAttempts times")
-           //friend_security_number_label.text = getString(R.string.label_verify_friend_number, pendingFriend.name)
-
-           return 0
-       }
-
+            //showAlert(getString(R.string.alert_text_zero_to_five_login_attempts))
+            println("Failed Login $failedLoginAttempts times")
+        }
     }
 
     private fun loginAllowed(): Boolean {
         //how long is the user locked out for?
-        val millisToWait = getLockoutMinutes() * 1000 * 60
+        val minutesToWait = getLockoutMinutes()
+        val millisToWait = minutesToWait * 1000 * 60
 
-        if (millisToWait == 0) { return true }
-        else if (millisToWait > 60) {
-            //TODO: Delete everything like a secondary passcode.
-                //Persist.clearAllData()
-                //startActivity(Intent(this, HomeActivity::class.java))
-
+        if (minutesToWait == 0) { return true }
+        else if (minutesToWait >= 100) { //This should never happen all data should have already been deleted when the login failed the eleventh time.
+            //Delete everything like you would if user had entered a secondary passcode.
             showAlert(getString(R.string.alert_text_eleven_login_attempts))
+            Persist.clearAllData()
+            startActivity(Intent(this, HomeActivity::class.java))
 
             return false
         }
@@ -319,10 +324,17 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
             val elapsedTimeMillis = currentTimeMillis - lastFailedLoginTimeMillis!!
             if (elapsedTimeMillis >= millisToWait) { return true }
-            else {
-                //TODO: Write a toast to let the user know what is happening. Can put here elaspsedTimeMillis and subtract
-                    // millisToWait be sure to convert to minutes and seconds.
-                return false }
+            else
+            {
+                val remainingMillis = millisToWait - elapsedTimeMillis
+                val remainingMinutes = TimeUnit.MILLISECONDS.toMinutes(remainingMillis)
+                val remainingSeconds = TimeUnit.MILLISECONDS.toSeconds(remainingMillis)
+
+                showAlert(getString(R.string.alert_text_minutes_to_wait_until_user_can_attempt_to_login_again, remainingMinutes, remainingSeconds))
+                println("showAlert is from the loginAllowed function")
+
+                return false
+            }
         }
         else {
             println("ERROR: Last failed login timestamp is null, but user has more than 5 failed login attempts.")
