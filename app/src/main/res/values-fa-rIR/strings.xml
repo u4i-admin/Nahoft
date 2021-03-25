@@ -290,20 +290,20 @@ Help Dialog Buttons
     <string name="cancel_button">لغو کردن</string>
 
     //New Content Descriptions
-    <string name="help_button_content_description"> Help Buttons </string>
-    <string name="alert_text_invalid_passcode">This passcode is invalid.</string>
-    <string name="alert_text_passcode_is_sequential">Sequential passcodes are not allowed.</string>
-    <string name="alert_text_passcode_is_a_repeated_digit">The passcode cannot be a repeated digit.</string>
-    <string name="alert_text_incorrect_passcode_length">The passcode must be 6 digits long.</string>
+    <string name="help_button_content_description"> دکمه های راهنما </string>
+    <string name="alert_text_invalid_passcode">این رمز عبور نامعتبر است</string>
+    <string name="alert_text_passcode_is_sequential">رمزهای عبور متوالی مجاز نیستند.</string>
+    <string name="alert_text_passcode_is_a_repeated_digit">رمز عبور نمی تواند یک رقم تکراری باشد.</string>
+    <string name="alert_text_incorrect_passcode_length">کد عبور باید شش رقم باشد.</string>
 
     //Enter Passcode Activity
-    <string name="alert_text_eleven_login_attempts">Eleven failed passcode attempts all app data is cleared.</string>
-    <string name="alert_text_zero_to_five_login_attempts">The passcode entered is incorrect. Please try again.</string>
-    <string name="alert_text_sixth_login_attempt">The passcode entered is incorrect. Please try again after this 1 minute lockout.</string>
-    <string name="alert_text_seventh_login_attempt">The passcode entered is incorrect. Please try again after this 5 minute lockout.</string>
-    <string name="alert_text_eigth_login_attempt">The passcode entered is incorrect. Please try again after this 15 minute lockout.</string>
-    <string name="alert_text_nineth_login_attempt">The passcode entered is incorrect. Please try again after this 30 minute lockout.</string>
-    <string name="alert_text_tenth_login_attempt">The passcode entered is incorrect. This is your final 1 hour lockout. All data will be cleared after the next failed login attempt</string>
-    <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">Please wait, %1$d minutes %2$d seconds before attempting to login again</string>
+    <string name="alert_text_eleven_login_attempts">یازده تلاش برای رمز عبور ناموفق تمام داده های برنامه پاک می شوند.</string>
+    <string name="alert_text_zero_to_five_login_attempts">رمز عبور وارد شده نادرست است. لطفا دوباره تلاش کنید.</string>
+    <string name="alert_text_sixth_login_attempt">رمز عبور وارد شده نادرست است. لطفاً بعد از این یک دقیقه قفل کردن دوباره امتحان کنید.</string>
+    <string name="alert_text_seventh_login_attempt">رمز عبور وارد شده نادرست است. لطفا بعد از این پنج دقیقه قفل کردن دوباره امتحان کنید.</string>
+    <string name="alert_text_eigth_login_attempt">رمز عبور وارد شده نادرست است. لطفاً بعد از این پانزده دقیقه قفل کردن دوباره امتحان کنید.</string>
+    <string name="alert_text_nineth_login_attempt">رمز عبور وارد شده نادرست است. لطفاً بعد از این سی دقیقه قفل کردن دوباره امتحان کنید.</string>
+    <string name="alert_text_tenth_login_attempt">رمز عبور وارد شده نادرست است.این آخرین مرحله بسته شدن شما است. تمام داده ها پس از تلاش ورود ناموفق بعدی پاک می شوند.</string>
+    <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">لطفا صبر کنید, %1$d دقایق %2$d ثانیه قبل از تلاش برای ورود مجدد</string>
 
 </resources>
