@@ -403,6 +403,7 @@ class HomeActivity : AppCompatActivity() {
 
         val returnToLoginIntent = Intent(this, EnterPasscodeActivity::class.java)
         startActivity(returnToLoginIntent)
+        finish()
     }
 
 }
