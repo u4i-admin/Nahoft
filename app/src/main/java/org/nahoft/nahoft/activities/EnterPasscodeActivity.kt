@@ -79,6 +79,10 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
         }
     }
 
+    override fun onBackPressed() {
+        // Stub so that back does nothing
+    }
+
     fun handleLoginPress() {
         val enteredPasscode = getEnteredPasscode()
         if (enteredPasscode != null) {

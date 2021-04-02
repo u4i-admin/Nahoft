@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
-import androidx.core.graphics.get
 import androidx.core.graphics.set
 import org.nahoft.codex.Encryption
 import org.nahoft.org.nahoft.swatch.Solver
@@ -22,6 +21,7 @@ class Swatch {
 
     @ExperimentalUnsignedTypes
     fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri? {
+        // Get the photo
         val cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
         val result = encode(context, encrypted, cover)
 
@@ -49,6 +49,7 @@ class Swatch {
         // The number of pixels is the image height (in pixels) times the image width (in pixels)
         val numPixels = cover.height * cover.width
 
+        // Do we have enough pixels for the bits we need to encode?
         val lengthPatchSize = numPixels / (lengthBitsSize*2)
         val messagePatchSize = numPixels / (messageBitsSize*2)
 
@@ -63,14 +64,11 @@ class Swatch {
         return encode(result, lengthBits, messageBits)
     }
 
+    // Takes both messages (length message, and message message) as bits and the bitmap we want to put them in
     @ExperimentalUnsignedTypes
     fun encode(cover: Bitmap, message1: IntArray, message2: IntArray): Bitmap? {
-        val numPixels = cover.height * cover.width
-
-        val patch1Size = numPixels / (message1.size*2)
-        val patch2Size = numPixels / (message2.size*2)
-
-        // FIXME - Proper seeds
+        // Make a set of rules for encoding each message
+        // Use different keys so that the patches are different
         val rules1 = makeRules(1, cover, message1)
         val rules2 = makeRules(2, cover, message2)
 
@@ -80,32 +78,43 @@ class Swatch {
         return null
     }
 
-    /// Generates a set of rules.
-    /// Each rule returns 2 patches and whether or not they are lighter or darker that each other
+    /// Generates an array of rules.
+    /// Each rule returns 2 patches and a constraint (whether or not they are lighter or darker that each other)
     /// Greater is a 1
     /// Less is a 0
     fun makeRules(key: Int, cover: Bitmap, message: IntArray): Array<Rule>
     {
         // Random number generator
         // Seed is  based on the message so that the same random number generator will be used for encoding/decoding
-        // FIXME: Create seed from message
         val random1 = Random(key)
 
         val numPixels = cover.height * cover.width
+        // Each bit needs a pair of patches
         val patchSize = numPixels / (message.size*2)
 
         var rules: Array<Rule> = arrayOf()
-        var pixelArrayIndex = 0
+
+        // For each bit in the message we get a rule
+        // A rule is two patches and a constraint
         for (index in message.indices)
         {
             val bit = message[index]
+
+            // Does patchA need to be lighter than patchB, or darker?
+            // Brightness is based on the average brightness for the entire patch.
             var constraint: Constraint? = null
             when (bit)
             {
                 1 -> constraint = Constraint.GREATER
                 0 -> constraint = Constraint.LESS
             }
-            val rule = Rule(Patch(index*2, patchSize), Patch(index*2+1, patchSize), constraint!!)
+
+            // Create pairs
+            // index*2, index*2+1 = 0,1 - 2,3 - 4,5 - etc.
+            val patchA = Patch(index*2, patchSize)
+            val patchB = Patch(index*2+1, patchSize)
+
+            val rule = Rule(patchA, patchB, constraint!!)
             rules += rule
         }
 
@@ -325,6 +334,7 @@ class Rule(var patch0: Patch, var patch1: Patch, var constraint: Constraint)
         }
     }
 
+    // Does this pair of patches meet the constraint
     fun validate(bitmap: Bitmap): Boolean
     {
         val b0 = patch0.brightness(bitmap)
@@ -340,31 +350,34 @@ class Rule(var patch0: Patch, var patch1: Patch, var constraint: Constraint)
 
     fun constrain(bitmap: Bitmap, directions: Bitmap): Bitmap
     {
-        var working = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+        var workingBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
 
-        while (!validate(working))
+        // If the constraint is not satisfied
+        // Decide which patch to alter randomly
+        // And then alter one pixel in that patch according to the constraint
+        while (!validate(workingBitmap))
         {
             if (Random.nextBoolean())
             {
                 when (constraint)
                 {
-                    Constraint.GREATER -> working = patch0.brighten(working, directions)
-                    Constraint.LESS -> working = patch0.darken(working, directions)
-                    Constraint.EQUAL -> working = balanceBrighten(working, directions)
+                    Constraint.GREATER -> workingBitmap = patch0.brighten(workingBitmap, directions)
+                    Constraint.LESS -> workingBitmap = patch0.darken(workingBitmap, directions)
+                    Constraint.EQUAL -> workingBitmap = balanceBrighten(workingBitmap, directions)
                 }
             }
             else
             {
                 when (constraint)
                 {
-                    Constraint.GREATER -> working = patch1.darken(working, directions)
-                    Constraint.LESS -> working = patch1.brighten(working, directions)
-                    Constraint.EQUAL -> working = balanceDarken(working, directions)
+                    Constraint.GREATER -> workingBitmap = patch1.darken(workingBitmap, directions)
+                    Constraint.LESS -> workingBitmap = patch1.brighten(workingBitmap, directions)
+                    Constraint.EQUAL -> workingBitmap = balanceDarken(workingBitmap, directions)
                 }
             }
         }
 
-        return working
+        return workingBitmap
     }
 
     fun balanceBrighten(bitmap: Bitmap, directions: Bitmap): Bitmap
@@ -402,6 +415,7 @@ class Patch(val patchIndex: Int, val size: Int)
         return values.sum()
     }
 
+    // Picks a random pixel from the patch changes the color of the pixel to be brighter
     fun brighten(bitmap: Bitmap, directions: Bitmap): Bitmap
     {
         var workingBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
@@ -434,6 +448,7 @@ class Patch(val patchIndex: Int, val size: Int)
         return workingBitmap
     }
 
+    // Picks a random pixel from the patch changes the color of the pixel to be darker
     fun darken(bitmap: Bitmap, directions: Bitmap): Bitmap
     {
         var workingBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
