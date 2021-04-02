@@ -402,7 +402,11 @@ class HomeActivity : AppCompatActivity() {
         Persist.saveLoginStatus()
 
         val returnToLoginIntent = Intent(this, EnterPasscodeActivity::class.java)
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
         startActivity(returnToLoginIntent)
+
         finish()
     }
 
