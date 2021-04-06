@@ -332,7 +332,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
             {
                 val remainingMillis = millisToWait - elapsedTimeMillis
                 val remainingMinutes = TimeUnit.MILLISECONDS.toMinutes(remainingMillis)
-                val remainingSeconds = TimeUnit.MILLISECONDS.toSeconds(remainingMillis)
+                val remainingSeconds = TimeUnit.MILLISECONDS.toSeconds(remainingMillis) % 60
 
                 showAlert(getString(R.string.alert_text_minutes_to_wait_until_user_can_attempt_to_login_again, remainingMinutes, remainingSeconds))
                 println("showAlert is from the loginAllowed function")

@@ -143,28 +143,6 @@ class HomeActivity : AppCompatActivity() {
             logout_button.visibility = View.VISIBLE
         }
 
-//        // Check LoginStatus
-//        if (status == LoginStatus.NotRequired || status == LoginStatus.LoggedIn)
-//        {
-//            // We may not have initialized shared preferences yet, let's do it now
-//            Persist.loadEncryptedSharedPreferences(this.applicationContext)
-//
-//            // Check to see if we received a send intent
-//            intent.getStringExtra(Intent.EXTRA_TEXT)?.let{
-//                // Received string message
-//                handleSharedText(intent)
-//            }
-//
-//            (intent.getParcelableExtra<Parcelable>(RequestCodes.imageUriDescription) as? Uri)?.let {
-//                // Received image message
-//                decodeImage(it)
-//            }
-//
-//        }
-//        else
-//        {
-//            sendToLogin()
-//        }
     }
 
     fun sendToLogin()

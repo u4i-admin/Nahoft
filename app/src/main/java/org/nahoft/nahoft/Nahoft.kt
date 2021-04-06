@@ -11,6 +11,23 @@ import org.nahoft.nahoft.activities.LoginStatus
 
 class Nahoft: Application(), LifecycleObserver {
 
+    val logoutTimer = object: CountDownTimer(15000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            // stub
+        }
+
+        //TODO: Work with Brandon this is not being called.
+        override fun onFinish() {
+            // Logout the user if they are logged in
+            if (status == LoginStatus.LoggedIn) {
+                status = LoginStatus.LoggedOut
+                Persist.saveLoginStatus()
+            } else if(status == LoginStatus.NotRequired) {
+                return
+            }
+        }
+    }
+
     override fun onCreate() {
         super.onCreate()
 
@@ -19,23 +36,6 @@ class Nahoft: Application(), LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onEnterBackground() {
-
-        val logoutTimer = object: CountDownTimer(15000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                // stub
-            }
-
-            //TODO: Work with Brandon this is not being called.
-            override fun onFinish() {
-                // Logout the user if they are logged in
-                if (status == LoginStatus.LoggedIn) {
-                    status = LoginStatus.LoggedOut
-                    Persist.saveLoginStatus()
-                } else if(status == LoginStatus.NotRequired) {
-                    return
-                }
-            }
-        }
 
         logoutTimer.start()
     }
