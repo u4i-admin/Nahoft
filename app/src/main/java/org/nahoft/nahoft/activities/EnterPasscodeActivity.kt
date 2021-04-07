@@ -80,7 +80,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
     }
 
     override fun onBackPressed() {
-        // Stub so that back does nothing
+        finish()
     }
 
     fun handleLoginPress() {

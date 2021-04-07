@@ -385,7 +385,7 @@ class HomeActivity : AppCompatActivity() {
         intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
         startActivity(returnToLoginIntent)
 
-        finishAndRemoveTask()
+        finish()
     }
 
 }

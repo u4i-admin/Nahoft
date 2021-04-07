@@ -87,9 +87,14 @@ class NewMessageActivity : AppCompatActivity() {
         } else {
             // If the message is sent as text
             if (selectedFriend!!.publicKeyEncoded != null) {
+
                 // Share this message as a text
                 ShareUtil.shareText(this, message, selectedFriend!!.publicKeyEncoded!!)
+
+                // Clean up the text box and the friend selection.
                 editMessageText.text?.clear()
+                selectedFriend = null
+                friend_button.text = getString(R.string.hintOnChooseFriendButton)
             } else {
                 this.showAlert(getString(R.string.alert_text_verified_friends_only))
                 return

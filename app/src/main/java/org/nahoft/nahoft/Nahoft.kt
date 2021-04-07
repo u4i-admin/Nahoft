@@ -2,21 +2,18 @@ package org.nahoft.nahoft
 
 import android.app.Application
 import android.os.CountDownTimer
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
-import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.*
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.nahoft.activities.LoginStatus
 
 class Nahoft: Application(), LifecycleObserver {
 
-    val logoutTimer = object: CountDownTimer(15000, 1000) {
+    // Set Logout Timer to 5 minutes.
+    val logoutTimer = object: CountDownTimer(300000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             // stub
         }
 
-        //TODO: Work with Brandon this is not being called.
         override fun onFinish() {
             // Logout the user if they are logged in
             if (status == LoginStatus.LoggedIn) {
@@ -34,6 +31,13 @@ class Nahoft: Application(), LifecycleObserver {
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onEnterForeground() {
+
+        logoutTimer.cancel()
+    }
+
+    //TODO: Is this being called?
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onEnterBackground() {
 

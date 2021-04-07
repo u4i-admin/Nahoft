@@ -15,7 +15,6 @@
         android:label="Nahoft"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:excludeFromRecents="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.MessagesMenuActivity"
