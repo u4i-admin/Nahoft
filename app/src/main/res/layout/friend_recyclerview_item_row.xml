@@ -121,7 +121,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/colorPrimaryDark"
         android:src="@drawable/drag_indicator_24px"/>
-        <!--android:src="@drawable/drag_indicator_24px"-->
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
