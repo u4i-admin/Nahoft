@@ -127,7 +127,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
             // If the user has logged in successfully or if they didn't set a passcode
             // Send them to the home screen
             LoginStatus.LoggedIn, LoginStatus.NotRequired -> {
-
+                // TODO: Clear out all 6 edit texts after successful login.
                 val homeActivityIntent = Intent(this, HomeActivity::class.java)
 
                 // Check to see if we received a send intent
@@ -266,21 +266,13 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
     }
 
     private fun showLoginFailureAlert() {
-        if (failedLoginAttempts >= 11) {
+        if (failedLoginAttempts >= 9) {
             showAlert(getString(R.string.alert_text_eleven_login_attempts))
             println("Failed Login $failedLoginAttempts times, all information has been erased")
 
             //Delete everything like you would if user had entered a secondary passcode.
             Persist.clearAllData()
             startActivity(Intent(this, HomeActivity::class.java))
-
-        } else if (failedLoginAttempts == 10) {
-            showAlert(getString(R.string.alert_text_tenth_login_attempt))
-            println("Failed Login $failedLoginAttempts times, 1 hour timeout")
-
-        } else if (failedLoginAttempts == 9) {
-            showAlert(getString(R.string.alert_text_nineth_login_attempt))
-            println("Failed Login $failedLoginAttempts times, 30 minute timeout")
 
         } else if (failedLoginAttempts == 8) {
             showAlert(getString(R.string.alert_text_eigth_login_attempt))

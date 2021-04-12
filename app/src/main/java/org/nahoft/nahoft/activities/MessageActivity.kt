@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 import kotlinx.android.synthetic.main.activity_message.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Encryption
@@ -76,4 +78,12 @@ class MessageActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        cleanUp()
+    }
+
+    private fun cleanUp () {
+        message = Message("", ByteArray(2))
+    }
 }

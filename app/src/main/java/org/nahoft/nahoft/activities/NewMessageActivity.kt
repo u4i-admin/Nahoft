@@ -10,6 +10,8 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 import kotlinx.android.synthetic.main.activity_new_message.*
 import kotlinx.coroutines.*
 import org.nahoft.codex.Encryption
@@ -173,11 +175,14 @@ class NewMessageActivity : AppCompatActivity() {
             return
         }
     }
-//
-//    private suspend fun shareAsImageAsync(imageURI: Uri, message: String, publicKeyEncoded: ByteArray) = withContext(Dispatchers.Default) {
-//
-//
-//    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        cleanUp()
+    }
+
+    fun cleanUp () {
+        selectedFriend = null
+    }
 
 }

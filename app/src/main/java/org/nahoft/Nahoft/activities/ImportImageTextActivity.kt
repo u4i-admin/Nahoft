@@ -5,6 +5,8 @@ import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_import_image_text.*
@@ -230,5 +232,15 @@ class ImportImageTextActivity: AppCompatActivity() {
             else ->
                 this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cleanUp()
+    }
+
+    fun cleanUp () {
+        decodePayload = null
+        sender = null
     }
 }
