@@ -62,7 +62,7 @@ class MessageActivity : AppCompatActivity() {
             val senderKey = PublicKey(senderKeyBytes)
 
             try {
-                val plaintext = Encryption(this).decrypt(senderKey, message.cipherText)
+                val plaintext = Encryption().decrypt(senderKey, message.cipherText)
                 message_body_text_view.text = plaintext
             } catch (exception: SecurityException) {
                 applicationContext.showAlert(getString(R.string.alert_text_unable_to_decrypt_message))

@@ -153,7 +153,7 @@ class NewMessageActivity : AppCompatActivity() {
     private fun shareAsImage(imageUri: Uri, message: String, encodedFriendPublicKey: ByteArray) {
         try {
             // Encrypt the message
-            val encryptedMessage = Encryption(applicationContext).encrypt(encodedFriendPublicKey, message)
+            val encryptedMessage = Encryption().encrypt(encodedFriendPublicKey, message)
 
             // Encode the image
             val newUri: Deferred<Uri?> =

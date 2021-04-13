@@ -27,7 +27,7 @@ object ShareUtil
     {
         val codex = Codex()
         try {
-            val encryptedMessage = Encryption(context).encrypt(encodedFriendPublicKey, message)
+            val encryptedMessage = Encryption().encrypt(encodedFriendPublicKey, message)
             val encodedMessage = codex.encodeEncryptedMessage(encryptedMessage)
             val sendIntent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"

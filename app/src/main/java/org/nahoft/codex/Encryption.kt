@@ -1,6 +1,5 @@
 package org.nahoft.codex
 
-import android.content.Context
 import org.libsodium.jni.SodiumConstants
 import org.libsodium.jni.crypto.Random
 import org.libsodium.jni.keys.KeyPair
@@ -10,8 +9,6 @@ import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.Persist.Companion.publicKeyPreferencesKey
 import java.util.*
 import javax.crypto.Cipher
-import javax.crypto.KeyGenerator
-import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
@@ -19,7 +16,7 @@ import javax.crypto.spec.SecretKeySpec
 // The secure enclave does not appear to support EC keys at all, at this time.
 // Therefore, we store keys in the EncryptedSharedPreferences instead of the KeyStore.
 // This can be revised when the AndroidKeystore supports the required functionality.
-class Encryption(val context: Context)
+class Encryption()
 {
     // Encrypted Shared Preferences
     private val privateKeyPreferencesKey = "NahoftPrivateKey"

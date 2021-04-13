@@ -30,6 +30,6 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("org.org.codex.test", appContext.packageName)
 
-        val encryption = Encryption(appContext)
+        val encryption = Encryption()
     }
 }

@@ -23,7 +23,7 @@ class Swatch {
     fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri? {
         // Get the photo
         val cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
-        val result = encode(context, encrypted, cover)
+        val result = encode(encrypted, cover)
 
         val title = ""
         val description = ""
@@ -33,25 +33,25 @@ class Swatch {
     }
 
     @ExperimentalUnsignedTypes
-    fun encode(context: Context, encrypted: ByteArray, cover: Bitmap): Bitmap? {
+    fun encode(encrypted: ByteArray, cover: Bitmap): Bitmap? {
         val messageLength = encrypted.size.toInt() // Length measured in bytes
         val lengthBytes =
             ByteBuffer.allocate(java.lang.Integer.BYTES).putInt(messageLength).array()
-        val encryptedLengthBytes = Encryption(context).encryptLengthData(lengthBytes)
+        val encryptedLengthBytes = Encryption().encryptLengthData(lengthBytes)
         val lengthBits = bitsFromBytes(encryptedLengthBytes)
         val lengthBitsSize = lengthBits.size
 
         // Convert message size from bytes to bits
         // Pad the message bits to be of max size
-        var messageBits = bitsFromBytes(encrypted)
+        val messageBits = bitsFromBytes(encrypted)
         val messageBitsSize = messageBits.size
 
         // The number of pixels is the image height (in pixels) times the image width (in pixels)
         val numPixels = cover.height * cover.width
 
         // Do we have enough pixels for the bits we need to encode?
-        val lengthPatchSize = numPixels / (lengthBitsSize*2)
-        val messagePatchSize = numPixels / (messageBitsSize*2)
+        val lengthPatchSize = numPixels / (lengthBitsSize * 2)
+        val messagePatchSize = numPixels / (messageBitsSize * 2)
 
         if (lengthPatchSize < minimumPatchSize) {
             return null
@@ -60,7 +60,7 @@ class Swatch {
             return null
         }
 
-        var result = cover.copy(Bitmap.Config.ARGB_8888, true)
+        val result = cover.copy(Bitmap.Config.ARGB_8888, true)
         return encode(result, lengthBits, messageBits)
     }
 
@@ -69,26 +69,23 @@ class Swatch {
     fun encode(cover: Bitmap, message1: IntArray, message2: IntArray): Bitmap? {
         // Make a set of rules for encoding each message
         // Use different keys so that the patches are different
-        val rules1 = makeRules(1, cover, message1)
-        val rules2 = makeRules(2, cover, message2)
+        val rules1 = makeRules(cover, message1)
+        val rules2 = makeRules(cover, message2)
 
         val solver = Solver(cover, rules1, rules2)
         val solution = solver.solve()
 
-        return null
+        return solution
     }
 
     /// Generates an array of rules.
-    /// Each rule returns 2 patches and a constraint (whether or not they are lighter or darker that each other)
+    /// Each rule returns 2 patches and a constraint (whether or not they are lighter or darker than each other)
     /// Greater is a 1
     /// Less is a 0
-    fun makeRules(key: Int, cover: Bitmap, message: IntArray): Array<Rule>
+    fun makeRules(cover: Bitmap, message: IntArray): Array<Rule>
     {
-        // Random number generator
-        // Seed is  based on the message so that the same random number generator will be used for encoding/decoding
-        val random1 = Random(key)
-
         val numPixels = cover.height * cover.width
+
         // Each bit needs a pair of patches
         val patchSize = numPixels / (message.size*2)
 
@@ -110,21 +107,15 @@ class Swatch {
             }
 
             // Create pairs
-            // index*2, index*2+1 = 0,1 - 2,3 - 4,5 - etc.
-            val patchA = Patch(index*2, patchSize)
-            val patchB = Patch(index*2+1, patchSize)
+            // index*2, index*2+1 = 0,1 -> 2,3 -> 4,5 -> etc.
+            val patchA = Patch(index * 2, patchSize)
+            val patchB = Patch(index * 2 + 1, patchSize)
 
             val rule = Rule(patchA, patchB, constraint!!)
             rules += rule
         }
 
         return rules
-    }
-
-    private fun setPixel(bitmap: Bitmap, x: Int, y: Int, value: Int)
-    {
-        val color = Color.argb(value, value, value, value)
-        bitmap.setPixel(x, y, color)
     }
 
     fun decode(context: Context, uri: Uri): ByteArray?
@@ -138,23 +129,23 @@ class Swatch {
 //            )
 //        )
 
-        return decode(context, bitmap)
+        return decode(bitmap)
     }
 
-    fun decode(context: Context, bitmap: Bitmap): ByteArray?
+    fun decode(bitmap: Bitmap): ByteArray?
     {
         val lengthBitsSize = java.lang.Integer.BYTES * 8
         val lengthBitsKey = 1 // FIXME - use proper keys
-        val lengthBits = decode(bitmap, lengthBitsKey, lengthBitsSize)
+        val lengthBits = decode(bitmap, lengthBitsSize)
 
         if (lengthBits == null) { return null }
         lengthBits?.let {
             val encryptedLengthBytes = bytesFromBits(lengthBits)
             encryptedLengthBytes?.let {
-                val lengthBytes = Encryption(context).decryptLengthData(encryptedLengthBytes)
+                val lengthBytes = Encryption().decryptLengthData(encryptedLengthBytes)
                 val length = ByteBuffer.wrap(lengthBytes).getInt()
                 val messageKey = 2 // FIXME - use proper keys
-                val messageBits = decode(bitmap, messageKey, length)
+                val messageBits = decode(bitmap, length)
                 if (messageBits == null) { return null }
                 return bytesFromBits(messageBits)
             }
@@ -163,28 +154,29 @@ class Swatch {
         return null
     }
 
-    fun decode(bitmap: Bitmap, key: Int, size: Int): List<Int>?
+    fun decode(bitmap: Bitmap, size: Int): List<Int>?
     {
         val numPixels = bitmap.height * bitmap.width
-
         val patchSize = numPixels / (size*2)
 
         if (patchSize < minimumPatchSize) {
             return null
         }
 
-        // Random number generator
-        // Seed is  based on the message so that the same random number generator will be used for encoding/decoding
-        // FIXME: Create seed from message
-        val random = Random(key)
-
+        // FIXME: Randomly map the pixels (see encode function for the correct construction of a pixelList)
+        var pixelList: IntArray = IntArray(numPixels)
         var message: IntArray = IntArray(size)
 
         var rules: Array<Rule> = arrayOf()
         var pixelArrayIndex = 0
         for (index in message.indices)
         {
-            val rule = Rule(Patch(index*2, patchSize), Patch(index*2+1, patchSize), bitmap)
+            val rule = Rule(
+                Patch(index * 2, patchSize),
+                Patch(index * 2 + 1, patchSize),
+                bitmap,
+                pixelList
+            )
             when (rule.constraint)
             {
                 Constraint.GREATER -> message[index] = 1
@@ -264,9 +256,23 @@ fun bytesFromBits(bits: List<Int>): ByteArray?
 
 class Pixel(val index: Int)
 {
+    fun toX(bitmap: Bitmap, pixelList: IntArray): Int
+    {
+        val mappedIndex = pixelList[index]
+        val mappedPixel = Pixel(mappedIndex)
+        return mappedPixel.toX(bitmap)
+    }
+
     fun toX(bitmap: Bitmap): Int
     {
         return index % bitmap.width
+    }
+
+    fun toY(bitmap: Bitmap, pixelList: IntArray): Int
+    {
+        val mappedIndex = pixelList[index]
+        val mappedPixel = Pixel(mappedIndex)
+        return mappedPixel.toY(bitmap)
     }
 
     fun toY(bitmap: Bitmap): Int
@@ -274,40 +280,47 @@ class Pixel(val index: Int)
         return index / bitmap.width
     }
 
-    fun brightness(bitmap: Bitmap): Float
+    fun brightness(bitmap: Bitmap, pixelList: IntArray): Float
     {
-        val y = toY(bitmap)
-        val x = toX(bitmap)
+        val y = toY(bitmap, pixelList)
+        val x = toX(bitmap, pixelList)
         var hsv = FloatArray(3)
         val color = bitmap.getPixel(x, y)
         Color.colorToHSV(color, hsv)
         return hsv[2] // V
     }
 
-    fun brighten(bitmap: Bitmap): Int
+    fun brighten(bitmap: Bitmap, pixelList: IntArray): Int
     {
-        val y = toY(bitmap)
-        val x = toX(bitmap)
+        val y = toY(bitmap, pixelList)
+        val x = toX(bitmap, pixelList)
         val colorInt = bitmap.getPixel(x, y)
         val color = Color.valueOf(colorInt)
-        val a = color.alpha()
-        val r = color.red()
-        val g = color.green()
-        val b = color.blue()
+        val a: Int = colorInt.shr(24) and 0xff // or color >>> 24
+        val r: Int = colorInt.shr(16) and 0xff
+        val g: Int = colorInt.shr( 8 ) and 0xff
+        val b: Int = colorInt and 0xff
         val newColor = Color.argb(a, r + 1, g + 1, b + 1)
         return newColor
     }
 
-    fun darken(bitmap: Bitmap): Int
+    fun darken(bitmap: Bitmap, pixelList: IntArray): Int
     {
-        val y = toY(bitmap)
-        val x = toX(bitmap)
+        val y = toY(bitmap, pixelList)
+        val x = toX(bitmap, pixelList)
         val colorInt = bitmap.getPixel(x, y)
-        val color = Color.valueOf(colorInt)
-        val a = color.alpha()
-        val r = color.red()
-        val g = color.green()
-        val b = color.blue()
+//        val color = Color.valueOf(colorInt)
+//        val a = color.alpha()
+//        val r = color.red()
+//        val g = color.green()
+//        val b = color.blue()
+
+        val a: Int = colorInt.shr(24) and 0xff // or color >>> 24
+        val r: Int = colorInt.shr(16) and 0xff
+        val g: Int = colorInt.shr( 8 ) and 0xff
+        val b: Int = colorInt and 0xff
+
+
         val newColor = Color.argb(a, r - 1, g - 1, b - 1)
         return newColor
     }
@@ -315,10 +328,14 @@ class Pixel(val index: Int)
 
 class Rule(var patch0: Patch, var patch1: Patch, var constraint: Constraint)
 {
-    constructor(patch0: Patch, patch1: Patch, bitmap: Bitmap): this(patch0, patch1, Constraint.EQUAL)
+    constructor(patch0: Patch, patch1: Patch, bitmap: Bitmap, pixelList: IntArray): this(
+        patch0,
+        patch1,
+        Constraint.EQUAL
+    )
     {
-        val b0 = patch0.brightness(bitmap)
-        val b1 = patch1.brightness(bitmap)
+        val b0 = patch0.brightness(bitmap, pixelList)
+        val b1 = patch1.brightness(bitmap, pixelList)
 
         if (b0 > b1)
         {
@@ -335,10 +352,10 @@ class Rule(var patch0: Patch, var patch1: Patch, var constraint: Constraint)
     }
 
     // Does this pair of patches meet the constraint
-    fun validate(bitmap: Bitmap): Boolean
+    fun validate(bitmap: Bitmap, pixelList: IntArray): Boolean
     {
-        val b0 = patch0.brightness(bitmap)
-        val b1 = patch1.brightness(bitmap)
+        val b0 = patch0.brightness(bitmap, pixelList)
+        val b1 = patch1.brightness(bitmap, pixelList)
 
         when (constraint)
         {
@@ -348,131 +365,114 @@ class Rule(var patch0: Patch, var patch1: Patch, var constraint: Constraint)
         }
     }
 
-    fun constrain(bitmap: Bitmap, directions: Bitmap): Bitmap
+    fun removeConflictedPixels(directions: Bitmap, pixelList: IntArray): Boolean {
+
+        val patch0NotConflicts = removeConflictedPixelsForPatch(patch0, directions, pixelList)
+        if (patch0NotConflicts.isEmpty())
+        {
+            print("Error removing conflicts from a patch, all points were in conflict.")
+            return false
+        }
+        patch0.points = patch0NotConflicts
+
+        val patch1NotConflicts = removeConflictedPixelsForPatch(patch1, directions, pixelList)
+        if (patch1NotConflicts.isEmpty())
+        {
+            print("Error removing conflicts from a patch, all points were in conflict.")
+            return false
+        }
+        patch1.points = patch1NotConflicts
+
+        return true
+    }
+
+    fun removeConflictedPixelsForPatch(patch: Patch, directions: Bitmap, pixelList: IntArray): List<Pixel>
+    {
+        var notConflictsList = patch.points.toMutableList()
+
+        for (point in patch.points) {
+            val x = point.toX(directions, pixelList)
+            val y = point.toY(directions, pixelList)
+            val pixelColor = directions.getPixel(x, y)
+
+            // If there is a conflict, remove it from our list
+            if (pixelColor == Color.RED) {
+                notConflictsList.remove(point)
+            }
+        }
+
+        return notConflictsList
+    }
+
+    fun constrain(bitmap: Bitmap, directions: Bitmap, pixelList: IntArray): Bitmap
     {
         var workingBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+
+        // If the working bitmap is already valid return it
+        if (validate(workingBitmap, pixelList))
+        { return workingBitmap }
+
+        // If there is an error removing conflicted pixels, just return the working bitmap
+        // FIXME: This should return null (function should return optional bitmap)
+        if (!removeConflictedPixels(directions, pixelList))
+        { return workingBitmap }
 
         // If the constraint is not satisfied
         // Decide which patch to alter randomly
         // And then alter one pixel in that patch according to the constraint
-        while (!validate(workingBitmap))
+        // TODO: Refactor modifyBrightness so that we don't need this if/else (It should brighten and darken, not do one or the other)
+        if (Random.nextBoolean())
         {
-            if (Random.nextBoolean())
-            {
-                when (constraint)
-                {
-                    Constraint.GREATER -> workingBitmap = patch0.brighten(workingBitmap, directions)
-                    Constraint.LESS -> workingBitmap = patch0.darken(workingBitmap, directions)
-                    Constraint.EQUAL -> workingBitmap = balanceBrighten(workingBitmap, directions)
-                }
-            }
-            else
-            {
-                when (constraint)
-                {
-                    Constraint.GREATER -> workingBitmap = patch1.darken(workingBitmap, directions)
-                    Constraint.LESS -> workingBitmap = patch1.brighten(workingBitmap, directions)
-                    Constraint.EQUAL -> workingBitmap = balanceDarken(workingBitmap, directions)
-                }
-            }
-        }
-
-        return workingBitmap
-    }
-
-    fun balanceBrighten(bitmap: Bitmap, directions: Bitmap): Bitmap
-    {
-        if (patch0.brightness(bitmap) > patch1.brightness(bitmap))
-        {
-            return patch1.brighten(bitmap, directions)
+            workingBitmap = modifyBrightness(patch0, workingBitmap, directions, pixelList)
         }
         else
         {
-            return patch0.brighten(bitmap, directions)
-        }
-    }
-
-    fun balanceDarken(bitmap: Bitmap, directions: Bitmap): Bitmap
-    {
-        if (patch0.brightness(bitmap) > patch1.brightness(bitmap))
-        {
-            return patch0.darken(bitmap, directions)
-        }
-        else
-        {
-            return patch1.darken(bitmap, directions)
-        }
-    }
-}
-
-class Patch(val patchIndex: Int, val size: Int)
-{
-    var points = IntArray(size).mapIndexed {index, value -> Pixel(patchIndex*size + index)}
-
-    fun brightness(bitmap: Bitmap): Float
-    {
-        val values = points.map { pixel -> pixel.brightness(bitmap) }
-        return values.sum()
-    }
-
-    // Picks a random pixel from the patch changes the color of the pixel to be brighter
-    fun brighten(bitmap: Bitmap, directions: Bitmap): Bitmap
-    {
-        var workingBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
-
-        var pointsCopy = points.toMutableList()
-        pointsCopy.shuffle()
-
-        var stillWorking = true
-        while (stillWorking && pointsCopy.isNotEmpty())
-        {
-            val point = pointsCopy.removeFirst()
-
-            val y = point.toY(bitmap)
-            val x = point.toX(bitmap)
-
-            val direction = directions.getPixel(x, y)
-            if (direction == 2)
-            {
-                val newValue = point.brighten(workingBitmap)
-                workingBitmap.set(x, y, newValue)
-                stillWorking = false
-            }
-        }
-
-        if (stillWorking && pointsCopy.isEmpty())
-        {
-            print("Failure to modify image")
+            workingBitmap = modifyBrightness(patch1, workingBitmap, directions, pixelList)
         }
 
         return workingBitmap
     }
 
     // Picks a random pixel from the patch changes the color of the pixel to be darker
-    fun darken(bitmap: Bitmap, directions: Bitmap): Bitmap
+    fun modifyBrightness(patch: Patch, bitmap: Bitmap, directions: Bitmap, pixelList: IntArray): Bitmap
     {
-        var workingBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+        val workingBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
 
-        var pointsCopy = points.toMutableList()
-        pointsCopy.shuffle()
-
-        var stillWorking = true
-        while (stillWorking)
+        while (!validate(workingBitmap, pixelList))
         {
-            val point = pointsCopy.removeFirst()
-
-            val y = point.toY(bitmap)
-            val x = point.toX(bitmap)
-            val direction = directions.getPixel(x, y)
-            if (direction == -2)
+            for (point in patch.points)
             {
-                val newValue = point.darken(workingBitmap)
+                val y = point.toY(workingBitmap, pixelList)
+                val x = point.toX(workingBitmap, pixelList)
+                val direction = directions.getPixel(x, y)
+
+                val newValue = when (direction) {
+                    Color.BLUE -> point.darken(workingBitmap, pixelList)
+                    Color.GREEN -> point.brighten(workingBitmap, pixelList)
+                    else -> null
+                }
+
+                if (newValue == null) { return workingBitmap }
                 workingBitmap.set(x, y, newValue)
-                stillWorking = false
+
+                if (validate(workingBitmap, pixelList)) { return workingBitmap }
             }
+
+            print("modify has iterated through all of the points in a patch.")
         }
 
         return workingBitmap
+    }
+}
+
+class Patch(val patchIndex: Int, val size: Int)
+{
+    var points = IntArray(size).mapIndexed { index, value -> Pixel(patchIndex * size + index)}
+
+    fun brightness(bitmap: Bitmap, pixelList: IntArray): Float
+    {
+        val values = points.map { pixel -> pixel.brightness(bitmap, pixelList) }
+        return values.sum()
     }
 }
 
@@ -481,10 +481,6 @@ enum class Constraint(val constraint: Int)
     GREATER(1),
     EQUAL(0),
     LESS(-1)
-}
-
-class SetPixel(pixel: Pixel, value: Int)
-{
 }
 
 @ExperimentalUnsignedTypes

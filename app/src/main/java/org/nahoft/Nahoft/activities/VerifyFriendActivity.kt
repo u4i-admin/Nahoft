@@ -62,7 +62,7 @@ class VerifyFriendActivity : AppCompatActivity()
         friend_security_number_text.text = friendKeyString.chunked(4).joinToString(" ")
 
         // Display user public key as security number (Uppercase and Grouped by 4s)
-        val userPublicKeyString = Encryption(this).ensureKeysExist().publicKey.toString().toUpperCase()
+        val userPublicKeyString = Encryption().ensureKeysExist().publicKey.toString().toUpperCase()
         user_security_number_text.text = userPublicKeyString.chunked(4).joinToString(" ")
     }
 
