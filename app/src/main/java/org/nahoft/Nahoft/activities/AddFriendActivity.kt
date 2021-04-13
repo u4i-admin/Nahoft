@@ -3,6 +3,7 @@ package org.nahoft.nahoft.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_add_friend.*
+import kotlinx.android.synthetic.main.friend_recyclerview_item_row.*
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.FriendStatus
 import org.nahoft.nahoft.Persist
@@ -39,5 +40,14 @@ class AddFriendActivity : AppCompatActivity() {
         friendList.add(newFriend)
         Persist.saveFriendsToFile(this)
         finish()
+    }
+    // TODO: Check with Adelita to make sure I did this correctly.
+    override fun onDestroy() {
+        super.onDestroy()
+        cleanup()
+    }
+
+    fun cleanup(){
+        nameTextField.text.toString() == null
     }
 }

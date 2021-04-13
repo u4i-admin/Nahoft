@@ -77,7 +77,7 @@ class MessageActivity : AppCompatActivity() {
             return
         }
     }
-
+    // TODO: Check with Adelita to make sure we did this correctly.
     override fun onDestroy() {
         super.onDestroy()
         cleanUp()

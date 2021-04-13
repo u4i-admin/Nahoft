@@ -15,6 +15,8 @@ import org.nahoft.util.RequestCodes
 
 class VerifyFriendActivity : AppCompatActivity()
 {
+    //TODO: Ask Adelita if this is correct? Nothing to change here
+    //We wouldn't want to clear out a list of potential friends that could have sent a key every time onDestroy is called right?
 
     private lateinit var pendingFriend: Friend
 

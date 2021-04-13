@@ -389,13 +389,13 @@ class HomeActivity : AppCompatActivity() {
 
         finish()
     }
-
+    //TODO: Ask Adelita if this is correct?
     override fun onDestroy() {
         super.onDestroy()
         cleanUp()
     }
 
-    fun cleanUp () {
+    private fun cleanUp () {
         decodePayload = null
     }
 }

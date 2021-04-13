@@ -233,7 +233,7 @@ class ImportImageTextActivity: AppCompatActivity() {
                 this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
         }
     }
-
+    //TODO: Ask Adelita if this is correct?
     override fun onDestroy() {
         super.onDestroy()
         cleanUp()

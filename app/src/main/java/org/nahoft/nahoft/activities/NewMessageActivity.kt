@@ -12,6 +12,7 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
+import kotlinx.android.synthetic.main.activity_message.*
 import kotlinx.android.synthetic.main.activity_new_message.*
 import kotlinx.coroutines.*
 import org.nahoft.codex.Encryption
@@ -124,6 +125,8 @@ class NewMessageActivity : AppCompatActivity() {
                             imageShareProgressBar.visibility = View.VISIBLE
                             shareAsImage(imageURI, message, selectedFriend!!.publicKeyEncoded!!)
                             editMessageText.text?.clear()
+                            selectedFriend = null
+                            friend_button.text = getString(R.string.hintOnChooseFriendButton)
                         }
                     }
                 } else {
@@ -176,6 +179,7 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
+    // TODO: Ask Adelita, I think these two functions are redundant. See lines 98, 99 for texts & 127, 128 for images.
     override fun onDestroy() {
         super.onDestroy()
         cleanUp()

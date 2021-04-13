@@ -302,13 +302,11 @@
     <string name="alert_text_incorrect_passcode_length">The passcode must be 6 digits long.</string>
 
     //Enter Passcode Activity
-    <string name="alert_text_eleven_login_attempts">Eleventh failed passcode attempt. All app data is cleared.</string>
     <string name="alert_text_zero_to_five_login_attempts">The passcode entered is incorrect. Please try again.</string>
     <string name="alert_text_sixth_login_attempt">The passcode entered is incorrect. Please try again after this 1 minute lockout.</string>
     <string name="alert_text_seventh_login_attempt">The passcode entered is incorrect. Please try again after this 5 minute lockout.</string>
     <string name="alert_text_eigth_login_attempt">The passcode entered is incorrect. Please try again after this 15 minute lockout.</string>
-    <string name="alert_text_nineth_login_attempt">The passcode entered is incorrect. Please try again after this 30 minute lockout.</string>
-    <string name="alert_text_tenth_login_attempt">The passcode entered is incorrect. This is your final 1 hour lockout. All data will be cleared after the next failed login attempt</string>
+    <string name="alert_text_nineth_login_attempt">Nineth failed passcode attempt. All app data is cleared.</string>
     <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">Please wait, %1$d minutes %2$d seconds before attempting to login again</string>
 
 

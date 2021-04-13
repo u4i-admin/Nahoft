@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_enter_passcode.*
 import kotlinx.android.synthetic.main.activity_verify_friend.*
 import org.nahoft.nahoft.Persist
+import org.nahoft.nahoft.Persist.Companion.clearAllData
 import org.nahoft.nahoft.Persist.Companion.sharedPrefFailedLoginAttemptsKey
 import org.nahoft.nahoft.Persist.Companion.sharedPrefFailedLoginTimeKey
 import org.nahoft.nahoft.Persist.Companion.sharedPrefPasscodeKey
@@ -127,7 +128,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
             // If the user has logged in successfully or if they didn't set a passcode
             // Send them to the home screen
             LoginStatus.LoggedIn, LoginStatus.NotRequired -> {
-                // TODO: Clear out all 6 edit texts after successful login.
+            // TODO: Clear out all 6 edit texts after successful login.
                 val homeActivityIntent = Intent(this, HomeActivity::class.java)
 
                 // Check to see if we received a send intent
@@ -256,9 +257,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     private fun getLockoutMinutes(): Int {
 
-        if (failedLoginAttempts >= 11) { return 1000 }
-        else if (failedLoginAttempts == 10) { return 60 }
-        else if (failedLoginAttempts == 9) { return 30 }
+        if (failedLoginAttempts >= 9) { return 1000 }
         else if (failedLoginAttempts == 8) { return 15 }
         else if (failedLoginAttempts == 7) { return 5 }
         else if (failedLoginAttempts == 6) { return 1 }
@@ -267,7 +266,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     private fun showLoginFailureAlert() {
         if (failedLoginAttempts >= 9) {
-            showAlert(getString(R.string.alert_text_eleven_login_attempts))
+            showAlert(getString(R.string.alert_text_nineth_login_attempt))
             println("Failed Login $failedLoginAttempts times, all information has been erased")
 
             //Delete everything like you would if user had entered a secondary passcode.
@@ -305,7 +304,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
         if (minutesToWait == 0) { return true }
         else if (minutesToWait >= 100) { //This should never happen all data should have already been deleted when the login failed the eleventh time.
             //Delete everything like you would if user had entered a secondary passcode.
-            showAlert(getString(R.string.alert_text_eleven_login_attempts))
+            showAlert(getString(R.string.alert_text_nineth_login_attempt))
             Persist.clearAllData()
             startActivity(Intent(this, HomeActivity::class.java))
 
@@ -336,6 +335,15 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
             println("ERROR: Last failed login timestamp is null, but user has more than 5 failed login attempts.")
             return false
         }
+    }
+    // TODO: Clear out all 6 edit texts after successful login. Double Check for accuracy.
+    override fun onDestroy() {
+        super.onDestroy()
+        cleanup()
+    }
+
+    private fun cleanup(){
+        editTextArray.clear()
     }
 }
 
