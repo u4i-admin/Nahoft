@@ -2,9 +2,7 @@ package org.nahoft.org.nahoft.swatch;
 
 import android.graphics.Bitmap
 import android.graphics.Color
-import org.nahoft.swatch.Constraint
-import org.nahoft.swatch.Pixel
-import org.nahoft.swatch.Rule;
+import org.nahoft.swatch.*
 import kotlin.random.Random
 
 public class Solver(val coverImageBitmap: Bitmap, var messageARules: Array<Rule>, var messageBRules: Array<Rule>)
@@ -21,11 +19,11 @@ public class Solver(val coverImageBitmap: Bitmap, var messageARules: Array<Rule>
         val numberOfPixels = coverImageBitmap.height * coverImageBitmap.width
 
         // We want two different pixel distributions for our two different messages
-        val randomA = Random(1)
+        val randomA = Random(lengthMessageSeed)
         pixelListA = IntArray(numberOfPixels) { it }
         pixelListA.shuffle(randomA)
 
-        val randomB = Random(2)
+        val randomB = Random(payloadMessageSeed)
         pixelListB = IntArray(numberOfPixels) { it }
         pixelListB.shuffle(randomB)
 

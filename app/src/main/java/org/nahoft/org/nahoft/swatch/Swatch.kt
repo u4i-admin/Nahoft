@@ -12,6 +12,9 @@ import org.nahoft.stencil.CapturePhotoUtils
 import java.nio.ByteBuffer
 import kotlin.random.Random
 
+val lengthMessageSeed = 1
+val payloadMessageSeed = 2
+
 class Swatch {
     val minimumPatchSize = 2
 
@@ -122,21 +125,13 @@ class Swatch {
     {
         val bitmap = BitmapFactory.decodeStream(context.contentResolver.openInputStream(uri))
 
-//        val bitmap = ImageDecoder.decodeBitmap(
-//            ImageDecoder.createSource(
-//                context.contentResolver,
-//                uri
-//            )
-//        )
-
         return decode(bitmap)
     }
 
     fun decode(bitmap: Bitmap): ByteArray?
     {
         val lengthBitsSize = java.lang.Integer.BYTES * 8
-        val lengthBitsKey = 1 // FIXME - use proper keys
-        val lengthBits = decode(bitmap, lengthBitsSize)
+        val lengthBits = decode(bitmap, lengthBitsSize, lengthMessageSeed)
 
         if (lengthBits == null) { return null }
         lengthBits?.let {
@@ -144,9 +139,9 @@ class Swatch {
             encryptedLengthBytes?.let {
                 val lengthBytes = Encryption().decryptLengthData(encryptedLengthBytes)
                 val length = ByteBuffer.wrap(lengthBytes).getInt()
-                val messageKey = 2 // FIXME - use proper keys
-                val messageBits = decode(bitmap, length)
-                if (messageBits == null) { return null }
+                val messageBits = decode(bitmap, length, payloadMessageSeed)
+                if (messageBits == null)
+                { return null }
                 return bytesFromBits(messageBits)
             }
         }
@@ -154,21 +149,22 @@ class Swatch {
         return null
     }
 
-    fun decode(bitmap: Bitmap, size: Int): List<Int>?
+    fun decode(bitmap: Bitmap, size: Int, messageSeed: Int): List<Int>?
     {
-        val numPixels = bitmap.height * bitmap.width
-        val patchSize = numPixels / (size*2)
+        val numberOfPixels = bitmap.height * bitmap.width
+        val patchSize = numberOfPixels / (size*2)
 
-        if (patchSize < minimumPatchSize) {
-            return null
-        }
+        if (patchSize < minimumPatchSize)
+        { return null }
 
-        // FIXME: Randomly map the pixels (see encode function for the correct construction of a pixelList)
-        var pixelList: IntArray = IntArray(numPixels)
-        var message: IntArray = IntArray(size)
+        // Randomly map the pixels
+        // Make an array of integers 0 - numberOfPixels and shuffle it
+        val random = Random(messageSeed)
+        var pixelList = IntArray(numberOfPixels) { it }
+        pixelList.shuffle(random)
 
-        var rules: Array<Rule> = arrayOf()
-        var pixelArrayIndex = 0
+        var message = IntArray(size)
+
         for (index in message.indices)
         {
             val rule = Rule(
@@ -300,22 +296,22 @@ class Pixel(val index: Int)
         val a: Int = colorInt.shr(24) and 0xff // or color >>> 24
 
         var r: Int = colorInt.shr(16) and 0xff
-        if (r <= 253) {
-            r += 2
+        if (r <= 250) {
+            r += 5
         } else {
             r = 255
         }
 
         var g: Int = colorInt.shr( 8 ) and 0xff
-        if (g <= 253) {
-            g += 2
+        if (g <= 250) {
+            g += 5
         } else {
             g = 255
         }
 
         var b: Int = colorInt and 0xff
-        if (b <= 253) {
-            b += 2
+        if (b <= 250) {
+            b += 5
         } else {
             b = 255
         }
@@ -337,20 +333,20 @@ class Pixel(val index: Int)
 
         val a: Int = colorInt.shr(24) and 0xff // or color >>> 24
         var r: Int = colorInt.shr(16) and 0xff
-        if (r > 2) {
-            r -= 2
+        if (r > 5) {
+            r -= 5
         } else {
             r = 0
         }
         var g: Int = colorInt.shr( 8 ) and 0xff
-        if (g > 2) {
-            g -= 2
+        if (g > 5) {
+            g -= 5
         } else {
             g = 0
         }
         var b: Int = colorInt and 0xff
-        if (b > 2) {
-            b -= 2
+        if (b > 5) {
+            b -= 5
         } else {
             b = 0
         }
