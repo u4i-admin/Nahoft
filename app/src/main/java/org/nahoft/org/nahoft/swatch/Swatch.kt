@@ -216,6 +216,7 @@ fun bitsFromBytes(bytes: ByteArray): IntArray
     return result
 }
 
+@ExperimentalUnsignedTypes
 fun bytesFromBits(bits: List<Int>): ByteArray?
 {
     if (bits.size % 8 != 0)
@@ -297,10 +298,29 @@ class Pixel(val index: Int)
         val colorInt = bitmap.getPixel(x, y)
         val color = Color.valueOf(colorInt)
         val a: Int = colorInt.shr(24) and 0xff // or color >>> 24
-        val r: Int = colorInt.shr(16) and 0xff
-        val g: Int = colorInt.shr( 8 ) and 0xff
-        val b: Int = colorInt and 0xff
-        val newColor = Color.argb(a, r + 1, g + 1, b + 1)
+
+        var r: Int = colorInt.shr(16) and 0xff
+        if (r <= 253) {
+            r += 2
+        } else {
+            r = 255
+        }
+
+        var g: Int = colorInt.shr( 8 ) and 0xff
+        if (g <= 253) {
+            g += 2
+        } else {
+            g = 255
+        }
+
+        var b: Int = colorInt and 0xff
+        if (b <= 253) {
+            b += 2
+        } else {
+            b = 255
+        }
+
+        val newColor = Color.argb(a, r, g, b)
         return newColor
     }
 
@@ -316,12 +336,26 @@ class Pixel(val index: Int)
 //        val b = color.blue()
 
         val a: Int = colorInt.shr(24) and 0xff // or color >>> 24
-        val r: Int = colorInt.shr(16) and 0xff
-        val g: Int = colorInt.shr( 8 ) and 0xff
-        val b: Int = colorInt and 0xff
+        var r: Int = colorInt.shr(16) and 0xff
+        if (r > 2) {
+            r -= 2
+        } else {
+            r = 0
+        }
+        var g: Int = colorInt.shr( 8 ) and 0xff
+        if (g > 2) {
+            g -= 2
+        } else {
+            g = 0
+        }
+        var b: Int = colorInt and 0xff
+        if (b > 2) {
+            b -= 2
+        } else {
+            b = 0
+        }
 
-
-        val newColor = Color.argb(a, r - 1, g - 1, b - 1)
+        val newColor = Color.argb(a, r, g, b)
         return newColor
     }
 }
@@ -421,44 +455,73 @@ class Rule(var patch0: Patch, var patch1: Patch, var constraint: Constraint)
         // Decide which patch to alter randomly
         // And then alter one pixel in that patch according to the constraint
         // TODO: Refactor modifyBrightness so that we don't need this if/else (It should brighten and darken, not do one or the other)
-        if (Random.nextBoolean())
-        {
-            workingBitmap = modifyBrightness(patch0, workingBitmap, directions, pixelList)
-        }
-        else
-        {
-            workingBitmap = modifyBrightness(patch1, workingBitmap, directions, pixelList)
-        }
+        workingBitmap = modifyBrightness(workingBitmap, directions, pixelList)
+
 
         return workingBitmap
     }
 
-    // Picks a random pixel from the patch changes the color of the pixel to be darker
-    fun modifyBrightness(patch: Patch, bitmap: Bitmap, directions: Bitmap, pixelList: IntArray): Bitmap
+
+    fun modifyBrightness(bitmap: Bitmap, directions: Bitmap, pixelList: IntArray): Bitmap
     {
         val workingBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
-
-        while (!validate(workingBitmap, pixelList))
+        // TODO: Refactor to remove code duplication in this if/else
+        if (Random.nextBoolean())
         {
-            for (point in patch.points)
-            {
-                val y = point.toY(workingBitmap, pixelList)
-                val x = point.toX(workingBitmap, pixelList)
-                val direction = directions.getPixel(x, y)
+            while (!validate(workingBitmap, pixelList)) {
+                for (point in patch0.points) {
+                    val y = point.toY(workingBitmap, pixelList)
+                    val x = point.toX(workingBitmap, pixelList)
+                    val direction = directions.getPixel(x, y)
 
-                val newValue = when (direction) {
-                    Color.BLUE -> point.darken(workingBitmap, pixelList)
-                    Color.GREEN -> point.brighten(workingBitmap, pixelList)
-                    else -> null
+                    // Picks a random pixel from the patch changes the color of the pixel to be darker
+                    val newValue = when (direction) {
+                        Color.BLUE -> point.darken(workingBitmap, pixelList)
+                        Color.GREEN -> point.brighten(workingBitmap, pixelList)
+                        else -> null
+                    }
+
+                    if (newValue == null) {
+                        return workingBitmap
+                    }
+                    workingBitmap.set(x, y, newValue)
+
+                    if (validate(workingBitmap, pixelList)) {
+                        return workingBitmap
+                    }
                 }
 
-                if (newValue == null) { return workingBitmap }
-                workingBitmap.set(x, y, newValue)
-
-                if (validate(workingBitmap, pixelList)) { return workingBitmap }
+                print("modify has iterated through all of the points in a patch0.")
             }
+        }
+        else
+        {
+            while (!validate(workingBitmap, pixelList)) {
+                for (point in patch1.points) {
+                    val y = point.toY(workingBitmap, pixelList)
+                    val x = point.toX(workingBitmap, pixelList)
+                    val direction = directions.getPixel(x, y)
 
-            print("modify has iterated through all of the points in a patch.")
+                    // Picks a random pixel from the patch changes the color of the pixel to be darker
+                    val newValue = when (direction) {
+                        // FIXME: Experiment, lighten/darken directions should be opposite of patch0?
+                        Color.BLUE -> point.brighten(workingBitmap, pixelList)
+                        Color.GREEN -> point.darken(workingBitmap, pixelList)
+                        else -> null
+                    }
+
+                    if (newValue == null) {
+                        return workingBitmap
+                    }
+                    workingBitmap.set(x, y, newValue)
+
+                    if (validate(workingBitmap, pixelList)) {
+                        return workingBitmap
+                    }
+                }
+
+                print("modify has iterated through all of the points in a patch1.")
+            }
         }
 
         return workingBitmap
