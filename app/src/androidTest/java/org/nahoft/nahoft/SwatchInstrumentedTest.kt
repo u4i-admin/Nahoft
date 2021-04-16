@@ -11,6 +11,18 @@ class SwatchInstrumentedTest {
 
     @ExperimentalUnsignedTypes
     @Test
+    fun swatchEncodeTest() {
+        val swatch = Swatch()
+        val someData = byteArrayOf(0)
+        val encrypted = Encryption().encryptLengthData(someData)
+        val url = URL("https://64.media.tumblr.com/ae7aa5c431127e95f4473efda39f06e5/tumblr_nkymoccyIH1tlnaoto1_500.jpg")
+        val bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+        val encoded = swatch.encode(encrypted, bitmap)
+        Assert.assertNotNull(encoded)
+    }
+
+    @ExperimentalUnsignedTypes
+    @Test
     fun swatchEncodeDecodeTest() {
         val swatch = Swatch()
         val someData = byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
@@ -22,6 +34,16 @@ class SwatchInstrumentedTest {
         var decoded = ByteArray(42)
         if (encoded != null) decoded = swatch.decode(encoded)!!
         Assert.assertEquals(encrypted, decoded)
+    }
+
+    @Test
+    fun testLengthEncryption() {
+        val encryption = Encryption()
+        val length = "48"
+        val lengthData = length.encodeToByteArray()
+        val encryptedLength = encryption.encryptLengthData(lengthData)
+        val decryptedLength = encryption.decryptLengthData(encryptedLength)
+        Assert.assertEquals(encryptedLength, decryptedLength)
     }
 
     @ExperimentalUnsignedTypes

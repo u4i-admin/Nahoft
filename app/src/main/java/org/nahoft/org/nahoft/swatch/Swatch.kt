@@ -4,12 +4,14 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.Point
 import android.net.Uri
 import androidx.core.graphics.set
 import org.nahoft.codex.Encryption
-import org.nahoft.org.nahoft.swatch.Solver
+import org.nahoft.org.nahoft.swatch.*
 import org.nahoft.stencil.CapturePhotoUtils
 import java.nio.ByteBuffer
+import kotlin.math.absoluteValue
 import kotlin.random.Random
 
 val lengthMessageSeed = 1
@@ -130,9 +132,11 @@ class Swatch {
 
     fun decode(bitmap: Bitmap): ByteArray?
     {
-        val lengthBitsSize = java.lang.Integer.BYTES * 8
+        //val lengthBitsSize = java.lang.Integer.BYTES * 8
+        val lengthBitsSize = 16 * 8
         val lengthBits = decode(bitmap, lengthBitsSize, lengthMessageSeed)
 
+        // FIXME: Ciphertext is wrong length
         if (lengthBits == null) { return null }
         lengthBits?.let {
             val encryptedLengthBytes = bytesFromBits(lengthBits)
@@ -277,80 +281,97 @@ class Pixel(val index: Int)
         return index / bitmap.width
     }
 
-    fun brightness(bitmap: Bitmap, pixelList: IntArray): Float
-    {
-        val y = toY(bitmap, pixelList)
-        val x = toX(bitmap, pixelList)
-        var hsv = FloatArray(3)
-        val color = bitmap.getPixel(x, y)
-        Color.colorToHSV(color, hsv)
-        return hsv[2] // V
-    }
-
-    fun brighten(bitmap: Bitmap, pixelList: IntArray): Int
+    fun brightness(bitmap: Bitmap, pixelList: IntArray): Int
     {
         val y = toY(bitmap, pixelList)
         val x = toX(bitmap, pixelList)
         val colorInt = bitmap.getPixel(x, y)
         val color = Color.valueOf(colorInt)
-        val a: Int = colorInt.shr(24) and 0xff // or color >>> 24
-
-        var r: Int = colorInt.shr(16) and 0xff
-        if (r <= 250) {
-            r += 5
-        } else {
-            r = 255
-        }
-
-        var g: Int = colorInt.shr( 8 ) and 0xff
-        if (g <= 250) {
-            g += 5
-        } else {
-            g = 255
-        }
-
-        var b: Int = colorInt and 0xff
-        if (b <= 250) {
-            b += 5
-        } else {
-            b = 255
-        }
-
-        val newColor = Color.argb(a, r, g, b)
-        return newColor
+        return color.brightness()
     }
 
-    fun darken(bitmap: Bitmap, pixelList: IntArray): Int
+
+
+    fun brighten(bitmap: Bitmap, pixelList: IntArray, targetBrightness: Int): Int?
     {
         val y = toY(bitmap, pixelList)
         val x = toX(bitmap, pixelList)
         val colorInt = bitmap.getPixel(x, y)
-//        val color = Color.valueOf(colorInt)
-//        val a = color.alpha()
-//        val r = color.red()
-//        val g = color.green()
-//        val b = color.blue()
+        val color = Color.valueOf(colorInt)
+        val a: Int = color.alphaInt()
+        var r: Int = color.redInt()
+        var g: Int = color.greenInt()
+        var b: Int = color.blueInt()
+        var offsetAmount = targetBrightness * 3
 
-        val a: Int = colorInt.shr(24) and 0xff // or color >>> 24
-        var r: Int = colorInt.shr(16) and 0xff
-        if (r > 5) {
-            r -= 5
-        } else {
-            r = 0
-        }
-        var g: Int = colorInt.shr( 8 ) and 0xff
-        if (g > 5) {
-            g -= 5
-        } else {
-            g = 0
-        }
-        var b: Int = colorInt and 0xff
-        if (b > 5) {
-            b -= 5
-        } else {
-            b = 0
+        // If any of the values are already 255 don't modify this pixel
+        if (r == 255 || b == 255 || g == 255) { return null }
+
+        // If the offsetAmount will cause any of the color values to exceed 255,
+        // change the value to a number that will cause that color value to be exactly 255
+        if ((r + offsetAmount) > 255)
+        {
+            offsetAmount = 255 - r
         }
 
+        if ((g + offsetAmount) > 255)
+        {
+            offsetAmount = 255 - g
+        }
+
+        if ((b + offsetAmount) > 255)
+        {
+            offsetAmount = 255 - b
+        }
+
+        // Increase each color value by the settled on offsetAmount
+        r += offsetAmount
+        g += offsetAmount
+        b += offsetAmount
+
+        // Return the new correct color for this pixel
+        val newColor = Color.argb(a, r, g, b)
+        return newColor
+    }
+
+    fun darken(bitmap: Bitmap, pixelList: IntArray, targetBrightness: Int): Int?
+    {
+        val y = toY(bitmap, pixelList)
+        val x = toX(bitmap, pixelList)
+        val colorInt = bitmap.getPixel(x, y)
+        val color = Color.valueOf(colorInt)
+        var offsetAmount = targetBrightness * 3
+        val a = color.alphaInt()
+        var r = color.redInt()
+        var g = color.greenInt()
+        var b = color.blueInt()
+
+        // If any of the values are already 0 don't modify this pixel
+        if (r == 0 || b == 0 || g == 0) { return null }
+
+        // If the offsetAmount will cause any of the color values to exceed 255,
+        // change the value to a number that will cause that color value to be exactly 255
+        if ((r - offsetAmount) < 0)
+        {
+            offsetAmount = r
+        }
+
+        if ((g - offsetAmount) < 0)
+        {
+            offsetAmount = g
+        }
+
+        if ((b - offsetAmount) < 0)
+        {
+            offsetAmount = b
+        }
+
+        // Increase each color value by the settled on offsetAmount
+        r -= offsetAmount
+        g -= offsetAmount
+        b -= offsetAmount
+
+        // Return the new correct color for this pixel
         val newColor = Color.argb(a, r, g, b)
         return newColor
     }
@@ -403,7 +424,7 @@ class Rule(var patch0: Patch, var patch1: Patch, var constraint: Constraint)
             print("Error removing conflicts from a patch, all points were in conflict.")
             return false
         }
-        patch0.points = patch0NotConflicts
+        patch0.pointsToModify = patch0NotConflicts
 
         val patch1NotConflicts = removeConflictedPixelsForPatch(patch1, directions, pixelList)
         if (patch1NotConflicts.isEmpty())
@@ -411,12 +432,12 @@ class Rule(var patch0: Patch, var patch1: Patch, var constraint: Constraint)
             print("Error removing conflicts from a patch, all points were in conflict.")
             return false
         }
-        patch1.points = patch1NotConflicts
+        patch1.pointsToModify = patch1NotConflicts
 
         return true
     }
 
-    fun removeConflictedPixelsForPatch(patch: Patch, directions: Bitmap, pixelList: IntArray): List<Pixel>
+    fun removeConflictedPixelsForPatch(patch: Patch, directions: Bitmap, pixelList: IntArray): MutableList<Pixel>
     {
         var notConflictsList = patch.points.toMutableList()
 
@@ -461,29 +482,47 @@ class Rule(var patch0: Patch, var patch1: Patch, var constraint: Constraint)
     fun modifyBrightness(bitmap: Bitmap, directions: Bitmap, pixelList: IntArray): Bitmap
     {
         val workingBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
-        // TODO: Refactor to remove code duplication in this if/else
+        val patch0Brightness = patch0.brightness(bitmap, pixelList)
+        val patch1Brightness = patch1.brightness(bitmap, pixelList)
+        val brightnessDifference = (patch0Brightness - patch1Brightness)
+
         if (Random.nextBoolean())
         {
-            while (!validate(workingBitmap, pixelList)) {
-                for (point in patch0.points) {
+            while (!validate(workingBitmap, pixelList))
+            {
+                var brightnessDifferencePerPixel = brightnessDifference / patch0.pointsToModify.size
+                if (brightnessDifferencePerPixel < 1) brightnessDifferencePerPixel = 1
+
+                var unchangeablePixels = emptyList<Pixel>().toMutableList()
+                for (unPixel in unchangeablePixels) {
+                    patch1.pointsToModify.remove(unPixel)
+                }
+
+                for (point in patch0.pointsToModify) {
                     val y = point.toY(workingBitmap, pixelList)
                     val x = point.toX(workingBitmap, pixelList)
                     val direction = directions.getPixel(x, y)
 
                     // Picks a random pixel from the patch changes the color of the pixel to be darker
                     val newValue = when (direction) {
-                        Color.BLUE -> point.darken(workingBitmap, pixelList)
-                        Color.GREEN -> point.brighten(workingBitmap, pixelList)
+                        // TODO: brightness difference is not what we want to pass here, instead pass the target brightness
+                        Color.BLUE ->
+                            point.darken(workingBitmap, pixelList, brightnessDifferencePerPixel)
+                        Color.GREEN -> point.brighten(workingBitmap, pixelList, brightnessDifferencePerPixel)
                         else -> null
                     }
 
-                    if (newValue == null) {
-                        return workingBitmap
-                    }
-                    workingBitmap.set(x, y, newValue)
 
-                    if (validate(workingBitmap, pixelList)) {
-                        return workingBitmap
+                    if (newValue == null) {
+                        // If darken or brighten returns null, this point should not be modified
+                        unchangeablePixels.add(point)
+                    } else {
+                        workingBitmap.set(x, y, newValue)
+
+                         if (validate(workingBitmap, pixelList)) {
+                            validate(workingBitmap, pixelList) // FIXME: Debug only
+                            return workingBitmap
+                        }
                     }
                 }
 
@@ -492,8 +531,16 @@ class Rule(var patch0: Patch, var patch1: Patch, var constraint: Constraint)
         }
         else
         {
-            while (!validate(workingBitmap, pixelList)) {
-                for (point in patch1.points) {
+            while (!validate(workingBitmap, pixelList))
+            {
+                val brightnessDifferencePerPixel = brightnessDifference / patch1.pointsToModify.size
+                var unchangeablePixels = emptyList<Pixel>().toMutableList()
+                for (unPixel in unchangeablePixels) {
+                    patch1.pointsToModify.remove(unPixel)
+                }
+
+                for (point in patch1.pointsToModify)
+                {
                     val y = point.toY(workingBitmap, pixelList)
                     val x = point.toX(workingBitmap, pixelList)
                     val direction = directions.getPixel(x, y)
@@ -501,18 +548,20 @@ class Rule(var patch0: Patch, var patch1: Patch, var constraint: Constraint)
                     // Picks a random pixel from the patch changes the color of the pixel to be darker
                     val newValue = when (direction) {
                         // FIXME: Experiment, lighten/darken directions should be opposite of patch0?
-                        Color.BLUE -> point.brighten(workingBitmap, pixelList)
-                        Color.GREEN -> point.darken(workingBitmap, pixelList)
+                        Color.BLUE -> point.brighten(workingBitmap, pixelList, brightnessDifferencePerPixel)
+                        Color.GREEN -> point.darken(workingBitmap, pixelList, brightnessDifferencePerPixel)
                         else -> null
                     }
 
                     if (newValue == null) {
-                        return workingBitmap
-                    }
-                    workingBitmap.set(x, y, newValue)
+                        // If darken or brighten returns null, this point should not be modified
+                        unchangeablePixels.add(point)
+                    } else {
+                        workingBitmap.set(x, y, newValue)
 
-                    if (validate(workingBitmap, pixelList)) {
-                        return workingBitmap
+                        if (validate(workingBitmap, pixelList)) {
+                            return workingBitmap
+                        }
                     }
                 }
 
@@ -527,8 +576,9 @@ class Rule(var patch0: Patch, var patch1: Patch, var constraint: Constraint)
 class Patch(val patchIndex: Int, val size: Int)
 {
     var points = IntArray(size).mapIndexed { index, value -> Pixel(patchIndex * size + index)}
+    var pointsToModify = emptyList<Pixel>().toMutableList()
 
-    fun brightness(bitmap: Bitmap, pixelList: IntArray): Float
+    fun brightness(bitmap: Bitmap, pixelList: IntArray): Int
     {
         val values = points.map { pixel -> pixel.brightness(bitmap, pixelList) }
         return values.sum()

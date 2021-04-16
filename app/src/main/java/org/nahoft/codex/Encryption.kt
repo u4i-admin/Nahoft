@@ -76,6 +76,7 @@ class Encryption()
         val key = SecretKeySpec(keyBytes, "AES")
         val ivBytes = base64Decoder.decode(messageLengthIV)
         val iv = IvParameterSpec(ivBytes)
+        // FIXME: We don't want padding, let's keep these messages small
         val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
         cipher.init(Cipher.ENCRYPT_MODE, key, iv)
         val ciphertext: ByteArray = cipher.doFinal(lengthData)
