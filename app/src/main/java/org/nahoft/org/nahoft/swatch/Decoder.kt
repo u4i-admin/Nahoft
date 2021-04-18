@@ -7,9 +7,9 @@ import android.net.Uri
 import org.nahoft.codex.Encryption
 import org.nahoft.swatch.*
 import java.nio.ByteBuffer
-import kotlin.random.Random
 
 class Decoder {
+    @kotlin.ExperimentalUnsignedTypes
     fun decode(context: Context, uri: Uri): ByteArray?
     {
         val bitmap = BitmapFactory.decodeStream(context.contentResolver.openInputStream(uri))
@@ -17,27 +17,22 @@ class Decoder {
         return decode(bitmap)
     }
 
+    @kotlin.ExperimentalUnsignedTypes
     fun decode(bitmap: Bitmap): ByteArray?
     {
-        //val lengthBitsSize = java.lang.Integer.BYTES * 8
-        val lengthBitsSize = 16 * 8
-        val lengthBits = decode(bitmap, lengthBitsSize, lengthMessageSeed)
+        val lengthBitsSize = java.lang.Short.BYTES * 8
+        val lengthBits = decode(bitmap, lengthBitsSize, lengthMessageKey)
 
         // FIXME: Ciphertext is wrong length
         if (lengthBits == null) { return null }
-        lengthBits?.let {
-            val encryptedLengthBytes = bytesFromBits(lengthBits)
-            encryptedLengthBytes?.let {
-                val lengthBytes = Encryption().decryptLengthData(encryptedLengthBytes)
-                val length = ByteBuffer.wrap(lengthBytes).getInt()
-                val messageBits = decode(bitmap, length, payloadMessageSeed)
-                if (messageBits == null)
-                { return null }
-                return bytesFromBits(messageBits)
-            }
-        }
+        val encryptedLengthBytes = bytesFromBits(lengthBits)
+        if (encryptedLengthBytes == null) { return null }
 
-        return null
+        val lengthBytes = Swatch.unpolish(encryptedLengthBytes, lengthMessageKey)
+        val length = ByteBuffer.wrap(lengthBytes).getInt()
+        val messageBits = decode(bitmap, length, payloadMessageKey)
+        if (messageBits == null) { return null }
+        return bytesFromBits(messageBits)
     }
 
     fun decode(bitmap: Bitmap, size: Int, messageSeed: Int): List<Int>?
@@ -56,6 +51,7 @@ class Decoder {
         for (index in message.indices)
         {
             val detector = Detector(index, patchSize, mapped)
+            val rule = Rule(index, patchSize, EncoderConstraint.LESS, mapped)
 
             when (detector.constraint)
             {

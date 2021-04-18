@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import kotlin.math.absoluteValue
 
-class Rule(val ruleIndex: Int, patchSize: Int, val constraint: EncoderConstraint, var bitmap: MappedBitmap) {
+class Rule(val ruleIndex: Int, val patchSize: Int, val constraint: EncoderConstraint, var bitmap: MappedBitmap) {
     var patch0: Patch
     var patch1: Patch
 
@@ -49,41 +49,34 @@ class Rule(val ruleIndex: Int, patchSize: Int, val constraint: EncoderConstraint
         return valid
     }
 
-    fun removeConflictedPixels(directions: Bitmap): Boolean {
-        val patch0GoodPixels = removeConflictedPixelsForPatch(patch0, directions)
-        if (patch0GoodPixels.isEmpty()) {
-            print("Error removing conflicts from a patch, all points were in conflict.")
-            return false
-        }
-        patch0.pointsToModify = patch0GoodPixels
+    fun check(): Boolean {
+        if (!patch0.brightnessCheck()) {return false}
+        if (!patch1.brightnessCheck()) {return false}
 
-        val patch1GoodPixels = removeConflictedPixelsForPatch(patch1, directions)
-        if (patch1GoodPixels.isEmpty()) {
+        val checked = when (constraint) {
+            EncoderConstraint.GREATER -> patch0.brightness > patch1.brightness
+            EncoderConstraint.LESS -> patch0.brightness < patch1.brightness
+        }
+
+        return checked
+    }
+
+    fun removeConflictedPixels(directions: Bitmap): Boolean {
+        if (!patch0.removeConflictedPixels(constraint, directions)) {
             print("Error removing conflicts from a patch, all points were in conflict.")
             return false
         }
-        patch1.pointsToModify = patch1GoodPixels
+
+        // Note that the constraint is inverted for patch1.
+        if (!patch1.removeConflictedPixels(constraint.invert(), directions)) {
+            print("Error removing conflicts from a patch, all points were in conflict.")
+            return false
+        }
 
         return true
     }
 
-    private fun removeConflictedPixelsForPatch(patch: Patch, directions: Bitmap): MutableList<Pixel> {
-        var goodPixels = patch.pixels.toMutableList()
-
-        for (point in patch.pixels) {
-            val pixelColor = directions.getPixel(point.x, point.y)
-
-            val goodColor = constraint.getPixelColor()
-
-            if (pixelColor != goodColor) {
-                goodPixels.remove(point)
-            }
-        }
-
-        return goodPixels
-    }
-
-    fun constrain(directions: Bitmap): Boolean {
+    fun constrain(directions: Bitmap, forbiddenSet: Set<MappedPixel> = emptySet()): Boolean {
         // If the working bitmap is already valid, return it
         if (valid) {
             return true
@@ -98,7 +91,7 @@ class Rule(val ruleIndex: Int, patchSize: Int, val constraint: EncoderConstraint
         return modifyBrightness()
     }
 
-    fun modifyBrightness(): Boolean {
+    fun modifyBrightness(forbiddenSet: Set<MappedPixel> = emptySet()): Boolean {
         while (!validate()) {
             // Not valid, but no brightness gap? Weird, give up.
             if (brightnessGap == 0) {
@@ -122,46 +115,17 @@ class Rule(val ruleIndex: Int, patchSize: Int, val constraint: EncoderConstraint
                 EncoderConstraint.LESS    -> EncoderConstraint.GREATER
             }
 
-            modifyPatchBrightness(patch0, patch0Direction, patchBrightnessGap)
-            modifyPatchBrightness(patch1, patch1Direction, patchBrightnessGap)
+            val patch0Change = patch0.modifyBrightness(patch0Direction, patchBrightnessGap, forbiddenSet)
+            val patch1Change = patch1.modifyBrightness(patch1Direction, patchBrightnessGap, forbiddenSet)
+
+            if (patch0Change == 0 && patch1Change == 0) {
+                // Failure. Did not achieve target brightness gap between patches and modifying patch brightness failed.
+                return false
+            }
         }
 
+        // Success. Achieved target brightness gap between patches, as indicated by exiting the main loop.
         return true
-    }
-
-    fun modifyPatchBrightness(patch: Patch, direction: EncoderConstraint, patchBrightnessGap: Int): Boolean {
-        if (patchBrightnessGap == 0) {
-            // Success!
-            return true
-        }
-
-        var patchBrightnessDifferencePerPixel = patchBrightnessGap / patch.pointsToModify.size
-        if (patchBrightnessDifferencePerPixel == 0) {
-            // Deal with rounding to 0
-            patchBrightnessDifferencePerPixel = 1
-        }
-
-        var unchangeablePixels = emptyList<Pixel>().toMutableList()
-
-        for (point in patch.pointsToModify) {
-            // Picks a random pixel from the patch changes the color of the pixel to be darker
-            val changeInBrightness = when (direction) {
-                EncoderConstraint.GREATER -> point.brighten(patchBrightnessDifferencePerPixel)
-                EncoderConstraint.LESS -> point.darken(patchBrightnessDifferencePerPixel)
-            }
-
-            if (changeInBrightness == 0) {
-                unchangeablePixels.add(point)
-            } else if (validate()) {
-                return true
-            }
-        }
-
-        for (unPixel in unchangeablePixels) {
-            patch.pointsToModify.remove(unPixel)
-        }
-
-        return false
     }
 }
 
@@ -175,5 +139,12 @@ fun EncoderConstraint.getPixelColor(): Int {
     return when (this) {
         EncoderConstraint.GREATER -> Color.GREEN
         EncoderConstraint.LESS -> Color.BLUE
+    }
+}
+
+fun EncoderConstraint.invert(): EncoderConstraint {
+    when (this) {
+        EncoderConstraint.GREATER -> return EncoderConstraint.LESS
+        EncoderConstraint.LESS -> return EncoderConstraint.GREATER
     }
 }

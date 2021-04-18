@@ -8,6 +8,7 @@ import org.nahoft.codex.Encryption
 import org.nahoft.stencil.CapturePhotoUtils
 import java.nio.ByteBuffer
 import org.nahoft.swatch.Swatch
+import org.nahoft.swatch.lengthMessageKey
 
 class Encoder {
     @ExperimentalUnsignedTypes
@@ -25,10 +26,9 @@ class Encoder {
 
     @ExperimentalUnsignedTypes
     fun encode(encrypted: ByteArray, cover: Bitmap): Bitmap? {
-        val messageLength = encrypted.size.toInt() // Length measured in bytes
-        val lengthBytes =
-            ByteBuffer.allocate(java.lang.Integer.BYTES).putInt(messageLength).array()
-        val encryptedLengthBytes = Encryption().encryptLengthData(lengthBytes)
+        val messageLength = encrypted.size.toShort() // Length measured in bytes
+        val lengthBytes = ByteBuffer.allocate(java.lang.Short.BYTES).putShort(messageLength).array()
+        val encryptedLengthBytes = Swatch.polish(lengthBytes, lengthMessageKey)
         val lengthBits = bitsFromBytes(encryptedLengthBytes)
         val lengthBitsSize = lengthBits.size
 

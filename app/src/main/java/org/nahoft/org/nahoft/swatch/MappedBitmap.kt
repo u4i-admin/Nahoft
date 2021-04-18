@@ -1,7 +1,6 @@
 package org.nahoft.org.nahoft.swatch
 
 import android.graphics.Bitmap
-import org.nahoft.swatch.lengthMessageSeed
 import kotlin.random.Random
 
 class MappedBitmap(var bitmap: Bitmap, key: Int) {
@@ -32,6 +31,21 @@ class MappedBitmap(var bitmap: Bitmap, key: Int) {
         val x = mappedIndex % bitmap.width
         val y = mappedIndex / bitmap.width
 
+        // FIXME - remove
+        if (x == 5 && y == 445) {
+            print("Known bad pixel")
+        }
+
         return bitmap.setPixel(x, y, color)
+    }
+
+    fun getMappedX(index: Int): Int {
+        val mappedIndex = mapping[index]
+        return mappedIndex % bitmap.width
+    }
+
+    fun getMappedY(index: Int): Int {
+        val mappedIndex = mapping[index]
+        return mappedIndex / bitmap.width
     }
 }

@@ -7,7 +7,6 @@ import org.libsodium.jni.keys.PrivateKey
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.Persist.Companion.publicKeyPreferencesKey
-import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
@@ -67,33 +66,6 @@ class Encryption()
     fun ensureKeysExist(): Keys
     {
         return loadKeypair() ?: generateKeypair()
-    }
-
-    fun encryptLengthData(lengthData: ByteArray): ByteArray
-    {
-        val base64Decoder = Base64.getDecoder()
-        val keyBytes: ByteArray = base64Decoder.decode(messageLengthKey)
-        val key = SecretKeySpec(keyBytes, "AES")
-        val ivBytes = base64Decoder.decode(messageLengthIV)
-        val iv = IvParameterSpec(ivBytes)
-        // FIXME: We don't want padding, let's keep these messages small
-        val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
-        cipher.init(Cipher.ENCRYPT_MODE, key, iv)
-        val ciphertext: ByteArray = cipher.doFinal(lengthData)
-        return  ciphertext
-    }
-
-    fun decryptLengthData(ciphertext: ByteArray): ByteArray
-    {
-        val base64Decoder = Base64.getDecoder()
-        val keyBytes: ByteArray = base64Decoder.decode(messageLengthKey)
-        val key = SecretKeySpec(keyBytes, "AES")
-        val ivBytes = base64Decoder.decode(messageLengthIV)
-        val iv = IvParameterSpec(ivBytes)
-        val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
-        cipher.init(Cipher.DECRYPT_MODE, key, iv)
-        val lengthData = cipher.doFinal(ciphertext)
-        return lengthData
     }
 
     @Throws(SecurityException::class)
