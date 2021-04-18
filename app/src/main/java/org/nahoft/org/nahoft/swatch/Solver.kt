@@ -6,7 +6,11 @@ import org.nahoft.swatch.*
 
 public class Solver(val coverImageBitmap: Bitmap, var messageARules: Array<Rule>, var messageBRules: Array<Rule>)
 {
-    var conflicts: Bitmap = coverImageBitmap.copy(Bitmap.Config.ARGB_8888, true)
+    var checkedPixelsA: MutableSet<Int> = mutableSetOf()
+    var checkedPixelsB: MutableSet<Int> = mutableSetOf()
+    var canBrighten: MutableSet<Int> = mutableSetOf()
+    var canDarken: MutableSet<Int> = mutableSetOf()
+    var conflicted: MutableSet<Int> = mutableSetOf()
 
     fun solve(): Boolean
     {
@@ -24,25 +28,31 @@ public class Solver(val coverImageBitmap: Bitmap, var messageARules: Array<Rule>
             // For each pixel in this rule's patch0
             // check for a conflict, and add it to conflicts bitmap if one is found
             // (bitmap is used only because it is a convenient data structure)
-            for (pixel in rule.patch0.pixels)
-            {
-                // FIXME - remove
-                if (pixel.mappedX == 242 && pixel.mappedY == 150) {
-                    print("Known bad pixel")
+            for (pixel in rule.patch0.pixels) {
+                when (rule.constraint) {
+                    EncoderConstraint.GREATER -> canBrighten.add(pixel.index)
+                    EncoderConstraint.LESS -> canDarken.add(pixel.index)
                 }
-                conflicts.setPixel(pixel.mappedX, pixel.mappedY, rule.constraint.getPixelColor())
+
+                checkedPixelsA.add(pixel.index)
             }
 
             // Now patch1
             // messageA patch1 (second patch)
             for (pixel in rule.patch1.pixels)
             {
-                // FIXME - remove
-                if (pixel.mappedX == 242 && pixel.mappedY == 150) {
-                    print("Known bad pixel")
+                if (checkedPixelsA.contains(pixel.index)) {
+                    val duplicatedIndex = pixel.index
+                    print("Error, duplicate pixel $duplicatedIndex")
+                    val duplicatedIndexIndex = checkedPixelsA.toList().indexOf(duplicatedIndex)
+                    print("Error, duplicate pixel $duplicatedIndexIndex")
                 }
+
                 // Note that the constraint is inverted for patch1.
-                conflicts.setPixel(pixel.mappedX, pixel.mappedY, rule.constraint.invert().getPixelColor())
+                when (rule.constraint) {
+                    EncoderConstraint.LESS -> canBrighten.add(pixel.index)
+                    EncoderConstraint.GREATER -> canDarken.add(pixel.index)
+                }
             }
         }
 
@@ -50,50 +60,76 @@ public class Solver(val coverImageBitmap: Bitmap, var messageARules: Array<Rule>
         {
             for (pixel in rule.patch0.pixels)
             {
-                // FIXME - remove
-                if (pixel.mappedX == 242 && pixel.mappedY == 150) {
-                    print("Known bad pixel")
+                checkedPixelsA.add(pixel.index)
+
+                if (rule.constraint == EncoderConstraint.GREATER) {
+                    if (canBrighten.contains(pixel.index)) {
+                        // Compatible constraints
+                        continue
+                    } else if(canDarken.contains(pixel.index)) {
+                        // Conflict
+                        conflicted.add(pixel.index)
+                    } else {
+                        print("Weird stray pixel. Suspicious.")
+                    }
+                } else {
+                    if (canDarken.contains(pixel.index)) {
+                        // Compatible constraints
+                        continue
+                    } else if (canBrighten.contains(pixel.index)) {
+                        // Conflict
+                        conflicted.add(pixel.index)
+                    } else {
+                        print("Weird stray pixel. Suspicious.")
+                    }
                 }
-
-                val oldColor = conflicts.getPixel(pixel.mappedX, pixel.mappedY)
-
-                val newColor = getPixelColor(oldColor, rule.constraint)
-                conflicts.setPixel(pixel.mappedX, pixel.mappedY, newColor)
             }
 
             for (pixel in rule.patch1.pixels)
             {
-                // FIXME - remove
-                if (pixel.mappedX == 242 && pixel.mappedY == 150) {
-                    print("Known bad pixel")
+                if (checkedPixelsB.contains(pixel.index)) {
+                    print("Error, duplicate pixel")
                 }
 
-                val oldColor = conflicts.getPixel(pixel.mappedX, pixel.mappedY)
-
                 // Note that the constraint is inverted for patch1.
-                val newColor = getPixelColor(oldColor, rule.constraint.invert())
-                conflicts.setPixel(pixel.mappedX, pixel.mappedY, newColor)
+                if (rule.constraint == EncoderConstraint.LESS) {
+                    if (canBrighten.contains(pixel.index)) {
+                        // Compatible constraints
+                        continue
+                    } else if(canDarken.contains(pixel.index)) {
+                        // Conflict
+                        conflicted.add(pixel.index)
+                    } else {
+                        print("Weird stray pixel. Suspicious.")
+                    }
+                } else {
+                    if (canDarken.contains(pixel.index)) {
+                        // Compatible constraints
+                        continue
+                    } else if (canBrighten.contains(pixel.index)) {
+                        // Conflict
+                        conflicted.add(pixel.index)
+                    } else {
+                        print("Weird stray pixel. Suspicious.")
+                    }
+                }
             }
         }
-    }
 
-    fun getPixelColor(oldPixelColor: Int, constraint: EncoderConstraint): Int {
-        if (oldPixelColor == constraint.getPixelColor()) {
-            return oldPixelColor
-        } else {
-            return Color.RED
-        }
+        canBrighten.removeAll(conflicted)
+        canDarken.removeAll(conflicted)
     }
 
     fun constrain(): Boolean
     {
         val knownBadPixel = messageARules[0].patch0.pixels[5]
         val knownBadPixelColor0 = knownBadPixel.color
-        var forbiddenSet: MutableSet<MappedPixel> = mutableSetOf()
+        var forbiddenSet: MutableSet<Pixel> = mutableSetOf()
+        var forbiddenList: MutableList<Pixel> = mutableListOf()
         for ((index, rule) in messageARules.withIndex())
         {
             println("A: $index / $messageARules.size")
-            val success = rule.constrain(conflicts)
+            val success = rule.constrain(canBrighten, canDarken)
             if (!success) {
                 return false
             }
@@ -126,12 +162,13 @@ public class Solver(val coverImageBitmap: Bitmap, var messageARules: Array<Rule>
             forbiddenBrightnessBefore += pixelBrightness
             forbiddenBrightnessListBefore.add(pixelBrightness)
             forbiddenColorListBefore.add(pixel.color)
-            forbiddenSet.add(pixel.mapped)
+            forbiddenSet.add(pixel)
+            forbiddenList.add(pixel)
         }
 
         for (rule in messageBRules)
         {
-            val success = rule.constrain(conflicts, forbiddenSet)
+            val success = rule.constrain(canBrighten, canDarken)
             if (!success) {
                 return false
             }
@@ -149,8 +186,8 @@ public class Solver(val coverImageBitmap: Bitmap, var messageARules: Array<Rule>
             forbiddenColorListAfter.add(pixel.color)
         }
 
-        if (forbiddenBrightnessBefore != forbiddenBrightnessAfter) {
-            print("Failure")
+//        if (forbiddenBrightnessBefore != forbiddenBrightnessAfter) {
+//            print("Failure")
 //            for (index in 0..forbiddenBrightnessListBefore.size) {
 //                val before = forbiddenBrightnessListBefore[index]
 //                val after = forbiddenBrightnessListAfter[index]
@@ -163,28 +200,14 @@ public class Solver(val coverImageBitmap: Bitmap, var messageARules: Array<Rule>
 //                }
 //            }
 
-            for (index in 0..forbiddenColorListBefore.size) {
-                val before = forbiddenColorListBefore[index]
-                val after = forbiddenColorListAfter[index]
-                if (before != after) {
-                    print("Mismatch at $index")
-                }
-            }
-        }
-
-        // FIXME - remove
-        val rule = messageARules[0]
-        val checkRule = Rule(rule.ruleIndex, rule.patchSize, rule.constraint, rule.bitmap)
-        if (checkRule.patch0.brightness != rule.patch0.brightness) {
-            print("Brightness mismatch 0")
-            return false
-        }
-
-        // FIXME - remove
-        if (checkRule.patch1.brightness != rule.patch1.brightness) {
-            print("Brightness mismatch 1")
-            return false
-        }
+//            for (index in 0..forbiddenColorListBefore.size) {
+//                val before = forbiddenColorListBefore[index]
+//                val after = forbiddenColorListAfter[index]
+//                if (before != after) {
+//                    print("Mismatch at $index")
+//                }
+//            }
+//        }
 
         return true
     }

@@ -61,14 +61,14 @@ class Rule(val ruleIndex: Int, val patchSize: Int, val constraint: EncoderConstr
         return checked
     }
 
-    fun removeConflictedPixels(directions: Bitmap): Boolean {
-        if (!patch0.removeConflictedPixels(constraint, directions)) {
+    fun removeConflictedPixels(canBrighten: Set<Int>, canDarken: Set<Int>): Boolean {
+        if (!patch0.removeConflictedPixels(constraint, canBrighten, canDarken)) {
             print("Error removing conflicts from a patch, all points were in conflict.")
             return false
         }
 
         // Note that the constraint is inverted for patch1.
-        if (!patch1.removeConflictedPixels(constraint.invert(), directions)) {
+        if (!patch1.removeConflictedPixels(constraint.invert(), canBrighten, canDarken)) {
             print("Error removing conflicts from a patch, all points were in conflict.")
             return false
         }
@@ -76,14 +76,14 @@ class Rule(val ruleIndex: Int, val patchSize: Int, val constraint: EncoderConstr
         return true
     }
 
-    fun constrain(directions: Bitmap, forbiddenSet: Set<MappedPixel> = emptySet()): Boolean {
+    fun constrain(canBrighten: Set<Int>, canDarken: Set<Int>): Boolean {
         // If the working bitmap is already valid, return it
         if (valid) {
             return true
         }
 
         // If there is an error removing conflicted pixels, return null
-        val success = removeConflictedPixels(directions)
+        val success = removeConflictedPixels(canBrighten, canDarken)
         if (!success) {
             return false
         }

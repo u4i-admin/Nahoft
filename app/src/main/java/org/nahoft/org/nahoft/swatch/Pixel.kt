@@ -10,10 +10,6 @@ class Pixel(val index: Int, var bitmap: MappedBitmap)
     val y: Int
         get() = index / bitmap.width
 
-    val mapped = MappedPixel(bitmap.getMappedX(index), bitmap.getMappedX(index))
-    val mappedX = bitmap.getMappedX(index)
-    val mappedY = bitmap.getMappedY(index)
-
     val color: Int
         get() = bitmap.getPixel(index)
 
@@ -71,6 +67,11 @@ class Pixel(val index: Int, var bitmap: MappedBitmap)
         val newColor = Color.argb(a, r, g, b)
         bitmap.setPixel(index, newColor)
 
+        // FIXME - remove
+        if (index == 82343) {
+            print("Known bad pixel")
+        }
+
         var newBrightness = brightness()
 
         return (newBrightness - oldBrightness).absoluteValue
@@ -123,11 +124,18 @@ class Pixel(val index: Int, var bitmap: MappedBitmap)
         val newColor = Color.argb(a, r, g, b)
         bitmap.setPixel(index, newColor)
 
+        // FIXME - remove
+        if (index == 82343) {
+            print("Known bad pixel")
+        }
+
         var newBrightness = brightness()
 
         return (newBrightness - oldBrightness).absoluteValue
     }
 }
 
-class MappedPixel(val x: Int, val y: Int) {
+class MappedPixel(val x: Int, val y: Int, val bitmap: MappedBitmap) {
+    val index: Int
+        get() = y * bitmap.width + x
 }

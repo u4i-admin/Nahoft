@@ -66,6 +66,9 @@ class Encoder {
         if (rules1 == null) { return null }
         if (rules2 == null) { return null }
 
+        val check = checkRules(rules1, rules2)
+        if (!check) { return null }
+
         val solver = Solver(cover, rules1, rules2)
         val success = solver.solve()
         if (!success) {
@@ -73,6 +76,48 @@ class Encoder {
         }
 
         return cover
+    }
+
+    fun checkRules(aList: Array<Rule>, bList: Array<Rule>): Boolean {
+        var setA: MutableSet<Int> = mutableSetOf()
+        for (a in aList) {
+            for (pixel in a.patch0.pixels) {
+                if (setA.contains(pixel.index)) {
+                    return false
+                }
+
+                setA.add(pixel.index)
+            }
+
+            for (pixel in a.patch1.pixels) {
+                if (setA.contains(pixel.index)) {
+                    return false
+                }
+
+                setA.add(pixel.index)
+            }
+        }
+
+        var setB: MutableSet<Int> = mutableSetOf()
+        for (b in bList) {
+            for (pixel in b.patch0.pixels) {
+                if (setB.contains(pixel.index)) {
+                    return false
+                }
+
+                setB.add(pixel.index)
+            }
+
+            for (pixel in b.patch1.pixels) {
+                if (setB.contains(pixel.index)) {
+                    return false
+                }
+
+                setB.add(pixel.index)
+            }
+        }
+
+        return true
     }
 
     /// Generates an array of rules.

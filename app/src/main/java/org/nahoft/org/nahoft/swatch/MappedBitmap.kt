@@ -17,35 +17,16 @@ class MappedBitmap(var bitmap: Bitmap, key: Int) {
         get() = bitmap.width
 
     fun getPixel(index: Int): Int {
-        val mappedIndex = mapping[index]
-
-        val x = mappedIndex % bitmap.width
-        val y = mappedIndex / bitmap.width
+        val x = index % bitmap.width
+        val y = index / bitmap.width
 
         return bitmap.getPixel(x, y)
     }
 
     fun setPixel(index: Int, color: Int) {
-        val mappedIndex = mapping[index]
-
-        val x = mappedIndex % bitmap.width
-        val y = mappedIndex / bitmap.width
-
-        // FIXME - remove
-        if (x == 5 && y == 445) {
-            print("Known bad pixel")
-        }
+        val x = index % bitmap.width
+        val y = index / bitmap.width
 
         return bitmap.setPixel(x, y, color)
-    }
-
-    fun getMappedX(index: Int): Int {
-        val mappedIndex = mapping[index]
-        return mappedIndex % bitmap.width
-    }
-
-    fun getMappedY(index: Int): Int {
-        val mappedIndex = mapping[index]
-        return mappedIndex / bitmap.width
     }
 }

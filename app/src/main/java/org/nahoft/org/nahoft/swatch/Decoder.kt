@@ -29,8 +29,9 @@ class Decoder {
         if (encryptedLengthBytes == null) { return null }
 
         val lengthBytes = Swatch.unpolish(encryptedLengthBytes, lengthMessageKey)
-        val length = ByteBuffer.wrap(lengthBytes).getInt()
-        val messageBits = decode(bitmap, length, payloadMessageKey)
+        val length = ByteBuffer.wrap(lengthBytes).getShort().toInt()
+        val lengthInBits = length * 8
+        val messageBits = decode(bitmap, lengthInBits, payloadMessageKey)
         if (messageBits == null) { return null }
         return bytesFromBits(messageBits)
     }
@@ -51,7 +52,6 @@ class Decoder {
         for (index in message.indices)
         {
             val detector = Detector(index, patchSize, mapped)
-            val rule = Rule(index, patchSize, EncoderConstraint.LESS, mapped)
 
             when (detector.constraint)
             {

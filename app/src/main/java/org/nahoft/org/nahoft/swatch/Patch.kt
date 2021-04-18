@@ -14,7 +14,8 @@ class Patch(val patchIndex: Int, val size: Int, var bitmap: MappedBitmap)
 
         pixels = Array<Pixel>(size) { index ->
             val pixelIndex = (patchIndex * size) + index
-            val pixel = Pixel(pixelIndex, bitmap)
+            val mappedPixelIndex = bitmap.mapping[pixelIndex]
+            val pixel = Pixel(mappedPixelIndex, bitmap)
             brightness += pixel.brightness()
             pixel
         }
@@ -29,30 +30,23 @@ class Patch(val patchIndex: Int, val size: Int, var bitmap: MappedBitmap)
         return checked == brightness
     }
 
-    fun removeConflictedPixels(constraint: EncoderConstraint, directions: Bitmap): Boolean {
+    fun removeConflictedPixels(constraint: EncoderConstraint, canBrighten: Set<Int>, canDarken: Set<Int>): Boolean {
         var goodPixels = pixels.toMutableList()
 
-        if (patchIndex == 4) {
-            println("4")
-        }
-
         for (pixel in pixels) {
-            // FIXME - remove
-            if (pixel.mappedX == 5 && pixel.mappedY == 445) {
-                println("Known bad pixel")
-            }
-
-            val pixelColor = directions.getPixel(pixel.mappedX, pixel.mappedY)
-            val goodColor = constraint.getPixelColor()
-
-            if (pixelColor != goodColor) {
-                goodPixels.remove(pixel)
-
-                when (pixelColor) {
-                    Color.RED -> print("Red")
-                    Color.GREEN -> print("Green")
-                    Color.BLUE -> print("Blue")
-                    else -> print("Other")
+            if (constraint == EncoderConstraint.GREATER) {
+                if (canBrighten.contains(pixel.index)) {
+                    // Compatible constraints
+                    continue
+                } else {
+                    goodPixels.remove(pixel)
+                }
+            } else {
+                if (canDarken.contains(pixel.index)) {
+                    // Compatible constraints
+                    continue
+                } else {
+                    goodPixels.remove(pixel)
                 }
             }
         }
@@ -102,7 +96,7 @@ class Patch(val patchIndex: Int, val size: Int, var bitmap: MappedBitmap)
                 if (changeInBrightness == 0) {
                     unchangeablePixels.add(pixel)
                 } else {
-                    if (forbiddenSet.contains(pixel.mapped)) {
+                    if (forbiddenSet.contains(pixel)) {
                         print("Forbidden pixel modified")
                     }
 
