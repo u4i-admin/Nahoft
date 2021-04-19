@@ -22,7 +22,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="org.nahoft.nahoft.fileprovider"
+            android:authorities="org.nahoft.nahoft.fileprovider2"
             android:exported="false"
             android:grantUriPermissions="true"
             >

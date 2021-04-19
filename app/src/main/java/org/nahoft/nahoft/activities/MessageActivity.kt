@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 import kotlinx.android.synthetic.main.activity_message.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Encryption
@@ -60,7 +62,7 @@ class MessageActivity : AppCompatActivity() {
             val senderKey = PublicKey(senderKeyBytes)
 
             try {
-                val plaintext = Encryption(this).decrypt(senderKey, message.cipherText)
+                val plaintext = Encryption().decrypt(senderKey, message.cipherText)
                 message_body_text_view.text = plaintext
             } catch (exception: SecurityException) {
                 applicationContext.showAlert(getString(R.string.alert_text_unable_to_decrypt_message))
@@ -75,5 +77,13 @@ class MessageActivity : AppCompatActivity() {
             return
         }
     }
+    // TODO: Check with Adelita to make sure we did this correctly.
+    override fun onDestroy() {
+        super.onDestroy()
+        cleanUp()
+    }
 
+    private fun cleanUp () {
+        message = Message("", ByteArray(2))
+    }
 }

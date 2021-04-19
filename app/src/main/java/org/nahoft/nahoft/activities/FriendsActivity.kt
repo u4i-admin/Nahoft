@@ -19,6 +19,8 @@ import org.nahoft.nahoft.ui.ItemTouchHelperCallback
 
 class FriendsActivity : AppCompatActivity(), ItemDragListener {
 
+    //TODO: Ask Adelita if this is correct? Nothing to change here
+    //We wouldn't want to clear out a list of friends every time onDestroy is called right?
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: FriendsRecyclerAdapter
 

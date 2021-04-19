@@ -15,6 +15,8 @@ import org.nahoft.util.RequestCodes
 
 class VerifyFriendActivity : AppCompatActivity()
 {
+    //TODO: Ask Adelita if this is correct? Nothing to change here
+    //We wouldn't want to clear out a list of potential friends that could have sent a key every time onDestroy is called right?
 
     private lateinit var pendingFriend: Friend
 
@@ -60,7 +62,7 @@ class VerifyFriendActivity : AppCompatActivity()
         friend_security_number_text.text = friendKeyString.chunked(4).joinToString(" ")
 
         // Display user public key as security number (Uppercase and Grouped by 4s)
-        val userPublicKeyString = Encryption(this).ensureKeysExist().publicKey.toString().toUpperCase()
+        val userPublicKeyString = Encryption().ensureKeysExist().publicKey.toString().toUpperCase()
         user_security_number_text.text = userPublicKeyString.chunked(4).joinToString(" ")
     }
 

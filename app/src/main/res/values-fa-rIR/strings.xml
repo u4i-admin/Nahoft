@@ -297,13 +297,11 @@ Help Dialog Buttons
     <string name="alert_text_incorrect_passcode_length">کد عبور باید شش رقم باشد.</string>
 
     //Enter Passcode Activity
-    <string name="alert_text_eleven_login_attempts">یازده تلاش برای رمز عبور ناموفق تمام داده های برنامه پاک می شوند.</string>
     <string name="alert_text_zero_to_five_login_attempts">رمز عبور وارد شده نادرست است. لطفا دوباره تلاش کنید.</string>
     <string name="alert_text_sixth_login_attempt">رمز عبور وارد شده نادرست است. لطفاً بعد از این یک دقیقه قفل کردن دوباره امتحان کنید.</string>
     <string name="alert_text_seventh_login_attempt">رمز عبور وارد شده نادرست است. لطفا بعد از این پنج دقیقه قفل کردن دوباره امتحان کنید.</string>
     <string name="alert_text_eigth_login_attempt">رمز عبور وارد شده نادرست است. لطفاً بعد از این پانزده دقیقه قفل کردن دوباره امتحان کنید.</string>
-    <string name="alert_text_nineth_login_attempt">رمز عبور وارد شده نادرست است. لطفاً بعد از این سی دقیقه قفل کردن دوباره امتحان کنید.</string>
-    <string name="alert_text_tenth_login_attempt">رمز عبور وارد شده نادرست است.این آخرین مرحله بسته شدن شما است. تمام داده ها پس از تلاش ورود ناموفق بعدی پاک می شوند.</string>
+    <string name="alert_text_nineth_login_attempt">تلاش رمز عبور نهم انجام نشد. همه داده های برنامه پاک می شوند.</string>
     <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">لطفا صبر کنید, %1$d دقایق %2$d ثانیه قبل از تلاش برای ورود مجدد</string>
 
 </resources>
