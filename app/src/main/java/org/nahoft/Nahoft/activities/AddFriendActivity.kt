@@ -41,13 +41,13 @@ class AddFriendActivity : AppCompatActivity() {
         Persist.saveFriendsToFile(this)
         finish()
     }
-    // TODO: Check with Adelita to make sure I did this correctly.
+
     override fun onDestroy() {
         super.onDestroy()
         cleanup()
     }
 
     fun cleanup(){
-        nameTextField.text.toString() == null
+        nameTextField.text = null
     }
 }

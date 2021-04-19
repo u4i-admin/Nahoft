@@ -179,7 +179,6 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
-    // TODO: Ask Adelita, I think these two functions are redundant. See lines 98, 99 for texts & 127, 128 for images.
     override fun onDestroy() {
         super.onDestroy()
         cleanUp()
@@ -187,6 +186,7 @@ class NewMessageActivity : AppCompatActivity() {
 
     fun cleanUp () {
         selectedFriend = null
+        editMessageText.text?.clear()
     }
 
 }

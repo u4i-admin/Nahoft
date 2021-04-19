@@ -19,8 +19,6 @@ import org.nahoft.nahoft.ui.ItemTouchHelperCallback
 
 class FriendsActivity : AppCompatActivity(), ItemDragListener {
 
-    //TODO: Ask Adelita if this is correct? Nothing to change here
-    //We wouldn't want to clear out a list of friends every time onDestroy is called right?
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: FriendsRecyclerAdapter
 
@@ -38,15 +36,17 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
             val addFriendIntent = Intent(this, AddFriendActivity::class.java)
             startActivity(addFriendIntent)
         }
-      /*  friend_help_button.setOnClickListener() {
-            showDialogButtonFriendsHelp()
-        }*/
     }
 
     override fun onResume() {
         super.onResume()
 
         adapter.notifyDataSetChanged()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        adapter.cleanup()
     }
 
     // Friends Help Button

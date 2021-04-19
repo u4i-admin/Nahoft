@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import kotlinx.android.synthetic.main.activity_message.*
+import kotlinx.android.synthetic.main.message_item_row.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Message
@@ -77,7 +78,7 @@ class MessageActivity : AppCompatActivity() {
             return
         }
     }
-    // TODO: Check with Adelita to make sure we did this correctly.
+
     override fun onDestroy() {
         super.onDestroy()
         cleanUp()
@@ -85,5 +86,7 @@ class MessageActivity : AppCompatActivity() {
 
     private fun cleanUp () {
         message = Message("", ByteArray(2))
+        sender_name_text_view.text = null
+        message_body_text_view.text = null
     }
 }

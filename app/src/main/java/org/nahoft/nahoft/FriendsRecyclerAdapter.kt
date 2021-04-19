@@ -38,6 +38,10 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         notifyItemChanged(position)
     }
 
+    fun cleanup() {
+        friends.clear()
+    }
+
     class FriendViewHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
 
         private var friend: Friend? = null

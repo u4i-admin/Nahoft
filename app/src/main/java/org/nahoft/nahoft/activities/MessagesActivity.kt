@@ -12,9 +12,6 @@ import org.nahoft.nahoft.ui.ItemTouchHelperCallback
 
 class MessagesActivity : AppCompatActivity(), ItemDragListener {
 
-    //TODO: Ask Adelita if this is correct? Nothing to change here
-    //We wouldn't want to clear out our recycler adapter list of messages every time onDestroy is called.
-    //We actually override onDestroy already in this activity requesting this list to persist when onDestroy is called.
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: MessagesRecyclerAdapter
 
@@ -44,6 +41,7 @@ class MessagesActivity : AppCompatActivity(), ItemDragListener {
         super.onDestroy()
 
         Persist.saveMessagesToFile(this)
+        adapter.cleanup()
     }
 
     private fun setupItemTouchHelper() {

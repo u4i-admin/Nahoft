@@ -23,6 +23,10 @@ class SelectKeySenderRecyclerAdapter(
 
     override fun getItemCount() = friends.size
 
+    fun cleanup(){
+        friends.clear()
+    }
+
     // View Holder
     class FriendViewHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
 

@@ -11,9 +11,6 @@ import org.nahoft.util.RequestCodes
 
 class SelectKeySenderActivity : AppCompatActivity() {
 
-    //TODO: Ask Adelita if this is correct? Nothing to change here
-    //We wouldn't want to clear out a list of potential friends that could have sent a key every time onDestroy is called right?
-
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: SelectKeySenderRecyclerAdapter
 
@@ -46,5 +43,10 @@ class SelectKeySenderActivity : AppCompatActivity() {
 
         select_k_sender_recycler_view.layoutManager = linearLayoutManager
         select_k_sender_recycler_view.adapter = adapter
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        adapter.cleanup()
     }
 }

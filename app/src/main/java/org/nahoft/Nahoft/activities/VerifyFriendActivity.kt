@@ -15,9 +15,6 @@ import org.nahoft.util.RequestCodes
 
 class VerifyFriendActivity : AppCompatActivity()
 {
-    //TODO: Ask Adelita if this is correct? Nothing to change here
-    //We wouldn't want to clear out a list of potential friends that could have sent a key every time onDestroy is called right?
-
     private lateinit var pendingFriend: Friend
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -51,6 +48,11 @@ class VerifyFriendActivity : AppCompatActivity()
 
         setupTextViews()
         setupButtons()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cleanup()
     }
 
     private fun setupTextViews()
@@ -115,5 +117,11 @@ class VerifyFriendActivity : AppCompatActivity()
     {
         Persist.resetFriend(this, pendingFriend)
         finish()
+    }
+
+    private fun cleanup(){
+        friend_security_number_label.text = ""
+        friend_security_number_text.text = ""
+        pendingFriend = Friend("", FriendStatus.Default, null)
     }
 }
