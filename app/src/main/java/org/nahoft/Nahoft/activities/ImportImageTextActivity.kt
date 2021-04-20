@@ -15,6 +15,7 @@ import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
 import org.nahoft.nahoft.*
+import org.nahoft.org.nahoft.swatch.Decoder
 import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
@@ -154,8 +155,11 @@ class ImportImageTextActivity: AppCompatActivity() {
                 val imageURI = data?.data
                 imageURI?.let {
 
-                    val decodeResult: Deferred<ByteArray?> = coroutineScope.async(Dispatchers.IO) {
-                        return@async Stencil().decode(applicationContext, it)
+                    val decodeResult: Deferred<ByteArray?> =
+                        coroutineScope.async(Dispatchers.IO) {
+                            val swatch = Decoder()
+                            return@async swatch.decode(applicationContext, imageURI)
+                        //return@async Stencil().decode(applicationContext, it)
                     }
 
                     coroutineScope.launch(Dispatchers.Main) {

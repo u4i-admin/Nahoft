@@ -18,8 +18,10 @@ import kotlinx.coroutines.*
 import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.R
+import org.nahoft.org.nahoft.swatch.Encoder
 import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
+import org.nahoft.swatch.Swatch
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 
@@ -156,12 +158,23 @@ class NewMessageActivity : AppCompatActivity() {
             val encryptedMessage = Encryption().encrypt(encodedFriendPublicKey, message)
 
             // Encode the image
-            val newUri: Deferred<Uri?> =
+            val swatch = Encoder()
+            val newUri = swatch.encode(applicationContext, encryptedMessage, imageUri)
+            // Save bitmap to image roll to get URI for sharing intent
+            if (newUri != null) {
+                imageShareProgressBar.visibility = View.INVISIBLE
+                ShareUtil.shareImage(applicationContext, newUri!!)
+            } else {
+                applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
+                print("Unable to send message as photo, we were unable to encode the selected image.")
+            }
+            /*val newUri: Deferred<Uri?> =
                 coroutineScope.async(Dispatchers.IO) {
-                    return@async Stencil().encode(applicationContext, encryptedMessage, imageUri)
-                }
 
-            coroutineScope.launch(Dispatchers.Main) {
+                    return@async Stencil().encode(applicationContext, encryptedMessage, imageUri)
+                }*/
+
+            /*coroutineScope.launch(Dispatchers.Main) {
                 val maybeUri = newUri.await()
                 // Save bitmap to image roll to get URI for sharing intent
                 if (maybeUri != null) {
@@ -171,7 +184,7 @@ class NewMessageActivity : AppCompatActivity() {
                     applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
                     print("Unable to send message as photo, we were unable to encode the selected image.")
                 }
-            }
+            }*/
         } catch (exception: SecurityException) {
             applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
             print("Unable to send message as photo, we were unable to encrypt the mess56age.")

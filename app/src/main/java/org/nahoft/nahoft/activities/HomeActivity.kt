@@ -19,6 +19,7 @@ import org.nahoft.nahoft.*
 import org.nahoft.nahoft.Persist.Companion.friendsFilename
 import org.nahoft.nahoft.Persist.Companion.messagesFilename
 import org.nahoft.nahoft.Persist.Companion.status
+import org.nahoft.org.nahoft.swatch.Decoder
 import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
@@ -300,7 +301,9 @@ class HomeActivity : AppCompatActivity() {
     {
         val decodeResult: Deferred<ByteArray?> =
             coroutineScope.async(Dispatchers.IO) {
-                return@async Stencil().decode(applicationContext, imageUri)
+                //return@async Stencil().decode(applicationContext, imageUri)
+                val swatch = Decoder()
+                return@async swatch.decode(applicationContext, imageUri)
             }
 
         coroutineScope.launch(Dispatchers.Main) {
