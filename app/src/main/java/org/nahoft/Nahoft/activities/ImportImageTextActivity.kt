@@ -238,10 +238,10 @@ class ImportImageTextActivity: AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
+    /*override fun onDestroy() {
         super.onDestroy()
         cleanUp()
-    }
+    }*/
 
     fun cleanUp () {
         decodePayload = null
