@@ -79,10 +79,10 @@ class MessageActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        cleanUp()
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        cleanUp()
+//    }
 
     private fun cleanUp () {
         message = Message("", ByteArray(2))

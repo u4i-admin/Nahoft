@@ -157,24 +157,16 @@ class NewMessageActivity : AppCompatActivity() {
             // Encrypt the message
             val encryptedMessage = Encryption().encrypt(encodedFriendPublicKey, message)
 
-            // Encode the image
-            val swatch = Encoder()
-            val newUri = swatch.encode(applicationContext, encryptedMessage, imageUri)
-            // Save bitmap to image roll to get URI for sharing intent
-            if (newUri != null) {
-                imageShareProgressBar.visibility = View.INVISIBLE
-                ShareUtil.shareImage(applicationContext, newUri!!)
-            } else {
-                applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
-                print("Unable to send message as photo, we were unable to encode the selected image.")
-            }
-            /*val newUri: Deferred<Uri?> =
+            val newUri: Deferred<Uri?> =
                 coroutineScope.async(Dispatchers.IO) {
 
-                    return@async Stencil().encode(applicationContext, encryptedMessage, imageUri)
-                }*/
+                    // Encode the image
+                    val swatch = Encoder()
+                    return@async swatch.encode(applicationContext, encryptedMessage, imageUri)
+                    // Stencil().encode(applicationContext, encryptedMessage, imageUri)
+                }
 
-            /*coroutineScope.launch(Dispatchers.Main) {
+            coroutineScope.launch(Dispatchers.Main) {
                 val maybeUri = newUri.await()
                 // Save bitmap to image roll to get URI for sharing intent
                 if (maybeUri != null) {
@@ -184,7 +176,8 @@ class NewMessageActivity : AppCompatActivity() {
                     applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
                     print("Unable to send message as photo, we were unable to encode the selected image.")
                 }
-            }*/
+            }
+
         } catch (exception: SecurityException) {
             applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
             print("Unable to send message as photo, we were unable to encrypt the mess56age.")
@@ -192,10 +185,10 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        cleanUp()
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        cleanUp()
+//    }
 
     fun cleanUp () {
         selectedFriend = null

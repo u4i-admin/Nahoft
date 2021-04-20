@@ -393,10 +393,10 @@ class HomeActivity : AppCompatActivity() {
         finish()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        cleanUp()
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        cleanUp()
+//    }
 
     private fun cleanUp () {
         decodePayload = null
