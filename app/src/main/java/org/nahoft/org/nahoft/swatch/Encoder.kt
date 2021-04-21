@@ -6,9 +6,12 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import org.nahoft.codex.Encryption
 import org.nahoft.stencil.CapturePhotoUtils
+import org.nahoft.stencil.ImageSize
 import java.nio.ByteBuffer
 import org.nahoft.swatch.Swatch
 import org.nahoft.swatch.lengthMessageKey
+import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 class Encoder {
     @ExperimentalUnsignedTypes
@@ -26,6 +29,7 @@ class Encoder {
 
     @ExperimentalUnsignedTypes
     fun encode(encrypted: ByteArray, cover: Bitmap): Bitmap? {
+        var workingCover = cover
         val messageLength = encrypted.size.toShort() // Length measured in bytes
         val lengthBytes = ByteBuffer.allocate(java.lang.Short.BYTES).putShort(messageLength).array()
         val encryptedLengthBytes = Swatch.polish(lengthBytes, lengthMessageKey)
@@ -37,8 +41,11 @@ class Encoder {
         val messageBits = bitsFromBytes(encrypted)
         val messageBitsSize = messageBits.size
 
+        // Scale the image if necessary
+        workingCover = scale(cover)
+
         // The number of pixels is the image height (in pixels) times the image width (in pixels)
-        val numPixels = cover.height * cover.width
+        val numPixels = workingCover.height * workingCover.width
 
         // Do we have enough pixels for the bits we need to encode?
         val lengthPatchSize = numPixels / (lengthBitsSize * 2)
@@ -51,7 +58,7 @@ class Encoder {
             return null
         }
 
-        val result = cover.copy(Bitmap.Config.ARGB_8888, true)
+        val result = workingCover.copy(Bitmap.Config.ARGB_8888, true)
         return encode(result, lengthBits, messageBits)
     }
 
@@ -76,6 +83,41 @@ class Encoder {
         }
 
         return cover
+    }
+
+    fun scale(bitmap: Bitmap): Bitmap {
+        // Resize result if it is larger than 4mb
+        val sizeBytes = bitmap.height * bitmap.width * 4
+        val targetSizeBytes = 4000000.0
+        if (sizeBytes > targetSizeBytes) {
+            val originalSize = ImageSize(
+                bitmap.height.toDouble(),
+                bitmap.width.toDouble(),
+                32.0 //ARGB_8888 8 bits for each in ARGB added together
+            )
+            val scaledSize = resizePreservingAspectRatio(originalSize, targetSizeBytes)
+            val newBitmap = Bitmap.createScaledBitmap(
+                bitmap,
+                scaledSize.width.roundToInt(),
+                scaledSize.height.roundToInt(),
+                true
+            )
+
+            return newBitmap
+        }
+        else
+        {
+            return bitmap
+        }
+    }
+
+    private fun resizePreservingAspectRatio(originalSize: ImageSize, targetSizeBytes: Double): ImageSize {
+        val aspectRatio = originalSize.height/originalSize.width
+        val targetSizePixels = targetSizeBytes/originalSize.colorDepthBytes
+        val scaledWidth = sqrt(targetSizePixels/aspectRatio)
+        val scaledHeight = aspectRatio * scaledWidth
+
+        return  ImageSize(scaledHeight, scaledWidth, originalSize.colorDepthBytes)
     }
 
     fun checkRules(aList: Array<Rule>, bList: Array<Rule>): Boolean {

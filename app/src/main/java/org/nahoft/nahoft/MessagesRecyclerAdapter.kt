@@ -32,6 +32,10 @@ class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : Recycl
         notifyItemChanged(position)
     }
 
+    fun cleanup(){
+        messages.clear()
+    }
+
     // ViewHolder
     class MessageViewHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
 
