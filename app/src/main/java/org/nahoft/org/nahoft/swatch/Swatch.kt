@@ -5,7 +5,7 @@ val payloadMessageKey = 2
 
 class Swatch {
     companion object {
-        val minimumPatchSize = 2
+        val minimumPatchSize = 400
 
         // Maximum Message Size:
         // 1,000 characters * 4 bytes per character (as a guess) * number of bits in a byte

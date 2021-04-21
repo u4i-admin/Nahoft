@@ -134,8 +134,3 @@ class Pixel(val index: Int, var bitmap: MappedBitmap)
         return (newBrightness - oldBrightness).absoluteValue
     }
 }
-
-class MappedPixel(val x: Int, val y: Int, val bitmap: MappedBitmap) {
-    val index: Int
-        get() = y * bitmap.width + x
-}

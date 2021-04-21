@@ -19,50 +19,11 @@ class Patch(val patchIndex: Int, val size: Int, var bitmap: MappedBitmap)
             brightness += pixel.brightness()
             pixel
         }
-    }
-
-    fun brightnessCheck(): Boolean {
-        var checked = 0
-        for (pixel in pixels) {
-            checked += pixel.brightness()
-        }
-
-        return checked == brightness
-    }
-
-    fun removeConflictedPixels(constraint: EncoderConstraint, canBrighten: Set<Int>, canDarken: Set<Int>): Boolean {
-        var goodPixels = pixels.toMutableList()
-
-        for (pixel in pixels) {
-            if (constraint == EncoderConstraint.GREATER) {
-                if (canBrighten.contains(pixel.index)) {
-                    // Compatible constraints
-                    continue
-                } else {
-                    goodPixels.remove(pixel)
-                }
-            } else {
-                if (canDarken.contains(pixel.index)) {
-                    // Compatible constraints
-                    continue
-                } else {
-                    goodPixels.remove(pixel)
-                }
-            }
-        }
-
-        if (goodPixels.isEmpty()) {
-            print("Failure, no good pixels left.")
-            return false
-        }
-
-        pixelsToModify = goodPixels
-
-        return true
+        pixelsToModify = pixels.toMutableList()
     }
 
     // Returns the actual change in brightness achieved
-    fun modifyBrightness(direction: EncoderConstraint, targetChangeInBrightness: Int, forbiddenSet: Set<MappedPixel> = emptySet()): Int {
+    fun modifyBrightness(direction: EncoderConstraint, targetChangeInBrightness: Int): Int {
         var achievedChangeInBrightness = 0
         if (targetChangeInBrightness == 0) {
             // Success! Achieved target change in brighhtness of 0.
@@ -96,10 +57,6 @@ class Patch(val patchIndex: Int, val size: Int, var bitmap: MappedBitmap)
                 if (changeInBrightness == 0) {
                     unchangeablePixels.add(pixel)
                 } else {
-                    if (forbiddenSet.contains(pixel)) {
-                        print("Forbidden pixel modified")
-                    }
-
                     achievedChangeInBrightness += changeInBrightness
                     when (direction) {
                         EncoderConstraint.GREATER -> brightness += changeInBrightness
