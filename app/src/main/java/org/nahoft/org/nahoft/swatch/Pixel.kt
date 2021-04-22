@@ -5,11 +5,6 @@ import kotlin.math.absoluteValue
 
 class Pixel(val index: Int, var bitmap: MappedBitmap)
 {
-    val x: Int
-        get() = index % bitmap.width
-    val y: Int
-        get() = index / bitmap.width
-
     val color: Int
         get() = bitmap.getPixel(index)
 
