@@ -114,7 +114,6 @@ class ImportImageTextActivity: AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
-            makeWait()
             if (requestCode == RequestCodes.selectMessageSenderCode) {
                 val selectedSender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
                     ?.let { it as Friend }
@@ -122,7 +121,6 @@ class ImportImageTextActivity: AppCompatActivity() {
                 if (selectedSender != null)
 
                 {
-                    noMoreWaiting()
                     if (decodePayload != null)
                     {
                         // Create Message Instance
@@ -159,6 +157,8 @@ class ImportImageTextActivity: AppCompatActivity() {
                 val imageURI = data?.data
                 imageURI?.let {
 
+                    makeWait()
+
                     val decodeResult: Deferred<ByteArray?> =
                         coroutineScope.async(Dispatchers.IO) {
                             val swatch = Decoder()
@@ -167,6 +167,7 @@ class ImportImageTextActivity: AppCompatActivity() {
                     }
 
                     coroutineScope.launch(Dispatchers.Main) {
+                        noMoreWaiting()
                         val maybeBytes = decodeResult.await()
                         handleImageDecodeResult(maybeBytes)
                     }
@@ -244,20 +245,18 @@ class ImportImageTextActivity: AppCompatActivity() {
 
     private fun makeWait()
     {
-        homeProgressBar.visibility = View.VISIBLE
-        messages_button.isEnabled = false
-        user_guide_button.isEnabled = false
-        friends_button.isEnabled = false
-        settings_button.isEnabled = false
+        imageImportProgressBar.visibility = View.VISIBLE
+        import_text_button.isEnabled = false
+        import_image_button.isEnabled = false
+        import_message_text_view.isEnabled = false
     }
 
     private fun noMoreWaiting()
     {
-        homeProgressBar.visibility = View.INVISIBLE
-        messages_button.isEnabled = true
-        user_guide_button.isEnabled = true
-        friends_button.isEnabled = true
-        settings_button.isEnabled = true
+        imageImportProgressBar.visibility = View.INVISIBLE
+        import_text_button.isEnabled = true
+        import_image_button.isEnabled = true
+        import_message_text_view.isEnabled = true
     }
 
     fun cleanUp () {
