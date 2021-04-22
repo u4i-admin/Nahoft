@@ -114,13 +114,15 @@ class ImportImageTextActivity: AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
+            makeWait()
             if (requestCode == RequestCodes.selectMessageSenderCode) {
-                imageImportProgressBar.visibility = View.VISIBLE
                 val selectedSender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
                     ?.let { it as Friend }
 
                 if (selectedSender != null)
+
                 {
+                    noMoreWaiting()
                     if (decodePayload != null)
                     {
                         // Create Message Instance
@@ -238,6 +240,24 @@ class ImportImageTextActivity: AppCompatActivity() {
             else ->
                 this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
         }
+    }
+
+    private fun makeWait()
+    {
+        homeProgressBar.visibility = View.VISIBLE
+        messages_button.isEnabled = false
+        user_guide_button.isEnabled = false
+        friends_button.isEnabled = false
+        settings_button.isEnabled = false
+    }
+
+    private fun noMoreWaiting()
+    {
+        homeProgressBar.visibility = View.INVISIBLE
+        messages_button.isEnabled = true
+        user_guide_button.isEnabled = true
+        friends_button.isEnabled = true
+        settings_button.isEnabled = true
     }
 
     fun cleanUp () {
