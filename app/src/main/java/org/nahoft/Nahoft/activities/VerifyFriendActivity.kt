@@ -50,11 +50,6 @@ class VerifyFriendActivity : AppCompatActivity()
         setupButtons()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        cleanup()
-    }
-
     private fun setupTextViews()
     {
         // Display friend public key as security number (Uppercase and Grouped by 4s)

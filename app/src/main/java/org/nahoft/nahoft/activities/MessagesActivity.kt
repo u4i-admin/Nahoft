@@ -41,7 +41,6 @@ class MessagesActivity : AppCompatActivity(), ItemDragListener {
         super.onDestroy()
 
         Persist.saveMessagesToFile(this)
-        adapter.cleanup()
     }
 
     private fun setupItemTouchHelper() {

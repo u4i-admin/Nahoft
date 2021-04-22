@@ -185,14 +185,9 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        cleanUp()
-//    }
-
-    fun cleanUp () {
+   /* fun cleanUp () {
         selectedFriend = null
         editMessageText.text?.clear()
-    }
+    }*/
 
 }

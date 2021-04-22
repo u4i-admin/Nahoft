@@ -44,9 +44,4 @@ class SelectKeySenderActivity : AppCompatActivity() {
         select_k_sender_recycler_view.layoutManager = linearLayoutManager
         select_k_sender_recycler_view.adapter = adapter
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        adapter.cleanup()
-    }
 }

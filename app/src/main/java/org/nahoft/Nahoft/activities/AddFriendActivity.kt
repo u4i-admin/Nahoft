@@ -42,12 +42,7 @@ class AddFriendActivity : AppCompatActivity() {
         finish()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        cleanup()
-    }
-
-    fun cleanup(){
+/*    fun cleanup(){
         nameTextField.text = null
-    }
+    }*/
 }

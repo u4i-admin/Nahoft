@@ -44,13 +44,6 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
         adapter.notifyDataSetChanged()
     }
 
-    //TODO: Show Adelita, this removes friends from the friends list when users leave the activity. User must
-    // close app down to restart it to see friends again.
-    /*override fun onDestroy() {
-        super.onDestroy()
-        adapter.cleanup()
-    }*/
-
     // Friends Help Button
     fun showDialogButtonFriendsHelp(view: View) {
         AlertDialog.Builder(this)

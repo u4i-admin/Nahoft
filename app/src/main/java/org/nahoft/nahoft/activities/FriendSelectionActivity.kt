@@ -48,10 +48,5 @@ class FriendSelectionActivity : AppCompatActivity() {
         friend_selection_recycler_view.layoutManager = linearLayoutManager
         friend_selection_recycler_view.adapter = adapter
     }
-
-    override fun onDestroy(){
-        super.onDestroy()
-        adapter.cleanup()
-    }
 }
 

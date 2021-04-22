@@ -79,14 +79,9 @@ class MessageActivity : AppCompatActivity() {
         }
     }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        cleanUp()
-//    }
-
-    private fun cleanUp () {
+    /*private fun cleanUp () {
         message = Message("", ByteArray(2))
         sender_name_text_view.text = null
         message_body_text_view.text = null
-    }
+    }*/
 }

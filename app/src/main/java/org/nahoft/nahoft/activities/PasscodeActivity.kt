@@ -39,9 +39,7 @@ class PasscodeActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-
         Persist.saveLoginStatus()
-        cleanup()
     }
 
     private fun updateSwitch() {

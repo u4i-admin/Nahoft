@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -114,6 +115,7 @@ class ImportImageTextActivity: AppCompatActivity() {
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == RequestCodes.selectMessageSenderCode) {
+                imageImportProgressBar.visibility = View.VISIBLE
                 val selectedSender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
                     ?.let { it as Friend }
 
@@ -237,11 +239,6 @@ class ImportImageTextActivity: AppCompatActivity() {
                 this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
         }
     }
-
-    /*override fun onDestroy() {
-        super.onDestroy()
-        cleanUp()
-    }*/
 
     fun cleanUp () {
         decodePayload = null

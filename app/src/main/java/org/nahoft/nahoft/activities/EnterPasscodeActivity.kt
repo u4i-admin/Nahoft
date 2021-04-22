@@ -339,11 +339,6 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        cleanup()
-    }
-
     private fun cleanup(){
         editTextArray.clear()
     }
