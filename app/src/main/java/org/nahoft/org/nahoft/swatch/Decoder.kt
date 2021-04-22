@@ -22,7 +22,9 @@ class Decoder {
     {
         val numPixels = bitmap.height * bitmap.width
         val lengthInBits = numPixels / (Swatch.minimumPatchSize * 2)
-        val messageBits = decode(bitmap, lengthInBits, payloadMessageKey)
+        val lengthInBytes = lengthInBits / 8
+        val roundedLengthInBits = lengthInBytes * 8
+        val messageBits = decode(bitmap, roundedLengthInBits, payloadMessageKey)
         if (messageBits == null) { return null }
         return bytesFromBits(messageBits)
     }

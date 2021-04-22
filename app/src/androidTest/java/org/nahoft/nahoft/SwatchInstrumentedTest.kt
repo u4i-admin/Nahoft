@@ -64,6 +64,31 @@ class SwatchInstrumentedTest {
         Assert.assertArrayEquals(encrypted, decoded)
     }
 
+    @ExperimentalUnsignedTypes
+    @Test
+    fun swatchEncodeDecodeTest_1000bytes() {
+        val swatch = Encoder()
+        val someData = ByteArray(1000) { (it % 256).toUByte().toByte() }
+        val encrypted = Swatch.polish(someData, payloadMessageKey)
+        val url = URL("https://64.media.tumblr.com/ae7aa5c431127e95f4473efda39f06e5/tumblr_nkymoccyIH1tlnaoto1_500.jpg")
+        val bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+        val encoded = swatch.encode(encrypted, bitmap)
+
+        Assert.assertNotNull(encoded)
+        if (encoded == null) {
+            return
+        }
+
+        val decoder = Decoder()
+        val decoded = decoder.decode(encoded)
+        Assert.assertNotNull(decoded)
+        if (decoded == null) {
+            return
+        }
+
+        Assert.assertArrayEquals(encrypted, decoded)
+    }
+
     @Test
     fun testLengthEncryption() {
         val length = "48"

@@ -78,10 +78,17 @@ class Encoder {
                 32.0 //ARGB_8888 8 bits for each in ARGB added together
             )
             val scaledSize = resizePreservingAspectRatio(originalSize, p)
+            val newHeight = scaledSize.height.roundToInt()
+            val newWidth = scaledSize.width.roundToInt()
+            val newNumPixels = newHeight * newWidth
+            val newBits = newNumPixels / (Swatch.minimumPatchSize * 2)
+            if (newBits != bits) {
+                print("Error in scaling algorithm.")
+            }
             val newBitmap = Bitmap.createScaledBitmap(
                 bitmap,
-                scaledSize.width.roundToInt()+1,
-                scaledSize.height.roundToInt()+1,
+                newHeight,
+                newWidth,
                 true
             )
 
