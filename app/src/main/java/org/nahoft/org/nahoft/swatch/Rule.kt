@@ -101,17 +101,3 @@ enum class EncoderConstraint(val constraint: Int)
     GREATER(1),
     LESS(-1)
 }
-
-fun EncoderConstraint.getPixelColor(): Int {
-    return when (this) {
-        EncoderConstraint.GREATER -> Color.GREEN
-        EncoderConstraint.LESS -> Color.BLUE
-    }
-}
-
-fun EncoderConstraint.invert(): EncoderConstraint {
-    when (this) {
-        EncoderConstraint.GREATER -> return EncoderConstraint.LESS
-        EncoderConstraint.LESS -> return EncoderConstraint.GREATER
-    }
-}
