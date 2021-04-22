@@ -37,7 +37,6 @@ class Nahoft: Application(), LifecycleObserver {
         logoutTimer.cancel()
     }
 
-    //TODO: Is this being called?
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onEnterBackground() {
 

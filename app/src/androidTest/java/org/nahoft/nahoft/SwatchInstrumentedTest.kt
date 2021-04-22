@@ -53,10 +53,15 @@ class SwatchInstrumentedTest {
         val url = URL("https://64.media.tumblr.com/ae7aa5c431127e95f4473efda39f06e5/tumblr_nkymoccyIH1tlnaoto1_500.jpg")
         val bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream())
         val encoded = swatch.encode(encrypted, bitmap)
-        var decoded = ByteArray(42)
+
+        Assert.assertNotNull(encoded)
+        if (encoded == null) {
+            return
+        }
+
         val decoder = Decoder()
-        if (encoded != null) decoded = decoder.decode(encoded)!!
-        Assert.assertEquals(encrypted, decoded)
+        val decoded = decoder.decode(encoded)!!
+        Assert.assertArrayEquals(encrypted, decoded)
     }
 
     @Test

@@ -18,8 +18,10 @@ import kotlinx.coroutines.*
 import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.R
+import org.nahoft.org.nahoft.swatch.Encoder
 import org.nahoft.showAlert
 import org.nahoft.stencil.Stencil
+import org.nahoft.swatch.Swatch
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 
@@ -155,10 +157,13 @@ class NewMessageActivity : AppCompatActivity() {
             // Encrypt the message
             val encryptedMessage = Encryption().encrypt(encodedFriendPublicKey, message)
 
-            // Encode the image
             val newUri: Deferred<Uri?> =
                 coroutineScope.async(Dispatchers.IO) {
-                    return@async Stencil().encode(applicationContext, encryptedMessage, imageUri)
+
+                    // Encode the image
+                    val swatch = Encoder()
+                    return@async swatch.encode(applicationContext, encryptedMessage, imageUri)
+                    // Stencil().encode(applicationContext, encryptedMessage, imageUri)
                 }
 
             coroutineScope.launch(Dispatchers.Main) {
@@ -172,6 +177,7 @@ class NewMessageActivity : AppCompatActivity() {
                     print("Unable to send message as photo, we were unable to encode the selected image.")
                 }
             }
+
         } catch (exception: SecurityException) {
             applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
             print("Unable to send message as photo, we were unable to encrypt the mess56age.")
@@ -179,14 +185,14 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
-    // TODO: Ask Adelita, I think these two functions are redundant. See lines 98, 99 for texts & 127, 128 for images.
-    override fun onDestroy() {
-        super.onDestroy()
-        cleanUp()
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        cleanUp()
+//    }
 
     fun cleanUp () {
         selectedFriend = null
+        editMessageText.text?.clear()
     }
 
 }

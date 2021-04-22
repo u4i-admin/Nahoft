@@ -49,49 +49,16 @@ class Rule(val ruleIndex: Int, val patchSize: Int, val constraint: EncoderConstr
         return valid
     }
 
-    fun check(): Boolean {
-        if (!patch0.brightnessCheck()) {return false}
-        if (!patch1.brightnessCheck()) {return false}
-
-        val checked = when (constraint) {
-            EncoderConstraint.GREATER -> patch0.brightness > patch1.brightness
-            EncoderConstraint.LESS -> patch0.brightness < patch1.brightness
-        }
-
-        return checked
-    }
-
-    fun removeConflictedPixels(canBrighten: Set<Int>, canDarken: Set<Int>): Boolean {
-        if (!patch0.removeConflictedPixels(constraint, canBrighten, canDarken)) {
-            print("Error removing conflicts from a patch, all points were in conflict.")
-            return false
-        }
-
-        // Note that the constraint is inverted for patch1.
-        if (!patch1.removeConflictedPixels(constraint.invert(), canBrighten, canDarken)) {
-            print("Error removing conflicts from a patch, all points were in conflict.")
-            return false
-        }
-
-        return true
-    }
-
-    fun constrain(canBrighten: Set<Int>, canDarken: Set<Int>): Boolean {
+    fun constrain(): Boolean {
         // If the working bitmap is already valid, return it
         if (valid) {
             return true
         }
 
-        // If there is an error removing conflicted pixels, return null
-        val success = removeConflictedPixels(canBrighten, canDarken)
-        if (!success) {
-            return false
-        }
-
         return modifyBrightness()
     }
 
-    fun modifyBrightness(forbiddenSet: Set<MappedPixel> = emptySet()): Boolean {
+    fun modifyBrightness(): Boolean {
         while (!validate()) {
             // Not valid, but no brightness gap? Weird, give up.
             if (brightnessGap == 0) {
@@ -115,8 +82,8 @@ class Rule(val ruleIndex: Int, val patchSize: Int, val constraint: EncoderConstr
                 EncoderConstraint.LESS    -> EncoderConstraint.GREATER
             }
 
-            val patch0Change = patch0.modifyBrightness(patch0Direction, patchBrightnessGap, forbiddenSet)
-            val patch1Change = patch1.modifyBrightness(patch1Direction, patchBrightnessGap, forbiddenSet)
+            val patch0Change = patch0.modifyBrightness(patch0Direction, patchBrightnessGap)
+            val patch1Change = patch1.modifyBrightness(patch1Direction, patchBrightnessGap)
 
             if (patch0Change == 0 && patch1Change == 0) {
                 // Failure. Did not achieve target brightness gap between patches and modifying patch brightness failed.

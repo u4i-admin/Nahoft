@@ -20,17 +20,8 @@ class Decoder {
     @kotlin.ExperimentalUnsignedTypes
     fun decode(bitmap: Bitmap): ByteArray?
     {
-        val lengthBitsSize = java.lang.Short.BYTES * 8
-        val lengthBits = decode(bitmap, lengthBitsSize, lengthMessageKey)
-
-        // FIXME: Ciphertext is wrong length
-        if (lengthBits == null) { return null }
-        val encryptedLengthBytes = bytesFromBits(lengthBits)
-        if (encryptedLengthBytes == null) { return null }
-
-        val lengthBytes = Swatch.unpolish(encryptedLengthBytes, lengthMessageKey)
-        val length = ByteBuffer.wrap(lengthBytes).getShort().toInt()
-        val lengthInBits = length * 8
+        val numPixels = bitmap.height * bitmap.width
+        val lengthInBits = numPixels / (Swatch.minimumPatchSize * 2)
         val messageBits = decode(bitmap, lengthInBits, payloadMessageKey)
         if (messageBits == null) { return null }
         return bytesFromBits(messageBits)

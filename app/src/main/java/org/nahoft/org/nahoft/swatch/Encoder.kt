@@ -4,11 +4,12 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import org.nahoft.codex.Encryption
 import org.nahoft.stencil.CapturePhotoUtils
-import java.nio.ByteBuffer
+import org.nahoft.stencil.ImageSize
 import org.nahoft.swatch.Swatch
-import org.nahoft.swatch.lengthMessageKey
+import org.nahoft.swatch.payloadMessageKey
+import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 class Encoder {
     @ExperimentalUnsignedTypes
@@ -26,50 +27,37 @@ class Encoder {
 
     @ExperimentalUnsignedTypes
     fun encode(encrypted: ByteArray, cover: Bitmap): Bitmap? {
-        val messageLength = encrypted.size.toShort() // Length measured in bytes
-        val lengthBytes = ByteBuffer.allocate(java.lang.Short.BYTES).putShort(messageLength).array()
-        val encryptedLengthBytes = Swatch.polish(lengthBytes, lengthMessageKey)
-        val lengthBits = bitsFromBytes(encryptedLengthBytes)
-        val lengthBitsSize = lengthBits.size
+        var workingCover = cover
 
         // Convert message size from bytes to bits
         // Pad the message bits to be of max size
         val messageBits = bitsFromBytes(encrypted)
         val messageBitsSize = messageBits.size
 
+        // Scale the image if necessary
+        workingCover = scale(cover, messageBitsSize)
+
         // The number of pixels is the image height (in pixels) times the image width (in pixels)
-        val numPixels = cover.height * cover.width
+        val numPixels = workingCover.height * workingCover.width
 
         // Do we have enough pixels for the bits we need to encode?
-        val lengthPatchSize = numPixels / (lengthBitsSize * 2)
         val messagePatchSize = numPixels / (messageBitsSize * 2)
 
-        if (lengthPatchSize < Swatch.minimumPatchSize) {
-            return null
-        }
         if (messagePatchSize < Swatch.minimumPatchSize) {
             return null
         }
 
-        val result = cover.copy(Bitmap.Config.ARGB_8888, true)
-        return encode(result, lengthBits, messageBits)
+        val result = workingCover.copy(Bitmap.Config.ARGB_8888, true)
+        return encode(result, messageBits)
     }
 
     // Takes both messages (length message, and message message) as bits and the bitmap we want to put them in
     @ExperimentalUnsignedTypes
-    fun encode(cover: Bitmap, message1: IntArray, message2: IntArray): Bitmap? {
-        // Make a set of rules for encoding each message
-        // Use different keys so that the patches are different even if the patch sizes are the same
-        val rules1 = makeRules(cover, message1, 1)
-        val rules2 = makeRules(cover, message2, 2)
+    fun encode(cover: Bitmap, message: IntArray): Bitmap? {
+        val rules = makeRules(cover, message, payloadMessageKey)
+        if (rules == null) { return null }
 
-        if (rules1 == null) { return null }
-        if (rules2 == null) { return null }
-
-        val check = checkRules(rules1, rules2)
-        if (!check) { return null }
-
-        val solver = Solver(cover, rules1, rules2)
+        val solver = Solver(cover, rules)
         val success = solver.solve()
         if (!success) {
             return null
@@ -78,46 +66,35 @@ class Encoder {
         return cover
     }
 
-    fun checkRules(aList: Array<Rule>, bList: Array<Rule>): Boolean {
-        var setA: MutableSet<Int> = mutableSetOf()
-        for (a in aList) {
-            for (pixel in a.patch0.pixels) {
-                if (setA.contains(pixel.index)) {
-                    return false
-                }
+    fun scale(bitmap: Bitmap, bits: Int): Bitmap {
+        val p = bits * 2 * Swatch.minimumPatchSize
+        val size = bitmap.height * bitmap.width
+        if (size == p) {
+            return bitmap
+        } else {
+            val originalSize = ImageSize(
+                bitmap.height.toDouble(),
+                bitmap.width.toDouble(),
+                32.0 //ARGB_8888 8 bits for each in ARGB added together
+            )
+            val scaledSize = resizePreservingAspectRatio(originalSize, p)
+            val newBitmap = Bitmap.createScaledBitmap(
+                bitmap,
+                scaledSize.width.roundToInt()+1,
+                scaledSize.height.roundToInt()+1,
+                true
+            )
 
-                setA.add(pixel.index)
-            }
-
-            for (pixel in a.patch1.pixels) {
-                if (setA.contains(pixel.index)) {
-                    return false
-                }
-
-                setA.add(pixel.index)
-            }
+            return newBitmap
         }
+    }
 
-        var setB: MutableSet<Int> = mutableSetOf()
-        for (b in bList) {
-            for (pixel in b.patch0.pixels) {
-                if (setB.contains(pixel.index)) {
-                    return false
-                }
+    private fun resizePreservingAspectRatio(originalSize: ImageSize, targetSizePixels: Int): ImageSize {
+        val aspectRatio = originalSize.height / originalSize.width
+        val scaledWidth = sqrt(targetSizePixels / aspectRatio)
+        val scaledHeight = aspectRatio * scaledWidth
 
-                setB.add(pixel.index)
-            }
-
-            for (pixel in b.patch1.pixels) {
-                if (setB.contains(pixel.index)) {
-                    return false
-                }
-
-                setB.add(pixel.index)
-            }
-        }
-
-        return true
+        return  ImageSize(scaledHeight, scaledWidth, originalSize.colorDepthBytes)
     }
 
     /// Generates an array of rules.

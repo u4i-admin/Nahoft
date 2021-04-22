@@ -12,8 +12,6 @@ import org.nahoft.util.RequestCodes
 
 class FriendSelectionActivity : AppCompatActivity() {
 
-    //TODO: Ask Adelita if this is correct? Nothing to change here
-    //We wouldn't want to clear out a list of friends every time onDestroy is called right?
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: FriendSelectionRecyclerAdapter
 
@@ -49,6 +47,11 @@ class FriendSelectionActivity : AppCompatActivity() {
 
         friend_selection_recycler_view.layoutManager = linearLayoutManager
         friend_selection_recycler_view.adapter = adapter
+    }
+
+    override fun onDestroy(){
+        super.onDestroy()
+        adapter.cleanup()
     }
 }
 

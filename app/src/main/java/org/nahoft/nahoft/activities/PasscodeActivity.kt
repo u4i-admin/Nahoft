@@ -9,10 +9,6 @@ import org.nahoft.showAlert
 
 class PasscodeActivity : AppCompatActivity() {
 
-    // TODO: I don't think we want to clear out the passcode entry edit texts in this activity.
-    // The little black circles indicate to users that a passcode was entered should they venture back
-    // to this activity to check. Also, onDestroy is already overwritten on this app this override saves everything to persist.
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passcode)
@@ -45,6 +41,7 @@ class PasscodeActivity : AppCompatActivity() {
         super.onDestroy()
 
         Persist.saveLoginStatus()
+        cleanup()
     }
 
     private fun updateSwitch() {
@@ -267,6 +264,13 @@ class PasscodeActivity : AppCompatActivity() {
 
         showAlert(getString(R.string.alert_text_passcode_is_a_repeated_digit))
         return false
+    }
+
+    fun cleanup(){
+        enter_passcode_input.text.clear()
+        verify_passcode_input.text.clear()
+        enter_secondary_passcode_input.text.clear()
+        verify_secondary_passcode_input.text.clear()
     }
 
 }
