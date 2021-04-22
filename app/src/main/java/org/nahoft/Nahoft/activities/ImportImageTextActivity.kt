@@ -167,8 +167,8 @@ class ImportImageTextActivity: AppCompatActivity() {
                     }
 
                     coroutineScope.launch(Dispatchers.Main) {
-                        noMoreWaiting()
                         val maybeBytes = decodeResult.await()
+                        noMoreWaiting()
                         handleImageDecodeResult(maybeBytes)
                     }
                 }
@@ -247,16 +247,22 @@ class ImportImageTextActivity: AppCompatActivity() {
     {
         imageImportProgressBar.visibility = View.VISIBLE
         import_text_button.isEnabled = false
+        import_text_button.isClickable = false
         import_image_button.isEnabled = false
+        import_image_button.isClickable = false
         import_message_text_view.isEnabled = false
+        import_message_text_view.isClickable = false
     }
 
     private fun noMoreWaiting()
     {
         imageImportProgressBar.visibility = View.INVISIBLE
         import_text_button.isEnabled = true
+        import_text_button.isClickable = true
         import_image_button.isEnabled = true
+        import_image_button.isClickable = true
         import_message_text_view.isEnabled = true
+        import_message_text_view.isClickable = true
     }
 
     fun cleanUp () {

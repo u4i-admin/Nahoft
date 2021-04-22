@@ -404,6 +404,8 @@ class HomeActivity : AppCompatActivity() {
         user_guide_button.isEnabled = false
         friends_button.isEnabled = false
         settings_button.isEnabled = false
+        logout_button.isEnabled = false
+        logout_button.isClickable = false
     }
 
     private fun noMoreWaiting()
@@ -413,6 +415,8 @@ class HomeActivity : AppCompatActivity() {
         user_guide_button.isEnabled = true
         friends_button.isEnabled = true
         settings_button.isEnabled = true
+        logout_button.isEnabled = true
+        logout_button.isClickable = true
     }
 
     private fun cleanUp () {

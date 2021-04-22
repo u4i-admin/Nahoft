@@ -190,16 +190,22 @@ class NewMessageActivity : AppCompatActivity() {
     {
         imageShareProgressBar.visibility = View.VISIBLE
         send_as_text_button.isEnabled = false
+        send_as_image_button.isClickable = false
         send_as_image_button.isEnabled = false
+        send_as_image_button.isClickable = false
         friend_button.isEnabled = false
+        friend_button.isClickable = false
     }
 
     private fun noMoreWaiting()
     {
         imageShareProgressBar.visibility = View.INVISIBLE
         send_as_text_button.isEnabled = true
+        send_as_text_button.isClickable = true
         send_as_image_button.isEnabled = true
+        send_as_image_button.isClickable = true
         friend_button.isEnabled = true
+        friend_button.isClickable = true
     }
 
     fun cleanUp () {
