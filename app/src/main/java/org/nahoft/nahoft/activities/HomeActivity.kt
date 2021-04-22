@@ -299,6 +299,8 @@ class HomeActivity : AppCompatActivity() {
     @ExperimentalUnsignedTypes
     private fun decodeImage(imageUri: Uri)
     {
+        makeWait()
+
         val decodeResult: Deferred<ByteArray?> =
             coroutineScope.async(Dispatchers.IO) {
                 //return@async Stencil().decode(applicationContext, imageUri)
@@ -308,6 +310,8 @@ class HomeActivity : AppCompatActivity() {
 
         coroutineScope.launch(Dispatchers.Main) {
             val maybeDecodeResult = decodeResult.await()
+
+            noMoreWaiting()
 
             if (maybeDecodeResult != null) {
                 handleDecodeImageResult(maybeDecodeResult)
@@ -391,6 +395,24 @@ class HomeActivity : AppCompatActivity() {
         startActivity(returnToLoginIntent)
 
         finish()
+    }
+
+    private fun makeWait()
+    {
+        homeProgressBar.visibility = View.VISIBLE
+        messages_button.isEnabled = false
+        user_guide_button.isEnabled = false
+        friends_button.isEnabled = false
+        settings_button.isEnabled = false
+    }
+
+    private fun noMoreWaiting()
+    {
+        homeProgressBar.visibility = View.INVISIBLE
+        messages_button.isEnabled = true
+        user_guide_button.isEnabled = true
+        friends_button.isEnabled = true
+        settings_button.isEnabled = true
     }
 
     private fun cleanUp () {

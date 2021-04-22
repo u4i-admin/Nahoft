@@ -12,6 +12,7 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_message.*
 import kotlinx.android.synthetic.main.activity_new_message.*
 import kotlinx.coroutines.*
@@ -121,8 +122,6 @@ class NewMessageActivity : AppCompatActivity() {
                         // get data?.data as URI
                         val imageURI = data?.data
 
-                        // Likely need to start the animation here or just before ShareUtil
-
                         imageURI?.let {
                             imageShareProgressBar.visibility = View.VISIBLE
                             shareAsImage(imageURI, message, selectedFriend!!.publicKeyEncoded!!)
@@ -168,9 +167,11 @@ class NewMessageActivity : AppCompatActivity() {
 
             coroutineScope.launch(Dispatchers.Main) {
                 val maybeUri = newUri.await()
+
+                imageShareProgressBar.visibility = View.INVISIBLE
+
                 // Save bitmap to image roll to get URI for sharing intent
                 if (maybeUri != null) {
-                    imageShareProgressBar.visibility = View.INVISIBLE
                     ShareUtil.shareImage(applicationContext, maybeUri!!)
                 } else {
                     applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
@@ -185,9 +186,25 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
-   /* fun cleanUp () {
+    private fun makeWait()
+    {
+        imageShareProgressBar.visibility = View.VISIBLE
+        send_as_text_button.isEnabled = false
+        send_as_image_button.isEnabled = false
+        friend_button.isEnabled = false
+    }
+
+    private fun noMoreWaiting()
+    {
+        imageShareProgressBar.visibility = View.INVISIBLE
+        send_as_text_button.isEnabled = true
+        send_as_image_button.isEnabled = true
+        friend_button.isEnabled = true
+    }
+
+    fun cleanUp () {
         selectedFriend = null
         editMessageText.text?.clear()
-    }*/
+    }
 
 }
