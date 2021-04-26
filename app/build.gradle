@@ -74,4 +74,5 @@ dependencies {
     testImplementation 'com.github.joshjdevl.libsodiumjni:libsodium-jni-aar:2.0.2'
     androidTestImplementation 'com.github.joshjdevl.libsodiumjni:libsodium-jni-aar:2.0.2'
 
+
 }

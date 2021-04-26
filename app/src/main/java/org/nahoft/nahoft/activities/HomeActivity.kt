@@ -8,8 +8,6 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.OnLifecycleEvent
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_new_message.*
 import kotlinx.coroutines.*
@@ -21,7 +19,6 @@ import org.nahoft.nahoft.Persist.Companion.messagesFilename
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.org.nahoft.swatch.Decoder
 import org.nahoft.showAlert
-import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
 import java.io.File
 import java.time.LocalDateTime

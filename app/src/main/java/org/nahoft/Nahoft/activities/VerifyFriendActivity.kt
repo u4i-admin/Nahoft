@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_verify_friend.*
 import org.libsodium.jni.keys.PublicKey
+import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.FriendStatus
@@ -52,15 +53,23 @@ class VerifyFriendActivity : AppCompatActivity()
 
     private fun setupTextViews()
     {
-        // Display friend public key as security number (Uppercase and Grouped by 4s)
         friend_security_number_label.text = getString(R.string.label_verify_friend_number, pendingFriend.name)
 
-        val friendKeyString = PublicKey(pendingFriend.publicKeyEncoded).toString().toUpperCase()
-        friend_security_number_text.text = friendKeyString.chunked(4).joinToString(" ")
+        // Display friend public key as encoded text.
+        val codex = Codex()
+        val encodedKey = codex.encodeKey(PublicKey(pendingFriend.publicKeyEncoded).toBytes())
+        friend_security_number_text.text = encodedKey
+        // Display friend public key as security number (Uppercase and Grouped by 4s)
+        //val friendKeyString = PublicKey(pendingFriend.publicKeyEncoded).toString().toUpperCase()
+        //friend_security_number_text.text = friendKeyString.chunked(4).joinToString(" ")
+
+        // Display user public key as encoded text
+        val userEncodedKey = codex.encodeKey(Encryption().ensureKeysExist().publicKey.toBytes())
+        user_security_number_text.text = userEncodedKey
 
         // Display user public key as security number (Uppercase and Grouped by 4s)
-        val userPublicKeyString = Encryption().ensureKeysExist().publicKey.toString().toUpperCase()
-        user_security_number_text.text = userPublicKeyString.chunked(4).joinToString(" ")
+        //val userPublicKeyString = Encryption().ensureKeysExist().publicKey.toString().toUpperCase()
+        //user_security_number_text.text = userPublicKeyString.chunked(4).joinToString(" ")
     }
 
     private fun setupButtons()

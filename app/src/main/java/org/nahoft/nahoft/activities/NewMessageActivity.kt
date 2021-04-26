@@ -4,14 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.MediaStore
 import android.view.View
-import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.OnLifecycleEvent
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_message.*
 import kotlinx.android.synthetic.main.activity_new_message.*
@@ -21,8 +16,6 @@ import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.R
 import org.nahoft.org.nahoft.swatch.Encoder
 import org.nahoft.showAlert
-import org.nahoft.stencil.Stencil
-import org.nahoft.swatch.Swatch
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 
@@ -43,13 +36,16 @@ class NewMessageActivity : AppCompatActivity() {
 
         // Send message as text button
         send_as_text_button.setOnClickListener {
-            trySendingMessage(false)
+            trySendingOrSavingMessage(false, false)
         }
 
         // Send message as image button
         send_as_image_button.setOnClickListener {
-            trySendingMessage(true)
+            trySendingOrSavingMessage(true, false)
         }
+
+        // TODO: Save message as image button
+        // trySendingOrSavingMessage(true, true)
     }
 
     private fun selectFriend() {
@@ -58,13 +54,17 @@ class NewMessageActivity : AppCompatActivity() {
         startActivityForResult(intent, RequestCodes.selectFriendCode)
     }
 
-    private fun pickImageFromGallery()
+    private fun pickImageFromGallery(saveImage: Boolean)
     {
         val pickImageIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(pickImageIntent, RequestCodes.selectImageCode)
+        if (saveImage) {
+            startActivityForResult(pickImageIntent, RequestCodes.selectImageForSavingCode)
+        } else {
+            startActivityForResult(pickImageIntent, RequestCodes.selectImageForSharingCode)
+        }
     }
 
-    private fun trySendingMessage(isImage: Boolean)
+    private fun trySendingOrSavingMessage(isImage: Boolean, saveImage: Boolean)
     {
 
         // Make sure there is a message to send
@@ -89,7 +89,7 @@ class NewMessageActivity : AppCompatActivity() {
 
         if (isImage) {
             // If the message is sent as an image
-            pickImageFromGallery()
+            pickImageFromGallery(saveImage)
         } else {
             // If the message is sent as text
             if (selectedFriend!!.publicKeyEncoded != null) {
@@ -108,12 +108,15 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
+    @ExperimentalUnsignedTypes
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == RequestCodes.selectImageCode) {
+            if (requestCode == RequestCodes.selectImageForSharingCode) {
                 if (selectedFriend != null) {
+
+                    // We can only share an image if a recipient with a public key has been selected
                     selectedFriend?.publicKeyEncoded?.let {
 
                         // Get the message text
@@ -124,7 +127,7 @@ class NewMessageActivity : AppCompatActivity() {
 
                         imageURI?.let {
                             imageShareProgressBar.visibility = View.VISIBLE
-                            shareAsImage(imageURI, message, selectedFriend!!.publicKeyEncoded!!)
+                            shareOrSaveAsImage(imageURI, message, selectedFriend!!.publicKeyEncoded!!,false)
                             editMessageText.text?.clear()
                             selectedFriend = null
                             friend_button.text = getString(R.string.hintOnChooseFriendButton)
@@ -134,8 +137,6 @@ class NewMessageActivity : AppCompatActivity() {
                     this.showAlert(getString(R.string.alert_text_verified_friends_only))
                     return
                 }
-
-                // We can only share an image if a recipient with a public key has been selected
 
             } else if (requestCode == RequestCodes.selectFriendCode) {
 
@@ -147,11 +148,36 @@ class NewMessageActivity : AppCompatActivity() {
                     this.selectedFriend = friend
                     friend_button.text = friend.name
                 }
+            } else if (requestCode == RequestCodes.selectImageForSavingCode) {
+                if (selectedFriend != null) {
+
+                    // We can only share an image if a recipient with a public key has been selected
+                    selectedFriend?.publicKeyEncoded?.let {
+
+                        // Get the message text
+                        val message = editMessageText.text.toString()
+
+                        // get data?.data as URI
+                        val imageURI = data?.data
+
+                        imageURI?.let {
+                            imageShareProgressBar.visibility = View.VISIBLE
+                            shareOrSaveAsImage(imageURI, message, selectedFriend!!.publicKeyEncoded!!,true)
+                            editMessageText.text?.clear()
+                            selectedFriend = null
+                            friend_button.text = getString(R.string.hintOnChooseFriendButton)
+                        }
+                    }
+                } else {
+                    this.showAlert(getString(R.string.alert_text_verified_friends_only))
+                    return
+                }
             }
         }
     }
 
-    private fun shareAsImage(imageUri: Uri, message: String, encodedFriendPublicKey: ByteArray) {
+    @ExperimentalUnsignedTypes
+    private fun shareOrSaveAsImage(imageUri: Uri, message: String, encodedFriendPublicKey: ByteArray, saveImage: Boolean) {
         try {
             // Encrypt the message
             val encryptedMessage = Encryption().encrypt(encodedFriendPublicKey, message)
@@ -162,7 +188,6 @@ class NewMessageActivity : AppCompatActivity() {
                     // Encode the image
                     val swatch = Encoder()
                     return@async swatch.encode(applicationContext, encryptedMessage, imageUri)
-                    // Stencil().encode(applicationContext, encryptedMessage, imageUri)
                 }
 
             coroutineScope.launch(Dispatchers.Main) {
@@ -172,7 +197,11 @@ class NewMessageActivity : AppCompatActivity() {
 
                 // Save bitmap to image roll to get URI for sharing intent
                 if (maybeUri != null) {
-                    ShareUtil.shareImage(applicationContext, maybeUri!!)
+                    if (saveImage) {
+                        //TODO: Save Image
+                    } else {
+                        ShareUtil.shareImage(applicationContext, maybeUri!!)
+                    }
                 } else {
                     applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
                     print("Unable to send message as photo, we were unable to encode the selected image.")

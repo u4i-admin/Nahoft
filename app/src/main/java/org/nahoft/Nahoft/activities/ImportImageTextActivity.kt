@@ -6,9 +6,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.OnLifecycleEvent
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_import_image_text.*
 import kotlinx.android.synthetic.main.activity_import_image_text.import_help_button
@@ -18,7 +15,6 @@ import org.nahoft.codex.KeyOrMessage
 import org.nahoft.nahoft.*
 import org.nahoft.org.nahoft.swatch.Decoder
 import org.nahoft.showAlert
-import org.nahoft.stencil.Stencil
 import org.nahoft.util.RequestCodes
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -106,7 +102,7 @@ class ImportImageTextActivity: AppCompatActivity() {
     private fun handleImageImport() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, RequestCodes.selectImageCode)
+        startActivityForResult(intent, RequestCodes.selectImageForSharingCode)
     }
 
     @ExperimentalUnsignedTypes
@@ -151,7 +147,7 @@ class ImportImageTextActivity: AppCompatActivity() {
                     this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
                 }
             }
-            else if (requestCode == RequestCodes.selectImageCode)
+            else if (requestCode == RequestCodes.selectImageForSharingCode)
             {
                 // get data?.data as URI
                 val imageURI = data?.data
