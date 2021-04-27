@@ -59,17 +59,10 @@ class VerifyFriendActivity : AppCompatActivity()
         val codex = Codex()
         val encodedKey = codex.encodeKey(PublicKey(pendingFriend.publicKeyEncoded).toBytes())
         friend_security_number_text.text = encodedKey
-        // Display friend public key as security number (Uppercase and Grouped by 4s)
-        //val friendKeyString = PublicKey(pendingFriend.publicKeyEncoded).toString().toUpperCase()
-        //friend_security_number_text.text = friendKeyString.chunked(4).joinToString(" ")
 
         // Display user public key as encoded text
         val userEncodedKey = codex.encodeKey(Encryption().ensureKeysExist().publicKey.toBytes())
         user_security_number_text.text = userEncodedKey
-
-        // Display user public key as security number (Uppercase and Grouped by 4s)
-        //val userPublicKeyString = Encryption().ensureKeysExist().publicKey.toString().toUpperCase()
-        //user_security_number_text.text = userPublicKeyString.chunked(4).joinToString(" ")
     }
 
     private fun setupButtons()
