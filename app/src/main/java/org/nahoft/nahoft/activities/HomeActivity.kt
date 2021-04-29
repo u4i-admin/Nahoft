@@ -18,7 +18,7 @@ import org.nahoft.nahoft.Persist.Companion.friendsFilename
 import org.nahoft.nahoft.Persist.Companion.messagesFilename
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.org.nahoft.swatch.Decoder
-import org.nahoft.showAlert
+import org.nahoft.util.showAlert
 import org.nahoft.util.RequestCodes
 import java.io.File
 import java.time.LocalDateTime
@@ -145,7 +145,7 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    fun sendToLogin()
+    private fun sendToLogin()
     {
         // If the status is not either NotRequired, or Logged in, request login
         this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
@@ -187,7 +187,7 @@ class HomeActivity : AppCompatActivity() {
         startActivity(loginIntent)
     }
 
-    fun showDialogButtonHomeHelp() {
+    private fun showDialogButtonHomeHelp() {
         AlertDialog.Builder(this)
             .setTitle(resources.getString(R.string.dialog_button_home_help_title))
             .setMessage(resources.getString(R.string.dialog_button_home_help))
@@ -386,9 +386,9 @@ class HomeActivity : AppCompatActivity() {
         Persist.saveLoginStatus()
 
         val returnToLoginIntent = Intent(this, EnterPasscodeActivity::class.java)
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+        intent.flags = Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS
         startActivity(returnToLoginIntent)
 
         finish()

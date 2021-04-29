@@ -10,10 +10,8 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_enter_passcode.*
-import kotlinx.android.synthetic.main.activity_verify_friend.*
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.Persist.Companion.clearAllData
 import org.nahoft.nahoft.Persist.Companion.sharedPrefFailedLoginAttemptsKey
@@ -22,14 +20,13 @@ import org.nahoft.nahoft.Persist.Companion.sharedPrefPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.sharedPrefSecondaryPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.nahoft.R
-import org.nahoft.showAlert
-import java.lang.Exception
+import org.nahoft.util.showAlert
 import java.util.concurrent.TimeUnit
 
 class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
-    var failedLoginAttempts = 0
-    var lastFailedLoginTimeMillis: Long? = null
+    private var failedLoginAttempts = 0
+    private var lastFailedLoginTimeMillis: Long? = null
 
     private val editTextArray: ArrayList<EditText> = ArrayList(NUM_OF_DIGITS)
     companion object {
@@ -76,7 +73,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
         tryLogIn(status)
 
         login_button.setOnClickListener {
-            handleLoginPress()
+            this.handleLoginPress()
         }
     }
 
@@ -84,7 +81,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
         finishAffinity()
     }
 
-    fun handleLoginPress() {
+    private fun handleLoginPress() {
         val enteredPasscode = getEnteredPasscode()
         if (enteredPasscode != null) {
             failedLoginAttempts = Persist.encryptedSharedPreferences.getInt(
@@ -175,7 +172,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
             .forEach { index ->
                 if (s === editTextArray[index].editableText) {
 
-                    if (s != null && !s.isBlank()) {
+                    if (s != null && s.isNotBlank()) {
                         //if more than 1 char
                         if (s.length > 1) {
                             //save the second char of s to newTemp

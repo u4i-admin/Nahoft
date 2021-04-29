@@ -4,16 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.OnLifecycleEvent
 import kotlinx.android.synthetic.main.activity_message.*
-import kotlinx.android.synthetic.main.message_item_row.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Message
 import org.nahoft.nahoft.Persist.Companion.deleteMessage
 import org.nahoft.nahoft.R
-import org.nahoft.showAlert
+import org.nahoft.util.showAlert
 
 class MessageActivity : AppCompatActivity() {
 

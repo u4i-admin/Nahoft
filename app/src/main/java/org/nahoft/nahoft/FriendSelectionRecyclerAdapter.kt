@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.friend_selection_recyclerview_item_row.view.*
-import org.nahoft.inflate
+import org.nahoft.util.inflate
 
 // Recycler Adapter for selecting a message recipient when composing
 class FriendSelectionRecyclerAdapter(private val friends: ArrayList<Friend>,

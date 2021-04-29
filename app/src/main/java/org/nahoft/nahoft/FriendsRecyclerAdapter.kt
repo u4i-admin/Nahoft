@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.friend_recyclerview_item_row.view.*
 import org.nahoft.codex.Encryption
-import org.nahoft.inflate
+import org.nahoft.util.inflate
 import org.nahoft.nahoft.activities.ImportImageTextActivity
 import org.nahoft.nahoft.activities.VerifyFriendActivity
 import org.nahoft.nahoft.ui.ItemTouchHelperListener

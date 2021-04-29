@@ -15,7 +15,7 @@ import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.R
 import org.nahoft.org.nahoft.swatch.Encoder
-import org.nahoft.showAlert
+import org.nahoft.util.showAlert
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 

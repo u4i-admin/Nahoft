@@ -6,7 +6,6 @@ import android.net.Uri
 import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
 import org.nahoft.nahoft.R
-import org.nahoft.showAlert
 
 object ShareUtil
 {

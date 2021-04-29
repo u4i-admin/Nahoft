@@ -5,7 +5,7 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_passcode.*
 import org.nahoft.nahoft.*
 import org.nahoft.nahoft.Persist.Companion.status
-import org.nahoft.showAlert
+import org.nahoft.util.showAlert
 
 class PasscodeActivity : AppCompatActivity() {
 
@@ -198,14 +198,14 @@ class PasscodeActivity : AppCompatActivity() {
 
     }
 
-    fun passcodeMeetsRequirements(passcode: String): Boolean
+    private fun passcodeMeetsRequirements(passcode: String): Boolean
     {
         return (isPasscodeCorrectLength(passcode) &&
                 isPasscodeNonSequential(passcode) &&
                 isPasscodeNonRepeating(passcode))
     }
 
-    fun isPasscodeCorrectLength(passcode: String): Boolean {
+    private fun isPasscodeCorrectLength(passcode: String): Boolean {
 
         if (passcode.length == 6)
         {
@@ -219,7 +219,7 @@ class PasscodeActivity : AppCompatActivity() {
     }
 
     // Returns true if the passcode provided is non sequential numbers.
-    fun isPasscodeNonSequential(passcode: String): Boolean {
+    private fun isPasscodeNonSequential(passcode: String): Boolean {
 
         val digitArray = passcode.map { it.toString().toInt() }.toTypedArray()
         val max = digitArray.maxOrNull()
@@ -248,7 +248,7 @@ class PasscodeActivity : AppCompatActivity() {
 
     // Returns true if all the numbers in the passcode are not the same.
 
-    fun isPasscodeNonRepeating(passcode: String): Boolean {
+    private fun isPasscodeNonRepeating(passcode: String): Boolean {
 
         val firstChar = passcode[0]
 

@@ -3,13 +3,12 @@ package org.nahoft.nahoft.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_add_friend.*
-import kotlinx.android.synthetic.main.friend_recyclerview_item_row.*
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.FriendStatus
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.Persist.Companion.friendList
 import org.nahoft.nahoft.R
-import org.nahoft.showAlert
+import org.nahoft.util.showAlert
 
 class AddFriendActivity : AppCompatActivity() {
 

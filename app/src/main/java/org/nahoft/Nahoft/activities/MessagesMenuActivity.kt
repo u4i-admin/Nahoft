@@ -2,12 +2,9 @@ package org.nahoft.nahoft.activities
 
 import android.app.AlertDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.activity_home.*
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_messages_menu.*
-import kotlinx.android.synthetic.main.activity_messages_menu.messages_menu_help_button
 import org.nahoft.nahoft.R
 
 class MessagesMenuActivity : AppCompatActivity() {
@@ -37,7 +34,7 @@ class MessagesMenuActivity : AppCompatActivity() {
             startActivity(importIntent)}
     }
 
-    fun showDialogButtonMessagesMenuHelp() {
+    private fun showDialogButtonMessagesMenuHelp() {
         AlertDialog.Builder(this)
             .setTitle(resources.getString(R.string.dialog_button_messages_menu_help_title))
             .setMessage(resources.getString(R.string.dialog_button_messages_menu_help))

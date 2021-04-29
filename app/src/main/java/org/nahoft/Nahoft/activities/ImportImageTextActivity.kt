@@ -14,7 +14,7 @@ import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
 import org.nahoft.nahoft.*
 import org.nahoft.org.nahoft.swatch.Decoder
-import org.nahoft.showAlert
+import org.nahoft.util.showAlert
 import org.nahoft.util.RequestCodes
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -48,7 +48,7 @@ class ImportImageTextActivity: AppCompatActivity() {
         }
     }
 
-    fun showDialogButtonImportHelp() {
+    private fun showDialogButtonImportHelp() {
         AlertDialog.Builder(this)
             .setTitle(resources.getString(R.string.dialog_button_import_help_title))
             .setMessage(resources.getString(R.string.dialog_button_import_help))

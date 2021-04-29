@@ -1,4 +1,4 @@
-package org.nahoft
+package org.nahoft.util
 
 import android.content.Context
 import android.view.LayoutInflater
