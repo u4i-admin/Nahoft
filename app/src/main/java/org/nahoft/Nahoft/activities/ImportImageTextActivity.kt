@@ -3,15 +3,19 @@ package org.nahoft.nahoft.activities
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_import_image_text.*
 import kotlinx.android.synthetic.main.activity_import_image_text.import_help_button
 import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
+import org.nahoft.codex.LOGOUT_TIMER_VAL
+import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
 import org.nahoft.org.nahoft.swatch.Decoder
 import org.nahoft.util.showAlert
@@ -25,6 +29,10 @@ class ImportImageTextActivity: AppCompatActivity() {
     private var sender: Friend? = null
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
+    private val receiver by lazy {
+        LogoutTimerBroadcastReceiver {
+        }
+    }
 
     companion object {
         const val SENDER = "Sender"
@@ -46,6 +54,20 @@ class ImportImageTextActivity: AppCompatActivity() {
         import_image_button.setOnClickListener {
             handleImageImport()
         }
+    }
+
+    override fun onStop() {
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
+        cleanUp()
+        super.onStop()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        unregisterReceiver(receiver)
     }
 
     private fun showDialogButtonImportHelp() {
@@ -265,5 +287,6 @@ class ImportImageTextActivity: AppCompatActivity() {
         decodePayload = null
         sender = null
         import_message_text_view.text = null
+        showAlert("Import Image Text Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }

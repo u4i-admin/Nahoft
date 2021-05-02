@@ -1,13 +1,22 @@
 package org.nahoft.nahoft.activities
 
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_passcode.*
+import org.nahoft.codex.LOGOUT_TIMER_VAL
+import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.util.showAlert
 
 class PasscodeActivity : AppCompatActivity() {
+
+    private val receiver by lazy {
+        LogoutTimerBroadcastReceiver {
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +38,20 @@ class PasscodeActivity : AppCompatActivity() {
             handleDeletePasscodeClick()
         }
 
+    }
+
+    override fun onStop() {
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
+        cleanup()
+        super.onStop()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        unregisterReceiver(receiver)
     }
 
     override fun onBackPressed() {
@@ -269,6 +292,7 @@ class PasscodeActivity : AppCompatActivity() {
         verify_passcode_input.text.clear()
         enter_secondary_passcode_input.text.clear()
         verify_secondary_passcode_input.text.clear()
+        showAlert("Passcode Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 
 }

@@ -3,16 +3,20 @@ package org.nahoft.nahoft.activities
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_new_message.*
 import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
+import org.nahoft.codex.LOGOUT_TIMER_VAL
+import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
 import org.nahoft.nahoft.Persist.Companion.friendsFilename
 import org.nahoft.nahoft.Persist.Companion.messagesFilename
@@ -28,6 +32,11 @@ class HomeActivity : AppCompatActivity() {
 
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
+
+    private val receiver by lazy {
+        LogoutTimerBroadcastReceiver {
+        }
+    }
 
     private var decodePayload: ByteArray? = null
 
@@ -143,6 +152,21 @@ class HomeActivity : AppCompatActivity() {
             logout_button.visibility = View.VISIBLE
         }
 
+    }
+
+    override fun onStop() {
+
+        registerReceiver(receiver, IntentFilter().apply {
+         addAction(LOGOUT_TIMER_VAL)
+        })
+        cleanUp()
+        // I'm not sure if I need to call super.onStop() just below the function signature or right here.
+        super.onStop()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        unregisterReceiver(receiver)
     }
 
     private fun sendToLogin()
@@ -418,5 +442,6 @@ class HomeActivity : AppCompatActivity() {
 
     private fun cleanUp () {
         decodePayload = null
+        showAlert("Home Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }

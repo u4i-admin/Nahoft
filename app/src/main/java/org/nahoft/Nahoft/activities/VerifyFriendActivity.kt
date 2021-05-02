@@ -1,22 +1,32 @@
 package org.nahoft.nahoft.activities
 
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_verify_friend.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
+import org.nahoft.codex.LOGOUT_TIMER_VAL
+import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.FriendStatus
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.R
 import org.nahoft.util.RequestCodes
+import org.nahoft.util.showAlert
 
 class VerifyFriendActivity : AppCompatActivity()
 {
     private lateinit var pendingFriend: Friend
+
+    private val receiver by lazy {
+        LogoutTimerBroadcastReceiver {
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -49,6 +59,20 @@ class VerifyFriendActivity : AppCompatActivity()
 
         setupTextViews()
         setupButtons()
+    }
+
+    override fun onStop() {
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
+        cleanup()
+        super.onStop()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        unregisterReceiver(receiver)
     }
 
     private fun setupTextViews()
@@ -120,5 +144,6 @@ class VerifyFriendActivity : AppCompatActivity()
         friend_security_number_label.text = ""
         friend_security_number_text.text = ""
         pendingFriend = Friend("", FriendStatus.Default, null)
+        showAlert("Verify Friend Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }

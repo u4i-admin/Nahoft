@@ -2,16 +2,20 @@ package org.nahoft.nahoft.activities
 
 import android.app.Activity
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_message.*
 import kotlinx.android.synthetic.main.activity_new_message.*
 import kotlinx.coroutines.*
 import org.nahoft.codex.Encryption
+import org.nahoft.codex.LOGOUT_TIMER_VAL
+import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.R
 import org.nahoft.org.nahoft.swatch.Encoder
@@ -24,6 +28,11 @@ class NewMessageActivity : AppCompatActivity() {
     private var selectedFriend: Friend? = null
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
+
+    private val receiver by lazy {
+        LogoutTimerBroadcastReceiver {
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +55,20 @@ class NewMessageActivity : AppCompatActivity() {
 
         // TODO: Save message as image button
         // trySendingOrSavingMessage(true, true)
+    }
+
+    override fun onStop() {
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
+        cleanUp()
+        super.onStop()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        unregisterReceiver(receiver)
     }
 
     private fun selectFriend() {
@@ -240,6 +263,7 @@ class NewMessageActivity : AppCompatActivity() {
     fun cleanUp () {
         selectedFriend = null
         editMessageText.text?.clear()
+        showAlert("New Message Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 
 }

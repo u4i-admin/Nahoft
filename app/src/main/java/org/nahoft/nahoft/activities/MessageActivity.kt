@@ -2,11 +2,16 @@ package org.nahoft.nahoft.activities
 
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_message.*
+import kotlinx.android.synthetic.main.message_item_row.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Encryption
+import org.nahoft.codex.LOGOUT_TIMER_VAL
+import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.Message
 import org.nahoft.nahoft.Persist.Companion.deleteMessage
 import org.nahoft.nahoft.R
@@ -30,6 +35,11 @@ class MessageActivity : AppCompatActivity() {
         }
     }
 
+    private val receiver by lazy {
+        LogoutTimerBroadcastReceiver {
+        }
+    }
+
     lateinit var message: Message
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +57,20 @@ class MessageActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    override fun onStop() {
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
+        cleanUp()
+        super.onStop()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        unregisterReceiver(receiver)
     }
 
     private fun loadMessageContent()
@@ -76,9 +100,10 @@ class MessageActivity : AppCompatActivity() {
         }
     }
 
-    /*private fun cleanUp () {
+    private fun cleanUp () {
         message = Message("", ByteArray(2))
         sender_name_text_view.text = null
         message_body_text_view.text = null
-    }*/
+        showAlert("Message Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+    }
 }

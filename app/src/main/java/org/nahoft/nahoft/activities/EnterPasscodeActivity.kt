@@ -1,6 +1,7 @@
 package org.nahoft.nahoft.activities
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
@@ -10,8 +11,11 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_enter_passcode.*
+import org.nahoft.codex.LOGOUT_TIMER_VAL
+import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.Persist.Companion.clearAllData
 import org.nahoft.nahoft.Persist.Companion.sharedPrefFailedLoginAttemptsKey
@@ -32,6 +36,11 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
     companion object {
 
         const val NUM_OF_DIGITS = 6
+    }
+
+    private val receiver by lazy {
+        LogoutTimerBroadcastReceiver {
+        }
     }
 
     private var numTemp = "0"
@@ -79,6 +88,20 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     override fun onBackPressed() {
         finishAffinity()
+    }
+
+    override fun onStop() {
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
+        cleanup()
+        super.onStop()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        unregisterReceiver(receiver)
     }
 
     private fun handleLoginPress() {
@@ -338,6 +361,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     private fun cleanup(){
         editTextArray.clear()
+        showAlert("Enter Passcode Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }
 
