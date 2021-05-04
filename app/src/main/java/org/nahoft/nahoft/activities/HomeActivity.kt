@@ -442,6 +442,6 @@ class HomeActivity : AppCompatActivity() {
 
     private fun cleanUp () {
         decodePayload = null
-        showAlert("Home Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+        //showAlert("Home Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }

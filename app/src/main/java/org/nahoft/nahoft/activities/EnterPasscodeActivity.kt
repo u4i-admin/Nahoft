@@ -361,7 +361,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     private fun cleanup(){
         editTextArray.clear()
-        showAlert("Enter Passcode Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+        //showAlert("Enter Passcode Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }
 

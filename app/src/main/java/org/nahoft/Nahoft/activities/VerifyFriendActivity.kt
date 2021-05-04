@@ -144,6 +144,6 @@ class VerifyFriendActivity : AppCompatActivity()
         friend_security_number_label.text = ""
         friend_security_number_text.text = ""
         pendingFriend = Friend("", FriendStatus.Default, null)
-        showAlert("Verify Friend Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+        //showAlert("Verify Friend Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }

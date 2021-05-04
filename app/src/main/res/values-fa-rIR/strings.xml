@@ -28,6 +28,8 @@
 <string name="button_label_view_messages">خواندن پیام‌ها</string>
 <string name="button_label_compose_messages">نوشتن پیام</string>
 <string name="button_import_message_label">وارد کردن</string>
+<string name="saveImageButton">دکمه ذخیره تصویر</string>
+
 
 <!-- New Messages Activity Alerts -->
 <string name="alert_text_verified_friends_only">فقط می‌توانید برای یک دوست تأییدشده پیام بفرستید.</string>

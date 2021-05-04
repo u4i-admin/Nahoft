@@ -292,7 +292,7 @@ class PasscodeActivity : AppCompatActivity() {
         verify_passcode_input.text.clear()
         enter_secondary_passcode_input.text.clear()
         verify_secondary_passcode_input.text.clear()
-        showAlert("Passcode Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+        //showAlert("Passcode Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 
 }

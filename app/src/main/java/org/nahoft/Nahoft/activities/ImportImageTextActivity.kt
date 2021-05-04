@@ -287,6 +287,6 @@ class ImportImageTextActivity: AppCompatActivity() {
         decodePayload = null
         sender = null
         import_message_text_view.text = null
-        showAlert("Import Image Text Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+        //showAlert("Import Image Text Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }

@@ -66,6 +66,6 @@ class AddFriendActivity : AppCompatActivity() {
 
     private fun cleanup(){
         nameTextField.text = null
-        showAlert("Add Friend Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+        //showAlert("Add Friend Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }
