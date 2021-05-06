@@ -34,7 +34,7 @@
             android:layout_weight="1"
             android:imeOptions="actionDone"
             android:inputType="numberPassword|number"
-            android:maxLength="2"
+            android:maxLength="1"
             android:maxLines="1"
             android:textAlignment="center"
             android:textColor="@color/colorWarmWhite"

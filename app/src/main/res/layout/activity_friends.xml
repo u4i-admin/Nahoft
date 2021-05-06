@@ -7,19 +7,29 @@
     android:layout_height="match_parent"
     tools:context=".activities.FriendsActivity">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageView
         android:id="@+id/friend_help_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
-        android:layout_margin="@dimen/padding_half"
+        android:layout_marginTop="@dimen/padding_half"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:focusable="true"
         android:contentDescription="@string/help_button_content_description"
         android:background="@color/colorWarmWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:onClick="showDialogButtonFriendsHelp"
-        app:fabSize="mini"
         app:srcCompat="@drawable/help_outline_25px" />
+
+    <LinearLayout
+        android:id="@+id/friendsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/padding_standard"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/friend_help_button"
+        android:orientation="vertical" >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friendsRecyclerView"
@@ -27,8 +37,9 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@id/add_friend_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_friend_button"

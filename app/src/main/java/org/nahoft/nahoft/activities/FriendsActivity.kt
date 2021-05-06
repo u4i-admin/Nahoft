@@ -2,6 +2,7 @@ package org.nahoft.nahoft.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -41,7 +42,7 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
     }
 
     // Friends Help Button
-    fun showDialogButtonFriendsHelp() {
+    fun showDialogButtonFriendsHelp(view: View) {
         AlertDialog.Builder(this)
             .setTitle(resources.getString(R.string.dialog_button_friends_help_title))
             .setMessage(resources.getString(R.string.dialog_button_friends_help))

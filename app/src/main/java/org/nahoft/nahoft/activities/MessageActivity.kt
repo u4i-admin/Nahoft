@@ -64,7 +64,7 @@ class MessageActivity : AppCompatActivity() {
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
         })
-        cleanUp()
+        //cleanUp()
         super.onStop()
     }
 
@@ -100,10 +100,10 @@ class MessageActivity : AppCompatActivity() {
         }
     }
 
-    private fun cleanUp () {
-        message = Message("", ByteArray(2))
-        sender_name_text_view.text = null
-        message_body_text_view.text = null
+    //private fun cleanUp () {
+        //message = Message("", ByteArray(2))
+        //sender_name_text_view.text = null
+        //message_body_text_view.text = null
         //showAlert("Message Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
-    }
+    //}
 }

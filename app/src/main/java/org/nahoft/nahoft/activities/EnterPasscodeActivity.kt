@@ -9,6 +9,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -26,6 +27,7 @@ import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.nahoft.R
 import org.nahoft.util.showAlert
 import java.util.concurrent.TimeUnit
+import kotlin.math.max
 
 class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
@@ -68,6 +70,16 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
                     }
                 }
                 false
+            }
+
+            editTextArray[index].setOnEditorActionListener { _, keyCode, event ->
+                return@setOnEditorActionListener when (keyCode) {
+                    EditorInfo.IME_ACTION_DONE -> {
+                            this.handleLoginPress()
+                            true
+                    }
+                    else -> false
+                }
             }
         }
 
