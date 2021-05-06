@@ -105,8 +105,8 @@ class Encoder {
 
     private fun resizePreservingAspectRatio(originalSize: ImageSize, targetSizePixels: Int): ImageSize {
         val aspectRatio = originalSize.height / originalSize.width
-        val scaledWidth = sqrt(targetSizePixels / aspectRatio)
-        val scaledHeight = aspectRatio * scaledWidth
+        val scaledHeight = sqrt(targetSizePixels / aspectRatio)
+        val scaledWidth = aspectRatio * scaledHeight
 
         return  ImageSize(scaledHeight, scaledWidth, originalSize.colorDepthBytes)
     }
