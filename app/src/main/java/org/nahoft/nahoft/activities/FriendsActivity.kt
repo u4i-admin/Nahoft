@@ -41,6 +41,8 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
         adapter.notifyDataSetChanged()
     }
 
+    // TODO: call  adapter.cleanup() when broadcast received
+
     // Friends Help Button
     fun showDialogButtonFriendsHelp(view: View) {
         AlertDialog.Builder(this)

@@ -2,7 +2,6 @@ package org.nahoft.nahoft.activities
 
 import android.content.IntentFilter
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_add_friend.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL

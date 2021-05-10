@@ -5,21 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URI;
-import java.net.URL;
-
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
-
-import org.nahoft.nahoft.Persist;
-
 import static androidx.core.content.FileProvider.getUriForFile;
 
 /**
@@ -44,6 +36,7 @@ public class CapturePhotoUtils {
         values.put(Images.Media.DISPLAY_NAME, title);
         values.put(Images.Media.DESCRIPTION, description);
         values.put(Images.Media.MIME_TYPE, "image/png");
+
         // Add the date meta data to ensure the image is added at the front of the gallery
         values.put(Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000);
         values.put(Images.Media.DATE_TAKEN, System.currentTimeMillis());
@@ -52,7 +45,7 @@ public class CapturePhotoUtils {
 //        String stringUrl = null;    /* value to be returned */
 
         try {
-            File tempFile = File.createTempFile("encodedImage", ".png", context.getCacheDir());
+            File tempFile = File.createTempFile("image", ".png", context.getCacheDir());
             FileOutputStream outputStream = new FileOutputStream(tempFile);
 
             Uri fileUri = getUriForFile(context, "org.nahoft.nahoft.fileprovider", tempFile);

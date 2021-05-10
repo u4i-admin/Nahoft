@@ -8,21 +8,34 @@ import org.nahoft.stencil.CapturePhotoUtils
 import org.nahoft.stencil.ImageSize
 import org.nahoft.swatch.Swatch
 import org.nahoft.swatch.payloadMessageKey
+import org.nahoft.util.SaveUtil
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 class Encoder {
     @ExperimentalUnsignedTypes
-    fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri? {
+    fun encode(context: Context, encrypted: ByteArray, coverUri: Uri, saveToGallery: Boolean): Uri? {
         // Get the photo
         val cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
         val result = encode(encrypted, cover)
 
         val title = ""
         val description = ""
-        val resultUri = CapturePhotoUtils.insertImage(context, result, title, description)
 
-        return resultUri
+        if (result == null)
+        {
+            return null
+        }
+
+        if (saveToGallery)
+        {
+            SaveUtil.saveImageToGallery(context, result, title, description)
+            return null
+        }
+        else
+        {
+            return CapturePhotoUtils.insertImage(context, result, title, description)
+        }
     }
 
     @ExperimentalUnsignedTypes

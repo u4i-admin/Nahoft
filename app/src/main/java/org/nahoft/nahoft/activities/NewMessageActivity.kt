@@ -67,8 +67,7 @@ class NewMessageActivity : AppCompatActivity() {
             trySendingOrSavingMessage(true, false)
         }
 
-        // TODO: Save message as image button
-        // trySendingOrSavingMessage(true, true)
+        // Save message as image button
         save_image_button.setOnClickListener {
             trySendingOrSavingMessage(true, true)
         }
@@ -240,7 +239,7 @@ class NewMessageActivity : AppCompatActivity() {
 
                     // Encode the image
                     val swatch = Encoder()
-                    return@async swatch.encode(applicationContext, encryptedMessage, imageUri)
+                    return@async swatch.encode(applicationContext, encryptedMessage, imageUri, saveImage)
                 }
 
             coroutineScope.launch(Dispatchers.Main) {
@@ -248,18 +247,18 @@ class NewMessageActivity : AppCompatActivity() {
 
                 imageShareProgressBar.visibility = View.INVISIBLE
 
-                // Save bitmap to image roll to get URI for sharing intent
-                if (maybeUri != null) {
-                    if (saveImage) {
-                        //TODO: Save Image
-
-
-                    } else {
-                        ShareUtil.shareImage(applicationContext, maybeUri!!)
+                if (!saveImage) // We're sharing the image so we need a uri
+                {
+                    // Save bitmap to image roll to get URI for sharing intent
+                    if (maybeUri != null)
+                    {
+                        ShareUtil.shareImage(applicationContext, maybeUri)
                     }
-                } else {
-                    applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
-                    print("Unable to send message as photo, we were unable to encode the selected image.")
+                    else
+                    {
+                        applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
+                        print("Unable to send message as photo, we were unable to encode the selected image.")
+                    }
                 }
             }
 
@@ -291,8 +290,7 @@ class NewMessageActivity : AppCompatActivity() {
     }
 
     fun cleanUp() {
-        //selectedFriend = null
-        //selectedFriend =Friend()
+        selectedFriend = null
         editMessageText.text?.clear()
         //showAlert("New Message Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }

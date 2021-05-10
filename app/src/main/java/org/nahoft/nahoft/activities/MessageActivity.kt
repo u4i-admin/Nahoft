@@ -100,10 +100,10 @@ class MessageActivity : AppCompatActivity() {
         }
     }
 
-    //private fun cleanUp () {
-        //message = Message("", ByteArray(2))
-        //sender_name_text_view.text = null
-        //message_body_text_view.text = null
-        //showAlert("Message Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
-    //}
+    private fun cleanUp () {
+        message = Message("", ByteArray(2))
+        sender_name_text_view.text = ""
+        message_body_text_view.text = ""
+        showAlert("Message Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+    }
 }

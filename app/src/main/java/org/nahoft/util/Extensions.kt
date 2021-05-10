@@ -11,6 +11,7 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false):
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }
 
-fun Context.showAlert(message: String, length: Int = Toast.LENGTH_LONG) {
+fun Context.showAlert(message: String, length: Int = Toast.LENGTH_LONG)
+{
     Toast.makeText(this, message, length).show()
 }
