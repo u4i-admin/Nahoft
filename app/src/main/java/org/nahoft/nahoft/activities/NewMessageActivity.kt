@@ -2,12 +2,14 @@ package org.nahoft.nahoft.activities
 
 import android.app.Activity
 import android.content.*
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.media.Image
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.ContactsContract.Intents.Insert.ACTION
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
@@ -22,6 +24,7 @@ import org.nahoft.codex.Encryption
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.Friend
+import org.nahoft.nahoft.Nahoft
 import org.nahoft.nahoft.R
 import org.nahoft.org.nahoft.swatch.Encoder
 import org.nahoft.util.showAlert
@@ -32,6 +35,7 @@ import java.io.File.separator
 import java.io.FileOutputStream
 import java.io.OutputStream
 import java.net.URI
+import java.util.jar.Manifest
 
 class NewMessageActivity : AppCompatActivity() {
 
@@ -248,8 +252,7 @@ class NewMessageActivity : AppCompatActivity() {
                 if (maybeUri != null) {
                     if (saveImage) {
                         //TODO: Save Image
-                        //saveImageToGallery()
-                        //saveMediaToStorage((Context, ByteArray, coverUri: Uri): Uri? )
+
 
                     } else {
                         ShareUtil.shareImage(applicationContext, maybeUri!!)
@@ -294,81 +297,5 @@ class NewMessageActivity : AppCompatActivity() {
         //showAlert("New Message Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 
-    private fun saveMediaToStorage(bitmap: Bitmap) {
-        val filename = "${System.currentTimeMillis()}.jpg"
-        var fos: OutputStream? = null
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            contentResolver?.also { resolver ->
-                val contentValues = ContentValues().apply {
-                    put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
-                    put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
-                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-                }
-                val imageUri: Uri? =
-                    resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-                fos = imageUri?.let { resolver.openOutputStream(it) }
-            }
-        } else {
-            val imagesDir =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-            val image = File(imagesDir, filename)
-            fos = FileOutputStream(image)
-        }
-        fos?.use {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
-            showAlert("Saved to Photos")
-        }
-    }
 
-    /// @param folderName can be your app's name
-    private fun saveImageToGallery(bitmap: Bitmap, context: Context, folderName: String) {
-        if (android.os.Build.VERSION.SDK_INT >= 29) {
-            val values = contentValues()
-            values.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/" + folderName)
-            values.put(MediaStore.Images.Media.IS_PENDING, true)
-            // RELATIVE_PATH and IS_PENDING are introduced in API 29.
-
-            val uri: Uri? = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-            if (uri != null) {
-                saveImageToStream(bitmap, context.contentResolver.openOutputStream(uri))
-                values.put(MediaStore.Images.Media.IS_PENDING, false)
-                context.contentResolver.update(uri, values, null, null)
-            }
-        } else {
-            val directory = File(Environment.getExternalStorageDirectory().toString() + separator + folderName)
-            // getExternalStorageDirectory is deprecated in API 29
-
-            if (!directory.exists()) {
-                directory.mkdirs()
-            }
-            val fileName = System.currentTimeMillis().toString() + ".png"
-            val file = File(directory, fileName)
-            saveImageToStream(bitmap, FileOutputStream(file))
-            if (file.absolutePath != null) {
-                val values = contentValues()
-                values.put(MediaStore.Images.Media.DATA, file.absolutePath)
-                // .DATA is deprecated in API 29
-                context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-            }
-        }
-    }
-
-    private fun contentValues() : ContentValues {
-        val values = ContentValues()
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
-        values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000);
-        values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
-        return values
-    }
-
-    private fun saveImageToStream(bitmap: Bitmap, outputStream: OutputStream?) {
-        if (outputStream != null) {
-            try {
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-                outputStream.close()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
 }
