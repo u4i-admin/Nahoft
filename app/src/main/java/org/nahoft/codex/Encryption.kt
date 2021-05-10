@@ -19,8 +19,6 @@ class Encryption()
 {
     // Encrypted Shared Preferences
     private val privateKeyPreferencesKey = "NahoftPrivateKey"
-    private val messageLengthKey = "s2BcD9ZZ8VjeDPJsexECCeUt4G1br+k3yyuWYS4UVBY="
-    private val messageLengthIV = "B9p8zEglCBtRkvAEpMp90w=="
 
     // Generate a new keypair for this device and store it in EncryptedSharedPreferences
     private fun generateKeypair(): Keys {
