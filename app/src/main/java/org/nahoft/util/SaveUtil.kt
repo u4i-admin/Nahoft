@@ -7,6 +7,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.Settings.Global.getString
+import org.nahoft.nahoft.R
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -49,14 +51,11 @@ object SaveUtil
             val saved = image.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
             if (saved)
             {
-                //FIXME: Better and localized message
-                context.showAlert("FIXME: Image Saved.")
+                    context.showAlert(context.getString(R.string.alert_text_image_saved))
                 return true
             }
         }
-
-        //FIXME: Better and localized message
-        context.showAlert("FIXME: We were unable to save your image at this time.")
+        context.showAlert(context.getString(R.string.alert_text_image_not_saved))
         return false
     }
 }

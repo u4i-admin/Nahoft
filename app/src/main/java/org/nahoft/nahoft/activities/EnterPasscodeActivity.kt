@@ -35,6 +35,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
     private var lastFailedLoginTimeMillis: Long? = null
 
     private val editTextArray: ArrayList<EditText> = ArrayList(NUM_OF_DIGITS)
+
     companion object {
 
         const val NUM_OF_DIGITS = 6
@@ -47,7 +48,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     private var numTemp = "0"
 
-    override fun onCreate(savedInstanceState: Bundle?){
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enter_passcode)
 
@@ -75,8 +76,8 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
             editTextArray[index].setOnEditorActionListener { _, keyCode, event ->
                 return@setOnEditorActionListener when (keyCode) {
                     EditorInfo.IME_ACTION_DONE -> {
-                            this.handleLoginPress()
-                            true
+                        this.handleLoginPress()
+                        true
                     }
                     else -> false
                 }
@@ -120,11 +121,16 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
         val enteredPasscode = getEnteredPasscode()
         if (enteredPasscode != null) {
             failedLoginAttempts = Persist.encryptedSharedPreferences.getInt(
-                sharedPrefFailedLoginAttemptsKey, 0)
+                sharedPrefFailedLoginAttemptsKey, 0
+            )
             val savedTimeStamp = Persist.encryptedSharedPreferences.getLong(
-                sharedPrefFailedLoginTimeKey, 0)
-            if (savedTimeStamp == 0.toLong()) { lastFailedLoginTimeMillis = null}
-            else {lastFailedLoginTimeMillis = savedTimeStamp}
+                sharedPrefFailedLoginTimeKey, 0
+            )
+            if (savedTimeStamp == 0.toLong()) {
+                lastFailedLoginTimeMillis = null
+            } else {
+                lastFailedLoginTimeMillis = savedTimeStamp
+            }
 
             verifyCode(enteredPasscode)
         }
@@ -133,7 +139,8 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
     // Checks encryptedSharedPreferences for a valid login status and saves it to the status property
     private fun getStatus() {
 
-        val statusString = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefLoginStatusKey, null)
+        val statusString =
+            Persist.encryptedSharedPreferences.getString(Persist.sharedPrefLoginStatusKey, null)
 
         if (statusString != null) {
 
@@ -150,9 +157,9 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     private fun saveStatus() {
         Persist.encryptedSharedPreferences
-    .edit()
-    .putString(Persist.sharedPrefLoginStatusKey, status.name)
-    .apply()
+            .edit()
+            .putString(Persist.sharedPrefLoginStatusKey, status.name)
+            .apply()
     }
 
     private fun tryLogIn(status: LoginStatus) {
@@ -166,19 +173,17 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
                 val homeActivityIntent = Intent(this, HomeActivity::class.java)
 
                 // Check to see if we received a send intent
-                intent.getStringExtra(Intent.EXTRA_TEXT)?.let{
+                intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
                     // Received string message
                     homeActivityIntent.putExtra(Intent.EXTRA_TEXT, it)
                 }
 
                 // See if we received an image message
                 val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
-                if (extraStream != null){
+                if (extraStream != null) {
                     val extraUri = Uri.parse(extraStream.toString())
                     homeActivityIntent.putExtra(Intent.EXTRA_STREAM, extraUri)
-                }
-                else
-                {
+                } else {
                     println("Extra Stream is Null")
                 }
 
@@ -217,7 +222,9 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
                                 editTextArray[index].setText(newTemp)
                             } else {
                                 //put the first char of s in the editText
-                                editTextArray[index].setText(s.toString().substring(0, s.length - 1))
+                                editTextArray[index].setText(
+                                    s.toString().substring(0, s.length - 1)
+                                )
                             }
                         } else if (index != editTextArray.size - 1) {
                             //not last edit text
@@ -225,6 +232,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
                             editTextArray[index + 1].setSelection(editTextArray[index + 1].length())
                             return
                         }
+                        //TODO: confirm this commented out code should be removed before next release.
                         /*else {
                             //will verify code the moment the last character is inserted and all digits have a number
                             verifyCode(getEnteredPasscode())
@@ -257,11 +265,15 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
     private fun verifyCode(verificationCode: String) {
         if (verificationCode.isNotEmpty()) {
             //Check to see if the user is allowed to try to login.
-            if (!loginAllowed()) { return }
+            if (!loginAllowed()) {
+                return
+            }
 
             // check to see if the user has saved a passcode or a secondary passcode.
-            val maybePasscode = Persist.encryptedSharedPreferences.getString(sharedPrefPasscodeKey, null)
-            val maybeSecondary = Persist.encryptedSharedPreferences.getString(sharedPrefSecondaryPasscodeKey, null)
+            val maybePasscode =
+                Persist.encryptedSharedPreferences.getString(sharedPrefPasscodeKey, null)
+            val maybeSecondary =
+                Persist.encryptedSharedPreferences.getString(sharedPrefSecondaryPasscodeKey, null)
 
             // check to see if the passcode is correct.
             when (verificationCode) {
@@ -291,11 +303,17 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     private fun getLockoutMinutes(): Int {
 
-        if (failedLoginAttempts >= 9) { return 1000 }
-        else if (failedLoginAttempts == 8) { return 15 }
-        else if (failedLoginAttempts == 7) { return 5 }
-        else if (failedLoginAttempts == 6) { return 1 }
-        else { return 0 }
+        if (failedLoginAttempts >= 9) {
+            return 1000
+        } else if (failedLoginAttempts == 8) {
+            return 15
+        } else if (failedLoginAttempts == 7) {
+            return 5
+        } else if (failedLoginAttempts == 6) {
+            return 1
+        } else {
+            return 0
+        }
     }
 
     private fun showLoginFailureAlert() {
@@ -323,8 +341,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
             showAlert(getString(R.string.alert_text_zero_to_five_login_attempts))
             println("Failed Login $failedLoginAttempts times")
 
-        }
-        else {
+        } else {
             //showAlert(getString(R.string.alert_text_zero_to_five_login_attempts))
             println("Failed Login $failedLoginAttempts times")
         }
@@ -335,8 +352,9 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
         val minutesToWait = getLockoutMinutes()
         val millisToWait = minutesToWait * 1000 * 60
 
-        if (minutesToWait == 0) { return true }
-        else if (minutesToWait >= 100) { //This should never happen all data should have already been deleted when the login failed the eleventh time.
+        if (minutesToWait == 0) {
+            return true
+        } else if (minutesToWait >= 100) { //This should never happen all data should have already been deleted when the login failed the eleventh time.
             //Delete everything like you would if user had entered a secondary passcode.
             showAlert(getString(R.string.alert_text_nineth_login_attempt))
             Persist.clearAllData()
@@ -349,23 +367,28 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
         val currentTimeMillis = System.currentTimeMillis()
 
         //compare the current time to the last failed attempt time
-        if (lastFailedLoginTimeMillis != null){
+        if (lastFailedLoginTimeMillis != null) {
 
             val elapsedTimeMillis = currentTimeMillis - lastFailedLoginTimeMillis!!
-            if (elapsedTimeMillis >= millisToWait) { return true }
-            else
-            {
+            if (elapsedTimeMillis >= millisToWait) {
+                return true
+            } else {
                 val remainingMillis = millisToWait - elapsedTimeMillis
                 val remainingMinutes = TimeUnit.MILLISECONDS.toMinutes(remainingMillis)
                 val remainingSeconds = TimeUnit.MILLISECONDS.toSeconds(remainingMillis) % 60
 
-                showAlert(getString(R.string.alert_text_minutes_to_wait_until_user_can_attempt_to_login_again, remainingMinutes, remainingSeconds))
+                showAlert(
+                    getString(
+                        R.string.alert_text_minutes_to_wait_until_user_can_attempt_to_login_again,
+                        remainingMinutes,
+                        remainingSeconds
+                    )
+                )
                 println("showAlert is from the loginAllowed function")
 
                 return false
             }
-        }
-        else {
+        } else {
             println("ERROR: Last failed login timestamp is null, but user has more than 5 failed login attempts.")
             return false
         }
@@ -373,15 +396,16 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     private fun cleanup(){
         editTextArray.clear()
-        //showAlert("Enter Passcode Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+        showAlert("Enter Passcode Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }
 
-enum class LoginStatus {
+    enum class LoginStatus {
 
-    NotRequired,
-    LoggedIn,
-    LoggedOut,
-    SecondaryLogin,
-    FailedLogin,
-}
+        NotRequired,
+        LoggedIn,
+        LoggedOut,
+        SecondaryLogin,
+        FailedLogin,
+    }
+

@@ -35,10 +35,10 @@ class MessageActivity : AppCompatActivity() {
         }
     }
 
-    private val receiver by lazy {
+    /*private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
         }
-    }
+    }*/
 
     lateinit var message: Message
 
@@ -59,7 +59,7 @@ class MessageActivity : AppCompatActivity() {
 
     }
 
-    override fun onStop() {
+/*    override fun onStop() {
 
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
@@ -71,7 +71,7 @@ class MessageActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         unregisterReceiver(receiver)
-    }
+    }*/
 
     private fun loadMessageContent()
     {

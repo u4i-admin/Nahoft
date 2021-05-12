@@ -2,14 +2,24 @@ package org.nahoft.nahoft.activities
 
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_select_message_sender.*
+import org.nahoft.codex.LOGOUT_TIMER_VAL
+import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
 import org.nahoft.util.RequestCodes
+import org.nahoft.util.showAlert
 
 class SelectMessageSenderActivity : AppCompatActivity() {
+
+    /*private val receiver by lazy {
+        LogoutTimerBroadcastReceiver {
+        }
+    }*/
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: SelectMessageSenderRecyclerAdapter
@@ -44,5 +54,20 @@ class SelectMessageSenderActivity : AppCompatActivity() {
         select_m_sender_recycler_view.layoutManager = linearLayoutManager
         select_m_sender_recycler_view.adapter = adapter
     }
+
+   /* override fun onDestroy() {
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
+        adapter.cleanup()
+        showAlert("Select Message Sender Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+        super.onDestroy()
+    }*/
+
+   /* override fun onRestart() {
+        super.onRestart()
+        //adapter.notifyDataSetChanged()
+        unregisterReceiver(receiver)
+    }*/
 
 }

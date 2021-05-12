@@ -160,7 +160,6 @@ class HomeActivity : AppCompatActivity() {
          addAction(LOGOUT_TIMER_VAL)
         })
         cleanUp()
-        // I'm not sure if I need to call super.onStop() just below the function signature or right here.
         super.onStop()
     }
 
@@ -442,6 +441,6 @@ class HomeActivity : AppCompatActivity() {
 
     private fun cleanUp () {
         decodePayload = null
-        //showAlert("Home Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+        showAlert("Home Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }

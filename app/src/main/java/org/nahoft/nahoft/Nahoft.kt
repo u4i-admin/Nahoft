@@ -14,12 +14,6 @@ class Nahoft: Application(), LifecycleObserver {
     private val logoutTimer = object: CountDownTimer(30000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             // stub
-            // Tutorial has the following stopForeground(true) code, but I don't think this applies to us
-            // because we're calling this function when we override onEnterBackground
-            // stopForeground(true)
-            sendBroadcast(Intent().apply {
-                action = LOGOUT_TIMER_VAL
-            })
         }
 
         override fun onFinish() {
@@ -30,6 +24,9 @@ class Nahoft: Application(), LifecycleObserver {
             } else if(status == LoginStatus.NotRequired) {
                 return
             }
+            sendBroadcast(Intent().apply {
+                action = LOGOUT_TIMER_VAL
+            })
         }
     }
 

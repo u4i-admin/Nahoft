@@ -1,20 +1,30 @@
 package org.nahoft.nahoft.activities
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_friends.*
+import org.nahoft.codex.LOGOUT_TIMER_VAL
+import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.FriendsRecyclerAdapter
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.R
 import org.nahoft.nahoft.ui.ItemDragListener
 import org.nahoft.nahoft.ui.ItemTouchHelperCallback
+import org.nahoft.util.showAlert
 
 class FriendsActivity : AppCompatActivity(), ItemDragListener {
+
+    private val receiver by lazy {
+        LogoutTimerBroadcastReceiver {
+        }
+    }
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: FriendsRecyclerAdapter
@@ -35,13 +45,20 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        adapter.notifyDataSetChanged()
+    override fun onDestroy() {
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
+        adapter.cleanup()
+        showAlert("Friends Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+        super.onDestroy()
     }
 
-    // TODO: call  adapter.cleanup() when broadcast received
+    override fun onRestart() {
+        super.onRestart()
+        adapter.notifyDataSetChanged()
+        unregisterReceiver(receiver)
+    }
 
     // Friends Help Button
     fun showDialogButtonFriendsHelp(view: View) {

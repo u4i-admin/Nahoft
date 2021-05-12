@@ -301,6 +301,8 @@
     <string name="alert_text_passcode_is_sequential">Sequential passcodes are not allowed.</string>
     <string name="alert_text_passcode_is_a_repeated_digit">The passcode cannot be a repeated digit.</string>
     <string name="alert_text_incorrect_passcode_length">The passcode must be 6 digits long.</string>
+    <string name="alert_text_image_saved">Image has been saved to pictures folder on phone.</string>
+    <string name="alert_text_image_not_saved">We are unable to save your image at this time.</string>
 
     //Enter Passcode Activity
     <string name="alert_text_zero_to_five_login_attempts">The passcode entered is incorrect. Please try again.</string>

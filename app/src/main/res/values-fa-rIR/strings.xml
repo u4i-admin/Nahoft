@@ -297,6 +297,9 @@ Help Dialog Buttons
     <string name="alert_text_passcode_is_sequential">رمزهای عبور متوالی مجاز نیستند.</string>
     <string name="alert_text_passcode_is_a_repeated_digit">رمز عبور نمی تواند یک رقم تکراری باشد.</string>
     <string name="alert_text_incorrect_passcode_length">کد عبور باید شش رقم باشد.</string>
+    <string name="alert_text_image_saved">تصویر در پوشه تصاویر در تلفن ذخیره شده است.</string>
+    <string name="alert_text_image_not_saved">در حال حاضر نمی توانیم تصویر شما را ذخیره کنیم.</string>
+
 
     //Enter Passcode Activity
     <string name="alert_text_zero_to_five_login_attempts">رمز عبور وارد شده نادرست است. لطفا دوباره تلاش کنید.</string>

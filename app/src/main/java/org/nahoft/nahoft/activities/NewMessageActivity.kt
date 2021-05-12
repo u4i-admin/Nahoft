@@ -73,7 +73,7 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStop() {
+   /* override fun onStop() {
 
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
@@ -85,7 +85,7 @@ class NewMessageActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         unregisterReceiver(receiver)
-    }
+    }*/
 
     private fun selectFriend() {
         val intent = FriendSelectionActivity.newIntent(this@NewMessageActivity)
@@ -289,11 +289,11 @@ class NewMessageActivity : AppCompatActivity() {
         friend_button.isClickable = true
     }
 
-    fun cleanUp() {
-        selectedFriend = null
+   /* private fun cleanUp() {
+        //selectedFriend = null
         editMessageText.text?.clear()
-        //showAlert("New Message Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
-    }
+        showAlert("New Message Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+    }*/
 
 
 }

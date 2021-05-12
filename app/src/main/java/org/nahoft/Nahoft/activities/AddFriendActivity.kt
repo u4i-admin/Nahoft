@@ -2,6 +2,7 @@ package org.nahoft.nahoft.activities
 
 import android.content.IntentFilter
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_add_friend.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
@@ -35,6 +36,7 @@ class AddFriendActivity : AppCompatActivity() {
             addAction(LOGOUT_TIMER_VAL)
         })
         cleanup()
+        showAlert("Add Friend Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
         super.onStop()
     }
 
@@ -65,6 +67,6 @@ class AddFriendActivity : AppCompatActivity() {
 
     private fun cleanup(){
         nameTextField.text = null
-        //showAlert("Add Friend Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+        showAlert("Add Friend Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }
