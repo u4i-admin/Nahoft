@@ -25,6 +25,7 @@ class VerifyFriendActivity : AppCompatActivity()
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
+            cleanup()
         }
     }
 
@@ -32,6 +33,10 @@ class VerifyFriendActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verify_friend)
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
 
         // Get our pending friend
         val maybeFriend = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription) as? Friend
@@ -61,18 +66,9 @@ class VerifyFriendActivity : AppCompatActivity()
         setupButtons()
     }
 
-    override fun onStop() {
-
-        registerReceiver(receiver, IntentFilter().apply {
-            addAction(LOGOUT_TIMER_VAL)
-        })
-        cleanup()
-        super.onStop()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
+    override fun onDestroy() {
         unregisterReceiver(receiver)
+        super.onDestroy()
     }
 
     private fun setupTextViews()
@@ -144,6 +140,6 @@ class VerifyFriendActivity : AppCompatActivity()
         friend_security_number_label.text = ""
         friend_security_number_text.text = ""
         pendingFriend = Friend("", FriendStatus.Default, null)
-        //showAlert("Verify Friend Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+        showAlert("Verify Friend Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }

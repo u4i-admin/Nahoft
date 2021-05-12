@@ -18,6 +18,8 @@ class SelectKeySenderActivity : AppCompatActivity() {
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
+            adapter.cleanup()
+            showAlert("Select Key Sender Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
         }
     }
 
@@ -31,6 +33,10 @@ class SelectKeySenderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_key_sender)
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
 
         // Only allow the user to select a friend that is in the default or invited state
         val possibleKeySenders = ArrayList<Friend>()
@@ -55,20 +61,14 @@ class SelectKeySenderActivity : AppCompatActivity() {
         select_k_sender_recycler_view.adapter = adapter
     }
 
-    override fun onStop() {
-        registerReceiver(receiver, IntentFilter().apply {
-            addAction(LOGOUT_TIMER_VAL)
-        })
-        //adapter.cleanup()
-        showAlert("Select Key Sender Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
-        super.onStop()
+    override fun onDestroy() {
+        unregisterReceiver(receiver)
+        super.onDestroy()
     }
 
     override fun onResume() {
         super.onResume()
-        //adapter.notifyDataSetChanged()
-        unregisterReceiver(receiver)
+        adapter.notifyDataSetChanged()
     }
-
 
 }

@@ -30,10 +30,11 @@ class ImportImageTextActivity: AppCompatActivity() {
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
 
-   /* private val receiver by lazy {
+    private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
+            cleanUp()
         }
-    }*/
+    }
 
     companion object {
         const val SENDER = "Sender"
@@ -42,6 +43,10 @@ class ImportImageTextActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_import_image_text)
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
 
         sender = intent.getSerializableExtra(SENDER) as Friend?
 
@@ -57,19 +62,10 @@ class ImportImageTextActivity: AppCompatActivity() {
         }
     }
 
-/*    override fun onStop() {
-
-        registerReceiver(receiver, IntentFilter().apply {
-            addAction(LOGOUT_TIMER_VAL)
-        })
-        cleanUp()
-        super.onStop()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
+    override fun onDestroy() {
         unregisterReceiver(receiver)
-    }*/
+        super.onDestroy()
+    }
 
     private fun showDialogButtonImportHelp() {
         AlertDialog.Builder(this)
@@ -284,10 +280,10 @@ class ImportImageTextActivity: AppCompatActivity() {
         import_message_text_view.isClickable = true
     }
 
-/*    fun cleanUp () {
+    fun cleanUp () {
         decodePayload = null
         sender = null
         import_message_text_view.text = null
-        //showAlert("Import Image Text Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
-    }*/
+        showAlert("Import Image Text Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+    }
 }

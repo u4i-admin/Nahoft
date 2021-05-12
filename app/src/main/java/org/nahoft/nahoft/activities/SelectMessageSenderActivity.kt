@@ -16,10 +16,12 @@ import org.nahoft.util.showAlert
 
 class SelectMessageSenderActivity : AppCompatActivity() {
 
-    /*private val receiver by lazy {
+    private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
+            adapter.cleanup()
+            showAlert("Select Message Sender Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
         }
-    }*/
+    }
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: SelectMessageSenderRecyclerAdapter
@@ -31,6 +33,10 @@ class SelectMessageSenderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_message_sender)
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
 
         // Only try to decrypt messages from friends with the Approved status
         val verifiedFriends = ArrayList<Friend>()
@@ -55,19 +61,14 @@ class SelectMessageSenderActivity : AppCompatActivity() {
         select_m_sender_recycler_view.adapter = adapter
     }
 
-   /* override fun onDestroy() {
-        registerReceiver(receiver, IntentFilter().apply {
-            addAction(LOGOUT_TIMER_VAL)
-        })
-        adapter.cleanup()
-        showAlert("Select Message Sender Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
-        super.onDestroy()
-    }*/
-
-   /* override fun onRestart() {
-        super.onRestart()
-        //adapter.notifyDataSetChanged()
+    override fun onDestroy() {
         unregisterReceiver(receiver)
-    }*/
+        super.onDestroy()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        adapter.notifyDataSetChanged()
+    }
 
 }

@@ -35,6 +35,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
+            cleanUp()
         }
     }
 
@@ -45,6 +46,10 @@ class HomeActivity : AppCompatActivity() {
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
 
         Persist.app = Nahoft()
 
@@ -154,18 +159,9 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    override fun onStop() {
-
-        registerReceiver(receiver, IntentFilter().apply {
-         addAction(LOGOUT_TIMER_VAL)
-        })
-        cleanUp()
-        super.onStop()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
+    override fun onDestroy() {
         unregisterReceiver(receiver)
+        super.onDestroy()
     }
 
     private fun sendToLogin()

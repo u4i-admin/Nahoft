@@ -17,10 +17,12 @@ import org.nahoft.util.showAlert
 
 class MessagesActivity : AppCompatActivity(), ItemDragListener {
 
-   /* private val receiver by lazy {
+    private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
+            adapter.cleanup()
+            showAlert("Messages Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
         }
-    }*/
+    }
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: MessagesRecyclerAdapter
@@ -28,6 +30,10 @@ class MessagesActivity : AppCompatActivity(), ItemDragListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_messages)
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
 
         // Setup the messages RecyclerView
         linearLayoutManager = LinearLayoutManager(this)
@@ -41,24 +47,15 @@ class MessagesActivity : AppCompatActivity(), ItemDragListener {
         messages_recycler_view.addItemDecoration(dividerDecoration)
     }
 
-/*    override fun onStop() {
-        registerReceiver(receiver, IntentFilter().apply {
-            addAction(LOGOUT_TIMER_VAL)
-        })
-        //adapter.cleanup()
-        showAlert("Messages Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
-        super.onStop()
-    }
-
     override fun onResume() {
         super.onResume()
-        //messages_recycler_view.adapter?.notifyDataSetChanged()
-        unregisterReceiver(receiver)
-    }*/
+        messages_recycler_view.adapter?.notifyDataSetChanged()
+    }
 
     override fun onDestroy() {
-        super.onDestroy()
+        unregisterReceiver(receiver)
         Persist.saveMessagesToFile(this)
+        super.onDestroy()
     }
 
     private fun setupItemTouchHelper() {

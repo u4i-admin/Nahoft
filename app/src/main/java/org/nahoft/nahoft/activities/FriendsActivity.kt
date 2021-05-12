@@ -23,6 +23,8 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
+            adapter.cleanup()
+            showAlert("Friends Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
         }
     }
 
@@ -32,6 +34,10 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friends)
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
 
         linearLayoutManager = LinearLayoutManager(this)
         adapter = FriendsRecyclerAdapter(Persist.friendList)
@@ -46,18 +52,13 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
     }
 
     override fun onDestroy() {
-        registerReceiver(receiver, IntentFilter().apply {
-            addAction(LOGOUT_TIMER_VAL)
-        })
-        adapter.cleanup()
-        showAlert("Friends Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+        unregisterReceiver(receiver)
         super.onDestroy()
     }
 
     override fun onRestart() {
         super.onRestart()
         adapter.notifyDataSetChanged()
-        unregisterReceiver(receiver)
     }
 
     // Friends Help Button

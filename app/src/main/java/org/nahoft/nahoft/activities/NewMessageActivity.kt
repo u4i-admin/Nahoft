@@ -45,12 +45,17 @@ class NewMessageActivity : AppCompatActivity() {
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
+            cleanUp()
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_message)
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
 
         // Select Friend Button
         friend_button.setOnClickListener {
@@ -73,19 +78,10 @@ class NewMessageActivity : AppCompatActivity() {
         }
     }
 
-   /* override fun onStop() {
-
-        registerReceiver(receiver, IntentFilter().apply {
-            addAction(LOGOUT_TIMER_VAL)
-        })
-        cleanUp()
-        super.onStop()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
+    override fun onDestroy() {
         unregisterReceiver(receiver)
-    }*/
+        super.onDestroy()
+    }
 
     private fun selectFriend() {
         val intent = FriendSelectionActivity.newIntent(this@NewMessageActivity)
@@ -289,11 +285,11 @@ class NewMessageActivity : AppCompatActivity() {
         friend_button.isClickable = true
     }
 
-   /* private fun cleanUp() {
-        //selectedFriend = null
+    private fun cleanUp() {
+        selectedFriend = null
         editMessageText.text?.clear()
         showAlert("New Message Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
-    }*/
+    }
 
 
 }

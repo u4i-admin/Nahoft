@@ -15,12 +15,17 @@ class PasscodeActivity : AppCompatActivity() {
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
+            cleanup()
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passcode)
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
 
         updateSwitch()
 
@@ -40,20 +45,6 @@ class PasscodeActivity : AppCompatActivity() {
 
     }
 
-    override fun onStop() {
-
-        registerReceiver(receiver, IntentFilter().apply {
-            addAction(LOGOUT_TIMER_VAL)
-        })
-        cleanup()
-        super.onStop()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        unregisterReceiver(receiver)
-    }
-
     override fun onBackPressed() {
         super.onBackPressed()
 
@@ -61,8 +52,9 @@ class PasscodeActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         Persist.saveLoginStatus()
+        unregisterReceiver(receiver)
+        super.onDestroy()
     }
 
     private fun updateSwitch() {

@@ -22,6 +22,8 @@ class FriendSelectionActivity : AppCompatActivity() {
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
+            adapter.cleanup()
+            showAlert("Friends Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
         }
     }
 
@@ -33,6 +35,10 @@ class FriendSelectionActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friend_selection)
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
 
         // Only show friends that have been verified
         val approvedFriends = ArrayList<Friend>()
@@ -59,19 +65,14 @@ class FriendSelectionActivity : AppCompatActivity() {
         friend_selection_recycler_view.adapter = adapter
     }
 
-    override fun onStop() {
-        registerReceiver(receiver, IntentFilter().apply {
-            addAction(LOGOUT_TIMER_VAL)
-        })
-        adapter.cleanup()
-        showAlert("Friends Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
-        super.onStop()
-    }
-
     override fun onRestart() {
         super.onRestart()
         adapter.notifyDataSetChanged()
+    }
+
+    override fun onDestroy() {
         unregisterReceiver(receiver)
+        super.onDestroy()
     }
 }
 

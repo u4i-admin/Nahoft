@@ -18,6 +18,8 @@ class AddFriendActivity : AppCompatActivity() {
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
+            cleanup()
+            showAlert("Add Friend Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
         }
     }
 
@@ -25,24 +27,19 @@ class AddFriendActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_friend)
 
+        // Listen for App timeout
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
+
         saveFriendButton.setOnClickListener {
             saveFriendClick()
         }
     }
 
-    override fun onStop() {
-
-        registerReceiver(receiver, IntentFilter().apply {
-            addAction(LOGOUT_TIMER_VAL)
-        })
-        cleanup()
-        showAlert("Add Friend Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
-        super.onStop()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
+    override fun onDestroy() {
         unregisterReceiver(receiver)
+        super.onDestroy()
     }
 
     private fun saveFriendClick() {

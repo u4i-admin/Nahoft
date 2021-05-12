@@ -35,16 +35,21 @@ class MessageActivity : AppCompatActivity() {
         }
     }
 
-    /*private val receiver by lazy {
+    private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
+            cleanUp()
         }
-    }*/
+    }
 
     lateinit var message: Message
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_message)
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
 
         val arguments = Arguments.createFromIntent(intent)
         message = arguments.message
@@ -59,19 +64,10 @@ class MessageActivity : AppCompatActivity() {
 
     }
 
-/*    override fun onStop() {
-
-        registerReceiver(receiver, IntentFilter().apply {
-            addAction(LOGOUT_TIMER_VAL)
-        })
-        //cleanUp()
-        super.onStop()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
+    override fun onDestroy() {
         unregisterReceiver(receiver)
-    }*/
+        super.onDestroy()
+    }
 
     private fun loadMessageContent()
     {

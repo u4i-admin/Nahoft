@@ -43,6 +43,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
+            cleanup()
         }
     }
 
@@ -51,6 +52,10 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enter_passcode)
+
+        registerReceiver(receiver, IntentFilter().apply {
+            addAction(LOGOUT_TIMER_VAL)
+        })
 
         //create array
         val layout: LinearLayout = findViewById(R.id.passcodeContainer)
@@ -103,18 +108,9 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
         finishAffinity()
     }
 
-    override fun onStop() {
-
-        registerReceiver(receiver, IntentFilter().apply {
-            addAction(LOGOUT_TIMER_VAL)
-        })
-        cleanup()
-        super.onStop()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
+    override fun onDestroy() {
         unregisterReceiver(receiver)
+        super.onDestroy()
     }
 
     private fun handleLoginPress() {
@@ -396,7 +392,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     private fun cleanup(){
         editTextArray.clear()
-        showAlert("Enter Passcode Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
+        //showAlert("Enter Passcode Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }
 
