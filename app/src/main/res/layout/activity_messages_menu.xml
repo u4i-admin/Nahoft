@@ -18,6 +18,9 @@
         android:layout_marginEnd="8dp"
         android:clickable="true"
         android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="@drawable/home_button_background"
+        app:tint="@drawable/button_text_color_dark"
         android:contentDescription="@string/help_button_content_description"
         app:srcCompat="@drawable/help_outline_24px"
         android:layout_gravity="end"/>

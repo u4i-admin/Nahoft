@@ -11,7 +11,7 @@ import org.nahoft.nahoft.activities.LoginStatus
 class Nahoft: Application(), LifecycleObserver {
 
     // Set Logout Timer to 5 minutes.
-    private val logoutTimer = object: CountDownTimer(30000, 1000) {
+    private val logoutTimer = object: CountDownTimer(300000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             // stub
         }
@@ -48,4 +48,13 @@ class Nahoft: Application(), LifecycleObserver {
         logoutTimer.start()
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onPause() {
+        logoutTimer.start()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onResume() {
+        logoutTimer.cancel()
+    }
 }

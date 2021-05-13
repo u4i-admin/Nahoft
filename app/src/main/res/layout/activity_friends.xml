@@ -19,6 +19,7 @@
         android:background="@color/colorWarmWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:tint="@drawable/button_text_color_dark"
         android:onClick="showDialogButtonFriendsHelp"
         app:srcCompat="@drawable/help_outline_25px" />
 
