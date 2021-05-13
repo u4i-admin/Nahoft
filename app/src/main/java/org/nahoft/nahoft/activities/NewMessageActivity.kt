@@ -2,21 +2,11 @@ package org.nahoft.nahoft.activities
 
 import android.app.Activity
 import android.content.*
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.media.Image
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.ContactsContract.Intents.Insert.ACTION
 import android.provider.MediaStore
 import android.view.View
-import android.widget.Toast
-import androidx.activity.result.registerForActivityResult
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.UriCompat
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_message.*
 import kotlinx.android.synthetic.main.activity_new_message.*
@@ -25,18 +15,11 @@ import org.nahoft.codex.Encryption
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.Friend
-import org.nahoft.nahoft.Nahoft
 import org.nahoft.nahoft.R
 import org.nahoft.org.nahoft.swatch.Encoder
-import org.nahoft.util.showAlert
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
-import java.io.File
-import java.io.File.separator
-import java.io.FileOutputStream
-import java.io.OutputStream
-import java.net.URI
-import java.util.jar.Manifest
+import org.nahoft.util.showAlert
 
 class NewMessageActivity : AppCompatActivity() {
 
@@ -65,17 +48,17 @@ class NewMessageActivity : AppCompatActivity() {
 
         // Send message as text button
         send_as_text_button.setOnClickListener {
-            trySendingOrSavingMessage(false, false)
+            trySendingOrSavingMessage(isImage = false, saveImage = false)
         }
 
         // Send message as image button
         send_as_image_button.setOnClickListener {
-            trySendingOrSavingMessage(true, false)
+            trySendingOrSavingMessage(isImage = true, saveImage = false)
         }
 
         // Save message as image button
         save_image_button.setOnClickListener {
-            trySendingOrSavingMessage(true, true)
+            trySendingOrSavingMessage(isImage = true, saveImage = true)
         }
     }
 
@@ -87,12 +70,11 @@ class NewMessageActivity : AppCompatActivity() {
     private fun selectFriend() {
         val intent = FriendSelectionActivity.newIntent(this@NewMessageActivity)
         Intent(this, FriendSelectionActivity::class.java)
-        //TODO: Fix Deprecation
-        //registerForActivityResult(intent, RequestCodes.selectFriendCode)
         startActivityForResult(intent, RequestCodes.selectFriendCode)
     }
 
     private fun pickImageFromGallery(saveImage: Boolean) {
+        // Calling GetContent contract
         val pickImageIntent =
             Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         if (saveImage) {
