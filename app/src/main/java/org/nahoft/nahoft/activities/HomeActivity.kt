@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_new_message.*
@@ -22,8 +21,8 @@ import org.nahoft.nahoft.Persist.Companion.friendsFilename
 import org.nahoft.nahoft.Persist.Companion.messagesFilename
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.org.nahoft.swatch.Decoder
-import org.nahoft.util.showAlert
 import org.nahoft.util.RequestCodes
+import org.nahoft.util.showAlert
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

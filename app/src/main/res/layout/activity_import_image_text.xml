@@ -38,7 +38,7 @@
         android:layout_marginTop="64dp"
         app:counterEnabled="true"
         app:counterTextColor="@color/colorAccent"
-        app:counterMaxLength="1000"
+        app:counterMaxLength="5000"
         app:boxBackgroundMode="outline"
         app:hintEnabled="false">
 
