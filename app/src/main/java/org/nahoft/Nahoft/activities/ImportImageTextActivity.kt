@@ -4,13 +4,11 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.IntentFilter
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_import_image_text.*
-import kotlinx.android.synthetic.main.activity_import_image_text.import_help_button
 import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
@@ -18,8 +16,8 @@ import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
 import org.nahoft.org.nahoft.swatch.Decoder
-import org.nahoft.util.showAlert
 import org.nahoft.util.RequestCodes
+import org.nahoft.util.showAlert
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -178,7 +176,6 @@ class ImportImageTextActivity: AppCompatActivity() {
                         coroutineScope.async(Dispatchers.IO) {
                             val swatch = Decoder()
                             return@async swatch.decode(applicationContext, imageURI)
-                        //return@async Stencil().decode(applicationContext, it)
                     }
 
                     coroutineScope.launch(Dispatchers.Main) {
@@ -280,10 +277,9 @@ class ImportImageTextActivity: AppCompatActivity() {
         import_message_text_view.isClickable = true
     }
 
-    fun cleanUp () {
+    private fun cleanUp () {
         decodePayload = null
         sender = null
         import_message_text_view.text = null
-        showAlert("Import Image Text Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }

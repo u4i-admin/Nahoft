@@ -1,34 +1,30 @@
 package org.nahoft.nahoft.activities
 
-import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_select_key_sender.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
 import org.nahoft.util.RequestCodes
-import org.nahoft.util.showAlert
 
 class SelectKeySenderActivity : AppCompatActivity() {
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
             adapter.cleanup()
-            showAlert("Select Key Sender Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
         }
     }
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: SelectKeySenderRecyclerAdapter
 
-    companion object {
+/*    companion object {
         fun newIntent(context: Context) = Intent(context, SelectKeySenderActivity::class.java)
-    }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

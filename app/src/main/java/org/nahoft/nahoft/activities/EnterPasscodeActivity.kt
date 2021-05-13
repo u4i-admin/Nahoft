@@ -334,7 +334,6 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
             println("Failed Login $failedLoginAttempts times")
 
         } else {
-            //showAlert(getString(R.string.alert_text_zero_to_five_login_attempts))
             println("Failed Login $failedLoginAttempts times")
         }
     }
@@ -346,7 +345,8 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
         if (minutesToWait == 0) {
             return true
-        } else if (minutesToWait >= 100) { //This should never happen all data should have already been deleted when the login failed the eleventh time.
+        } else if (minutesToWait >= 100) {
+            //This should never happen all data should have already been deleted when the login failed the eleventh time.
             //Delete everything like you would if user had entered a secondary passcode.
             showAlert(getString(R.string.alert_text_nineth_login_attempt))
             Persist.clearAllData()
@@ -388,7 +388,6 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     private fun cleanup(){
         editTextArray.clear()
-        //showAlert("Enter Passcode Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }
 

@@ -291,7 +291,6 @@ class NewMessageActivity : AppCompatActivity() {
     private fun cleanUp() {
         selectedFriend = null
         editMessageText.text?.clear()
-        showAlert("New Message Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 
 

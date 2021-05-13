@@ -23,7 +23,6 @@ class FriendSelectionActivity : AppCompatActivity() {
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
             adapter.cleanup()
-            showAlert("Friends Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
         }
     }
 

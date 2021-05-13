@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_message.*
 import kotlinx.android.synthetic.main.message_item_row.*
@@ -100,6 +99,5 @@ class MessageActivity : AppCompatActivity() {
         message = Message("", ByteArray(2))
         sender_name_text_view.text = ""
         message_body_text_view.text = ""
-        showAlert("Message Activity Logout Timer Broadcast Received", length = Toast.LENGTH_LONG)
     }
 }

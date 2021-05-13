@@ -183,10 +183,6 @@ class HomeActivity : AppCompatActivity() {
             }
             else if (intent.type?.startsWith("image/") == true)
             {
-//                (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
-//                    loginIntent.putExtra(RequestCodes.imageUriDescription, it)
-//                }
-
                 val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
                 if (extraStream != null){
                     val extraUri = Uri.parse(extraStream.toString())
@@ -319,7 +315,6 @@ class HomeActivity : AppCompatActivity() {
 
         val decodeResult: Deferred<ByteArray?> =
             coroutineScope.async(Dispatchers.IO) {
-                //return@async Stencil().decode(applicationContext, imageUri)
                 val swatch = Decoder()
                 return@async swatch.decode(applicationContext, imageUri)
             }
