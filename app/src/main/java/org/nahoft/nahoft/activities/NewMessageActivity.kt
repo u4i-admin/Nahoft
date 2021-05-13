@@ -215,10 +215,13 @@ class NewMessageActivity : AppCompatActivity() {
             // Encrypt the message
             val encryptedMessage = Encryption().encrypt(encodedFriendPublicKey, message)
 
+            makeWait()
+
+            // Encode the image
             val newUri: Deferred<Uri?> =
                 coroutineScope.async(Dispatchers.IO) {
 
-                    // Encode the image
+
                     val swatch = Encoder()
                     return@async swatch.encode(applicationContext, encryptedMessage, imageUri, saveImage)
                 }
@@ -226,6 +229,7 @@ class NewMessageActivity : AppCompatActivity() {
             coroutineScope.launch(Dispatchers.Main) {
                 val maybeUri = newUri.await()
 
+                noMoreWaiting()
                 imageShareProgressBar.visibility = View.INVISIBLE
 
                 if (maybeUri != null)
