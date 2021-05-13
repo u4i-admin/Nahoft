@@ -141,7 +141,6 @@ class PersistenceEncryption {
 //        val ivBytes = cipher.iv
 //        val encryptionBytes = cipher.doFinal(dataToEncrypt)
 //
-//        // FIXME: keys should also be encrypted
 //        map[ivKey] = ivBytes
 //        map[encryptedDataKey] = encryptionBytes
 //
@@ -159,7 +158,6 @@ class PersistenceEncryption {
 //        val secretKeyEntry = keyStore.getEntry(keyAlias, null) as KeyStore.SecretKeyEntry
 //        val secretKey = secretKeyEntry.secretKey
 //
-//        // FIXME Encrypted Keys
 //        // Extract the needed info from the map
 //        if (map.containsKey(ivKey) && map.containsKey(encryptedDataKey)) {
 //

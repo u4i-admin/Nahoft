@@ -13,6 +13,7 @@ import android.provider.ContactsContract.Intents.Insert.ACTION
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.registerForActivityResult
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.UriCompat
@@ -86,6 +87,8 @@ class NewMessageActivity : AppCompatActivity() {
     private fun selectFriend() {
         val intent = FriendSelectionActivity.newIntent(this@NewMessageActivity)
         Intent(this, FriendSelectionActivity::class.java)
+        //TODO: Fix Deprecation
+        //registerForActivityResult(intent, RequestCodes.selectFriendCode)
         startActivityForResult(intent, RequestCodes.selectFriendCode)
     }
 
@@ -243,18 +246,18 @@ class NewMessageActivity : AppCompatActivity() {
 
                 imageShareProgressBar.visibility = View.INVISIBLE
 
-                if (!saveImage) // We're sharing the image so we need a uri
+                if (maybeUri != null)
                 {
-                    // Save bitmap to image roll to get URI for sharing intent
-                    if (maybeUri != null)
-                    {
+                    if (saveImage) {
+                        showAlert(getString(R.string.alert_text_image_saved))
+                    }
+                    else {
                         ShareUtil.shareImage(applicationContext, maybeUri)
                     }
-                    else
-                    {
-                        applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
-                        print("Unable to send message as photo, we were unable to encode the selected image.")
-                    }
+                }
+                else
+                {
+                    applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
                 }
             }
 

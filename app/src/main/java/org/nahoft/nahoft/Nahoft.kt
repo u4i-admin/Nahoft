@@ -47,14 +47,4 @@ class Nahoft: Application(), LifecycleObserver {
 
         logoutTimer.start()
     }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun onPause() {
-        logoutTimer.start()
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume() {
-        logoutTimer.cancel()
-    }
 }

@@ -29,8 +29,13 @@ class Encoder {
 
         if (saveToGallery)
         {
-            SaveUtil.saveImageToGallery(context, result, title, description)
-            return null
+            val saved = SaveUtil.saveImageToGallery(context, result, title, description)
+            if (saved) {
+                return coverUri
+            }
+            else {
+                return null
+            }
         }
         else
         {

@@ -228,12 +228,8 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
                             editTextArray[index + 1].setSelection(editTextArray[index + 1].length())
                             return
                         }
-                        //TODO: confirm this commented out code should be removed before next release.
-                        /*else {
-                            //will verify code the moment the last character is inserted and all digits have a number
-                            verifyCode(getEnteredPasscode())
-                        }*/
-                    } else {
+                    }
+                    else {
                         return
                     }
                 }

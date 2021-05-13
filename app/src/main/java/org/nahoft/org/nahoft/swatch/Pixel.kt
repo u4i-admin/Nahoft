@@ -62,11 +62,6 @@ class Pixel(val index: Int, var bitmap: MappedBitmap)
         val newColor = Color.argb(a, r, g, b)
         bitmap.setPixel(index, newColor)
 
-        // FIXME - remove
-        if (index == 82343) {
-            print("Known bad pixel")
-        }
-
         var newBrightness = brightness()
 
         return (newBrightness - oldBrightness).absoluteValue
@@ -118,11 +113,6 @@ class Pixel(val index: Int, var bitmap: MappedBitmap)
 
         val newColor = Color.argb(a, r, g, b)
         bitmap.setPixel(index, newColor)
-
-        // FIXME - remove
-        if (index == 82343) {
-            print("Known bad pixel")
-        }
 
         var newBrightness = brightness()
 

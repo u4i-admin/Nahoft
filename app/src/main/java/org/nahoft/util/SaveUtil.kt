@@ -51,11 +51,9 @@ object SaveUtil
             val saved = image.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
             if (saved)
             {
-                    context.showAlert(context.getString(R.string.alert_text_image_saved))
                 return true
             }
         }
-        context.showAlert(context.getString(R.string.alert_text_image_not_saved))
         return false
     }
 }
