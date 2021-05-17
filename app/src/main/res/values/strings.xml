@@ -301,15 +301,16 @@
     <string name="alert_text_passcode_is_sequential">Sequential passcodes are not allowed.</string>
     <string name="alert_text_passcode_is_a_repeated_digit">The passcode cannot be a repeated digit.</string>
     <string name="alert_text_incorrect_passcode_length">The passcode must be 6 digits long.</string>
+    // FIXME
     <string name="alert_text_image_saved">Image has been saved to pictures folder on phone.</string>
     <string name="alert_text_image_not_saved">We are unable to save your image at this time.</string>
 
     //Enter Passcode Activity
     <string name="alert_text_zero_to_five_login_attempts">The passcode entered is incorrect. Please try again.</string>
-    <string name="alert_text_sixth_login_attempt">The passcode entered is incorrect. Please try again after this 1 minute lockout.</string>
-    <string name="alert_text_seventh_login_attempt">The passcode entered is incorrect. Please try again after this 5 minute lockout.</string>
+    <string name="alert_text_sixth_login_attempt">The passcode entered is incorrect. You can try logging in again in 60 seconds.</string>
+    <string name="alert_text_seventh_login_attempt">The passcode entered is incorrect. You can try logging in again in 5 minutes.</string>
     <string name="alert_text_eigth_login_attempt">The passcode entered is incorrect. Please try again after this 15 minute lockout.</string>
-    <string name="alert_text_nineth_login_attempt">Nineth failed passcode attempt. All app data is cleared.</string>
+    <string name="alert_text_nineth_login_attempt">The passcode entered is incorrect. This account has been deleted.</string>
     <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">Please wait, %1$d minutes %2$d seconds before attempting to login again</string>
 
 
