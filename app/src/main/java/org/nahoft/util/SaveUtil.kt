@@ -3,6 +3,7 @@ package org.nahoft.util
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -40,9 +41,10 @@ object SaveUtil
         }
         else // Android versions earlier than Q
         {
-            val imagesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            val imagesDir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
             val imageFile = File(imagesDir, filename)
             fos = FileOutputStream(imageFile)
+
         }
 
         fos?.use { fileOutputStream ->
