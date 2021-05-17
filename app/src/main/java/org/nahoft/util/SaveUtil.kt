@@ -41,7 +41,7 @@ object SaveUtil
         }
         else // Android versions earlier than Q
         {
-            val imagesDir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+            val imagesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
             val imageFile = File(imagesDir, filename)
             fos = FileOutputStream(imageFile)
 
