@@ -7,16 +7,12 @@ import org.libsodium.jni.keys.PrivateKey
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.Persist.Companion.publicKeyPreferencesKey
-import javax.crypto.Cipher
-import javax.crypto.spec.IvParameterSpec
-import javax.crypto.spec.SecretKeySpec
 
 // Note: The AndroidKeystore does not support ECDH key agreement between EC keys.
 // The secure enclave does not appear to support EC keys at all, at this time.
 // Therefore, we store keys in the EncryptedSharedPreferences instead of the KeyStore.
 // This can be revised when the AndroidKeystore supports the required functionality.
-class Encryption()
-{
+class Encryption {
     // Encrypted Shared Preferences
     private val privateKeyPreferencesKey = "NahoftPrivateKey"
 
@@ -72,8 +68,7 @@ class Encryption()
         val privateKey = ensureKeysExist().privateKey
 
         try {
-            val result = encrypt(encodedPublicKey, privateKey, plaintext)
-            return result
+            return encrypt(encodedPublicKey, privateKey, plaintext)
 
         } catch (exception: SecurityException) {
             throw exception

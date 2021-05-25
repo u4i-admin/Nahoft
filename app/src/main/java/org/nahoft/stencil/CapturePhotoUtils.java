@@ -11,6 +11,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore.Images;
 import static androidx.core.content.FileProvider.getUriForFile;
 
@@ -24,13 +25,12 @@ public class CapturePhotoUtils {
      * A copy of the Android internals  insertImage method, this method populates the
      * meta data with DATE_ADDED and DATE_TAKEN. This fixes a common problem where media
      * that is inserted manually gets saved at the end of the gallery (because date is not populated).
-     * @see android.provider.MediaStore.Images.Media#insertImage(ContentResolver, Bitmap, String, String)
+     * @see Images.Media#insertImage(ContentResolver, Bitmap, String, String)
      */
-    public static final Uri insertImage(Context context,
-                                        Bitmap source,
-                                        String title,
-                                        String description) {
-
+    public static Uri insertImage(Context context,
+                                  Bitmap source,
+                                  String title,
+                                  String description) {
         ContentValues values = new ContentValues();
         values.put(Images.Media.TITLE, title);
         values.put(Images.Media.DISPLAY_NAME, title);
@@ -39,77 +39,25 @@ public class CapturePhotoUtils {
 
         // Add the date meta data to ensure the image is added at the front of the gallery
         values.put(Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000);
-        values.put(Images.Media.DATE_TAKEN, System.currentTimeMillis());
-
-//        Uri url = null;
-//        String stringUrl = null;    /* value to be returned */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            values.put(Images.Media.DATE_TAKEN, System.currentTimeMillis());
+        }
 
         try {
             File tempFile = File.createTempFile("image", ".png", context.getCacheDir());
-            FileOutputStream outputStream = new FileOutputStream(tempFile);
 
-            Uri fileUri = getUriForFile(context, "org.nahoft.nahoft.fileprovider", tempFile);
-
-            try
-            {
+            try (FileOutputStream outputStream = new FileOutputStream(tempFile)) {
+                Uri fileUri = getUriForFile(context, "org.nahoft.nahoft.fileprovider", tempFile);
                 source.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
                 return fileUri;
-            }
-            catch(Exception e)
-            {
+            } catch (Exception e) {
                 System.out.println(e);
                 return null;
-            }
-            finally
-            {
-                outputStream.close();
             }
 
         } catch (Exception error) {
             return null;
         }
-
-//        try {
-//            url = cr.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-//
-//            if (source != null)
-//            {
-//                OutputStream imageOut = cr.openOutputStream(url);
-//
-//                try
-//                {
-//                    source.compress(Bitmap.CompressFormat.PNG, 100, imageOut);
-//                }
-//                catch(Exception e)
-//                {
-//                    System.out.println(e);
-//                }
-//                finally
-//                {
-//                    imageOut.close();
-//                }
-//
-//                long id = ContentUris.parseId(url);
-//                // Wait until MINI_KIND thumbnail is generated.
-//                Bitmap miniThumb = Images.Thumbnails.getThumbnail(cr, id, Images.Thumbnails.MINI_KIND, null);
-//                // This is for backward compatibility.
-////                storeThumbnail(cr, miniThumb, id, 50F, 50F,Images.Thumbnails.MICRO_KIND);
-//            } else {
-//                cr.delete(url, null, null);
-//                url = null;
-//            }
-//        } catch (Exception e) {
-//            if (url != null) {
-//                cr.delete(url, null, null);
-//                url = null;
-//            }
-//        }
-
-//        if (url != null) {
-//            return url;
-//        } else {
-//            return null;
-//        }
     }
 
     /**
@@ -118,13 +66,13 @@ public class CapturePhotoUtils {
      * meta data. The StoreThumbnail method is private so it must be duplicated here.
      * @see android.provider.MediaStore.Images.Media (StoreThumbnail private method)
      */
-    private static final Bitmap storeThumbnail(
+    private static Bitmap storeThumbnail(
             ContentResolver cr,
             Bitmap source,
             long id,
             float width,
             float height,
-            int kind) {
+            int kind) throws IOException {
 
         // create the matrix to scale it
         Matrix matrix = new Matrix();
@@ -154,8 +102,6 @@ public class CapturePhotoUtils {
             thumbOut.close();
             return thumb;
         } catch (FileNotFoundException ex) {
-            return null;
-        } catch (IOException ex) {
             return null;
         }
     }
