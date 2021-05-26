@@ -1,5 +1,6 @@
 package org.nahoft.nahoft.activities
 
+import android.Manifest
 import android.app.Activity
 import android.content.*
 import android.net.Uri
@@ -7,6 +8,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_message.*
 import kotlinx.android.synthetic.main.activity_new_message.*
@@ -88,6 +90,10 @@ class NewMessageActivity : AppCompatActivity() {
 
         // Make sure there is a message to send
         val message = editMessageText.text.toString()
+
+        ActivityCompat.requestPermissions(this@NewMessageActivity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+        ActivityCompat.requestPermissions(this@NewMessageActivity, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+
         if (message.isBlank()) {
             showAlert(getString(R.string.alert_text_write_a_message_to_send))
             return
