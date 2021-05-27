@@ -21,6 +21,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.MessagesMenuActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
 
         <provider
@@ -37,27 +38,35 @@
 
         <activity
             android:name=".activities.VerifyFriendActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.ImportImageTextActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.AddFriendActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.SelectKeySenderActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.SelectMessageSenderActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.MessageActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.PasscodeActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.EnterPasscodeActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:noHistory="true"
             android:excludeFromRecents="true">
@@ -69,36 +78,47 @@
         </activity>
         <activity
             android:name=".activities.FriendsActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.FriendSelectionActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.NewMessageActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.ImportingUserGuideActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.SettingsUserGuideActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.SendingMessagesUserGuideActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.FriendsUserGuideActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.SettingsActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.UserGuideActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.MessagesActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.HomeActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true">
 
             <!-- Allows other apps to share images with us -->
