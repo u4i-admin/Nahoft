@@ -52,7 +52,7 @@ object SaveUtil
                 File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString() + separator + "test_pictures")
 //            val dir: File = Environment.getExternalStorageDirectory()
 //            val imagesDir: File = File(dir.absolutePath + "/MyPhotos")
-            if (!imagesDir.exists()) {
+            if (!imagesDir.exists()) {          
                 imagesDir.mkdirs()
             }
 
