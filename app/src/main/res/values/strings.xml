@@ -10,17 +10,12 @@
     <string name="button_label_user_guide">User Guides</string>
     <string name="button_label_logout">Logout</string>
 
-    <!-- Home Activity Alerts -->
-    <string name="alert_text_passcode_required">Passcode is required to proceed.</string>
-    <string name="alert_text_received_text">Received a shared text.</string>
-    <string name="alert_text_received_image">"Received a shared image."</string>
-
     <!-- Messages Activity -->
     <string name="activity_title_messages">Messages</string>
     <string name="button_label_compose">Compose</string>
 
     <!-- New Messages Activity -->
-    <string name="hintOnChooseFriendButton">Select a Recipient</string>
+    <string name="hintOnChooseFriendButton">Select a recipient</string>
     <string name="enter_message_here_hint">Message Body</string>
     <string name="sendAsTextButton">Send as Text</string>
     <string name="sendAsImageButton">Send as Image</string>
@@ -29,7 +24,7 @@
     <string name="button_label_view_messages">Archive of Received Messages</string>
     <string name="button_label_compose_messages">Compose a Message</string>
     <string name="button_import_message_label">Import a Message</string>
-    <string name="saveImageButton">Save Image</string>
+    <string name="saveImageButton">Save as Image</string>
 
     <!-- New Messages Activity Alerts -->
     <string name="alert_text_verified_friends_only">You can only message a verified friend.</string>

@@ -11,11 +11,6 @@
 <string name="button_label_user_guide">راهنمای کاربر</string>
 <string name="button_label_logout">خروج از سیستم</string>
 
-<!-- Home Activity Alerts -->
-<string name="alert_text_passcode_required">کدعبور برای ادامه الزامی است</string>
-<string name="alert_text_received_text">متن اشتراکی دریافت شد</string>
-<string name="alert_text_received_image">"یک تصویر اشتراکی دریافت شد"</string>
-
 <!-- Messages Activity -->
 <string name="activity_title_messages">پیام‌ها</string>
 <string name="button_label_compose">نوشتن</string>
