@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import java.io.File
+import java.io.File.separator
 import java.io.FileOutputStream
 import java.io.OutputStream
 
@@ -41,7 +42,14 @@ object SaveUtil
         }
         else // Android versions earlier than Q
         {
-            val imagesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            //val imagesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+
+            val imagesDir =
+                File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString() + separator + "test_pictures")
+            if (!imagesDir.exists()) {
+                imagesDir.mkdirs()
+            }
+
             val imageFile = File(imagesDir, filename)
             fos = FileOutputStream(imageFile)
 
