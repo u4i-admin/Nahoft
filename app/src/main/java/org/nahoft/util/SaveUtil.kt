@@ -45,11 +45,11 @@ object SaveUtil
         {
             //val imagesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
 
-            val wrapper = ContextWrapper(context)
-            var imagesDir = wrapper.getDir("images", Context.MODE_PRIVATE)
+//            val wrapper = ContextWrapper(context)
+//            var imagesDir = wrapper.getDir("images", Context.MODE_PRIVATE)
 
-//            val imagesDir =
-//                File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString() + separator + "test_pictures")
+            val imagesDir =
+                File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString() + separator + "test_pictures")
 //            val dir: File = Environment.getExternalStorageDirectory()
 //            val imagesDir: File = File(dir.absolutePath + "/MyPhotos")
             if (!imagesDir.exists()) {
