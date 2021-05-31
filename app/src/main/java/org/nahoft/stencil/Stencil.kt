@@ -31,7 +31,7 @@ class Stencil {
     @ExperimentalUnsignedTypes
     fun encode(context: Context, encrypted: ByteArray, coverUri: Uri): Uri? {
         val cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
-        var result = encode(encrypted, cover)
+        val result = encode(encrypted, cover)
         val title = ""
         val description = ""
 

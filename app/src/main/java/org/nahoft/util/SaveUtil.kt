@@ -2,9 +2,7 @@ package org.nahoft.util
 
 import android.content.ContentValues
 import android.content.Context
-import android.content.ContextWrapper
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -33,7 +31,10 @@ object SaveUtil
 
                 }
 
-                val maybeImageUri: Uri? = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+                val maybeImageUri: Uri? = resolver.insert(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    contentValues
+                )
 
                 // Open the output stream using the uri was got with our content values
                 fos = maybeImageUri?.let { imageUri ->
@@ -43,23 +44,14 @@ object SaveUtil
         }
         else if  (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)// Android versions earlier than Q
         {
-            //val imagesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            val imagesDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + separator + "saved_images")
 
-//            val wrapper = ContextWrapper(context)
-//            var imagesDir = wrapper.getDir("images", Context.MODE_PRIVATE)
-
-            val imagesDir =
-                File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString() + separator + "test_pictures")
-//            val dir: File = Environment.getExternalStorageDirectory()
-//            val imagesDir: File = File(dir.absolutePath + "/MyPhotos")
-            if (!imagesDir.exists()) {          
-                imagesDir.mkdirs()
+            if (!imagesDir.exists()) {
+                    imagesDir.mkdirs()
+                }
+                val imageFile = File(imagesDir, filename)
+                fos = FileOutputStream(imageFile)
             }
-
-            val imageFile = File(imagesDir.getAbsolutePath(), filename)
-            fos = FileOutputStream(imageFile)
-
-        }
 
         fos?.use { fileOutputStream ->
             val saved = image.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
