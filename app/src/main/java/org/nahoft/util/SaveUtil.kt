@@ -20,9 +20,11 @@ object SaveUtil
         // FileOutputStream
         var fos: OutputStream? = null
 
+        // TODO: DELETE THIS ALBUM WHEN DESTRUCTION CODE IS RUN
         // Check the version of Android, as versions Q and higher require a new way of saving images
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
         {
+            // TODO: Save to a folder/album with the same localized name as the album for older versions
             context.contentResolver.also { resolver ->
                 val contentValues = ContentValues().apply {
                     put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
@@ -44,6 +46,7 @@ object SaveUtil
         }
         else if  (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)// Android versions earlier than Q
         {
+            // TODO: Localize the folder name
             val imagesDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + separator + "saved_images")
 
             if (!imagesDir.exists()) {
