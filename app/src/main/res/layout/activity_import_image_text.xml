@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/royalBlueDark"
     tools:context=".activities.NewMessageActivity">
 
     <LinearLayout
     android:id="@+id/importImagesActivityLayoutContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/royalBlueDark"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     tools:context=".activities.ImportImageTextActivity">

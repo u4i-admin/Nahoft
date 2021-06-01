@@ -57,7 +57,6 @@
 
 <string name="button_label_invite">دعوت کردن</string>
 <string name="button_label_invite_again">دوباره دعوت کردن</string>
-<string name="friend_status_label_invited">دعوت شد</string>
 <string name="button_label_approve_invitation">قبول کردن</string>
 <string name="button_label_decline_invitation">رد کردن</string>
 
@@ -87,12 +86,10 @@
 <string name="alert_text_friend_already_exists">شما قبلاً دوستی با این نام دارید.</string>
 <string name="alert_text_unable_to_process_request">"مشکلی رخ داد. پردازش درخواست شما امکان‌پذیر نیست."</string>
 <string name="input_hint_name">نام</string>
-<string name="activity_title_add_friend">افزودن دوست</string>
 <string name="content_description_drag_handle">دستگیره کشیدن</string>
 <string name="button_label_import_message">وارد کردن متن</string>
 <string name="paste_message_for_import_hint">متن را برای وارد کردن اینجا جای‌گذاری کنید.</string>
 <string name="button_label_import_image">وارد کردن تصویر</string>
-<string name="error_loading_image_message">خطا در بارگیری تصویر.</string>
 
 <!-- Friends User Guide -->
 <string name="friends_user_guide_english">ADDING FRIENDS\n
@@ -203,8 +200,6 @@
 <!-- Content Descriptions -->
 
 <string name="content_description_add_friend_button">افزودن دوست</string>
-<string name="content_description_create_message">ایجاد پیام</string>
-<string name="access_friends_content_description">دسترسی به دوستان</string>
 <string name="content_description_verify_button">تأیید کردن</string>
 <string name="content_description_decline_button">رد کردن</string>
 <string name="content_description_accept_button">قبول کردن</string>
@@ -284,7 +279,6 @@ Help Dialog Buttons
     </string>
 
     <string name="ok_button">خوب</string>
-    <string name="cancel_button">لغو کردن</string>
 
     //New Content Descriptions
     <string name="help_button_content_description"> دکمه های راهنما </string>
@@ -293,15 +287,16 @@ Help Dialog Buttons
     <string name="alert_text_passcode_is_a_repeated_digit">رمز عبور نمی تواند یک رقم تکراری باشد.</string>
     <string name="alert_text_incorrect_passcode_length">کد عبور باید شش رقم باشد.</string>
     <string name="alert_text_image_saved">تصویر در پوشه تصاویر در تلفن ذخیره شده است.</string>
-    <string name="alert_text_image_not_saved">در حال حاضر نمی توانیم تصویر شما را ذخیره کنیم.</string>
-
 
     //Enter Passcode Activity
     <string name="alert_text_zero_to_five_login_attempts">رمز عبور وارد شده نادرست است. لطفا دوباره تلاش کنید.</string>
     <string name="alert_text_sixth_login_attempt">رمز عبور وارد شده نادرست است. لطفاً بعد از این یک دقیقه قفل کردن دوباره امتحان کنید.</string>
     <string name="alert_text_seventh_login_attempt">رمز عبور وارد شده نادرست است. لطفا بعد از این پنج دقیقه قفل کردن دوباره امتحان کنید.</string>
-    <string name="alert_text_eigth_login_attempt">رمز عبور وارد شده نادرست است. لطفاً بعد از این پانزده دقیقه قفل کردن دوباره امتحان کنید.</string>
-    <string name="alert_text_nineth_login_attempt">تلاش رمز عبور نهم انجام نشد. همه داده های برنامه پاک می شوند.</string>
+    <string name="alert_text_eighth_login_attempt">رمز عبور وارد شده نادرست است. لطفاً بعد از این پانزده دقیقه قفل کردن دوباره امتحان کنید.</string>
+    <string name="alert_text_ninth_login_attempt">تلاش رمز عبور نهم انجام نشد. همه داده های برنامه پاک می شوند.</string>
     <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">لطفا صبر کنید, %1$d دقایق %2$d ثانیه قبل از تلاش برای ورود مجدد</string>
+
+    //SaveUtil.kt file
+    <string name="saved_images">تصاویر ذخیره شده</string>
 
 </resources>

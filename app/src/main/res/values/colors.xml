@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--   color for the app bar and other primary UI elements -->
-    <color name="colorPrimary">#FF758CB5</color>
+    <color name="royalBlueDark">#002066</color>
+    
+    <!-- colors to be used for new UI refresh -->
+    <color name="electricPurple">#C000FF</color>
+    <color name="caribbeanGreen">#03CEA4</color>
+    <color name="blueCrayola">#006DF1</color>
+    <color name="tangerine">#F68400</color>
+    <color name="madderLake">#C13333</color>
+    <color name="coolGrey">#8494B6</color>
 
     <!--   a darker variant of the primary color, used for
            the status bar (on Android 5.0+) and contextual app bars -->

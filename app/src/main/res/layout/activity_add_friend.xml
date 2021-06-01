@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/royalBlueDark"
     tools:context="org.nahoft.nahoft.activities.AddFriendActivity">
 
     <EditText

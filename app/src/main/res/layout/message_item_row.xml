@@ -14,7 +14,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/unknown_sender_label"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/royalBlueDark"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/from_label_textView"
         app:layout_constraintTop_toTopOf="parent" />

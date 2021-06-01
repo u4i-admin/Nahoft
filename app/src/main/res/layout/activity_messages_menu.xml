@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/royalBlueDark"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     tools:context=".activities.MessagesMenuActivity">
@@ -42,7 +42,7 @@
         <Button
             android:id="@+id/view_messages_button"
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:layout_width="297dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_half"
             android:background="@android:color/transparent"

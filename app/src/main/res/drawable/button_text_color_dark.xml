@@ -4,7 +4,7 @@
     <!-- Focused and not pressed -->
     <item android:state_focused="true"
         android:state_pressed="false"
-        android:color="@color/colorPrimary" />
+        android:color="@color/royalBlueDark" />
 
     <!-- Focused and pressed -->
     <item android:state_focused="true"

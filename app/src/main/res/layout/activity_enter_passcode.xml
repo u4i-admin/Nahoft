@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:paddingTop="20dp"
     android:layout_gravity="center"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/royalBlueDark"
     android:orientation="vertical"
     tools:context=".activities.EnterPasscodeActivity">
 

@@ -21,7 +21,7 @@
     <string name="sendAsImageButton">Send as Image</string>
 
     //Note: button_label_view_messages: "Archive of Received Messages" was changed after we sent the latest text file to translators.
-    <string name="button_label_view_messages">Archive of Received Messages</string>
+    <string name="button_label_view_messages">Read Messages</string>
     <string name="button_label_compose_messages">Compose a Message</string>
     <string name="button_import_message_label">Import a Message</string>
     <string name="saveImageButton">Save as Image</string>
@@ -57,7 +57,6 @@
 
     <string name="button_label_invite">Invite</string>
     <string name="button_label_invite_again">Invite Again</string>
-    <string name="friend_status_label_invited">Invited</string>
     <string name="button_label_approve_invitation">Accept</string>
     <string name="button_label_decline_invitation">Decline</string>
 
@@ -87,12 +86,10 @@
     <string name="alert_text_friend_already_exists">You already have a friend with this name.</string>
     <string name="alert_text_unable_to_process_request">"Something went wrong. We were unable to process your request."</string>
     <string name="input_hint_name">Name</string>
-    <string name="activity_title_add_friend">Add Friend</string>
     <string name="content_description_drag_handle">Drag Handle</string>
     <string name="button_label_import_message">Import Text</string>
     <string name="paste_message_for_import_hint">Paste text here to import.</string>
     <string name="button_label_import_image">Import Image</string>
-    <string name="error_loading_image_message">Error loading image.</string>
 
     <!-- Friends User Guide -->
     <string name="friends_user_guide_english">Adding Friends:\n
@@ -211,8 +208,6 @@
     <!-- Content Descriptions -->
 
     <string name="content_description_add_friend_button">Add Friend</string>
-    <string name="content_description_create_message">Create Message</string>
-    <string name="access_friends_content_description">Access Friends</string>
     <string name="content_description_verify_button">Verify</string>
     <string name="content_description_decline_button">Decline</string>
     <string name="content_description_accept_button">Accept</string>
@@ -292,7 +287,6 @@
     </string>
 
     <string name="ok_button">OK</string>
-    <string name="cancel_button">OK</string>
 
     //New Content Descriptions
     <string name="help_button_content_description"> Help Buttons </string>
@@ -301,15 +295,17 @@
     <string name="alert_text_passcode_is_a_repeated_digit">The passcode cannot be a repeated digit.</string>
     <string name="alert_text_incorrect_passcode_length">The passcode must be 6 digits long.</string>
     <string name="alert_text_image_saved">This image has been saved to your phone.</string>
-    <string name="alert_text_image_not_saved">We are unable to save your image at this time.</string>
 
     //Enter Passcode Activity
     <string name="alert_text_zero_to_five_login_attempts">The passcode entered is incorrect. Please try again.</string>
     <string name="alert_text_sixth_login_attempt">The passcode entered is incorrect. You can try logging in again in 60 seconds.</string>
     <string name="alert_text_seventh_login_attempt">The passcode entered is incorrect. You can try logging in again in 5 minutes.</string>
-    <string name="alert_text_eigth_login_attempt">The passcode entered is incorrect. You can try logging in again in 15 minutes.</string>
-    <string name="alert_text_nineth_login_attempt">The passcode entered is incorrect. This account has been deleted.</string>
+    <string name="alert_text_eighth_login_attempt">The passcode entered is incorrect. You can try logging in again in 15 minutes.</string>
+    <string name="alert_text_ninth_login_attempt">The passcode entered is incorrect. This account has been deleted.</string>
     <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">Please wait, %1$d minutes %2$d seconds before attempting to login again</string>
+
+    //SaveUtil.kt file
+    <string name="saved_images">Saved Images</string>
 
 
 </resources>

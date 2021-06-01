@@ -42,7 +42,7 @@ class MessagesActivity : AppCompatActivity(), ItemDragListener {
         setupItemTouchHelper()
 
         val dividerHeightInPixels = resources.getDimensionPixelSize(R.dimen.list_item_divider_height)
-        val dividerDecoration = org.nahoft.nahoft.ui.DividerItemDecoration(ContextCompat.getColor(this, R.color.colorPrimary), dividerHeightInPixels)
+        val dividerDecoration = org.nahoft.nahoft.ui.DividerItemDecoration(ContextCompat.getColor(this, R.color.royalBlueDark), dividerHeightInPixels)
         messages_recycler_view.addItemDecoration(dividerDecoration)
     }
 

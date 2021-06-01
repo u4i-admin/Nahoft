@@ -12,7 +12,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_enter_passcode.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
@@ -27,7 +26,6 @@ import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.nahoft.R
 import org.nahoft.util.showAlert
 import java.util.concurrent.TimeUnit
-import kotlin.math.max
 
 class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
@@ -310,7 +308,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     private fun showLoginFailureAlert() {
         if (failedLoginAttempts >= 9) {
-            showAlert(getString(R.string.alert_text_nineth_login_attempt))
+            showAlert(getString(R.string.alert_text_ninth_login_attempt))
             println("Failed Login $failedLoginAttempts times, all information has been erased")
 
             //Delete everything like you would if user had entered a secondary passcode.
@@ -318,7 +316,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
             startActivity(Intent(this, HomeActivity::class.java))
 
         } else if (failedLoginAttempts == 8) {
-            showAlert(getString(R.string.alert_text_eigth_login_attempt))
+            showAlert(getString(R.string.alert_text_eighth_login_attempt))
             println("Failed Login $failedLoginAttempts times, 15 minute timeout")
 
         } else if (failedLoginAttempts == 7) {
@@ -348,7 +346,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
         } else if (minutesToWait >= 100) {
             //This should never happen all data should have already been deleted when the login failed the eleventh time.
             //Delete everything like you would if user had entered a secondary passcode.
-            showAlert(getString(R.string.alert_text_nineth_login_attempt))
+            showAlert(getString(R.string.alert_text_ninth_login_attempt))
             Persist.clearAllData()
             startActivity(Intent(this, HomeActivity::class.java))
 

@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import org.nahoft.nahoft.R
 import java.io.File
 import java.io.File.separator
 import java.io.FileOutputStream
@@ -29,8 +30,7 @@ object SaveUtil
                 val contentValues = ContentValues().apply {
                     put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
                     put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
-                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-
+                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + separator + context.getString(R.string.saved_images))
                 }
 
                 val maybeImageUri: Uri? = resolver.insert(
@@ -46,8 +46,9 @@ object SaveUtil
         }
         else if  (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)// Android versions earlier than Q
         {
-            // TODO: Localize the folder name
-            val imagesDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + separator + "saved_images")
+            
+            val imagesDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + separator + context.getString(
+                            R.string.saved_images))
 
             if (!imagesDir.exists()) {
                     imagesDir.mkdirs()
