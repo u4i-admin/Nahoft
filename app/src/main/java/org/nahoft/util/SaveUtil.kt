@@ -46,7 +46,7 @@ object SaveUtil
         }
         else if  (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)// Android versions earlier than Q
         {
-            
+
             val imagesDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + separator + context.getString(
                             R.string.saved_images))
 
