@@ -29,7 +29,7 @@
         android:id="@+id/nahoft_message_bottle"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:srcCompat="@drawable/logo_clear_message_bottle"
+        app:srcCompat="@drawable/nahoft_logo_dark_back_100"
         tools:ignore="ContentDescription" />
 
     <LinearLayout
@@ -39,6 +39,18 @@
         android:gravity="bottom"
         android:paddingTop="@dimen/padding_standard"
         android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/messages_button"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/padding_standard"
+            android:background="@drawable/home_button_background"
+            android:contentDescription="@string/messages_button_description"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/message_asset_50"
+            android:tint="@drawable/button_text_color_dark" />
 
         <ProgressBar
             android:id="@+id/homeProgressBar"
@@ -52,8 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:alignmentMode="alignBounds"
-            android:columnCount="2"
-            android:rowCount="3"
+            android:columnCount="3"
+            android:rowCount="1"
             android:orientation="horizontal">
 
             <ImageButton
@@ -62,9 +74,8 @@
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:background="@drawable/home_button_background"
-                android:src="@drawable/gear_asset_50"
-                android:tint="@drawable/button_text_color_dark"
+                android:background="@color/royalBlueDark"
+                android:src="@drawable/nahoft_icons_settings_50"
                 android:contentDescription="@string/settings_button_description" />
 
             <ImageButton
@@ -73,9 +84,8 @@
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:background="@drawable/home_button_background"
-                android:src="@drawable/new_user_guide_1"
-                android:tint="@drawable/button_text_color_dark"
+                android:background="@color/royalBlueDark"
+                android:src="@drawable/nahoft_icons_help_50"
                 android:contentDescription="@string/user_guide_button_description" />
 
             <ImageButton
@@ -84,21 +94,9 @@
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:background="@drawable/home_button_background"
-                android:src="@drawable/new_friends_button"
-                android:tint="@drawable/button_text_color_dark"
+                android:background="@color/royalBlueDark"
+                android:src="@drawable/nahoft_icons_friends_50"
                 android:contentDescription="@string/friends_button_description" />
-
-            <ImageButton
-                android:id="@+id/messages_button"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_margin="@dimen/padding_standard"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:background="@drawable/home_button_background"
-                android:src="@drawable/message_asset_50"
-                android:tint="@drawable/button_text_color_dark"
-                android:contentDescription="@string/messages_button_description" />
 
             <Button
                 android:id="@+id/logout_button"
@@ -115,5 +113,6 @@
                 android:textSize="@dimen/detail_name_text_size" />
 
         </GridLayout>
+
     </LinearLayout>
 </LinearLayout>

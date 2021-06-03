@@ -2,7 +2,7 @@
 <resources>
 
 <!-- Enter Passcode Activity Strings -->
-<string name="Login">وارد کردن کدعبور</string>
+<string name="Login">ارسال</string>
 
 <!-- Home Activity -->
 <string name="button_label_friends">دوستان</string>

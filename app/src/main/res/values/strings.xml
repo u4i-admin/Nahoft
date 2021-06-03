@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Enter Passcode Activity Strings -->
-    <string name="Login">Enter Passcode</string>
+    <string name="Login">Submit</string>
 
     <!-- Home Activity -->
     <string name="button_label_friends">Friends</string>

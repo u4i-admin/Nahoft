@@ -17,7 +17,7 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginTop="80dp"
-        app:srcCompat="@drawable/logo_clear_message_bottle" />
+        app:srcCompat="@drawable/nahoft_logo_dark_back_100" />
 
     <LinearLayout
         android:id="@+id/passcodeContainer"
