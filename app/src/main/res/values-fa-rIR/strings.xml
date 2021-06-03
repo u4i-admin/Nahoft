@@ -299,4 +299,7 @@ Help Dialog Buttons
     //SaveUtil.kt file
     <string name="saved_images">تصاویر ذخیره شده</string>
 
+    //Enter Passcode Activity XML
+    <string name="enter_passcode">Enter Your Passcode</string>
+
 </resources>

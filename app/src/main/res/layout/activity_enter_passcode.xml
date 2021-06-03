@@ -13,16 +13,25 @@
 
     <ImageView
         android:id="@+id/nahoft_message_bottle"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"
-        app:srcCompat="@drawable/nahoft_logo_dark_back_100" />
+        app:srcCompat="@drawable/nahoft_logo_full_colour_2000" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:fontFamily="@font/open_sans_italic"
+        android:gravity="center"
+        android:text="@string/enter_passcode"
+        android:textColor="@color/colorWarmWhite">
+
+    </TextView>
 
     <LinearLayout
         android:id="@+id/passcodeContainer"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="150dp"
         android:gravity="bottom"
         android:orientation="horizontal">
 
@@ -114,19 +123,21 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:gravity="bottom"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="100dp">
 
         <Button
             android:id="@+id/login_button"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/padding_standard"
-            android:background="@color/colorWarmWhite"
+            android:background="@drawable/rounded_button"
+            android:fontFamily="@font/open_sans"
             android:text="@string/Login"
-            android:textColor="@drawable/button_text_color_dark" />
+            android:textAllCaps="false"
+            android:textColor="@color/colorWarmWhite" />
 
     </LinearLayout>
 

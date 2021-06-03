@@ -307,5 +307,8 @@
     //SaveUtil.kt file
     <string name="saved_images">Saved Images</string>
 
+    //Enter Passcode Activity XML
+    <string name="enter_passcode">Enter Your Passcode</string>
+
 
 </resources>
