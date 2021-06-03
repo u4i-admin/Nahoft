@@ -5,4 +5,8 @@
             android:radius="50dp"/>
         <solid
             android:color="@color/blueCrayola"/>
+
+        <size
+            android:height="60dp"
+            android:width="270dp" />
     </shape>
