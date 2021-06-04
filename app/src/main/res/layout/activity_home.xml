@@ -40,17 +40,19 @@
         android:paddingTop="@dimen/padding_standard"
         android:orientation="vertical" >
 
-        <ImageButton
+        <Button
             android:id="@+id/messages_button"
-            android:layout_width="200dp"
-            android:layout_height="75dp"
+            android:layout_width="325dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_margin="@dimen/padding_standard"
             android:contentDescription="@string/messages_button_description"
             android:foreground="?android:attr/selectableItemBackground"
-            android:background="@drawable/round_half_colour_button"
-            android:src="@drawable/nahoft_icons_read_50"
-            android:textColor="@color/colorWarmWhite"/>
+            android:background="@drawable/round_green_purple_button"
+            android:drawableStart="@drawable/nahoft_icons_read_50"
+            android:textColor="@color/colorWarmWhite"
+            android:text="@string/button_label_read"
+            android:drawableEnd="@drawable/nahoft_icons_create_50"/>
 
         <ProgressBar
             android:id="@+id/homeProgressBar"

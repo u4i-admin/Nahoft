@@ -313,6 +313,7 @@
     //Home Activity
     <string name="button_label_friend">Friends</string>
     <string name="button_label_help">Help</string>
-
+    <string name="button_label_read">Read</string>
+    <string name="button_label_create">Create</string>
 
 </resources>
