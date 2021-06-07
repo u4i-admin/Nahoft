@@ -135,7 +135,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_margin="@dimen/padding_standard"
-            android:background="@drawable/enter_passcode_submit_bkgd_btn"
+            android:background="@drawable/blue_56_btn_bkgd"
             android:fontFamily="@font/open_sans"
             android:text="@string/Login"
             android:textAllCaps="false"
