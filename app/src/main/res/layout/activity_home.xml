@@ -11,21 +11,6 @@
     tools:context=".activities.HomeActivity">
 
     <ImageView
-        android:id="@+id/home_help_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:background="@drawable/home_button_background"
-        android:contentDescription="@string/help_button_content_description"
-        app:srcCompat="@drawable/help_outline_24px"
-        app:tint="@drawable/button_text_color_dark"
-        android:layout_gravity="end"/>
-
-    <ImageView
         android:id="@+id/nahoft_message_bottle"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -74,7 +59,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
-                android:background="@color/royalBlueDark"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/friends_button_description"
                 android:drawableTop="@drawable/nahoft_icons_friends_50"
                 android:fontFamily="@font/open_sans"
@@ -89,7 +74,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
-                android:background="@color/royalBlueDark"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/user_guide_button_description"
                 android:drawableTop="@drawable/nahoft_icons_help_50"
                 android:fontFamily="@font/open_sans"
@@ -104,7 +89,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="@dimen/padding_standard"
-                android:background="@color/royalBlueDark"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/settings_button_description"
                 android:drawableTop="@drawable/nahoft_icons_settings_50"
                 android:fontFamily="@font/open_sans"

@@ -12,9 +12,6 @@ class MessagesMenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_messages_menu)
 
-        // Messages Menu Help Button
-        messages_menu_help_button.setOnClickListener {showDialogButtonMessagesMenuHelp()}
-
         // View Messages Button
         view_messages_button.setOnClickListener {
             val messagesIntent = Intent(this, MessagesActivity::class.java)
@@ -29,7 +26,7 @@ class MessagesMenuActivity : AppCompatActivity() {
         }
 
         // Import Image Text Activity
-        import_button.setOnClickListener{
+        import_image_button.setOnClickListener{
             val importIntent = Intent(this, ImportImageTextActivity::class.java)
             startActivity(importIntent)}
     }

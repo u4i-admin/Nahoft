@@ -20,10 +20,11 @@
     <string name="sendAsTextButton">Send as Text</string>
     <string name="sendAsImageButton">Send as Image</string>
 
-    //Note: button_label_view_messages: "Archive of Received Messages" was changed after we sent the latest text file to translators.
-    <string name="button_label_view_messages">Read Messages</string>
+    <!-- Note: button_label_view_messages: "button_label_view_messages", and "button_import_image_label", and "button_import_text_label" were changed after we sent the latest text file to translators.-->
+    <string name="button_label_view_messages">Messages</string>
     <string name="button_label_compose_messages">Compose a Message</string>
-    <string name="button_import_message_label">Import a Message</string>
+    <string name="button_import_text_label">Import Text</string>
+    <string name="button_import_image_label">Import Image</string>
     <string name="saveImageButton">Save as Image</string>
 
     <!-- New Messages Activity Alerts -->

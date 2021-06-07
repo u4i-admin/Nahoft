@@ -16,14 +16,17 @@
 <string name="button_label_compose">نوشتن</string>
 
 <!-- New Messages Activity -->
-<string name="hintOnChooseFriendButton">انتخاب گیرنده</string>
-<string name="enter_message_here_hint">متن پیام</string>
-<string name="sendAsTextButton">ارسال به‌عنوان متن</string>
+    <!-- Note: button_label_view_messages: "button_label_view_messages", and "button_import_image_label", and "button_import_text_label" were changed after we sent the latest text file to translators.-->
+    <string name="enter_message_here_hint">متن پیام</string>
+    <string name="hintOnChooseFriendButton">انتخاب گیرنده</string>
+    <string name="sendAsTextButton">ارسال به‌عنوان متن</string>
 <string name="sendAsImageButton">ارسال به‌عنوان تصویر</string>
-<string name="button_label_view_messages">خواندن پیام‌ها</string>
+<string name="button_label_view_messages">پیام ها</string>
 <string name="button_label_compose_messages">نوشتن پیام</string>
-<string name="button_import_message_label">وارد کردن</string>
+    <string name="button_import_text_label">وارد کردن متن</string>
+<string name="button_import_image_label">وارد کردن تصویر</string>
 <string name="saveImageButton">دکمه ذخیره تصویر</string>
+
 
 
 <!-- New Messages Activity Alerts -->

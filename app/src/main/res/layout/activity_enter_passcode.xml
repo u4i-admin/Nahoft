@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/padding_standard"
-            android:background="@drawable/rounded_button"
+            android:background="@drawable/rounded_blue_button_bkgd"
             android:fontFamily="@font/open_sans"
             android:text="@string/Login"
             android:textAllCaps="false"

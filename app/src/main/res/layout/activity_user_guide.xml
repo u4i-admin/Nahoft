@@ -9,31 +9,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingTop="32dp">
 
         <Button
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="20dp"
-            android:background="@color/royalBlueDark"
-            android:contentDescription="@string/user_guide_button_description"
-            android:drawableStart="@drawable/nahoft_icons_help_50" />
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/nahoft_icons_help_50"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_label_help"
             android:textAllCaps="false"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:textColor="@drawable/button_text_color_light"
             android:textSize="@dimen/detail_name_text_size"
-            tools:ignore="ContentDescription"
-            android:fontFamily="@font/open_sans" />
+            android:fontFamily="@font/open_sans"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="450dp"
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:paddingBottom="32dp">

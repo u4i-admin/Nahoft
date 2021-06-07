@@ -106,9 +106,6 @@ class HomeActivity : AppCompatActivity() {
             sendToLogin()
         }
 
-        // Help Button
-        home_help_button.setOnClickListener {showDialogButtonHomeHelp()}
-
         // Logout Button
         if (status == LoginStatus.NotRequired) {
             logout_button.visibility = View.INVISIBLE
