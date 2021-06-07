@@ -1,42 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/royalBlueDark"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
     tools:context=".activities.UserGuideActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="96dp"
+        android:orientation="horizontal"
         android:paddingTop="32dp">
 
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="20dp"
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="25dp"
             android:background="@android:color/transparent"
-            android:drawableStart="@drawable/nahoft_icons_help_50"
+            android:layout_margin="@dimen/padding_half"
+            app:srcCompat="@drawable/nahoft_icons_help_56"
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:layout_margin="@dimen/padding_half"
+            android:fontFamily="@font/open_sans"
             android:text="@string/button_label_help"
             android:textAllCaps="false"
-            android:layout_gravity="center_horizontal"
             android:textColor="@drawable/button_text_color_light"
-            android:textSize="@dimen/detail_name_text_size"
-            android:fontFamily="@font/open_sans"
+            android:textSize="22sp"
             tools:ignore="ContentDescription" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="400dp"
         android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:paddingBottom="32dp">
+        android:gravity="center">
 
         <Button
             android:id="@+id/friends_user_guide"
@@ -44,12 +50,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
             android:background="@drawable/user_guide_round_buttons"
-            android:drawablePadding="@dimen/padding_standard"
             android:drawableTint="@drawable/button_text_color_light"
             android:text="@string/button_label_friends"
             android:textAllCaps="false"
             android:textColor="@drawable/button_text_color_light"
-            android:textSize="@dimen/detail_name_text_size"
+            android:textSize="20sp"
             android:textAlignment="textStart"
             android:fontFamily="@font/open_sans"/>
 
@@ -59,12 +64,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
             android:background="@drawable/user_guide_round_buttons"
-            android:drawablePadding="@dimen/padding_standard"
             android:drawableTint="@drawable/button_text_color_light"
             android:text="@string/button_label_messages"
             android:textAllCaps="false"
             android:textColor="@drawable/button_text_color_light"
-            android:textSize="@dimen/detail_name_text_size"
+            android:textSize="20sp"
             android:textAlignment="textStart"
             android:fontFamily="@font/open_sans" />
 
@@ -74,12 +78,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
             android:background="@drawable/user_guide_round_buttons"
-            android:drawablePadding="@dimen/padding_standard"
             android:drawableTint="@drawable/button_text_color_light"
             android:text="@string/button_label_passcode"
             android:textAllCaps="false"
             android:textColor="@drawable/button_text_color_light"
-            android:textSize="@dimen/detail_name_text_size"
+            android:textSize="20sp"
             android:textAlignment="textStart"
             android:fontFamily="@font/open_sans" />
 
@@ -89,13 +92,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_standard"
             android:background="@drawable/user_guide_round_buttons"
-            android:drawablePadding="@dimen/padding_standard"
             android:drawableTint="@drawable/button_text_color_light"
             android:text="@string/button_label_importing"
             android:textAllCaps="false"
             android:textColor="@drawable/button_text_color_light"
-            android:textSize="@dimen/detail_name_text_size"
+            android:textSize="20sp"
             android:textAlignment="textStart"
             android:fontFamily="@font/open_sans" />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

@@ -22,7 +22,7 @@
             android:layout_marginStart="25dp"
             android:layout_margin="@dimen/padding_half"
             android:background="@drawable/circle"
-            app:srcCompat="@drawable/nahoft_icons_read_50"
+            app:srcCompat="@drawable/nahoft_icons_read_56"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:text="@string/button_label_read"
             android:textAllCaps="false"
             android:textColor="@drawable/button_text_color_light"
-            android:textSize="@dimen/detail_name_text_size"
+            android:textSize="22dp"
             tools:ignore="ContentDescription" />
     </LinearLayout>
 
@@ -56,7 +56,7 @@
             android:drawablePadding="@dimen/padding_standard"
             android:text="@string/button_label_view_messages"
             android:textColor="@drawable/button_text_color_light"
-            android:textSize="@dimen/detail_name_text_size" />
+            android:textSize="22dp" />
 
         <Button
             android:id="@+id/import_text_button"
@@ -70,7 +70,7 @@
             android:drawablePadding="@dimen/padding_standard"
             android:text="@string/button_import_text_label"
             android:textColor="@drawable/button_text_color_light"
-            android:textSize="@dimen/detail_name_text_size" />
+            android:textSize="22dp" />
 
         <Button
             android:id="@+id/import_image_button"
@@ -85,7 +85,7 @@
             android:text="@string/button_import_image_label"
             android:fontFamily="@font/open_sans"
             android:textColor="@drawable/button_text_color_light"
-            android:textSize="@dimen/detail_name_text_size" />
+            android:textSize="22dp" />
 
         <Button
             android:id="@+id/compose_messages_button"

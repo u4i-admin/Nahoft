@@ -4,13 +4,10 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.LinearGradient
-import android.graphics.drawable.ShapeDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_new_message.*
@@ -118,7 +115,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         // Messages
-        messages_button.setOnClickListener {
+        read_button.setOnClickListener {
             val messagesIntent = Intent(this, MessagesMenuActivity::class.java)
             startActivity(messagesIntent)
         }
@@ -410,7 +407,7 @@ class HomeActivity : AppCompatActivity() {
     private fun makeWait()
     {
         homeProgressBar.visibility = View.VISIBLE
-        messages_button.isEnabled = false
+        read_button.isEnabled = false
         user_guide_button.isEnabled = false
         friends_button.isEnabled = false
         settings_button.isEnabled = false
@@ -421,7 +418,7 @@ class HomeActivity : AppCompatActivity() {
     private fun noMoreWaiting()
     {
         homeProgressBar.visibility = View.INVISIBLE
-        messages_button.isEnabled = true
+        read_button.isEnabled = true
         user_guide_button.isEnabled = true
         friends_button.isEnabled = true
         settings_button.isEnabled = true

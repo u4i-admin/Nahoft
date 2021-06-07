@@ -231,7 +231,9 @@
     <string name="user_guide_button_description">This button will take you to the user guides.</string>
     <string name="settings_button_description">This button will take you to the settings menu.</string>
     <string name="friends_button_description">This button will take you to the friends menu.</string>
-    <string name="messages_button_description">This button will take you to the messages menu.</string>
+    <string name="read_button_description">This button will take you to the read messages, import text, and import image menu.</string>
+    <string name="create_button_description">This button will take you to the create messages menu.</string>
+
 
     Help Dialog Buttons
 

@@ -26,6 +26,6 @@ class HomeActivityTest{
         onView(withId(R.id.settings_button)).check(ViewAssertions.matches(isDisplayed()))
         onView(withId(R.id.user_guide_button)).check(ViewAssertions.matches(isDisplayed()))
         onView(withId(R.id.friends_button)).check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.messages_button)).check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.read_button)).check(ViewAssertions.matches(isDisplayed()))
     }
 }

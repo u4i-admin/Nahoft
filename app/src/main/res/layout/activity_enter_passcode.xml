@@ -13,17 +13,19 @@
 
     <ImageView
         android:id="@+id/nahoft_message_bottle"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/nahoft_logo_full_colour_2000" />
+        app:srcCompat="@drawable/nahoft_logo_full_colour_104" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="24dp"
         android:fontFamily="@font/open_sans_italic"
+        android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/enter_passcode"
+        android:textSize="16sp"
         android:textColor="@color/colorWarmWhite">
 
     </TextView>
@@ -129,11 +131,11 @@
 
         <Button
             android:id="@+id/login_button"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="104dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_margin="@dimen/padding_standard"
-            android:background="@drawable/rounded_blue_button_bkgd"
+            android:background="@drawable/enter_passcode_submit_bkgd_btn"
             android:fontFamily="@font/open_sans"
             android:text="@string/Login"
             android:textAllCaps="false"
