@@ -33,6 +33,8 @@
                 android:background="@drawable/read_button_home"
                 android:drawableLeft="@drawable/nahoft_icons_read_56"
                 android:textColor="@color/colorWarmWhite"
+                android:textSize="24sp"
+                android:textAllCaps="false"
                 android:text="@string/button_label_read" />
 
             <Button
@@ -43,6 +45,8 @@
                 android:drawableRight="@drawable/nahoft_icons_create_56"
                 android:background="@drawable/create_button_home"
                 android:textColor="@color/colorWarmWhite"
+                android:textSize="24sp"
+                android:textAllCaps="false"
                 android:text="@string/button_label_create" />
 
         </LinearLayout>

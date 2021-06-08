@@ -10,7 +10,7 @@ import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_new_message.*
+import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage

@@ -2,6 +2,7 @@
 <resources>
     <!--   color for the app bar and other primary UI elements -->
     <color name="royalBlueDark">#002066</color>
+    <color name="royalBlueDarkOpaque">#CC022066</color>
     
     <!-- colors to be used for new UI refresh -->
     <color name="electricPurple">#C000FF</color>

@@ -25,7 +25,7 @@
     <string name="button_label_compose_messages">Compose a Message</string>
     <string name="button_import_text_label">Import Text</string>
     <string name="button_import_image_label">Import Image</string>
-    <string name="saveImageButton">Save as Image</string>
+    <string name="saveImageButton">Save Image</string>
 
     <!-- New Messages Activity Alerts -->
     <string name="alert_text_verified_friends_only">You can only message a verified friend.</string>

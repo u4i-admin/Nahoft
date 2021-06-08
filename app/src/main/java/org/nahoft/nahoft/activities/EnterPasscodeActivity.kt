@@ -13,7 +13,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_enter_passcode.*
+import kotlinx.android.synthetic.main.activity_log_in.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.Persist
@@ -49,7 +49,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_enter_passcode)
+        setContentView(R.layout.activity_log_in)
 
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)

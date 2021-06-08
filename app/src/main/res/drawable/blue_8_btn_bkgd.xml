@@ -4,8 +4,8 @@
     <corners
         android:radius="8dp"/>
     <solid
-        android:color="@color/royalBlueDarkOpaque"/>
-    <padding
-        android:left="@dimen/padding_standard"
-        android:right="@dimen/padding_standard"/>
+        android:color="@color/blueCrayola"/>
+    <size
+        android:width="96dp"
+        android:height="104dp" />
 </shape>

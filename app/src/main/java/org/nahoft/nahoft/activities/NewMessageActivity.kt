@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_message.*
-import kotlinx.android.synthetic.main.activity_new_message.*
+import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.coroutines.*
 import org.nahoft.codex.Encryption
 import org.nahoft.codex.LOGOUT_TIMER_VAL
@@ -37,7 +37,7 @@ class NewMessageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_message)
+        setContentView(R.layout.activity_create)
 
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
