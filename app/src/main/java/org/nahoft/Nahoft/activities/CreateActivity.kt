@@ -23,7 +23,7 @@ import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 import org.nahoft.util.showAlert
 
-class NewMessageActivity : AppCompatActivity() {
+class CreateActivity : AppCompatActivity() {
 
     private var selectedFriend: Friend? = null
     private val parentJob = Job()
@@ -70,7 +70,7 @@ class NewMessageActivity : AppCompatActivity() {
     }
 
     private fun selectFriend() {
-        val intent = FriendSelectionActivity.newIntent(this@NewMessageActivity)
+        val intent = FriendSelectionActivity.newIntent(this@CreateActivity)
         Intent(this, FriendSelectionActivity::class.java)
         startActivityForResult(intent, RequestCodes.selectFriendCode)
     }
@@ -91,8 +91,8 @@ class NewMessageActivity : AppCompatActivity() {
         // Make sure there is a message to send
         val message = editMessageText.text.toString()
 
-        ActivityCompat.requestPermissions(this@NewMessageActivity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
-        ActivityCompat.requestPermissions(this@NewMessageActivity, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+        ActivityCompat.requestPermissions(this@CreateActivity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+        ActivityCompat.requestPermissions(this@CreateActivity, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
 
         if (message.isBlank()) {
             showAlert(getString(R.string.alert_text_write_a_message_to_send))

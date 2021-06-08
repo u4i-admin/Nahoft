@@ -8,7 +8,7 @@
     android:background="@color/royalBlueDark"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context=".activities.MessagesMenuActivity">
+    tools:context=".activities.ReadActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,18 +87,5 @@
             android:textColor="@drawable/button_text_color_light"
             android:textSize="22dp" />
 
-        <Button
-            android:id="@+id/compose_messages_button"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_half"
-            android:background="@android:color/transparent"
-            android:drawableEnd="@drawable/compose_message_50"
-            android:drawablePadding="@dimen/padding_standard"
-            android:drawableTint="@drawable/button_text_color_light"
-            android:text="@string/button_label_compose_messages"
-            android:textColor="@drawable/button_text_color_light"
-            android:textSize="@dimen/detail_name_text_size" />
     </LinearLayout>
 </LinearLayout>

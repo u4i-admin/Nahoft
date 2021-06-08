@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_read.*
 import org.nahoft.nahoft.R
 
-class MessagesMenuActivity : AppCompatActivity() {
+class ReadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read)
@@ -16,13 +16,6 @@ class MessagesMenuActivity : AppCompatActivity() {
         view_messages_button.setOnClickListener {
             val messagesIntent = Intent(this, MessagesActivity::class.java)
             startActivity(messagesIntent)
-        }
-
-        // Compose Message Button
-        // Compose new message button
-        compose_messages_button.setOnClickListener {
-            val newMessageIntent = Intent(this, NewMessageActivity::class.java)
-            startActivity(newMessageIntent)
         }
 
         // Import Image Text Activity

@@ -11,6 +11,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_create.*
+import kotlinx.android.synthetic.main.activity_read.*
 import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
@@ -114,10 +115,15 @@ class HomeActivity : AppCompatActivity() {
             logoutButtonClicked()
         }
 
-        // Messages
+        // Read
         read_button.setOnClickListener {
-            val messagesIntent = Intent(this, MessagesMenuActivity::class.java)
+            val messagesIntent = Intent(this, ReadActivity::class.java)
             startActivity(messagesIntent)
+        }
+
+        create_button.setOnClickListener {
+            val createIntent = Intent(this, CreateActivity::class.java)
+            startActivity(createIntent)
         }
         
         // User Guide

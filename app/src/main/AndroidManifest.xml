@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.MessagesMenuActivity"
+            android:name=".activities.ReadActivity"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
 
@@ -85,7 +85,7 @@
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
-            android:name=".activities.NewMessageActivity"
+            android:name=".activities.CreateActivity"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
