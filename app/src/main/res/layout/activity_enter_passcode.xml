@@ -16,7 +16,9 @@
         android:layout_width="104dp"
         android:layout_height="104dp"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/nahoft_logo_full_colour_104" />
+        app:srcCompat="@drawable/nahoft_logo_transparent_104"
+        android:importantForAccessibility="no"
+        android:layout_margin="@dimen/padding_doubled" />
 
     <TextView
         android:layout_width="200dp"
@@ -32,10 +34,13 @@
 
     <LinearLayout
         android:id="@+id/passcodeContainer"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:gravity="bottom"
-        android:orientation="horizontal">
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/white_8_bkgd"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/padding_standard">
 
         <EditText
             android:id="@+id/passcode_digit_1"
@@ -49,7 +54,7 @@
             android:maxLines="1"
             android:textAlignment="center"
             android:textColor="@color/colorWarmWhite"
-            app:backgroundTint="@color/colorWarmWhite" />
+            app:backgroundTint="@color/colorWarmWhite"/>
 
         <EditText
             android:id="@+id/passcode_digit_2"
@@ -59,7 +64,7 @@
             android:layout_weight="1"
             android:imeOptions="actionDone"
             android:inputType="numberPassword|number"
-            android:maxLength="2"
+            android:maxLength="1"
             android:maxLines="1"
             android:textAlignment="center"
             android:textColor="@color/colorWarmWhite"
@@ -73,7 +78,7 @@
             android:layout_weight="1"
             android:imeOptions="actionDone"
             android:inputType="numberPassword|number"
-            android:maxLength="2"
+            android:maxLength="1"
             android:maxLines="1"
             android:textAlignment="center"
             android:textColor="@color/colorWarmWhite"
@@ -87,7 +92,7 @@
             android:layout_weight="1"
             android:imeOptions="actionDone"
             android:inputType="numberPassword|number"
-            android:maxLength="2"
+            android:maxLength="1"
             android:maxLines="1"
             android:textAlignment="center"
             android:textColor="@color/colorWarmWhite"
@@ -101,7 +106,7 @@
             android:layout_weight="1"
             android:imeOptions="actionDone"
             android:inputType="numberPassword|number"
-            android:maxLength="2"
+            android:maxLength="1"
             android:maxLines="1"
             android:textAlignment="center"
             android:textColor="@color/colorWarmWhite"
@@ -115,7 +120,7 @@
             android:layout_weight="1"
             android:imeOptions="actionDone"
             android:inputType="numberPassword|number"
-            android:maxLength="2"
+            android:maxLength="1"
             android:maxLines="1"
             android:textAlignment="center"
             android:textColor="@color/colorWarmWhite"

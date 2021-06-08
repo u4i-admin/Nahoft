@@ -15,7 +15,7 @@
         android:layout_width="104dp"
         android:layout_height="104dp"
         android:layout_marginTop="40dp"
-        app:srcCompat="@drawable/nahoft_logo_full_colour_104"
+        app:srcCompat="@drawable/nahoft_logo_transparent_104"
         tools:ignore="ContentDescription" />
 
         <LinearLayout
