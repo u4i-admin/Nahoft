@@ -89,7 +89,7 @@
     <string name="input_hint_name">Name</string>
     <string name="content_description_drag_handle">Drag Handle</string>
     <string name="button_label_import_message">Import Text</string>
-    <string name="paste_message_for_import_hint">Paste text here to import.</string>
+    <string name="paste_message_for_import_hint">Paste your text here...</string>
     <string name="button_label_import_image">Import Image</string>
 
     <!-- Friends User Guide -->
@@ -235,7 +235,7 @@
     <string name="create_button_description">This button will take you to the create messages menu.</string>
 
 
-    Help Dialog Buttons
+    <!-- Help Dialog Buttons -->
 
     <string name="dialog_button_home_help_title"> Home Screen Help </string>
     <string name="dialog_button_home_help">
@@ -282,7 +282,7 @@
 
     <string name="ok_button">OK</string>
 
-    //New Content Descriptions
+    <!-- New Content Descriptions -->
     <string name="help_button_content_description"> Help Buttons </string>
     <string name="alert_text_invalid_passcode">This passcode is invalid.</string>
     <string name="alert_text_passcode_is_sequential">Sequential passcodes are not allowed.</string>
@@ -290,7 +290,7 @@
     <string name="alert_text_incorrect_passcode_length">The passcode must be 6 digits long.</string>
     <string name="alert_text_image_saved">This image has been saved to your phone.</string>
 
-    //Enter Passcode Activity
+    <!-- Enter Passcode Activity -->
     <string name="alert_text_zero_to_five_login_attempts">The passcode entered is incorrect. Please try again.</string>
     <string name="alert_text_sixth_login_attempt">The passcode entered is incorrect. You can try logging in again in 60 seconds.</string>
     <string name="alert_text_seventh_login_attempt">The passcode entered is incorrect. You can try logging in again in 5 minutes.</string>
@@ -298,16 +298,23 @@
     <string name="alert_text_ninth_login_attempt">The passcode entered is incorrect. This account has been deleted.</string>
     <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">Please wait, %1$d minutes %2$d seconds before attempting to login again</string>
 
-    //SaveUtil.kt file
+    <!-- SaveUtil.kt file -->
     <string name="saved_images">Saved Images</string>
 
-    //Enter Passcode Activity XML
+    <!-- Enter Passcode Activity XML -->
     <string name="enter_passcode">Enter Your Passcode</string>
 
-    //Home Activity
+    <!-- Home Activity -->
     <string name="button_label_friend">Friends</string>
     <string name="button_label_help">Help</string>
     <string name="button_label_read">Read</string>
     <string name="button_label_create">Create</string>
+
+    <!-- Import Image Activity -->
+    <string name="import_image_hint">Import an image from your device.</string>
+    <string name="button_import_image_label_two">Import \nImage</string>
+
+    <!-- Import Text Activity -->
+    <string name="import_text_label">Import \nText</string>
 
 </resources>

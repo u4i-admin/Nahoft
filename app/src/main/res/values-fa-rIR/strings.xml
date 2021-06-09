@@ -230,7 +230,7 @@
     <string name="create_button_description">This button will take you to the create messages menu.</string>
 
 
-    Help Dialog Buttons
+    <!-- Help Dialog Buttons -->
 
 <string name="dialog_button_home_help_title"> صفحه اصلی راهنما </string>
 <string name="dialog_button_home_help">
@@ -276,7 +276,7 @@
 
     <string name="ok_button">خوب</string>
 
-    //New Content Descriptions
+    <!-- New Content Descriptions -->
     <string name="help_button_content_description"> دکمه های راهنما </string>
     <string name="alert_text_invalid_passcode">این رمز عبور نامعتبر است</string>
     <string name="alert_text_passcode_is_sequential">رمزهای عبور متوالی مجاز نیستند.</string>
@@ -284,7 +284,7 @@
     <string name="alert_text_incorrect_passcode_length">کد عبور باید شش رقم باشد.</string>
     <string name="alert_text_image_saved">تصویر در پوشه تصاویر در تلفن ذخیره شده است.</string>
 
-    //Enter Passcode Activity
+    <!-- Enter Passcode Activity -->
     <string name="alert_text_zero_to_five_login_attempts">رمز عبور وارد شده نادرست است. لطفا دوباره تلاش کنید.</string>
     <string name="alert_text_sixth_login_attempt">رمز عبور وارد شده نادرست است. لطفاً بعد از این یک دقیقه قفل کردن دوباره امتحان کنید.</string>
     <string name="alert_text_seventh_login_attempt">رمز عبور وارد شده نادرست است. لطفا بعد از این پنج دقیقه قفل کردن دوباره امتحان کنید.</string>
@@ -292,17 +292,24 @@
     <string name="alert_text_ninth_login_attempt">تلاش رمز عبور نهم انجام نشد. همه داده های برنامه پاک می شوند.</string>
     <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">لطفا صبر کنید, %1$d دقایق %2$d ثانیه قبل از تلاش برای ورود مجدد</string>
 
-    //SaveUtil.kt file
+    <!-- SaveUtil.kt file -->
     <string name="saved_images">تصاویر ذخیره شده</string>
 
-    //Enter Passcode Activity XML
+    <!-- Enter Passcode Activity XML -->
     <string name="enter_passcode">Enter Your Passcode</string>
 
-    //Home Activity
+    <!-- Home Activity -->
     <string name="button_label_friend">Friends</string>
     <string name="button_label_help">Help</string>
     <string name="button_label_read">Read</string>
     <string name="button_label_create">Create</string>
+
+    <!-- Import Image Activity -->
+    <string name="import_image_hint">یک تصویر از دستگاه خود وارد کنید.</string>
+    <string name="button_import_image_label_two">Import \nImage</string>
+
+    <!-- Import Text Activity -->
+    <string name="import_text_label">وارد کردن متن</string>
 
 
 </resources>

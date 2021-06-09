@@ -1,14 +1,16 @@
 package org.nahoft.nahoft.activities
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_import_image_text.*
+import kotlinx.android.synthetic.main.activity_import_image.*
+import kotlinx.android.synthetic.main.activity_import_image.imageImportProgressBar
+import kotlinx.android.synthetic.main.activity_import_image.import_image_button
+import kotlinx.android.synthetic.main.activity_import_text.*
 import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
@@ -21,7 +23,7 @@ import org.nahoft.util.showAlert
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class ImportImageTextActivity: AppCompatActivity() {
+class ImportImageActivity: AppCompatActivity() {
 
     private var decodePayload: ByteArray? = null
     private var sender: Friend? = null
@@ -40,17 +42,13 @@ class ImportImageTextActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_import_image_text)
+        setContentView(R.layout.activity_import_image)
 
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
         })
 
         sender = intent.getSerializableExtra(SENDER) as Friend?
-
-        import_text_button.setOnClickListener {
-            handleMessageImport()
-        }
 
         import_image_button.setOnClickListener {
             handleImageImport()
@@ -243,28 +241,19 @@ class ImportImageTextActivity: AppCompatActivity() {
     private fun makeWait()
     {
         imageImportProgressBar.visibility = View.VISIBLE
-        import_text_button.isEnabled = false
-        import_text_button.isClickable = false
         import_image_button.isEnabled = false
         import_image_button.isClickable = false
-        import_message_text_view.isEnabled = false
-        import_message_text_view.isClickable = false
     }
 
     private fun noMoreWaiting()
     {
         imageImportProgressBar.visibility = View.INVISIBLE
-        import_text_button.isEnabled = true
-        import_text_button.isClickable = true
         import_image_button.isEnabled = true
         import_image_button.isClickable = true
-        import_message_text_view.isEnabled = true
-        import_message_text_view.isClickable = true
     }
 
     private fun cleanUp () {
         decodePayload = null
         sender = null
-        import_message_text_view.text = null
     }
 }

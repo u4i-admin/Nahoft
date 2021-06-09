@@ -41,7 +41,11 @@
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
-            android:name=".activities.ImportImageTextActivity"
+            android:name=".activities.ImportImageActivity"
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="true"/>
+        <activity
+            android:name=".activities.ImportTextActivity"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity

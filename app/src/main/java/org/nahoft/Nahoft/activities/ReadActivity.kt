@@ -4,7 +4,10 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_import_text.*
 import kotlinx.android.synthetic.main.activity_read.*
+import kotlinx.android.synthetic.main.activity_read.import_image_button
+import kotlinx.android.synthetic.main.activity_read.import_text_button
 import org.nahoft.nahoft.R
 
 class ReadActivity : AppCompatActivity() {
@@ -15,13 +18,18 @@ class ReadActivity : AppCompatActivity() {
         // View Messages Button
         view_messages_button.setOnClickListener {
             val messagesIntent = Intent(this, MessagesActivity::class.java)
-            startActivity(messagesIntent)
+            startActivity(messagesIntent) }
+
+        // Import Text Activity
+        import_text_button.setOnClickListener{
+            val importTextIntent = Intent ( this, ImportTextActivity::class.java)
+            startActivity(importTextIntent)
         }
 
-        // Import Image Text Activity
+        // Import Image Activity
         import_image_button.setOnClickListener{
-            val importIntent = Intent(this, ImportImageTextActivity::class.java)
-            startActivity(importIntent)}
+            val importIntent = Intent(this, ImportImageActivity::class.java)
+            startActivity(importIntent) }
     }
 
     private fun showDialogButtonMessagesMenuHelp() {

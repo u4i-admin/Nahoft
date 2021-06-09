@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.friend_recyclerview_item_row.view.*
 import org.nahoft.codex.Encryption
 import org.nahoft.util.inflate
-import org.nahoft.nahoft.activities.ImportImageTextActivity
+import org.nahoft.nahoft.activities.ImportImageActivity
 import org.nahoft.nahoft.activities.VerifyFriendActivity
 import org.nahoft.nahoft.ui.ItemTouchHelperListener
 import org.nahoft.util.RequestCodes
@@ -96,8 +96,8 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         }
 
         private fun importInvitationClicked() {
-            val importIntent = Intent(this.view.context, ImportImageTextActivity::class.java)
-            importIntent.putExtra(ImportImageTextActivity.SENDER, this.friend)
+            val importIntent = Intent(this.view.context, ImportImageActivity::class.java)
+            importIntent.putExtra(ImportImageActivity.SENDER, this.friend)
             this.view.context.startActivity(importIntent)
         }
 
