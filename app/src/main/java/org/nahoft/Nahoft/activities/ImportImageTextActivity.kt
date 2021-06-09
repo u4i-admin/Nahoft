@@ -48,9 +48,6 @@ class ImportImageTextActivity: AppCompatActivity() {
 
         sender = intent.getSerializableExtra(SENDER) as Friend?
 
-        // Help Button
-        import_help_button.setOnClickListener {showDialogButtonImportHelp()}
-
         import_text_button.setOnClickListener {
             handleMessageImport()
         }
@@ -63,18 +60,6 @@ class ImportImageTextActivity: AppCompatActivity() {
     override fun onDestroy() {
         unregisterReceiver(receiver)
         super.onDestroy()
-    }
-
-    private fun showDialogButtonImportHelp() {
-        AlertDialog.Builder(this)
-            .setTitle(resources.getString(R.string.dialog_button_import_help_title))
-            .setMessage(resources.getString(R.string.dialog_button_import_help))
-            .setPositiveButton(resources.getString(R.string.ok_button)) {
-                    dialog, _ ->
-                dialog.cancel()
-            }
-            .create()
-            .show()
     }
 
     /// If the message is decoded successfully, user will be sent to a select sender activity

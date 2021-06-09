@@ -280,15 +280,6 @@
         \nIf you do not currently have access to the internet, write you message and then choose \'Save Image\'. This will save the image to your phone so you can send it later once you have re-established internet connectivity.\n
         \nTo delete a message click on the message you want to remove and swipe it off the screen.\n\ </string>
 
-    <string name="dialog_button_import_help_title"> Importing Messages Help</string>
-    <string name="dialog_button_import_help">
-        \nYou can import your messages using this screen. It is also possible to share received messages directly to the Nahoft app if the app where you received the message allows it.\n
-        \nWhen you receive a coded text message, copy the text and paste it in the import screen with a long press.\n
-        \nTap \'Import Text\', and select the sender when prompted.\n
-        \nIf you received an image, tap \'Import Image\', select the image when prompted, and the sender when prompted.\n
-        \nIf the message is successfully imported, you will see the original text.\n\n
-    </string>
-
     <string name="ok_button">OK</string>
 
     //New Content Descriptions
