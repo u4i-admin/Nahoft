@@ -32,120 +32,29 @@
 
     </TextView>
 
-    <LinearLayout
-        android:id="@+id/passcodeContainer"
+    <EditText
+        android:id="@+id/passcodeEditText"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:layout_gravity="center_horizontal"
         android:background="@drawable/white_8_bkgd"
-        android:orientation="horizontal"
-        android:layout_margin="@dimen/padding_standard">
+        android:inputType="number|numberPassword"
+        android:maxLength="6"
+        android:textSize="22sp"
+        android:textAlignment="center">
 
-        <EditText
-            android:id="@+id/passcode_digit_1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="13dp"
-            android:layout_weight="1"
-            android:imeOptions="actionDone"
-            android:inputType="numberPassword|number"
-            android:maxLength="1"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textColor="@color/colorWarmWhite"
-            app:backgroundTint="@color/colorWarmWhite"/>
+    </EditText>
 
-        <EditText
-            android:id="@+id/passcode_digit_2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="13dp"
-            android:layout_weight="1"
-            android:imeOptions="actionDone"
-            android:inputType="numberPassword|number"
-            android:maxLength="1"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textColor="@color/colorWarmWhite"
-            app:backgroundTint="@color/colorWarmWhite" />
-
-        <EditText
-            android:id="@+id/passcode_digit_3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="13dp"
-            android:layout_weight="1"
-            android:imeOptions="actionDone"
-            android:inputType="numberPassword|number"
-            android:maxLength="1"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textColor="@color/colorWarmWhite"
-            app:backgroundTint="@color/colorWarmWhite" />
-
-        <EditText
-            android:id="@+id/passcode_digit_4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="13dp"
-            android:layout_weight="1"
-            android:imeOptions="actionDone"
-            android:inputType="numberPassword|number"
-            android:maxLength="1"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textColor="@color/colorWarmWhite"
-            app:backgroundTint="@color/colorWarmWhite" />
-
-        <EditText
-            android:id="@+id/passcode_digit_5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="13dp"
-            android:layout_weight="1"
-            android:imeOptions="actionDone"
-            android:inputType="numberPassword|number"
-            android:maxLength="1"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textColor="@color/colorWarmWhite"
-            app:backgroundTint="@color/colorWarmWhite" />
-
-        <EditText
-            android:id="@+id/passcode_digit_6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="13dp"
-            android:layout_weight="1"
-            android:imeOptions="actionDone"
-            android:inputType="numberPassword|number"
-            android:maxLength="1"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textColor="@color/colorWarmWhite"
-            app:backgroundTint="@color/colorWarmWhite" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
-
-        <Button
-            android:id="@+id/login_button"
-            android:layout_width="104dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/padding_standard"
-            android:background="@drawable/blue_56_btn_bkgd"
-            android:fontFamily="@font/open_sans"
-            android:text="@string/Login"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWarmWhite" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="104dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/padding_standard"
+        android:background="@drawable/blue_56_btn_bkgd"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/Login"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWarmWhite" />
 
 </LinearLayout>

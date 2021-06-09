@@ -9,46 +9,113 @@
     tools:context=".activities.SettingsActivity">
 
     <LinearLayout
+        android:id="@+id/settingsActivityLayoutContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center"
-        android:paddingTop="32dp">
+        android:gravity="center_horizontal"
+        tools:context=".activities.ImportTextActivity">
 
-        <ImageView
-            android:id="@+id/settings_menu_logo"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/gear_asset_100"
-            app:tint="@color/colorWarmWhite" />
+            android:orientation="horizontal"
+            android:paddingTop="32dp">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="25dp"
+                android:layout_margin="@dimen/padding_half"
+                app:srcCompat="@drawable/nahoft_icons_settings_56"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="56dp"
+                android:gravity="center"
+                android:layout_margin="@dimen/padding_half"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/settings_activity_label"
+                android:textAllCaps="false"
+                android:textColor="@drawable/button_text_color_light"
+                android:textSize="22sp"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/nahoft_icons_pascode_off_56" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/passcode_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_standard"
+                    android:padding="@dimen/padding_standard"
+                    android:text="@string/passcode"
+                    android:textColor="@drawable/button_text_color_light"
+                    android:textSize="22sp" />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/destruction_code_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_standard"
+                android:padding="@dimen/padding_half"
+                android:drawablePadding="@dimen/padding_standard"
+                android:drawableStart="@drawable/nahoft_icons_des_off_56"
+                android:text="@string/destructionCode"
+                android:textAllCaps="false"
+                android:textColor="@drawable/button_text_color_light"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/logoContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="right"
-        android:orientation="vertical"
-        android:paddingBottom="64dp"
-        android:paddingTop="32dp">
-
-        <Button
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:id="@+id/passcode_button"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/logoContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/padding_standard"
-            android:paddingRight="32dp"
-            android:background="@android:color/transparent"
-            android:text="@string/button_label_passcode"
-            android:textColor="@drawable/button_text_color_light"
-            android:textSize="24sp"
-            android:drawableRight="@drawable/lock_50"
-            android:drawableTint="@drawable/button_text_color_light"
-            android:drawablePadding="@dimen/padding_half" />
+            android:layout_alignParentBottom="true"
+            android:gravity="right"
+            android:orientation="vertical"
+            android:paddingBottom="64dp"
+            android:paddingTop="32dp">
 
-    </LinearLayout>
+            <Button
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:id="@+id/passcode_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/padding_standard"
+                android:paddingRight="32dp"
+                android:background="@android:color/transparent"
+                android:text="@string/button_label_passcode"
+                android:textColor="@drawable/button_text_color_light"
+                android:textSize="24sp"
+                android:drawableRight="@drawable/lock_50"
+                android:drawableTint="@drawable/button_text_color_light"
+                android:drawablePadding="@dimen/padding_half" />
 
+        </LinearLayout>
 
 </RelativeLayout>

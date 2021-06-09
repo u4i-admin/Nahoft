@@ -5,13 +5,6 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.KeyEvent
-import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_log_in.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
@@ -27,25 +20,16 @@ import org.nahoft.nahoft.R
 import org.nahoft.util.showAlert
 import java.util.concurrent.TimeUnit
 
-class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
+class EnterPasscodeActivity : AppCompatActivity() {
 
     private var failedLoginAttempts = 0
     private var lastFailedLoginTimeMillis: Long? = null
-
-    private val editTextArray: ArrayList<EditText> = ArrayList(NUM_OF_DIGITS)
-
-    companion object {
-
-        const val NUM_OF_DIGITS = 6
-    }
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
             cleanup()
         }
     }
-
-    private var numTemp = "0"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,40 +38,6 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
         })
-
-        //create array
-        val layout: LinearLayout = findViewById(R.id.passcodeContainer)
-        for (index in 0 until (layout.childCount)) {
-            val view: View = layout.getChildAt(index)
-            if (view is EditText) {
-                editTextArray.add(index, view)
-                editTextArray[index].addTextChangedListener(this)
-            }
-
-            editTextArray[index].setOnKeyListener { _, keyCode, event ->
-                if (keyCode == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_DOWN) {
-                    //backspace
-                    if (index != 0) { //Don't implement for first digit
-                        editTextArray[index - 1].requestFocus()
-                        editTextArray[index - 1]
-                            .setSelection(editTextArray[index - 1].length())
-                    }
-                }
-                false
-            }
-
-            editTextArray[index].setOnEditorActionListener { _, keyCode, event ->
-                return@setOnEditorActionListener when (keyCode) {
-                    EditorInfo.IME_ACTION_DONE -> {
-                        this.handleLoginPress()
-                        true
-                    }
-                    else -> false
-                }
-            }
-        }
-
-        editTextArray[0].requestFocus() //After the views are initialized we focus on the first view
 
         // Load encryptedSharedPreferences
         Persist.loadEncryptedSharedPreferences(this.applicationContext)
@@ -112,7 +62,8 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
     }
 
     private fun handleLoginPress() {
-        val enteredPasscode = getEnteredPasscode()
+        val enteredPasscode = passcodeEditText.text.toString()
+
         if (enteredPasscode != null) {
             failedLoginAttempts = Persist.encryptedSharedPreferences.getInt(
                 sharedPrefFailedLoginAttemptsKey, 0
@@ -191,65 +142,6 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
             }
             else -> println("Login Status is $status")
         }
-    }
-
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        numTemp = s.toString()
-    }
-
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        numTemp = s.toString()
-    }
-
-    override fun afterTextChanged(s: Editable?) {
-        (0 until editTextArray.size)
-            .forEach { index ->
-                if (s === editTextArray[index].editableText) {
-
-                    if (s != null && s.isNotBlank()) {
-                        //if more than 1 char
-                        if (s.length > 1) {
-                            //save the second char of s to newTemp
-                            val newTemp = s.toString().substring(s.length - 1, s.length)
-                            if (newTemp != numTemp) {
-                                //put newTemp in editText
-                                editTextArray[index].setText(newTemp)
-                            } else {
-                                //put the first char of s in the editText
-                                editTextArray[index].setText(
-                                    s.toString().substring(0, s.length - 1)
-                                )
-                            }
-                        } else if (index != editTextArray.size - 1) {
-                            //not last edit text
-                            editTextArray[index + 1].requestFocus()
-                            editTextArray[index + 1].setSelection(editTextArray[index + 1].length())
-                            return
-                        }
-                    }
-                    else {
-                        return
-                    }
-                }
-            }
-    }
-
-    // Returns the Passcode the user entered if it has the correct number of digits, else null
-    private fun getEnteredPasscode(): String? {
-        var verificationCode = ""
-
-        // Checks all of the passcode editTexts for strings and adds it to verificationCode
-        for (index in editTextArray.indices) {
-            val digit = editTextArray[index].text.toString().trim { it <= ' ' }
-            verificationCode += digit
-        }
-
-        // Returns verification code if it is NUM_OF_DIGITS long
-        if (verificationCode.trim { it <= ' ' }.length == NUM_OF_DIGITS) {
-            return verificationCode
-        }
-
-        return null
     }
 
     private fun verifyCode(verificationCode: String) {
@@ -385,7 +277,7 @@ class EnterPasscodeActivity : AppCompatActivity (), TextWatcher {
     }
 
     private fun cleanup(){
-        editTextArray.clear()
+        passcodeEditText.text.clear()
     }
 }
 

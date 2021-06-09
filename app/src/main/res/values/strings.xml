@@ -317,4 +317,9 @@
     <!-- Import Text Activity -->
     <string name="import_text_label">Import \nText</string>
 
+    <!-- Settings Activity -->
+    <string name="settings_activity_label">Settings</string>
+    <string name="passcode">Passcode</string>
+    <string name="destructionCode">Destruction Code</string>
+
 </resources>

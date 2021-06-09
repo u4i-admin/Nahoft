@@ -4,7 +4,7 @@
     <corners
         android:radius="8dp"/>
     <solid
-        android:color="@color/royalBlueDarkOpaque"/>
+        android:color="@color/transparentOverlayColor"/>
     <padding
         android:left="@dimen/padding_standard"
         android:right="@dimen/padding_standard"/>

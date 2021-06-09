@@ -311,5 +311,9 @@
     <!-- Import Text Activity -->
     <string name="import_text_label">وارد کردن متن</string>
 
+    <!-- Settings Activity -->
+    <string name="settings_activity_label">تنظیمات</string>
+    <string name="passcode">رمز عبور</string>
+    <string name="destructionCode">کد تخریب</string>
 
 </resources>
