@@ -246,25 +246,6 @@
         \nSelect the conversation button to begin sending encrypted messages. \n
     </string>
 
-    <string name="dialog_button_friends_help_title"> Friends Screen Help </string>
-    <string name="dialog_button_friends_help">
-        \nTo add a friend, press the + icon at the bottom of the friends screen.\n
-        \nType the name of the friend you want to add and tap save.\n
-        \nTap the invite button beside your friend\'s name.\n
-        \nYou will see the sharing prompt with invitation to your friend as a message to send (it will look like random Persian text).\n
-        \nYou can share your invitation with the friend you are adding via your preferred messaging app. If you are physically near them, try sharing by using the \'nearby\' or bluetooth options.\n
-        \nThe friend you are adding must also follow these steps to send you an invitation back.\n
-        \nThere are several ways to accept the invitation you receive from your friend.\n
-        \nIf you have the invitation message copied to your clipboard: tap the conversation button on the home screen, then tap the import button in the messages menu screen.\n
-        \nPaste the invitation message with a long press and select import text.\n
-        \nIf you are sharing the invitation directly from another app: select Nahoft as the app you want to share to.\n
-        \nWhen prompted, select the friend that sent the invitation.\n
-        \nReturn to the friends screen and select the verify button beside the friend you received the invitation from.\n
-        \nContact your friend outside of the app you normally use to confirm the information on the verification screen matches your friend.\n
-        \nIf the numbers on the verification screen match, tap accept. If not, tap reject.\n
-        \nTo delete a friend swipe their name off the screen.\n\n
-    </string>
-
     <string name="dialog_button_messages_menu_help_title"> Sending Messages Help </string>
     <string name="dialog_button_messages_menu_help">
         \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.\n

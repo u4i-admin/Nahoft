@@ -60,19 +60,6 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
         adapter.notifyDataSetChanged()
     }
 
-    // Friends Help Button
-    fun showDialogButtonFriendsHelp(view: View) {
-        AlertDialog.Builder(this)
-            .setTitle(resources.getString(R.string.dialog_button_friends_help_title))
-            .setMessage(resources.getString(R.string.dialog_button_friends_help))
-            .setPositiveButton(resources.getString(R.string.ok_button)) {
-                    dialog, _ ->
-                dialog.cancel()
-            }
-            .create()
-            .show()
-    }
-
     private fun setupItemTouchHelper() {
         val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter, this))
         itemTouchHelper.attachToRecyclerView(friendsRecyclerView)
