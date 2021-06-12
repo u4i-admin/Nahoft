@@ -3,13 +3,13 @@ package org.nahoft.nahoft.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_user_guide.*
+import kotlinx.android.synthetic.main.activity_help.*
 import org.nahoft.nahoft.R
 
-class UserGuideActivity : AppCompatActivity() {
+class HelpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_guide)
+        setContentView(R.layout.activity_help)
 
         friends_user_guide.setOnClickListener {
             println("message button clicked")

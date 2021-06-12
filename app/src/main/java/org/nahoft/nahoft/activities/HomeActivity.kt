@@ -128,7 +128,7 @@ class HomeActivity : AppCompatActivity() {
         
         // User Guide
         user_guide_button.setOnClickListener {
-            val userGuideIntent = Intent(this, UserGuideActivity::class.java)
+            val userGuideIntent = Intent(this, HelpActivity::class.java)
             startActivity(userGuideIntent)
         }
 

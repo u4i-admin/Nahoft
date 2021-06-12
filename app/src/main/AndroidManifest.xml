@@ -113,7 +113,7 @@
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
-            android:name=".activities.UserGuideActivity"
+            android:name=".activities.HelpActivity"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
