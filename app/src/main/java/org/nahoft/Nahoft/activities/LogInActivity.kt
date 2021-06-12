@@ -5,6 +5,7 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_log_in.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
@@ -49,6 +50,16 @@ class EnterPasscodeActivity : AppCompatActivity() {
 
         login_button.setOnClickListener {
             this.handleLoginPress()
+        }
+
+        passcodeEditText.setOnEditorActionListener { _, keyCode, event ->
+          return@setOnEditorActionListener when (keyCode) {
+             EditorInfo.IME_ACTION_DONE -> {
+                 this.handleLoginPress()
+                 true
+             }
+              else -> false
+          }
         }
     }
 

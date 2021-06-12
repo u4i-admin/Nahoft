@@ -316,4 +316,9 @@
     <string name="passcode">رمز عبور</string>
     <string name="destructionCode">کد تخریب</string>
 
+    <!--Create Activity -->
+    <string name="to">To</string>
+    <string name="sendAsTextButtonLabel">Send as \nText</string>
+    <string name="saveImageButtonLabel">Save \nImage</string>
+
 </resources>

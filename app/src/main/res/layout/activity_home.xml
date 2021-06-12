@@ -32,6 +32,7 @@
                 android:contentDescription="@string/read_button_description"
                 android:background="@drawable/read_button_home"
                 android:drawableLeft="@drawable/nahoft_icons_read_56"
+                android:paddingLeft="@dimen/padding_standard"
                 android:textColor="@color/colorWarmWhite"
                 android:textSize="24sp"
                 android:textAllCaps="false"
@@ -43,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/read_button_description"
                 android:drawableRight="@drawable/nahoft_icons_create_56"
+                android:paddingRight="@dimen/padding_half"
                 android:background="@drawable/create_button_home"
                 android:textColor="@color/colorWarmWhite"
                 android:textSize="24sp"
@@ -68,7 +70,7 @@
 
             <Button
                 android:id="@+id/friends_button"
-                android:layout_width="100dp"
+                android:layout_width="104dp"
                 android:layout_height="104dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/friends_button_description"

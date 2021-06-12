@@ -25,6 +25,7 @@
         android:layout_height="24dp"
         android:fontFamily="@font/open_sans_italic"
         android:layout_gravity="center"
+        android:layout_margin="@dimen/padding_standard"
         android:gravity="center"
         android:text="@string/enter_passcode"
         android:textSize="16sp"
@@ -41,7 +42,8 @@
         android:inputType="number|numberPassword"
         android:maxLength="6"
         android:textSize="22sp"
-        android:textAlignment="center">
+        android:textAlignment="center"
+        android:imeOptions="actionDone">
 
     </EditText>
 
@@ -55,6 +57,7 @@
         android:fontFamily="@font/open_sans"
         android:text="@string/Login"
         android:textAllCaps="false"
+        android:textSize="18sp"
         android:textColor="@color/colorWarmWhite" />
 
 </LinearLayout>

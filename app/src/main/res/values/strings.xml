@@ -303,11 +303,19 @@
     <string name="passcode">Passcode</string>
     <string name="destructionCode">Destruction Code</string>
 
+    <!--Create Activity -->
+    <string name="to">To</string>
+    <string name="sendAsTextButtonLabel">Send as \nText</string>
+    <string name="saveImageButtonLabel">Save \nImage</string>
+
+
+
     <!-- Create Activity - will delete later - test -->
     <string-array name="friends_spinner_array">
         <item>Jane</item>
         <item>Jim</item>
         <item>Joan</item>
     </string-array>
+
 
 </resources>

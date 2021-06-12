@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:textAlignment="gravity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,8 +24,8 @@
             <ImageView
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:layout_marginStart="25dp"
-                android:layout_margin="@dimen/padding_half"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/padding_standard"
                 android:background="@drawable/purple_56_bkgd_circle"
                 app:srcCompat="@drawable/nahoft_icons_create_56"
                 tools:ignore="ContentDescription" />
@@ -32,59 +33,76 @@
             <TextView
                 android:layout_width="200dp"
                 android:layout_height="56dp"
-                android:gravity="center"
-                android:layout_margin="@dimen/padding_half"
+                android:layout_marginTop="@dimen/padding_standard"
                 android:fontFamily="@font/open_sans"
+                android:gravity="center"
                 android:text="@string/button_label_create"
                 android:textAllCaps="false"
                 android:textColor="@drawable/button_text_color_light"
-                android:textSize="22dp"
+                android:textSize="22sp"
                 tools:ignore="ContentDescription" />
 
         </LinearLayout>
 
         <Button
             android:id="@+id/friend_button"
-            android:drawableEnd="@drawable/new_approved_friend_25pxl"
-            android:drawablePadding="@dimen/padding_half"
-            android:drawableTint="@drawable/button_text_color_dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorWarmWhite"
+            android:drawableEnd="@drawable/new_approved_friend_25pxl"
+            android:drawablePadding="@dimen/padding_half"
+            android:drawableTint="@drawable/button_text_color_dark"
             android:text="@string/hintOnChooseFriendButton"
             android:textAllCaps="false"
             android:textColor="@drawable/button_text_color_dark" />
 
-        <Spinner
-            android:id="@+id/friends_spinner"
-            android:layout_width="312dp"
-            android:layout_height="40dp"
-            android:layout_margin="@dimen/padding_standard"
-            android:background="@drawable/white_8_bkgd" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/padding_standard">
+
+            <TextView
+                android:id="@+id/to"
+                android:layout_width="48dp"
+                android:layout_height="40dp"
+                android:background="@drawable/purple_8_left_radius_btn_bkgd"
+                android:text="@string/to"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="@color/colorWarmWhite">
+            </TextView>
+
+            <Spinner
+                android:id="@+id/friends_spinner"
+                android:layout_width="264dp"
+                android:layout_height="40dp"
+                android:background="@drawable/white_8_right_radius_btn_bkgd" />
+
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/compose_message_text_layout"
             android:layout_width="312dp"
             android:layout_height="240dp"
-            android:layout_marginHorizontal="@dimen/padding_standard"
+            app:boxBackgroundMode="outline"
             app:counterEnabled="true"
             app:counterMaxLength="1000"
-            app:counterTextColor="@color/colorAccent"
+            app:counterTextColor="@color/colorWarmWhite"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
-            app:boxBackgroundMode="outline"
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                app:textInputLayoutFocusedRectEnabled="true"
                 android:id="@+id/editMessageText"
                 android:layout_width="312dp"
                 android:layout_height="220dp"
-                android:padding="@dimen/padding_standard"
+                android:background="@drawable/white_8_bkgd"
+                android:hint="@string/enter_message_here_hint"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine|textCapSentences"
-                android:hint="@string/enter_message_here_hint"
-                android:background="@drawable/white_8_bkgd" />
+                android:padding="@dimen/padding_standard"
+                app:textInputLayoutFocusedRectEnabled="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,54 +113,52 @@
             android:visibility="invisible" />
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/save_image_button"
                 android:layout_width="96dp"
                 android:layout_height="104dp"
                 android:layout_margin="@dimen/padding_half"
-                android:contentDescription="@string/saveImageButton"
                 android:background="@drawable/blue_8_btn_bkgd"
+                android:contentDescription="@string/saveImageButton"
                 android:drawableTop="@drawable/nahoft_icons_save_image_56"
-                android:text="@string/saveImageButton"
+                android:text="@string/saveImageButtonLabel"
                 android:textAllCaps="false"
-                android:textSize="16sp"
-                android:textColor="@color/colorWarmWhite" />
+                android:textColor="@color/colorWarmWhite"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/send_as_image_button"
-                android:drawableTop="@drawable/nahoft_icons_send_image_56"
                 android:layout_width="96dp"
                 android:layout_height="104dp"
                 android:layout_margin="@dimen/padding_half"
-                android:contentDescription="@string/sendAsImageButton"
                 android:background="@drawable/purple_8_btn_bkgd"
+                android:contentDescription="@string/sendAsImageButton"
+                android:drawableTop="@drawable/nahoft_icons_send_image_56"
                 android:text="@string/sendAsImageButton"
                 android:textAllCaps="false"
-                android:textSize="16sp"
-                android:textColor="@color/colorWarmWhite" />
+                android:textColor="@color/colorWarmWhite"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/send_as_text_button"
-                android:drawableTop="@drawable/nahoft_icons_send_text_56"
                 android:layout_width="96dp"
                 android:layout_height="104dp"
                 android:layout_margin="@dimen/padding_half"
-                android:contentDescription="@string/sendAsTextButton"
                 android:background="@drawable/purple_8_btn_bkgd"
-                android:text="@string/sendAsTextButton"
+                android:contentDescription="@string/sendAsTextButton"
+                android:drawableTop="@drawable/nahoft_icons_send_text_56"
+                android:text="@string/sendAsTextButtonLabel"
                 android:textAllCaps="false"
-                android:textSize="16sp"
-                android:textColor="@color/colorWarmWhite" />
+                android:textColor="@color/colorWarmWhite"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
     </LinearLayout>
-
-
 
 </RelativeLayout>
