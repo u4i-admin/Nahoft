@@ -3,10 +3,14 @@ package org.nahoft.nahoft.activities
 import android.Manifest
 import android.app.Activity
 import android.content.*
+import android.icu.number.Notation.simple
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import kotlinx.android.synthetic.main.activity_home.*
@@ -23,7 +27,7 @@ import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 import org.nahoft.util.showAlert
 
-class CreateActivity : AppCompatActivity() {
+class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private var selectedFriend: Friend? = null
     private val parentJob = Job()
@@ -38,6 +42,21 @@ class CreateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create)
+
+        val friendsSpinner: Spinner = findViewById(R.id.friends_spinner)
+
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.friends_spinner_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            friendsSpinner.adapter = adapter
+            friendsSpinner.onItemSelectedListener = this
+        }
 
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
@@ -67,6 +86,16 @@ class CreateActivity : AppCompatActivity() {
     override fun onDestroy() {
         unregisterReceiver(receiver)
         super.onDestroy()
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+        parent.getItemAtPosition(pos)
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>) {
+        // Another interface callback
     }
 
     private fun selectFriend() {
@@ -284,6 +313,4 @@ class CreateActivity : AppCompatActivity() {
         selectedFriend = null
         editMessageText.text?.clear()
     }
-
-
 }

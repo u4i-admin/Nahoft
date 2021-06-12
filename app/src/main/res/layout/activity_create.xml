@@ -56,7 +56,8 @@
             android:textColor="@drawable/button_text_color_dark" />
 
         <Spinner
-            android:layout_width="match_parent"
+            android:id="@+id/friends_spinner"
+            android:layout_width="312dp"
             android:layout_height="40dp"
             android:layout_margin="@dimen/padding_standard"
             android:background="@drawable/white_8_bkgd" />
