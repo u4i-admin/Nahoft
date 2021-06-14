@@ -316,5 +316,35 @@
         <item>Joan</item>
     </string-array>
 
+    <!-- Friends Info One -->
+    <string name="friends_info_activity_heading">Info</string>
+    <string name="edit_friend_button">Edit Friend Button</string>
+    <string name="edit_button">Edit</string>
+    <string name="send_message">Send Message</string>
+    <string name="import_image">Import Image</string>
+    <string name="import_text">Import Text</string>
+
+    <!-- Friends Info Two -->
+    <string name="invite_again_button">Invite Again</string>
+    <string name="verify_button">Verify</string>
+    <string name="invite_button">Invite</string>
+    <string name="decline_button">Decline</string>
+    <string name="import_invitation_button">Import Invitation</string>
+
+    <string name="button_descriptions">
+        \nPress Invite to send a key to a new friend.
+        \nPress Invite Again if you need to resend an invite.
+        \nPress Import Invitation to receive an invitation back from your friend.
+        \nPress Verify to compare keys with your new friend.
+        \nPress Decline to decline an imported key and start the process over.</string>
+
+    <string name="delete_friend_button_content_description">Delete Friend Button</string>
+    <string name="delete_friend_button">Delete Friend</string>
+
+    <!-- Messages Activity -->
+    <string name="messages_activity_heading">Messages</string>
+
+
+
 
 </resources>

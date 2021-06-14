@@ -240,26 +240,6 @@
     \n نماد پیام ها به شما امکان می دهد پیام های رمزگذاری شده را ارسال کنید \n
 </string>
 
-    <string name="dialog_button_friends_help_title"> دوستان راهنما </string>
-    <string name="dialog_button_friends_help">
-        \n- روی نماد دوستان در صفحه اصلی ضربه بزنید.\n
-        \n- برای اضافه کردن یک دوست ، نماد + را در پایین صفحه دوستان فشار دهید.\n
-        \n- نام دوستی را که می خواهید اضافه کنید تایپ کنید و روی ذخیره ضربه بزنید.\n
-        \n- روی دکمه دعوت در کنار نام دوست خود ضربه بزنید.\n
-        \n- پیام اشتراک را با دعوت از دوست خود به عنوان پیامی برای ارسال مشاهده خواهید کرد. مانند یک متن تصادفی به نظر می رسد.\n
-        \n- می توانید دعوت خود را با دوستی که به آن اضافه می کنید از طریق برنامه پیام رسانی دلخواه خود به اشتراک بگذارید ، یا اگر در نزدیکی او هستید ، با استفاده از گزینه های "نزدیک" یا بلوتوث\n
-        \n- دوستی که اضافه می کنید نیز باید همین مراحل را برای ارسال دعوتنامه برای شما دنبال کند.\n
-        \n- روش های مختلفی برای پذیرش دعوت نامه ای که از دوست خود دریافت می کنید وجود دارد.\n
-        \n- اگر پیام دعوت را در کلیپ بورد خود کپی کرده اید: روی دکمه وارد کردن در کنار نام وی یا روی دکمه وارد کردن در صفحه اصلی ضربه بزنید.\n
-        \n- پیام دعوت را با فشار طولانی بچسبانید و متن واردات را انتخاب کنید.\n
-        \n- اگر دعوت نامه را از برنامه دیگری به اشتراک می گذارید: Nahoft را به عنوان برنامه ای که می خواهید در آن به اشتراک بگذارید ، انتخاب کنید.\n
-        \n- وقتی از شما خواسته شد ، دوستی را که دعوت نامه را ارسال کرده است انتخاب کنید.\n
-        \n- به صفحه دوستان برگردید و دکمه تأیید را در کنار دوستی که دعوت نامه را از آن دریافت کرده اید ، انتخاب کنید.\n
-        \n- در خارج از برنامه ای که معمولاً برای تأیید شماره های خود در صفحه تأیید صحت استفاده می کنید ، با دوست خود تماس بگیرید.\n
-        \n- اگر شماره های صفحه تأیید مطابقت دارند ، روی «قبول» ضربه بزنید. در غیر این صورت ، روی رد ضربه بزنید.\n
-        \n- برای حذف یک دوست ، نام دوستان را به سمت راست یا چپ بکشید.\n\n
-    </string>
-
     <string name="dialog_button_messages_menu_help_title"> منوی پیام ها </string>
     <string name="dialog_button_messages_menu_help">
         \n ارسال پیام ها\n
@@ -321,5 +301,33 @@
     <string name="to">To</string>
     <string name="sendAsTextButtonLabel">Send as \nText</string>
     <string name="saveImageButtonLabel">Save \nImage</string>
+
+    <!-- Friends Info -->
+    <string name="friends_info_activity_heading">Info</string>
+    <string name="edit_friend_button">Edit Friend Button</string>
+    <string name="edit_button">Edit</string>
+    <string name="send_message">Send Message</string>
+    <string name="import_image">Import Image</string>
+    <string name="import_text">Import Text</string>
+
+    <!-- Friends Info Two -->
+    <string name="invite_again_button">Invite Again</string>
+    <string name="verify_button">Verify</string>
+    <string name="invite_button">Invite</string>
+    <string name="decline_button">Decline</string>
+    <string name="import_invitation_button">Import Invitation</string>
+
+    <string name="button_descriptions">
+        \nPress Invite to send a key to a new friend.
+        \nPress Invite Again if you need to resend an invite.
+        \nPress Import Invitation to receive an invitation back from your friend.
+        \nPress Verify to compare keys with your new friend.
+        \nPress Decline to decline an imported key and start the process over.</string>
+
+    <string name="delete_friend_button_content_description">Delete Friend Button</string>
+    <string name="delete_friend_button">Delete Friend</string>
+
+    <!-- Messages Activity -->
+    <string name="messages_activity_heading">Messages</string>
 
 </resources>

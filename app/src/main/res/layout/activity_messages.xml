@@ -11,7 +11,34 @@
         android:id="@+id/messages_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:foregroundTint="@color/colorAccent" />
+        android:background="@color/royalBlueDark"
+        android:foregroundTint="@color/colorWarmWhite" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="@dimen/padding_standard"
+            android:src="@drawable/nahoft_icons_messages_56"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="@dimen/padding_standard"
+            android:gravity="center"
+            android:fontFamily="@font/open_sans"
+            android:text="@string/messages_activity_heading"
+            android:textAllCaps="false"
+            android:textColor="@drawable/button_text_color_light"
+            android:textSize="22sp"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
 
 </RelativeLayout>

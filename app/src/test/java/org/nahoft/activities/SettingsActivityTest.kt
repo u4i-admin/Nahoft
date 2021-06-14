@@ -20,14 +20,14 @@ class SettingsActivityTest{
 
     @Test
     fun testIsSettingsActivityInView() {
-        Espresso.onView(ViewMatchers.withId(R.id.settings_menu_logo)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.passcode_button)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.settingsPasscodeGearIcon)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.settingsPasscodeHeading)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
     fun testIsTitleTextOfPasscodeButtonDisplayed() {
 
-        Espresso.onView(ViewMatchers.withId(R.id.passcode_button)).check(ViewAssertions.matches(ViewMatchers.withText(R.string.button_label_passcode)))
+        Espresso.onView(ViewMatchers.withId(R.id.settingsPasscodeHeading)).check(ViewAssertions.matches(ViewMatchers.withText(R.string.settings_activity_label)))
     }
 }
 
