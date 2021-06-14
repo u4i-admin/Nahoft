@@ -81,7 +81,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.FriendsActivity"
+            android:name=".activities.FriendsListActivity"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity

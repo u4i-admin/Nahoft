@@ -134,7 +134,7 @@ class HomeActivity : AppCompatActivity() {
 
         // Friends
         friends_button.setOnClickListener {
-            val friendsIntent = Intent(this, FriendsActivity::class.java)
+            val friendsIntent = Intent(this, FriendsListActivity::class.java)
             startActivity(friendsIntent)
         }
 

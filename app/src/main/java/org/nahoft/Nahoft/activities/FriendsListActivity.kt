@@ -3,13 +3,10 @@ package org.nahoft.nahoft.activities
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_friends.*
+import kotlinx.android.synthetic.main.activity_friends_list.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.FriendsRecyclerAdapter
@@ -17,9 +14,8 @@ import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.R
 import org.nahoft.nahoft.ui.ItemDragListener
 import org.nahoft.nahoft.ui.ItemTouchHelperCallback
-import org.nahoft.util.showAlert
 
-class FriendsActivity : AppCompatActivity(), ItemDragListener {
+class FriendsListActivity : AppCompatActivity(), ItemDragListener {
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
@@ -32,7 +28,7 @@ class FriendsActivity : AppCompatActivity(), ItemDragListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_friends)
+        setContentView(R.layout.activity_friends_list)
 
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)

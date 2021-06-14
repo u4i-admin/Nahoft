@@ -57,7 +57,7 @@
 
         <ImageView
             android:layout_width="312dp"
-            android:layout_height="136dp"
+            android:layout_height="104dp"
             android:layout_marginTop="@dimen/padding_standard"
             android:background="@drawable/transparent_overlay_radius_8"/>
 
@@ -72,9 +72,9 @@
                 android:layout_width="144dp"
                 android:layout_height="32dp"
                 android:layout_margin="@dimen/padding_half"
-                android:background="@drawable/purple_8_btn_bkgd"
+                android:background="@drawable/blue_8_btn_bkgd"
                 android:contentDescription="@string/saveImageButton"
-                android:text="@string/send_message"
+                android:text="@string/invite_again_button"
                 android:textAllCaps="false"
                 android:textColor="@color/colorWarmWhite"
                 android:textSize="16sp" />
@@ -86,7 +86,7 @@
                 android:layout_margin="@dimen/padding_half"
                 android:background="@drawable/green_8_btn_bkgd"
                 android:contentDescription="@string/sendAsImageButton"
-                android:text="@string/import_image"
+                android:text="@string/verify_button"
                 android:textAllCaps="false"
                 android:textColor="@color/colorWarmWhite"
                 android:textSize="16sp" />
