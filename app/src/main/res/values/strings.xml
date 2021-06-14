@@ -302,13 +302,12 @@
     <string name="settings_activity_label">Settings</string>
     <string name="passcode">Passcode</string>
     <string name="destructionCode">Destruction Code</string>
+    <string name="passcodeTwice">Re-enter Your Passcode</string>
 
     <!--Create Activity -->
     <string name="to">To</string>
     <string name="sendAsTextButtonLabel">Send as \nText</string>
     <string name="saveImageButtonLabel">Save \nImage</string>
-
-
 
     <!-- Create Activity - will delete later - test -->
     <string-array name="friends_spinner_array">

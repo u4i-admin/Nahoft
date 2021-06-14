@@ -16,7 +16,7 @@ import org.nahoft.nahoft.R
 class SettingsActivityTest{
 
     @get: Rule
-    val activityRule = ActivityScenarioRule(SettingsActivity::class.java)
+    val activityRule = ActivityScenarioRule(SettingPasscodeActivity::class.java)
 
     @Test
     fun testIsSettingsActivityInView() {

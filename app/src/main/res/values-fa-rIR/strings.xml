@@ -315,6 +315,7 @@
     <string name="settings_activity_label">تنظیمات</string>
     <string name="passcode">رمز عبور</string>
     <string name="destructionCode">کد تخریب</string>
+    <string name="passcodeTwice">Re-enter Your Passcode</string>
 
     <!--Create Activity -->
     <string name="to">To</string>

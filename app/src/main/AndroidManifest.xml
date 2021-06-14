@@ -109,7 +109,7 @@
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name=".activities.SettingPasscodeActivity"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity

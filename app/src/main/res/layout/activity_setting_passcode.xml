@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/royalBlueDark"
+    tools:context=".activities.SettingPasscodeActivity">
+
+    <LinearLayout
+        android:id="@+id/settingsActivityLayoutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:textAlignment="gravity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="@dimen/padding_standard"
+                app:srcCompat="@drawable/nahoft_icons_settings_56"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="@dimen/padding_standard"
+                android:gravity="center"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/settings_activity_label"
+                android:textAllCaps="false"
+                android:textColor="@drawable/button_text_color_light"
+                android:textSize="22sp"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="@dimen/padding_standard"
+                    app:srcCompat="@drawable/nahoft_icons_pascode_off_56"
+                    tools:ignore="ContentDescription"/>
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/passcode_switch"
+                    android:layout_width="200dp"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="@dimen/padding_standard"
+                    android:gravity="center"
+                    android:text="@string/passcode"
+                    android:textColor="@drawable/button_text_color_light"
+                    android:textSize="22sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/passcode_entry_layout"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="312dp"
+                        android:layout_height="24dp"
+                        android:gravity="left|top"
+                        android:fontFamily="@font/open_sans_italic"
+                        android:text="@string/enter_passcode"
+                        android:textColor="@color/colorWarmWhite"
+                        android:textSize="16sp">
+                    </TextView>
+
+                    <EditText
+                    android:id="@+id/setPasscodeEditTextOne"
+                    android:layout_width="312dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/padding_quarter"
+                    android:background="@drawable/white_8_bkgd"
+                    android:inputType="number|numberPassword"
+                    android:maxLength="6"
+                    android:textSize="22sp"
+                    android:textAlignment="center"
+                    android:imeOptions="actionDone">
+
+                </EditText>
+
+                    <TextView
+                        android:layout_width="312dp"
+                        android:layout_height="24dp"
+                        android:gravity="left|top"
+                        android:fontFamily="@font/open_sans_italic"
+                        android:text="@string/passcodeTwice"
+                        android:textColor="@color/colorWarmWhite"
+                        android:textSize="16sp">
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/setPasscodeEditTextTwo"
+                        android:layout_width="312dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="@dimen/padding_quarter"
+                        android:background="@drawable/white_8_bkgd"
+                        android:inputType="number|numberPassword"
+                        android:maxLength="6"
+                        android:textSize="22sp"
+                        android:textAlignment="center"
+                        android:imeOptions="actionDone">
+
+                    </EditText>
+
+                    <Button
+                        android:id="@+id/passcode_submit_button"
+                        android:layout_width="104dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/padding_standard"
+                        android:background="@drawable/blue_56_btn_bkgd"
+                        android:fontFamily="@font/open_sans"
+                        android:text="@string/Login"
+                        android:textAllCaps="false"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorWarmWhite" />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+            android:id="@+id/des_icon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="@dimen/padding_standard"
+            app:srcCompat="@drawable/nahoft_icons_des_off_56"
+            tools:ignore="ContentDescription"/>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/destruction_code_switch"
+                android:layout_width="200dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="@dimen/padding_standard"
+                android:gravity="center"
+                android:text="@string/destructionCode"
+                android:textAllCaps="false"
+                android:textColor="@drawable/button_text_color_light"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/destruction_code_layout"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="312dp"
+                android:layout_height="24dp"
+                android:gravity="left|top"
+                android:fontFamily="@font/open_sans_italic"
+                android:text="@string/enter_passcode"
+                android:textColor="@color/colorWarmWhite"
+                android:textSize="16sp">
+            </TextView>
+
+            <EditText
+                android:id="@+id/setDestructionCodeEditTextOne"
+                android:layout_width="312dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/padding_quarter"
+                android:background="@drawable/white_8_bkgd"
+                android:inputType="number|numberPassword"
+                android:maxLength="6"
+                android:textSize="22sp"
+                android:textAlignment="center"
+                android:imeOptions="actionDone">
+
+            </EditText>
+
+            <TextView
+                android:layout_width="312dp"
+                android:layout_height="24dp"
+                android:gravity="left|top"
+                android:fontFamily="@font/open_sans_italic"
+                android:text="@string/passcodeTwice"
+                android:textColor="@color/colorWarmWhite"
+                android:textSize="16sp">
+            </TextView>
+
+            <EditText
+                android:id="@+id/setDestructionCodeEditTextTwo"
+                android:layout_width="312dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/padding_quarter"
+                android:background="@drawable/white_8_bkgd"
+                android:inputType="number|numberPassword"
+                android:maxLength="6"
+                android:textSize="22sp"
+                android:textAlignment="center"
+                android:imeOptions="actionDone">
+
+            </EditText>
+
+            <Button
+                android:id="@+id/destruction_code_submit_button"
+                android:layout_width="104dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/padding_standard"
+                android:background="@drawable/blue_56_btn_bkgd"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/Login"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textColor="@color/colorWarmWhite" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
