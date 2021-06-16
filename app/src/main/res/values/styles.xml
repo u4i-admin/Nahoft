@@ -13,4 +13,11 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="AddFriendAlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:width">256dp</item>
+        <item name="height">160dp</item>
+        <item name="colorSurface">@color/colorWarmWhite</item>
+        <item name="android:textColor">@color/royalBlueDark</item>
+    </style>
+
 </resources>

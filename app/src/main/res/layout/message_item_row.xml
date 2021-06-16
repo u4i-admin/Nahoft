@@ -2,57 +2,46 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="312dp"
+    android:layout_height="56dp"
+    android:layout_marginStart="@dimen/padding_standard"
+    android:layout_margin="@dimen/padding_half"
+    android:layout_gravity="center|top"
     android:padding="8dp"
     android:background="@drawable/white_28_btn_bkgd">
 
-
-    <TextView
-        android:id="@+id/sender_name_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/unknown_sender_label"
-        android:textColor="@color/royalBlueDark"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/from_label_textView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/from_label_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/from"
+        android:src="@drawable/nahoft_arrow"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/sender_name_text_view"
+        android:layout_width="184dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/unknown_sender_label"
+        android:textColor="@color/royalBlueDark"
+        android:textSize="22sp"
+        android:textAppearance="@font/open_sans"
+        app:layout_constraintStart_toEndOf="@+id/image_view"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/date_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toStartOf="@id/drag_handle"
         app:layout_constraintStart_toEndOf="@+id/sender_name_text_view"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/drag_handle"
-        android:layout_width="@dimen/drag_handle_size"
-        android:layout_height="@dimen/drag_handle_size"
-        android:contentDescription="@string/content_description_drag_handle"
-        android:scaleType="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/colorAccent"
-        android:src="@drawable/ic_baseline_delete_forever_24"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

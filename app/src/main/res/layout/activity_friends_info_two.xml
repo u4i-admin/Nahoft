@@ -1,120 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/royalBlueDark"
     tools:context=".activities.FriendsInfoTwo">
 
-    <LinearLayout
-        android:id="@+id/composeMessageContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:textAlignment="gravity">
+    <ImageView
+        android:id="@+id/friends_image_view"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/friends_info_two_text_heading"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/nahoft_icons_friends_56"
+        tools:ignore="ContentDescription" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    <TextView
+        android:id="@+id/friends_info_two_text_heading"
+        android:layout_width="200dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/open_sans"
+        android:gravity="center"
+        android:text="@string/friends_info_activity_heading"
+        android:textAllCaps="false"
+        android:textColor="@drawable/button_text_color_light"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toStartOf="@+id/edit_button"
+        app:layout_constraintStart_toEndOf="@+id/friends_image_view"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="@dimen/padding_standard"
-                app:srcCompat="@drawable/nahoft_icons_friends_56"
-                tools:ignore="ContentDescription" />
+    <Button
+        android:id="@+id/edit_button"
+        android:layout_width="56dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="38dp"
+        android:background="@drawable/transparent_overlay_radius_8_edit"
+        android:contentDescription="@string/edit_friend_button"
+        android:text="@string/edit_button"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWarmWhite"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/friends_info_two_text_heading"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="200dp"
-                android:layout_height="56dp"
-                android:layout_marginTop="@dimen/padding_standard"
-                android:gravity="center"
-                android:fontFamily="@font/open_sans"
-                android:text="@string/friends_info_activity_heading"
-                android:textAllCaps="false"
-                android:textColor="@drawable/button_text_color_light"
-                android:textSize="22sp"
-                tools:ignore="ContentDescription" />
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="56dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="38dp"
+        android:background="@drawable/blue_8_btn_bkgd"
+        android:contentDescription="@string/edit_friend_button"
+        android:text="@string/edit_button"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWarmWhite"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/friends_info_two_text_heading"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/edit_button"
-                android:layout_width="56dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="@dimen/padding_standard"
-                android:background="@drawable/transparent_overlay_radius_8_edit"
-                android:contentDescription="@string/edit_friend_button"
-                android:text="@string/edit_button"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWarmWhite"
-                android:textSize="16sp" />
 
-        </LinearLayout>
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="312dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginLeft="49dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginRight="49dp"
+        android:layout_marginBottom="523dp"
+        android:background="@drawable/transparent_overlay_radius_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friends_info_two_text_heading" />
 
-        <ImageView
-            android:layout_width="312dp"
-            android:layout_height="104dp"
-            android:layout_marginTop="@dimen/padding_standard"
-            android:background="@drawable/transparent_overlay_radius_8"/>
+    <Button
+        android:id="@+id/invite_again_button"
+        android:layout_width="144dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/blue_56_btn_bkgd"
+        android:contentDescription="@string/invite_again_button"
+        android:text="@string/invite_again_button"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWarmWhite"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/verify_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingVertical="@dimen/padding_standard">
+    <Button
+        android:id="@+id/invite_button"
+        android:layout_width="144dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/blue_56_btn_bkgd"
+        android:contentDescription="@string/invite_button"
+        android:text="@string/invite_button"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWarmWhite"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/verify_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-            <Button
-                android:id="@+id/save_image_button"
-                android:layout_width="144dp"
-                android:layout_height="32dp"
-                android:layout_margin="@dimen/padding_half"
-                android:background="@drawable/blue_8_btn_bkgd"
-                android:contentDescription="@string/saveImageButton"
-                android:text="@string/invite_again_button"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWarmWhite"
-                android:textSize="16sp" />
+    <Button
+        android:id="@+id/verify_button"
+        android:layout_width="144dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/green_56_btn_bkgd"
+        android:contentDescription="@string/verify_button"
+        android:text="@string/verify_button"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWarmWhite"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-            <Button
-                android:id="@+id/send_as_image_button"
-                android:layout_width="144dp"
-                android:layout_height="32dp"
-                android:layout_margin="@dimen/padding_half"
-                android:background="@drawable/green_8_btn_bkgd"
-                android:contentDescription="@string/sendAsImageButton"
-                android:text="@string/verify_button"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWarmWhite"
-                android:textSize="16sp" />
+    <Button
+        android:id="@+id/decline_button"
+        android:layout_width="144dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/orange_56_btn_bkgd"
+        android:contentDescription="@string/decline_button"
+        android:text="@string/decline_button"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWarmWhite"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-        </LinearLayout>
+    <Button
+        android:id="@+id/import_invitation_button"
+        android:layout_width="144dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/blue_56_btn_bkgd"
+        android:contentDescription="@string/import_text_label"
+        android:text="@string/import_invitation_button"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWarmWhite"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-        <TextView
-            android:layout_width="312dp"
-            android:layout_height="wrap_content"
-            android:gravity="left|top"
-            android:fontFamily="@font/open_sans_italic"
-            android:text="@string/button_descriptions"
-            android:textColor="@color/colorWarmWhite"
-            android:textSize="16sp">
-        </TextView>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="312dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="49dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/open_sans_italic"
+        android:text="@string/button_descriptions"
+        android:textColor="@color/colorWarmWhite"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/save_delete_friend_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-        <Button
-            android:id="@+id/save_delete_friend_button"
-            android:layout_width="152dp"
-            android:layout_height="40dp"
-            android:layout_margin="@dimen/padding_half"
-            android:background="@drawable/red_8_btn_bkgd"
-            android:contentDescription="@string/delete_friend_button"
-            android:text="@string/delete_friend_button"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWarmWhite"
-            android:textSize="16sp" />
+    <Button
+        android:id="@+id/save_delete_friend_button"
+        android:layout_width="152dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/red_8_btn_bkgd"
+        android:contentDescription="@string/delete_friend_button"
+        android:text="@string/delete_friend_button"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWarmWhite"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    </LinearLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

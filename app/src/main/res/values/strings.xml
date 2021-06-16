@@ -344,6 +344,11 @@
     <!-- Messages Activity -->
     <string name="messages_activity_heading">Messages</string>
 
+    <!-- Add Friend Alert Dialog -->
+    <string name="enter_nickname">Enter Nickname</string>
+    <string name="add_button">Add</string>
+    <string name="cancel_button">Cancel</string>
+
 
 
 
