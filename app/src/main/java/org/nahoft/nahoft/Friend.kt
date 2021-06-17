@@ -30,27 +30,27 @@ data class Friend constructor(
 enum class FriendStatus: StatusIcon {
     Default {
         override fun getIcon(): Int {
-            return R.drawable.new_default_status_friend
+            return R.drawable.status_icon_default
         }
     },
     Invited {
         override fun getIcon(): Int {
-            return R.drawable.new_invited_friend
+            return R.drawable.status_icon_invited
         }
     },
     Requested {
         override fun getIcon(): Int {
-            return R.drawable.new_requested_friend
+            return R.drawable.status_icon_requested
         }
     },
     Verified {
         override fun getIcon(): Int {
-            return R.drawable.new_approved_friend
+            return R.drawable.status_icon_verified
         }
     },
     Approved {
         override fun getIcon(): Int {
-            return R.drawable.new_verified_friend
+            return R.drawable.status_icon_approved
         }
     }
 }

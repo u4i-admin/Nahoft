@@ -48,7 +48,7 @@
 <string name="secondary_passcode_definition">وارد کردن کدعبور ثانویه در هنگام ورود به سیستم همه داده‌های حساس را حذف می‌کند.</string>
 <string name="enter_secondary_passcode_hint">ورود کدعبور ثانویه</string>
 <string name="verify_secondary_passcode_hint">تأیید کدعبور ثانویه</string>
-<string name="button_label_save_passcode">ذخیره</string>
+<string name="button_label_save">ذخیره</string>
 
 
 <!--    Friends Recycler View Item Row-->
@@ -334,5 +334,14 @@
     <string name="enter_nickname">Enter Nickname</string>
     <string name="add_button">Add</string>
     <string name="cancel_button">Cancel</string>
+
+    <!-- Activity Friends Info Two -->
+    <string name="nickname">Nickname</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="verified_status">Verified</string>
+    <string name="approved_status">Approved</string>
+    <string name="requested_status">Requested</string>
+    <string name="invited_status">Invited</string>
+    <string name="default_status">Default</string>
 
 </resources>

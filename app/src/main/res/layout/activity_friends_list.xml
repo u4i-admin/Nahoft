@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -39,38 +39,63 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/friendsContainer"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/friendsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical" >
+        app:layout_constraintTop_toBottomOf="@id/friends_list_activity_heading"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:scrollbars="vertical" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/friendsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="75dp"
-            android:layout_marginBottom="175dp"
-            android:scrollbars="vertical" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_friend_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_standard"
+        android:layout_marginTop="@dimen/padding_standard"
+        android:layout_marginEnd="@dimen/padding_standard"
+        android:layout_marginBottom="@dimen/padding_standard"
+        android:backgroundTint="@color/colorWarmWhite"
+        android:clickable="true"
+        android:contentDescription="@string/content_description_add_friend_button"
+        android:tint="@color/caribbeanGreen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/baseline_add_black_36dp" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_friend_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginStart="@dimen/padding_standard"
-            android:layout_marginTop="@dimen/padding_standard"
-            android:layout_marginEnd="@dimen/padding_standard"
-            android:layout_marginBottom="@dimen/padding_standard"
-            android:clickable="true"
-            android:contentDescription="@string/content_description_add_friend_button"
-            android:tint="@color/caribbeanGreen"
-            android:backgroundTint="@color/colorWarmWhite"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/baseline_add_black_36dp" />
+<!--    <LinearLayout-->
+<!--        android:id="@+id/friendsContainer"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="friends_list_activity_heading"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="vertical" >-->
 
-    </LinearLayout>
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/friendsRecyclerView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:scrollbars="vertical" />-->
 
-</RelativeLayout>
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/add_friend_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="@dimen/padding_standard"-->
+<!--            android:layout_marginTop="@dimen/padding_standard"-->
+<!--            android:layout_marginEnd="@dimen/padding_standard"-->
+<!--            android:layout_marginBottom="@dimen/padding_standard"-->
+<!--            android:backgroundTint="@color/colorWarmWhite"-->
+<!--            android:clickable="true"-->
+<!--            android:contentDescription="@string/content_description_add_friend_button"-->
+<!--            android:tint="@color/caribbeanGreen"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:srcCompat="@drawable/baseline_add_black_36dp" />-->
+
+<!--    </LinearLayout>-->
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

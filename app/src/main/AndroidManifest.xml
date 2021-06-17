@@ -123,6 +123,10 @@
         <activity
             android:name=".activities.HomeActivity"
             android:screenOrientation="portrait"
+            android:excludeFromRecents="true"/>
+        <activity
+            android:name=".activities.FriendsInfoActivity"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true">
 
             <!-- Allows other apps to share images with us -->

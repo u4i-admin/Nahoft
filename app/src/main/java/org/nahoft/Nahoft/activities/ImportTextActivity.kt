@@ -128,7 +128,6 @@ class ImportTextActivity: AppCompatActivity() {
                     showAlert(getString(R.string.alert_text_unable_to_process_request))
                 }
 
-
             } else if (requestCode == RequestCodes.selectKeySenderCode) {
                 val selectedSender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
                     ?.let { it as Friend }
@@ -143,41 +142,6 @@ class ImportTextActivity: AppCompatActivity() {
                     this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
                 }
             }
-            else if (requestCode == RequestCodes.selectImageForSharingCode)
-            {
-                // get data?.data as URI
-                val imageURI = data?.data
-                imageURI?.let {
-
-                    makeWait()
-
-                    val decodeResult: Deferred<ByteArray?> =
-                        coroutineScope.async(Dispatchers.IO) {
-                            val swatch = Decoder()
-                            return@async swatch.decode(applicationContext, imageURI)
-                        }
-
-                    coroutineScope.launch(Dispatchers.Main) {
-                        val maybeBytes = decodeResult.await()
-                        noMoreWaiting()
-                        handleImageDecodeResult(maybeBytes)
-                    }
-                }
-            }
-        }
-    }
-
-    private fun handleImageDecodeResult(maybeBytes: ByteArray?)
-    {
-        if (maybeBytes != null) {
-            // Decode the message and save it locally for use after sender is selected
-            this.decodePayload = maybeBytes
-
-            // We received a message, have the user select who it is from
-            val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
-            startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
-        } else {
-            showAlert(getString(R.string.alert_text_unable_to_decode_message))
         }
     }
 

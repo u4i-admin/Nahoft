@@ -124,8 +124,6 @@ class EnterPasscodeActivity : AppCompatActivity() {
             // Send them to the home screen
             LoginStatus.LoggedIn, LoginStatus.NotRequired -> {
 
-                cleanup()
-
                 val homeActivityIntent = Intent(this, HomeActivity::class.java)
 
                 // Check to see if we received a send intent

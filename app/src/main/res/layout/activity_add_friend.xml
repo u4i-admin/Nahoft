@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_standard"
-        android:text="@string/button_label_save_passcode"
+        android:text="@string/button_label_save"
         android:textAllCaps="false"
         android:backgroundTint="@color/colorWarmWhite"
         android:textColor="@drawable/button_text_color_dark" />

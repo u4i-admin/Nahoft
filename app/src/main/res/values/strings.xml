@@ -46,7 +46,7 @@
     <string name="secondary_passcode_definition">Entering a secondary passcode at login will delete all sensitive data.</string>
     <string name="enter_secondary_passcode_hint">Enter Secondary Passcode</string>
     <string name="verify_secondary_passcode_hint">Verify Secondary Passcode</string>
-    <string name="button_label_save_passcode">Save</string>
+    <string name="button_label_save">Save</string>
 
 
     <!--    Friends Recycler View Item Row-->
@@ -63,8 +63,8 @@
 
     <!-- Verify Friend View -->
     <string name="label_verify_friend_explainer">Contact your friend outside of the app you normally use and make sure that your numbers match.</string>
-    <string name="label_verify_friend_number">%1$s\'s Number</string>
-    <string name="label_verify_friend_user_number">Your Number</string>
+    <string name="label_verify_friend_number">%1$s\'s Code</string>
+    <string name="label_verify_friend_user_number">Your Code</string>
     <string name="button_label_verify_friend_accept">Accept</string>
     <string name="button_label_verify_friend_reject">Reject</string>
     <string name="button_label_verify_friend">Verify</string>
@@ -77,7 +77,7 @@
     <string name="alert_text_verify_secondary_passcode_empty">Please verify your secondary passcode.</string>
     <string name="alert_text_secondary_passcode_entries_do_not_match">Secondary passcode entries do not match.</string>
     <string name="alert_text_secondary_passcode_and_passcode_may_not_match">Secondary and initial passcode entries must not match.</string>
-    <string name="alert_text_received_invitation">Received an invitation from %1$s. Accept their invite to start communicating.</string>
+    <string name="alert_text_received_invitation">Received an invitation from %1$s. Send them an invitation to start communicating.</string>
     <string name="alert_text_passcode_required_to_proceed">Passcode required to proceed.</string>
     <string name="alert_text_unable_to_decode_message">Something went wrong. We were unable to decode this message.</string>
     <string name="alert_text_unable_to_decrypt_message">We were unable to decrypt this message.</string>
@@ -348,6 +348,15 @@
     <string name="enter_nickname">Enter Nickname</string>
     <string name="add_button">Add</string>
     <string name="cancel_button">Cancel</string>
+
+    <!-- Activity Friends Info Two -->
+    <string name="nickname">Nickname</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="verified_status">Verified</string>
+    <string name="approved_status">Approved</string>
+    <string name="requested_status">Requested</string>
+    <string name="invited_status">Invited</string>
+    <string name="default_status">Default</string>
 
 
 
