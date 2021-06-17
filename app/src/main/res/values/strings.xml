@@ -333,10 +333,10 @@
 
     <string name="button_descriptions">
         \nPress Invite to send a key to a new friend.
-        \nPress Invite Again if you need to resend an invite.
-        \nPress Import Invitation to receive an invitation back from your friend.
-        \nPress Verify to compare keys with your new friend.
-        \nPress Decline to decline an imported key and start the process over.</string>
+        \nPress Invite Again if you need to resend a key.
+        \nPress Import Invitation to receive a key from your friend.
+        \nPress Verify to compare and confirm that your keys match.
+        \nPress Decline to reject the last key sent, and start the key exchange process again.</string>
 
     <string name="delete_friend_button_content_description">Delete Friend Button</string>
     <string name="delete_friend_button">Delete Friend</string>

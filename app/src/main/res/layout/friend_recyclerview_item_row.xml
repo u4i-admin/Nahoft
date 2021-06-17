@@ -12,36 +12,37 @@
         android:id="@+id/friend_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="start"
+        android:layout_marginStart="@dimen/padding_standard"
         android:text="@string/friendNameRecyclerView"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/status_text_view"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/status_text_view"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
+        android:layout_marginEnd="5dp"
         android:textSize="15sp"
         android:textColor="@color/colorWarmWhite"
         android:text="@string/default_status"
-        app:layout_constraintStart_toEndOf="@+id/friend_name_text_view"
-        app:layout_constraintEnd_toStartOf="@+id/friend_icon_view"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/friend_icon_view" />
 
     <ImageView
         android:id="@+id/friend_icon_view"
         android:layout_width="16dp"
         android:layout_height="16dp"
+        android:layout_marginEnd="@dimen/padding_standard"
         android:src="@drawable/status_icon_verified"
-        app:layout_constraintStart_toEndOf="@id/status_text_view"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

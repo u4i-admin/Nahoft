@@ -14,11 +14,12 @@
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="62dp"
         android:layout_marginBottom="24dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/friends_info_two_text_heading"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/friend_info_container"
         app:srcCompat="@drawable/nahoft_icons_friends_56"
         tools:ignore="ContentDescription" />
 
@@ -34,17 +35,17 @@
         android:textAllCaps="false"
         android:textColor="@drawable/button_text_color_light"
         android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@+id/friend_info_container"
-        app:layout_constraintEnd_toStartOf="@+id/edit_or_save_button"
-        app:layout_constraintStart_toEndOf="@+id/friends_image_view"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/friend_info_container"
+        app:layout_constraintStart_toEndOf="@+id/friends_image_view"
+        app:layout_constraintEnd_toStartOf="@+id/edit_or_save_button"
         tools:ignore="ContentDescription" />
 
     <Button
         android:id="@+id/edit_or_save_button"
         android:layout_width="56dp"
         android:layout_height="24dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="49dp"
         android:layout_marginBottom="38dp"
         android:background="@drawable/transparent_overlay_radius_8_edit"
@@ -53,10 +54,10 @@
         android:textAllCaps="false"
         android:textColor="@color/colorWarmWhite"
         android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/friend_info_container"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/friends_info_two_text_heading"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/friend_info_container"
@@ -86,37 +87,36 @@
             <TextView
                 android:id="@+id/nickname_text_view"
                 android:layout_width="80dp"
-                android:layout_height="24dp"
-                android:gravity="start"
+                android:layout_height="@dimen/padding_standard"
+                android:layout_marginStart="@dimen/padding_standard"
                 android:text="@string/nickname"
                 android:textSize="16sp"
-                android:textColor="@color/colorWarmWhite" />
+                android:textColor="@color/colorWarmWhite"
+                app:layout_constraintStart_toEndOf="@+id/nickname_status_container"/>
 
             <LinearLayout
                 android:id="@+id/status_container"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/padding_standard"
                 android:orientation="horizontal"
+                android:layout_marginStart="100dp"
                 android:gravity="end"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/nickname_text_view">
 
                 <TextView
                     android:id="@+id/status_text_view"
-                    android:layout_width="60dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="65dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/padding_standard"
                     android:text="@string/default_status"
                     android:textColor="@color/colorWarmWhite"
-                    android:textSize="15sp"
-                    android:textAlignment="center" />
+                    android:textSize="15sp" />
 
                 <ImageView
                     android:id="@+id/status_icon_image_view"
                     android:layout_width="wrap_content"
                     android:layout_height="26dp"
+                    android:padding="@dimen/padding_quarter"
                     app:srcCompat="@drawable/status_icon_default" />
 
             </LinearLayout>
@@ -127,31 +127,26 @@
             android:id="@+id/sender_name_text_view"
             android:layout_width="280dp"
             android:layout_height="32dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="40dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:text="@string/unknown_sender_label"
             android:textColor="@color/colorWarmWhite"
             android:textSize="24sp"
+            app:layout_constraintTop_toBottomOf="@id/nickname_status_container"
             app:layout_constraintBottom_toTopOf="@+id/verification_code_button"
             app:layout_constraintStart_toStartOf="@id/friend_info_container"
-            app:layout_constraintEnd_toEndOf="@id/friend_info_container"
-            app:layout_constraintTop_toBottomOf="@id/nickname_status_container" />
+            app:layout_constraintEnd_toEndOf="@id/friend_info_container" />
 
 
         <Button
             android:id="@+id/verification_code_button"
             android:layout_width="136dp"
             android:layout_height="24dp"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="100dp"
+            android:layout_marginEnd="120dp"
             android:text="@string/verification_code"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/friend_info_container"
             app:layout_constraintTop_toBottomOf="@id/sender_name_text_view"
+            app:layout_constraintBottom_toBottomOf="@id/friend_info_container"
             app:layout_constraintStart_toStartOf="@id/friend_info_container"
             app:layout_constraintEnd_toEndOf="@+id/friend_info_container"
             android:textAlignment="center"
@@ -167,74 +162,77 @@
         android:id="@+id/invite_button"
         android:layout_width="144dp"
         android:layout_height="32dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginTop="@dimen/padding_doubled"
+        android:layout_marginBottom="@dimen/padding_doubled"
+        android:layout_marginEnd="200dp"
+        android:layout_marginStart="@dimen/padding_doubled"
         android:background="@drawable/blue_56_btn_bkgd"
         android:contentDescription="@string/invite_button"
         android:text="@string/invite_button"
         android:textAllCaps="false"
         android:textColor="@color/colorWarmWhite"
         android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/friend_info_container"
         app:layout_constraintBottom_toTopOf="@+id/status_description_text_view"
-        app:layout_constraintEnd_toStartOf="@+id/import_invitation_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friend_info_container" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/verify_button"
         android:layout_width="144dp"
         android:layout_height="32dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginTop="@dimen/padding_doubled"
+        android:layout_marginBottom="@dimen/padding_doubled"
+        android:layout_marginEnd="@dimen/padding_doubled"
+        android:layout_marginStart="200dp"
         android:background="@drawable/green_56_btn_bkgd"
         android:contentDescription="@string/verify_button"
         android:text="@string/verify_button"
         android:textAllCaps="false"
         android:textColor="@color/colorWarmWhite"
         android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/friend_info_container"
         app:layout_constraintBottom_toTopOf="@+id/status_description_text_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/invite_button"
-        app:layout_constraintTop_toBottomOf="@+id/friend_info_container" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/decline_button"
         android:layout_width="144dp"
         android:layout_height="32dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginBottom="36dp"
-        android:layout_marginStart="50dp"
+        android:layout_marginTop="@dimen/padding_doubled"
+        android:layout_marginBottom="@dimen/padding_doubled"
+        android:layout_marginEnd="@dimen/padding_doubled"
+        android:layout_marginStart="200dp"
         android:background="@drawable/orange_56_btn_bkgd"
         android:contentDescription="@string/decline_button"
         android:text="@string/decline_button"
         android:textAllCaps="false"
         android:textColor="@color/colorWarmWhite"
         android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/friend_info_container"
         app:layout_constraintBottom_toTopOf="@+id/status_description_text_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/invite_button"
-        app:layout_constraintTop_toBottomOf="@+id/friend_info_container" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/import_invitation_button"
         android:layout_width="144dp"
         android:layout_height="32dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginTop="@dimen/padding_doubled"
+        android:layout_marginBottom="@dimen/padding_doubled"
+        android:layout_marginEnd="@dimen/padding_doubled"
+        android:layout_marginStart="200dp"
         android:background="@drawable/blue_56_btn_bkgd"
         android:contentDescription="@string/import_text_label"
         android:text="@string/import_invitation_button"
         android:textAllCaps="false"
         android:textColor="@color/colorWarmWhite"
         android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/friend_info_container"
         app:layout_constraintBottom_toTopOf="@+id/status_description_text_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friend_info_container" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/send_message_button"
