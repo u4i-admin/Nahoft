@@ -190,13 +190,46 @@ class FriendsInfoActivity: AppCompatActivity() {
         decline_button.isVisible = false
         invite_button.isVisible = true
         invite_button.text = getString(R.string.button_label_invite)
+        send_message_button.isVisible = false
+        import_image_button.isVisible = false
+        import_text_button.isVisible = false
+        delete_friend_button.isVisible = false
 
         if (editingMode) {
             // TODO: set up view for editing mode. Disable buttons where needed.
+            status_icon_image_view.setImageResource((FriendStatus.Default.getIcon()))
+            verification_code_button.isGone = true
+            import_invitation_button.isEnabled = false
+            import_invitation_button.isClickable = false
+            import_invitation_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            decline_button.isVisible = false
+            verify_button.isVisible = false
+            invite_button.isEnabled = false
+            invite_button.isClickable = false
+            invite_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            send_message_button.isVisible = false
+            import_image_button.isVisible = false
+            import_text_button.isVisible = false
+            delete_friend_button.isVisible = false
+            status_description_text_view.isVisible = false
+            delete_friend_button.isVisible = true
+            edit_or_save_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+            sender_name_text_view.setBackgroundResource(R.drawable.white_8_bkgd)
+
         } else {
             // TODO: set up view for not editing mode.
+            status_icon_image_view.setImageResource(FriendStatus.Default.getIcon())
+            verification_code_button.isGone = true
+            import_invitation_button.isVisible = true
+            decline_button.isVisible = false
+            verify_button.isVisible = false
+            invite_button.isVisible = true
+            invite_button.text = getString(R.string.button_label_invite)
+            send_message_button.isVisible = false
+            import_image_button.isVisible = false
+            import_text_button.isVisible = false
+            delete_friend_button.isVisible = false
         }
-
     }
 
     private fun setupInvitedView() {
@@ -206,11 +239,46 @@ class FriendsInfoActivity: AppCompatActivity() {
         decline_button.isVisible = false
         invite_button.isVisible = true
         invite_button.text = getString(R.string.button_label_invite_again)
+        send_message_button.isVisible = false
+        import_image_button.isVisible = false
+        import_text_button.isVisible = false
+        delete_friend_button.isVisible = false
 
         if (editingMode) {
             // TODO: set up view for editing mode. Disable buttons where needed.
+            status_icon_image_view.setImageResource((FriendStatus.Invited.getIcon()))
+            verification_code_button.isGone = true
+            import_invitation_button.isEnabled = false
+            import_invitation_button.isClickable = false
+            import_invitation_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            decline_button.isVisible = false
+            verify_button.isVisible = false
+            invite_button.text = getString(R.string.button_label_invite_again)
+            invite_button.isEnabled = false
+            invite_button.isClickable = false
+            invite_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            send_message_button.isVisible = false
+            import_image_button.isVisible = false
+            import_text_button.isVisible = false
+            status_description_text_view.isVisible = false
+            delete_friend_button.isVisible = true
+            edit_or_save_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+            sender_name_text_view.setBackgroundResource(R.drawable.white_8_bkgd)
         } else {
             // TODO: set up view for not editing mode.
+            status_icon_image_view.setImageResource(FriendStatus.Invited.getIcon())
+            verification_code_button.isGone = true
+            import_invitation_button.isVisible = true
+            decline_button.isVisible = false
+            verify_button.isVisible = false
+            invite_button.isVisible = true
+            invite_button.text = getString(R.string.button_label_invite_again)
+            send_message_button.isVisible = false
+            import_image_button.isVisible = false
+            import_text_button.isVisible = false
+            delete_friend_button.isVisible = false
+            status_description_text_view.isVisible = true
+            edit_or_save_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
         }
     }
 
@@ -221,31 +289,100 @@ class FriendsInfoActivity: AppCompatActivity() {
         decline_button.isVisible = true
         invite_button.isVisible = true
         invite_button.text = getString(R.string.button_label_invite)
+        send_message_button.isVisible = false
+        import_image_button.isVisible = false
+        import_text_button.isVisible = false
+        delete_friend_button.isVisible = false
 
         if (editingMode) {
             // TODO: set up view for editing mode. Disable buttons where needed.
+            status_icon_image_view.setImageResource((FriendStatus.Requested.getIcon()))
+            verification_code_button.isGone = true
+            invite_button.isEnabled = false
+            invite_button.isClickable = false
+            invite_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            invite_button.text = getString(R.string.button_label_invite)
+            decline_button.isEnabled = false
+            decline_button.isClickable = false
+            decline_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            verify_button.isVisible = false
+            send_message_button.isVisible = false
+            import_image_button.isVisible = false
+            import_text_button.isVisible = false
+            status_description_text_view.isVisible = false
+            delete_friend_button.isVisible = true
+            edit_or_save_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+            sender_name_text_view.setBackgroundResource(R.drawable.white_8_bkgd)
         } else {
             // TODO: set up view for not editing mode.
+            status_icon_image_view.setImageResource(FriendStatus.Requested.getIcon())
+            verification_code_button.isGone = true
+            import_invitation_button.isVisible = false
+            decline_button.isVisible = true
+            verify_button.isVisible = false
+            invite_button.isVisible = true
+            invite_button.text = getString(R.string.button_label_invite)
+            send_message_button.isVisible = false
+            import_image_button.isVisible = false
+            import_text_button.isVisible = false
+            delete_friend_button.isVisible = false
+            status_description_text_view.isVisible = true
+            edit_or_save_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
         }
     }
 
     private fun setupApprovedView() {
-        status_icon_image_view.setImageResource(FriendStatus.Verified.getIcon())
+        status_icon_image_view.setImageResource(FriendStatus.Approved.getIcon())
         verification_code_button.isGone = true
         import_invitation_button.isVisible = false
         decline_button.isVisible = false
         invite_button.isVisible = true
         invite_button.text = getString(R.string.button_label_invite_again)
+        send_message_button.isVisible = false
+        import_image_button.isVisible = false
+        import_text_button.isVisible = false
+        delete_friend_button.isVisible = false
 
         if (editingMode) {
             // TODO: set up view for editing mode. Disable buttons where needed.
+            status_icon_image_view.setImageResource(FriendStatus.Approved.getIcon())
+            verification_code_button.isGone = true
+            import_invitation_button.isVisible = false
+            decline_button.isVisible = false
+            invite_button.isEnabled = false
+            invite_button.isClickable = false
+            invite_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            invite_button.text = getString(R.string.button_label_invite_again)
+            verify_button.isEnabled = false
+            verify_button.isClickable = false
+            verify_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            send_message_button.isVisible = false
+            import_image_button.isVisible = false
+            import_text_button.isVisible = false
+            status_description_text_view.isVisible = false
+            delete_friend_button.isVisible = true
+            edit_or_save_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+            sender_name_text_view.setBackgroundResource(R.drawable.white_8_bkgd)
         } else {
             // TODO: set up view for not editing mode.
+            status_icon_image_view.setImageResource(FriendStatus.Approved.getIcon())
+            verification_code_button.isGone = true
+            import_invitation_button.isVisible = false
+            decline_button.isVisible = false
+            verify_button.isVisible = true
+            invite_button.isVisible = true
+            invite_button.text = getString(R.string.button_label_invite_again)
+            send_message_button.isVisible = false
+            import_image_button.isVisible = false
+            import_text_button.isVisible = false
+            delete_friend_button.isVisible = false
+            status_description_text_view.isVisible = true
+            edit_or_save_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
         }
     }
 
     private fun setupVerifiedView() {
-        status_icon_image_view.setImageResource(FriendStatus.Approved.getIcon())
+        status_icon_image_view.setImageResource(FriendStatus.Verified.getIcon())
         verification_code_button.isGone = false
         import_invitation_button.isVisible = false
         decline_button.isVisible = false
@@ -253,8 +390,40 @@ class FriendsInfoActivity: AppCompatActivity() {
 
         if (editingMode) {
             // TODO: set up view for editing mode. Disable buttons where needed.
+            status_icon_image_view.setImageResource(FriendStatus.Verified.getIcon())
+            verification_code_button.isEnabled = false
+            verification_code_button.isClickable = false
+            verification_code_button.setBackgroundResource(R.drawable.grey_outline_8_btn_bkgd)
+            sender_name_text_view.setBackgroundResource(R.drawable.white_8_bkgd)
+            invite_button.isVisible = false
+            import_invitation_button.isVisible = false
+            verify_button.isVisible = false
+            decline_button.isVisible = false
+            send_message_button.isEnabled = false
+            send_message_button.isClickable = false
+            send_message_button.setBackgroundResource(R.drawable.transparent_overlay_radius_8)
+            import_image_button.isEnabled = false
+            import_image_button.isClickable = false
+            import_image_button.setBackgroundResource(R.drawable.transparent_overlay_radius_8)
+            import_text_button.isEnabled = false
+            import_text_button.isClickable = false
+            import_text_button.setBackgroundResource(R.drawable.transparent_overlay_radius_8)
+            delete_friend_button.isVisible = true
+            edit_or_save_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+            status_description_text_view.isVisible = false
         } else {
-            // TODO: set up view for not editing mode.
+            // TODO: set up view for not editing mode
+            status_icon_image_view.setImageResource(FriendStatus.Verified.getIcon())
+            verification_code_button.isGone = false
+            invite_button.isVisible = false
+            import_invitation_button.isVisible = false
+            verify_button.isVisible = false
+            decline_button.isVisible = false
+            send_message_button.isVisible = true
+            import_image_button.isVisible = true
+            import_text_button.isVisible = true
+            delete_friend_button.isVisible = false
+            status_description_text_view.isVisible = false
         }
     }
 }

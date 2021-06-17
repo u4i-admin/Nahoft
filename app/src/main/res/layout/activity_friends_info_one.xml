@@ -68,36 +68,36 @@
                 android:paddingVertical="@dimen/padding_standard">
 
                 <Button
-                    android:id="@+id/save_image_button"
+                    android:id="@+id/send_message_button"
                     android:layout_width="96dp"
                     android:layout_height="56dp"
                     android:layout_margin="@dimen/padding_half"
                     android:background="@drawable/purple_8_btn_bkgd"
-                    android:contentDescription="@string/saveImageButton"
+                    android:contentDescription="@string/send_message"
                     android:text="@string/send_message"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWarmWhite"
                     android:textSize="16sp" />
 
                 <Button
-                    android:id="@+id/send_as_image_button"
+                    android:id="@+id/import_image_button"
                     android:layout_width="96dp"
                     android:layout_height="56dp"
                     android:layout_margin="@dimen/padding_half"
                     android:background="@drawable/green_8_btn_bkgd"
-                    android:contentDescription="@string/sendAsImageButton"
+                    android:contentDescription="@string/import_image"
                     android:text="@string/import_image"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWarmWhite"
                     android:textSize="16sp" />
 
                 <Button
-                    android:id="@+id/send_as_text_button"
+                    android:id="@+id/import_text_button"
                     android:layout_width="96dp"
                     android:layout_height="56dp"
                     android:layout_margin="@dimen/padding_half"
                     android:background="@drawable/green_8_btn_bkgd"
-                    android:contentDescription="@string/sendAsTextButton"
+                    android:contentDescription="@string/import_text"
                     android:text="@string/import_text"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWarmWhite"
