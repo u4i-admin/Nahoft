@@ -17,13 +17,18 @@ data class Friend constructor(
 
     @field:Element(name = "publicKeyEncoded", required = false)
     @param:Element(name = "publicKeyEncoded", required = false)
-    var publicKeyEncoded: ByteArray? = null) : Serializable {
+    var publicKeyEncoded: ByteArray? = null
+) : Serializable {
 
     // Friends represent the same person if they have the same name
     override fun equals(other: Any?): Boolean {
 
         val friend = other as? Friend
         return this.name == friend?.name
+    }
+
+    override fun toString(): String {
+        return name // What to display in the Spinner list.
     }
 }
 

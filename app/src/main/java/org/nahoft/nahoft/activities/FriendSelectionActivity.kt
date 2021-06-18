@@ -5,14 +5,12 @@ import android.content.Intent
 import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_friend_selection.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
 import org.nahoft.util.RequestCodes
-import org.nahoft.util.showAlert
 
 
 class FriendSelectionActivity : AppCompatActivity() {
@@ -40,17 +38,19 @@ class FriendSelectionActivity : AppCompatActivity() {
         })
 
         // Only show friends that have been verified
-        val approvedFriends = ArrayList<Friend>()
+        val verifiedFriends = ArrayList<Friend>()
 
         for (friend in Persist.friendList) {
 
+            verifiedFriends.add(friend)
+
             if (friend.status == FriendStatus.Verified) {
-                approvedFriends.add(friend)
+                verifiedFriends.add(friend)
             }
         }
 
         linearLayoutManager = LinearLayoutManager(this)
-        adapter = FriendSelectionRecyclerAdapter(approvedFriends) {
+        adapter = FriendSelectionRecyclerAdapter(verifiedFriends) {
 
             // This is the onClick listener for our Recycler
             val result = Intent()

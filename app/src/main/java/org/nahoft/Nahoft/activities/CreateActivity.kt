@@ -3,7 +3,6 @@ package org.nahoft.nahoft.activities
 import android.Manifest
 import android.app.Activity
 import android.content.*
-import android.icu.number.Notation.simple
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -13,15 +12,14 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_message.*
-import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.coroutines.*
 import org.nahoft.codex.Encryption
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
-import org.nahoft.nahoft.Friend
-import org.nahoft.nahoft.R
+import org.nahoft.nahoft.*
 import org.nahoft.org.nahoft.swatch.Encoder
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
@@ -43,30 +41,35 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create)
 
-        val friendsSpinner: Spinner = findViewById(R.id.friends_spinner)
-
-        // Create an ArrayAdapter using the string array and a default spinner
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.friends_spinner_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            friendsSpinner.adapter = adapter
-            friendsSpinner.onItemSelectedListener = this
-        }
-
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
         })
 
-        // Select Friend Button
-        friend_button.setOnClickListener {
-            selectFriend()
-        }
+        setupFriendDropdown()
+        setupOnClicks()
+    }
 
+    override fun onDestroy() {
+        unregisterReceiver(receiver)
+        super.onDestroy()
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        if (position != 0) // The first value is a placeholder
+        {
+            val maybeFriend: Friend = parent?.selectedItem as Friend
+            maybeFriend.let { userTappedFriend: Friend ->
+                selectedFriend = userTappedFriend
+            }
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>) {
+        // Another interface callback
+    }
+
+    private fun setupOnClicks()
+    {
         // Send message as text button
         send_as_text_button.setOnClickListener {
             trySendingOrSavingMessage(isImage = false, saveImage = false)
@@ -83,25 +86,15 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    override fun onDestroy() {
-        unregisterReceiver(receiver)
-        super.onDestroy()
-    }
-
-    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
-        parent.getItemAtPosition(pos)
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>) {
-        // Another interface callback
-    }
-
-    private fun selectFriend() {
-        val intent = FriendSelectionActivity.newIntent(this@CreateActivity)
-        Intent(this, FriendSelectionActivity::class.java)
-        startActivityForResult(intent, RequestCodes.selectFriendCode)
+    private fun setupFriendDropdown()
+    {
+        // Only show friends that have been verified
+        val verifiedFriends = Friends().verifiedSpinnerList()
+        val friendAdapter: ArrayAdapter<Friend> = ArrayAdapter(this, R.layout.spinner, verifiedFriends)
+        val friendsSpinner: Spinner = findViewById(R.id.message_recipient_spinner)
+        friendsSpinner.adapter = friendAdapter
+        friendsSpinner.onItemSelectedListener = this
+        friendsSpinner.setSelection(0, false)
     }
 
     private fun pickImageFromGallery(saveImage: Boolean) {
@@ -120,8 +113,16 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         // Make sure there is a message to send
         val message = editMessageText.text.toString()
 
-        ActivityCompat.requestPermissions(this@CreateActivity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
-        ActivityCompat.requestPermissions(this@CreateActivity, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+        ActivityCompat.requestPermissions(
+            this@CreateActivity,
+            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            1
+        )
+        ActivityCompat.requestPermissions(
+            this@CreateActivity,
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            1
+        )
 
         if (message.isBlank()) {
             showAlert(getString(R.string.alert_text_write_a_message_to_send))
@@ -152,7 +153,7 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 // Clean up the text box and the friend selection.
                 editMessageText.text?.clear()
                 selectedFriend = null
-                friend_button.text = getString(R.string.hintOnChooseFriendButton)
+                message_recipient_spinner.setSelection(0)
             } else {
                 this.showAlert(getString(R.string.alert_text_verified_friends_only))
                 return
@@ -187,26 +188,18 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                             )
                             editMessageText.text?.clear()
                             selectedFriend = null
-                            friend_button.text = getString(R.string.hintOnChooseFriendButton)
+                            message_recipient_spinner.setSelection(0)
                         }
                     }
-                } else {
+                }
+                else {
                     this.showAlert(getString(R.string.alert_text_verified_friends_only))
                     return
                 }
 
-            } else if (requestCode == RequestCodes.selectFriendCode) {
-
-                // Get Friend information from data
-                val friend =
-                    data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription) as? Friend
-
-                // If friend is not null use it to set the button title and set selectedFriend
-                friend?.let {
-                    this.selectedFriend = friend
-                    friend_button.text = friend.name
-                }
-            } else if (requestCode == RequestCodes.selectImageForSavingCode) {
+            }
+            else if (requestCode == RequestCodes.selectImageForSavingCode)
+            {
                 if (selectedFriend != null) {
 
                     // We can only share an image if a recipient with a public key has been selected
@@ -228,10 +221,11 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                             )
                             editMessageText.text?.clear()
                             selectedFriend = null
-                            friend_button.text = getString(R.string.hintOnChooseFriendButton)
+                            message_recipient_spinner.setSelection(0)
                         }
                     }
-                } else {
+                }
+                else {
                     this.showAlert(getString(R.string.alert_text_verified_friends_only))
                     return
                 }
@@ -258,7 +252,12 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
 
                     val swatch = Encoder()
-                    return@async swatch.encode(applicationContext, encryptedMessage, imageUri, saveImage)
+                    return@async swatch.encode(
+                        applicationContext,
+                        encryptedMessage,
+                        imageUri,
+                        saveImage
+                    )
                 }
 
             coroutineScope.launch(Dispatchers.Main) {
@@ -295,8 +294,8 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         send_as_image_button.isClickable = false
         send_as_image_button.isEnabled = false
         send_as_image_button.isClickable = false
-        friend_button.isEnabled = false
-        friend_button.isClickable = false
+        message_recipient_spinner.isEnabled = false
+        message_recipient_spinner.isClickable = false
     }
 
     private fun noMoreWaiting() {
@@ -305,8 +304,8 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         send_as_text_button.isClickable = true
         send_as_image_button.isEnabled = true
         send_as_image_button.isClickable = true
-        friend_button.isEnabled = true
-        friend_button.isClickable = true
+        message_recipient_spinner.isEnabled = true
+        message_recipient_spinner.isClickable = true
     }
 
     private fun cleanUp() {
