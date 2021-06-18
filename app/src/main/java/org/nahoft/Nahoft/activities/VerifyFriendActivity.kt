@@ -103,14 +103,14 @@ class VerifyFriendActivity : AppCompatActivity()
 
     private fun verifySecurityNumber()
     {
-        Persist.updateFriend(this, pendingFriend, FriendStatus.Verified, pendingFriend.publicKeyEncoded)
+        Persist.updateFriend(this, pendingFriend, newStatus = FriendStatus.Verified, encodedPublicKey = pendingFriend.publicKeyEncoded)
         finish()
     }
 
     private fun rejectSecurityNumber()
     {
         pendingFriend.publicKeyEncoded = null
-        Persist.updateFriend(this, pendingFriend, FriendStatus.Default)
+        Persist.updateFriend(this, pendingFriend, newStatus = FriendStatus.Default)
         finish()
     }
 

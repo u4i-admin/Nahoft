@@ -1,13 +1,15 @@
 package org.nahoft.nahoft.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_friends_info.*
 import org.libsodium.jni.keys.PublicKey
@@ -65,27 +67,38 @@ class FriendsInfoActivity: AppCompatActivity() {
         }
 
         edit_or_save_button.setOnClickListener {
-           setupForEditingMode()
+           saveOrEditClicked()
         }
     }
 
-    private fun setupForEditingMode() {
-        if (editingMode) {
+    private fun saveOrEditClicked() {
+        if (editingMode) // Save clicked
+        {
+            this.hideSoftKeyboard(friend_name_edit_text)
+
+            // Save Changes and exit editing mode
             editingMode = false
-            edit_or_save_button.text = getString(R.string.edit_button)
-            // TODO: change button background
-            delete_friend_button.isVisible = false
 
-            // TODO: save changes
+            // If a new name has been entered, save it and display it
+            if (friend_name_edit_text.text.isNotBlank())
+            {
+                val newName = friend_name_edit_text.text.toString()
 
-        } else {
+                if (newName != thisFriend.name)
+                {
+                    Persist.updateFriend(this, thisFriend, newName)
+                }
+
+                thisFriend.name = newName
+            }
+        }
+        else // Edit clicked
+        {
             // enter editing mode
             editingMode = true
-            edit_or_save_button.text = getString(R.string.button_label_save)
-            // TODO: change button background
-            delete_friend_button.isVisible = true
         }
 
+        // Update view to not be in the correct mode
         setupViewByStatus()
     }
 
@@ -113,7 +126,7 @@ class FriendsInfoActivity: AppCompatActivity() {
             setupInvitedView()
         }
 
-        Persist.updateFriend(applicationContext, thisFriend, FriendStatus.Invited)
+        Persist.updateFriend(applicationContext, thisFriend, newStatus = FriendStatus.Invited)
     }
 
     private fun importInvitationClicked() {
@@ -126,7 +139,7 @@ class FriendsInfoActivity: AppCompatActivity() {
         // Set Friend Status to Default
         thisFriend.status = FriendStatus.Default
         thisFriend.publicKeyEncoded = null
-        Persist.updateFriend(applicationContext, thisFriend, FriendStatus.Default)
+        Persist.updateFriend(applicationContext, thisFriend, newStatus = FriendStatus.Default)
         setupDefaultView()
     }
 
@@ -159,12 +172,14 @@ class FriendsInfoActivity: AppCompatActivity() {
         // Set the Add and Cancel Buttons
         builder.setPositiveButton(resources.getString(R.string.ok_button)) {
                 dialog, _->
-            Persist.updateFriend(this, thisFriend, FriendStatus.Verified, thisFriend.publicKeyEncoded)
+            Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Verified,
+                encodedPublicKey = thisFriend.publicKeyEncoded
+            )
         }
         builder.setNegativeButton(resources.getString(R.string.button_label_reset)) {
                 dialog, _->
             thisFriend.publicKeyEncoded = null
-            Persist.updateFriend(this, thisFriend, FriendStatus.Default)
+            Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Default)
             dialog.cancel()
         }
             .create()
@@ -172,7 +187,7 @@ class FriendsInfoActivity: AppCompatActivity() {
     }
 
     private fun setupViewByStatus() {
-        sender_name_text_view.text = thisFriend.name
+        friend_info_name_text_view.text = thisFriend.name
         status_text_view.text = thisFriend.status.name
         when (thisFriend.status) {
             FriendStatus.Default -> setupDefaultView()
@@ -183,56 +198,64 @@ class FriendsInfoActivity: AppCompatActivity() {
         }
     }
 
-    private fun setupDefaultView() {
+    private fun setupEditViewBasics()
+    {
+        friend_name_edit_text.isVisible = true
+        friend_info_name_text_view.isVisible = false
+        delete_friend_button.isVisible = true
+        edit_or_save_button.text = getString(R.string.button_label_save)
+        edit_or_save_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+    }
+
+    private fun setupNormalViewBasics()
+    {
+        friend_name_edit_text.isVisible = false
+        friend_info_name_text_view.isVisible = true
+        delete_friend_button.isVisible = false
+        edit_or_save_button.text = getString(R.string.edit_button)
+        edit_or_save_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+    }
+
+    private fun setupDefaultView()
+    {
         status_icon_image_view.setImageResource(FriendStatus.Default.getIcon())
-        verification_code_button.isGone = true
         import_invitation_button.isVisible = true
-        decline_button.isVisible = false
         invite_button.isVisible = true
         invite_button.text = getString(R.string.button_label_invite)
+
+        // These buttons should not be visible for default status friends
+        verification_code_button.isGone = true
+        verify_button.isVisible = false
+        decline_button.isVisible = false
         send_message_button.isVisible = false
         import_image_button.isVisible = false
         import_text_button.isVisible = false
-        delete_friend_button.isVisible = false
 
-        if (editingMode) {
-            // TODO: set up view for editing mode. Disable buttons where needed.
-            status_icon_image_view.setImageResource((FriendStatus.Default.getIcon()))
-            verification_code_button.isGone = true
+        // Handle editing mode on/off
+        if (editingMode)
+        {
+            setupEditViewBasics()
+
             import_invitation_button.isEnabled = false
-            import_invitation_button.isClickable = false
             import_invitation_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
-            decline_button.isVisible = false
-            verify_button.isVisible = false
             invite_button.isEnabled = false
-            invite_button.isClickable = false
             invite_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
-            send_message_button.isVisible = false
-            import_image_button.isVisible = false
-            import_text_button.isVisible = false
-            delete_friend_button.isVisible = false
             status_description_text_view.isVisible = false
-            delete_friend_button.isVisible = true
-            edit_or_save_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
-            sender_name_text_view.setBackgroundResource(R.drawable.white_8_bkgd)
+        }
+        else
+        {
+            setupNormalViewBasics()
 
-        } else {
-            // TODO: set up view for not editing mode.
-            status_icon_image_view.setImageResource(FriendStatus.Default.getIcon())
-            verification_code_button.isGone = true
-            import_invitation_button.isVisible = true
-            decline_button.isVisible = false
-            verify_button.isVisible = false
-            invite_button.isVisible = true
-            invite_button.text = getString(R.string.button_label_invite)
-            send_message_button.isVisible = false
-            import_image_button.isVisible = false
-            import_text_button.isVisible = false
-            delete_friend_button.isVisible = false
+            import_invitation_button.isEnabled = true
+            import_invitation_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+            invite_button.isEnabled = true
+            invite_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+            status_description_text_view.isVisible = true
         }
     }
 
-    private fun setupInvitedView() {
+    private fun setupInvitedView()
+    {
         status_icon_image_view.setImageResource(FriendStatus.Invited.getIcon())
         verification_code_button.isGone = true
         import_invitation_button.isVisible = true
@@ -244,9 +267,11 @@ class FriendsInfoActivity: AppCompatActivity() {
         import_text_button.isVisible = false
         delete_friend_button.isVisible = false
 
-        if (editingMode) {
+        if (editingMode)
+        {
+            setupEditViewBasics()
+
             // TODO: set up view for editing mode. Disable buttons where needed.
-            status_icon_image_view.setImageResource((FriendStatus.Invited.getIcon()))
             verification_code_button.isGone = true
             import_invitation_button.isEnabled = false
             import_invitation_button.isClickable = false
@@ -263,10 +288,13 @@ class FriendsInfoActivity: AppCompatActivity() {
             status_description_text_view.isVisible = false
             delete_friend_button.isVisible = true
             edit_or_save_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
-            sender_name_text_view.setBackgroundResource(R.drawable.white_8_bkgd)
-        } else {
+            friend_info_name_text_view.setBackgroundResource(R.drawable.white_8_bkgd)
+        }
+        else
+        {
+            setupNormalViewBasics()
+
             // TODO: set up view for not editing mode.
-            status_icon_image_view.setImageResource(FriendStatus.Invited.getIcon())
             verification_code_button.isGone = true
             import_invitation_button.isVisible = true
             decline_button.isVisible = false
@@ -282,7 +310,8 @@ class FriendsInfoActivity: AppCompatActivity() {
         }
     }
 
-    private fun setupRequestedView() {
+    private fun setupRequestedView()
+    {
         status_icon_image_view.setImageResource(FriendStatus.Requested.getIcon())
         verification_code_button.isGone = true
         import_invitation_button.isVisible = false
@@ -294,9 +323,11 @@ class FriendsInfoActivity: AppCompatActivity() {
         import_text_button.isVisible = false
         delete_friend_button.isVisible = false
 
-        if (editingMode) {
+        if (editingMode)
+        {
+            setupEditViewBasics()
+
             // TODO: set up view for editing mode. Disable buttons where needed.
-            status_icon_image_view.setImageResource((FriendStatus.Requested.getIcon()))
             verification_code_button.isGone = true
             invite_button.isEnabled = false
             invite_button.isClickable = false
@@ -312,10 +343,13 @@ class FriendsInfoActivity: AppCompatActivity() {
             status_description_text_view.isVisible = false
             delete_friend_button.isVisible = true
             edit_or_save_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
-            sender_name_text_view.setBackgroundResource(R.drawable.white_8_bkgd)
-        } else {
+            friend_info_name_text_view.setBackgroundResource(R.drawable.white_8_bkgd)
+        }
+        else
+        {
+            setupNormalViewBasics()
+
             // TODO: set up view for not editing mode.
-            status_icon_image_view.setImageResource(FriendStatus.Requested.getIcon())
             verification_code_button.isGone = true
             import_invitation_button.isVisible = false
             decline_button.isVisible = true
@@ -331,7 +365,8 @@ class FriendsInfoActivity: AppCompatActivity() {
         }
     }
 
-    private fun setupApprovedView() {
+    private fun setupApprovedView()
+    {
         status_icon_image_view.setImageResource(FriendStatus.Approved.getIcon())
         verification_code_button.isGone = true
         import_invitation_button.isVisible = false
@@ -343,9 +378,11 @@ class FriendsInfoActivity: AppCompatActivity() {
         import_text_button.isVisible = false
         delete_friend_button.isVisible = false
 
-        if (editingMode) {
+        if (editingMode)
+        {
+            setupEditViewBasics()
+
             // TODO: set up view for editing mode. Disable buttons where needed.
-            status_icon_image_view.setImageResource(FriendStatus.Approved.getIcon())
             verification_code_button.isGone = true
             import_invitation_button.isVisible = false
             decline_button.isVisible = false
@@ -362,10 +399,13 @@ class FriendsInfoActivity: AppCompatActivity() {
             status_description_text_view.isVisible = false
             delete_friend_button.isVisible = true
             edit_or_save_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
-            sender_name_text_view.setBackgroundResource(R.drawable.white_8_bkgd)
-        } else {
+            friend_info_name_text_view.setBackgroundResource(R.drawable.white_8_bkgd)
+        }
+        else
+        {
+            setupNormalViewBasics()
+
             // TODO: set up view for not editing mode.
-            status_icon_image_view.setImageResource(FriendStatus.Approved.getIcon())
             verification_code_button.isGone = true
             import_invitation_button.isVisible = false
             decline_button.isVisible = false
@@ -381,20 +421,23 @@ class FriendsInfoActivity: AppCompatActivity() {
         }
     }
 
-    private fun setupVerifiedView() {
+    private fun setupVerifiedView()
+    {
         status_icon_image_view.setImageResource(FriendStatus.Verified.getIcon())
         verification_code_button.isGone = false
         import_invitation_button.isVisible = false
         decline_button.isVisible = false
         invite_button.isVisible = false
 
-        if (editingMode) {
+        if (editingMode)
+        {
+            setupEditViewBasics()
+
             // TODO: set up view for editing mode. Disable buttons where needed.
-            status_icon_image_view.setImageResource(FriendStatus.Verified.getIcon())
             verification_code_button.isEnabled = false
             verification_code_button.isClickable = false
             verification_code_button.setBackgroundResource(R.drawable.grey_outline_8_btn_bkgd)
-            sender_name_text_view.setBackgroundResource(R.drawable.white_8_bkgd)
+            friend_info_name_text_view.setBackgroundResource(R.drawable.white_8_bkgd)
             invite_button.isVisible = false
             import_invitation_button.isVisible = false
             verify_button.isVisible = false
@@ -411,9 +454,12 @@ class FriendsInfoActivity: AppCompatActivity() {
             delete_friend_button.isVisible = true
             edit_or_save_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
             status_description_text_view.isVisible = false
-        } else {
+        }
+        else
+        {
+            setupNormalViewBasics()
+
             // TODO: set up view for not editing mode
-            status_icon_image_view.setImageResource(FriendStatus.Verified.getIcon())
             verification_code_button.isGone = false
             invite_button.isVisible = false
             import_invitation_button.isVisible = false
@@ -424,6 +470,13 @@ class FriendsInfoActivity: AppCompatActivity() {
             import_text_button.isVisible = true
             delete_friend_button.isVisible = false
             status_description_text_view.isVisible = false
+        }
+    }
+
+    fun Activity.hideSoftKeyboard(editText: EditText)
+    {
+        (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).apply {
+            hideSoftInputFromWindow(editText.windowToken, 0)
         }
     }
 }

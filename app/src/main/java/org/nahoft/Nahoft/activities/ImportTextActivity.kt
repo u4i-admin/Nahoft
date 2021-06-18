@@ -1,7 +1,5 @@
 package org.nahoft.nahoft.activities
 
-import android.app.Activity
-import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
@@ -10,23 +8,15 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_import_text.*
-import kotlinx.android.synthetic.main.activity_import_text.imageImportProgressBar
-import kotlinx.coroutines.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
-import org.nahoft.util.RequestCodes
 import org.nahoft.util.showAlert
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListener {
-    private var decodePayload: ByteArray? = null
     private var sender: Friend? = null
-    private val parentJob = Job()
-    private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
@@ -85,101 +75,53 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
         friendsSpinner.setSelection(0, false)
     }
 
-    /// If the message is decoded successfully, user will be sent to a select sender activity
-    /// Message decryption and saving will be handled in the onActivityResult function
-    private fun handleMessageImport() {
-
-        val messageText = import_message_text_view.text.toString()
-        if (messageText.isNotEmpty()) {
-
-            if (messageText.length > import_message_text_layout.counterMaxLength)
-            {
-                showAlert(getString(R.string.alert_text_message_too_long))
-                return
-            }
-
-            val decodeResult = Codex().decode(messageText)
-
-            if (decodeResult != null) {
-                this.decodePayload = decodeResult.payload
-
-                if (decodeResult.type == KeyOrMessage.EncryptedMessage) {
-                    // We received a message, have the user select who it is from
-                    val selectSenderIntent = Intent(this, SelectMessageSenderActivity::class.java)
-                    startActivityForResult(selectSenderIntent, RequestCodes.selectMessageSenderCode)
-                }
-                else if (sender != null)
-                {
-                    updateKeyAndStatus(sender!!, decodePayload!!)
-                }
-                else
-                {
-                    // We received a key, have the user select who it is from
-                    val selectSenderIntent = Intent(this, SelectKeySenderActivity::class.java)
-                    startActivityForResult(selectSenderIntent, RequestCodes.selectKeySenderCode)
-                }
-            } else {
-                this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
-            }
-        }
-    }
-
-    @ExperimentalUnsignedTypes
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == RequestCodes.selectMessageSenderCode) {
-                val selectedSender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
-                    ?.let { it as Friend }
-
-                if (selectedSender != null)
-
-                {
-                    if (decodePayload != null)
-                    {
-                        // Create Message Instance
-                        val newMessage = createAndSaveMessage(selectedSender, decodePayload!!)
-
-                        // Go to message view
-                        val messageArguments = MessageActivity.Arguments(message = newMessage)
-                        messageArguments.startActivity(this)
-                    } else {
-                        showAlert(getString(R.string.alert_text_unable_to_decode_message))
-                    }
-                } else {
-                    showAlert(getString(R.string.alert_text_unable_to_process_request))
-                }
-
-            } else if (requestCode == RequestCodes.selectKeySenderCode) {
-                val selectedSender = data?.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
-                    ?.let { it as Friend }
-
-                // Update this friend with a new key and a new status
-                if (selectedSender != null && decodePayload != null)
-                {
-                    updateKeyAndStatus(selectedSender, decodePayload!!)
-                }
-                else
-                {
-                    this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
-                }
-            }
-        }
-    }
-
-    private fun createAndSaveMessage(messageSender: Friend, messageData: ByteArray): Message
+    private fun handleMessageImport()
     {
-        val date = LocalDateTime.now()
-        val stringDate = date.format(DateTimeFormatter.ofPattern("M/d/y H:m"))
-        val newMessage = Message(stringDate, messageData, messageSender)
+        if (sender == null)
+        {
+            showAlert(getString(R.string.alert_text_which_friend_sent_this_message))
+        }
+        else
+        {
+            val messageText = import_message_text_view.text.toString()
+            if (messageText.isNotEmpty())
+            {
+                if (messageText.length > import_message_text_layout.counterMaxLength)
+                {
+                    showAlert(getString(R.string.alert_text_message_too_long))
+                    return
+                }
 
-        Persist.messageList.add(newMessage)
-        Persist.saveMessagesToFile(this)
+                val decodeResult = Codex().decode(messageText)
 
-        import_message_text_view.text?.clear()
+                if (decodeResult != null)
+                {
+                    when (decodeResult.type)
+                    {
+                        KeyOrMessage.EncryptedMessage ->
+                        {
+                            // Create Message Instance
+                            val newMessage = Message(decodeResult.payload, sender!!)
+                            newMessage.save(this)
 
-        return newMessage
+                            // Go to message view
+                            val messageArguments = MessageActivity.Arguments(message = newMessage)
+                            messageArguments.startActivity(this)
+                            import_message_text_view.text?.clear()
+                        }
+                        KeyOrMessage.Key ->
+                        {
+                            updateKeyAndStatus(sender!!, decodeResult.payload)
+                            import_message_text_view.text?.clear()
+                        }
+                    }
+                }
+                else
+                {
+                    this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
+                }
+            }
+        }
     }
 
     private fun updateKeyAndStatus(keySender: Friend, keyData: ByteArray)
@@ -221,28 +163,9 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
         }
     }
 
-    private fun makeWait()
-    {
-        imageImportProgressBar.visibility = View.VISIBLE
-        import_text_button.isEnabled = false
-        import_text_button.isClickable = false
-        import_message_text_view.isEnabled = false
-        import_message_text_view.isClickable = false
-    }
-
-    private fun noMoreWaiting()
-    {
-        imageImportProgressBar.visibility = View.INVISIBLE
-        import_text_button.isEnabled = true
-        import_text_button.isClickable = true
-        import_message_text_view.isEnabled = true
-        import_message_text_view.isClickable = true
-    }
-
     private fun cleanUp () {
-        decodePayload = null
         sender = null
-        import_message_text_view.text = null
+        import_message_text_view.text?.clear()
     }
 
 }

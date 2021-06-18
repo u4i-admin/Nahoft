@@ -15,6 +15,8 @@ data class Friends constructor(
 
         // First element
         verifiedFriends.add(0, Friend(" "))
+
+        // Get only verified friends
         for (friend in Persist.friendList) {
 
             if (friend.status == FriendStatus.Verified) {
@@ -27,12 +29,12 @@ data class Friends constructor(
 
     fun allFriendsSpinnerList(): Array<Friend>
     {
-        val verifiedFriends = ArrayList<Friend>()
-        verifiedFriends.addAll(Persist.friendList)
+        val allFriends = ArrayList<Friend>()
+        allFriends.addAll(Persist.friendList)
 
         // First spinner element should be blank
-        verifiedFriends.add(0, Friend(" "))
+        allFriends.add(0, Friend(" "))
 
-        return  verifiedFriends.toTypedArray()
+        return  allFriends.toTypedArray()
     }
 }
