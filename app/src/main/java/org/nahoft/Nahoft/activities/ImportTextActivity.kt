@@ -5,6 +5,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_import_text.*
 import kotlinx.android.synthetic.main.activity_import_text.imageImportProgressBar
@@ -14,13 +17,12 @@ import org.nahoft.codex.KeyOrMessage
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
-import org.nahoft.org.nahoft.swatch.Decoder
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.showAlert
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class ImportTextActivity: AppCompatActivity() {
+class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private var decodePayload: ByteArray? = null
     private var sender: Friend? = null
     private val parentJob = Job()
@@ -49,11 +51,38 @@ class ImportTextActivity: AppCompatActivity() {
         import_text_button.setOnClickListener {
             handleMessageImport()
         }
+
+        setupFriendDropdown()
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        if (position != 0) // The first value is a placeholder
+        {
+            val maybeFriend: Friend = parent?.selectedItem as Friend
+            maybeFriend.let { userTappedFriend: Friend ->
+                sender = userTappedFriend
+            }
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        //Stub
     }
 
     override fun onDestroy() {
         unregisterReceiver(receiver)
         super.onDestroy()
+    }
+
+    private fun setupFriendDropdown()
+    {
+        // Only show friends that have been verified
+        val allFriends = Friends().allFriendsSpinnerList()
+        val friendAdapter: ArrayAdapter<Friend> = ArrayAdapter(this, R.layout.spinner, allFriends)
+        val friendsSpinner: Spinner = findViewById(R.id.message_sender_spinner)
+        friendsSpinner.adapter = friendAdapter
+        friendsSpinner.onItemSelectedListener = this
+        friendsSpinner.setSelection(0, false)
     }
 
     /// If the message is decoded successfully, user will be sent to a select sender activity
@@ -93,12 +122,6 @@ class ImportTextActivity: AppCompatActivity() {
                 this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
             }
         }
-    }
-
-    private fun handleImageImport() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, RequestCodes.selectImageForSharingCode)
     }
 
     @ExperimentalUnsignedTypes
@@ -221,4 +244,5 @@ class ImportTextActivity: AppCompatActivity() {
         sender = null
         import_message_text_view.text = null
     }
+
 }
