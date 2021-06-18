@@ -46,7 +46,7 @@ class SettingPasscodeActivity : AppCompatActivity() {
             if (isChecked) {
                 // The destruction code switch is toggled on
                 destructionCodeIsChecked()
-                handlePasscodeRequirementChange(isChecked)
+                updateDestructionCodeInputs(isChecked)
             } else {
                 // The switch is toggled off
                 passcodeSwitchIsUnChecked()
@@ -76,9 +76,9 @@ class SettingPasscodeActivity : AppCompatActivity() {
     private fun updateSwitch() {
         if (Persist.status == LoginStatus.NotRequired)
         {
-            updateInputs(false)
+            updatePasscodeInputs(false)
         } else {
-            updateInputs(true)
+            updatePasscodeInputs(true)
         }
     }
 
@@ -122,14 +122,13 @@ class SettingPasscodeActivity : AppCompatActivity() {
            // Status is NotRequired
            Persist.status = LoginStatus.NotRequired
        }
-       updateInputs(required)
+       updatePasscodeInputs(required)
     }
 
-    private fun updateInputs(passcodeRequired: Boolean) {
+    private fun updatePasscodeInputs(passcodeRequired: Boolean) {
        if (passcodeRequired) {
            // Check for passcodes in shared preferences
            val maybePasscode = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefPasscodeKey, null)
-           val maybeSecondary = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefSecondaryPasscodeKey, null)
 
            // Passcode
            if (maybePasscode != null) {
@@ -139,19 +138,9 @@ class SettingPasscodeActivity : AppCompatActivity() {
                verify_passcode_input.setText(maybePasscode)
            }
 
-           // Secondary Passcode
-           if (maybeSecondary != null) {
-               // Populate our text inputs
-               enter_secondary_passcode_input.setText(maybeSecondary)
-               verify_secondary_passcode_input.setText(maybeSecondary)
-           }
-
            // Make sure that our passcodes are enabled
            enter_passcode_input.isEnabled = true
            verify_passcode_input.isEnabled = true
-           enter_secondary_passcode_input.isEnabled = true
-           verify_secondary_passcode_input.isEnabled = true
-
            passcode_submit_button.isEnabled = true
 
        } else {
@@ -169,6 +158,36 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
            passcode_submit_button.isEnabled = false
        }
+    }
+
+    private fun updateDestructionCodeInputs(passcodeRequired: Boolean) {
+        if (passcodeRequired) {
+        val maybeSecondary = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefSecondaryPasscodeKey, null)
+
+        // Secondary Passcode
+        if (maybeSecondary != null) {
+            destruction_code_switch.isChecked = true
+            // Populate our text inputs
+            enter_secondary_passcode_input.setText(maybeSecondary)
+            verify_secondary_passcode_input.setText(maybeSecondary)
+        }
+            // Make sure that our passcodes are enabled
+            enter_secondary_passcode_input.isEnabled = true
+            verify_secondary_passcode_input.isEnabled = true
+            destruction_code_submit_button.isEnabled = true
+
+        } else {
+            destruction_code_switch.isChecked = false
+
+            // Disable passcode inputs and clear them out
+
+            enter_secondary_passcode_input.text?.clear()
+            enter_secondary_passcode_input.isEnabled = false
+            verify_secondary_passcode_input.text?.clear()
+            verify_secondary_passcode_input.isEnabled = false
+
+            destruction_code_submit_button.isEnabled = false
+        }
     }
 
     private fun handleSaveButtonClick() {
