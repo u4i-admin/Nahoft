@@ -97,7 +97,7 @@ class MessageActivity : AppCompatActivity() {
 
     private fun cleanUp () {
         message = Message("", ByteArray(2))
-        sender_name_text_view.text = ""
+        friend_info_name_text_view.text = ""
         message_body_text_view.text = ""
     }
 }

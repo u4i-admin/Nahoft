@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/sender_name_text_view"
+        android:id="@+id/friend_info_name_text_view"
         android:layout_width="184dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -41,7 +41,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintStart_toEndOf="@+id/sender_name_text_view"
+        app:layout_constraintStart_toEndOf="@+id/friend_info_name_text_view"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

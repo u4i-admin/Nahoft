@@ -68,7 +68,7 @@ class Persist {
             }
         }
 
-        fun updateFriend(context: Context, friendToUpdate: Friend, newStatus: FriendStatus, encodedPublicKey: ByteArray? = null) {
+        fun updateFriend(context: Context, friendToUpdate: Friend, newName: String = friendToUpdate.name, newStatus: FriendStatus = friendToUpdate.status, encodedPublicKey: ByteArray? = null) {
 
             val oldFriend = friendList.find { it.name == friendToUpdate.name }
 
@@ -82,6 +82,8 @@ class Persist {
 
             oldFriend?.let {
                 oldFriend.status = newStatus
+                oldFriend.name = newName
+
                 encodedPublicKey?.let { oldFriend.publicKeyEncoded = encodedPublicKey }
             }
 
@@ -179,7 +181,7 @@ class Persist {
         {
             messageList.removeIf { it.sender == friend }
             friend.publicKeyEncoded = null
-            updateFriend(context, friend, FriendStatus.Default)
+            updateFriend(context, friend, newStatus = FriendStatus.Default)
 
             saveMessagesToFile(context)
             saveFriendsToFile(context)

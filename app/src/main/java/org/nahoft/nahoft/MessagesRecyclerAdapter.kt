@@ -58,7 +58,7 @@ class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : Recycl
 
         fun bindMessage(newMessage: Message) {
             this.message = newMessage
-            this.view.sender_name_text_view.text = newMessage.sender?.name
+            this.view.friend_info_name_text_view.text = newMessage.sender?.name
             this.view.date_text_view.text = newMessage.timestampString
         }
 
