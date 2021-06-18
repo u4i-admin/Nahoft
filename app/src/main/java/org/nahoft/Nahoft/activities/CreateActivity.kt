@@ -65,7 +65,7 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {
-        // Another interface callback
+        // stub
     }
 
     private fun setupOnClicks()

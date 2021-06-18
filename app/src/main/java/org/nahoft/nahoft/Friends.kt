@@ -17,12 +17,21 @@ data class Friends constructor(
         verifiedFriends.add(0, Friend(" "))
         for (friend in Persist.friendList) {
 
-//            if (friend.status == FriendStatus.Verified) {
-//                verifiedFriends.add(friend)
-//            }
-
-            verifiedFriends.add(friend)
+            if (friend.status == FriendStatus.Verified) {
+                verifiedFriends.add(friend)
+            }
         }
+
+        return  verifiedFriends.toTypedArray()
+    }
+
+    fun allFriendsSpinnerList(): Array<Friend>
+    {
+        val verifiedFriends = ArrayList<Friend>()
+        verifiedFriends.addAll(Persist.friendList)
+
+        // First spinner element should be blank
+        verifiedFriends.add(0, Friend(" "))
 
         return  verifiedFriends.toTypedArray()
     }

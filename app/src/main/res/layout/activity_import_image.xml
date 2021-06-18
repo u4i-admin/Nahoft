@@ -44,11 +44,31 @@
 
         </LinearLayout>
 
-        <Spinner
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="@dimen/padding_half"
-            android:background="@drawable/white_8_bkgd" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/padding_standard">
+
+            <TextView
+                android:id="@+id/to"
+                android:layout_width="48dp"
+                android:layout_height="40dp"
+                android:background="@drawable/green_8_btn_bkgd"
+                android:text="@string/from"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="@color/colorWarmWhite">
+            </TextView>
+
+            <Spinner
+                android:id="@+id/message_sender_spinner"
+                android:layout_width="264dp"
+                android:layout_height="40dp"
+                android:background="@drawable/white_8_right_radius_btn_bkgd"
+                android:popupBackground="@drawable/white_8_bkgd"/>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
