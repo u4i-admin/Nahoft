@@ -46,12 +46,13 @@
         </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/passcode_off_icon_text_switch_layout"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/passcodeSwitchImageView"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_marginStart="30dp"
@@ -89,7 +90,7 @@
                     </TextView>
 
                     <EditText
-                    android:id="@+id/setPasscodeEditTextOne"
+                    android:id="@+id/enter_passcode_input"
                     android:layout_width="312dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
@@ -99,7 +100,13 @@
                     android:maxLength="6"
                     android:textSize="22sp"
                     android:textAlignment="center"
-                    android:imeOptions="actionDone">
+                    android:imeOptions="actionDone"
+                        android:layout_marginEnd="13dp"
+                        android:layout_weight="1"
+                        android:autoSizeTextType="uniform"
+                        android:autoSizeMinTextSize="6dp"
+                        android:maxLines="6"
+                        android:minLines="6">
 
                 </EditText>
 
@@ -114,7 +121,7 @@
                     </TextView>
 
                     <EditText
-                        android:id="@+id/setPasscodeEditTextTwo"
+                        android:id="@+id/verify_passcode_input"
                         android:layout_width="312dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
@@ -124,7 +131,10 @@
                         android:maxLength="6"
                         android:textSize="22sp"
                         android:textAlignment="center"
-                        android:imeOptions="actionDone">
+                        android:imeOptions="actionDone"
+                            android:layout_marginEnd="13dp"
+                            android:layout_weight="1"
+                            android:maxLines="1">
 
                     </EditText>
 
@@ -144,6 +154,7 @@
             </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/destruction_off_icon_label_switch_layout"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -188,7 +199,7 @@
             </TextView>
 
             <EditText
-                android:id="@+id/setDestructionCodeEditTextOne"
+                android:id="@+id/enter_secondary_passcode_input"
                 android:layout_width="312dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
@@ -198,7 +209,11 @@
                 android:maxLength="6"
                 android:textSize="22sp"
                 android:textAlignment="center"
-                android:imeOptions="actionDone">
+                android:imeOptions="actionDone"
+                    android:layout_marginEnd="13dp"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:minLines="6">
 
             </EditText>
 
@@ -213,7 +228,7 @@
             </TextView>
 
             <EditText
-                android:id="@+id/setDestructionCodeEditTextTwo"
+                android:id="@+id/verify_secondary_passcode_input"
                 android:layout_width="312dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
@@ -223,7 +238,11 @@
                 android:maxLength="6"
                 android:textSize="22sp"
                 android:textAlignment="center"
-                android:imeOptions="actionDone">
+                android:imeOptions="actionDone"
+                    android:layout_marginEnd="13dp"
+                    android:layout_weight="1"
+                    android:minLines="6"
+                    android:maxLines="1">
 
             </EditText>
 

@@ -75,22 +75,22 @@ class PasscodeActivity : AppCompatActivity() {
             if (maybePasscode != null) {
                 passcode_switch.isChecked = true
                 // Populate our text inputs
-                enter_passcode_input.setText(maybePasscode)
-                verify_passcode_input.setText(maybePasscode)
+                enter_passcode_input_old.setText(maybePasscode)
+                verify_passcode_input_old.setText(maybePasscode)
             }
 
             // Secondary Passcode
             if (maybeSecondary != null) {
                 // Populate our text inputs
-                enter_secondary_passcode_input.setText(maybeSecondary)
-                verify_secondary_passcode_input.setText(maybeSecondary)
+                enter_secondary_passcode_input_old.setText(maybeSecondary)
+                verify_secondary_passcode_input_old.setText(maybeSecondary)
             }
 
             // Make sure that our passcodes are enabled
-            enter_passcode_input.isEnabled = true
-            verify_passcode_input.isEnabled = true
-            enter_secondary_passcode_input.isEnabled = true
-            verify_secondary_passcode_input.isEnabled = true
+            enter_passcode_input_old.isEnabled = true
+            verify_passcode_input_old.isEnabled = true
+            enter_secondary_passcode_input_old.isEnabled = true
+            verify_secondary_passcode_input_old.isEnabled = true
 
             save_passcode_button.isEnabled = true
             delete_passcode_button.isEnabled = true
@@ -99,14 +99,14 @@ class PasscodeActivity : AppCompatActivity() {
             passcode_switch.isChecked = false
 
             // Disable passcode inputs and clear them out
-            enter_passcode_input.text?.clear()
-            enter_passcode_input.isEnabled = false
-            verify_passcode_input.text?.clear()
-            verify_passcode_input.isEnabled = false
-            enter_secondary_passcode_input.text?.clear()
-            enter_secondary_passcode_input.isEnabled = false
-            verify_secondary_passcode_input.text?.clear()
-            verify_secondary_passcode_input.isEnabled = false
+            enter_passcode_input_old.text?.clear()
+            enter_passcode_input_old.isEnabled = false
+            verify_passcode_input_old.text?.clear()
+            verify_passcode_input_old.isEnabled = false
+            enter_secondary_passcode_input_old.text?.clear()
+            enter_secondary_passcode_input_old.isEnabled = false
+            verify_secondary_passcode_input_old.text?.clear()
+            verify_secondary_passcode_input_old.isEnabled = false
 
             save_passcode_button.isEnabled = false
             delete_passcode_button.isEnabled = false
@@ -133,10 +133,10 @@ class PasscodeActivity : AppCompatActivity() {
     }
 
     private fun handleSaveButtonClick() {
-        val passcode = enter_passcode_input.text.toString()
-        val passcode2 = verify_passcode_input.text.toString()
-        val secondaryPasscode = enter_secondary_passcode_input.text.toString()
-        val secondaryPasscode2 = verify_secondary_passcode_input.text.toString()
+        val passcode = enter_passcode_input_old.text.toString()
+        val passcode2 = verify_passcode_input_old.text.toString()
+        val secondaryPasscode = enter_secondary_passcode_input_old.text.toString()
+        val secondaryPasscode2 = verify_secondary_passcode_input_old.text.toString()
 
         if (passcode == "") {
             this.showAlert(getString(R.string.alert_text_passcode_field_empty))
@@ -279,10 +279,10 @@ class PasscodeActivity : AppCompatActivity() {
     }
 
     fun cleanup(){
-        enter_passcode_input.text.clear()
-        verify_passcode_input.text.clear()
-        enter_secondary_passcode_input.text.clear()
-        verify_secondary_passcode_input.text.clear()
+        enter_passcode_input_old.text.clear()
+        verify_passcode_input_old.text.clear()
+        enter_secondary_passcode_input_old.text.clear()
+        verify_secondary_passcode_input_old.text.clear()
     }
 
 }
