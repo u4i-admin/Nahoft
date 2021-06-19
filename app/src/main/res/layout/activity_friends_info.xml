@@ -43,9 +43,9 @@
 
     <Button
         android:id="@+id/edit_or_save_button"
-        android:layout_width="0dp"
+        android:layout_width="56dp"
         android:layout_height="24dp"
-        android:layout_marginStart="54dp"
+        android:layout_marginStart="@dimen/padding_doubled"
         android:layout_marginTop="42dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/transparent_overlay_radius_8_edit"
@@ -54,7 +54,7 @@
         android:textAllCaps="false"
         android:textColor="@color/colorWarmWhite"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/friends_info_two_text_heading"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,15 +62,15 @@
         android:id="@+id/friend_info_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_standard"
-        android:layout_marginEnd="@dimen/padding_standard"
-        android:layout_marginBottom="523dp"
+        android:layout_marginRight="@dimen/padding_standard"
+        android:layout_marginLeft="@dimen/padding_standard"
+        android:padding="@dimen/padding_half"
         android:background="@drawable/transparent_overlay_radius_8"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friends_info_two_text_heading">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friends_info_two_text_heading"
+        tools:ignore="RtlHardcoded">
 
         <LinearLayout
             android:id="@+id/nickname_status_container"
@@ -85,7 +85,7 @@
                 android:id="@+id/nickname_text_view"
                 android:layout_width="80dp"
                 android:layout_height="@dimen/padding_standard"
-                android:layout_marginStart="@dimen/padding_standard"
+                android:layout_marginStart="@dimen/padding_doubled"
                 android:text="@string/nickname"
                 android:textColor="@color/colorWarmWhite"
                 android:textSize="16sp"
@@ -95,7 +95,7 @@
                 android:id="@+id/status_container"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/padding_standard"
-                android:layout_marginStart="100dp"
+                android:layout_marginStart="@dimen/padding_doubled"
                 android:gravity="end"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/nickname_text_view"
@@ -112,7 +112,7 @@
                 <ImageView
                     android:id="@+id/status_icon_image_view"
                     android:layout_width="wrap_content"
-                    android:layout_height="26dp"
+                    android:layout_height="@dimen/padding_standard"
                     android:padding="@dimen/padding_quarter"
                     app:srcCompat="@drawable/status_icon_default" />
 
