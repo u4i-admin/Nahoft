@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/nahoft_icons_des_off_56" android:state_checked="false" android:state_enabled="true"/>
+    <item android:drawable="@drawable/nahoft_icons_des_on_56" android:state_checked="true" android:state_enabled="true"/>
+    <item android:drawable="@drawable/nahoft_icons_des_off_56" android:state_enabled="false"/>
+</selector>
