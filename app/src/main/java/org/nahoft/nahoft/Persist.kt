@@ -43,6 +43,28 @@ class Persist {
         var friendList = ArrayList<Friend>()
         var messageList = ArrayList<Message>()
 
+        fun getStatus()
+        {
+            val statusString = encryptedSharedPreferences.getString(Persist.sharedPrefLoginStatusKey, null)
+
+            status = if (statusString != null)
+            {
+                try
+                {
+                    LoginStatus.valueOf(statusString)
+                }
+                catch (error: Exception)
+                {
+                    print("Received invalid status from EncryptedSharedPreferences. User is logged out.")
+                    LoginStatus.LoggedOut
+                }
+            }
+            else
+            {
+                LoginStatus.NotRequired
+            }
+        }
+
         fun saveLoginStatus() {
             encryptedSharedPreferences
                 .edit()

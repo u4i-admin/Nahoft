@@ -8,48 +8,48 @@
     android:background="@color/royalBlueDark"
     tools:context=".activities.ImportTextActivity">
 
+    <ProgressBar
+        android:id="@+id/imageImportProgressBar"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
     <LinearLayout
         android:id="@+id/importTextActivityLayoutContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
+        android:layout_marginHorizontal="@dimen/padding_standard"
         tools:context=".activities.ImportTextActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="32dp">
-
+            android:layout_marginTop="@dimen/padding_standard">
             <ImageView
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:layout_marginStart="25dp"
-                android:layout_margin="@dimen/padding_half"
                 app:srcCompat="@drawable/nahoft_icons_import_text_56"
                 tools:ignore="ContentDescription" />
-
             <TextView
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="56dp"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:layout_margin="@dimen/padding_half"
                 android:fontFamily="@font/open_sans"
                 android:text="@string/import_text"
                 android:textAllCaps="false"
-                android:textColor="@drawable/button_text_color_light"
+                android:textColor="@color/white"
                 android:textSize="22sp"
                 tools:ignore="ContentDescription" />
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingVertical="@dimen/padding_standard">
-
+            android:paddingVertical="@dimen/padding_half">
             <TextView
                 android:id="@+id/to"
                 android:layout_width="48dp"
@@ -58,75 +58,62 @@
                 android:text="@string/from"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textColor="@color/colorWarmWhite">
+                android:textColor="@color/white">
             </TextView>
-
             <Spinner
                 android:id="@+id/message_sender_spinner"
-                android:layout_width="264dp"
-                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@drawable/white_8_right_radius_btn_bkgd"
                 android:popupBackground="@drawable/white_8_bkgd"/>
-
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/import_message_text_layout"
-            android:layout_width="312dp"
+            android:layout_width="match_parent"
             android:layout_height="256dp"
-            android:layout_marginHorizontal="@dimen/padding_standard"
             app:counterEnabled="true"
             app:counterTextColor="@color/colorWarmWhite"
             app:counterMaxLength="5000"
             app:boxBackgroundMode="outline"
             app:errorEnabled="true"
-            app:hintEnabled="false">
-
+            app:hintEnabled="false"
+            app:endIconMode="clear_text">
             <com.google.android.material.textfield.TextInputEditText
                 app:textInputLayoutFocusedRectEnabled="true"
                 android:id="@+id/import_message_text_view"
-                android:layout_width="312dp"
+                android:layout_width="match_parent"
                 android:layout_height="235dp"
-                android:padding="@dimen/padding_standard"
+                android:gravity="start"
+                android:padding="@dimen/padding_half"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine|textCapSentences"
                 android:hint="@string/paste_message_for_import_hint"
                 android:background="@drawable/white_8_bkgd" />
-
         </com.google.android.material.textfield.TextInputLayout>
-
-        <ProgressBar
-            android:id="@+id/imageImportProgressBar"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_gravity="center|bottom"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <Button
-                android:id="@+id/import_text_button"
-                android:layout_width="96dp"
-                android:layout_height="104dp"
-                android:contentDescription="@string/button_import_text_label"
-                android:background="@drawable/green_8_btn_bkgd"
-                android:drawableTop="@drawable/nahoft_icons_import_text_56"
-                android:layout_margin="@dimen/padding_half"
-                android:textColor="@color/colorWarmWhite"
-                android:textAllCaps="false"
-                android:textSize="16sp"
-                android:text="@string/import_text_label"/>
-
-        </LinearLayout>
 
     </LinearLayout>
 
+    <androidx.constraintlayout.widget.Barrier
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/importTextActivityLayoutContainer"
+        android:layout_above="@id/import_text_button"
+        app:barrierDirection="left" />
+    <Button
+        android:id="@+id/import_text_button"
+        android:layout_width="96dp"
+        android:layout_height="104dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/padding_standard"
+        android:background="@drawable/green_8_btn_bkgd"
+        android:contentDescription="@string/button_import_text_label"
+        android:drawableTop="@drawable/nahoft_icons_import_text_56"
+        android:text="@string/import_text_label"
+        android:textAllCaps="false"
+        android:textColor="@color/button_text_color"
+        android:textSize="16sp" />
 
 
 </RelativeLayout>

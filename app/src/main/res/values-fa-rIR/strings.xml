@@ -87,6 +87,7 @@
 <string name="alert_text_invitation_accepted"> $ {sender.name} دعوت شما را پذیرفت. اکنون می‌توانید به‌صورت ایمن ارتباط برقرار کنید.</string>
 <string name="alert_text_unable_to_update_friend_status">مشکلی رخ داد. به‌روزرسانی وضعیت دوست شما امکان‌پذیر نیست.</string>
 <string name="alert_text_which_friend_sent_this_message">کدام دوست این پیام را ارسال کرده است؟</string>
+<string name="alert_text_which_friend_sent_this_invitation">Which friend sent this invitation?</string>
 <string name="alert_text_friend_already_exists">شما قبلاً دوستی با این نام دارید.</string>
 <string name="alert_text_unable_to_process_request">"مشکلی رخ داد. پردازش درخواست شما امکان‌پذیر نیست."</string>
 <string name="input_hint_name">نام</string>

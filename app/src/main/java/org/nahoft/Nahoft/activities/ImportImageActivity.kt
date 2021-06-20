@@ -3,7 +3,9 @@ package org.nahoft.nahoft.activities
 import android.app.Activity
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -39,9 +41,12 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
         const val SENDER = "Sender"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_import_image)
+
+        makeSureAccessIsAllowed()
 
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
@@ -54,6 +59,21 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
         }
 
         setupFriendDropdown()
+        receiveSharedMessages()
+    }
+
+    override fun onResume()
+    {
+        super.onResume()
+
+        if (Persist.status == LoginStatus.NotRequired)
+        {
+            logout_button.visibility = View.INVISIBLE
+        }
+        else
+        {
+            logout_button.visibility = View.VISIBLE
+        }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -79,10 +99,78 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
     {
         val verifiedFriends = Friends().verifiedSpinnerList()
         val friendAdapter: ArrayAdapter<Friend> = ArrayAdapter(this, R.layout.spinner, verifiedFriends)
-        val friendsSpinner: Spinner = findViewById(R.id.message_sender_spinner)
-        friendsSpinner.adapter = friendAdapter
-        friendsSpinner.onItemSelectedListener = this
-        friendsSpinner.setSelection(0, false)
+        val friendSpinner: Spinner = findViewById(R.id.message_sender_spinner)
+        friendSpinner.adapter = friendAdapter
+        friendSpinner.onItemSelectedListener = this
+
+        // If sender != null select the correct friend in the spinner
+        if (sender != null)
+        {
+            friendSpinner.setSelection(friendAdapter.getPosition(sender))
+        }
+        else
+        {
+            friendSpinner.setSelection(0, false)
+        }
+    }
+
+    private fun receiveSharedMessages()
+    {
+        // Receive shared messages
+        if (intent?.action == Intent.ACTION_SEND)
+        {
+            if (intent.type?.startsWith("image/") == true)
+            {
+                val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
+                if (extraStream != null)
+                {
+                    (extraStream as? Uri)?.let {
+                        decodeImage(it)
+                    }
+                }
+            }
+            else
+            {
+                showAlert(getString(R.string.alert_text_unable_to_process_request))
+            }
+        }
+        else // See if we got intent extras from the EnterPasscode Activity
+        {
+            // See if we received an image message
+            val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
+            if (extraStream != null)
+            {
+                val extraUri = Uri.parse(extraStream.toString())
+                decodeImage(extraUri)
+            }
+        }
+    }
+
+    @ExperimentalUnsignedTypes
+    private fun decodeImage(imageUri: Uri)
+    {
+        makeWait()
+
+        val decodeResult: Deferred<ByteArray?> =
+            coroutineScope.async(Dispatchers.IO) {
+                val swatch = Decoder()
+                return@async swatch.decode(applicationContext, imageUri)
+            }
+
+        coroutineScope.launch(Dispatchers.Main) {
+            val maybeDecodeResult = decodeResult.await()
+            noMoreWaiting()
+
+            if (maybeDecodeResult != null)
+            {
+                decodePayload = maybeDecodeResult
+                handleImageDecodeResult()
+            }
+            else
+            {
+                showAlert(getString(R.string.alert_text_unable_to_decode_message))
+            }
+        }
     }
 
     private fun handleImageImport()
@@ -110,54 +198,90 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
                 // get data?.data as URI
                 val imageURI = data?.data
                 imageURI?.let {
-
-                    makeWait()
-
-                    val decodeResult: Deferred<ByteArray?> =
-                        coroutineScope.async(Dispatchers.IO) {
-                            val swatch = Decoder()
-                            return@async swatch.decode(applicationContext, imageURI)
-                    }
-
-                    coroutineScope.launch(Dispatchers.Main) {
-                        val maybeBytes = decodeResult.await()
-                        noMoreWaiting()
-                        if (maybeBytes != null)
-                        {
-                            handleImageDecodeResult(maybeBytes)
-                        }
-                        else
-                        {
-                            showAlert(getString(R.string.alert_text_unable_to_decode_message))
-                        }
-
-                    }
+                    decodeImage(it)
                 }
             }
         }
     }
 
-    private fun handleImageDecodeResult(messageBytes: ByteArray)
+    private fun handleImageDecodeResult()
     {
         if (sender != null)
         {
             sender?.let {
-                // Create Message Instance
-                val newMessage = Message(messageBytes, it)
-                newMessage.save(this)
 
-                // Go to message view
-                val messageArguments = MessageActivity.Arguments(message = newMessage)
-                messageArguments.startActivity(this)
+                if (decodePayload != null)
+                {
+                    decodePayload?.let { decodedBytes ->
+                        // Create Message Instance
+                        val newMessage = Message(decodedBytes, it)
+                        newMessage.save(this)
 
-                // Clear out the message view
-                import_message_text_view.text?.clear()
+                        // Go to message view
+                        val messageArguments = MessageActivity.Arguments(message = newMessage)
+                        messageArguments.startActivity(this)
+
+                        // Clear out the message view
+                        import_message_text_view.text?.clear()
+                    }
+                }
+                else
+                {
+                    showAlert(getString(R.string.alert_text_unable_to_decode_message))
+                }
             }
         }
         else
         {
             showAlert(getString(R.string.alert_text_which_friend_sent_this_message))
         }
+    }
+
+    private fun makeSureAccessIsAllowed()
+    {
+        Persist.getStatus()
+
+        if (Persist.status == LoginStatus.NotRequired || Persist.status == LoginStatus.LoggedIn)
+        {
+            return
+        }
+        else
+        {
+            sendToLogin()
+        }
+    }
+
+    private fun sendToLogin()
+    {
+        // If the status is not either NotRequired, or Logged in, request login
+        this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
+
+        // Send user to the EnterPasscode Activity
+        val loginIntent = Intent(applicationContext, EnterPasscodeActivity::class.java)
+
+        // We received a shared message but the user is not logged in
+        // Save the intent
+        if (intent?.action == Intent.ACTION_SEND)
+        {
+            if (intent.type?.startsWith("image/") == true)
+            {
+                val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
+                if (extraStream != null){
+                    val extraUri = Uri.parse(extraStream.toString())
+                    loginIntent.putExtra(Intent.EXTRA_STREAM, extraUri)
+                }
+                else
+                {
+                    println("Extra Stream is Null")
+                }
+            }
+            else
+            {
+                showAlert(getString(R.string.alert_text_unable_to_process_request))
+            }
+        }
+
+        startActivity(loginIntent)
     }
 
     private fun makeWait()

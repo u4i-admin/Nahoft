@@ -1,5 +1,6 @@
 package org.nahoft.nahoft.activities
 
+import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
@@ -28,9 +29,12 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
         const val SENDER = "Sender"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_import_text)
+
+        makeSureAccessIsAllowed()
 
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
@@ -43,6 +47,7 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
         }
 
         setupFriendDropdown()
+        receiveSharedMessages()
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -69,10 +74,97 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
         // Only show friends that have been verified
         val allFriends = Friends().allFriendsSpinnerList()
         val friendAdapter: ArrayAdapter<Friend> = ArrayAdapter(this, R.layout.spinner, allFriends)
-        val friendsSpinner: Spinner = findViewById(R.id.message_sender_spinner)
-        friendsSpinner.adapter = friendAdapter
-        friendsSpinner.onItemSelectedListener = this
-        friendsSpinner.setSelection(0, false)
+        val friendSpinner: Spinner = findViewById(R.id.message_sender_spinner)
+        friendSpinner.adapter = friendAdapter
+        friendSpinner.onItemSelectedListener = this
+
+        // If sender != null select the correct friend in the spinner
+        if (sender != null)
+        {
+            friendSpinner.setSelection(friendAdapter.getPosition(sender))
+        }
+        else
+        {
+            friendSpinner.setSelection(0, false)
+        }
+    }
+
+    private fun receiveSharedMessages()
+    {
+        // Receive shared messages
+        if (intent?.action == Intent.ACTION_SEND)
+        {
+            if (intent.type == "text/plain")
+            {
+                // Check to see if we received a text send intent
+                intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
+                    //Populate the edittext view
+                    import_message_text_view.setText(it)
+
+                    //Attempt to decode the message
+                    decodeStringMessage(it)
+                }
+            }
+            else
+            {
+                showAlert(getString(R.string.alert_text_unable_to_process_request))
+            }
+        }
+        else // See if we got intent extras from the EnterPasscode Activity
+        {
+            intent.getStringExtra(Intent.EXTRA_TEXT)?.let{
+                //Populate the edittext view
+                import_message_text_view.setText(it)
+
+                //Attempt to decode the message
+                decodeStringMessage(it)
+            }
+        }
+    }
+
+    private fun decodeStringMessage(messageString: String)
+    {
+        // Update UI to reflect text being shared
+        val decodeResult = Codex().decode(messageString)
+
+        if (decodeResult != null)
+        {
+            when (decodeResult.type)
+            {
+                KeyOrMessage.EncryptedMessage ->
+                {
+                    if (sender == null)
+                    {
+                        showAlert(getString(R.string.alert_text_which_friend_sent_this_message))
+                    }
+                    else
+                    {
+                        // Create Message Instance
+                        val newMessage = Message(decodeResult.payload, sender!!)
+                        newMessage.save(this)
+
+                        // Go to message view
+                        val messageArguments = MessageActivity.Arguments(message = newMessage)
+                        messageArguments.startActivity(this)
+                    }
+                }
+                KeyOrMessage.Key ->
+                {
+                    if (sender == null)
+                    {
+                        showAlert(getString(R.string.alert_text_which_friend_sent_this_invitation))
+                    }
+                    else
+                    {
+                        updateKeyAndStatus(sender!!, decodeResult.payload)
+                    }
+                }
+            }
+        }
+        else
+        {
+            this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
+        }
     }
 
     private fun handleMessageImport()
@@ -92,34 +184,7 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
                     return
                 }
 
-                val decodeResult = Codex().decode(messageText)
-
-                if (decodeResult != null)
-                {
-                    when (decodeResult.type)
-                    {
-                        KeyOrMessage.EncryptedMessage ->
-                        {
-                            // Create Message Instance
-                            val newMessage = Message(decodeResult.payload, sender!!)
-                            newMessage.save(this)
-
-                            // Go to message view
-                            val messageArguments = MessageActivity.Arguments(message = newMessage)
-                            messageArguments.startActivity(this)
-                            import_message_text_view.text?.clear()
-                        }
-                        KeyOrMessage.Key ->
-                        {
-                            updateKeyAndStatus(sender!!, decodeResult.payload)
-                            import_message_text_view.text?.clear()
-                        }
-                    }
-                }
-                else
-                {
-                    this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
-                }
+                decodeStringMessage(messageText)
             }
         }
     }
@@ -161,6 +226,46 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
             else ->
                 this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
         }
+    }
+
+    private fun makeSureAccessIsAllowed()
+    {
+        Persist.getStatus()
+
+        if (Persist.status == LoginStatus.NotRequired || Persist.status == LoginStatus.LoggedIn)
+        {
+            return
+        }
+        else
+        {
+            sendToLogin()
+        }
+    }
+
+    private fun sendToLogin()
+    {
+        // If the status is not either NotRequired, or Logged in, request login
+        this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
+
+        // Send user to the EnterPasscode Activity
+        val loginIntent = Intent(applicationContext, EnterPasscodeActivity::class.java)
+
+        // We received a shared message but the user is not logged in
+        // Save the intent
+        if (intent?.action == Intent.ACTION_SEND)
+        {
+            if (intent.type == "text/plain")
+            {
+                val messageString = intent.getStringExtra(Intent.EXTRA_TEXT)
+                loginIntent.putExtra(Intent.EXTRA_TEXT, messageString)
+            }
+            else
+            {
+                showAlert(getString(R.string.alert_text_unable_to_process_request))
+            }
+        }
+
+        startActivity(loginIntent)
     }
 
     private fun cleanUp () {

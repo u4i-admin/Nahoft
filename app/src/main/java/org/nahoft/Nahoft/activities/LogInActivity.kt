@@ -21,7 +21,8 @@ import org.nahoft.nahoft.R
 import org.nahoft.util.showAlert
 import java.util.concurrent.TimeUnit
 
-class EnterPasscodeActivity : AppCompatActivity() {
+class EnterPasscodeActivity : AppCompatActivity() 
+{
 
     private var failedLoginAttempts = 0
     private var lastFailedLoginTimeMillis: Long? = null
@@ -44,8 +45,7 @@ class EnterPasscodeActivity : AppCompatActivity() {
         Persist.loadEncryptedSharedPreferences(this.applicationContext)
 
         // Load status from preferences
-        this.getStatus()
-
+        getStatus()
         tryLogIn(status)
 
         login_button.setOnClickListener {
@@ -72,19 +72,21 @@ class EnterPasscodeActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private fun handleLoginPress() {
+    private fun handleLoginPress()
+    {
         val enteredPasscode = passcodeEditText.text.toString()
 
-        if (enteredPasscode != null) {
-            failedLoginAttempts = Persist.encryptedSharedPreferences.getInt(
-                sharedPrefFailedLoginAttemptsKey, 0
-            )
-            val savedTimeStamp = Persist.encryptedSharedPreferences.getLong(
-                sharedPrefFailedLoginTimeKey, 0
-            )
-            if (savedTimeStamp == 0.toLong()) {
+        if (enteredPasscode.isNotBlank())
+        {
+            failedLoginAttempts = Persist.encryptedSharedPreferences.getInt(sharedPrefFailedLoginAttemptsKey, 0)
+            val savedTimeStamp = Persist.encryptedSharedPreferences.getLong(sharedPrefFailedLoginTimeKey, 0)
+
+            if (savedTimeStamp == 0.toLong())
+            {
                 lastFailedLoginTimeMillis = null
-            } else {
+            }
+            else
+            {
                 lastFailedLoginTimeMillis = savedTimeStamp
             }
 
@@ -93,67 +95,84 @@ class EnterPasscodeActivity : AppCompatActivity() {
     }
 
     // Checks encryptedSharedPreferences for a valid login status and saves it to the status property
-    private fun getStatus() {
+    private fun getStatus()
+    {
 
         val statusString =
             Persist.encryptedSharedPreferences.getString(Persist.sharedPrefLoginStatusKey, null)
 
-        if (statusString != null) {
-
-            try {
+        if (statusString != null)
+        {
+            try
+            {
                 status = LoginStatus.valueOf(statusString)
-            } catch (error: Exception) {
+            }
+            catch (error: Exception)
+            {
                 print("Received invalid status from EncryptedSharedPreferences. User is logged out.")
                 status = LoginStatus.LoggedOut
             }
-        } else {
+        }
+        else
+        {
             status = LoginStatus.NotRequired
         }
     }
 
-    private fun saveStatus() {
+    private fun saveStatus()
+    {
         Persist.encryptedSharedPreferences
             .edit()
             .putString(Persist.sharedPrefLoginStatusKey, status.name)
             .apply()
     }
 
-    private fun tryLogIn(status: LoginStatus) {
-        when (status) {
+    private fun tryLogIn(status: LoginStatus)
+    {
+        when (status)
+        {
             // If the user has logged in successfully or if they didn't set a passcode
             // Send them to the home screen
-            LoginStatus.LoggedIn, LoginStatus.NotRequired -> {
-
-                val homeActivityIntent = Intent(this, HomeActivity::class.java)
-
-                // Check to see if we received a send intent
-                intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
-                    // Received string message
-                    homeActivityIntent.putExtra(Intent.EXTRA_TEXT, it)
-                }
-
-                // See if we received an image message
+            LoginStatus.LoggedIn, LoginStatus.NotRequired ->
+            {
+                val extraString = intent.getStringExtra(Intent.EXTRA_TEXT)
                 val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
-                if (extraStream != null) {
-                    val extraUri = Uri.parse(extraStream.toString())
-                    homeActivityIntent.putExtra(Intent.EXTRA_STREAM, extraUri)
-                } else {
-                    println("Extra Stream is Null")
-                }
 
-                startActivity(homeActivityIntent)
+                if (extraString != null) // Check to see if we received a string message share
+                {
+                    // Received string message
+                    val importTextActivityIntent = Intent(this, ImportTextActivity::class.java)
+                    importTextActivityIntent.putExtra(Intent.EXTRA_TEXT, extraString)
+                    startActivity(importTextActivityIntent)
+                    return
+                }
+                else if (extraStream != null) // See if we received an image message share
+                {
+                    val extraUri = Uri.parse(extraStream.toString())
+                    val importImageActivityIntent = Intent(this, ImportImageActivity()::class.java)
+                    importImageActivityIntent.putExtra(Intent.EXTRA_STREAM, extraUri)
+                    startActivity(importImageActivityIntent)
+                }
+                else
+                {
+                    val homeActivityIntent = Intent(this, HomeActivity::class.java)
+                    startActivity(homeActivityIntent)
+                }
             }
 
             // Secondary passcode entered delete user data
-            LoginStatus.SecondaryLogin -> {
+            LoginStatus.SecondaryLogin ->
+            {
                 Persist.clearAllData()
                 startActivity(Intent(this, HomeActivity::class.java))
             }
+
             else -> println("Login Status is $status")
         }
     }
 
-    private fun verifyCode(verificationCode: String) {
+    private fun verifyCode(verificationCode: String)
+    {
         if (verificationCode.isNotEmpty()) {
             //Check to see if the user is allowed to try to login.
             if (!loginAllowed()) {
@@ -192,8 +211,8 @@ class EnterPasscodeActivity : AppCompatActivity() {
         }
     }
 
-    private fun getLockoutMinutes(): Int {
-
+    private fun getLockoutMinutes(): Int
+    {
         if (failedLoginAttempts >= 9) {
             return 1000
         } else if (failedLoginAttempts == 8) {
@@ -285,7 +304,8 @@ class EnterPasscodeActivity : AppCompatActivity() {
         }
     }
 
-    private fun cleanup(){
+    private fun cleanup()
+    {
         passcodeEditText.text.clear()
     }
 }

@@ -19,35 +19,59 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".activities.ReadActivity"
-            android:screenOrientation="portrait"
-            android:excludeFromRecents="true"/>
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="org.nahoft.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true"
-            >
-
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
+        <activity
+            android:name=".activities.EnterPasscodeActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:excludeFromRecents="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.HomeActivity"
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="false"/>
+        <activity
+            android:name=".activities.ReadActivity"
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.VerifyFriendActivity"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
-            android:name=".activities.ImportImageActivity"
+            android:name=".activities.ImportImageActivity">
             android:screenOrientation="portrait"
-            android:excludeFromRecents="true"/>
+            android:excludeFromRecents="true"
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".activities.ImportTextActivity"
+            android:name=".activities.ImportTextActivity">
             android:screenOrientation="portrait"
-            android:excludeFromRecents="true"/>
+            android:excludeFromRecents="true"
+            <!-- Allows other apps to share text with us -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/*" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.AddFriendActivity"
             android:screenOrientation="portrait"
@@ -68,18 +92,6 @@
             android:name=".activities.PasscodeActivity"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
-        <activity
-            android:name=".activities.EnterPasscodeActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"
-            android:noHistory="true"
-            android:excludeFromRecents="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".activities.FriendsListActivity"
             android:screenOrientation="portrait"
@@ -121,31 +133,13 @@
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
-            android:name=".activities.HomeActivity"
-            android:screenOrientation="portrait"
-            android:excludeFromRecents="true"/>
-        <activity
             android:name=".activities.FriendsInfoActivity"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true">
-
             <!-- Allows other apps to share images with us -->
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="image/*" />
-            </intent-filter>
-            <!-- Allows other apps to share text with us -->
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/*" />
-            </intent-filter>
         </activity>
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
 </manifest>

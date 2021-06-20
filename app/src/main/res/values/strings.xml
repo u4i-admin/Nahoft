@@ -25,7 +25,7 @@
     <string name="button_label_compose_messages">Compose a Message</string>
     <string name="button_import_text_label">Import Text</string>
     <string name="button_import_image_label">Import Image</string>
-    <string name="saveImageButton">Save Image</string>
+    <string name="saveImageButton">Save as\nImage</string>
 
     <!-- New Messages Activity Alerts -->
     <string name="alert_text_verified_friends_only">You can only message a verified friend.</string>
@@ -85,6 +85,7 @@
     <string name="alert_text_invitation_accepted">${sender.name} accepted your invitation. You can now communicate securely.</string>
     <string name="alert_text_unable_to_update_friend_status">Something went wrong, we were unable to update your friend status.</string>
     <string name="alert_text_which_friend_sent_this_message">Which friend sent this message?</string>
+    <string name="alert_text_which_friend_sent_this_invitation">Which friend sent this invitation?</string>
     <string name="alert_text_friend_already_exists">You already have a friend with this name.</string>
     <string name="alert_text_unable_to_process_request">"Something went wrong. We were unable to process your request."</string>
     <string name="input_hint_name">Name</string>
@@ -297,7 +298,7 @@
     <string name="button_import_image_label_two">Import \nImage</string>
 
     <!-- Import Text Activity -->
-    <string name="import_text_label">Import \nText</string>
+    <string name="import_text_label">Import\nText</string>
 
     <!-- Settings Activity -->
     <string name="settings_activity_label">Settings</string>
@@ -307,8 +308,8 @@
 
     <!--Create Activity -->
     <string name="to">To</string>
-    <string name="sendAsTextButtonLabel">Send as \nText</string>
-    <string name="saveImageButtonLabel">Save \nImage</string>
+    <string name="sendAsTextButtonLabel">Send as\nText</string>
+    <string name="saveImageButtonLabel">Save as\nImage</string>
 
     <!-- Create Activity - will delete later - test -->
     <string-array name="friends_spinner_array">

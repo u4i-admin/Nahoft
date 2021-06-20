@@ -30,7 +30,8 @@ class FriendsInfoActivity: AppCompatActivity() {
     private val TAG = "FriendsInfoActivity"
     private var editingMode = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friends_info)
 
@@ -48,11 +49,11 @@ class FriendsInfoActivity: AppCompatActivity() {
         setupViewByStatus()
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        setupViewByStatus()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//
+//        setupViewByStatus()
+//    }
 
     private fun setClickListeners() {
         invite_button.setOnClickListener {
@@ -141,7 +142,8 @@ class FriendsInfoActivity: AppCompatActivity() {
         setupRequestedView()
     }
 
-    private fun declineClicked() {
+    private fun declineClicked()
+    {
         // Set Friend Status to Default
         thisFriend.status = FriendStatus.Default
         thisFriend.publicKeyEncoded = null
