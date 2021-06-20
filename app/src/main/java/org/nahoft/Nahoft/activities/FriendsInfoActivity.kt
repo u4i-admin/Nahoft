@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_friends_info.*
@@ -69,6 +70,10 @@ class FriendsInfoActivity: AppCompatActivity() {
         edit_or_save_button.setOnClickListener {
            saveOrEditClicked()
         }
+
+        verify_button.setOnClickListener {
+            verifyClicked()
+        }
     }
 
     private fun saveOrEditClicked() {
@@ -112,7 +117,7 @@ class FriendsInfoActivity: AppCompatActivity() {
         val keyBytes = userPublicKey.toBytes()
 
         // Share the key
-        ShareUtil.shareKey(applicationContext, keyBytes)
+        ShareUtil.shareKey(this, keyBytes)
 
         if (thisFriend.status == FriendStatus.Requested) {
             // We have already received an invitation from this friend.
@@ -126,13 +131,13 @@ class FriendsInfoActivity: AppCompatActivity() {
             setupInvitedView()
         }
 
-        Persist.updateFriend(applicationContext, thisFriend, newStatus = FriendStatus.Invited)
+        Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Invited)
     }
 
     private fun importInvitationClicked() {
-        val importIntent = Intent(applicationContext, ImportTextActivity::class.java)
+        val importIntent = Intent(this, ImportTextActivity::class.java)
         importIntent.putExtra(ImportTextActivity.SENDER, thisFriend)
-        applicationContext.startActivity(importIntent)
+        this.startActivity(importIntent)
         setupRequestedView()
     }
 
@@ -140,7 +145,7 @@ class FriendsInfoActivity: AppCompatActivity() {
         // Set Friend Status to Default
         thisFriend.status = FriendStatus.Default
         thisFriend.publicKeyEncoded = null
-        Persist.updateFriend(applicationContext, thisFriend, newStatus = FriendStatus.Default)
+        Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Default)
         setupDefaultView()
     }
 
@@ -151,8 +156,7 @@ class FriendsInfoActivity: AppCompatActivity() {
 
         // Display user public key as encoded text
         val userCode = codex.encodeKey(Encryption().ensureKeysExist().publicKey.toBytes())
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        //builder.setMessage(resources.getString(R.string.enter_nickname))
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AddFriendAlertDialogTheme))
 
         val friendCodeLabelTextView = TextView(this)
         friendCodeLabelTextView.text = getString(R.string.label_verify_friend_number, thisFriend.name)

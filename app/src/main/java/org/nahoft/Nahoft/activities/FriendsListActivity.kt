@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -72,7 +73,9 @@ class FriendsListActivity : AppCompatActivity(), ItemDragListener {
 
         // Set the input - EditText
         val inputEditText = EditText(this)
-        inputEditText.setBackgroundResource(R.drawable.grey_outline_8_btn_bkgd)
+        inputEditText.setBackgroundResource(R.drawable.grey_56_btn_bkgd)
+        inputEditText.inputType = InputType.TYPE_TEXT_VARIATION_PERSON_NAME
+        inputEditText.isSingleLine = true
         builder.setView(inputEditText)
 
         // Set the Add and Cancel Buttons
@@ -87,25 +90,13 @@ class FriendsListActivity : AppCompatActivity(), ItemDragListener {
                 }
             }
 
-        builder.setNegativeButton(resources.getString(R.string.cancel_button)) {
+        builder.setNeutralButton(resources.getString(R.string.cancel_button)) {
             dialog, _->
                 dialog.cancel()
         }
 
-        val addFriendDialog = builder.create()
-        addFriendDialog.show()
-        
-//        val positiveButton = addFriendDialog.getButton(DialogInterface.BUTTON_POSITIVE)
-//        positiveButton.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
-//        positiveButton.setTextColor(R.drawable.button_text_color_light)
-//        positiveButton.width = 96
-//        positiveButton.height = 26
-//        val negativeButton = addFriendDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
-//        negativeButton.setBackgroundResource(R.drawable.grey_56_btn_bkgd)
-//        negativeButton.setTextColor(R.drawable.button_text_color_dark)
-//        negativeButton.width = 96
-//        negativeButton.height = 26
-
+        .create()
+        .show()
     }
 
     private fun saveFriend(friendName: String) : Friend? {
