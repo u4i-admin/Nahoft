@@ -43,9 +43,9 @@
     <string name="initial_passcode_definition">Create a passcode so that a login will be required to use the app. Passcode rules are non-sequential, non-repeating, numbers only. </string>
     <string name="verify_passcode_hint">Verify Passcode</string>
     <string name="enter_passcode_hint">Enter Passcode</string>
-    <string name="secondary_passcode_definition">Entering a secondary passcode at login will delete all sensitive data.</string>
-    <string name="enter_secondary_passcode_hint">Enter Secondary Passcode</string>
-    <string name="verify_secondary_passcode_hint">Verify Secondary Passcode</string>
+    <string name="secondary_passcode_definition">Entering a destruction code at login will delete all sensitive data.</string>
+    <string name="enter_secondary_passcode_hint">Enter a destruction code</string>
+    <string name="verify_secondary_passcode_hint">Verify your destruction code</string>
     <string name="button_label_save">Save</string>
 
 
@@ -70,13 +70,14 @@
     <string name="button_label_verify_friend">Verify</string>
 
     <!-- Alert Strings -->
-    <string name="alert_text_passcode_field_empty">Passcode field is empty.</string>
-    <string name="alert_text_verify_passcode_field_empty">Verify passcode field is empty.</string>
+    <string name="alert_text_passcode_field_empty">The passcode field is empty.</string>
+    <string name="alert_text_verify_passcode_field_empty">Please verify your passcode.</string>
     <string name="alert_text_passcode_entries_do_not_match">Passcode entries do not match.</string>
-    <string name="alert_text_secondary_passcode_field_empty">Secondary passcode field is empty.</string>
-    <string name="alert_text_verify_secondary_passcode_empty">Please verify your secondary passcode.</string>
-    <string name="alert_text_secondary_passcode_entries_do_not_match">Secondary passcode entries do not match.</string>
-    <string name="alert_text_secondary_passcode_and_passcode_may_not_match">Secondary and initial passcode entries must not match.</string>
+    <string name="alert_text_secondary_passcode_field_empty">The destruction code field is empty.</string>
+    <string name="alert_text_verify_secondary_passcode_empty">Please verify your destruction code.</string>
+    <string name="alert_text_secondary_passcode_entries_do_not_match">Destruction code entries do not match.</string>
+    <string name="alert_text_passcode_required_for_destruction_code">You cannot create a destruction code until you create a passcode.</string>
+    <string name="alert_text_secondary_passcode_and_passcode_may_not_match">You cannot have a destruction code that is the same as your passcode.</string>
     <string name="alert_text_received_invitation">Received an invitation from %1$s. Send them an invitation to start communicating.</string>
     <string name="alert_text_passcode_required_to_proceed">Passcode required to proceed.</string>
     <string name="alert_text_unable_to_decode_message">Something went wrong. We were unable to decode this message.</string>
@@ -167,8 +168,8 @@
         \nNext, press the passcode icon.\n
         \nMove the toggle switch to allow the user to require a passcode.\n
         \nThe first two passcode lines set the passcode to gain entry into the app.\n
-        \nThe last two passcode lines set the secondary passcode.\n
-        \nThe secondary passcode exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.\n
+        \nThe last two passcode lines set the destruction code.\n
+        \nThe destruction code exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.\n
         \nHit save to keep all changes.\n\n</string>
 
     <string name="passcodes_user_guide_persian">
@@ -239,7 +240,7 @@
 
     <string name="dialog_button_home_help_title"> Home Screen Help </string>
     <string name="dialog_button_home_help">
-        \nSelect the gear to create passcodes. Both the primary and secondary passcodes can be managed here. \n
+        \nSelect the gear to create passcodes. Both the primary and destruction codes can be managed here. \n
         \nThe logout button will only appear once a passcode is set. \n
         \nSelect the button that looks like a book to see all user guides. \n
         \nSelect the people button to create a list of friends. These screens allow you to invite and verify friends you want to share messages with. \n

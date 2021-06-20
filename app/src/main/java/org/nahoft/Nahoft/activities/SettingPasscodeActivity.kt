@@ -42,11 +42,11 @@ class SettingPasscodeActivity : AppCompatActivity() {
         }
 
         passcode_submit_button.setOnClickListener {
-            handleSaveButtonClick()
+            savePasscode()
         }
 
         destruction_code_submit_button.setOnClickListener {
-            handleSaveButtonClick()
+            saveDestructionCode()
         }
     }
 
@@ -63,7 +63,7 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
     private fun setDefaultView()
     {
-        destruction_code_entry_layout.isGone = false
+        destruction_code_entry_layout.isGone = true
 
         if (Persist.status == LoginStatus.LoggedIn)
         {
@@ -99,11 +99,13 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
         // Check for Destruction Code
         val maybeDestructionCode = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefSecondaryPasscodeKey, null)
-        updateViewDestructionCodeOn(maybeDestructionCode)
+        maybeDestructionCode?.let { destructionCode ->
+            updateViewDestructionCodeOn(destructionCode)
+        }
     }
 
     private fun updateViewPasscodeOff () {
-        passcode_entry_layout.isGone = false
+        passcode_entry_layout.isGone = true
 
         // Disable passcode inputs and clear them out
         enter_passcode_input.text?.clear()
@@ -115,7 +117,7 @@ class SettingPasscodeActivity : AppCompatActivity() {
         updateViewDestructionCodeOff()
     }
 
-    private fun updateViewDestructionCodeOn(maybeDestructionCode: String?)
+    private fun updateViewDestructionCodeOn(maybeDestructionCode: String? = null)
     {
         // Secondary Passcode
         if (maybeDestructionCode == null)
@@ -156,9 +158,10 @@ class SettingPasscodeActivity : AppCompatActivity() {
     {
         if (required)
         {
-            updateViewPasscodeOn()
-       } else {
-
+            updateViewPasscodeOn(false)
+        }
+        else
+        {
             updateViewPasscodeOff()
            // Status is NotRequired
            Persist.status = LoginStatus.NotRequired
@@ -177,12 +180,10 @@ class SettingPasscodeActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleSaveButtonClick()
+    private fun savePasscode()
     {
         val passcode = enter_passcode_input.text.toString()
         val passcode2 = verify_passcode_input.text.toString()
-        val secondaryPasscode = destruction_code_input.text.toString()
-        val secondaryPasscode2 = verify_destruction_code_input.text.toString()
 
         if (passcode == "") {
             this.showAlert(getString(R.string.alert_text_passcode_field_empty))
@@ -206,53 +207,64 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
         Persist.saveKey(Persist.sharedPrefPasscodeKey, passcode)
 
+        // Set user status
+        Persist.status = LoginStatus.LoggedIn
+
+        // Allow Destruction Code
+        destruction_code_switch.isEnabled = true
+        passcode_entry_layout.isGone = true
+        showAlert("Your passcode has been saved.")
+    }
+
+    private fun saveDestructionCode()
+    {
+        val secondaryPasscode = destruction_code_input.text.toString()
+        val secondaryPasscode2 = verify_destruction_code_input.text.toString()
+        val maybePasscode = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefPasscodeKey, null)
+
+        if (maybePasscode == null)
+        {
+            showAlert(getString(R.string.alert_text_passcode_required_for_destruction_code))
+            return
+        }
+
         // If the user puts something in the verify secondary passcode field
         // but did not put something in the first secondary passcode field
         // show an error.
-        if(secondaryPasscode == "") {
-
-            if (secondaryPasscode2 != "") {
+        if(secondaryPasscode == "")
+        {
+            if (secondaryPasscode2 != "")
+            {
                 this.showAlert(getString(R.string.alert_text_secondary_passcode_field_empty))
-
                 return
-            } else {
-
-                // Set user status
-                Persist.status = LoginStatus.LoggedIn
-
-                // Return to previous screen
-                finish()
             }
-
-        } else { // User has entered a secondary passcode in the first field.
-
-            if (secondaryPasscode2 == "") {
+        }
+        else
+        { // User has entered a secondary passcode in the first field.
+            if (secondaryPasscode2 == "")
+            {
                 this.showAlert(getString(R.string.alert_text_verify_secondary_passcode_empty))
-
                 return
             }
 
-            if (secondaryPasscode != secondaryPasscode2) {
+            if (secondaryPasscode != secondaryPasscode2)
+            {
                 this.showAlert(getString(R.string.alert_text_secondary_passcode_entries_do_not_match))
-
                 return
             }
 
-            if (secondaryPasscode == passcode) {
-                this.showAlert(getString(R.string.alert_text_secondary_passcode_and_passcode_may_not_match))
 
+            if (secondaryPasscode == maybePasscode)
+            {
+                this.showAlert(getString(R.string.alert_text_secondary_passcode_and_passcode_may_not_match))
                 return
             }
 
             if (!passcodeMeetsRequirements(secondaryPasscode)) return
 
             Persist.saveKey(Persist.sharedPrefSecondaryPasscodeKey, secondaryPasscode)
-
-            // Set user status
-            Persist.status = LoginStatus.LoggedIn
-
-            // Return to previous screen
-            finish()
+            destruction_code_entry_layout.isGone = true
+            showAlert("Your destruction code has been saved.")
         }
     }
 
@@ -323,10 +335,10 @@ class SettingPasscodeActivity : AppCompatActivity() {
     }
 
     fun cleanup(){
-        enter_passcode_input.text.clear()
-        verify_passcode_input.text.clear()
-        destruction_code_input.text.clear()
-        verify_destruction_code_input.text.clear()
+        enter_passcode_input.text?.clear()
+        verify_passcode_input.text?.clear()
+        destruction_code_input.text?.clear()
+        verify_destruction_code_input.text?.clear()
     }
 }
 

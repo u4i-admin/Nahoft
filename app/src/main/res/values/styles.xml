@@ -15,9 +15,27 @@
 
     <style name="AddFriendAlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="android:width">256dp</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AppTheme.AlertPositiveButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/AppTheme.AlertNegativeButton</item>
         <item name="height">160dp</item>
-        <item name="colorSurface">@color/colorWarmWhite</item>
+        <item name="colorSurface">@color/white</item>
         <item name="android:textColor">@color/royalBlueDark</item>
+    </style>
+
+    <style name="AppTheme.AlertPositiveButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:width">104dp</item>
+        <item name="height">40dp</item>
+        <item name="android:background">@drawable/blue_56_btn_bkgd</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="android:textColor">@color/button_text_color</item>
+    </style>
+
+    <style name="AppTheme.AlertNegativeButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:width">104dp</item>
+        <item name="height">40dp</item>
+        <item name="android:background">@drawable/grey_56_btn_bkgd</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="android:textColor">@color/button_text_color</item>
     </style>
 
 </resources>

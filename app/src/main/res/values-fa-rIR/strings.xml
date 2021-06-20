@@ -78,6 +78,7 @@
 <string name="alert_text_secondary_passcode_field_empty">قسمت کدعبور ثانویه خالی است</string>
 <string name="alert_text_verify_secondary_passcode_empty">تأیید قسمت کدعبور ثانویه خالی است</string>
 <string name="alert_text_secondary_passcode_entries_do_not_match">ورودی‌های کدعبور ثانویه مطابقت ندارند</string>
+<string name="alert_text_passcode_required_for_destruction_code">You cannot create a destruction code until you create a passcode.</string>
 <string name="alert_text_secondary_passcode_and_passcode_may_not_match">ورودی‌های کدعبور ثانویه و اولیه نباید مطابقت داشته باشند.</string>
 <string name="alert_text_received_invitation">از %1$s دعوتنامه دریافت شد. دعوت آن‌ها را برای شروع ارتباط بپذیرید.</string>
 <string name="alert_text_passcode_required_to_proceed">برای ادامه کدعبور الزامی است</string>

@@ -1,11 +1,14 @@
 package org.nahoft.nahoft.activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.view.marginStart
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_friends_list.*
@@ -62,31 +65,47 @@ class FriendsListActivity : AppCompatActivity(), ItemDragListener {
         itemTouchHelper.attachToRecyclerView(friendsRecyclerView)
     }
 
-    private fun showAddFriendDialog() {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-            builder.setMessage(resources.getString(R.string.enter_nickname))
+    private fun showAddFriendDialog()
+    {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AddFriendAlertDialogTheme))
+        builder.setTitle(resources.getString(R.string.enter_nickname))
 
-            // Set the input - EditText
-            val inputEditText = EditText(this)
-            builder.setView(inputEditText)
+        // Set the input - EditText
+        val inputEditText = EditText(this)
+        inputEditText.setBackgroundResource(R.drawable.grey_outline_8_btn_bkgd)
+        builder.setView(inputEditText)
 
-            // Set the Add and Cancel Buttons
-            builder.setPositiveButton(resources.getString(R.string.add_button)) {
-                dialog, _->
-                    if (!inputEditText.text.isEmpty()) {
-                        val friendName = inputEditText.text.toString()
-                        val newFriend = saveFriend(friendName)
-                        val friendInfoActivityIntent = Intent(this, FriendsInfoActivity::class.java)
-                        friendInfoActivityIntent.putExtra(RequestCodes.friendExtraTaskDescription, newFriend)
-                        startActivity(friendInfoActivityIntent)
-                    }
+        // Set the Add and Cancel Buttons
+        builder.setPositiveButton(resources.getString(R.string.add_button)) {
+            dialog, _->
+                if (!inputEditText.text.isEmpty()) {
+                    val friendName = inputEditText.text.toString()
+                    val newFriend = saveFriend(friendName)
+                    val friendInfoActivityIntent = Intent(this, FriendsInfoActivity::class.java)
+                    friendInfoActivityIntent.putExtra(RequestCodes.friendExtraTaskDescription, newFriend)
+                    startActivity(friendInfoActivityIntent)
                 }
-            builder.setNegativeButton(resources.getString(R.string.cancel_button)) {
-                dialog, _->
-                    dialog.cancel()
             }
-                    .create()
-                    .show()
+
+        builder.setNegativeButton(resources.getString(R.string.cancel_button)) {
+            dialog, _->
+                dialog.cancel()
+        }
+
+        val addFriendDialog = builder.create()
+        addFriendDialog.show()
+        
+//        val positiveButton = addFriendDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+//        positiveButton.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+//        positiveButton.setTextColor(R.drawable.button_text_color_light)
+//        positiveButton.width = 96
+//        positiveButton.height = 26
+//        val negativeButton = addFriendDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
+//        negativeButton.setBackgroundResource(R.drawable.grey_56_btn_bkgd)
+//        negativeButton.setTextColor(R.drawable.button_text_color_dark)
+//        negativeButton.width = 96
+//        negativeButton.height = 26
+
     }
 
     private fun saveFriend(friendName: String) : Friend? {

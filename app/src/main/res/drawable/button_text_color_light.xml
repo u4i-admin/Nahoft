@@ -4,7 +4,7 @@
     <!-- Focused and not pressed -->
     <item android:state_focused="true"
         android:state_pressed="false"
-        android:color="@color/colorWarmWhite" />
+        android:color="@color/white" />
 
     <!-- Focused and pressed -->
     <item android:state_focused="true"
@@ -14,9 +14,9 @@
     <!-- Unfocused and pressed -->
     <item android:state_focused="false"
         android:state_pressed="true"
-        android:color="@color/colorAccent" />
+        android:color="@color/white" />
 
     <!-- Default color -->
-    <item android:color="@color/colorWarmWhite" />
+    <item android:color="@color/white" />
 
 </selector>
