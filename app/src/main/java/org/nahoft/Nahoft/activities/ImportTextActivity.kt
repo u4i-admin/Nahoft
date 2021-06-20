@@ -16,7 +16,8 @@ import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
 import org.nahoft.util.showAlert
 
-class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListener
+{
     private var sender: Friend? = null
 
     private val receiver by lazy {

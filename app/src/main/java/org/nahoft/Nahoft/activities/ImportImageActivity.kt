@@ -62,20 +62,6 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
         receiveSharedMessages()
     }
 
-    override fun onResume()
-    {
-        super.onResume()
-
-        if (Persist.status == LoginStatus.NotRequired)
-        {
-            logout_button.visibility = View.INVISIBLE
-        }
-        else
-        {
-            logout_button.visibility = View.VISIBLE
-        }
-    }
-
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         if (position != 0) // The first value is a placeholder
         {

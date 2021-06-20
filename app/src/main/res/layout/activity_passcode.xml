@@ -1,38 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.widget.RelativeLayout
-
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:minLines="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.PasscodeActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/padding_standard"
             android:layout_marginVertical="32dp"
             android:orientation="vertical">
-
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/passcode_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_standard"
                 android:text="@string/switch_label_require_passcode" />
-
             <TextView
                 android:id="@+id/initial_passcode_definition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_standard"
                 android:text="@string/initial_passcode_definition" />
-
         <LinearLayout
             android:id="@+id/layout_passcode_initial"
             android:layout_width="match_parent"
