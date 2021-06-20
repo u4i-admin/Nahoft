@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.friend_recyclerview_item_row.view.*
-import org.nahoft.nahoft.activities.FriendsInfoActivity
+import org.nahoft.nahoft.activities.FriendInfoActivity
 import org.nahoft.util.inflate
 import org.nahoft.nahoft.ui.ItemTouchHelperListener
 import org.nahoft.util.RequestCodes
@@ -64,7 +64,7 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
         {
             if (friend != null)
             {
-                val friendInfoIntent = Intent(this.view.context, FriendsInfoActivity::class.java)
+                val friendInfoIntent = Intent(this.view.context, FriendInfoActivity::class.java)
                 friendInfoIntent.putExtra(RequestCodes.friendExtraTaskDescription, friend)
                 this.view.context.startActivity(friendInfoIntent)
             }

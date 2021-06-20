@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import kotlinx.android.synthetic.main.activity_friends_info.*
+import kotlinx.android.synthetic.main.activity_friend_info.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
@@ -23,7 +23,7 @@ import org.nahoft.nahoft.R
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 
-class FriendsInfoActivity: AppCompatActivity() {
+class FriendInfoActivity: AppCompatActivity() {
 
     private lateinit var thisFriend: Friend
 
@@ -33,7 +33,7 @@ class FriendsInfoActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_friends_info)
+        setContentView(R.layout.activity_friend_info)
 
         // Get our pending friend
         val maybeFriend = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription) as? Friend

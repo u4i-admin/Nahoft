@@ -1,31 +1,19 @@
 package org.nahoft.nahoft.activities
 
-import android.app.Activity
 import android.content.Intent
 import android.content.IntentFilter
-import android.net.Uri
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_create.*
-import kotlinx.android.synthetic.main.activity_read.*
-import kotlinx.coroutines.*
-import org.nahoft.codex.Codex
-import org.nahoft.codex.KeyOrMessage
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
 import org.nahoft.nahoft.Persist.Companion.friendsFilename
 import org.nahoft.nahoft.Persist.Companion.messagesFilename
 import org.nahoft.nahoft.Persist.Companion.status
-import org.nahoft.org.nahoft.swatch.Decoder
-import org.nahoft.util.RequestCodes
 import org.nahoft.util.showAlert
 import java.io.File
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class HomeActivity : AppCompatActivity()
 {
@@ -186,7 +174,7 @@ class HomeActivity : AppCompatActivity()
 
         // Friends
         friends_button.setOnClickListener {
-            val friendsIntent = Intent(this, FriendsListActivity::class.java)
+            val friendsIntent = Intent(this, FriendListActivity::class.java)
             startActivity(friendsIntent)
         }
 

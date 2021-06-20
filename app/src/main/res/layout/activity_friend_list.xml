@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/royalBlueDark"
-    tools:context=".activities.FriendsListActivity">
+    tools:context=".activities.FriendListActivity">
 
     <LinearLayout
         android:id="@+id/friends_list_activity_heading"
