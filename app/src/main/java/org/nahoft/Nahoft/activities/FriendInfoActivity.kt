@@ -73,7 +73,7 @@ class FriendInfoActivity: AppCompatActivity() {
         }
 
         verify_button.setOnClickListener {
-            verifyClicked()
+            verifyFriendDialog()
         }
 
         send_message_button.setOnClickListener {
@@ -118,10 +118,6 @@ class FriendInfoActivity: AppCompatActivity() {
 
         // Update view to not be in the correct mode
         setupViewByStatus()
-    }
-
-    private fun verifyClicked() {
-        verifyFriendDialog()
     }
 
     private fun sendMessageClicked()
@@ -192,7 +188,7 @@ class FriendInfoActivity: AppCompatActivity() {
 
         // Display user public key as encoded text
         val userCode = codex.encodeKey(Encryption().ensureKeysExist().publicKey.toBytes())
-        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AddFriendAlertDialogTheme))
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_VerifyAlertDialog))
 
         val friendCodeLabelTextView = TextView(this)
         friendCodeLabelTextView.text = getString(R.string.label_verify_friend_number, thisFriend.name)
@@ -217,7 +213,7 @@ class FriendInfoActivity: AppCompatActivity() {
                 encodedPublicKey = thisFriend.publicKeyEncoded
             )
         }
-        builder.setNegativeButton(resources.getString(R.string.button_label_reset)) {
+        builder.setNeutralButton(resources.getString(R.string.button_label_reset)) {
                 dialog, _->
             thisFriend.publicKeyEncoded = null
             Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Default)

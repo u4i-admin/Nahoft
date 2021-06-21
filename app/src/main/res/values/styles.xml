@@ -13,33 +13,46 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="AddFriendAlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
-        <item name="android:width">256dp</item>
+    <style name="AppTheme.AlertDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="android:padding">2dp</item>
         <item name="android:dialogCornerRadius">8dp</item>
         <item name="android:gravity">center_horizontal</item>
-        <item name="buttonBarPositiveButtonStyle">@style/AppTheme.AlertPositiveButton</item>
-        <item name="buttonBarNeutralButtonStyle">@style/AppTheme.AlertNeutralButton</item>
         <item name="colorSurface">@color/white</item>
         <item name="android:textColor">@color/royalBlueDark</item>
     </style>
 
-    <style name="AppTheme.AlertPositiveButton" parent="@style/Widget.AppCompat.Button.Colored">
-        <item name="android:background">@drawable/blue_56_btn_bkgd</item>
+    <style name="AppTheme.AddFriendAlertDialog" parent="AppTheme.AlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/AppTheme.AlertButtonBlue</item>
+        <item name="buttonBarNeutralButtonStyle">@style/AppTheme.AlertButtonGrey</item>
+    </style>
+
+    <style name="AppTheme.VerifyAlertDialog" parent="AppTheme.AlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/AppTheme.AlertButtonBlue</item>
+        <item name="buttonBarNeutralButtonStyle">@style/AppTheme.AlertButtonOrange</item>
+    </style>
+
+    <style name="AppTheme.AlertButton" parent="@style/Widget.AppCompat.Button.Colored">
         <item name="android:width">104dp</item>
-        <item name="height">40dp</item>
         <item name="minHeight">40dp</item>
+        <item name="height">40dp</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/button_text_color</item>
     </style>
 
-    <style name="AppTheme.AlertNeutralButton" parent="@style/Widget.AppCompat.Button.Colored">
+    <style name="AppTheme.AlertButtonBlue" parent="AppTheme.AlertButton">
+        <item name="android:background">@drawable/blue_56_btn_bkgd</item>
+    </style>
+
+    <style name="AppTheme.AlertButtonRed" parent="AppTheme.AlertButton">
+        <item name="android:background">@drawable/red_56_btn_bkgd</item>
+    </style>
+
+    <style name="AppTheme.AlertButtonGrey" parent="AppTheme.AlertButton">
         <item name="android:background">@drawable/grey_56_btn_bkgd</item>
-        <item name="android:width">104dp</item>
-        <item name="minHeight">40dp</item>
-        <item name="height">40dp</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/button_text_color</item>
+    </style>
+
+    <style name="AppTheme.AlertButtonOrange" parent="AppTheme.AlertButton">
+        <item name="android:background">@drawable/orange_56_btn_bkgd</item>
     </style>
 
 </resources>

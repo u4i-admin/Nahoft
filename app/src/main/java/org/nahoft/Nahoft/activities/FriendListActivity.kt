@@ -71,7 +71,7 @@ class FriendListActivity : AppCompatActivity(), ItemDragListener {
 
     private fun showAddFriendDialog()
     {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AddFriendAlertDialogTheme))
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_AddFriendAlertDialog))
         builder.setTitle(resources.getString(R.string.enter_nickname))
 
         // Set the input - EditText
