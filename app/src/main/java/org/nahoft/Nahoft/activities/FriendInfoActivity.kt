@@ -79,6 +79,14 @@ class FriendInfoActivity: AppCompatActivity() {
         send_message_button.setOnClickListener {
             sendMessageClicked()
         }
+
+        import_image_button.setOnClickListener {
+            importImageClicked()
+        }
+
+        import_text_button.setOnClickListener {
+            importTextClicked()
+        }
     }
 
     private fun saveOrEditClicked() {
@@ -121,6 +129,20 @@ class FriendInfoActivity: AppCompatActivity() {
         val createActivityIntent = Intent(this, CreateActivity::class.java)
         createActivityIntent.putExtra(RequestCodes.friendExtraTaskDescription, thisFriend)
         startActivity(createActivityIntent)
+    }
+
+    private fun importImageClicked()
+    {
+        val importImageActivityIntent = Intent(this, ImportImageActivity::class.java)
+        importImageActivityIntent.putExtra(RequestCodes.friendExtraTaskDescription, thisFriend)
+        startActivity(importImageActivityIntent)
+    }
+
+    private fun importTextClicked()
+    {
+        val importTextActivityIntent = Intent(this, ImportTextActivity::class.java)
+        importTextActivityIntent.putExtra(RequestCodes.friendExtraTaskDescription, thisFriend)
+        startActivity(importTextActivityIntent)
     }
 
     private fun inviteClicked()

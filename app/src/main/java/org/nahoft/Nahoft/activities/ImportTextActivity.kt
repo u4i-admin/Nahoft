@@ -14,6 +14,7 @@ import org.nahoft.codex.KeyOrMessage
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
+import org.nahoft.util.RequestCodes
 import org.nahoft.util.showAlert
 
 class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListener
@@ -41,7 +42,12 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
             addAction(LOGOUT_TIMER_VAL)
         })
 
-        sender = intent.getSerializableExtra(ImportImageActivity.SENDER) as Friend?
+        // Check to see if a friend was slected in a previous activity
+        val maybeFriend = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription) as? Friend
+        if (maybeFriend != null)
+        {
+            sender = maybeFriend
+        }
 
         import_text_button.setOnClickListener {
             handleMessageImport()

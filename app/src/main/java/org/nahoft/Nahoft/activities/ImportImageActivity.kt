@@ -52,7 +52,12 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
             addAction(LOGOUT_TIMER_VAL)
         })
 
-        sender = intent.getSerializableExtra(SENDER) as Friend?
+        // Check to see if a friend was slected in a previous activity
+        val maybeFriend = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription) as? Friend
+        if (maybeFriend != null)
+        {
+            sender = maybeFriend
+        }
 
         import_image_button.setOnClickListener {
             handleImageImport()
