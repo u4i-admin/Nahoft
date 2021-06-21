@@ -49,11 +49,11 @@ class FriendInfoActivity: AppCompatActivity() {
         setupViewByStatus()
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//
-//        setupViewByStatus()
-//    }
+    override fun onResume() {
+        super.onResume()
+
+        setupViewByStatus()
+    }
 
     private fun setClickListeners() {
         invite_button.setOnClickListener {
@@ -74,6 +74,10 @@ class FriendInfoActivity: AppCompatActivity() {
 
         verify_button.setOnClickListener {
             verifyClicked()
+        }
+
+        send_message_button.setOnClickListener {
+            sendMessageClicked()
         }
     }
 
@@ -112,7 +116,15 @@ class FriendInfoActivity: AppCompatActivity() {
         verifyFriendDialog()
     }
 
-    private fun inviteClicked() {
+    private fun sendMessageClicked()
+    {
+        val createActivityIntent = Intent(this, CreateActivity::class.java)
+        createActivityIntent.putExtra(RequestCodes.friendExtraTaskDescription, thisFriend)
+        startActivity(createActivityIntent)
+    }
+
+    private fun inviteClicked()
+    {
         // Get user's public key to send to contact
         val userPublicKey = Encryption().ensureKeysExist().publicKey
         val keyBytes = userPublicKey.toBytes()

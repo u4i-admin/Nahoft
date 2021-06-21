@@ -6,6 +6,7 @@ import android.content.*
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -25,11 +26,13 @@ import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 import org.nahoft.util.showAlert
 
-class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-
-    private var selectedFriend: Friend? = null
+class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
+{
+    private val TAG = "CreateActivity"
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
+
+    private var selectedFriend: Friend? = null
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
@@ -44,6 +47,13 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
         })
+
+        // Check to see if a friend was slected in a previous activity
+        val maybeFriend = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription) as? Friend
+        if (maybeFriend != null)
+        {
+            selectedFriend = maybeFriend
+        }
 
         setupFriendDropdown()
         setupOnClicks()
