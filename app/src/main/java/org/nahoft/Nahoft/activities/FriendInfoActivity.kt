@@ -4,14 +4,21 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity.CENTER
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.LinearLayout.VERTICAL
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.core.view.marginBottom
+import androidx.core.view.marginTop
 import kotlinx.android.synthetic.main.activity_friend_info.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Codex
@@ -86,6 +93,10 @@ class FriendInfoActivity: AppCompatActivity() {
 
         import_text_button.setOnClickListener {
             importTextClicked()
+        }
+
+        verification_code_button.setOnClickListener {
+            showVerificationCodeDialog()
         }
     }
 
@@ -181,7 +192,8 @@ class FriendInfoActivity: AppCompatActivity() {
         setupDefaultView()
     }
 
-    private fun verifyFriendDialog() {
+    private fun createVerificationDialogBuilder():AlertDialog.Builder
+    {
         // Display friend public key as encoded text.
         val codex = Codex()
         val friendCode = codex.encodeKey(PublicKey(thisFriend.publicKeyEncoded).toBytes())
@@ -192,19 +204,42 @@ class FriendInfoActivity: AppCompatActivity() {
 
         val friendCodeLabelTextView = TextView(this)
         friendCodeLabelTextView.text = getString(R.string.label_verify_friend_number, thisFriend.name)
-        builder.setView(friendCodeLabelTextView)
+        friendCodeLabelTextView.setTextAppearance(R.style.AppTheme_AlertTextTitle)
+        friendCodeLabelTextView.gravity = CENTER
 
         val friendCodeTextView = TextView(this)
         friendCodeTextView.text = friendCode
-        builder.setView(friendCodeTextView)
+        friendCodeTextView.setTextAppearance(R.style.AppTheme_AlertText)
 
         val userCodeLabelTextView = TextView(this)
         userCodeLabelTextView.text = getString(R.string.label_verify_friend_user_number)
-        builder.setView(userCodeLabelTextView)
+        userCodeLabelTextView.setTextAppearance(R.style.AppTheme_AlertTextTitle)
+        userCodeLabelTextView.gravity = CENTER
 
         val userCodeTextView = TextView(this)
         userCodeTextView.text = userCode
-        builder.setView(userCodeTextView)
+        userCodeTextView.setTextAppearance(R.style.AppTheme_AlertText)
+
+        val verificationCodeLayout = LinearLayout(this)
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+
+        verificationCodeLayout.layoutParams = params
+        verificationCodeLayout.orientation = VERTICAL
+        verificationCodeLayout.addView(friendCodeLabelTextView)
+        verificationCodeLayout.addView(friendCodeTextView)
+        verificationCodeLayout.addView(userCodeLabelTextView)
+        verificationCodeLayout.addView(userCodeTextView)
+        builder.setView(verificationCodeLayout)
+
+        return builder
+    }
+
+    private fun verifyFriendDialog()
+    {
+        val builder = createVerificationDialogBuilder()
 
         // Set the Add and Cancel Buttons
         builder.setPositiveButton(resources.getString(R.string.ok_button)) {
@@ -213,12 +248,26 @@ class FriendInfoActivity: AppCompatActivity() {
                 encodedPublicKey = thisFriend.publicKeyEncoded
             )
         }
+
         builder.setNeutralButton(resources.getString(R.string.button_label_reset)) {
                 dialog, _->
             thisFriend.publicKeyEncoded = null
             Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Default)
             dialog.cancel()
         }
+            .create()
+            .show()
+    }
+
+    fun showVerificationCodeDialog()
+    {
+        val builder = createVerificationDialogBuilder()
+
+        builder.setPositiveButton(resources.getString(R.string.ok_button)) {
+                dialog, _->
+            //stub
+        }
+
             .create()
             .show()
     }

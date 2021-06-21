@@ -15,10 +15,11 @@
 
     <style name="AppTheme.AlertDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="android:padding">2dp</item>
+        <item name="alertDialogCenterButtons">true</item>
         <item name="android:dialogCornerRadius">8dp</item>
-        <item name="android:gravity">center_horizontal</item>
         <item name="colorSurface">@color/white</item>
         <item name="android:textColor">@color/royalBlueDark</item>
+        <item name="buttonBarButtonStyle">@style/AppTheme.AlertButton</item>
     </style>
 
     <style name="AppTheme.AddFriendAlertDialog" parent="AppTheme.AlertDialog">
@@ -32,9 +33,8 @@
     </style>
 
     <style name="AppTheme.AlertButton" parent="@style/Widget.AppCompat.Button.Colored">
-        <item name="android:width">104dp</item>
+        <item name="minWidth">104dp</item>
         <item name="minHeight">40dp</item>
-        <item name="height">40dp</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/button_text_color</item>
     </style>
@@ -53,6 +53,17 @@
 
     <style name="AppTheme.AlertButtonOrange" parent="AppTheme.AlertButton">
         <item name="android:background">@drawable/orange_56_btn_bkgd</item>
+    </style>
+
+    <style name="AppTheme.AlertText" parent="TextAppearance.AppCompat">
+        <item name="android:textAlignment">center</item>
+        <item name="color">@color/royalBlueDark</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="AppTheme.AlertTextTitle" parent="TextAppearance.AppCompat.Headline">
+        <item name="color">@color/royalBlueDark</item>
+        <item name="android:textSize">19sp</item>
     </style>
 
 </resources>
