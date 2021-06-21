@@ -205,10 +205,10 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
         if (!passcodeMeetsRequirements(passcode)) return
 
-        Persist.saveKey(Persist.sharedPrefPasscodeKey, passcode)
-
         // Set user status
         Persist.status = LoginStatus.LoggedIn
+        Persist.saveKey(Persist.sharedPrefPasscodeKey, passcode)
+        Persist.saveLoginStatus()
 
         // Allow Destruction Code
         destruction_code_switch.isEnabled = true
@@ -263,6 +263,7 @@ class SettingPasscodeActivity : AppCompatActivity() {
             if (!passcodeMeetsRequirements(secondaryPasscode)) return
 
             Persist.saveKey(Persist.sharedPrefSecondaryPasscodeKey, secondaryPasscode)
+
             destruction_code_entry_layout.isGone = true
             showAlert("Your destruction code has been saved.")
         }

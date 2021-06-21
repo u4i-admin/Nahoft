@@ -119,6 +119,8 @@ class FriendInfoActivity: AppCompatActivity() {
                 }
 
                 thisFriend.name = newName
+                friend_info_name_text_view.text = thisFriend.name
+
             }
         }
         else // Edit clicked

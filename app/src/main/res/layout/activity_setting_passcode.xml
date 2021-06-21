@@ -42,6 +42,7 @@
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/passcode_switch"
+            app:trackTint="@color/coolGrey"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_marginVertical="@dimen/padding_half"
@@ -127,6 +128,7 @@
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/destruction_code_switch"
+            app:trackTint="@color/coolGrey"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_marginVertical="@dimen/padding_half"
