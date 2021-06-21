@@ -76,6 +76,7 @@ class FriendListActivity : AppCompatActivity(), ItemDragListener {
 
         // Set the input - EditText
         val inputEditText = EditText(this)
+        // TODO: Add correct background
         inputEditText.setBackgroundResource(R.drawable.grey_56_btn_bkgd)
         inputEditText.inputType = InputType.TYPE_TEXT_VARIATION_PERSON_NAME
         inputEditText.textAlignment = View.TEXT_ALIGNMENT_CENTER
