@@ -12,6 +12,7 @@
     <color name="madderLake">#C13333</color>
     <color name="coolGrey">#8494B6</color>
     <color name="white">#ffffff</color>
+    <color name="lightGrey">#33334D85</color>
 
     <!--   a darker variant of the primary color, used for
            the status bar (on Android 5.0+) and contextual app bars -->
