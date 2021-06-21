@@ -6,7 +6,6 @@ import android.content.*
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -28,7 +27,6 @@ import org.nahoft.util.showAlert
 
 class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 {
-    private val TAG = "CreateActivity"
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
 
@@ -104,7 +102,16 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         val friendsSpinner: Spinner = findViewById(R.id.message_recipient_spinner)
         friendsSpinner.adapter = friendAdapter
         friendsSpinner.onItemSelectedListener = this
-        friendsSpinner.setSelection(0, false)
+
+        if (selectedFriend == null)
+        {
+            friendsSpinner.setSelection(0, false)
+        }
+        else
+        {
+            friendsSpinner.setSelection(friendAdapter.getPosition(selectedFriend!!), false)
+        }
+
     }
 
     private fun pickImageFromGallery(saveImage: Boolean) {

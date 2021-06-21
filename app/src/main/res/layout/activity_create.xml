@@ -70,6 +70,7 @@
                 android:id="@+id/message_recipient_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:background="@drawable/white_8_right_radius_btn_bkgd"
                 android:popupBackground="@drawable/white_8_bkgd"/>
         </LinearLayout>
