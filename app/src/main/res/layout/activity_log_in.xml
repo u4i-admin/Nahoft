@@ -29,7 +29,7 @@
         android:gravity="center"
         android:text="@string/enter_passcode"
         android:textSize="16sp"
-        android:textColor="@color/colorWarmWhite">
+        android:textColor="@color/white">
 
     </TextView>
 
@@ -58,6 +58,6 @@
         android:text="@string/Login"
         android:textAllCaps="false"
         android:textSize="18sp"
-        android:textColor="@color/colorWarmWhite" />
+        android:textColor="@color/button_text_color" />
 
 </LinearLayout>

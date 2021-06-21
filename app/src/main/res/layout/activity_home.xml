@@ -33,7 +33,7 @@
                 android:background="@drawable/read_button_home"
                 android:drawableLeft="@drawable/nahoft_icons_read_56"
                 android:paddingLeft="@dimen/padding_standard"
-                android:textColor="@color/colorWarmWhite"
+                android:textColor="@color/button_text_color"
                 android:textSize="24sp"
                 android:textAllCaps="false"
                 android:text="@string/button_label_read" />
@@ -46,7 +46,7 @@
                 android:drawableRight="@drawable/nahoft_icons_create_56"
                 android:paddingRight="@dimen/padding_half"
                 android:background="@drawable/create_button_home"
-                android:textColor="@color/colorWarmWhite"
+                android:textColor="@color/button_text_color"
                 android:textSize="24sp"
                 android:textAllCaps="false"
                 android:text="@string/button_label_create" />

@@ -82,7 +82,7 @@
             app:boxBackgroundMode="outline"
             app:counterEnabled="true"
             app:counterMaxLength="1000"
-            app:counterTextColor="@color/colorWarmWhite"
+            app:counterTextColor="@color/button_text_color"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
             app:hintEnabled="false">
@@ -131,7 +131,7 @@
                 android:drawableTop="@drawable/nahoft_icons_send_image_56"
                 android:text="@string/sendAsImageButton"
                 android:textAllCaps="false"
-                android:textColor="@color/colorWarmWhite"
+                android:textColor="@color/button_text_color"
                 android:textSize="16sp" />
 
             <Button
@@ -146,7 +146,7 @@
                 android:drawableTop="@drawable/nahoft_icons_send_text_56"
                 android:text="@string/sendAsTextButtonLabel"
                 android:textAllCaps="false"
-                android:textColor="@color/colorWarmWhite"
+                android:textColor="@color/button_text_color"
                 android:textSize="16sp" />
 
         </LinearLayout>

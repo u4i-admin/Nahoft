@@ -2,10 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="312dp"
+    android:layout_width="match_parent"
     android:layout_height="48dp"
     android:layout_marginVertical="@dimen/padding_half"
-    android:layout_marginHorizontal="@dimen/padding_standard"
     android:background="@drawable/transparent_overlay_radius_8">
 
     <TextView
@@ -28,7 +27,7 @@
         android:layout_height="16dp"
         android:layout_marginEnd="5dp"
         android:textSize="15sp"
-        android:textColor="@color/colorWarmWhite"
+        android:textColor="@color/white"
         android:text="@string/default_status"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

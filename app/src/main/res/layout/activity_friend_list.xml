@@ -38,6 +38,7 @@
         android:id="@+id/friendsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/padding_standard"
         android:layout_below="@id/friends_list_activity_heading"
         android:scrollbars="vertical" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -45,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_standard"
-        android:backgroundTint="@color/colorWarmWhite"
+        android:backgroundTint="@color/white"
         android:clickable="true"
         android:contentDescription="@string/content_description_add_friend_button"
         android:tint="@color/caribbeanGreen"

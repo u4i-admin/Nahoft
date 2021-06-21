@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
-        android:background="@color/royalBlueDark"
-        android:foregroundTint="@color/colorWarmWhite" />
+        android:background="@color/royalBlueDark" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_half"
             android:text="@string/button_label_english"
-            android:backgroundTint="@color/colorWarmWhite"
+            android:backgroundTint="@color/white"
             android:textColor="@drawable/button_text_color_dark"/>
         <Button
             android:id="@+id/import_ug_persian_button"
@@ -31,7 +31,7 @@
             android:layout_margin="@dimen/padding_half"
             android:text="@string/button_label_persian"
             android:textColor="@drawable/button_text_color_dark"
-            android:backgroundTint="@color/colorWarmWhite"/>
+            android:backgroundTint="@color/white"/>
     </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
@@ -43,7 +43,7 @@
             android:padding="@dimen/padding_standard"
             android:textSize="15sp"
             android:scrollHorizontally="true"
-            android:background="@color/colorWarmWhite"
+            android:background="@color/white"
             android:text="@string/importing_user_guide_persian"/>
     </ScrollView>
     </LinearLayout>

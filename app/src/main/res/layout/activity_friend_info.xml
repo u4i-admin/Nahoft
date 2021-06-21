@@ -69,6 +69,7 @@
             android:id="@+id/nickname_status_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_half"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,8 +77,9 @@
             <TextView
                 android:id="@+id/nickname_text_view"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/padding_standard"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginVertical="@dimen/padding_quarter"
                 android:text="@string/nickname"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -86,6 +88,7 @@
                 android:id="@+id/status_container"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/padding_standard"
+                android:layout_marginVertical="@dimen/padding_quarter"
                 android:gravity="end"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toEndOf="@id/nickname_text_view"
@@ -95,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/padding_standard"
                     android:text="@string/default_status"
-                    android:textColor="@color/colorWarmWhite"
+                    android:textColor="@color/white"
                     android:textSize="15sp" />
                 <ImageView
                     android:id="@+id/status_icon_image_view"
@@ -109,10 +112,9 @@
         <EditText
             android:id="@+id/friend_name_edit_text"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/royalBlueDark"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/verification_code_button"
             app:layout_constraintEnd_toEndOf="@id/friend_info_container"
             app:layout_constraintStart_toStartOf="@id/friend_info_container"
             app:layout_constraintTop_toBottomOf="@id/nickname_status_container"
@@ -120,12 +122,10 @@
         <TextView
             android:id="@+id/friend_info_name_text_view"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
             android:text="@string/unknown_sender_label"
-            android:textColor="@color/colorWarmWhite"
+            android:textColor="@color/white"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/verification_code_button"
             app:layout_constraintEnd_toEndOf="@id/friend_info_container"
             app:layout_constraintStart_toStartOf="@id/friend_info_container"
             app:layout_constraintTop_toBottomOf="@id/nickname_status_container" />
@@ -134,7 +134,8 @@
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:paddingHorizontal="@dimen/padding_quarter"
-            android:layout_marginVertical="@dimen/padding_half"
+            android:layout_marginTop="@dimen/padding_doubled"
+            android:layout_marginBottom="@dimen/padding_half"
             android:background="@drawable/green_outline_8_btn_bkgd"
             android:text="@string/verification_code"
             android:textAlignment="center"
@@ -142,7 +143,7 @@
             android:textColor="@color/button_text_color"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/friend_info_container"
-            app:layout_constraintTop_toBottomOf="@id/friend_info_name_text_view" />
+            app:layout_constraintTop_toBottomOf="@id/nickname_status_container" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -211,9 +212,10 @@
             <Button
                 android:id="@+id/send_message_button"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginRight="@dimen/padding_half"
+                android:padding="@dimen/padding_half"
                 android:background="@drawable/purple_8_btn_bkgd"
                 android:contentDescription="@string/send_message"
                 android:text="@string/send_message"
@@ -224,8 +226,9 @@
             <Button
                 android:id="@+id/import_image_button"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="@dimen/padding_half"
                 android:layout_marginRight="@dimen/padding_half"
                 android:background="@drawable/green_8_btn_bkgd"
                 android:contentDescription="@string/import_image"
@@ -237,7 +240,8 @@
             <Button
                 android:id="@+id/import_text_button"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_half"
                 android:layout_weight="1"
                 android:background="@drawable/green_8_btn_bkgd"
                 android:contentDescription="@string/import_text"

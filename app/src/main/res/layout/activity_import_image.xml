@@ -52,7 +52,7 @@
                 android:id="@+id/to"
                 android:layout_width="48dp"
                 android:layout_height="40dp"
-                android:background="@drawable/green_8_btn_bkgd"
+                android:background="@drawable/green_8_left_radius_btn_bkgd"
                 android:text="@string/from"
                 android:textAlignment="center"
                 android:gravity="center"

@@ -9,6 +9,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_friend_list.*
@@ -80,6 +81,7 @@ class FriendListActivity : AppCompatActivity(), ItemDragListener {
         inputEditText.inputType = InputType.TYPE_TEXT_VARIATION_PERSON_NAME
         inputEditText.textAlignment = View.TEXT_ALIGNMENT_CENTER
         inputEditText.isSingleLine = true
+        inputEditText.setTextColor(ContextCompat.getColor(this, R.color.royalBlueDark))
         builder.setView(inputEditText)
 
         // Set the Add and Cancel Buttons
