@@ -168,14 +168,14 @@ class FriendInfoActivity: AppCompatActivity() {
             // Set friend status to approved.
             thisFriend.status = FriendStatus.Approved
             setupApprovedView()
+            Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Approved)
         } else {
             // We have not received an invitation from this friend.
             // Set friend status to Invited
             thisFriend.status = FriendStatus.Invited
             setupInvitedView()
+            Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Invited)
         }
-
-        Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Invited)
     }
 
     private fun importInvitationClicked() {
