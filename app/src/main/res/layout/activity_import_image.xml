@@ -82,6 +82,7 @@
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/button_import_image_label_two"
         android:background="@drawable/green_8_btn_bkgd"
+        android:foreground="?android:attr/selectableItemBackground"
         android:drawableTop="@drawable/nahoft_icons_send_image_56"
         android:layout_marginBottom="@dimen/padding_standard"
         android:textColor="@color/button_text_color"
