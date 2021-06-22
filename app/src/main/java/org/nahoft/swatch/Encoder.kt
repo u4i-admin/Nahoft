@@ -3,6 +3,7 @@ package org.nahoft.org.nahoft.swatch
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.ExifInterface
 import android.net.Uri
 import org.nahoft.stencil.CapturePhotoUtils
 import org.nahoft.stencil.ImageSize
@@ -12,28 +13,41 @@ import org.nahoft.util.SaveUtil
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
-class Encoder {
+
+class Encoder
+{
     @ExperimentalUnsignedTypes
-    fun encode(context: Context, encrypted: ByteArray, coverUri: Uri, saveToGallery: Boolean): Uri? {
-        // Get the photo
-        val cover = BitmapFactory.decodeStream(context.contentResolver.openInputStream(coverUri))
-        val result = encode(encrypted, cover)
-
-        val title = ""
-        val description = ""
-
-        if (result == null)
+    fun encode(context: Context, encrypted: ByteArray, coverUri: Uri, saveToGallery: Boolean): Uri?
+    {
+        var inputStream = context.contentResolver.openInputStream(coverUri)
+        if (inputStream == null)
         {
             return null
         }
 
+        val exifInterface = ExifInterface(inputStream)
+        val orientation: String = exifInterface.getAttribute(ExifInterface.TAG_ORIENTATION) ?: ExifInterface.ORIENTATION_UNDEFINED.toString()
+
+        // Refresh inputStream
+        inputStream = context.contentResolver.openInputStream(coverUri)
+
+        // Get the photo
+        val cover = BitmapFactory.decodeStream(inputStream)
+        val result = encode(encrypted, cover)
+        val title = ""
+        val description = ""
+
+        if (result == null) { return null }
+
         if (saveToGallery)
         {
             val saved = SaveUtil.saveImageToGallery(context, result, title, description)
-            if (saved) {
+            if (saved)
+            {
                 return coverUri
             }
-            else {
+            else
+            {
                 return null
             }
         }
@@ -44,7 +58,8 @@ class Encoder {
     }
 
     @ExperimentalUnsignedTypes
-    fun encode(encrypted: ByteArray, cover: Bitmap): Bitmap? {
+    fun encode(encrypted: ByteArray, cover: Bitmap): Bitmap?
+    {
         var workingCover = cover
 
         // Convert message size from bytes to bits
