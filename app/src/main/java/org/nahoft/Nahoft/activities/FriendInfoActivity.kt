@@ -103,13 +103,6 @@ class FriendInfoActivity: AppCompatActivity() {
         }
     }
 
-    fun deleteFriend()
-    {
-        Persist.friendList.remove(thisFriend)
-        Persist.saveFriendsToFile(this)
-        finish()
-    }
-
     private fun saveOrEditClicked()
     {
         if (editingMode) // Save clicked
@@ -303,6 +296,13 @@ class FriendInfoActivity: AppCompatActivity() {
 
         builder.create()
         builder.show()
+    }
+
+    fun deleteFriend()
+    {
+        Persist.friendList.remove(thisFriend)
+        Persist.saveFriendsToFile(this)
+        finish()
     }
 
     private fun setupViewByStatus() {
