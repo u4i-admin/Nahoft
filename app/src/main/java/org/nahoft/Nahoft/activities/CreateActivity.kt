@@ -38,10 +38,11 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create)
-
+        
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
         })

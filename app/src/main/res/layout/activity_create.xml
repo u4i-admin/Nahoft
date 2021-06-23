@@ -8,13 +8,6 @@
     android:background="@color/royalBlueDark"
     tools:context=".activities.CreateActivity">
 
-    <ProgressBar
-        android:id="@+id/imageShareProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="invisible" />
-
     <LinearLayout
         android:id="@+id/composeMessageContainer"
         android:layout_width="match_parent"
@@ -155,5 +148,12 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/imageShareProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
 
 </RelativeLayout>
