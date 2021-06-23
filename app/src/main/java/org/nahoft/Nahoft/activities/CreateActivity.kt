@@ -305,24 +305,22 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         }
     }
 
-    private fun makeWait() {
+    private fun makeWait()
+    {
         imageShareProgressBar.visibility = View.VISIBLE
+        save_image_button.isEnabled = false
         send_as_text_button.isEnabled = false
-        send_as_image_button.isClickable = false
         send_as_image_button.isEnabled = false
-        send_as_image_button.isClickable = false
         message_recipient_spinner.isEnabled = false
-        message_recipient_spinner.isClickable = false
     }
 
-    private fun noMoreWaiting() {
+    private fun noMoreWaiting()
+    {
         imageShareProgressBar.visibility = View.INVISIBLE
+        save_image_button.isEnabled = true
         send_as_text_button.isEnabled = true
-        send_as_text_button.isClickable = true
         send_as_image_button.isEnabled = true
-        send_as_image_button.isClickable = true
         message_recipient_spinner.isEnabled = true
-        message_recipient_spinner.isClickable = true
     }
 
     private fun cleanUp() {

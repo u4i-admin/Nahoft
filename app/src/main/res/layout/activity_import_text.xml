@@ -10,7 +10,8 @@
 
     <ProgressBar
         android:id="@+id/imageImportProgressBar"
-        android:layout_centerInParent="true"
+        android:layout_below="@id/importTextActivityLayoutContainer"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible" />
@@ -91,7 +92,6 @@
                 android:hint="@string/paste_message_for_import_hint"
                 android:background="@drawable/white_8_bkgd" />
         </com.google.android.material.textfield.TextInputLayout>
-
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Barrier

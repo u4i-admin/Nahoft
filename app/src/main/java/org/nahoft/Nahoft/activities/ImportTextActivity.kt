@@ -71,7 +71,8 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
         //Stub
     }
 
-    override fun onDestroy() {
+    override fun onDestroy()
+    {
         unregisterReceiver(receiver)
         super.onDestroy()
     }
