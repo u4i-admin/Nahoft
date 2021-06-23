@@ -27,10 +27,6 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
         }
     }
 
-    companion object {
-        const val SENDER = "Sender"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)

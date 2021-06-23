@@ -8,13 +8,16 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_import_image.*
 import kotlinx.android.synthetic.main.activity_import_image.imageImportProgressBar
-import kotlinx.android.synthetic.main.activity_import_image.import_image_button
 import kotlinx.android.synthetic.main.activity_import_text.*
 import kotlinx.coroutines.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
@@ -24,8 +27,9 @@ import org.nahoft.org.nahoft.swatch.Decoder
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.showAlert
 
-class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
+class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListener
+{
     private var decodePayload: ByteArray? = null
     private var sender: Friend? = null
     private val parentJob = Job()
@@ -35,10 +39,6 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
         LogoutTimerBroadcastReceiver {
             cleanUp()
         }
-    }
-
-    companion object {
-        const val SENDER = "Sender"
     }
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -197,32 +197,86 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
 
     private fun handleImageDecodeResult()
     {
-        if (sender != null)
+        if (decodePayload == null)
         {
-            sender?.let {
+            showAlert(getString(R.string.alert_text_unable_to_decode_message))
+            return
+        }
 
-                if (decodePayload != null)
+        if (sender == null)
+        {
+            showSelectFriendAlert(decodePayload!!)
+            return
+        }
+
+        saveMessage(decodePayload!!, sender!!)
+    }
+
+    private fun showSelectFriendAlert(cipherBytes: ByteArray)
+    {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_AddFriendAlertDialog))
+        builder.setTitle(resources.getString(R.string.alert_text_which_friend_sent_this_message))
+
+        val chooseFriendSpinner = Spinner(this)
+        val verifiedFriends = Friends().verifiedSpinnerList()
+        val friendAdapter: ArrayAdapter<Friend> = ArrayAdapter(this, R.layout.spinner, verifiedFriends)
+        var chosenFriend: Friend? = null
+        chooseFriendSpinner.adapter = friendAdapter
+        chooseFriendSpinner.setBackgroundResource(R.drawable.grey_outline_8_btn_bkgd)
+        chooseFriendSpinner.setOnItemSelectedListener(object : OnItemSelectedListener
+        {
+            override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, l: Long)
+            {
+                if (position != 0) // The first value is a placeholder
                 {
-                    decodePayload?.let { decodedBytes ->
-                        // Create Message Instance
-                        val newMessage = Message(decodedBytes, it)
-                        newMessage.save(this)
-
-                        // Go to message view
-                        val messageArguments = MessageActivity.Arguments(message = newMessage)
-                        messageArguments.startActivity(this)
+                    val maybeFriend: Friend = adapterView.getItemAtPosition(position) as Friend
+                    maybeFriend.let { userTappedFriend: Friend ->
+                        chosenFriend = userTappedFriend
                     }
                 }
-                else
-                {
-                    showAlert(getString(R.string.alert_text_unable_to_decode_message))
-                }
             }
+
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {}
+        })
+
+        builder.setView(chooseFriendSpinner)
+
+        // Set the Add and Cancel Buttons
+        builder.setPositiveButton(resources.getString(R.string.ok_button)) {
+                dialog, _->
+            //stub
         }
-        else
-        {
-            showAlert(getString(R.string.alert_text_which_friend_sent_this_message))
+
+        builder.setNeutralButton(resources.getString(R.string.cancel_button)) {
+                dialog, _->
+            dialog.cancel()
         }
+
+        val dialog = builder.create()
+        dialog.show()
+
+        // Keep the dialog open if a sender hasn't been selected
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
+            var wantToCloseDialog = false
+
+            if (chosenFriend != null)
+            {
+                chosenFriend?.let { saveMessage(cipherBytes, it) }
+                wantToCloseDialog = true
+            }
+
+            if (wantToCloseDialog) dialog.dismiss()
+        })
+    }
+
+    private fun saveMessage(cipherBytes: ByteArray, messageSender: Friend)
+    {
+        val newMessage = Message(cipherBytes, messageSender)
+        newMessage.save(this)
+
+        // Go to message view
+        val messageArguments = MessageActivity.Arguments(message = newMessage)
+        messageArguments.startActivity(this)
     }
 
     private fun makeSureAccessIsAllowed()
