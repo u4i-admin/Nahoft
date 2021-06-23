@@ -215,7 +215,7 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
                         keySender.name
                     )
                 )
-                finish()
+                goToFriendList()
             }
 
             FriendStatus.Invited ->
@@ -228,12 +228,18 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
                 )
 
                 this.showAlert(keySender.name, (R.string.alert_text_invitation_accepted))
-                finish()
+                goToFriendList()
             }
 
             else ->
                 this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
         }
+    }
+
+    private fun goToFriendList()
+    {
+        val friendListIntent = Intent(this, FriendListActivity::class.java)
+        startActivity(friendListIntent)
     }
 
     private fun makeSureAccessIsAllowed()

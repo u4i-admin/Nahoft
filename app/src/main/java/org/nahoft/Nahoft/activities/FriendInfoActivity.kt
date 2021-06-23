@@ -166,24 +166,28 @@ class FriendInfoActivity: AppCompatActivity() {
         // Share the key
         ShareUtil.shareKey(this, keyBytes)
 
-        if (thisFriend.status == FriendStatus.Requested) {
+        if (thisFriend.status == FriendStatus.Requested)
+        {
             // We have already received an invitation from this friend.
             // Set friend status to approved.
             thisFriend.status = FriendStatus.Approved
-            setupApprovedView()
             Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Approved)
-        } else {
+            setupApprovedView()
+        }
+        else
+        {
             // We have not received an invitation from this friend.
             // Set friend status to Invited
             thisFriend.status = FriendStatus.Invited
-            setupInvitedView()
             Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Invited)
+            setupInvitedView()
         }
     }
 
-    private fun importInvitationClicked() {
+    private fun importInvitationClicked()
+    {
         val importIntent = Intent(this, ImportTextActivity::class.java)
-        importIntent.putExtra(ImportTextActivity.SENDER, thisFriend)
+        importIntent.putExtra(RequestCodes.friendExtraTaskDescription, thisFriend)
         this.startActivity(importIntent)
         setupRequestedView()
     }
@@ -247,18 +251,22 @@ class FriendInfoActivity: AppCompatActivity() {
         val builder = createVerificationDialogBuilder()
 
         // Set the Add and Cancel Buttons
-        builder.setPositiveButton(resources.getString(R.string.ok_button)) {
+        builder.setPositiveButton(resources.getString(R.string.ok_button))
+        {
                 dialog, _->
+            
             Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Verified,
-                encodedPublicKey = thisFriend.publicKeyEncoded
-            )
+                encodedPublicKey = thisFriend.publicKeyEncoded)
+            goToFriendList()
         }
 
-        builder.setNeutralButton(resources.getString(R.string.button_label_reset)) {
+        builder.setNeutralButton(resources.getString(R.string.button_label_reset))
+        {
                 dialog, _->
+
             thisFriend.publicKeyEncoded = null
             Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Default)
-            dialog.cancel()
+            goToFriendList()
         }
             .create()
             .show()
@@ -296,6 +304,12 @@ class FriendInfoActivity: AppCompatActivity() {
 
         builder.create()
         builder.show()
+    }
+
+    private fun goToFriendList()
+    {
+        val friendListIntent = Intent(this, FriendListActivity::class.java)
+        startActivity(friendListIntent)
     }
 
     fun deleteFriend()
