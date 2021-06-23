@@ -25,7 +25,7 @@ data class Message constructor(
 
 ) : Serializable
 {
-    constructor(cipherText: ByteArray, sender: Friend) : this(timestampString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m")), cipherText, sender)
+    constructor(cipherText: ByteArray, sender: Friend) : this(timestampString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm a yyyy/M/d")), cipherText, sender)
 
     override fun equals(other: Any?): Boolean
     {
