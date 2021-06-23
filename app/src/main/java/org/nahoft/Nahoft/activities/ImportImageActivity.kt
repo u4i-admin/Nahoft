@@ -212,8 +212,9 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
                         val messageArguments = MessageActivity.Arguments(message = newMessage)
                         messageArguments.startActivity(this)
 
-                        // Clear out the message view
-                        import_message_text_view.text?.clear()
+                        // Clear out the message view I removed import_message_text_view.text?.clear() I think it's
+                        // making the app crash because there is no longer this view for this activity.
+                        // import_message_text_view.text?.clear()
                     }
                 }
                 else
