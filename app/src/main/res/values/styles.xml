@@ -26,6 +26,11 @@
         <item name="buttonBarNeutralButtonStyle">@style/AppTheme.AlertButtonOrange</item>
     </style>
 
+    <style name="AppTheme.DeleteAlertDialog" parent="AppTheme.AlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/AppTheme.AlertButtonRed</item>
+        <item name="buttonBarNeutralButtonStyle">@style/AppTheme.AlertButtonBlue</item>
+    </style>
+
     <style name="AppTheme.AlertButton" parent="@style/Widget.AppCompat.Button.Colored">
         <item name="minWidth">104dp</item>
         <item name="minHeight">40dp</item>

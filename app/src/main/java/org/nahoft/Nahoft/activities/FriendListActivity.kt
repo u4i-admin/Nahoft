@@ -21,7 +21,8 @@ import org.nahoft.nahoft.ui.ItemTouchHelperCallback
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.showAlert
 
-class FriendListActivity : AppCompatActivity(), ItemDragListener {
+class FriendListActivity : AppCompatActivity(), ItemDragListener 
+{
 
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {

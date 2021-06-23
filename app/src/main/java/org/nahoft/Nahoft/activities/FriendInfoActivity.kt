@@ -6,8 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity.CENTER
-import android.view.ViewGroup
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -18,8 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import androidx.core.view.marginBottom
-import androidx.core.view.marginTop
 import kotlinx.android.synthetic.main.activity_friend_info.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Codex
@@ -32,7 +28,7 @@ class FriendInfoActivity: AppCompatActivity() {
 
     private lateinit var thisFriend: Friend
 
-    private val TAG = "FriendsInfoActivity"
+    private val TAG = "FriendInfoActivity"
     private var editingMode = false
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -43,10 +39,13 @@ class FriendInfoActivity: AppCompatActivity() {
         // Get our pending friend
         val maybeFriend = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription) as? Friend
 
-        if (maybeFriend == null) { // this should never happen, get out of this activity.
+        if (maybeFriend == null)
+        { // this should never happen, get out of this activity.
             Log.e(TAG, "Attempted to open FriendInfoActivity, but Friend was null.")
             return
-        } else {
+        }
+        else
+        {
             thisFriend = maybeFriend
         }
 
@@ -54,13 +53,15 @@ class FriendInfoActivity: AppCompatActivity() {
         setupViewByStatus()
     }
 
-    override fun onResume() {
+    override fun onResume()
+    {
         super.onResume()
 
         setupViewByStatus()
     }
 
-    private fun setClickListeners() {
+    private fun setClickListeners()
+    {
         invite_button.setOnClickListener {
             inviteClicked()
         }
@@ -78,7 +79,7 @@ class FriendInfoActivity: AppCompatActivity() {
         }
 
         verify_button.setOnClickListener {
-            verifyFriendDialog()
+            showVerifyFriendDialog()
         }
 
         send_message_button.setOnClickListener {
@@ -98,17 +99,19 @@ class FriendInfoActivity: AppCompatActivity() {
         }
 
         delete_friend_button.setOnClickListener {
-            deleteFriend(this, thisFriend)
+            showDeleteConfirmationDialog()
         }
     }
 
-    fun deleteFriend(context: Context, thisFriend: Friend) {
+    fun deleteFriend()
+    {
         Persist.friendList.remove(thisFriend)
-        Persist.saveFriendsToFile(context)
+        Persist.saveFriendsToFile(this)
         finish()
     }
 
-    private fun saveOrEditClicked() {
+    private fun saveOrEditClicked()
+    {
         if (editingMode) // Save clicked
         {
             this.hideSoftKeyboard(friend_name_edit_text)
@@ -128,7 +131,6 @@ class FriendInfoActivity: AppCompatActivity() {
 
                 thisFriend.name = newName
                 friend_info_name_text_view.text = thisFriend.name
-
             }
         }
         else // Edit clicked
@@ -247,7 +249,7 @@ class FriendInfoActivity: AppCompatActivity() {
         return builder
     }
 
-    private fun verifyFriendDialog()
+    private fun showVerifyFriendDialog()
     {
         val builder = createVerificationDialogBuilder()
 
@@ -280,6 +282,27 @@ class FriendInfoActivity: AppCompatActivity() {
 
             .create()
             .show()
+    }
+
+    fun showDeleteConfirmationDialog()
+    {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_DeleteAlertDialog))
+        builder.setTitle(R.string.alert_text_confirm_friend_delete)
+        builder.setPositiveButton(resources.getString(R.string.button_label_delete))
+        {
+            dialog, _->
+            //delete friend
+            deleteFriend()
+        }
+
+        builder.setNeutralButton(resources.getString(R.string.button_label_cancel))
+        {
+            _, _ ->
+            //cancel
+        }
+
+        builder.create()
+        builder.show()
     }
 
     private fun setupViewByStatus() {
