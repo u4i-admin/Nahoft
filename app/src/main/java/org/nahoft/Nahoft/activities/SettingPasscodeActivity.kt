@@ -4,7 +4,6 @@ import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_setting_passcode.*
 import kotlinx.android.synthetic.main.activity_setting_passcode.passcode_switch
 import org.nahoft.codex.LOGOUT_TIMER_VAL
@@ -30,8 +29,23 @@ class SettingPasscodeActivity : AppCompatActivity() {
             addAction(LOGOUT_TIMER_VAL)
         })
 
+        setupButtons()
         setDefaultView()
+    }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Persist.saveLoginStatus()
+    }
+
+    override fun onDestroy() {
+        Persist.saveLoginStatus()
+        unregisterReceiver(receiver)
+        super.onDestroy()
+    }
+
+    private fun setupButtons()
+    {
         passcode_switch.setOnCheckedChangeListener { _, isChecked ->
             handlePasscodeRequirementChange(isChecked)
         }
@@ -50,17 +64,6 @@ class SettingPasscodeActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        Persist.saveLoginStatus()
-    }
-
-    override fun onDestroy() {
-        Persist.saveLoginStatus()
-        unregisterReceiver(receiver)
-        super.onDestroy()
-    }
-
     private fun setDefaultView()
     {
         destruction_code_entry_layout.isGone = true
@@ -77,6 +80,7 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
     private fun updateViewPasscodeOn (entryHidden: Boolean)
     {
+        passcode_switch.isChecked = true
         passcode_entry_layout.isGone = entryHidden
 
         // We will not update the status to logged in until the user has entered valid passcodes
@@ -105,6 +109,7 @@ class SettingPasscodeActivity : AppCompatActivity() {
     }
 
     private fun updateViewPasscodeOff () {
+        passcode_switch.isChecked = false
         passcode_entry_layout.isGone = true
 
         // Disable passcode inputs and clear them out
@@ -119,6 +124,7 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
     private fun updateViewDestructionCodeOn(maybeDestructionCode: String? = null)
     {
+        destruction_code_switch.isChecked = true
         // Secondary Passcode
         if (maybeDestructionCode == null)
         {
@@ -145,6 +151,7 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
     private fun updateViewDestructionCodeOff()
     {
+        destruction_code_switch.isChecked = false
         // Disable passcode inputs and clear them out
         destruction_code_input.text?.clear()
         destruction_code_input.isEnabled = false
