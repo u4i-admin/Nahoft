@@ -35,7 +35,7 @@
             android:fontFamily="@font/open_sans"
             android:text="@string/messages_activity_heading"
             android:textAllCaps="false"
-            android:textColor="@drawable/button_text_color_light"
+            android:textColor="@color/white"
             android:textSize="22sp"
             tools:ignore="ContentDescription" />
 

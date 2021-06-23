@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="256dp"
             app:counterEnabled="true"
-            app:counterTextColor="@color/button_text_color"
+            app:counterTextColor="@color/button_text_color_light"
             app:counterMaxLength="5000"
             app:boxBackgroundMode="outline"
             app:errorEnabled="true"
@@ -113,7 +113,7 @@
         android:drawableTop="@drawable/nahoft_icons_import_text_56"
         android:text="@string/import_text_label"
         android:textAllCaps="false"
-        android:textColor="@color/button_text_color"
+        android:textColor="@color/button_text_color_light"
         android:textSize="16sp" />
 
 

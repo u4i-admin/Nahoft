@@ -42,7 +42,7 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create)
-        
+
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
         })

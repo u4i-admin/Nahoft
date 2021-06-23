@@ -59,6 +59,6 @@
         android:text="@string/Login"
         android:textAllCaps="false"
         android:textSize="18sp"
-        android:textColor="@color/button_text_color" />
+        android:textColor="@color/button_text_color_light" />
 
 </LinearLayout>

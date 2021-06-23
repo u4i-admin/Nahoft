@@ -85,7 +85,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:drawableTop="@drawable/nahoft_icons_send_image_56"
         android:layout_marginBottom="@dimen/padding_standard"
-        android:textColor="@color/button_text_color"
+        android:textColor="@color/button_text_color_light"
         android:textAllCaps="false"
         android:textSize="16sp"
         android:text="@string/button_label_import_image"/>

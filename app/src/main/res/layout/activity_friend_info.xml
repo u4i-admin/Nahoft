@@ -49,7 +49,7 @@
             android:contentDescription="@string/edit_friend_button"
             android:text="@string/edit_button"
             android:textAllCaps="false"
-            android:textColor="@color/button_text_color"
+            android:textColor="@color/button_text_color_light"
             android:textSize="16sp"/>
     </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -139,7 +139,7 @@
             android:text="@string/verification_code"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@color/button_text_color"
+            android:textColor="@color/button_text_color_light"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/friend_info_container"
             app:layout_constraintTop_toBottomOf="@id/nickname_status_container" />
@@ -159,7 +159,7 @@
             android:contentDescription="@string/invite_button"
             android:text="@string/invite_button"
             android:textAllCaps="false"
-            android:textColor="@color/button_text_color"
+            android:textColor="@color/button_text_color_light"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -172,7 +172,7 @@
             android:contentDescription="@string/verify_button"
             android:text="@string/verify_button"
             android:textAllCaps="false"
-            android:textColor="@color/button_text_color"
+            android:textColor="@color/button_text_color_light"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -185,7 +185,7 @@
             android:contentDescription="@string/decline_button"
             android:text="@string/decline_button"
             android:textAllCaps="false"
-            android:textColor="@color/button_text_color"
+            android:textColor="@color/button_text_color_light"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -199,7 +199,7 @@
             android:contentDescription="@string/import_text_label"
             android:text="@string/import_invitation_button"
             android:textAllCaps="false"
-            android:textColor="@color/button_text_color"
+            android:textColor="@color/button_text_color_light"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -224,7 +224,7 @@
                 android:contentDescription="@string/send_message"
                 android:text="@string/send_message"
                 android:textAllCaps="false"
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/button_text_color_light"
                 android:textSize="16sp" />
 
             <Button
@@ -239,7 +239,7 @@
                 android:contentDescription="@string/import_image"
                 android:text="@string/import_image"
                 android:textAllCaps="false"
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/button_text_color_light"
                 android:textSize="16sp" />
 
             <Button
@@ -253,7 +253,7 @@
                 android:contentDescription="@string/import_text"
                 android:text="@string/import_text_label"
                 android:textAllCaps="false"
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/button_text_color_light"
                 android:textSize="16sp" />
         </LinearLayout>
         <TextView
@@ -280,7 +280,7 @@
         android:contentDescription="@string/delete_friend_button"
         android:text="@string/delete_friend_button"
         android:textAllCaps="false"
-        android:textColor="@color/button_text_color"
+        android:textColor="@color/button_text_color_light"
         android:textSize="18sp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>

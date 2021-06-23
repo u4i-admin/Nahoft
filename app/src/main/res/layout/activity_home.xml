@@ -33,11 +33,12 @@
                 android:background="@drawable/read_button_home"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:drawableLeft="@drawable/nahoft_icons_read_56"
-                android:paddingLeft="@dimen/padding_standard"
-                android:textColor="@color/button_text_color"
+                android:paddingHorizontal="@dimen/padding_quarter"
+                android:textColor="@color/button_text_color_light"
                 android:textSize="24sp"
                 android:textAllCaps="false"
-                android:text="@string/button_label_read" />
+                android:text="@string/button_label_read"
+                style="?android:attr/buttonBarButtonStyle" />
 
             <Button
                 android:id="@+id/create_button"
@@ -45,13 +46,14 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/read_button_description"
                 android:drawableRight="@drawable/nahoft_icons_create_56"
-                android:paddingRight="@dimen/padding_half"
+                android:paddingHorizontal="@dimen/padding_quarter"
                 android:background="@drawable/create_button_home"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/button_text_color_light"
                 android:textSize="24sp"
                 android:textAllCaps="false"
-                android:text="@string/button_label_create" />
+                android:text="@string/button_label_create"
+                style="?android:attr/buttonBarButtonStyle" />
 
         </LinearLayout>
 
@@ -81,8 +83,9 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:text="@string/button_label_friends"
                 android:textAllCaps="false"
-                android:textColor="@drawable/button_text_color_light"
-                android:textSize="18dp" />
+                android:textColor="@color/button_text_color_light"
+                android:textSize="18sp"
+                style="?android:attr/buttonBarButtonStyle" />
 
             <Button
                 android:id="@+id/user_guide_button"
@@ -95,8 +98,9 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:text="@string/button_label_help"
                 android:textAllCaps="false"
-                android:textColor="@drawable/button_text_color_light"
-                android:textSize="18dp" />
+                android:textColor="@color/button_text_color_light"
+                android:textSize="18sp"
+                style="?android:attr/buttonBarButtonStyle" />
 
             <Button
                 android:id="@+id/settings_button"
@@ -109,8 +113,9 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:text="@string/button_label_settings"
                 android:textAllCaps="false"
-                android:textColor="@drawable/button_text_color_light"
-                android:textSize="18dp" />
+                android:textColor="@color/button_text_color_light"
+                android:textSize="18sp"
+                style="?android:attr/buttonBarButtonStyle" />
 
         </LinearLayout>
 
@@ -128,12 +133,12 @@
             android:background="@android:color/transparent"
             android:drawableEnd="@drawable/new_logout_button_25"
             android:drawablePadding="@dimen/padding_standard"
-            android:drawableTint="@drawable/button_text_color_light"
+            android:drawableTint="@color/button_text_color_light"
             android:fontFamily="@font/open_sans"
             android:text="@string/button_label_logout"
             android:textAllCaps="false"
-            android:textColor="@drawable/button_text_color_light"
-            android:textSize="18dp" />
+            android:textColor="@color/button_text_color_light"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

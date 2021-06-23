@@ -29,7 +29,7 @@
             android:fontFamily="@font/open_sans"
             android:text="@string/button_label_friends"
             android:textAllCaps="false"
-            android:textColor="@drawable/button_text_color_light"
+            android:textColor="@color/button_text_color_light"
             android:textSize="22sp"
             tools:ignore="ContentDescription" />
     </LinearLayout>

@@ -58,7 +58,7 @@
                 android:text="@string/to"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textColor="@color/button_text_color"/>
+                android:textColor="@color/button_text_color_light"/>
             <Spinner
                 android:id="@+id/message_recipient_spinner"
                 android:layout_width="match_parent"
@@ -75,7 +75,7 @@
             app:boxBackgroundMode="outline"
             app:counterEnabled="true"
             app:counterMaxLength="1000"
-            app:counterTextColor="@color/button_text_color"
+            app:counterTextColor="@color/button_text_color_light"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
             app:hintEnabled="false">
@@ -111,7 +111,7 @@
                 android:drawableTop="@drawable/nahoft_icons_save_image_56"
                 android:text="@string/saveImageButtonLabel"
                 android:textAllCaps="false"
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/button_text_color_light"
                 android:textSize="16sp" />
 
             <Button
@@ -126,7 +126,7 @@
                 android:drawableTop="@drawable/nahoft_icons_send_image_56"
                 android:text="@string/sendAsImageButton"
                 android:textAllCaps="false"
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/button_text_color_light"
                 android:textSize="16sp" />
 
             <Button
@@ -142,7 +142,7 @@
                 android:drawableTop="@drawable/nahoft_icons_send_text_56"
                 android:text="@string/sendAsTextButtonLabel"
                 android:textAllCaps="false"
-                android:textColor="@color/button_text_color"
+                android:textColor="@color/button_text_color_light"
                 android:textSize="16sp" />
 
         </LinearLayout>
