@@ -53,8 +53,7 @@
     <string name="friendNameRecyclerView">Name</string>
 
     <!-- Message View -->
-    <string name="unknown_sender_label">Unknown</string>
-    <string name="sender_label">From: %1$s</string>
+    <string name="unknown_label">Unknown</string>
 
     <string name="button_label_invite">Invite</string>
     <string name="button_label_invite_again">Invite Again</string>

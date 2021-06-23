@@ -122,7 +122,7 @@
             android:id="@+id/friend_info_name_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/unknown_sender_label"
+            android:text="@string/unknown_label"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@id/friend_info_container"

@@ -16,7 +16,8 @@ import org.nahoft.nahoft.Persist.Companion.deleteMessage
 import org.nahoft.nahoft.R
 import org.nahoft.util.showAlert
 
-class MessageActivity : AppCompatActivity() {
+class MessageActivity : AppCompatActivity()
+{
 
     class Arguments(val message: Message) {
         companion object {
@@ -27,7 +28,8 @@ class MessageActivity : AppCompatActivity() {
             }
         }
 
-        fun startActivity(context: Context) {
+        fun startActivity(context: Context)
+        {
             val intent = Intent(context, MessageActivity::class.java)
             intent.putExtra(messageKey, message)
             context.startActivity(intent)
@@ -42,7 +44,8 @@ class MessageActivity : AppCompatActivity() {
 
     lateinit var message: Message
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_message)
 
@@ -52,7 +55,6 @@ class MessageActivity : AppCompatActivity() {
 
         val arguments = Arguments.createFromIntent(intent)
         message = arguments.message
-
 
         loadMessageContent()
 
@@ -70,7 +72,8 @@ class MessageActivity : AppCompatActivity() {
 
     private fun loadMessageContent()
     {
-        message_sender_text_view.text = getString(R.string.sender_label, message.sender?.name)
+        message_detail_sender_text_view.text = message.sender?.name
+        message_detail_date_text_view.text = message.timestampString
 
         val senderKeyBytes = message.sender?.publicKeyEncoded
 
@@ -78,10 +81,13 @@ class MessageActivity : AppCompatActivity() {
         {
             val senderKey = PublicKey(senderKeyBytes)
 
-            try {
+            try
+            {
                 val plaintext = Encryption().decrypt(senderKey, message.cipherText)
-                message_body_text_view.text = plaintext
-            } catch (exception: SecurityException) {
+                message_detail_body_text_view.text = plaintext
+            }
+            catch (exception: SecurityException)
+            {
                 applicationContext.showAlert(getString(R.string.alert_text_unable_to_decrypt_message))
                 deleteMessage(this, message)
                 finish()
@@ -98,6 +104,6 @@ class MessageActivity : AppCompatActivity() {
     private fun cleanUp () {
         message = Message("", ByteArray(2))
         friend_info_name_text_view.text = ""
-        message_body_text_view.text = ""
+        message_detail_body_text_view.text = ""
     }
 }

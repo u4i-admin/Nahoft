@@ -55,9 +55,7 @@
 <string name="friendNameRecyclerView">نام</string>
 
 <!-- Message View -->
-<string name="unknown_sender_label">ناشناخته</string>
-<string name="sender_label">از: %1$s</string>
-
+<string name="unknown_label">ناشناخته</string>
 <string name="button_label_invite">دعوت کردن</string>
 <string name="button_label_invite_again">دوباره دعوت کردن</string>
 <string name="button_label_approve_invitation">قبول کردن</string>

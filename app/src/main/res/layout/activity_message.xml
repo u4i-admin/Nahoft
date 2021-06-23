@@ -1,58 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/padding_standard"
+    android:layout_marginHorizontal="@dimen/padding_standard"
+    android:orientation="vertical"
     tools:context=".activities.MessageActivity">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_alignParentTop="true"
-            android:layout_width="match_parent"
-            android:padding="@dimen/padding_standard"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/message_sender_text_view"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/unknown_sender_label"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textColor="@color/royalBlueDark"
-                android:fontFamily="@font/open_sans"
-                android:layout_gravity="start"
-                android:textSize="22sp" />
-
-            <ImageButton
-                android:id="@+id/deleteButton"
-                android:layout_width="20.1dp"
-                android:layout_height="24dp"
-                android:layout_gravity="end"
-                android:layout_weight="0"
-                android:tint="@color/button_text_color_dark"
-                android:src="@drawable/nahoft_trash_24" />
-        </LinearLayout>
-
-
+        android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/message_body_text_view"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="textStart"
-            android:textColor="@color/royalBlueDark"
-            android:fontFamily="@font/open_sans"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="18sp" />
+            android:layout_gravity="start"
+            android:gravity="start"
+            android:text="@string/from"
+            android:textSize="14sp"
+            android:textColor="@color/royalBlueDark"/>
+        <TextView
+            android:id="@+id/message_detail_date_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text=""
+            android:textSize="14sp"
+            android:textColor="@color/royalBlueDark"/>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/padding_standard">
+        <TextView
+            android:id="@+id/message_detail_sender_text_view"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/unknown_label"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/royalBlueDark"
+            android:fontFamily="@font/open_sans"
+            android:layout_gravity="start|center_vertical"
+            android:textSize="22sp" />
+        <ImageButton
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="0"
+            android:tint="@color/button_text_color_dark"
+            android:src="@drawable/nahoft_trash_24" />
+    </LinearLayout>
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/message_detail_body_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textColor="@color/royalBlueDark"
+        android:fontFamily="@font/open_sans"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18sp" />
+
+
+</LinearLayout>

@@ -253,7 +253,7 @@ class FriendInfoActivity: AppCompatActivity() {
         // Set the Add and Cancel Buttons
         builder.setPositiveButton(resources.getString(R.string.ok_button))
         {
-                dialog, _->
+                _, _->
             
             Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Verified,
                 encodedPublicKey = thisFriend.publicKeyEncoded)
@@ -262,7 +262,7 @@ class FriendInfoActivity: AppCompatActivity() {
 
         builder.setNeutralButton(resources.getString(R.string.button_label_reset))
         {
-                dialog, _->
+                _, _->
 
             thisFriend.publicKeyEncoded = null
             Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Default)
@@ -272,12 +272,12 @@ class FriendInfoActivity: AppCompatActivity() {
             .show()
     }
 
-    fun showVerificationCodeDialog()
+    private fun showVerificationCodeDialog()
     {
         val builder = createVerificationDialogBuilder()
 
         builder.setPositiveButton(resources.getString(R.string.ok_button)) {
-                dialog, _->
+                _, _->
             //stub
         }
 
@@ -285,13 +285,13 @@ class FriendInfoActivity: AppCompatActivity() {
             .show()
     }
 
-    fun showDeleteConfirmationDialog()
+    private fun showDeleteConfirmationDialog()
     {
         val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_DeleteAlertDialog))
         builder.setTitle(R.string.alert_text_confirm_friend_delete)
         builder.setPositiveButton(resources.getString(R.string.button_label_delete))
         {
-            dialog, _->
+            _, _->
             //delete friend
             deleteFriend()
         }
@@ -306,7 +306,7 @@ class FriendInfoActivity: AppCompatActivity() {
         builder.show()
     }
 
-    fun deleteFriend()
+    private fun deleteFriend()
     {
         Persist.friendList.remove(thisFriend)
         Persist.saveFriendsToFile(this)
