@@ -113,6 +113,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/royalBlueDark"
             android:textSize="24sp"
+            android:paddingHorizontal="@dimen/padding_quarter"
             app:layout_constraintEnd_toEndOf="@id/friend_info_container"
             app:layout_constraintStart_toStartOf="@id/friend_info_container"
             app:layout_constraintTop_toBottomOf="@id/nickname_status_container"
