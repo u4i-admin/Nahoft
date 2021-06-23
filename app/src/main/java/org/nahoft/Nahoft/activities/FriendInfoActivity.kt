@@ -257,7 +257,7 @@ class FriendInfoActivity: AppCompatActivity() {
             
             Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Verified,
                 encodedPublicKey = thisFriend.publicKeyEncoded)
-            goToFriendList()
+            finish()
         }
 
         builder.setNeutralButton(resources.getString(R.string.button_label_reset))
@@ -266,7 +266,7 @@ class FriendInfoActivity: AppCompatActivity() {
 
             thisFriend.publicKeyEncoded = null
             Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Default)
-            goToFriendList()
+            finish()
         }
             .create()
             .show()
