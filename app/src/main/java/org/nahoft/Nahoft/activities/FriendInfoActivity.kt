@@ -1,6 +1,7 @@
 package org.nahoft.nahoft.activities
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -23,10 +24,7 @@ import kotlinx.android.synthetic.main.activity_friend_info.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
-import org.nahoft.nahoft.Friend
-import org.nahoft.nahoft.FriendStatus
-import org.nahoft.nahoft.Persist
-import org.nahoft.nahoft.R
+import org.nahoft.nahoft.*
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 
@@ -98,6 +96,16 @@ class FriendInfoActivity: AppCompatActivity() {
         verification_code_button.setOnClickListener {
             showVerificationCodeDialog()
         }
+
+        delete_friend_button.setOnClickListener {
+            deleteFriend(this, thisFriend)
+        }
+    }
+
+    fun deleteFriend(context: Context, thisFriend: Friend) {
+        Persist.friendList.remove(thisFriend)
+        Persist.saveFriendsToFile(context)
+        finish()
     }
 
     private fun saveOrEditClicked() {
