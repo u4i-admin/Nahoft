@@ -8,11 +8,13 @@ import java.io.ByteArrayInputStream
 import java.io.File
 import java.lang.Exception
 
-class MessageViewModel: ViewModel() {
+class MessageViewModel: ViewModel()
+{
 
     private var messages: ArrayList<Message>? = null
 
-    fun getMessages(file: File, context: Context): ArrayList<Message>? {
+    fun getMessages(file: File, context: Context): ArrayList<Message>?
+    {
 
         if (messages == null) {
             loadMessages(file, context)
@@ -21,16 +23,20 @@ class MessageViewModel: ViewModel() {
         return messages ?: arrayListOf()
     }
 
-    private fun loadMessages(file: File, context: Context) {
-
+    private fun loadMessages(file: File, context: Context)
+    {
         val persistenceEncryption = PersistenceEncryption()
         val decryptedBytes = persistenceEncryption.readEncryptedFile(file, context)
 
-        if (decryptedBytes.isNotEmpty()) {
+        if (decryptedBytes.isNotEmpty())
+        {
             val serializer = Persister()
             val inputStream = ByteArrayInputStream(decryptedBytes)
-            val messages = try { serializer.read(Messages::class.java, inputStream)
-            } catch (error: Exception) {
+            val messages = try
+            { serializer.read(Messages::class.java, inputStream)
+            }
+            catch (error: Exception)
+            {
                 print("Error loading messages: $error")
                 null
             }

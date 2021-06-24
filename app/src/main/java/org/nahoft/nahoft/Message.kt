@@ -7,13 +7,18 @@ import org.simpleframework.xml.Root
 import java.io.Serializable
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Root(name = "message", strict = false)
 data class Message constructor(
 
+    @field:Element(name = "timestamp_string")
+    @param:Element(name = "timestamp_string")
+    val timestampString: String,
+
     @field:Element(name = "timestamp")
     @param:Element(name = "timestamp")
-    val timestampString: String,
+    val timestamp: LocalDateTime,
 
     @field:Element(name = "cipherText")
     @param:Element(name = "cipherText")
@@ -25,7 +30,11 @@ data class Message constructor(
 
 ) : Serializable
 {
-    constructor(cipherText: ByteArray, sender: Friend) : this(timestampString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm a yyyy/M/d")), cipherText, sender)
+    constructor(cipherText: ByteArray, sender: Friend) : this(
+        timestampString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd", Locale.getDefault())),
+        timestamp = LocalDateTime.now(),
+        cipherText,
+        sender)
 
     override fun equals(other: Any?): Boolean
     {

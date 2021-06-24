@@ -11,6 +11,7 @@ import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Encryption
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
+import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.Message
 import org.nahoft.nahoft.Persist.Companion.deleteMessage
 import org.nahoft.nahoft.R
@@ -101,8 +102,9 @@ class MessageActivity : AppCompatActivity()
         }
     }
 
-    private fun cleanUp () {
-        message = Message("", ByteArray(2))
+    private fun cleanUp ()
+    {
+        message = Message(ByteArray(2), Friend(""))
         friend_info_name_text_view.text = ""
         message_detail_body_text_view.text = ""
     }

@@ -21,9 +21,8 @@ import org.nahoft.nahoft.ui.ItemTouchHelperCallback
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.showAlert
 
-class FriendListActivity : AppCompatActivity(), ItemDragListener 
+class FriendListActivity : AppCompatActivity()
 {
-
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
             adapter.cleanup()
@@ -46,7 +45,6 @@ class FriendListActivity : AppCompatActivity(), ItemDragListener
         adapter = FriendsRecyclerAdapter(Persist.friendList)
         friendsRecyclerView.layoutManager = linearLayoutManager
         friendsRecyclerView.adapter = adapter
-        setupItemTouchHelper()
 
         add_friend_button.setOnClickListener {
            showAddFriendDialog()
@@ -63,12 +61,6 @@ class FriendListActivity : AppCompatActivity(), ItemDragListener
     {
         super.onRestart()
         adapter.notifyDataSetChanged()
-    }
-
-    private fun setupItemTouchHelper()
-    {
-        val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter, this))
-        itemTouchHelper.attachToRecyclerView(friendsRecyclerView)
     }
 
     private fun showAddFriendDialog()
@@ -113,7 +105,8 @@ class FriendListActivity : AppCompatActivity(), ItemDragListener
         val newFriend = Friend(friendName, FriendStatus.Default, null)
 
         // Only add the friend if one with the same name doesn't already exist.
-        if (Persist.friendList.contains(newFriend)) {
+        if (Persist.friendList.contains(newFriend))
+        {
             showAlert(getString(R.string.alert_text_friend_already_exists))
             return null
         }

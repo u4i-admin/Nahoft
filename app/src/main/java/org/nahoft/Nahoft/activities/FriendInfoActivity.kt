@@ -24,8 +24,8 @@ import org.nahoft.nahoft.*
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 
-class FriendInfoActivity: AppCompatActivity() {
-
+class FriendInfoActivity: AppCompatActivity()
+{
     private lateinit var thisFriend: Friend
 
     private val TAG = "FriendInfoActivity"
@@ -120,10 +120,9 @@ class FriendInfoActivity: AppCompatActivity() {
                 if (newName != thisFriend.name)
                 {
                     Persist.updateFriend(this, thisFriend, newName)
+                    thisFriend.name = newName
+                    friend_info_name_text_view.text = thisFriend.name
                 }
-
-                thisFriend.name = newName
-                friend_info_name_text_view.text = thisFriend.name
             }
         }
         else // Edit clicked
