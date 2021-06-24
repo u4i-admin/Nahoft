@@ -1,10 +1,11 @@
 package org.nahoft.nahoft
 
 import android.content.Context
-import kotlinx.android.synthetic.main.activity_import_text.*
+import android.text.format.DateUtils
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Root
 import java.io.Serializable
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -18,7 +19,7 @@ data class Message constructor(
 
     @field:Element(name = "timestamp")
     @param:Element(name = "timestamp")
-    val timestamp: LocalDateTime,
+    val timestamp: Calendar,
 
     @field:Element(name = "cipherText")
     @param:Element(name = "cipherText")
@@ -32,7 +33,7 @@ data class Message constructor(
 {
     constructor(cipherText: ByteArray, sender: Friend) : this(
         timestampString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd", Locale.getDefault())),
-        timestamp = LocalDateTime.now(),
+        timestamp = Calendar.getInstance(),
         cipherText,
         sender)
 
@@ -51,6 +52,59 @@ data class Message constructor(
     override fun hashCode(): Int
     {
         return cipherText.contentHashCode()
+    }
+
+    fun getDateStringForList(): String
+    {
+        if (DateUtils.isToday(timestamp.timeInMillis))
+        {
+            val dateFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
+            return dateFormat.format(timestamp.time)
+        }
+        else
+        {
+            val yesterday = Calendar.getInstance()
+            yesterday.add(Calendar.DATE, -1)
+            val yesterdayDate = yesterday.get(Calendar.DATE)
+            val todayDate = timestamp.get(Calendar.DATE)
+
+            if (yesterdayDate == todayDate)
+            {
+                return "Yesterday"
+            }
+            else
+            {
+                return timestampString
+            }
+        }
+    }
+
+    fun getDateStringForDetail(): String
+    {
+        if (DateUtils.isToday(timestamp.timeInMillis))
+        {
+            val dateFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
+            val timeString = dateFormat.format(timestamp.time)
+            return "Today " + timeString
+        }
+        else
+        {
+            val yesterday = Calendar.getInstance()
+            yesterday.add(Calendar.DATE, -1)
+            val yesterdayDate = yesterday.get(Calendar.DATE)
+            val todayDate = timestamp.get(Calendar.DATE)
+
+            if (yesterdayDate == todayDate)
+            {
+                val dateFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
+                val timeString = dateFormat.format(timestamp.time)
+                return "Yesterday" + timeString
+            }
+            else
+            {
+                return timestampString
+            }
+        }
     }
 
     fun save(context: Context): Message

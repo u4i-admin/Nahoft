@@ -74,7 +74,7 @@ class MessageActivity : AppCompatActivity()
     private fun loadMessageContent()
     {
         message_detail_sender_text_view.text = message.sender?.name
-        message_detail_date_text_view.text = message.timestampString
+        message_detail_date_text_view.text = message.getDateStringForDetail()
 
         val senderKeyBytes = message.sender?.publicKeyEncoded
 
