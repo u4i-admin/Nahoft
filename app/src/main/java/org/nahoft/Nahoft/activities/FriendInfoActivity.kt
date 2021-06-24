@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Layout
+import android.text.SpannableString
+import android.text.style.AlignmentSpan
 import android.util.Log
 import android.view.Gravity.CENTER
 import android.view.inputmethod.InputMethodManager
@@ -287,7 +290,17 @@ class FriendInfoActivity: AppCompatActivity()
     private fun showDeleteConfirmationDialog()
     {
         val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_DeleteAlertDialog))
-        builder.setTitle(R.string.alert_text_confirm_friend_delete)
+
+        val title = SpannableString(getString(R.string.alert_text_confirm_friend_delete))
+        // alert dialog title align center
+        title.setSpan(
+            AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+            0,
+            title.length,
+            0
+        )
+        builder.setTitle(title)
+
         builder.setPositiveButton(resources.getString(R.string.button_label_delete))
         {
             _, _->

@@ -4,6 +4,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.text.InputType
+import android.text.Layout
+import android.text.SpannableString
+import android.text.style.AlignmentSpan
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
@@ -66,7 +69,16 @@ class FriendListActivity : AppCompatActivity()
     private fun showAddFriendDialog()
     {
         val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_AddFriendAlertDialog))
-        builder.setTitle(resources.getString(R.string.enter_nickname))
+        val title = SpannableString(getString(R.string.enter_nickname))
+
+        // alert dialog title align center
+        title.setSpan(
+            AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+            0,
+            title.length,
+            0
+        )
+        builder.setTitle(title)
 
         // Set the input - EditText
         val inputEditText = EditText(this)
