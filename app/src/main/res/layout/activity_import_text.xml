@@ -90,6 +90,7 @@
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine|textCapSentences"
                 android:hint="@string/paste_message_for_import_hint"
+                android:fontFamily="@font/open_sans_italic"
                 android:background="@drawable/white_8_bkgd" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -110,7 +111,7 @@
         android:background="@drawable/green_8_btn_bkgd"
         android:foreground="?android:attr/selectableItemBackground"
         android:contentDescription="@string/button_import_text_label"
-        android:drawableTop="@drawable/nahoft_icons_import_text_56"
+        android:drawableTop="@drawable/nahoft_icons_send_text_56"
         android:text="@string/import_text_label"
         android:textAllCaps="false"
         android:textColor="@color/button_text_color_light"

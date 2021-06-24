@@ -210,7 +210,7 @@
 <string name="content_description_invite_button">دعوت کردن</string>
 <string name="button_label_import_invitation">وارد کردن</string>
 <string name="button_label_delete_passcode">حذف کدعبور</string>
-<string name="from">از:</string>
+<string name="from">از</string>
 <string name="alert_text_message_too_long">پیام شما بسیار طولانی است.</string>
 <string name="alert_title_confirm_delete">تأیید حذف</string>
 <string name="alert_text_confirm_delete">آیا مطمئن هستید که می‌خواهید این را حذف کنید؟</string>
@@ -343,5 +343,12 @@
     <string name="requested_status">Requested</string>
     <string name="invited_status">Invited</string>
     <string name="default_status">Default</string>
+
+    <!-- Setting Passcode -->
+    <string name="enter_destruction_code">Enter Your Destruction Code</string>
+    <string name="reenter_destruction_code">Re-enter Your Destruction Code</string>
+
+    <!-- Message -->
+    <string name="from_with_colon">From:</string>
 
 </resources>

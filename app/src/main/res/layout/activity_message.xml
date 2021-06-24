@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:gravity="start"
-            android:text="@string/from"
+            android:text="@string/from_with_colon"
             android:textSize="14sp"
             android:textColor="@color/royalBlueDark"/>
         <TextView
@@ -50,14 +50,15 @@
             android:fontFamily="@font/open_sans"
             android:layout_gravity="start|center_vertical"
             android:textSize="22sp" />
+
         <ImageButton
             android:id="@+id/deleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_weight="0"
-            android:tint="@color/button_text_color_dark"
-            android:src="@drawable/nahoft_trash_24" />
+            android:background="@drawable/nahoft_trash_24"
+            android:tint="@color/button_text_color_dark" />
     </LinearLayout>
 
     <TextView

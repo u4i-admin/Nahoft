@@ -217,7 +217,7 @@
     <string name="content_description_invite_button">Invite</string>
     <string name="button_label_import_invitation">Import</string>
     <string name="button_label_delete_passcode">Delete Passcode</string>
-    <string name="from">From:</string>
+    <string name="from">From</string>
     <string name="alert_text_message_too_long">Your message is too long.</string>
     <string name="alert_title_confirm_delete">Confirm Delete</string>
     <string name="alert_text_confirm_delete">Are you sure you want to delete this?</string>
@@ -359,6 +359,12 @@
     <string name="invited_status">Invited</string>
     <string name="default_status">Default</string>
 
+    <!-- Setting Passcode -->
+    <string name="enter_destruction_code">Enter Your Destruction Code</string>
+    <string name="reenter_destruction_code">Re-enter Your Destruction Code</string>
+
+    <!-- Message -->
+    <string name="from_with_colon">From:</string>
 
 
 

@@ -148,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:fontFamily="@font/open_sans_italic"
-                android:text="@string/enter_passcode"
+                android:text="@string/enter_destruction_code"
                 android:textColor="@color/white"
                 android:textSize="16sp">
             </TextView>
@@ -174,7 +174,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:fontFamily="@font/open_sans_italic"
-                android:text="@string/passcodeTwice"
+                android:text="@string/reenter_destruction_code"
                 android:textColor="@color/white"
                 android:textSize="16sp">
             </TextView>
