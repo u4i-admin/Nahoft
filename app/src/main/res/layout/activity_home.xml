@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center|top"
     android:background="@color/royalBlueDark"
-    android:orientation="vertical"
     tools:context=".activities.HomeActivity">
 
     <ImageView
         android:id="@+id/nahoft_message_bottle"
-        android:layout_width="104dp"
-        android:layout_height="104dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/nahoft_logo_transparent_104"
         tools:ignore="ContentDescription" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:orientation="horizontal"
             android:gravity="center">
 
@@ -54,22 +54,14 @@
                 android:textAllCaps="false"
                 android:text="@string/button_label_create"
                 style="?android:attr/buttonBarButtonStyle" />
-
         </LinearLayout>
-
-        <ProgressBar
-            android:id="@+id/homeProgressBar"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="40dp"
+            android:layout_marginVertical="@dimen/padding_three_quarters"
+            android:layout_above="@id/logout_button"
             android:orientation="horizontal">
 
             <Button
@@ -119,27 +111,29 @@
 
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center|bottom"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginVertical="@dimen/padding_three_quarters"
+        android:background="@android:color/transparent"
+        android:drawableEnd="@drawable/new_logout_button_25"
+        android:drawablePadding="@dimen/padding_standard"
+        android:drawableTint="@color/button_text_color_light"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/button_label_logout"
+        android:textAllCaps="false"
+        android:textColor="@color/button_text_color_light"
+        android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/logout_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableEnd="@drawable/new_logout_button_25"
-            android:drawablePadding="@dimen/padding_standard"
-            android:drawableTint="@color/button_text_color_light"
-            android:fontFamily="@font/open_sans"
-            android:text="@string/button_label_logout"
-            android:textAllCaps="false"
-            android:textColor="@color/button_text_color_light"
-            android:textSize="18sp" />
+    <ProgressBar
+        android:id="@+id/homeProgressBar"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
 
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

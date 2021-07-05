@@ -8,14 +8,6 @@
     android:background="@color/royalBlueDark"
     tools:context=".activities.ImportTextActivity">
 
-    <ProgressBar
-        android:id="@+id/imageImportProgressBar"
-        android:layout_below="@id/importTextActivityLayoutContainer"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible" />
-
     <LinearLayout
         android:id="@+id/importTextActivityLayoutContainer"
         android:layout_width="match_parent"
@@ -50,7 +42,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/padding_half">
+            android:paddingVertical="@dimen/padding_three_quarters">
             <TextView
                 android:id="@+id/to"
                 android:layout_width="48dp"
@@ -108,6 +100,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/padding_standard"
+        android:layout_marginTop="@dimen/padding_three_quarters"
         android:background="@drawable/green_8_btn_bkgd"
         android:foreground="?android:attr/selectableItemBackground"
         android:contentDescription="@string/button_import_text_label"
@@ -116,6 +109,14 @@
         android:textAllCaps="false"
         android:textColor="@color/button_text_color_light"
         android:textSize="16sp" />
+
+    <ProgressBar
+        android:id="@+id/imageImportProgressBar"
+        android:layout_below="@id/importTextActivityLayoutContainer"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>

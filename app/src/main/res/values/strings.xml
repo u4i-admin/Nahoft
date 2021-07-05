@@ -24,8 +24,7 @@
     <string name="button_label_view_messages">Messages</string>
     <string name="button_label_compose_messages">Compose a Message</string>
     <string name="button_import_text_label">Import Text</string>
-    <string name="button_import_image_label">Import Image</string>
-    <string name="saveImageButton">Save as\nImage</string>
+    <string name="saveImageButton">Save as Image</string>
 
     <!-- New Messages Activity Alerts -->
     <string name="alert_text_verified_friends_only">You can only message a verified friend.</string>
@@ -90,7 +89,7 @@
     <string name="input_hint_name">Name</string>
     <string name="content_description_drag_handle">Drag Handle</string>
     <string name="button_label_import_message">Import Text</string>
-    <string name="paste_message_for_import_hint">Paste your text here...</string>
+    <string name="paste_message_for_import_hint">Paste your text here…</string>
     <string name="button_label_import_image">Import Image</string>
 
     <!-- Friends User Guide -->
@@ -294,10 +293,9 @@
 
     <!-- Import Image Activity -->
     <string name="import_image_hint">Import an image from your device.</string>
-    <string name="button_import_image_label_two">Import \nImage</string>
 
     <!-- Import Text Activity -->
-    <string name="import_text_label">Import\nText</string>
+    <string name="import_text_label">Import Text</string>
 
     <!-- Settings Activity -->
     <string name="settings_activity_label">Settings</string>
@@ -307,8 +305,8 @@
 
     <!--Create Activity -->
     <string name="to">To</string>
-    <string name="sendAsTextButtonLabel">Send as\nText</string>
-    <string name="saveImageButtonLabel">Save as\nImage</string>
+    <string name="sendAsTextButtonLabel">Send as Text</string>
+    <string name="saveImageButtonLabel">Save as Image</string>
 
     <!-- Create Activity - will delete later - test -->
     <string-array name="friends_spinner_array">
@@ -322,7 +320,6 @@
     <string name="edit_friend_button">Edit Friend Button</string>
     <string name="edit_button">Edit</string>
     <string name="send_message">Send Message</string>
-    <string name="import_image">Import Image</string>
     <string name="import_text">Import Text</string>
 
     <!-- Friends Info Two -->

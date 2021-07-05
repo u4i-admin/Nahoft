@@ -7,20 +7,18 @@
     android:layout_height="match_parent"
     android:background="@color/royalBlueDark"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
     tools:context=".activities.ReadActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="32dp">
+        android:layout_marginHorizontal="@dimen/padding_standard"
+        android:paddingTop="@dimen/padding_standard"
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:layout_marginStart="25dp"
-            android:layout_margin="@dimen/padding_half"
             android:background="@drawable/green_56_bkgd_circle"
             app:srcCompat="@drawable/nahoft_icons_read_56"
             tools:ignore="ContentDescription" />
@@ -29,7 +27,6 @@
             android:layout_width="200dp"
             android:layout_height="56dp"
             android:gravity="center"
-            android:layout_margin="@dimen/padding_half"
             android:fontFamily="@font/open_sans"
             android:text="@string/button_label_read"
             android:textAllCaps="false"
@@ -40,17 +37,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:orientation="vertical"
-        android:paddingBottom="32dp">
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/padding_standard"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/view_messages_button"
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
-            android:layout_marginStart="25dp"
-            android:layout_margin="@dimen/padding_half"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:drawableStart="@drawable/nahoft_icons_messages_56"
@@ -64,8 +59,6 @@
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
-            android:layout_marginStart="25dp"
-            android:layout_margin="@dimen/padding_half"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:drawableStart="@drawable/nahoft_icons_import_text_56"
@@ -79,8 +72,6 @@
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
-            android:layout_marginStart="25dp"
-            android:layout_margin="@dimen/padding_half"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:drawableStart="@drawable/nahoft_icons_import_image_56"

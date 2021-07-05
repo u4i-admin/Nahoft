@@ -10,6 +10,7 @@
     <dimen name="detail_planet_text_size">18sp</dimen>
 
     <dimen name="padding_standard">24dp</dimen>
+    <dimen name="padding_three_quarters">16dp</dimen>
     <dimen name="padding_half">12dp</dimen>
     <dimen name="padding_quarter">6dp</dimen>
     <dimen name="padding_doubled">42dp</dimen>

@@ -24,7 +24,6 @@
 <string name="button_label_view_messages">پیام ها</string>
 <string name="button_label_compose_messages">نوشتن پیام</string>
     <string name="button_import_text_label">وارد کردن متن</string>
-<string name="button_import_image_label">وارد کردن تصویر</string>
 <string name="saveImageButton">ذخیره تصویر</string>
 
 
@@ -286,7 +285,6 @@
 
     <!-- Import Image Activity -->
     <string name="import_image_hint">یک تصویر از دستگاه خود وارد کنید.</string>
-    <string name="button_import_image_label_two">Import \nImage</string>
 
     <!-- Import Text Activity -->
     <string name="import_text_label">وارد کردن متن</string>
@@ -299,15 +297,14 @@
 
     <!--Create Activity -->
     <string name="to">To</string>
-    <string name="sendAsTextButtonLabel">Send as \nText</string>
-    <string name="saveImageButtonLabel">Save \nImage</string>
+    <string name="sendAsTextButtonLabel">Send as Text</string>
+    <string name="saveImageButtonLabel">Save Image</string>
 
     <!-- Friends Info -->
     <string name="friends_info_activity_heading">Info</string>
     <string name="edit_friend_button">Edit Friend Button</string>
     <string name="edit_button">Edit</string>
     <string name="send_message">Send Message</string>
-    <string name="import_image">Import Image</string>
     <string name="import_text">Import Text</string>
 
     <!-- Friends Info Two -->

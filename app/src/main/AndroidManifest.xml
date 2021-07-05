@@ -97,6 +97,7 @@
             android:excludeFromRecents="true">
             <!-- Allows other apps to share images with us -->
         </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

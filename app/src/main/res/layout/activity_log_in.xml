@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="20dp"
     android:layout_gravity="center"
     android:background="@color/royalBlueDark"
     android:orientation="vertical"
@@ -13,12 +12,13 @@
 
     <ImageView
         android:id="@+id/nahoft_message_bottle"
-        android:layout_width="104dp"
-        android:layout_height="104dp"
-        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="72dp"
         app:srcCompat="@drawable/nahoft_logo_transparent_104"
-        android:importantForAccessibility="no"
-        android:layout_margin="@dimen/padding_doubled" />
+        android:importantForAccessibility="no"/>
 
     <TextView
         android:layout_width="200dp"
@@ -26,6 +26,8 @@
         android:fontFamily="@font/open_sans_italic"
         android:layout_gravity="center"
         android:layout_margin="@dimen/padding_standard"
+        android:layout_above="@id/passcodeEditText"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/enter_passcode"
         android:textSize="16sp"
@@ -37,7 +39,7 @@
         android:id="@+id/passcodeEditText"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerInParent="true"
         android:background="@drawable/white_8_bkgd"
         android:inputType="number|numberPassword"
         android:maxLength="6"
@@ -49,10 +51,12 @@
 
     <Button
         android:id="@+id/login_button"
-        android:layout_width="104dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_margin="@dimen/padding_standard"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/passcodeEditText"
         android:background="@drawable/blue_56_btn_bkgd"
         android:foreground="?android:attr/selectableItemBackground"
         android:fontFamily="@font/open_sans"
@@ -61,4 +65,4 @@
         android:textSize="18sp"
         android:textColor="@color/button_text_color_light" />
 
-</LinearLayout>
+</RelativeLayout>

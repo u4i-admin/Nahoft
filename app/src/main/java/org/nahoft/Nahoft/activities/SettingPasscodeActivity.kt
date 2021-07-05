@@ -103,8 +103,14 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
         // Check for Destruction Code
         val maybeDestructionCode = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefSecondaryPasscodeKey, null)
-        maybeDestructionCode?.let { destructionCode ->
-            updateViewDestructionCodeOn(destructionCode)
+
+        if (maybeDestructionCode != null)
+        {
+            updateViewDestructionCodeOn(maybeDestructionCode, entryHidden)
+        }
+        else
+        {
+            updateViewDestructionCodeOff()
         }
     }
 
@@ -119,19 +125,19 @@ class SettingPasscodeActivity : AppCompatActivity() {
         verify_passcode_input.isEnabled = false
         passcode_submit_button.isEnabled = false
 
+        destruction_code_switch.isEnabled = false
         updateViewDestructionCodeOff()
     }
 
-    private fun updateViewDestructionCodeOn(maybeDestructionCode: String? = null)
+    private fun updateViewDestructionCodeOn(maybeDestructionCode: String? = null, entryHidden: Boolean)
     {
-        destruction_code_switch.isChecked = true
         // Secondary Passcode
         if (maybeDestructionCode == null)
         {
             val storedDestructionCode = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefSecondaryPasscodeKey, null)
             if (storedDestructionCode != null)
             {
-                updateViewDestructionCodeOn(storedDestructionCode)
+                updateViewDestructionCodeOn(storedDestructionCode, entryHidden)
                 return
             }
         }
@@ -142,23 +148,26 @@ class SettingPasscodeActivity : AppCompatActivity() {
             verify_destruction_code_input.setText(maybeDestructionCode)
         }
 
+        destruction_code_switch.isChecked = true
+
         // Make sure that our passcodes are enabled
         destruction_code_input.isEnabled = true
         verify_destruction_code_input.isEnabled = true
         destruction_code_submit_button.isEnabled = true
-        destruction_code_entry_layout.isGone = false
+        destruction_code_entry_layout.isGone = entryHidden
     }
 
     private fun updateViewDestructionCodeOff()
     {
         destruction_code_switch.isChecked = false
+        destruction_code_entry_layout.isGone = true
+
         // Disable passcode inputs and clear them out
         destruction_code_input.text?.clear()
         destruction_code_input.isEnabled = false
         verify_destruction_code_input.text?.clear()
         verify_destruction_code_input.isEnabled = false
         destruction_code_submit_button.isEnabled = false
-        destruction_code_entry_layout.isGone = true
     }
 
     private fun handlePasscodeRequirementChange(required: Boolean)
@@ -179,7 +188,7 @@ class SettingPasscodeActivity : AppCompatActivity() {
     {
         if (passcodeRequired)
         {
-            updateViewDestructionCodeOn()
+            updateViewDestructionCodeOn(null,false)
         }
         else
         {
