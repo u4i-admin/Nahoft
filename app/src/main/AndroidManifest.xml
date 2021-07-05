@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.nahoft.nahoft">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,7 +31,9 @@
             android:name=".activities.EnterPasscodeActivity"
             android:launchMode="singleTask"
             android:noHistory="true"
-            android:excludeFromRecents="true">
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="true"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -38,13 +41,20 @@
         </activity>
         <activity
             android:name=".activities.HomeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:excludeFromRecents="false"/>
         <activity
             android:name=".activities.ReadActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:excludeFromRecents="true"/>
         <activity
-            android:name=".activities.ImportImageActivity">
-            android:excludeFromRecents="true"
+            android:name=".activities.ImportImageActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:excludeFromRecents="true">
+            <!-- Allows other apps to share text with us -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -52,9 +62,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ImportTextActivity">
+            android:name=".activities.ImportTextActivity"
             android:screenOrientation="portrait"
-            android:excludeFromRecents="true"
+            tools:ignore="LockedOrientationActivity"
+            android:excludeFromRecents="true">
             <!-- Allows other apps to share text with us -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -64,40 +75,61 @@
         </activity>
         <activity
             android:name=".activities.MessageActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.FriendListActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.CreateActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.ImportingUserGuideActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.SettingsUserGuideActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.SendingMessagesUserGuideActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.FriendsUserGuideActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.SettingPasscodeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.HelpActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.MessagesActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:excludeFromRecents="true"/>
         <activity
             android:name=".activities.FriendInfoActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
             android:excludeFromRecents="true">
             <!-- Allows other apps to share images with us -->
         </activity>
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
