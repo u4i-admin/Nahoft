@@ -12,12 +12,12 @@
 
     <ImageView
         android:id="@+id/nahoft_message_bottle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="72dp"
-        app:srcCompat="@drawable/nahoft_logo_transparent_104"
+        app:srcCompat="@drawable/ic_nahoft_logo_transparent"
         android:importantForAccessibility="no"/>
 
     <TextView

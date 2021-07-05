@@ -10,11 +10,11 @@
 
     <ImageView
         android:id="@+id/nahoft_message_bottle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
         android:layout_marginTop="72dp"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/nahoft_logo_transparent_104"
+        app:srcCompat="@drawable/ic_nahoft_logo_transparent"
         tools:ignore="ContentDescription" />
 
         <LinearLayout
@@ -119,9 +119,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginVertical="@dimen/padding_three_quarters"
         android:background="@android:color/transparent"
-        android:drawableEnd="@drawable/new_logout_button_25"
+        android:drawableEnd="@drawable/ic_nahoft_icons_logout"
         android:drawablePadding="@dimen/padding_standard"
-        android:drawableTint="@color/button_text_color_light"
         android:fontFamily="@font/open_sans"
         android:text="@string/button_label_logout"
         android:textAllCaps="false"
