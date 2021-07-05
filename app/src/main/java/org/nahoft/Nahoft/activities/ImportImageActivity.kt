@@ -11,7 +11,6 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
@@ -28,7 +27,7 @@ import org.nahoft.util.RequestCodes
 import org.nahoft.util.showAlert
 
 
-class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListener
+class ImportImageActivity: AppCompatActivity(), OnItemSelectedListener
 {
     private var decodePayload: ByteArray? = null
     private var sender: Friend? = null
@@ -41,6 +40,7 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
         }
     }
 
+    @ExperimentalUnsignedTypes
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -52,7 +52,7 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
             addAction(LOGOUT_TIMER_VAL)
         })
 
-        // Check to see if a friend was slected in a previous activity
+        // Check to see if a friend was selected in a previous activity
         val maybeFriend = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription) as? Friend
         if (maybeFriend != null)
         {
@@ -105,6 +105,7 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
         }
     }
 
+    @ExperimentalUnsignedTypes
     private fun receiveSharedMessages()
     {
         // Receive shared messages
@@ -223,10 +224,8 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
         var chosenFriend: Friend? = null
         chooseFriendSpinner.adapter = friendAdapter
         chooseFriendSpinner.setBackgroundResource(R.drawable.grey_outline_8_btn_bkgd)
-        chooseFriendSpinner.setOnItemSelectedListener(object : OnItemSelectedListener
-        {
-            override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, l: Long)
-            {
+        chooseFriendSpinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, l: Long) {
                 if (position != 0) // The first value is a placeholder
                 {
                     val maybeFriend: Friend = adapterView.getItemAtPosition(position) as Friend
@@ -237,13 +236,13 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
             }
 
             override fun onNothingSelected(adapterView: AdapterView<*>?) {}
-        })
+        }
 
         builder.setView(chooseFriendSpinner)
 
         // Set the Add and Cancel Buttons
         builder.setPositiveButton(resources.getString(R.string.ok_button)) {
-                dialog, _->
+                _, _->
             //stub
         }
 
@@ -256,7 +255,7 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
         dialog.show()
 
         // Keep the dialog open if a sender hasn't been selected
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener{
             var wantToCloseDialog = false
 
             if (chosenFriend != null)
@@ -266,7 +265,7 @@ class ImportImageActivity: AppCompatActivity(), AdapterView.OnItemSelectedListen
             }
 
             if (wantToCloseDialog) dialog.dismiss()
-        })
+        }
     }
 
     private fun saveMessage(cipherBytes: ByteArray, messageSender: Friend)
