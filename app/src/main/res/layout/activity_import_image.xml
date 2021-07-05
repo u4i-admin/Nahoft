@@ -6,52 +6,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/royalBlueDark"
-    tools:context=".activities.ImportImageActivity">
+    tools:context=".activities.ImportImageActivity"
+    android:paddingHorizontal="@dimen/padding_standard"
+    android:paddingTop="@dimen/padding_standard">
 
-    <ProgressBar
-        android:id="@+id/imageImportProgressBar"
-        android:layout_centerInParent="true"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        app:srcCompat="@drawable/ic_nahoft_icons_import_image"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/import_image_title"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:fontFamily="@font/open_sans_semibold"
+        android:text="@string/button_label_import_image"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        tools:ignore="ContentDescription" />
+
     <LinearLayout
         android:id="@+id/importImagesActivityLayoutContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_standard"
         android:orientation="vertical"
-        android:layout_marginHorizontal="@dimen/padding_standard"
+        android:layout_below="@id/import_image_title"
         tools:context=".activities.ImportImageActivity">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/padding_standard">
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                app:srcCompat="@drawable/ic_nahoft_icons_import_image"
-                tools:ignore="ContentDescription" />
+            android:paddingBottom="@dimen/padding_half">
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:fontFamily="@font/open_sans"
-                android:text="@string/button_label_import_image"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                tools:ignore="ContentDescription" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/padding_half">
-            <TextView
-                android:id="@+id/to"
-                android:layout_width="48dp"
+                android:id="@+id/import_image_from_label"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:paddingHorizontal="@dimen/padding_quarter"
                 android:background="@drawable/btn_bkgd_green_8_left_c_radius"
                 android:text="@string/from"
                 android:textAlignment="center"
@@ -74,6 +71,7 @@
             android:textSize="16sp"
             android:textColor="@color/white" />
     </LinearLayout>
+
     <Button
         android:id="@+id/import_image_button"
         android:layout_width="96dp"
@@ -90,4 +88,11 @@
         android:textAllCaps="false"
         android:textSize="16sp"
         android:text="@string/button_label_import_image"/>
+
+    <ProgressBar
+        android:id="@+id/imageImportProgressBar"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
 </RelativeLayout>

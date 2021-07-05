@@ -5,41 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/royalBlueDark"
-    tools:context=".activities.MessagesActivity">
+    tools:context=".activities.MessagesActivity"
+    android:paddingTop="@dimen/padding_standard"
+    android:paddingHorizontal="@dimen/padding_standard">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_nahoft_icons_messages"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/messages_activity_title"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:fontFamily="@font/open_sans_semibold"
+        android:gravity="center"
+        android:text="@string/messages_activity_heading"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        tools:ignore="ContentDescription" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messages_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/padding_standard"
-        android:layout_below="@id/messages_header_container"
+        android:layout_marginVertical="@dimen/padding_standard"
+        android:layout_below="@id/messages_activity_title"
         android:background="@color/royalBlueDark" />
-
-    <LinearLayout
-        android:id="@+id/messages_header_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/padding_standard"
-        android:paddingVertical="@dimen/padding_standard"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:src="@drawable/ic_nahoft_icons_messages"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/open_sans_semibold"
-            android:gravity="center"
-            android:text="@string/messages_activity_heading"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            tools:ignore="ContentDescription" />
-
-    </LinearLayout>
 
 </RelativeLayout>

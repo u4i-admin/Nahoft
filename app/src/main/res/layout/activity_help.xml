@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/royalBlueDark"
-    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/padding_standard"
+    android:paddingTop="@dimen/padding_standard"
     tools:context=".activities.HelpActivity">
+
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/ic_nahoft_icons_help"
+        tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/help_activity_title"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:fontFamily="@font/open_sans_semibold"
+        android:text="@string/button_label_help"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/padding_standard"
-        android:orientation="horizontal"
-        android:paddingVertical="@dimen/padding_standard">
-        <ImageView
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_nahoft_icons_help"
-            tools:ignore="ContentDescription" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:fontFamily="@font/open_sans"
-            android:text="@string/button_label_help"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            tools:ignore="ContentDescription" />
-    </LinearLayout>
+        android:layout_below="@id/help_activity_title"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/padding_standard">
         <Button
             android:id="@+id/friends_user_guide"
             android:layout_width="match_parent"
@@ -99,5 +102,7 @@
             android:textSize="20sp"
             android:textAlignment="textStart"
             android:fontFamily="@font/open_sans" />
+    </LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>

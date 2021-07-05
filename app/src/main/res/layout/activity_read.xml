@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/royalBlueDark"
-    android:orientation="vertical"
+    android:paddingTop="@dimen/padding_standard"
     tools:context=".activities.ReadActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/padding_standard"
-        android:paddingVertical="@dimen/padding_standard"
-        android:orientation="horizontal">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/padding_standard"
+        android:background="@drawable/bkgd_circle_green_56"
+        app:srcCompat="@drawable/ic_nahoft_icons_read"
+        tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:background="@drawable/bkgd_circle_green_56"
-            app:srcCompat="@drawable/ic_nahoft_icons_read"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="56dp"
-            android:gravity="center"
-            android:fontFamily="@font/open_sans"
-            android:text="@string/button_label_read"
-            android:textAllCaps="false"
-            android:textColor="@color/button_text_color_light"
-            android:textSize="22sp"
-            tools:ignore="ContentDescription" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/read_activity_title"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:fontFamily="@font/open_sans_semibold"
+        android:text="@string/button_label_read"
+        android:textAllCaps="false"
+        android:textColor="@color/button_text_color_light"
+        android:textSize="22sp"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/read_activity_title"
+        android:layout_marginTop="@dimen/padding_standard"
         android:layout_marginHorizontal="@dimen/padding_half"
         android:orientation="vertical">
-
         <Button
             android:id="@+id/view_messages_button"
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
+            android:layout_marginBottom="@dimen/padding_three_quarters"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:drawableStart="@drawable/ic_nahoft_icons_messages"
@@ -59,6 +59,7 @@
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
+            android:layout_marginBottom="@dimen/padding_three_quarters"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:drawableStart="@drawable/ic_nahoft_icons_import_text"
@@ -72,6 +73,7 @@
             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
+            android:layout_marginBottom="@dimen/padding_three_quarters"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:drawableStart="@drawable/ic_nahoft_icons_import_image"
@@ -82,4 +84,4 @@
             android:textSize="22sp" />
 
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

@@ -6,46 +6,48 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/royalBlueDark"
-    tools:context=".activities.ImportTextActivity">
+    tools:context=".activities.ImportTextActivity"
+    android:paddingTop="@dimen/padding_standard"
+    android:paddingHorizontal="@dimen/padding_standard">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/ic_nahoft_icons_import_text"
+        tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/import_text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:fontFamily="@font/open_sans_semibold"
+        android:text="@string/import_text"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:id="@+id/importTextActivityLayoutContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/import_text_title"
         android:orientation="vertical"
-        android:layout_marginHorizontal="@dimen/padding_standard"
+        android:layout_marginTop="@dimen/padding_standard"
         tools:context=".activities.ImportTextActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/padding_standard">
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                app:srcCompat="@drawable/ic_nahoft_icons_import_text"
-                tools:ignore="ContentDescription" />
+            android:paddingBottom="@dimen/padding_three_quarters">
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:fontFamily="@font/open_sans"
-                android:text="@string/import_text"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                tools:ignore="ContentDescription" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/padding_three_quarters">
-            <TextView
-                android:id="@+id/to"
-                android:layout_width="48dp"
+                android:id="@+id/import_text_from"
+                android:layout_width="wrap_content"
+                android:paddingHorizontal="@dimen/padding_quarter"
                 android:layout_height="40dp"
                 android:background="@drawable/btn_bkgd_green_8_left_c_radius"
                 android:text="@string/from"

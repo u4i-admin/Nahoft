@@ -34,7 +34,7 @@
             android:layout_height="56dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:fontFamily="@font/open_sans"
+            android:fontFamily="@font/open_sans_semibold"
             android:text="@string/friends_info_activity_heading"
             android:textAllCaps="false"
             android:textColor="@color/white"
