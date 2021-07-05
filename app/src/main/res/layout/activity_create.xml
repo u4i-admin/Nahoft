@@ -70,7 +70,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/compose_message_text_layout"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="256dp"
             app:boxBackgroundMode="outline"
             app:counterEnabled="true"
             app:counterMaxLength="1000"
@@ -81,7 +81,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editMessageText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="235dp"
                 android:gravity="start"
                 android:background="@drawable/btn_bkgd_white_8"
                 android:hint="@string/enter_message_here_hint"
