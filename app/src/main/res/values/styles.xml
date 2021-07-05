@@ -39,19 +39,19 @@
     </style>
 
     <style name="AppTheme.AlertButtonBlue" parent="AppTheme.AlertButton">
-        <item name="android:background">@drawable/blue_56_btn_bkgd</item>
+        <item name="android:background">@drawable/btn_bkgd_blue_56</item>
     </style>
 
     <style name="AppTheme.AlertButtonRed" parent="AppTheme.AlertButton">
-        <item name="android:background">@drawable/red_56_btn_bkgd</item>
+        <item name="android:background">@drawable/btn_bkgd_red_56</item>
     </style>
 
     <style name="AppTheme.AlertButtonGrey" parent="AppTheme.AlertButton">
-        <item name="android:background">@drawable/grey_56_btn_bkgd</item>
+        <item name="android:background">@drawable/btn_bkgd_grey_56</item>
     </style>
 
     <style name="AppTheme.AlertButtonOrange" parent="AppTheme.AlertButton">
-        <item name="android:background">@drawable/orange_56_btn_bkgd</item>
+        <item name="android:background">@drawable/btn_bkgd_orange_56</item>
     </style>
 
     <style name="AppTheme.AlertText" parent="TextAppearance.AppCompat">

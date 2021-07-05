@@ -29,7 +29,7 @@
             <ImageView
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                app:srcCompat="@drawable/nahoft_icons_import_image_56"
+                app:srcCompat="@drawable/ic_nahoft_icons_import_image"
                 tools:ignore="ContentDescription" />
             <TextView
                 android:layout_width="0dp"
@@ -52,7 +52,7 @@
                 android:id="@+id/to"
                 android:layout_width="48dp"
                 android:layout_height="40dp"
-                android:background="@drawable/green_8_left_radius_btn_bkgd"
+                android:background="@drawable/btn_bkgd_green_8_left_c_radius"
                 android:text="@string/from"
                 android:textAlignment="center"
                 android:gravity="center"
@@ -62,8 +62,8 @@
                 android:id="@+id/message_sender_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/white_8_right_radius_btn_bkgd"
-                android:popupBackground="@drawable/white_8_bkgd"/>
+                android:background="@drawable/btn_bkgd_white_8_right_radius"
+                android:popupBackground="@drawable/btn_bkgd_white_8"/>
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
@@ -81,9 +81,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/button_label_import_image"
-        android:background="@drawable/green_8_btn_bkgd"
+        android:background="@drawable/btn_bkgd_green_8"
         android:foreground="?android:attr/selectableItemBackground"
-        android:drawableTop="@drawable/nahoft_icons_send_image_56"
+        android:drawableTop="@drawable/ic_nahoft_icons_image"
         android:layout_marginTop="@dimen/padding_three_quarters"
         android:layout_marginBottom="@dimen/padding_standard"
         android:textColor="@color/button_text_color_light"

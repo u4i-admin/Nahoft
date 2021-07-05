@@ -13,14 +13,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_friend_list.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
-import org.nahoft.nahoft.ui.ItemDragListener
-import org.nahoft.nahoft.ui.ItemTouchHelperCallback
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.showAlert
 
@@ -82,7 +79,7 @@ class FriendListActivity : AppCompatActivity()
 
         // Set the input - EditText
         val inputEditText = EditText(this)
-        inputEditText.setBackgroundResource(R.drawable.light_grey_outline_8_btn_bkgd)
+        inputEditText.setBackgroundResource(R.drawable.btn_bkgd_light_grey_outline_8)
         inputEditText.inputType = InputType.TYPE_TEXT_VARIATION_PERSON_NAME
         inputEditText.textAlignment = View.TEXT_ALIGNMENT_CENTER
         inputEditText.isSingleLine = true

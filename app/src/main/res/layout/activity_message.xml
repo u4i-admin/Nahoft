@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_weight="0"
-            android:background="@drawable/nahoft_trash_24"
+            android:background="@drawable/ic_nahoft_trash"
             android:tint="@color/button_text_color_dark" />
     </LinearLayout>
 

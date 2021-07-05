@@ -26,7 +26,7 @@
         <ImageView
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:src="@drawable/nahoft_icons_messages_56"
+            android:src="@drawable/ic_nahoft_icons_messages"
             tools:ignore="ContentDescription" />
 
         <TextView

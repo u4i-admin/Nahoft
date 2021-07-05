@@ -1,7 +1,6 @@
 package org.nahoft.nahoft.activities
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Layout
@@ -344,7 +343,7 @@ class FriendInfoActivity: AppCompatActivity()
         friend_info_name_text_view.isVisible = false
         delete_friend_button.isVisible = true
         edit_or_save_button.text = getString(R.string.button_label_save)
-        edit_or_save_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+        edit_or_save_button.setBackgroundResource(R.drawable.btn_bkgd_blue_56)
         status_description_text_view.isVisible = false
     }
 
@@ -354,7 +353,7 @@ class FriendInfoActivity: AppCompatActivity()
         friend_info_name_text_view.isVisible = true
         delete_friend_button.isVisible = false
         edit_or_save_button.text = getString(R.string.edit_button)
-        edit_or_save_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+        edit_or_save_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
         status_description_text_view.isVisible = true
     }
 
@@ -379,18 +378,18 @@ class FriendInfoActivity: AppCompatActivity()
             setupEditViewBasics()
 
             import_invitation_button.isEnabled = false
-            import_invitation_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            import_invitation_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
             invite_button.isEnabled = false
-            invite_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            invite_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
         }
         else
         {
             setupNormalViewBasics()
 
             import_invitation_button.isEnabled = true
-            import_invitation_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+            import_invitation_button.setBackgroundResource(R.drawable.btn_bkgd_blue_56)
             invite_button.isEnabled = true
-            invite_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+            invite_button.setBackgroundResource(R.drawable.btn_bkgd_blue_56)
         }
     }
 
@@ -416,18 +415,18 @@ class FriendInfoActivity: AppCompatActivity()
             setupEditViewBasics()
 
             import_invitation_button.isEnabled = false
-            import_invitation_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            import_invitation_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
             invite_button.isEnabled = false
-            invite_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            invite_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
         }
         else
         {
             setupNormalViewBasics()
 
             import_invitation_button.isEnabled = true
-            import_invitation_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+            import_invitation_button.setBackgroundResource(R.drawable.btn_bkgd_blue_56)
             invite_button.isEnabled = true
-            invite_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+            invite_button.setBackgroundResource(R.drawable.btn_bkgd_blue_56)
         }
     }
 
@@ -453,18 +452,18 @@ class FriendInfoActivity: AppCompatActivity()
             setupEditViewBasics()
 
             decline_button.isEnabled = false
-            decline_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            decline_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
             invite_button.isEnabled = false
-            invite_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            invite_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
         }
         else
         {
             setupNormalViewBasics()
 
             decline_button.isEnabled = true
-            decline_button.setBackgroundResource(R.drawable.orange_56_btn_bkgd)
+            decline_button.setBackgroundResource(R.drawable.btn_bkgd_orange_56)
             invite_button.isEnabled = true
-            invite_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+            invite_button.setBackgroundResource(R.drawable.btn_bkgd_blue_56)
         }
     }
 
@@ -490,18 +489,18 @@ class FriendInfoActivity: AppCompatActivity()
             setupEditViewBasics()
 
             invite_button.isEnabled = false
-            invite_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            invite_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
             verify_button.isEnabled = false
-            verify_button.setBackgroundResource(R.drawable.transparent_56_btn_bkgd)
+            verify_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
         }
         else
         {
             setupNormalViewBasics()
 
             invite_button.isEnabled = true
-            invite_button.setBackgroundResource(R.drawable.blue_56_btn_bkgd)
+            invite_button.setBackgroundResource(R.drawable.btn_bkgd_blue_56)
             verify_button.isEnabled = true
-            verify_button.setBackgroundResource(R.drawable.green_56_btn_bkgd)
+            verify_button.setBackgroundResource(R.drawable.btn_bkgd_green_56)
         }
     }
 
@@ -525,7 +524,7 @@ class FriendInfoActivity: AppCompatActivity()
             setupEditViewBasics()
 
             verification_code_button.isEnabled = false
-            verification_code_button.setBackgroundResource(R.drawable.grey_outline_8_btn_bkgd)
+            verification_code_button.setBackgroundResource(R.drawable.btn_bkgd_grey_outline_8)
             send_message_button.isEnabled = false
             send_message_button.setBackgroundResource(R.drawable.transparent_overlay_radius_8)
             import_image_button.isEnabled = false
@@ -538,13 +537,13 @@ class FriendInfoActivity: AppCompatActivity()
             setupNormalViewBasics()
 
             verification_code_button.isEnabled = true
-            verification_code_button.setBackgroundResource(R.drawable.green_outline_8_btn_bkgd)
+            verification_code_button.setBackgroundResource(R.drawable.btn_bkgd_green_outline_8)
             send_message_button.isEnabled = true
-            send_message_button.setBackgroundResource(R.drawable.purple_8_btn_bkgd)
+            send_message_button.setBackgroundResource(R.drawable.btn_bkgd_purple_8)
             import_image_button.isEnabled = true
-            import_image_button.setBackgroundResource(R.drawable.green_8_btn_bkgd)
+            import_image_button.setBackgroundResource(R.drawable.btn_bkgd_green_8)
             import_text_button.isEnabled = true
-            import_text_button.setBackgroundResource(R.drawable.green_8_btn_bkgd)
+            import_text_button.setBackgroundResource(R.drawable.btn_bkgd_green_8)
         }
     }
 

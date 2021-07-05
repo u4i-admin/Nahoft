@@ -11,14 +11,14 @@
     android:paddingHorizontal="@dimen/padding_half"
     android:orientation="horizontal"
     android:gravity="center"
-    android:background="@drawable/white_28_btn_bkgd">
+    android:background="@drawable/btn_bkgd_white_28">
 
     <ImageView
         android:id="@+id/status_image_view"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="@dimen/padding_quarter"
-        android:src="@drawable/nahoft_arrow"
+        android:src="@drawable/ic_nahoft_arrow"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

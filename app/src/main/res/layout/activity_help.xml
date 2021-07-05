@@ -19,7 +19,7 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/nahoft_icons_help_56"
+            app:srcCompat="@drawable/ic_nahoft_icons_help"
             tools:ignore="ContentDescription" />
         <TextView
             android:layout_width="0dp"

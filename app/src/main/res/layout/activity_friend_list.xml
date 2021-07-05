@@ -18,7 +18,7 @@
             android:id="@+id/friends_list_activity_image_view_header"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            app:srcCompat="@drawable/nahoft_icons_friends_56"
+            app:srcCompat="@drawable/ic_nahoft_icons_friends"
             tools:ignore="ContentDescription" />
         <TextView
             android:id="@+id/friends_list_activity_text_view_header"
@@ -52,5 +52,5 @@
         android:tint="@color/caribbeanGreen"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        app:srcCompat="@drawable/baseline_add_black_36dp" />
+        app:srcCompat="@drawable/icon_add_36dp" />
 </android.widget.RelativeLayout>

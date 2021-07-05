@@ -3,8 +3,6 @@ package org.nahoft.nahoft.activities
 import android.content.IntentFilter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_messages.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
@@ -12,8 +10,6 @@ import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.MessagesRecyclerAdapter
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.R
-import org.nahoft.nahoft.ui.ItemDragListener
-import org.nahoft.nahoft.ui.ItemTouchHelperCallback
 
 class MessagesActivity : AppCompatActivity()
 {

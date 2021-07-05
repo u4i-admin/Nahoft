@@ -24,7 +24,7 @@
             <ImageView
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                app:srcCompat="@drawable/nahoft_icons_import_text_56"
+                app:srcCompat="@drawable/ic_nahoft_icons_import_text"
                 tools:ignore="ContentDescription" />
             <TextView
                 android:layout_width="0dp"
@@ -47,7 +47,7 @@
                 android:id="@+id/to"
                 android:layout_width="48dp"
                 android:layout_height="40dp"
-                android:background="@drawable/green_8_left_radius_btn_bkgd"
+                android:background="@drawable/btn_bkgd_green_8_left_c_radius"
                 android:text="@string/from"
                 android:textAlignment="center"
                 android:gravity="center"
@@ -57,8 +57,8 @@
                 android:id="@+id/message_sender_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/white_8_right_radius_btn_bkgd"
-                android:popupBackground="@drawable/white_8_bkgd"/>
+                android:background="@drawable/btn_bkgd_white_8_right_radius"
+                android:popupBackground="@drawable/btn_bkgd_white_8"/>
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -83,7 +83,7 @@
                 android:inputType="textMultiLine|textCapSentences"
                 android:hint="@string/paste_message_for_import_hint"
                 android:fontFamily="@font/open_sans_italic"
-                android:background="@drawable/white_8_bkgd" />
+                android:background="@drawable/btn_bkgd_white_8" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -101,10 +101,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/padding_standard"
         android:layout_marginTop="@dimen/padding_three_quarters"
-        android:background="@drawable/green_8_btn_bkgd"
+        android:background="@drawable/btn_bkgd_green_8"
         android:foreground="?android:attr/selectableItemBackground"
         android:contentDescription="@string/button_import_text_label"
-        android:drawableTop="@drawable/nahoft_icons_send_text_56"
+        android:drawableTop="@drawable/ic_nahoft_icons_text"
         android:text="@string/import_text_label"
         android:textAllCaps="false"
         android:textColor="@color/button_text_color_light"

@@ -223,7 +223,7 @@ class ImportImageActivity: AppCompatActivity(), OnItemSelectedListener
         val friendAdapter: ArrayAdapter<Friend> = ArrayAdapter(this, R.layout.spinner, verifiedFriends)
         var chosenFriend: Friend? = null
         chooseFriendSpinner.adapter = friendAdapter
-        chooseFriendSpinner.setBackgroundResource(R.drawable.grey_outline_8_btn_bkgd)
+        chooseFriendSpinner.setBackgroundResource(R.drawable.btn_bkgd_grey_outline_8)
         chooseFriendSpinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, l: Long) {
                 if (position != 0) // The first value is a placeholder
