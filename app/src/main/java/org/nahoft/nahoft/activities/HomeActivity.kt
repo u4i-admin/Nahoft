@@ -90,7 +90,7 @@ class HomeActivity : AppCompatActivity()
         this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
 
         // Send user to the EnterPasscode Activity
-        val loginIntent = Intent(applicationContext, EnterPasscodeActivity::class.java)
+        val loginIntent = Intent(applicationContext, LogInActivity::class.java)
         startActivity(loginIntent)
     }
 
@@ -140,7 +140,7 @@ class HomeActivity : AppCompatActivity()
         status = LoginStatus.LoggedOut
         Persist.saveLoginStatus()
 
-        val returnToLoginIntent = Intent(this, EnterPasscodeActivity::class.java)
+        val returnToLoginIntent = Intent(this, LogInActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
         intent.flags = Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS

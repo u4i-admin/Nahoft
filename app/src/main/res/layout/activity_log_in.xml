@@ -8,7 +8,7 @@
     android:layout_gravity="center"
     android:background="@color/royalBlueDark"
     android:orientation="vertical"
-    tools:context=".activities.EnterPasscodeActivity">
+    tools:context=".activities.LogInActivity">
 
     <ImageView
         android:id="@+id/nahoft_message_bottle"

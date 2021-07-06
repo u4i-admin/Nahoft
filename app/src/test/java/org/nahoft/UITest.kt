@@ -10,11 +10,11 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.nahoft.nahoft.activities.EnterPasscodeActivity
+import org.nahoft.nahoft.activities.LogInActivity
 
 //Ensure emulator is open to the Enter Passcode Activity Screen before pressing play for EnterPasscodeActivityTest(s)
 @RunWith(AndroidJUnit4ClassRunner::class)
-class EnterPasscodeActivityTest{
+class LogInActivityTest{
 
     @Test
     fun test_isActivityInView() {
@@ -45,8 +45,8 @@ class EnterPasscodeActivityTest{
     private lateinit var secondStringToBeTyped: String
 
     @get:Rule
-    var activityRule: ActivityScenarioRule<EnterPasscodeActivity>
-            = ActivityScenarioRule(EnterPasscodeActivity::class.java)
+    var activityRule: ActivityScenarioRule<LogInActivity>
+            = ActivityScenarioRule(LogInActivity::class.java)
 
     @Before
     fun initValidString() {

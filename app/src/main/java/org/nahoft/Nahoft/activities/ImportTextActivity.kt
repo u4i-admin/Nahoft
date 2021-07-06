@@ -258,7 +258,7 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
         this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
 
         // Send user to the EnterPasscode Activity
-        val loginIntent = Intent(applicationContext, EnterPasscodeActivity::class.java)
+        val loginIntent = Intent(applicationContext, LogInActivity::class.java)
 
         // We received a shared message but the user is not logged in
         // Save the intent

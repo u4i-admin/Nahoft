@@ -28,7 +28,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
         <activity
-            android:name=".activities.EnterPasscodeActivity"
+            android:name=".activities.LogInActivity"
             android:launchMode="singleTask"
             android:noHistory="true"
             android:screenOrientation="portrait"

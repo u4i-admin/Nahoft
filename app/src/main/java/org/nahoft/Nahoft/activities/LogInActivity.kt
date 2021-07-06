@@ -21,7 +21,7 @@ import org.nahoft.nahoft.R
 import org.nahoft.util.showAlert
 import java.util.concurrent.TimeUnit
 
-class EnterPasscodeActivity : AppCompatActivity() 
+class LogInActivity : AppCompatActivity()
 {
 
     private var failedLoginAttempts = 0
