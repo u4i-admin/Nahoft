@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/royalBlueDark"
     tools:context=".activities.CreateActivity"
-    android:paddingHorizontal="@dimen/padding_standard">
+    android:paddingHorizontal="@dimen/padding_three_quarters">
 
     <ImageView
         android:id="@+id/create_activity_image_view_header"
