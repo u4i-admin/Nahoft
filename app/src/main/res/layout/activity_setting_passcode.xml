@@ -137,7 +137,7 @@
                 android:layout_height="56dp"
                 android:layout_marginVertical="@dimen/padding_half"
                 app:switchPadding="@dimen/padding_standard"
-                android:drawableStart="@drawable/ic_nahoft_icons_des_off"
+                android:drawableStart="@drawable/switch_destruction_code"
                 android:fontFamily="@font/open_sans"
                 android:text="@string/destructionCode"
                 android:textColor="@color/button_text_color_light"
