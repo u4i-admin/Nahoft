@@ -41,7 +41,7 @@ class Encoder
 
         if (saveToGallery)
         {
-            val saved = SaveUtil.saveImageToGallery(context, result, title, description)
+            val saved = SaveUtil.saveImageToGallery(context, result)
             if (saved)
             {
                 return coverUri

@@ -47,7 +47,7 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             addAction(LOGOUT_TIMER_VAL)
         })
 
-        // Check to see if a friend was slected in a previous activity
+        // Check to see if a friend was selected in a previous activity
         val maybeFriend = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription) as? Friend
         if (maybeFriend != null)
         {

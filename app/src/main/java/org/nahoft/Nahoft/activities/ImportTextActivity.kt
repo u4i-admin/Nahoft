@@ -38,7 +38,7 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
             addAction(LOGOUT_TIMER_VAL)
         })
 
-        // Check to see if a friend was slected in a previous activity
+        // Check to see if a friend was selected in a previous activity
         val maybeFriend = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription) as? Friend
         if (maybeFriend != null)
         {
@@ -114,7 +114,7 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
                 showAlert(getString(R.string.alert_text_unable_to_process_request))
             }
         }
-        else // See if we got intent extras from the EnterPasscode Activity
+        else // See if we got intent extras from the Login Activity
         {
             intent.getStringExtra(Intent.EXTRA_TEXT)?.let{
                 //Populate the edittext view
@@ -257,7 +257,7 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
         // If the status is not either NotRequired, or Logged in, request login
         this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
 
-        // Send user to the EnterPasscode Activity
+        // Send user to the Login Activity
         val loginIntent = Intent(applicationContext, LogInActivity::class.java)
 
         // We received a shared message but the user is not logged in

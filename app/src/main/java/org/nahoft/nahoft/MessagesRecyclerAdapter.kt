@@ -4,9 +4,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.message_item_row.view.*
-import org.nahoft.util.inflate
 import org.nahoft.nahoft.activities.MessageActivity
-import org.nahoft.nahoft.ui.ItemTouchHelperListener
+import org.nahoft.util.inflate
 
 class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : RecyclerView.Adapter<MessagesRecyclerAdapter.MessageViewHolder>()
 {

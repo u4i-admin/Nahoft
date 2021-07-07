@@ -126,7 +126,7 @@ class ImportImageActivity: AppCompatActivity(), OnItemSelectedListener
                 showAlert(getString(R.string.alert_text_unable_to_process_request))
             }
         }
-        else // See if we got intent extras from the EnterPasscode Activity
+        else // See if we got intent extras from the Login Activity
         {
             // See if we received an image message
             val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
@@ -297,7 +297,7 @@ class ImportImageActivity: AppCompatActivity(), OnItemSelectedListener
         // If the status is not either NotRequired, or Logged in, request login
         this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
 
-        // Send user to the EnterPasscode Activity
+        // Send user to the Login Activity
         val loginIntent = Intent(applicationContext, LogInActivity::class.java)
 
         // We received a shared message but the user is not logged in

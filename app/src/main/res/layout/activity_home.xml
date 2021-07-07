@@ -38,7 +38,8 @@
                 android:textSize="24sp"
                 android:textAllCaps="false"
                 android:text="@string/button_label_read"
-                style="?android:attr/buttonBarButtonStyle" />
+                style="?android:attr/buttonBarButtonStyle"
+                tools:ignore="RtlHardcoded" />
 
             <Button
                 android:id="@+id/create_button"
@@ -53,7 +54,8 @@
                 android:textSize="24sp"
                 android:textAllCaps="false"
                 android:text="@string/button_label_create"
-                style="?android:attr/buttonBarButtonStyle" />
+                style="?android:attr/buttonBarButtonStyle"
+                tools:ignore="RtlHardcoded" />
         </LinearLayout>
 
         <LinearLayout

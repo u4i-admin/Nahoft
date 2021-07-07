@@ -6,9 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.friend_recyclerview_item_row.view.*
 import org.nahoft.nahoft.activities.FriendInfoActivity
-import org.nahoft.util.inflate
-import org.nahoft.nahoft.ui.ItemTouchHelperListener
 import org.nahoft.util.RequestCodes
+import org.nahoft.util.inflate
 
 class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerView.Adapter<FriendsRecyclerAdapter.FriendViewHolder>()
 {

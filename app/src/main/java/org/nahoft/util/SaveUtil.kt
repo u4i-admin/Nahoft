@@ -15,17 +15,15 @@ import java.io.OutputStream
 
 object SaveUtil
 {
-    fun saveImageToGallery(context: Context, image: Bitmap, title: String, description: String): Boolean
+    fun saveImageToGallery(context: Context, image: Bitmap): Boolean
     {
         val filename = "${System.currentTimeMillis()}.png"
         // FileOutputStream
         var fos: OutputStream? = null
 
-        // TODO: DELETE THIS ALBUM WHEN DESTRUCTION CODE IS RUN
         // Check the version of Android, as versions Q and higher require a new way of saving images
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
         {
-            // TODO: Save to a folder/album with the same localized name as the album for older versions
             context.contentResolver.also { resolver ->
                 val contentValues = ContentValues().apply {
                     put(MediaStore.MediaColumns.DISPLAY_NAME, filename)

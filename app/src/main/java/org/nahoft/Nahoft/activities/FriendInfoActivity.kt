@@ -547,7 +547,7 @@ class FriendInfoActivity: AppCompatActivity()
         }
     }
 
-    fun Activity.hideSoftKeyboard(editText: EditText)
+    private fun Activity.hideSoftKeyboard(editText: EditText)
     {
         (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).apply {
             hideSoftInputFromWindow(editText.windowToken, 0)
