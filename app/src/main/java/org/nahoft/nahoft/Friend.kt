@@ -1,5 +1,6 @@
 package org.nahoft.nahoft
 
+import android.content.Context
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Root
 import java.io.Serializable
@@ -29,6 +30,18 @@ data class Friend constructor(
 
     override fun toString(): String {
         return name // What to display in the Spinner list.
+    }
+
+    fun getStatusSring(context: Context): String
+    {
+        return when (this.status)
+        {
+            FriendStatus.Default -> context.getString(R.string.friend_status_default)
+            FriendStatus.Requested -> context.getString(R.string.friend_status_requested)
+            FriendStatus.Invited -> context.getString(R.string.friend_status_invited)
+            FriendStatus.Verified -> context.getString(R.string.friend_status_verified)
+            FriendStatus.Approved -> context.getString(R.string.friend_status_approved)
+        }
     }
 }
 

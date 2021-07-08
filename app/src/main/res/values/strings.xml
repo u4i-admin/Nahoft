@@ -269,7 +269,11 @@
     <!-- Activity Friends Info Two -->
     <string name="nickname">Nickname</string>
     <string name="verification_code">Verification Code</string>
-    <string name="default_status">Default</string>
+    <string name="friend_status_default">Default</string>
+    <string name="friend_status_requested">Requested</string>
+    <string name="friend_status_invited">Invited</string>
+    <string name="friend_status_verified">Verified</string>
+    <string name="friend_status_approved">Approves</string>
 
     <!-- Setting Passcode -->
     <string name="enter_destruction_code">Enter Your Destruction Code</string>

@@ -96,7 +96,7 @@
                     android:id="@+id/status_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/padding_standard"
-                    android:text="@string/default_status"
+                    android:text="@string/friend_status_default"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
                 <ImageView

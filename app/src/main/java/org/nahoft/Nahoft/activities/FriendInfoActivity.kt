@@ -326,7 +326,7 @@ class FriendInfoActivity: AppCompatActivity()
 
     private fun setupViewByStatus() {
         friend_info_name_text_view.text = thisFriend.name
-        status_text_view.text = thisFriend.status.name
+        status_text_view.text = thisFriend.getStatusSring(this)
         when (thisFriend.status) {
             FriendStatus.Default -> setupDefaultView()
             FriendStatus.Requested -> setupRequestedView()
