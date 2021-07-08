@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/royalBlueDark"
-    tools:context=".activities.ImportingUserGuideActivity">
+    tools:context=".activities.CreateUserGuideActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

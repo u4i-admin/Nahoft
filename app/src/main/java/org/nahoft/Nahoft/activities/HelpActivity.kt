@@ -6,29 +6,34 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_help.*
 import org.nahoft.nahoft.R
 
-class HelpActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+class HelpActivity : AppCompatActivity()
+{
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_help)
 
-        friends_user_guide.setOnClickListener {
-            println("message button clicked")
+        help_menu_button_about.setOnClickListener {
+            startActivity(intent)
+        }
+
+        help_menu_button_read.setOnClickListener {
+            val intent = Intent(this, ReadUserGuideActivity::class.java)
+            startActivity(intent)
+        }
+
+        help_menu_button_create.setOnClickListener {
+            val intent = Intent(this, CreateUserGuideActivity::class.java)
+            startActivity(intent)
+        }
+
+        help_menu_button_friends.setOnClickListener {
             val intent = Intent(this, FriendsUserGuideActivity::class.java)
             startActivity(intent)
         }
 
-        sending_messages_user_guide.setOnClickListener {
-            val intent = Intent(this, SendingMessagesUserGuideActivity::class.java)
-            startActivity(intent)
-        }
-
-        passcodes_user_guide.setOnClickListener {
+        help_menu_button_settings.setOnClickListener {
             val intent = Intent(this, SettingsUserGuideActivity::class.java)
-            startActivity(intent)
-        }
-
-        importing_user_guide.setOnClickListener {
-            val intent = Intent(this, ImportingUserGuideActivity::class.java)
             startActivity(intent)
         }
     }

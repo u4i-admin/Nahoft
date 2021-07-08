@@ -36,7 +36,58 @@
         android:orientation="vertical"
         android:paddingTop="@dimen/padding_standard">
         <Button
-            android:id="@+id/friends_user_guide"
+            android:id="@+id/help_menu_button_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/padding_quarter"
+            android:layout_marginHorizontal="@dimen/padding_standard"
+            android:padding="@dimen/padding_half"
+            android:background="@drawable/transparent_overlay_radius_8"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:drawableTint="@color/button_text_color_light"
+            android:text="@string/button_label_about"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textAlignment="textStart"
+            android:fontFamily="@font/open_sans"/>
+
+        <Button
+            android:id="@+id/help_menu_button_read"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/padding_quarter"
+            android:layout_marginHorizontal="@dimen/padding_standard"
+            android:padding="@dimen/padding_half"
+            android:background="@drawable/transparent_overlay_radius_8"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:drawableTint="@color/button_text_color_light"
+            android:text="@string/button_label_read"
+            android:textAllCaps="false"
+            android:textColor="@color/button_text_color_light"
+            android:textSize="20sp"
+            android:textAlignment="textStart"
+            android:fontFamily="@font/open_sans"/>
+
+        <Button
+            android:id="@+id/help_menu_button_create"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/padding_quarter"
+            android:layout_marginHorizontal="@dimen/padding_standard"
+            android:padding="@dimen/padding_half"
+            android:background="@drawable/transparent_overlay_radius_8"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:drawableTint="@color/button_text_color_light"
+            android:text="@string/button_label_create"
+            android:textAllCaps="false"
+            android:textColor="@color/button_text_color_light"
+            android:textSize="20sp"
+            android:textAlignment="textStart"
+            android:fontFamily="@font/open_sans" />
+
+        <Button
+            android:id="@+id/help_menu_button_friends"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/padding_quarter"
@@ -47,30 +98,13 @@
             android:drawableTint="@color/button_text_color_light"
             android:text="@string/button_label_friends"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textAlignment="textStart"
-            android:fontFamily="@font/open_sans"/>
-
-        <Button
-            android:id="@+id/sending_messages_user_guide"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/padding_quarter"
-            android:layout_marginHorizontal="@dimen/padding_standard"
-            android:padding="@dimen/padding_half"
-            android:background="@drawable/transparent_overlay_radius_8"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:drawableTint="@color/button_text_color_light"
-            android:text="@string/button_label_messages"
-            android:textAllCaps="false"
             android:textColor="@color/button_text_color_light"
             android:textSize="20sp"
             android:textAlignment="textStart"
             android:fontFamily="@font/open_sans" />
 
         <Button
-            android:id="@+id/passcodes_user_guide"
+            android:id="@+id/help_menu_button_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/padding_quarter"
@@ -79,24 +113,7 @@
             android:background="@drawable/transparent_overlay_radius_8"
             android:foreground="?android:attr/selectableItemBackground"
             android:drawableTint="@color/button_text_color_light"
-            android:text="@string/button_label_passcode"
-            android:textAllCaps="false"
-            android:textColor="@color/button_text_color_light"
-            android:textSize="20sp"
-            android:textAlignment="textStart"
-            android:fontFamily="@font/open_sans" />
-
-        <Button
-            android:id="@+id/importing_user_guide"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/padding_quarter"
-            android:layout_marginHorizontal="@dimen/padding_standard"
-            android:padding="@dimen/padding_half"
-            android:background="@drawable/transparent_overlay_radius_8"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:drawableTint="@color/button_text_color_light"
-            android:text="@string/button_label_importing"
+            android:text="@string/button_label_settings"
             android:textAllCaps="false"
             android:textColor="@color/button_text_color_light"
             android:textSize="20sp"

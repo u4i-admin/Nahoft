@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/royalBlueDark"
+    tools:context=".activities.ReadUserGuideActivity">
+
+    <LinearLayout
+        android:id="@+id/read_user_guide_button_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/user_guide_read_button_english"
+            android:layout_width="wrap_content"
+            android:minWidth="144dp"
+            android:layout_height="32dp"
+            android:layout_margin="@dimen/padding_half"
+            android:background="@drawable/btn_bkgd_blue_56"
+            android:fontFamily="@font/open_sans"
+            android:textAllCaps="false"
+            android:text="@string/button_label_english"
+            android:textColor="@color/button_text_color_light"
+            style="?android:attr/buttonBarButtonStyle" />
+        <Button
+            android:id="@+id/user_guide_read_button_persian"
+            android:layout_width="wrap_content"
+            android:minWidth="144dp"
+            android:layout_height="32dp"
+            android:layout_margin="@dimen/padding_half"
+            android:background="@drawable/btn_bkgd_blue_56"
+            android:fontFamily="@font/open_sans"
+            android:textAllCaps="false"
+            android:text="@string/button_label_persian"
+            android:textColor="@color/button_text_color_light"
+            style="?android:attr/buttonBarButtonStyle" />
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/read_user_guide_button_container">
+        <TextView
+            android:id="@+id/user_guide_read_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_standard"
+            android:isScrollContainer="true"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/open_sans"
+            android:text="@string/user_guide_read_persian"/>
+    </ScrollView>
+</RelativeLayout>

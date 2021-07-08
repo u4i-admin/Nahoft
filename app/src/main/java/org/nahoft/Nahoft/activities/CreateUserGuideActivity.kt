@@ -5,7 +5,7 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_importing_user_guide.*
 import org.nahoft.nahoft.R
 
-class ImportingUserGuideActivity : AppCompatActivity()
+class CreateUserGuideActivity : AppCompatActivity()
 {
     override fun onCreate(savedInstanceState: Bundle?)
     {
