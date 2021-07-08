@@ -49,7 +49,7 @@
 <string name="alert_text_secondary_passcode_field_empty">قسمت کدعبور ثانویه خالی است</string>
 <string name="alert_text_verify_secondary_passcode_empty">تأیید قسمت کدعبور ثانویه خالی است</string>
 <string name="alert_text_secondary_passcode_entries_do_not_match">ورودی‌های کدعبور ثانویه مطابقت ندارند</string>
-<string name="alert_text_passcode_required_for_destruction_code">You cannot create a destruction code until you create a passcode.</string>
+<string name="alert_text_passcode_required_for_destruction_code">تا زمانی که کد عبور ایجاد نکنید نمی توانید یک کد تخریب ایجاد کنید.</string>
 <string name="alert_text_secondary_passcode_and_passcode_may_not_match">ورودی‌های کدعبور ثانویه و اولیه نباید مطابقت داشته باشند.</string>
 <string name="alert_text_received_invitation">از %1$s دعوتنامه دریافت شد. دعوت آن‌ها را برای شروع ارتباط بپذیرید.</string>
 <string name="alert_text_passcode_required_to_proceed">برای ادامه کدعبور الزامی است</string>
@@ -58,7 +58,7 @@
 <string name="alert_text_invitation_accepted"> $ {sender.name} دعوت شما را پذیرفت. اکنون می‌توانید به‌صورت ایمن ارتباط برقرار کنید.</string>
 <string name="alert_text_unable_to_update_friend_status">مشکلی رخ داد. به‌روزرسانی وضعیت دوست شما امکان‌پذیر نیست.</string>
 <string name="alert_text_which_friend_sent_this_message">کدام دوست این پیام را ارسال کرده است؟</string>
-<string name="alert_text_which_friend_sent_this_invitation">Which friend sent this invitation?</string>
+<string name="alert_text_which_friend_sent_this_invitation">کدام دوست این دعوت نامه را ارسال کرده است؟</string>
 <string name="alert_text_friend_already_exists">شما قبلاً دوستی با این نام دارید.</string>
 <string name="alert_text_unable_to_process_request">"مشکلی رخ داد. پردازش درخواست شما امکان‌پذیر نیست."</string>
 <string name="paste_message_for_import_hint">متن را برای وارد کردن اینجا جای‌گذاری کنید.</string>
@@ -180,10 +180,10 @@
 <string name="alert_text_confirm_friend_delete">آیا مطمئن هستید که می‌خواهید این مخاطب را حذف کنید؟ با این کار همه پیام‌های دریافتی از او نیز حذف می‌شود.</string>
 <string name="button_label_cancel">لغو</string>
 
-<string name="user_guide_button_description">Button to take you to the user guides.</string>
-<string name="settings_button_description">Button to go to the settings menu.</string>
-<string name="friends_button_description">Button to go to the friends menu.</string>
-<string name="read_button_description">Button to take you to the messages menu.</string>
+<string name="user_guide_button_description">دکمه شما را به راهنماهای کاربر می رساند.</string>
+<string name="settings_button_description">دکمه رفتن به منوی تنظیمات.</string>
+<string name="friends_button_description">دکمه رفتن به منوی دوستان.</string>
+<string name="read_button_description">دکمه برای رفتن به منوی پیام ها.</string>
 
     <string name="ok_button">خوب</string>
 
@@ -206,10 +206,9 @@
     <string name="saved_images">تصاویر ذخیره شده</string>
 
     <!-- Enter Passcode Activity XML -->
-    <string name="enter_passcode">Enter Your Passcode</string>
-
+    <string name="enter_passcode">رمز عبور خود را وارد کنید</string>
     <!-- Home Activity -->
-    <string name="button_label_help">Help</string>
+    <string name="button_label_help">کمک</string>
     <string name="button_label_read">خواندن</string>
     <string name="button_label_create">ایجاد پیام</string>
 
@@ -223,55 +222,55 @@
     <string name="settings_activity_label">تنظیمات</string>
     <string name="passcode">رمز عبور</string>
     <string name="destructionCode">کد تخریب</string>
-    <string name="passcodeTwice">Re-enter Your Passcode</string>
+    <string name="passcodeTwice">رمز عبور خود را دوباره وارد کنید</string>
 
     <!--Create Activity -->
-    <string name="to">To</string>
-    <string name="sendAsTextButtonLabel">Send as Text</string>
-    <string name="saveImageButtonLabel">Save Image</string>
+    <string name="to">به</string>
+    <string name="sendAsTextButtonLabel">ارسال به عنوان متن</string>
+    <string name="saveImageButtonLabel">ذخیره تصویر</string>
 
     <!-- Friends Info -->
-    <string name="friends_info_activity_heading">Info</string>
-    <string name="edit_friend_button">Edit Friend Button</string>
-    <string name="edit_button">Edit</string>
-    <string name="send_message">Send Message</string>
-    <string name="import_text">Import Text</string>
+    <string name="friends_info_activity_heading">اطلاعات</string>
+    <string name="edit_friend_button">دکمه دوست را ویرایش کنید</string>
+    <string name="edit_button">ویرایش کنید</string>
+    <string name="send_message">پیام فرستادن</string>
+    <string name="import_text">وارد کردن متن</string>
 
     <!-- Friends Info Two -->
-    <string name="verify_button">Verify</string>
-    <string name="invite_button">Invite</string>
-    <string name="decline_button">Decline</string>
-    <string name="import_invitation_button">Import Invitation</string>
+    <string name="verify_button">تأیید کنید</string>
+    <string name="invite_button">دعوت</string>
+    <string name="decline_button">کاهش می یابد</string>
+    <string name="import_invitation_button">دعوت نامه واردات</string>
 
     <string name="button_descriptions">
-        \nPress Invite to send a key to a new friend.
-        \nPress Invite Again if you need to resend an invite.
-        \nPress Import Invitation to receive an invitation back from your friend.
-        \nPress Verify to compare keys with your new friend.
-        \nPress Decline to decline an imported key and start the process over.</string>
+        \nبرای ارسال کلید برای دوست جدید ، دعوت را فشار دهید.
+        \nدر صورت نیاز به ارسال مجدد دعوت ، دوباره دعوت را فشار دهید.
+        \nبرای وارد کردن دعوت نامه از دوست خود ، دعوت نامه را وارد کنید.
+        \nبرای مقایسه کلیدها با دوست جدید خود ، تأیید را فشار دهید.
+        \nبرای رد کردن کلید وارد شده و شروع مجدد روند ، دکمه رد را فشار دهید.</string>
 
-    <string name="delete_friend_button">Delete Friend</string>
+    <string name="delete_friend_button">دوست را حذف کنید</string>
 
     <!-- Messages Activity -->
-    <string name="messages_activity_heading">Messages</string>
+    <string name="messages_activity_heading">پیام ها</string>
 
     <!-- Add Friend Alert Dialog -->
-    <string name="enter_nickname">Enter Nickname</string>
-    <string name="add_button">Add</string>
-    <string name="cancel_button">Cancel</string>
+    <string name="enter_nickname">نام مستعار را وارد کنید</string>
+    <string name="add_button">اضافه کردن</string>
+    <string name="cancel_button">لغو</string>
 
     <!-- Activity Friends Info Two -->
-    <string name="nickname">Nickname</string>
-    <string name="verification_code">Verification Code</string>
-    <string name="default_status">Default</string>
+    <string name="nickname">کنیه</string>
+    <string name="verification_code">کد تایید</string>
+    <string name="default_status">پیش فرض</string>
 
     <!-- Setting Passcode -->
-    <string name="enter_destruction_code">Enter Your Destruction Code</string>
-    <string name="reenter_destruction_code">Re-enter Your Destruction Code</string>
+    <string name="enter_destruction_code">کد تخریب خود را وارد کنید</string>
+    <string name="reenter_destruction_code">کد تخریب خود را دوباره وارد کنید</string>
 
     <!-- Message -->
-    <string name="from_with_colon">From:</string>
-    <string name="button_label_about">About</string>
+    <string name="from_with_colon">از جانب:</string>
+    <string name="button_label_about">در باره</string>
     <string name="user_guide_about_persian">\n ارسال پیام ها \n      \n روی پیامهای صفحه اصلی ضربه بزنید. \n      \n روی نماد مداد در گوشه پایین صفحه پیام ها ضربه بزنید. \n      \n برای انتخاب دوستی که می خواهید برای او پیام ارسال کنید ، روی  \"گیرنده را انتخاب کنید \" ضربه بزنید. \n      \n پیام خود را در پنجره ای بنویسید که  \"پیام را اینجا وارد کنید \" را بنویسید. \n      \n برای رمزگذاری پیام و ارسال آن به یک سری دیگر از نویسه ها ، روی ارسال به عنوان متن ضربه بزنید. \n      \n برای رمزگذاری پیام خود روی ارسال به عنوان تصویر ضربه بزنید و آن را در تصویری که انتخاب می کنید جاسازی کنید. \n      \n هنگامی که انتخاب خود را انجام دادید ، از شما خواسته می شود تصویر یا متن را به اشتراک بگذارید ، در اینجا می توانید برنامه پیام رسانی مورد نظر خود را انتخاب کنید یا آن را در کلیپ بورد خود ذخیره کنید. \n\n</string>
     <string name="user_guide_about_english">Sending Messages:\n         \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.         The encrypted message will be transformed into your choice of either a text or an image in order to hide the fact that it is encrypted.\n         \nYou can only send messages to \'verified\' friends.\n         \nTap the conversation icon on the home screen.\n         \nPress the compose a message icon in the messages menu screen.\n         \nClick \'Select Recipient\' to choose the friend you would like to send a message to.\n         \nWrite your message in the window that says \'Message Body\'.\n         \nTap send as text to encrypt your message and transform it into a different series of characters.\n         \nPress send as Image to encrypt your message and embed it in the image you select.\n         \nOnce you have made your selection you will be prompted to share the image or text. Here you can select your preferred messaging app or copy it to your clipboard to paste it directly into your preferred messaging app.\n         \nIf you do not currently have access to the internet, write you message and then choose \'Save Image\'. This will save the image to your phone so you can send it later once you have re-established internet connectivity.\n         \nTo delete a message click on the message you want to remove and swipe it off the screen.\n\n</string>
 
