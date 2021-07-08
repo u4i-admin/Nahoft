@@ -14,27 +14,28 @@ class HelpActivity : AppCompatActivity()
         setContentView(R.layout.activity_help)
 
         help_menu_button_about.setOnClickListener {
-            startActivity(intent)
+            val intentAboutUserGuide = Intent(this, AboutUserGuideActivity::class.java)
+            startActivity(intentAboutUserGuide)
         }
 
         help_menu_button_read.setOnClickListener {
-            val intent = Intent(this, ReadUserGuideActivity::class.java)
-            startActivity(intent)
+            val intentReadUserGuide = Intent(this, ReadUserGuideActivity::class.java)
+            startActivity(intentReadUserGuide)
         }
 
         help_menu_button_create.setOnClickListener {
-            val intent = Intent(this, CreateUserGuideActivity::class.java)
-            startActivity(intent)
+            val intentCreateUserGuide = Intent(this, CreateUserGuideActivity::class.java)
+            startActivity(intentCreateUserGuide)
         }
 
         help_menu_button_friends.setOnClickListener {
-            val intent = Intent(this, FriendsUserGuideActivity::class.java)
-            startActivity(intent)
+            val intentFriendsUserGuide = Intent(this, FriendsUserGuideActivity::class.java)
+            startActivity(intentFriendsUserGuide)
         }
 
         help_menu_button_settings.setOnClickListener {
-            val intent = Intent(this, SettingsUserGuideActivity::class.java)
-            startActivity(intent)
+            val intentSettingsUserGuide = Intent(this, SettingsUserGuideActivity::class.java)
+            startActivity(intentSettingsUserGuide)
         }
     }
 }

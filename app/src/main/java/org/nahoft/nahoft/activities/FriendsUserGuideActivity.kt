@@ -13,13 +13,13 @@ class FriendsUserGuideActivity : AppCompatActivity()
         setContentView(R.layout.activity_friends_user_guide)
 
         // Show user guide in English
-        friend_ug_english_button.setOnClickListener {
-            friend_ug_textView.text = getString(R.string.friends_user_guide_english)
+        friends_user_guide_button_english.setOnClickListener {
+            friends_user_guide_textView.text = getString(R.string.friends_user_guide_english)
         }
 
         // Show user guide in Persian
-        friend_ug_persian_button.setOnClickListener {
-            friend_ug_textView.text = getString(R.string.friends_user_guide_persian)
+        friends_user_guide_button_persian.setOnClickListener {
+            friends_user_guide_textView.text = getString(R.string.friends_user_guide_persian)
         }
     }
 }

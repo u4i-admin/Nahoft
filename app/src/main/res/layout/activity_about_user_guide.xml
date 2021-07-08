@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.AboutUserGuideActivity"
     android:background="@color/royalBlueDark"
-    android:paddingHorizontal="@dimen/padding_standard"
-    android:paddingTop="@dimen/padding_standard">
+    android:paddingHorizontal="@dimen/padding_standard">
 
     <LinearLayout
         android:id="@+id/about_user_guide_button_container"
@@ -15,46 +14,36 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
+        android:layout_marginVertical="@dimen/padding_standard"
         android:gravity="center"
         android:orientation="horizontal">
         <Button
-            android:id="@+id/user_guide_about_button_english"
-            android:layout_width="wrap_content"
-            android:minWidth="144dp"
-            android:layout_height="32dp"
-            android:layout_margin="@dimen/padding_half"
-            android:background="@drawable/btn_bkgd_blue_56"
-            android:fontFamily="@font/open_sans"
-            android:textAllCaps="false"
+            android:id="@+id/about_user_guide_button_english"
             android:text="@string/button_label_english"
-            android:textColor="@color/button_text_color_light"
-            style="?android:attr/buttonBarButtonStyle" />
+            style="@style/AppTheme.BlueCapsuleButton"/>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
         <Button
-            android:id="@+id/user_guide_about_button_persian"
-            android:layout_width="wrap_content"
-            android:minWidth="144dp"
-            android:layout_height="32dp"
-            android:layout_margin="@dimen/padding_half"
-            android:background="@drawable/btn_bkgd_blue_56"
-            android:fontFamily="@font/open_sans"
-            android:textAllCaps="false"
+            android:id="@+id/about_user_guide_button_persian"
             android:text="@string/button_label_persian"
-            android:textColor="@color/button_text_color_light"
-            style="?android:attr/buttonBarButtonStyle" />
+            style="@style/AppTheme.BlueCapsuleButton" />
     </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/about_user_guide_button_container">
         <TextView
-            android:id="@+id/user_guide_about_textView"
+            android:id="@+id/about_user_guide_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:isScrollContainer="true"
             android:textSize="15sp"
             android:textColor="@color/white"
             android:fontFamily="@font/open_sans"
-            android:text="@string/user_guide_about_persian"/>
+            android:text="@string/about_user_guide_persian"/>
     </ScrollView>
 
 </RelativeLayout>

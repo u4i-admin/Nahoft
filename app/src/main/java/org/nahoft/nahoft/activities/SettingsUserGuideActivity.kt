@@ -12,13 +12,13 @@ class SettingsUserGuideActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings_user_guide)
         // Show user guide in English
-        settings_ug_english_button.setOnClickListener {
-            settings_ug_textView.text = getString(R.string.passcodes_user_guide_english)
+        settings_user_guide_button_english.setOnClickListener {
+            settings_user_guide_textView.text = getString(R.string.settings_user_guide_english)
         }
 
         // Show user guide in Persian
-        settings_ug_persian_button.setOnClickListener {
-            settings_ug_textView.text = getString(R.string.passcodes_user_guide_persian)
+        settings_user_guide_button_persian.setOnClickListener {
+            settings_user_guide_textView.text = getString(R.string.settings_user_guide_persian)
         }
     }
 }

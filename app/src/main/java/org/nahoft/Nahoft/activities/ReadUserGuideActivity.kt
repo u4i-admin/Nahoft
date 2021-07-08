@@ -13,13 +13,13 @@ class ReadUserGuideActivity : AppCompatActivity()
         setContentView(R.layout.activity_read_user_guide)
 
         // Show user guide in English
-        user_guide_read_button_english.setOnClickListener {
-            user_guide_read_textView.text = getString(R.string.user_guide_read_english)
+        read_user_guide_button_english.setOnClickListener {
+            read_user_guide_textView.text = getString(R.string.read_user_guide_english)
         }
 
         // Show user guide in Persian
-        user_guide_read_button_persian.setOnClickListener {
-            user_guide_read_textView.text = getString(R.string.user_guide_read_persian)
+        read_user_guide_button_persian.setOnClickListener {
+            read_user_guide_textView.text = getString(R.string.read_user_guide_persian)
         }
     }
 }

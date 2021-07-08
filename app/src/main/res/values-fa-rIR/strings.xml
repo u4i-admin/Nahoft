@@ -104,7 +104,7 @@
      </string>
 
 <!-- Messages User Guide -->
-<string name="user_guide_read_english">SENDING MESSAGES\n
+<string name="read_user_guide_english">SENDING MESSAGES\n
          \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.
          The encrypted message will be transformed into your choice of either a text message or an image in order to hide the fact that it is encrypted.\n
          \n- You can only send messages to \'verified\' friends.\n
@@ -117,7 +117,7 @@
          \n- Once you have made your selection, you will be prompted to share the image or text, here you can select your preferred messaging app, or save it to your clipboard.\n\n
      </string>
 
-<string name="user_guide_read_persian">>ارسال پیام‌ها\n
+<string name="read_user_guide_persian">>ارسال پیام‌ها\n
         \n Nahoft به شما امکان می‌دهد با استفاده از قوی‌ترین رمزگذاری موجود پیام‌های رمزگذاری‌شده را برای دوستان خود ارسال کنید.
         پیام رمزگذاری‌شده به انتخاب شما به پیام متنی یا تصویر تبدیل می‌شود تا این واقعیت که رمزگذاری‌شده است را پنهان کند.\n
         \n- فقط می‌توانید برای دوستان \تأییدشده\' پیام ارسال کنید.\n
@@ -131,7 +131,7 @@
     </string>
 
 <!-- Passcode User Guide -->
-<string name="passcodes_user_guide_english">
+<string name="settings_user_guide_english">
         SETTING PASSCODES\n
         \n- Tap the settings icon.\n
         \n- Tap the passcode icon.\n
@@ -140,7 +140,7 @@
         \n- The last two secondary passcode lines set the secondary passcode that exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.\n
         \n- Hit save to keep all changes.\n\n</string>
 
-<string name="passcodes_user_guide_persian">
+<string name="settings_user_guide_persian">
       \n- تنظیم کدهای عبور\n
       \n- روی نماد تنظیمات ضربه بزنید.\n
       \n- روی نماد کدعبور ضربه بزنید.\n
@@ -150,7 +150,7 @@
       \n- برای حفظ همه تغییرات، ذخیره را فشار دهید.\n\n</string>
 
 <!-- Importing User Guide -->
-<string name="importing_user_guide_english">
+<string name="create_user_guide_english">
       IMPORTING MESSAGES\n
           \n- You can import your messages using this screen. It is also possible to share received messages directly to the Nahoft app if the app where you received the message allows it.\n
           \n- When you receive a coded text message you can copy the text and paste it in the import screen with a long press.\n
@@ -159,7 +159,7 @@
           \n- If the message is successfully imported, you will see the original text.\n\n
        </string>
 
-<string name="importing_user_guide_persian">
+<string name="create_user_guide_persian">
       \n- وارد کردن پیام‌ها\n
           \n- با استفاده از این صفحه می‌توانید پیام‌های خود را وارد کنید. همچنین امکان دارد تا پیام‌های دریافتی را مستقیماً در برنامه Nahoft اشتراک‌گذاری کنید در صورتی که برنامه‌ای که پیام را در آن دریافت کرده‌اید، اجازه دهد.\n
           \n- هنگامی‌که پیام متنی رمزگذاری‌شده دریافت می‌کنید، می‌توانید متن را کپی کرده و آن را با فشار طولانی در صفحه ورود جای‌گذاری کنید.\n
@@ -271,7 +271,7 @@
     <!-- Message -->
     <string name="from_with_colon">از جانب:</string>
     <string name="button_label_about">در باره</string>
-    <string name="user_guide_about_persian">\n ارسال پیام ها \n      \n روی پیامهای صفحه اصلی ضربه بزنید. \n      \n روی نماد مداد در گوشه پایین صفحه پیام ها ضربه بزنید. \n      \n برای انتخاب دوستی که می خواهید برای او پیام ارسال کنید ، روی  \"گیرنده را انتخاب کنید \" ضربه بزنید. \n      \n پیام خود را در پنجره ای بنویسید که  \"پیام را اینجا وارد کنید \" را بنویسید. \n      \n برای رمزگذاری پیام و ارسال آن به یک سری دیگر از نویسه ها ، روی ارسال به عنوان متن ضربه بزنید. \n      \n برای رمزگذاری پیام خود روی ارسال به عنوان تصویر ضربه بزنید و آن را در تصویری که انتخاب می کنید جاسازی کنید. \n      \n هنگامی که انتخاب خود را انجام دادید ، از شما خواسته می شود تصویر یا متن را به اشتراک بگذارید ، در اینجا می توانید برنامه پیام رسانی مورد نظر خود را انتخاب کنید یا آن را در کلیپ بورد خود ذخیره کنید. \n\n</string>
-    <string name="user_guide_about_english">Sending Messages:\n         \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.         The encrypted message will be transformed into your choice of either a text or an image in order to hide the fact that it is encrypted.\n         \nYou can only send messages to \'verified\' friends.\n         \nTap the conversation icon on the home screen.\n         \nPress the compose a message icon in the messages menu screen.\n         \nClick \'Select Recipient\' to choose the friend you would like to send a message to.\n         \nWrite your message in the window that says \'Message Body\'.\n         \nTap send as text to encrypt your message and transform it into a different series of characters.\n         \nPress send as Image to encrypt your message and embed it in the image you select.\n         \nOnce you have made your selection you will be prompted to share the image or text. Here you can select your preferred messaging app or copy it to your clipboard to paste it directly into your preferred messaging app.\n         \nIf you do not currently have access to the internet, write you message and then choose \'Save Image\'. This will save the image to your phone so you can send it later once you have re-established internet connectivity.\n         \nTo delete a message click on the message you want to remove and swipe it off the screen.\n\n</string>
+    <string name="about_user_guide_persian">\n ارسال پیام ها \n      \n روی پیامهای صفحه اصلی ضربه بزنید. \n      \n روی نماد مداد در گوشه پایین صفحه پیام ها ضربه بزنید. \n      \n برای انتخاب دوستی که می خواهید برای او پیام ارسال کنید ، روی  \"گیرنده را انتخاب کنید \" ضربه بزنید. \n      \n پیام خود را در پنجره ای بنویسید که  \"پیام را اینجا وارد کنید \" را بنویسید. \n      \n برای رمزگذاری پیام و ارسال آن به یک سری دیگر از نویسه ها ، روی ارسال به عنوان متن ضربه بزنید. \n      \n برای رمزگذاری پیام خود روی ارسال به عنوان تصویر ضربه بزنید و آن را در تصویری که انتخاب می کنید جاسازی کنید. \n      \n هنگامی که انتخاب خود را انجام دادید ، از شما خواسته می شود تصویر یا متن را به اشتراک بگذارید ، در اینجا می توانید برنامه پیام رسانی مورد نظر خود را انتخاب کنید یا آن را در کلیپ بورد خود ذخیره کنید. \n\n</string>
+    <string name="about_user_guide_english">Sending Messages:\n         \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.         The encrypted message will be transformed into your choice of either a text or an image in order to hide the fact that it is encrypted.\n         \nYou can only send messages to \'verified\' friends.\n         \nTap the conversation icon on the home screen.\n         \nPress the compose a message icon in the messages menu screen.\n         \nClick \'Select Recipient\' to choose the friend you would like to send a message to.\n         \nWrite your message in the window that says \'Message Body\'.\n         \nTap send as text to encrypt your message and transform it into a different series of characters.\n         \nPress send as Image to encrypt your message and embed it in the image you select.\n         \nOnce you have made your selection you will be prompted to share the image or text. Here you can select your preferred messaging app or copy it to your clipboard to paste it directly into your preferred messaging app.\n         \nIf you do not currently have access to the internet, write you message and then choose \'Save Image\'. This will save the image to your phone so you can send it later once you have re-established internet connectivity.\n         \nTo delete a message click on the message you want to remove and swipe it off the screen.\n\n</string>
 
 </resources>

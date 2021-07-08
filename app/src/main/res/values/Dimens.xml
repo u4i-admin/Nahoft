@@ -19,4 +19,7 @@
     <dimen name="list_item_with_divider_height">132dp</dimen>
     <dimen name="drag_handle_size">48dp</dimen>
 
+    <dimen name="button_height">32dp</dimen>
+    <dimen name="button_width">144dp</dimen>
+
 </resources>

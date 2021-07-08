@@ -4,50 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/padding_standard"
     android:background="@color/royalBlueDark"
     tools:context=".activities.FriendsUserGuideActivity">
 
     <LinearLayout
+        android:id="@+id/friends_user_guide_button_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="@dimen/padding_standard"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/friends_user_guide_button_english"
+            android:text="@string/button_label_english"
+            style="@style/AppTheme.BlueCapsuleButton"/>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" >
+        </Space>
+        <Button
+            android:id="@+id/friends_user_guide_button_persian"
+            android:text="@string/button_label_persian"
+            style="@style/AppTheme.BlueCapsuleButton" />
+    </LinearLayout>
+    <ScrollView
+        android:layout_below="@id/friends_user_guide_button_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/friends_user_guide_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/friend_ug_english_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/padding_half"
-                android:text="@string/button_label_english"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/button_text_color_dark"/>
-            <Button
-                android:id="@+id/friend_ug_persian_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/padding_half"
-                android:text="@string/button_label_persian"
-                android:textColor="@color/button_text_color_dark"
-                android:backgroundTint="@color/white"/>
-        </LinearLayout>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/friend_ug_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/padding_standard"
-                android:textSize="15sp"
-                android:isScrollContainer="true"
-                android:background="@color/white"
-                android:text="@string/friends_user_guide_persian"/>
-        </ScrollView>
-    </LinearLayout>
-
-
-
+            android:isScrollContainer="true"
+            android:fontFamily="@font/open_sans"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:text="@string/friends_user_guide_persian"/>
+    </ScrollView>
 </RelativeLayout>
