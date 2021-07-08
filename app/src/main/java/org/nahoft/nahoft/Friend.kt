@@ -32,7 +32,7 @@ data class Friend constructor(
         return name // What to display in the Spinner list.
     }
 
-    fun getStatusSring(context: Context): String
+    fun getStatusString(context: Context): String
     {
         return when (this.status)
         {

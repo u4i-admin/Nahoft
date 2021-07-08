@@ -229,7 +229,7 @@ class SettingPasscodeActivity : AppCompatActivity() {
         // Allow Destruction Code
         destruction_code_switch.isEnabled = true
         passcode_entry_layout.isGone = true
-        showAlert("Your passcode has been saved.")
+        showAlert(getString(R.string.alert_passcode_saved))
     }
 
     private fun saveDestructionCode()
@@ -281,7 +281,7 @@ class SettingPasscodeActivity : AppCompatActivity() {
             Persist.saveKey(Persist.sharedPrefSecondaryPasscodeKey, secondaryPasscode)
 
             destruction_code_entry_layout.isGone = true
-            showAlert("Your destruction code has been saved.")
+            showAlert(getString(R.string.alert_destruction_code_saved))
         }
     }
 

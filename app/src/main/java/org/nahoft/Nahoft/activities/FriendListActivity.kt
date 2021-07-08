@@ -127,6 +127,5 @@ class FriendListActivity : AppCompatActivity()
             Persist.saveFriendsToFile(this)
             return newFriend
         }
-
     }
 }

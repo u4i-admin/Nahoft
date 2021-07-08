@@ -263,10 +263,10 @@
     <string name="nickname">کنیه</string>
     <string name="verification_code">کد تایید</string>
     <string name="friend_status_default">پیش فرض</string>
-    <string name="friend_status_requested">Requested</string>
-    <string name="friend_status_invited">Invited</string>
-    <string name="friend_status_verified">Verified</string>
-    <string name="friend_status_approved">Approves</string>
+    <string name="friend_status_requested">درخواست شد</string>
+    <string name="friend_status_invited">دعوت کرد</string>
+    <string name="friend_status_verified">تأیید شده</string>
+    <string name="friend_status_approved">تأیید می کند</string>
 
     <!-- Setting Passcode -->
     <string name="enter_destruction_code">کد تخریب خود را وارد کنید</string>
@@ -277,6 +277,8 @@
     <string name="button_label_about">در باره</string>
     <string name="about_user_guide_persian">\n ارسال پیام ها \n      \n روی پیامهای صفحه اصلی ضربه بزنید. \n      \n روی نماد مداد در گوشه پایین صفحه پیام ها ضربه بزنید. \n      \n برای انتخاب دوستی که می خواهید برای او پیام ارسال کنید ، روی  \"گیرنده را انتخاب کنید \" ضربه بزنید. \n      \n پیام خود را در پنجره ای بنویسید که  \"پیام را اینجا وارد کنید \" را بنویسید. \n      \n برای رمزگذاری پیام و ارسال آن به یک سری دیگر از نویسه ها ، روی ارسال به عنوان متن ضربه بزنید. \n      \n برای رمزگذاری پیام خود روی ارسال به عنوان تصویر ضربه بزنید و آن را در تصویری که انتخاب می کنید جاسازی کنید. \n      \n هنگامی که انتخاب خود را انجام دادید ، از شما خواسته می شود تصویر یا متن را به اشتراک بگذارید ، در اینجا می توانید برنامه پیام رسانی مورد نظر خود را انتخاب کنید یا آن را در کلیپ بورد خود ذخیره کنید. \n\n</string>
     <string name="about_user_guide_english">Sending Messages:\n         \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.         The encrypted message will be transformed into your choice of either a text or an image in order to hide the fact that it is encrypted.\n         \nYou can only send messages to \'verified\' friends.\n         \nTap the conversation icon on the home screen.\n         \nPress the compose a message icon in the messages menu screen.\n         \nClick \'Select Recipient\' to choose the friend you would like to send a message to.\n         \nWrite your message in the window that says \'Message Body\'.\n         \nTap send as text to encrypt your message and transform it into a different series of characters.\n         \nPress send as Image to encrypt your message and embed it in the image you select.\n         \nOnce you have made your selection you will be prompted to share the image or text. Here you can select your preferred messaging app or copy it to your clipboard to paste it directly into your preferred messaging app.\n         \nIf you do not currently have access to the internet, write you message and then choose \'Save Image\'. This will save the image to your phone so you can send it later once you have re-established internet connectivity.\n         \nTo delete a message click on the message you want to remove and swipe it off the screen.\n\n</string>
+    <string name="alert_passcode_saved">رمز عبور شما ذخیره شده است.</string>
+    <string name="alert_destruction_code_saved">کد تخریب شما ذخیره شده است</string>
 
 
 </resources>
