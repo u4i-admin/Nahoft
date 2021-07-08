@@ -94,9 +94,11 @@ class FriendListActivity : AppCompatActivity()
                 {
                     val friendName = inputEditText.text.toString()
                     val newFriend = saveFriend(friendName)
-                    val friendInfoActivityIntent = Intent(this, FriendInfoActivity::class.java)
-                    friendInfoActivityIntent.putExtra(RequestCodes.friendExtraTaskDescription, newFriend)
-                    startActivity(friendInfoActivityIntent)
+                    if (newFriend != null) {
+                        val friendInfoActivityIntent = Intent(this, FriendInfoActivity::class.java)
+                        friendInfoActivityIntent.putExtra(RequestCodes.friendExtraTaskDescription, newFriend)
+                        startActivity(friendInfoActivityIntent)
+                    }
                 }
         }
 
@@ -119,9 +121,12 @@ class FriendListActivity : AppCompatActivity()
             showAlert(getString(R.string.alert_text_friend_already_exists))
             return null
         }
+        else
+        {
+            Persist.friendList.add(newFriend)
+            Persist.saveFriendsToFile(this)
+            return newFriend
+        }
 
-        Persist.friendList.add(newFriend)
-        Persist.saveFriendsToFile(this)
-        return newFriend
     }
 }
