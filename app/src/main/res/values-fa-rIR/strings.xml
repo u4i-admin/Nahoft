@@ -1,72 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<!-- Enter Passcode Activity Strings -->
+<!-- Login Activity Strings -->
 <string name="Login">ارسال</string>
 
 <!-- Home Activity -->
 <string name="button_label_friends">دوستان</string>
 <string name="button_label_messages">پیام‌ها</string>
 <string name="button_label_settings">تنظیمات</string>
-<string name="button_label_user_guide">راهنمای کاربر</string>
 <string name="button_label_logout">خروج از سیستم</string>
 
-<!-- Messages Activity -->
-<string name="activity_title_messages">پیام‌ها</string>
-<string name="button_label_compose">نوشتن</string>
-
 <!-- New Messages Activity -->
-    <!-- Note: button_label_view_messages: "button_label_view_messages", and "button_import_image_label", and "button_import_text_label" were changed after we sent the latest text file to translators.-->
-    <string name="enter_message_here_hint">متن پیام</string>
-    <string name="hintOnChooseFriendButton">انتخاب گیرنده</string>
-    <string name="sendAsTextButton">ارسال به‌عنوان متن</string>
+<string name="enter_message_here_hint">متن پیام</string>
+<string name="sendAsTextButton">ارسال به‌عنوان متن</string>
 <string name="sendAsImageButton">ارسال به‌عنوان تصویر</string>
 <string name="button_label_view_messages">پیام ها</string>
-<string name="button_label_compose_messages">نوشتن پیام</string>
-    <string name="button_import_text_label">وارد کردن متن</string>
+<string name="button_import_text_label">وارد کردن متن</string>
 <string name="saveImageButton">ذخیره تصویر</string>
 
-
-
-<!-- New Messages Activity Alerts -->
+<!-- Create Activity Alerts -->
 <string name="alert_text_verified_friends_only">فقط می‌توانید برای یک دوست تأییدشده پیام بفرستید.</string>
 <string name="alert_text_select_friend_to_send_message">دوستی را برای ارسال پیام به او انتخاب کنید.</string>
 <string name="alert_text_write_a_message_to_send">برای ارسال پیام بنویسید</string>
 
-<!--    Settings Activity-->
+<!-- Help Activity-->
 <string name="button_label_passcode">کدعبور</string>
-
-<!--    User Guide Activity-->
 <string name="button_label_importing">وارد کردن</string>
 
-<!--    Passcode Activity-->
-<string name="switch_label_require_passcode">کدعبور الزامی است؟</string>
-<string name="initial_passcode_definition">کدعبور ایجاد کنید تا ورود به سیستم برای استفاده از برنامه الزامی باشد.</string>
-<string name="verify_passcode_hint">تأیید کدعبور</string>
-<string name="enter_passcode_hint">ورود کدعبور</string>
-<string name="secondary_passcode_definition">وارد کردن کدعبور ثانویه در هنگام ورود به سیستم همه داده‌های حساس را حذف می‌کند.</string>
-<string name="enter_secondary_passcode_hint">ورود کدعبور ثانویه</string>
-<string name="verify_secondary_passcode_hint">تأیید کدعبور ثانویه</string>
+<!-- Friend Info Activity-->
 <string name="button_label_save">ذخیره</string>
 
-
-<!--    Friends Recycler View Item Row-->
+<!--Friends Recycler View Item Row-->
 <string name="friendNameRecyclerView">نام</string>
 
 <!-- Message View -->
 <string name="unknown_label">ناشناخته</string>
 <string name="button_label_invite">دعوت کردن</string>
 <string name="button_label_invite_again">دوباره دعوت کردن</string>
-<string name="button_label_approve_invitation">قبول کردن</string>
-<string name="button_label_decline_invitation">رد کردن</string>
 
 <!-- Verify Friend View -->
-<string name="label_verify_friend_explainer">در خارج از برنامه‌ای که معمولاً از آن استفاده می‌کنید با دوست خود تماس بگیرید و مطمئن شوید که شماره‌های شما مطابقت دارد.</string>
 <string name="label_verify_friend_number">شماره %1$s\</string>
 <string name="label_verify_friend_user_number">شماره شما</string>
-<string name="button_label_verify_friend_accept">قبول کردن</string>
-<string name="button_label_verify_friend_reject">رد کردن</string>
-<string name="button_label_verify_friend">تأیید کردن</string>
 
 <!-- Alert Strings -->
 <string name="alert_text_passcode_field_empty">قسمت کدعبور خالی است</string>
@@ -87,9 +61,6 @@
 <string name="alert_text_which_friend_sent_this_invitation">Which friend sent this invitation?</string>
 <string name="alert_text_friend_already_exists">شما قبلاً دوستی با این نام دارید.</string>
 <string name="alert_text_unable_to_process_request">"مشکلی رخ داد. پردازش درخواست شما امکان‌پذیر نیست."</string>
-<string name="input_hint_name">نام</string>
-<string name="content_description_drag_handle">دستگیره کشیدن</string>
-<string name="button_label_import_message">وارد کردن متن</string>
 <string name="paste_message_for_import_hint">متن را برای وارد کردن اینجا جای‌گذاری کنید.</string>
 <string name="button_label_import_image">وارد کردن تصویر</string>
 
@@ -197,66 +168,26 @@
           \n- اگر پیام با موفقیت وارد شود، متن اصلی را مشاهده خواهید کرد.\n\n
        </string>
 
-<string name="or_label">- یا -</string>
-
 <!-- Content Descriptions -->
 
 <string name="content_description_add_friend_button">افزودن دوست</string>
-<string name="content_description_verify_button">تأیید کردن</string>
-<string name="content_description_decline_button">رد کردن</string>
-<string name="content_description_accept_button">قبول کردن</string>
-<string name="content_description_import_button">وارد کردن</string>
-<string name="content_description_invite_button">دعوت کردن</string>
-<string name="button_label_import_invitation">وارد کردن</string>
-<string name="button_label_delete_passcode">حذف کدعبور</string>
 <string name="from">از</string>
 <string name="alert_text_message_too_long">پیام شما بسیار طولانی است.</string>
-<string name="alert_title_confirm_delete">تأیید حذف</string>
-<string name="alert_text_confirm_delete">آیا مطمئن هستید که می‌خواهید این را حذف کنید؟</string>
 <string name="button_label_delete">حذف</string>
 <string name="button_label_reset">بازنشانی</string>
 <string name="button_label_english">English</string>
 <string name="button_label_persian">فارسی</string>
 <string name="alert_text_confirm_friend_delete">آیا مطمئن هستید که می‌خواهید این مخاطب را حذف کنید؟ با این کار همه پیام‌های دریافتی از او نیز حذف می‌شود.</string>
-<string name="alert_title_confirm_friend_reset">این دوست بازنشانی شود؟</string>
-<string name="alert_text_confirm_friend_reset">هر پیامی که از این دوست دریافت کرده‌اید، حذف خواهد شد.</string>
 <string name="button_label_cancel">لغو</string>
 
-    <string name="user_guide_button_description">Button to take you to the user guides.</string>
-    <string name="settings_button_description">Button to go to the settings menu.</string>
-    <string name="friends_button_description">Button to go to the friends menu.</string>
-    <string name="read_button_description">Button to take you to the messages menu.</string>
-    <string name="create_button_description">This button will take you to the create messages menu.</string>
-
-
-    <!-- Help Dialog Buttons -->
-
-<string name="dialog_button_home_help_title"> صفحه اصلی راهنما </string>
-<string name="dialog_button_home_help">
-    \n نماد دنده شما را به صفحه تنظیم رمز عبور می رساند \n
-    \n نماد صورتک شما را به صفحه راهنماهای کاربر می رساند \n
-    \n شما را به لیست دوستانتان می آورد که می توانید کلیدها را با آنها به اشتراک بگذارید تا بتوانید پیام رسانی را برای آنها شروع کنید نماد کلید \n
-    \n نماد پیام ها به شما امکان می دهد پیام های رمزگذاری شده را ارسال کنید \n
-</string>
-
-    <string name="dialog_button_messages_menu_help_title"> منوی پیام ها </string>
-    <string name="dialog_button_messages_menu_help">
-        \n ارسال پیام ها\n
-        \n- Nahoft به شما امکان می دهد با استفاده از قوی ترین رمزگذاری موجود پیام های رمزگذاری شده را برای دوستان خود ارسال کنید.
-        \n- پیام رمزگذاری شده به انتخاب شما از طریق پیام متنی یا تصویری تبدیل می شود تا رمزگذاری آن را پنهان کند.\n
-        \n- فقط می توانید برای دوستان \ "تأیید شده \" پیام ارسال کنید.\n
-        \n- روی پیامهای صفحه اصلی ضربه بزنید.\n
-        \n- روی نماد نوشتن پیام در گوشه پایین صفحه پیام ها ضربه بزنید.\n
-        \n- برای انتخاب دوستی که می خواهید برای او پیام ارسال کنید ، روی \ گیرنده را انتخاب کنید \ ضربه بزنید.\n
-        \n- پیام خود را در پنجره ای بنویسید که "متن پیام" است.\n
-        \n- برای رمزگذاری پیام خود و تبدیل آن به یک سری دیگر از نویسه ها ، روی ارسال به عنوان متن ضربه بزنید.\n
-        \n- برای رمزگذاری پیام خود روی ارسال به عنوان تصویر ضربه بزنید و آن را در تصویری که انتخاب می کنید جاسازی کنید.\n
-        \n- هنگامی که انتخاب خود را انجام دادید ، از شما خواسته می شود تصویر یا متن را به اشتراک بگذارید ، در اینجا می توانید برنامه پیام رسانی دلخواه خود را انتخاب کنید یا آن را در کلیپ بورد خود ذخیره کنید.\n\ </string>
+<string name="user_guide_button_description">Button to take you to the user guides.</string>
+<string name="settings_button_description">Button to go to the settings menu.</string>
+<string name="friends_button_description">Button to go to the friends menu.</string>
+<string name="read_button_description">Button to take you to the messages menu.</string>
 
     <string name="ok_button">خوب</string>
 
     <!-- New Content Descriptions -->
-    <string name="help_button_content_description"> دکمه های راهنما </string>
     <string name="alert_text_invalid_passcode">این رمز عبور نامعتبر است</string>
     <string name="alert_text_passcode_is_sequential">رمزهای عبور متوالی مجاز نیستند.</string>
     <string name="alert_text_passcode_is_a_repeated_digit">رمز عبور نمی تواند یک رقم تکراری باشد.</string>
@@ -278,7 +209,6 @@
     <string name="enter_passcode">Enter Your Passcode</string>
 
     <!-- Home Activity -->
-    <string name="button_label_friend">Friends</string>
     <string name="button_label_help">Help</string>
     <string name="button_label_read">Read</string>
     <string name="button_label_create">Create</string>
@@ -308,7 +238,6 @@
     <string name="import_text">Import Text</string>
 
     <!-- Friends Info Two -->
-    <string name="invite_again_button">Invite Again</string>
     <string name="verify_button">Verify</string>
     <string name="invite_button">Invite</string>
     <string name="decline_button">Decline</string>
@@ -321,7 +250,6 @@
         \nPress Verify to compare keys with your new friend.
         \nPress Decline to decline an imported key and start the process over.</string>
 
-    <string name="delete_friend_button_content_description">Delete Friend Button</string>
     <string name="delete_friend_button">Delete Friend</string>
 
     <!-- Messages Activity -->
@@ -335,10 +263,6 @@
     <!-- Activity Friends Info Two -->
     <string name="nickname">Nickname</string>
     <string name="verification_code">Verification Code</string>
-    <string name="verified_status">Verified</string>
-    <string name="approved_status">Approved</string>
-    <string name="requested_status">Requested</string>
-    <string name="invited_status">Invited</string>
     <string name="default_status">Default</string>
 
     <!-- Setting Passcode -->
