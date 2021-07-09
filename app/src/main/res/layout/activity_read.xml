@@ -51,7 +51,7 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:drawableStart="@drawable/ic_nahoft_icons_messages"
             android:drawablePadding="@dimen/padding_standard"
-            android:text="@string/button_label_view_messages"
+            android:text="@string/button_label_messages"
             android:textColor="@color/button_text_color_light"
             android:textSize="22sp" />
 

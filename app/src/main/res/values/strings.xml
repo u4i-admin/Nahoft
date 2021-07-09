@@ -11,11 +11,11 @@
 
     <!-- Create Activity -->
     <string name="enter_message_here_hint">Message Body</string>
-    <string name="sendAsTextButton">Send as Text</string>
     <string name="sendAsImageButton">Send as Image</string>
-    <string name="button_label_view_messages">Messages</string>
     <string name="button_import_text_label">Import Text</string>
-    <string name="saveImageButton">Save as Image</string>
+    <string name="to">To</string>
+    <string name="sendAsTextButtonLabel">Send as Text</string>
+    <string name="saveImageButtonLabel">Save as Image</string>
 
     <!-- Create Activity Alerts -->
     <string name="alert_text_verified_friends_only">You can only message a verified friend.</string>
@@ -67,13 +67,13 @@
     <string name="button_label_about">About</string>
 
     <string name="about_user_guide_english">About Nahoft:\n
-        \nNahoft allows you to send encrypted message to your friends using the strongest encryption available.
+        \n Nahoft allows you to send encrypted messages to your friends using the strongest encryption available.
         The encrypted message will be transformed into your choice of either a text or an image in order to hide the fact that it is encrypted.\n
        \nThe following user guides describe how to use this application.\n\n
     </string>
 
     <string name="about_user_guide_persian">\n درباره نهفت: \n
-        \nNahoft به شما امکان می دهد با استفاده از قوی ترین رمزگذاری موجود پیام رمزگذاری شده را برای دوستان خود ارسال کنید. \n
+        \n Nahoft به شما امکان می دهد با استفاده از قوی ترین رمزگذاری موجود پیام رمزگذاری شده را برای دوستان خود ارسال کنید. \n
         پیام رمزگذاری شده به انتخاب شما از یک متن یا یک تصویر تبدیل می شود تا رمزگذاری آن را پنهان کند. n\
         \n راهنماهای کاربر زیر نحوه استفاده از این برنامه را توصیف می کنند.\n\n
     </string>
@@ -162,7 +162,7 @@
         \nTo share your invite directly from another app, find the text in your preferred messaging app, select all, and choose share.\n
         \nSelect Nahoft as the app you want to share to.\n
         \nWhen prompted, select the friend that sent the invitation.\n
-        \nReturn to the friends screen and select the friend you have and received an invitation back from. Their name should say \'Approved\' as the status.\n
+        \nReturn to the friends screen and select the friend you have received an invitation back from. Their name should say \'Approved\' as the status.\n
         \nSelect the \'Verify\' button beside the friend you received the invitation from.\n
         \nContact your friend outside of the app you normally use to confirm the information on the verification screen matches your friend.\n
         \nIf the numbers on the verification screen match, tap OK. If not, tap reset.\n
@@ -268,11 +268,6 @@
     <string name="passcode">Passcode</string>
     <string name="destructionCode">Destruction Code</string>
     <string name="passcodeTwice">Re-enter Your Passcode</string>
-
-    <!--Create Activity -->
-    <string name="to">To</string>
-    <string name="sendAsTextButtonLabel">Send as Text</string>
-    <string name="saveImageButtonLabel">Save as Image</string>
 
     <!-- Friends Info Activity -->
     <string name="friends_info_activity_heading">Info</string>

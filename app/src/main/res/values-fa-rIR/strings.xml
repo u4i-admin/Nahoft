@@ -12,11 +12,8 @@
 
 <!-- Create Activity -->
 <string name="enter_message_here_hint">متن پیام</string>
-<string name="sendAsTextButton">ارسال به‌عنوان متن</string>
 <string name="sendAsImageButton">ارسال به‌عنوان تصویر</string>
-<string name="button_label_view_messages">پیام ها</string>
 <string name="button_import_text_label">وارد کردن متن</string>
-<string name="saveImageButton">ذخیره تصویر</string>
 
 <!-- Create Activity Alerts -->
 <string name="alert_text_verified_friends_only">فقط می‌توانید برای یک دوست تأییدشده پیام بفرستید.</string>
