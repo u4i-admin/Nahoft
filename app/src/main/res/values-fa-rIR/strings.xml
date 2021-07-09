@@ -65,7 +65,7 @@
 <string name="button_label_import_image">وارد کردن تصویر</string>
 
     <!-- About User Guide -->
-    <string name="button_label_about">About</string>
+    <string name="button_label_about">در باره</string>
 
     <string name="about_user_guide_english">About Nahoft:\n
         \nNahoft allows you to send encrypted message to your friends using the strongest encryption available.
