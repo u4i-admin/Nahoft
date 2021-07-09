@@ -63,117 +63,153 @@
     <string name="paste_message_for_import_hint">Paste your text here…</string>
     <string name="button_label_import_image">Import Image</string>
 
+    <!-- About User Guide -->
+    <string name="button_label_about">About</string>
+
+    <string name="about_user_guide_english">About Nahoft:\n
+        \nNahoft allows you to send encrypted message to your friends using the strongest encryption available.
+        The encrypted message will be transformed into your choice of either a text or an image in order to hide the fact that it is encrypted.\n
+       \nThe following user guides describe how to use this application.\n\n
+    </string>
+
+    <string name="about_user_guide_persian">\n درباره نهفت: \n
+        \nNahoft به شما امکان می دهد با استفاده از قوی ترین رمزگذاری موجود پیام رمزگذاری شده را برای دوستان خود ارسال کنید. \n
+        پیام رمزگذاری شده به انتخاب شما از یک متن یا یک تصویر تبدیل می شود تا رمزگذاری آن را پنهان کند. n\
+        \n راهنماهای کاربر زیر نحوه استفاده از این برنامه را توصیف می کنند.\n\n
+    </string>
+
+    <!-- Read User Guide -->
+    <string name="read_user_guide_english">
+       \nReading Messages:\n
+       \nTo read a message you must first import it.\n
+       \nTo share a received message directly to the Nahoft app from your preferred messaging app: click on the message, press select all, and share.\n
+       \nThis will generate a sharing menu and Nahoft will be amongst the apps you can to share to.\n
+       \nThe Nahoft app will pop up a message that states: "Which friend sent this message?"\n
+       \nChoose the friend that sent the message.\n
+       \nNext, the message will appear.\n
+       \nAnother way to import a message is to copy the message or image to your clipboard.\n
+       \nTap the green read icon on the home page.\n
+       \nNext, choose either the \'Import Text\' or \'Import Image\' button on the read menu screen based on the message type you have received.\n
+       \nChoose the name of the verified friend you received the message from.\n
+       \nTo import text, Long press on the white space that states, \'Paste text here\'.\n
+       \nTap \'Import Text\' to finish.\n
+       \nIf you have received an image, press \'Import Image\', select the image when prompted, and the sender when prompted.\n
+       \nIf the message is successfully imported, you will see the original text.\n
+       \nTo read a message that is saved navigate to the read screen and press messages.\n
+       \nAll received messages are stored here until deleted.\n\n
+   </string>
+
+    <string name="read_user_guide_persian">
+        \n خواندن پیام ها: \n
+     \n برای خواندن پیام ، ابتدا باید آن را وارد کنید. \n
+     \n برای به اشتراک گذاشتن پیام دریافتی مستقیماً از برنامه پیام رسان دلخواه خود به برنامه Nahoft: روی پیام کلیک کنید ، انتخاب همه را فشار دهید و به اشتراک بگذارید. \n
+     \n با این کار یک منوی اشتراک گذاری ایجاد می شود و Nahoft از جمله برنامه هایی است که می توانید با آنها به اشتراک بگذارید. \n
+     \n برنامه Nahoft با پیامی ظاهر می شود که می گوید: "کدام دوست این پیام را ارسال کرده است؟" \n
+     \n دوستی را که پیام را ارسال کرده انتخاب کنید. \n
+     \n بعد ، پیام ظاهر می شود. \n
+     \n روش دیگر برای وارد کردن پیام ، کپی کردن پیام یا تصویر در کلیپ بورد شماست. \n
+     \n روی نماد خواندن سبز در صفحه اصلی ضربه بزنید. \n
+     \n سپس ، بر اساس نوع پیامی که دریافت کرده اید ، دکمه \ "وارد کردن متن \" یا \ "وارد کردن تصویر \" را در صفحه منوی خواندن انتخاب کنید. \n
+     \n نام دوست تأیید شده ای را که از آن پیام دریافت کرده اید انتخاب کنید. \n
+     \n برای وارد کردن متن ، مدت طولانی بر روی فضای سفید که می گوید ، \ "چسباندن متن در اینجا \" را فشار دهید. \n
+     \n برای پایان دادن به \ "وارد کردن متن \" ضربه بزنید. \n
+     \n اگر تصویری دریافت کرده اید ، \ "وارد کردن تصویر \" را فشار دهید ، تصویر را در صورت درخواست و فرستنده را هنگام درخواست انتخاب کنید. \n
+     \n اگر پیام با موفقیت وارد شود ، متن اصلی را مشاهده خواهید کرد. \n
+     \n برای خواندن پیام ذخیره شده به صفحه خوانده شده بروید و پیام ها را فشار دهید. \n
+     \n همه پیام های دریافت شده در اینجا ذخیره می شوند تا حذف شوند. \n\n
+    </string>
+
+    <!-- Create User Guide -->
+    <string name="create_user_guide_english">
+       \nCreate Messages:\n
+       \nYou can only send messages to \'verified\' friends.\n
+       \nStart by tapping the purple create icon on the home screen.\n
+       \nClick the drop down menu beside the \'To\' on the create screen to choose the friend you would like to send a message to.\n
+       \nWrite your message in the window that says \'Message Body\'.\n
+       \nTap \'Send as Text\' to encrypt your message and transform it into a different series of characters.\n
+       \nPress \'Send as Image\' to encrypt your message and embed it in the image you select.\n
+       \nOnce you have made your selection you will be prompted to share the image or text. Here you can select your preferred messaging app or copy it to your clipboard to paste it directly into your preferred messaging app.\n
+       \nIf you do not currently have access to the internet, write your message and then choose \'Save Image\'. This will save the image to your phone so you can send it later once you have re-established internet connectivity.\n
+       \nTo delete a message, go to the read screen, open the message you want to remove and click the trash can icon.\n\n
+    </string>
+
+    <string name="create_user_guide_persian">
+        \n ایجاد پیام: \n
+     \n فقط می توانید برای دوستان \ "تأیید شده \" پیام ارسال کنید. \n
+     \n با ضربه زدن روی نماد ایجاد بنفش در صفحه اصلی شروع کنید. \n
+     \n برای انتخاب دوستی که می خواهید برای او پیام ارسال کنید ، روی منوی کشویی کنار \ "به \" در صفحه ایجاد کلیک کنید. \n
+     \n پیام خود را در پنجره ای بنویسید که "متن پیام" است. \n
+     \n برای رمزگذاری پیام خود و تبدیل آن به یک سری دیگر از نویسه ها ، روی "ارسال به عنوان متن" ضربه بزنید. \n
+     \n برای رمزگذاری پیام خود ، \ "ارسال به عنوان تصویر \" را فشار دهید و آن را در تصویری که انتخاب می کنید جاسازی کنید. \n
+     \n پس از انتخاب ، از شما خواسته می شود تصویر یا متن را به اشتراک بگذارید. در اینجا می توانید برنامه پیام رسان دلخواه خود را انتخاب کنید یا آن را در کلیپ بورد خود کپی کنید تا مستقیماً در برنامه پیام رسانی دلخواه خود جای گذاری شود. \n
+     \n اگر در حال حاضر به اینترنت دسترسی ندارید ، پیام خود را بنویسید و سپس "ذخیره تصویر" را انتخاب کنید. با این کار تصویر در تلفن شما ذخیره می شود تا پس از برقراری مجدد اتصال اینترنت ، می توانید بعداً آن را ارسال کنید. \n
+     \n برای حذف پیام ، به صفحه خواندن بروید ، پیامی را که می خواهید حذف کنید باز کنید و روی نماد سطل آشغال کلیک کنید. \n\n
+    </string>
+
     <!-- Friends User Guide -->
     <string name="friends_user_guide_english">Adding Friends:\n
         \nTap the friends icon on the home page.\n
         \nPress the + icon at the bottom of the friends screen.\n
-        \nType the name of the friend you want to add and press save.\n
+        \nType the name of the friend you want to add and press add.\n
         \nClick the invite button beside your friend\'s name.\n
         \nA share menu will pop up. You will see your invitation to your friend as a message to send. It will look like random Persian text.\n
         \nShare your invitation via your preferred messaging app here. If you are physically near your friend and their device, try sharing by using the nearby or bluetooth options in the sharing menu.\n
         \nThe friend you are adding must also follow these same steps to send you an invitation back.\n
         \nThere are several ways to accept the invitation you receive from your friend.\n
-        \nIf you have the invitation message copied to your clipboard: tap the conversation button on the home screen, then tap the import button in the messages menu screen.\n
-        \nPaste the invitation message with a long press and select import text.\n
+        \nIf you have the invitation message copied to your clipboard, you can click the \'Import Invitation\' button beside your new friends name and paste the invite text directly.\n
+        \nSimilarly, with an invite copied to your clipboard you can tap the read button on the home screen, then tap the import text button in the read menu screen.\n
+        \nPaste the invitation message with a long press, choose the friend that sent it, and select import text.\n
         \nTo share your invite directly from another app, find the text in your preferred messaging app, select all, and choose share.\n
         \nSelect Nahoft as the app you want to share to.\n
         \nWhen prompted, select the friend that sent the invitation.\n
-        \nReturn to the friends screen and select the verify button beside the friend you received the invitation from.\n
+        \nReturn to the friends screen and select the friend you have and received an invitation back from. Their name should say \'Approved\' as the status.\n
+        \nSelect the \'Verify\' button beside the friend you received the invitation from.\n
         \nContact your friend outside of the app you normally use to confirm the information on the verification screen matches your friend.\n
-        \nIf the numbers on the verification screen match, tap accept. If not, tap reject.\n
-        \nTo delete a friend swipe the friends name off the screen.\n\n
+        \nIf the numbers on the verification screen match, tap OK. If not, tap reset.\n
+        \nClick the red \'Delete Friend\' button at the bottom of the screen\n\n
      </string>
 
-    <string name="friends_user_guide_persian">
-        \n افزودن دوستان \n
+    <string name="friends_user_guide_persian"> \n  افزودن دوستان: \n
      \n روی نماد دوستان در صفحه اصلی ضربه بزنید. \n
-     \n برای اضافه کردن یک دوست ، نماد + را در پایین صفحه دوستان فشار دهید. \n
-     \n نام دوستی را که می خواهید اضافه کنید تایپ کنید و روی ذخیره ضربه بزنید. \n
-     \n روی دکمه دعوت در کنار نام دوست خود ضربه بزنید. \n
-     \n پیام اشتراک را با دعوت از دوست خود به عنوان پیامی برای ارسال مشاهده خواهید کرد (مانند متن تصادفی به نظر می رسد). \n
-     \n می توانید دعوت خود را با دوستی که به آن اضافه می کنید از طریق برنامه پیام رسانی دلخواه خود به اشتراک بگذارید ، یا اگر در نزدیکی او هستید ، با استفاده از گزینه های "نزدیک" یا بلوتوث \n
-     \n دوستی که اضافه می کنید نیز باید همین مراحل را برای ارسال دعوتنامه برای شما دنبال کند. \n
-     \n روش های مختلفی برای پذیرش دعوت نامه ای که از دوست خود دریافت می کنید وجود دارد \n
-     \n اگر پیام دعوت را در کلیپ بورد خود کپی کرده اید: روی دکمه وارد کردن در کنار نام وی یا روی دکمه وارد کردن در صفحه اصلی ضربه بزنید. \n
-     \n پیام دعوت را با فشار طولانی بچسبانید و متن واردات را انتخاب کنید. \n
-     \n اگر دعوت نامه را از برنامه دیگری به اشتراک می گذارید: Nahoft را به عنوان برنامه ای که می خواهید در آن به اشتراک بگذارید ، انتخاب کنید. \n
+     \n نماد + را در پایین صفحه دوستان فشار دهید. \n
+     \n نام دوستی را که می خواهید اضافه کنید تایپ کنید و افزودن را فشار دهید. \n
+     \n روی دکمه دعوت در کنار نام دوست خود کلیک کنید. \n
+     \n منوی اشتراکی ظاهر می شود. شما دعوت خود را به دوست خود به عنوان پیامی برای ارسال مشاهده خواهید کرد. شبیه متن تصادفی فارسی خواهد بود. \n
+     \n دعوتنامه خود را از طریق برنامه پیام رسانی مورد نظر خود در اینجا به اشتراک بگذارید. اگر از نظر جسمی نزدیک دوست و دستگاه او هستید ، با استفاده از گزینه های نزدیک یا بلوتوث در منوی اشتراک ، اشتراک گذاری را امتحان کنید. \n
+     \n دوستی که اضافه می کنید نیز باید همین مراحل را برای ارسال دعوت نامه برای شما دنبال کند. \n
+     \n روش های مختلفی برای پذیرش دعوت نامه ای که از دوست خود دریافت می کنید وجود دارد. \n
+     \n اگر پیام دعوت را در کلیپ بورد خود کپی کرده اید ، می توانید بر روی دکمه \ "دعوت نامه وارد کردن" در کنار نام دوستان جدید خود کلیک کنید و متن دعوت را مستقیماً جایگذاری کنید. \n
+     \n به همین ترتیب ، با یک دعوت کپی شده در کلیپ بورد خود می توانید روی دکمه خواندن در صفحه اصلی ضربه بزنید ، سپس روی دکمه وارد کردن متن در صفحه منوی خواندن ضربه بزنید. \n
+     \n پیام دعوت را با فشار طولانی جایگذاری کنید ، دوستی را که آن را ارسال کرده انتخاب کنید و متن واردات را انتخاب کنید. \n
+     \n برای به اشتراک گذاشتن دعوت خود به طور مستقیم از یک برنامه دیگر ، متن موجود در برنامه پیام رسانی مورد نظر خود را پیدا کنید ، همه را انتخاب کنید و اشتراک گذاری را انتخاب کنید. \n
+     \n Nahoft را به عنوان برنامه ای که می خواهید در آن به اشتراک بگذارید ، انتخاب کنید. \n
      \n وقتی از شما خواسته شد ، دوستی را که دعوت نامه را ارسال کرده است انتخاب کنید. \n
-     \n به صفحه دوستان برگردید و دکمه تأیید را در کنار دوستی که دعوت نامه را از آن دریافت کرده اید ، انتخاب کنید. \n
-     \n در خارج از برنامه ای که معمولاً برای تأیید شماره های خود در صفحه تأیید صحت استفاده می کنید ، با دوست خود تماس بگیرید. \n
-     \n اگر شماره های صفحه تأیید مطابقت دارند ، روی «قبول» ضربه بزنید. در غیر این صورت ، روی رد ضربه بزنید. \n
-     \n برای حذف یک دوست ، نام دوستان را به سمت راست یا چپ بکشید. \n
+     \n به صفحه دوستان برگردید و دوستی را که دارید و از او دعوت نامه دریافت کرده اید انتخاب کنید. نام آنها باید به عنوان وضعیت "تأیید شده" باشد. \n
+     \n دکمه \ "تأیید \" را در کنار دوستی که از او دعوت نامه دریافت کرده اید ، انتخاب کنید. \n
+     \n با دوست خود در خارج از برنامه ای که به طور معمول از آن استفاده می کنید ، تماس بگیرید تا تأیید کنید که اطلاعات صفحه تایید با دوست شما مطابقت دارد \n
+     \n اگر شماره های صفحه تأیید مطابقت دارند ، روی تأیید ضربه بزنید. در غیر این صورت ، روی تنظیم مجدد ضربه بزنید. \n
+     \n روی دکمه قرمز رنگ حذف دوست در پایین صفحه کلیک کنید \n\n
     </string>
 
-    <!-- Messages User Guide -->
-    <string name="read_user_guide_english">Sending Messages:\n
-        \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.
-        The encrypted message will be transformed into your choice of either a text or an image in order to hide the fact that it is encrypted.\n
-        \nYou can only send messages to \'verified\' friends.\n
-        \nTap the conversation icon on the home screen.\n
-        \nPress the compose a message icon in the messages menu screen.\n
-        \nClick \'Select Recipient\' to choose the friend you would like to send a message to.\n
-        \nWrite your message in the window that says \'Message Body\'.\n
-        \nTap send as text to encrypt your message and transform it into a different series of characters.\n
-        \nPress send as Image to encrypt your message and embed it in the image you select.\n
-        \nOnce you have made your selection you will be prompted to share the image or text. Here you can select your preferred messaging app or copy it to your clipboard to paste it directly into your preferred messaging app.\n
-        \nIf you do not currently have access to the internet, write you message and then choose \'Save Image\'. This will save the image to your phone so you can send it later once you have re-established internet connectivity.\n
-        \nTo delete a message click on the message you want to remove and swipe it off the screen.\n\n
-    </string>
-
-    <string name="read_user_guide_persian">
-        \n ارسال پیام ها \n
-     \n روی پیامهای صفحه اصلی ضربه بزنید. \n
-     \n روی نماد مداد در گوشه پایین صفحه پیام ها ضربه بزنید. \n
-     \n برای انتخاب دوستی که می خواهید برای او پیام ارسال کنید ، روی \ "گیرنده را انتخاب کنید \" ضربه بزنید. \n
-     \n پیام خود را در پنجره ای بنویسید که \ "پیام را اینجا وارد کنید \" را بنویسید. \n
-     \n برای رمزگذاری پیام و ارسال آن به یک سری دیگر از نویسه ها ، روی ارسال به عنوان متن ضربه بزنید. \n
-     \n برای رمزگذاری پیام خود روی ارسال به عنوان تصویر ضربه بزنید و آن را در تصویری که انتخاب می کنید جاسازی کنید. \n
-     \n هنگامی که انتخاب خود را انجام دادید ، از شما خواسته می شود تصویر یا متن را به اشتراک بگذارید ، در اینجا می توانید برنامه پیام رسانی مورد نظر خود را انتخاب کنید یا آن را در کلیپ بورد خود ذخیره کنید. \n\n
-    </string>
-
-    <!-- Passcode User Guide -->
+    <!-- Settings User Guide -->
     <string name="settings_user_guide_english">
-        Setting Passcodes:\n
-        \nTap the gear icon on the home screen.\n
-        \nNext, press the passcode icon.\n
-        \nMove the toggle switch to allow the user to require a passcode.\n
-        \nThe first two passcode lines set the passcode to gain entry into the app.\n
-        \nThe last two passcode lines set the destruction code.\n
-        \nThe destruction code exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.\n
-        \nHit save to keep all changes.\n\n</string>
+       \nSetting Passcodes:\n
+       \nTap the settings icon on the home screen.\n
+       \nMove the toggle switch to allow the user to require a passcode.\n
+       \nThe first two passcode lines set the passcode to gain entry into the app.\n
+       \nThe last two passcode lines set the destruction code.\n
+       \nThe destruction code exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.\n
+       \nHit submit to keep all changes.\n\n
+   </string>
 
     <string name="settings_user_guide_persian">
-     \n روی نماد تنظیمات کلیک کنید. \n
-     \n روی نماد رمز عبور کلیک کنید. \n
+     \n تنظیم رمزهای عبور: \n
+     \n روی نماد تنظیمات در صفحه اصلی ضربه بزنید. \n
      \n سوئیچ ضامن را حرکت دهید تا به کاربر اجازه دهید تا رمز عبور داشته باشد. \n
-     \n دو خط رمز عبور اول ، کد عبور را تنظیم می کند تا وارد برنامه شود. \n
-     \n دو خط رمز عبور ثانویه ، رمز عبور ثانویه را تنظیم می کند تا در صورت ورود به صفحه رمز عبور اولیه ، به جای رمز عبور تنظیم شده اول ، همه داده ها و دوستان ذخیره شده را حذف کند. \n
-     \n برای حفظ همه تغییرات ، ذخیره را بزنید. \n\n</string>
-
-    <!-- Importing User Guide -->
-    <string name="create_user_guide_english">
-    Importing Messages:\n
-        \nTo share a received message directly to the Nahoft app from your preferred messaging app: click on the message, press select all, and share.\n
-        \nThis will generate a sharing menu and Nahoft will be amongst the apps you can to share to.\n
-        \nThe Nahoft app will pop up a message that states: "Which friend sent this message?"\n
-        \nChoose the friend that sent the message.\n
-        \nNext, the message will appear.\n
-        \nAnother way to import a message is to copy the message or image to your clipboard.\n
-        \nTap the conversation icon on the home page.\n
-        \nNext, click the import button on the messages menu screen.\n
-        \nLong press on the white space that states, \'Paste text here to import\'.\n
-        \nTap \'Import Text\', and select the sender when prompted.\n
-        \nIf you have received an image, press \'Import Image\', select the image when prompted, and the sender when prompted.\n
-        \nIf the message is successfully imported, you will see the original text.\n\n\n
-     </string>
-
-    <string name="create_user_guide_persian">
-        \n وارد کردن پیام ها \n
-     \n هنگامی که پیام متنی رمزگذاری شده دریافت می کنید می توانید متن را کپی کرده و با فشار دادن طولانی در صفحه واردات جایگذاری کنید. \n
-     \n بر روی "وارد کردن متن" ضربه بزنید ، و در صورت درخواست فرستنده را انتخاب کنید. \n
-     \n اگر تصویری دریافت کرده اید ، بر روی "وارد کردن تصویر" ضربه بزنید ، تصویر را هنگامی که از روی صفحه نمایش کشیده شده است و فرستنده را از شما درخواست کنید. \n
-     \n اگر پیام با موفقیت وارد شود ، متن اصلی را مشاهده خواهید کرد. \n\n
-    </string>
+     \n دو خط اول کد عبور ، کد عبور را برای ورود به برنامه تنظیم می کنند. \n
+     \n دو خط رمز عبور آخر کد تخریب را تنظیم می کنند. \n
+     \n کد تخریب برای حذف همه داده ها و دوستان ذخیره شده در صورت وارد شدن به صفحه رمز عبور اولیه به جای رمز عبور تنظیم شده اول ، وجود دارد. \n
+     \n برای حفظ همه تغییرات ، ارسال را بزنید. \n\n</string>
 
     <!-- Content Descriptions -->
 
@@ -266,14 +302,14 @@
     <string name="add_button">Add</string>
     <string name="cancel_button">Cancel</string>
 
-    <!-- Activity Friends Info Two -->
+    <!-- Activity Friends Info -->
     <string name="nickname">Nickname</string>
     <string name="verification_code">Verification Code</string>
     <string name="friend_status_default">Default</string>
     <string name="friend_status_requested">Requested</string>
     <string name="friend_status_invited">Invited</string>
     <string name="friend_status_verified">Verified</string>
-    <string name="friend_status_approved">Approves</string>
+    <string name="friend_status_approved">Approved</string>
 
     <!-- Setting Passcode -->
     <string name="enter_destruction_code">Enter Your Destruction Code</string>
@@ -281,9 +317,6 @@
 
     <!-- Message -->
     <string name="from_with_colon">From:</string>
-    <string name="button_label_about">About</string>
-    <string name="about_user_guide_persian">\n ارسال پیام ها \n      \n روی پیامهای صفحه اصلی ضربه بزنید. \n      \n روی نماد مداد در گوشه پایین صفحه پیام ها ضربه بزنید. \n      \n برای انتخاب دوستی که می خواهید برای او پیام ارسال کنید ، روی  \"گیرنده را انتخاب کنید \" ضربه بزنید. \n      \n پیام خود را در پنجره ای بنویسید که  \"پیام را اینجا وارد کنید \" را بنویسید. \n      \n برای رمزگذاری پیام و ارسال آن به یک سری دیگر از نویسه ها ، روی ارسال به عنوان متن ضربه بزنید. \n      \n برای رمزگذاری پیام خود روی ارسال به عنوان تصویر ضربه بزنید و آن را در تصویری که انتخاب می کنید جاسازی کنید. \n      \n هنگامی که انتخاب خود را انجام دادید ، از شما خواسته می شود تصویر یا متن را به اشتراک بگذارید ، در اینجا می توانید برنامه پیام رسانی مورد نظر خود را انتخاب کنید یا آن را در کلیپ بورد خود ذخیره کنید. \n\n</string>
-    <string name="about_user_guide_english">Sending Messages:\n         \nNahoft allows you to send encrypted messages to your friends using the strongest encryption available.         The encrypted message will be transformed into your choice of either a text or an image in order to hide the fact that it is encrypted.\n         \nYou can only send messages to \'verified\' friends.\n         \nTap the conversation icon on the home screen.\n         \nPress the compose a message icon in the messages menu screen.\n         \nClick \'Select Recipient\' to choose the friend you would like to send a message to.\n         \nWrite your message in the window that says \'Message Body\'.\n         \nTap send as text to encrypt your message and transform it into a different series of characters.\n         \nPress send as Image to encrypt your message and embed it in the image you select.\n         \nOnce you have made your selection you will be prompted to share the image or text. Here you can select your preferred messaging app or copy it to your clipboard to paste it directly into your preferred messaging app.\n         \nIf you do not currently have access to the internet, write you message and then choose \'Save Image\'. This will save the image to your phone so you can send it later once you have re-established internet connectivity.\n         \nTo delete a message click on the message you want to remove and swipe it off the screen.\n\n</string>
     <string name="alert_passcode_saved">Your passcode has been saved.</string>
     <string name="alert_destruction_code_saved">Your destruction code has been saved.</string>
 
