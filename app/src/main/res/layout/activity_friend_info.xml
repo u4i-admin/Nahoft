@@ -260,7 +260,7 @@
             android:id="@+id/status_description_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_standard"
+            android:layout_marginTop="@dimen/padding_doubled"
             android:fontFamily="@font/open_sans_italic"
             android:text="@string/button_descriptions"
             android:textColor="@color/white"

@@ -59,7 +59,7 @@
     <string name="alert_text_which_friend_sent_this_message">Which friend sent this message?</string>
     <string name="alert_text_which_friend_sent_this_invitation">Which friend sent this invitation?</string>
     <string name="alert_text_friend_already_exists">You already have a friend with this name.</string>
-    <string name="alert_text_unable_to_process_request">"Something went wrong. We were unable to process your request."</string>
+    <string name="alert_text_unable_to_process_request">Something went wrong. We were unable to process your request.</string>
     <string name="paste_message_for_import_hint">Paste your text here…</string>
     <string name="button_label_import_image">Import Image</string>
 

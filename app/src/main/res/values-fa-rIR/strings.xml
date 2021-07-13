@@ -6,26 +6,26 @@
 
 <!-- Home Activity -->
 <string name="button_label_friends">دوستان</string>
-<string name="button_label_messages">پیام‌ها</string>
+<string name="button_label_messages">پیامها</string>
 <string name="button_label_settings">تنظیمات</string>
 <string name="button_label_logout">خروج از سیستم</string>
 
 <!-- Create Activity -->
 <string name="enter_message_here_hint">متن پیام</string>
-<string name="sendAsImageButton">ارسال به‌عنوان تصویر</string>
-<string name="button_import_text_label">وارد کردن متن</string>
+<string name="sendAsImageButton">ارسال بهعنوان تصویر</string>
+<string name="button_import_text_label">ارسال کردن متن</string>
 
 <!-- Create Activity Alerts -->
-<string name="alert_text_verified_friends_only">فقط می‌توانید برای یک دوست تأییدشده پیام بفرستید.</string>
+<string name="alert_text_verified_friends_only">فقط می‌توانید به یک دوست تأییدشده پیام بفرستید.</string>
 <string name="alert_text_select_friend_to_send_message">دوستی را برای ارسال پیام به او انتخاب کنید.</string>
-<string name="alert_text_write_a_message_to_send">برای ارسال پیام بنویسید</string>
+<string name="alert_text_write_a_message_to_send">پیامی را برای ارسال بنویسید.</string>
 
 <!-- Help Activity-->
 <string name="button_label_passcode">کدعبور</string>
-<string name="button_label_importing">وارد کردن</string>
+<string name="button_label_importing">در حال وارد کردن</string>
 
 <!-- Friend Info Activity-->
-<string name="button_label_save">ذخیره</string>
+<string name="button_label_save">ذخیره کردن</string>
 
 <!--Friends Recycler View Item Row-->
 <string name="friendNameRecyclerView">نام</string>
@@ -33,36 +33,36 @@
 <!-- Message View -->
 <string name="unknown_label">ناشناخته</string>
 <string name="button_label_invite">دعوت کردن</string>
-<string name="button_label_invite_again">دوباره دعوت کردن</string>
+<string name="button_label_invite_again">دعوت کردن مجدد</string>
 
 <!-- Verify Friend View -->
-<string name="label_verify_friend_number">شماره %1$s\</string>
-<string name="label_verify_friend_user_number">شماره شما</string>
+<string name="label_verify_friend_number">کد %1$s\</string>
+<string name="label_verify_friend_user_number">کد شما</string>
 
 <!-- Alert Strings -->
-<string name="alert_text_passcode_field_empty">قسمت کدعبور خالی است</string>
-<string name="alert_text_verify_passcode_field_empty">تأیید قسمت کدعبور خالی است</string>
-<string name="alert_text_passcode_entries_do_not_match">ورودی‌های کدعبور مطابقت ندارند</string>
-<string name="alert_text_secondary_passcode_field_empty">قسمت کدعبور ثانویه خالی است</string>
-<string name="alert_text_verify_secondary_passcode_empty">تأیید قسمت کدعبور ثانویه خالی است</string>
-<string name="alert_text_secondary_passcode_entries_do_not_match">ورودی‌های کدعبور ثانویه مطابقت ندارند</string>
-<string name="alert_text_passcode_required_for_destruction_code">تا زمانی که کد عبور ایجاد نکنید نمی توانید یک کد تخریب ایجاد کنید.</string>
-<string name="alert_text_secondary_passcode_and_passcode_may_not_match">ورودی‌های کدعبور ثانویه و اولیه نباید مطابقت داشته باشند.</string>
-<string name="alert_text_received_invitation">از %1$s دعوتنامه دریافت شد. دعوت آن‌ها را برای شروع ارتباط بپذیرید.</string>
-<string name="alert_text_passcode_required_to_proceed">برای ادامه کدعبور الزامی است</string>
-<string name="alert_text_unable_to_decode_message">مشکلی رخ داد. رمزگشایی این پیام امکان‌پذیر نیست.</string>
-<string name="alert_text_unable_to_decrypt_message">رمزگشایی این پیام امکان‌پذیر نیست.</string>
-<string name="alert_text_invitation_accepted"> $ {sender.name} دعوت شما را پذیرفت. اکنون می‌توانید به‌صورت ایمن ارتباط برقرار کنید.</string>
-<string name="alert_text_unable_to_update_friend_status">مشکلی رخ داد. به‌روزرسانی وضعیت دوست شما امکان‌پذیر نیست.</string>
+<string name="alert_text_passcode_field_empty">قسمت کدعبور خالی است.</string>
+<string name="alert_text_verify_passcode_field_empty">لطفاً کدعبور خود را تأیید کنید.</string>
+<string name="alert_text_passcode_entries_do_not_match">ورودی‌های کدعبور با هم مطابقت ندارند.</string>
+<string name="alert_text_secondary_passcode_field_empty">قسمت کد تخریب خالی است.</string>
+<string name="alert_text_verify_secondary_passcode_empty">لطفاً کد تخریب خود را تأیید کنید.</string>
+<string name="alert_text_secondary_passcode_entries_do_not_match">ورودی‌های کد تخریب با هم مطابقت ندارند.</string>
+<string name="alert_text_passcode_required_for_destruction_code">قبل از ایجاد کدعبور نمی‌توانید کد تخریب ایجاد کنید.</string>
+<string name="alert_text_secondary_passcode_and_passcode_may_not_match">کد تخریب نمی‌تواند با کدعبور یکسان باشد.</string>
+<string name="alert_text_received_invitation"> یک دعوت‌نامه از %1$s دریافت شد. برای شروع ارتباط، یک دعوتنامه برای او بفرستید.</string>
+<string name="alert_text_passcode_required_to_proceed">برای ادامه، کدعبور لازم است.</string>
+<string name="alert_text_unable_to_decode_message">خطایی رخ داد. این پیام رمزگشایی نشد.</string>
+<string name="alert_text_unable_to_decrypt_message">این پیام رمزگشایی نشد.</string>
+<string name="alert_text_invitation_accepted"> $ {sender.name}  دعوتنامه شما را پذیرفت. اکنون می‌توانید به‌طور ایمن ارتباط برقرار کنید. </string>
+<string name="alert_text_unable_to_update_friend_status"> خطایی رخ داد، وضعیت دوست به‌روزرسانی نشد.</string>
 <string name="alert_text_which_friend_sent_this_message">کدام دوست این پیام را ارسال کرده است؟</string>
-<string name="alert_text_which_friend_sent_this_invitation">کدام دوست این دعوت نامه را ارسال کرده است؟</string>
+<string name="alert_text_which_friend_sent_this_invitation">کدام دوست این دعوتنامه را ارسال کرده است؟</string>
 <string name="alert_text_friend_already_exists">شما قبلاً دوستی با این نام دارید.</string>
-<string name="alert_text_unable_to_process_request">"مشکلی رخ داد. پردازش درخواست شما امکان‌پذیر نیست."</string>
-<string name="paste_message_for_import_hint">متن را برای وارد کردن اینجا جای‌گذاری کنید.</string>
+<string name="alert_text_unable_to_process_request">خطایی رخ داد. درخواست شما پردازش نشد.</string>
+<string name="paste_message_for_import_hint">متن خود را در اینجا جای‌گذاری کنید…</string>
 <string name="button_label_import_image">وارد کردن تصویر</string>
 
     <!-- About User Guide -->
-    <string name="button_label_about">در باره</string>
+    <string name="button_label_about">درباره</string>
 
     <string name="about_user_guide_english">About Nahoft:\n
         \nNahoft allows you to send encrypted message to your friends using the strongest encryption available.
@@ -214,106 +214,109 @@
 <string name="content_description_add_friend_button">افزودن دوست</string>
 <string name="from">از</string>
 <string name="alert_text_message_too_long">پیام شما بسیار طولانی است.</string>
-<string name="button_label_delete">حذف</string>
-<string name="button_label_reset">بازنشانی</string>
+<string name="button_label_delete">حذف کردن</string>
+<string name="button_label_reset">بازنشانی کردن</string>
 <string name="button_label_english">English</string>
 <string name="button_label_persian">فارسی</string>
-<string name="alert_text_confirm_friend_delete">آیا مطمئن هستید که می‌خواهید این مخاطب را حذف کنید؟ با این کار همه پیام‌های دریافتی از او نیز حذف می‌شود.</string>
+<string name="alert_text_confirm_friend_delete">مطمئنید؟</string>
 <string name="button_label_cancel">لغو</string>
-<string name="user_guide_button_description">دکمه شما را به راهنماهای کاربر می رساند.</string>
-<string name="settings_button_description">دکمه رفتن به منوی تنظیمات.</string>
-<string name="friends_button_description">دکمه رفتن به منوی دوستان.</string>
-<string name="read_button_description">دکمه برای رفتن به منوی پیام ها.</string>
+<string name="user_guide_button_description">این دکمه شما را به راهنمای کاربر هدایت می‌کند.</string>
+<string name="settings_button_description">این دکمه شما را به منوی تنظیمات هدایت می‌کند.</string>
+<string name="friends_button_description">این دکمه شما را به منوی دوستان هدایت می‌کند.</string>
+<string name="read_button_description">این دکمه شما را به منوی خواندن پیام، وارد کردن متن و وارد کردن تصویر هدایت می‌کند.</string>
 
-    <string name="ok_button">خوب</string>
+    <string name="ok_button">تأیید</string>
 
     <!-- New Content Descriptions -->
-    <string name="alert_text_invalid_passcode">این رمز عبور نامعتبر است</string>
-    <string name="alert_text_passcode_is_sequential">رمزهای عبور متوالی مجاز نیستند.</string>
-    <string name="alert_text_passcode_is_a_repeated_digit">رمز عبور نمی تواند یک رقم تکراری باشد.</string>
-    <string name="alert_text_incorrect_passcode_length">کد عبور باید شش رقم باشد.</string>
-    <string name="alert_text_image_saved">تصویر در پوشه تصاویر در تلفن ذخیره شده است.</string>
+    <string name="alert_text_invalid_passcode">این کدعبور نامعتبر است.</string>
+    <string name="alert_text_passcode_is_sequential">کدهای عبور متوالی مجاز نیستند.</string>
+    <string name="alert_text_passcode_is_a_repeated_digit"> کدعبور نمی‌تواند یک رقم تکراری باشد.</string>
+    <string name="alert_text_incorrect_passcode_length">کدعبور باید ۶ رقمی باشد.</string>
+    <string name="alert_text_image_saved">این تصویر در تلفن شما ذخیره شده است.</string>
 
     <!-- Enter Passcode Activity -->
-    <string name="alert_text_zero_to_five_login_attempts">رمز عبور وارد شده نادرست است. لطفا دوباره تلاش کنید.</string>
-    <string name="alert_text_sixth_login_attempt">رمز عبور وارد شده نادرست است. لطفاً بعد از این یک دقیقه قفل کردن دوباره امتحان کنید.</string>
-    <string name="alert_text_seventh_login_attempt">رمز عبور وارد شده نادرست است. لطفا بعد از این پنج دقیقه قفل کردن دوباره امتحان کنید.</string>
-    <string name="alert_text_eighth_login_attempt">رمز عبور وارد شده نادرست است. لطفاً بعد از این پانزده دقیقه قفل کردن دوباره امتحان کنید.</string>
-    <string name="alert_text_ninth_login_attempt">تلاش رمز عبور نهم انجام نشد. همه داده های برنامه پاک می شوند.</string>
-    <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">لطفا صبر کنید, %1$d دقایق %2$d ثانیه قبل از تلاش برای ورود مجدد</string>
+    <string name="alert_text_zero_to_five_login_attempts">کدعبور واردشده نادرست است. لطفاً دوباره امتحان کنید.</string>
+    <string name="alert_text_sixth_login_attempt">کدعبور واردشده نادرست است. می‌توانید بعد از۶۰ ثانیه دوباره وارد سیستم شوید.</string>
+    <string name="alert_text_seventh_login_attempt">کدعبور واردشده نادرست است. می‌توانید بعد از ۵ دقیقه دوباره وارد سیستم شوید.</string>
+    <string name="alert_text_eighth_login_attempt"> کدعبور واردشده نادرست است. می‌توانید بعد از ۱۵ دقیقه دوباره وارد سیستم شوید.</string>
+    <string name="alert_text_ninth_login_attempt"> کدعبور واردشده نادرست است. این حساب حذف شده است.</string>
+
+    <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">لطفا صبر کنید, %1$d دقایق %2$d ثانیه قبل از تلاش برای ورود مجدد</string >
+    <!-- string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">قبل از تلاش برای ورود مجدد به سیستم، لطفاً %1$d دقیقه و %2$d ثانیه منتظر بمانید</string -->
 
     <!-- SaveUtil.kt file -->
-    <string name="saved_images">تصاویر ذخیره شده</string>
+    <string name="saved_images">تصاویر ذخیره‌شده</string>
 
     <!-- Enter Passcode Activity XML -->
-    <string name="enter_passcode">رمز عبور خود را وارد کنید</string>
+    <string name="enter_passcode">کدعبور خود را وارد کنید</string>
     <!-- Home Activity -->
-    <string name="button_label_help">کمک</string>
+    <string name="button_label_help">راهنما</string>
     <string name="button_label_read">خواندن</string>
-    <string name="button_label_create">ایجاد پیام</string>
+    <string name="button_label_create">ایجاد کردن</string>
 
     <!-- Import Image Activity -->
-    <string name="import_image_hint">یک تصویر از دستگاه خود وارد کنید.</string>
+    <string name="import_image_hint">تصویری را از دستگاه خود وارد کنید.</string>
 
     <!-- Import Text Activity -->
     <string name="import_text_label">وارد کردن متن</string>
 
     <!-- Settings Activity -->
     <string name="settings_activity_label">تنظیمات</string>
-    <string name="passcode">رمز عبور</string>
+    <string name="passcode">کدعبور</string>
     <string name="destructionCode">کد تخریب</string>
-    <string name="passcodeTwice">رمز عبور خود را دوباره وارد کنید</string>
+    <string name="passcodeTwice">کدعبور خود را مجدداً وارد کنید</string>
 
     <!--Create Activity -->
     <string name="to">به</string>
-    <string name="sendAsTextButtonLabel">ارسال به عنوان متن</string>
-    <string name="saveImageButtonLabel">ذخیره تصویر</string>
+    <string name="sendAsTextButtonLabel">ارسال بهعنوان متن</string>
+    <string name="saveImageButtonLabel">ذخیره بهعنوان تصویر</string>
 
     <!-- Friends Info -->
     <string name="friends_info_activity_heading">اطلاعات</string>
-    <string name="edit_friend_button">دکمه دوست را ویرایش کنید</string>
-    <string name="edit_button">ویرایش کنید</string>
-    <string name="send_message">پیام فرستادن</string>
+    <string name="edit_friend_button">ویرایش دکمۀ دوست</string>
+    <string name="edit_button">ویرایش</string>
+    <string name="send_message">ارسال پیام</string>
     <string name="import_text">وارد کردن متن</string>
-    <string name="verify_button">تأیید کنید</string>
-    <string name="invite_button">دعوت</string>
-    <string name="decline_button">کاهش می یابد</string>
-    <string name="import_invitation_button">دعوت نامه واردات</string>
+    <string name="verify_button">تأیید کردن</string>
+    <string name="invite_button">دعوت کردن</string>
+    <string name="decline_button">نپذیرفتن</string>
+    <string name="import_invitation_button">وارد کردن دعوتنامه</string>
 
     <string name="button_descriptions">
-        \nبرای ارسال کلید برای دوست جدید ، دعوت را فشار دهید.
-        \nدر صورت نیاز به ارسال مجدد دعوت ، دوباره دعوت را فشار دهید.
-        \nبرای وارد کردن دعوت نامه از دوست خود ، دعوت نامه را وارد کنید.
-        \nبرای مقایسه کلیدها با دوست جدید خود ، تأیید را فشار دهید.
-        \nبرای رد کردن کلید وارد شده و شروع مجدد روند ، دکمه رد را فشار دهید.</string>
+        برای ارسال دعوتنامه به یک دوست، «دعوت کردن» را فشار دهید .\n
+         در صورت نیاز به ارسال مجدد دعوت، دعوت کردن مجدد» را فشار دهید.\n
+         برای وارد کردن دعوتنامه از یک دوست، «وارد کردن دعوتنامه» را وارد کنید.\n
+         برای مقایسه و تأیید مطابقت کدهای خود، «تأیید» را فشار دهید.\n
+         برای رد کردن آخرین دعوتنامۀ ارسالی و شروع مجدد فرآیند، «نپذیرفتن» را فشار دهید.\n
+    </string>
 
-    <string name="delete_friend_button">دوست را حذف کنید</string>
+    <string name="delete_friend_button">حذف کردن دوست</string>
 
     <!-- Messages Activity -->
-    <string name="messages_activity_heading">پیام ها</string>
+    <string name="messages_activity_heading">پیام‌ها</string>
 
     <!-- Add Friend Alert Dialog -->
-    <string name="enter_nickname">نام مستعار را وارد کنید</string>
-    <string name="add_button">اضافه کردن</string>
+    <string name="enter_nickname">وارد کردن نام مستعار</string>
+    <string name="add_button">افزودن</string>
     <string name="cancel_button">لغو</string>
 
     <!-- Activity Friends Info -->
     <string name="nickname">کنیه</string>
-    <string name="verification_code">کد تایید</string>
-    <string name="friend_status_default">پیش فرض</string>
-    <string name="friend_status_requested">درخواست شد</string>
-    <string name="friend_status_invited">دعوت کرد</string>
-    <string name="friend_status_verified">تأیید شده</string>
-    <string name="friend_status_approved">تایید شده</string>
+    <string name="verification_code">کد تأیید</string>
+    <string name="friend_status_default">پیش‌فرض</string>
+    <string name="friend_status_requested">درخواست‌شده</string>
+    <string name="friend_status_invited">دعوت‌شده</string>
+    <string name="friend_status_verified">تأییدشده</string>
+    <string name="friend_status_approved">تأییدشده</string>
 
     <!-- Setting Passcode -->
-    <string name="enter_destruction_code">کد تخریب خود را وارد کنید</string>
-    <string name="reenter_destruction_code">کد تخریب خود را دوباره وارد کنید</string>
+    <string name="enter_destruction_code">کد تخریب را وارد کنید</string>
+    <string name="reenter_destruction_code">کد تخریب را مجدداً وارد کنید</string>
 
     <!-- Message -->
-    <string name="from_with_colon">از جانب:</string>
-    <string name="alert_passcode_saved">رمز عبور شما ذخیره شده است.</string>
-    <string name="alert_destruction_code_saved">کد تخریب شما ذخیره شده است</string>
+    <string name="from_with_colon">از:</string>
+    <string name="alert_passcode_saved">کدعبور شما ذخیره شده است.</string>
+    <string name="alert_destruction_code_saved">کد تخریب شما ذخیره شده است.</string>
 
 
 </resources>
