@@ -33,6 +33,10 @@ class LogInActivity : AppCompatActivity()
         }
     }
 
+    override fun onBackPressed() {
+        // User should not be able to back out of this activity
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_in)
@@ -61,10 +65,6 @@ class LogInActivity : AppCompatActivity()
               else -> false
           }
         }
-    }
-
-    override fun onBackPressed() {
-        finishAffinity()
     }
 
     override fun onDestroy() {
