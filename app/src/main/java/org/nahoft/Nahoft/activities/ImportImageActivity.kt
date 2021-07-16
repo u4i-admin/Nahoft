@@ -53,10 +53,14 @@ class ImportImageActivity: AppCompatActivity(), OnItemSelectedListener
         })
 
         // Check to see if a friend was selected in a previous activity
-        val maybeFriend = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription) as? Friend
-        if (maybeFriend != null)
+        val maybeSerializable = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
+        if (maybeSerializable != null)
         {
-            sender = maybeFriend
+            val maybeFriend =  maybeSerializable as? Friend
+            if (maybeFriend != null)
+            {
+                sender = maybeFriend
+            }
         }
 
         import_image_button.setOnClickListener {

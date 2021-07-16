@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import kotlinx.android.synthetic.main.activity_log_in.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
@@ -19,6 +20,7 @@ import org.nahoft.nahoft.Persist.Companion.sharedPrefSecondaryPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.nahoft.R
 import org.nahoft.util.showAlert
+import java.lang.NullPointerException
 import java.util.concurrent.TimeUnit
 
 class LogInActivity : AppCompatActivity()
@@ -136,7 +138,7 @@ class LogInActivity : AppCompatActivity()
             LoginStatus.LoggedIn, LoginStatus.NotRequired ->
             {
                 val extraString = intent.getStringExtra(Intent.EXTRA_TEXT)
-                val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
+                val extraStream = intent.getStringExtra(Intent.EXTRA_STREAM)
 
                 if (extraString != null) // Check to see if we received a string message share
                 {
@@ -148,10 +150,18 @@ class LogInActivity : AppCompatActivity()
                 }
                 else if (extraStream != null) // See if we received an image message share
                 {
-                    val extraUri = Uri.parse(extraStream.toString())
-                    val importImageActivityIntent = Intent(this, ImportImageActivity()::class.java)
-                    importImageActivityIntent.putExtra(Intent.EXTRA_STREAM, extraUri)
-                    startActivity(importImageActivityIntent)
+                    try
+                    {
+                        val extraUri = Uri.parse(extraStream)
+                        val importImageActivityIntent = Intent(this, ImportImageActivity()::class.java)
+                        importImageActivityIntent.putExtra(Intent.EXTRA_STREAM, extraUri)
+                        startActivity(importImageActivityIntent)
+                    }
+                    catch (e: NullPointerException)
+                    {
+                        // The string was not a url don't try to share it
+                    }
+
                 }
                 else
                 {
