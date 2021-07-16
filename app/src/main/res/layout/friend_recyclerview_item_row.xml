@@ -6,6 +6,7 @@
     android:layout_height="48dp"
     android:layoutDirection="ltr"
     android:layout_marginVertical="@dimen/padding_half"
+    android:filterTouchesWhenObscured="true"
     android:background="@drawable/transparent_overlay_radius_8">
 
     <TextView

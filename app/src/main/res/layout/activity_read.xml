@@ -8,6 +8,7 @@
     android:layoutDirection="ltr"
     android:background="@color/royalBlueDark"
     android:paddingTop="@dimen/padding_standard"
+    android:filterTouchesWhenObscured="true"
     tools:context=".activities.ReadActivity">
 
     <ImageView

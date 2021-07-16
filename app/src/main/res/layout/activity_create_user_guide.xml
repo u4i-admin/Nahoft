@@ -7,7 +7,8 @@
     android:layoutDirection="ltr"
     android:background="@color/royalBlueDark"
     android:paddingHorizontal="@dimen/padding_standard"
-    tools:context=".activities.CreateUserGuideActivity">
+    tools:context=".activities.CreateUserGuideActivity"
+    android:filterTouchesWhenObscured="true">
 
     <LinearLayout
         android:id="@+id/create_user_guide_button_container"

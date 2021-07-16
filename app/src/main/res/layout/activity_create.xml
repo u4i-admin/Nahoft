@@ -8,7 +8,8 @@
     android:layoutDirection="ltr"
     android:background="@color/royalBlueDark"
     tools:context=".activities.CreateActivity"
-    android:paddingHorizontal="@dimen/padding_three_quarters">
+    android:paddingHorizontal="@dimen/padding_three_quarters"
+    android:filterTouchesWhenObscured="true">
 
     <ImageView
         android:id="@+id/create_activity_image_view_header"

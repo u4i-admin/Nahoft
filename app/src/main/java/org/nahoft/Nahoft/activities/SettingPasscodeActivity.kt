@@ -3,6 +3,7 @@ package org.nahoft.nahoft.activities
 import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.core.view.isGone
 import kotlinx.android.synthetic.main.activity_setting_passcode.*
 import kotlinx.android.synthetic.main.activity_setting_passcode.passcode_switch
@@ -24,6 +25,9 @@ class SettingPasscodeActivity : AppCompatActivity() {
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting_passcode)
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                        WindowManager.LayoutParams.FLAG_SECURE)
 
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)

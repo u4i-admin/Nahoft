@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
     android:background="@color/royalBlueDark"
+    android:filterTouchesWhenObscured="true"
     tools:context=".activities.FriendInfoActivity">
 
     <LinearLayout

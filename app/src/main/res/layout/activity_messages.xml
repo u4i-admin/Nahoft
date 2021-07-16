@@ -8,6 +8,7 @@
     android:background="@color/royalBlueDark"
     tools:context=".activities.MessagesActivity"
     android:paddingTop="@dimen/padding_standard"
+    android:filterTouchesWhenObscured="true"
     android:paddingHorizontal="@dimen/padding_standard">
 
     <ImageView

@@ -2,6 +2,7 @@ package org.nahoft.nahoft.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import kotlinx.android.synthetic.main.activity_about_user_guide.*
 import org.nahoft.nahoft.R
 
@@ -11,6 +12,9 @@ class AboutUserGuideActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about_user_guide)
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                        WindowManager.LayoutParams.FLAG_SECURE)
 
         // Show user guide in English
         about_user_guide_button_english.setOnClickListener {

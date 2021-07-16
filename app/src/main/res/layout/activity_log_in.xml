@@ -9,6 +9,7 @@
     android:layout_gravity="center"
     android:background="@color/royalBlueDark"
     android:orientation="vertical"
+    android:filterTouchesWhenObscured="true"
     tools:context=".activities.LogInActivity">
 
     <ImageView

@@ -8,6 +8,7 @@
     android:layoutDirection="ltr"
     android:paddingHorizontal="@dimen/padding_standard"
     android:background="@color/royalBlueDark"
+    android:filterTouchesWhenObscured="true"
     tools:context=".activities.SettingPasscodeActivity">
     <RelativeLayout
         android:id="@+id/passcode_heading_container"

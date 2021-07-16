@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
@@ -45,6 +46,9 @@ class ImportImageActivity: AppCompatActivity(), OnItemSelectedListener
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_import_image)
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                        WindowManager.LayoutParams.FLAG_SECURE)
 
         makeSureAccessIsAllowed()
 

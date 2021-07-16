@@ -3,6 +3,7 @@ package org.nahoft.nahoft.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import kotlinx.android.synthetic.main.activity_help.*
 import org.nahoft.nahoft.R
 
@@ -12,6 +13,9 @@ class HelpActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_help)
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                        WindowManager.LayoutParams.FLAG_SECURE)
 
         help_menu_button_about.setOnClickListener {
             val intentAboutUserGuide = Intent(this, AboutUserGuideActivity::class.java)

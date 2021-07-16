@@ -5,4 +5,5 @@
     android:textSize="22sp"
     android:textColor="@color/royalBlueDark"
     android:paddingHorizontal="@dimen/padding_quarter"
+    android:filterTouchesWhenObscured="true"
     android:spinnerMode="dropdown"/>

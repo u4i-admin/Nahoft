@@ -11,6 +11,7 @@
     android:paddingHorizontal="@dimen/padding_half"
     android:orientation="horizontal"
     android:gravity="center"
+    android:filterTouchesWhenObscured="true"
     android:background="@drawable/btn_bkgd_white_28">
 
     <ImageView

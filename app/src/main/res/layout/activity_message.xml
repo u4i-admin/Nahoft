@@ -8,6 +8,7 @@
     android:layout_marginTop="@dimen/padding_standard"
     android:layout_marginHorizontal="@dimen/padding_standard"
     android:orientation="vertical"
+    android:filterTouchesWhenObscured="true"
     tools:context=".activities.MessageActivity">
 
     <LinearLayout

@@ -9,6 +9,7 @@
     android:background="@color/royalBlueDark"
     android:paddingHorizontal="@dimen/padding_standard"
     android:paddingTop="@dimen/padding_standard"
+    android:filterTouchesWhenObscured="true"
     tools:context=".activities.HelpActivity">
 
     <ImageView
