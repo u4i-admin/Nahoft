@@ -42,17 +42,23 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
             addAction(LOGOUT_TIMER_VAL)
         })
 
-        // Check to see if a friend was selected in a previous activity
-        val maybeSerializable = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
-        if (maybeSerializable != null)
+        try
         {
-            val maybeFriend =  maybeSerializable as? Friend
-            if (maybeFriend != null)
+            // Check to see if a friend was selected in a previous activity
+            val maybeSerializable = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
+            if (maybeSerializable != null)
             {
-                sender = maybeFriend
+                val maybeFriend =  maybeSerializable as? Friend
+                if (maybeFriend != null)
+                {
+                    sender = maybeFriend
+                }
             }
         }
-
+        catch(error: Exception)
+        {
+            // Invalid data
+        }
 
         import_text_button.setOnClickListener {
             handleMessageImport()
