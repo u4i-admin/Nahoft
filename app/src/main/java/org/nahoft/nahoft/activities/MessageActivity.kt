@@ -3,7 +3,9 @@ package org.nahoft.nahoft.activities
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_message.*
@@ -14,6 +16,7 @@ import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.Message
+import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.Persist.Companion.deleteMessage
 import org.nahoft.nahoft.R
 import org.nahoft.util.showAlert
@@ -58,6 +61,8 @@ class MessageActivity : AppCompatActivity()
             addAction(LOGOUT_TIMER_VAL)
         })
 
+        if (!Persist.accessIsAllowed()) { sendToLogin() }
+
         val arguments = Arguments.createFromIntent(intent)
         message = arguments.message
 
@@ -71,7 +76,15 @@ class MessageActivity : AppCompatActivity()
     }
 
     override fun onDestroy() {
-        unregisterReceiver(receiver)
+        try
+        {
+            unregisterReceiver(receiver)
+        }
+        catch (e: Exception)
+        {
+            //Nothing to unregister
+        }
+
         super.onDestroy()
     }
 
@@ -111,5 +124,17 @@ class MessageActivity : AppCompatActivity()
         message = Message(ByteArray(2), Friend(""))
         friend_info_name_text_view.text = ""
         message_detail_body_text_view.text = ""
+    }
+
+    private fun sendToLogin()
+    {
+        message_detail_body_text_view.text = ""
+        // If the status is not either NotRequired, or Logged in, request login
+        this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
+
+        // Send user to the Login Activity
+        val loginIntent = Intent(applicationContext, LogInActivity::class.java)
+
+        startActivity(loginIntent)
     }
 }

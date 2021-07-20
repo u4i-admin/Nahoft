@@ -90,6 +90,14 @@ class Persist {
             }
         }
 
+        fun accessIsAllowed(): Boolean
+        {
+            getStatus()
+
+            // Return true if status is NotRequired or LoggedIn
+            return status == LoginStatus.NotRequired || status == LoginStatus.LoggedIn
+        }
+
         fun updateFriend(context: Context, friendToUpdate: Friend, newName: String = friendToUpdate.name, newStatus: FriendStatus = friendToUpdate.status, encodedPublicKey: ByteArray? = null) {
 
             val oldFriend = friendList.find { it.name == friendToUpdate.name }

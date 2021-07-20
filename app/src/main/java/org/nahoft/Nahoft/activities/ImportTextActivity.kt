@@ -15,6 +15,7 @@ import org.nahoft.codex.KeyOrMessage
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
+import org.nahoft.nahoft.Persist.Companion.accessIsAllowed
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.showAlert
 
@@ -36,36 +37,42 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                         WindowManager.LayoutParams.FLAG_SECURE)
 
-        makeSureAccessIsAllowed()
-
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
         })
 
-        try
+        if (accessIsAllowed())
         {
-            // Check to see if a friend was selected in a previous activity
-            val maybeSerializable = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
-            if (maybeSerializable != null)
+            try
             {
-                val maybeFriend =  maybeSerializable as? Friend
-                if (maybeFriend != null)
+                // Check to see if a friend was selected in a previous activity
+                val maybeSerializable = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
+                if (maybeSerializable != null)
                 {
-                    sender = maybeFriend
+                    val maybeFriend =  maybeSerializable as? Friend
+                    if (maybeFriend != null)
+                    {
+                        sender = maybeFriend
+                    }
                 }
             }
+            catch(error: Exception)
+            {
+                // Invalid data
+            }
+
+            import_text_button.setOnClickListener {
+                if (!accessIsAllowed()) { sendToLogin() }
+                else { handleMessageImport() }
+            }
+
+            setupFriendDropdown()
+            receiveSharedMessages()
         }
-        catch(error: Exception)
+        else
         {
-            // Invalid data
+            sendToLogin()
         }
-
-        import_text_button.setOnClickListener {
-            handleMessageImport()
-        }
-
-        setupFriendDropdown()
-        receiveSharedMessages()
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -84,7 +91,15 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
 
     override fun onDestroy()
     {
-        unregisterReceiver(receiver)
+        try
+        {
+            unregisterReceiver(receiver)
+        }
+        catch (e: Exception)
+        {
+            //Nothing to unregister
+        }
+
         super.onDestroy()
     }
 
@@ -253,27 +268,15 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
         startActivity(friendListIntent)
     }
 
-    private fun makeSureAccessIsAllowed()
-    {
-        Persist.getStatus()
-
-        if (Persist.status == LoginStatus.NotRequired || Persist.status == LoginStatus.LoggedIn)
-        {
-            return
-        }
-        else
-        {
-            sendToLogin()
-        }
-    }
-
     private fun sendToLogin()
     {
         // If the status is not either NotRequired, or Logged in, request login
         this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
 
+        cleanUp()
+
         // Send user to the Login Activity
-        val loginIntent = Intent(applicationContext, LogInActivity::class.java)
+        val loginIntent = Intent(this, LogInActivity::class.java)
 
         // We received a shared message but the user is not logged in
         // Save the intent

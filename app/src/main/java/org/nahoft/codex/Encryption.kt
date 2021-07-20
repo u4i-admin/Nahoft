@@ -95,10 +95,6 @@ class Encryption {
             if (result.size <= nonce.size) {
                 throw SecurityException("Failed to encrypt the message.")
             } else {
-                println("--------------Encrypted A Message")
-                val hex = result.joinToString("") { String.format("%02X", (it.toInt() and 0xFF)) }
-                println(hex)
-                println("Encryption Result:" + result.size)
                 return result
             }
 
@@ -110,20 +106,25 @@ class Encryption {
     @Throws(SecurityException::class)
     fun decrypt(friendPublicKey: PublicKey, ciphertext: ByteArray): String
     {
-        val keypair = ensureKeysExist()
-        println("----->> Ciphertext count = " + ciphertext.size)
-        val hex = ciphertext.joinToString("") { String.format("%02X", (it.toInt() and 0xFF)) }
-        println(hex)
+        if (!Persist.accessIsAllowed())
+        { return "" }
+        else
+        {
+            val keypair = loadKeypair() ?: throw SecurityException()
 
-        try {
-            val result = SodiumWrapper().decrypt(
-                ciphertext,
-                friendPublicKey.toBytes(),
-                keypair.privateKey.toBytes()
-            )
-            return String(result)
-        } catch (exception: SecurityException) {
-            throw exception
+            try
+            {
+                val result = SodiumWrapper().decrypt(
+                    ciphertext,
+                    friendPublicKey.toBytes(),
+                    keypair.privateKey.toBytes()
+                )
+                return String(result)
+            }
+            catch (exception: SecurityException)
+            {
+                throw exception
+            }
         }
     }
 }

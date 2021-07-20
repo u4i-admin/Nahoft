@@ -47,7 +47,6 @@ class Patch(val patchIndex: Int, val size: Int, var bitmap: MappedBitmap)
 
             // Iterate though all of the pixels which we are allowed to change.
             for ((index, pixel) in pixelsToModify.withIndex()) {
-                print(index)
                 // Picks a random pixel from the patch changes the color of the pixel to be darker
                 val changeInBrightness = when (direction) {
                     EncoderConstraint.GREATER -> pixel.brighten(patchBrightnessDifferencePerPixel)

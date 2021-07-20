@@ -41,6 +41,11 @@ public class SodiumWrapper
 
     public byte[] decrypt(byte[] encryptedBytes, byte[] senderPublicKey, byte[] receiverPrivateKey) throws SecurityException
     {
+        if (encryptedBytes.length <= SodiumConstants.NONCE_BYTES)
+        {
+            throw new SecurityException("Failed to decrypt the message.");
+        }
+
         // Get the nonce from the encrypted bytes
         byte[] nonce = new byte[SodiumConstants.NONCE_BYTES];
         System.arraycopy(encryptedBytes, 0, nonce, 0, nonce.length);

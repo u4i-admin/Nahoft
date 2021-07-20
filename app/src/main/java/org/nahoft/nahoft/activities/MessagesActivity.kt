@@ -51,7 +51,15 @@ class MessagesActivity : AppCompatActivity()
 
     override fun onDestroy()
     {
-        unregisterReceiver(receiver)
+        try
+        {
+            unregisterReceiver(receiver)
+        }
+        catch (e: Exception)
+        {
+            //Nothing to unregister
+        }
+
         Persist.saveMessagesToFile(this)
         super.onDestroy()
     }

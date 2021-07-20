@@ -50,36 +50,42 @@ class ImportImageActivity: AppCompatActivity(), OnItemSelectedListener
         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                         WindowManager.LayoutParams.FLAG_SECURE)
 
-        makeSureAccessIsAllowed()
-
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
         })
 
-        try
+        if (Persist.accessIsAllowed())
         {
-            // Check to see if a friend was selected in a previous activity
-            val maybeSerializable = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
-            if (maybeSerializable != null)
+            try
             {
-                val maybeFriend =  maybeSerializable as? Friend
-                if (maybeFriend != null)
+                // Check to see if a friend was selected in a previous activity
+                val maybeSerializable = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription)
+                if (maybeSerializable != null)
                 {
-                    sender = maybeFriend
+                    val maybeFriend =  maybeSerializable as? Friend
+                    if (maybeFriend != null)
+                    {
+                        sender = maybeFriend
+                    }
                 }
             }
+            catch (error: Exception)
+            {
+                // Invalid data
+            }
+
+            import_image_button.setOnClickListener {
+                if (!Persist.accessIsAllowed()) { sendToLogin() }
+                else { handleImageImport() }
+            }
+
+            setupFriendDropdown()
+            receiveSharedMessages()
         }
-        catch (error: Exception)
+        else
         {
-            // Invalid data
+            sendToLogin()
         }
-
-        import_image_button.setOnClickListener {
-            handleImageImport()
-        }
-
-        setupFriendDropdown()
-        receiveSharedMessages()
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -97,7 +103,15 @@ class ImportImageActivity: AppCompatActivity(), OnItemSelectedListener
     }
 
     override fun onDestroy() {
-        unregisterReceiver(receiver)
+        try
+        {
+            unregisterReceiver(receiver)
+        }
+        catch (e: Exception)
+        {
+            //Nothing to unregister
+        }
+
         super.onDestroy()
     }
 
@@ -143,12 +157,20 @@ class ImportImageActivity: AppCompatActivity(), OnItemSelectedListener
         }
         else // See if we got intent extras from the Login Activity
         {
-            // See if we received an image message
-            val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
-            if (extraStream != null)
+            try
             {
-                val extraUri = Uri.parse(extraStream.toString())
-                decodeImage(extraUri)
+                // See if we received an image message
+                val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
+                if (extraStream != null)
+                {
+                    (extraStream as? Uri)?.let {
+                        decodeImage(it)
+                    }
+                }
+            }
+            catch (e:Exception)
+            {
+                showAlert(getString(R.string.alert_text_unable_to_process_request))
             }
         }
     }
@@ -165,16 +187,24 @@ class ImportImageActivity: AppCompatActivity(), OnItemSelectedListener
             }
 
         coroutineScope.launch(Dispatchers.Main) {
-            val maybeDecodeResult = decodeResult.await()
-            noMoreWaiting()
+            try
+            {
+                val maybeDecodeResult = decodeResult.await()
+                noMoreWaiting()
 
-            if (maybeDecodeResult != null)
-            {
-                decodePayload = maybeDecodeResult
-                handleImageDecodeResult()
+                if (maybeDecodeResult != null)
+                {
+                    decodePayload = maybeDecodeResult
+                    handleImageDecodeResult()
+                }
+                else
+                {
+                    showAlert(getString(R.string.alert_text_unable_to_decode_message))
+                }
             }
-            else
+            catch (e: Exception)
             {
+                noMoreWaiting()
                 showAlert(getString(R.string.alert_text_unable_to_decode_message))
             }
         }
@@ -230,11 +260,19 @@ class ImportImageActivity: AppCompatActivity(), OnItemSelectedListener
 
     private fun showSelectFriendAlert(cipherBytes: ByteArray)
     {
+        val verifiedFriends = Friends().verifiedSpinnerList()
+
+        if (verifiedFriends.isEmpty())
+        {
+            showAlert(getString(R.string.alert_text_verified_friends_only))
+            return
+        }
+
         val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_AddFriendAlertDialog))
         builder.setTitle(resources.getString(R.string.alert_text_which_friend_sent_this_message))
 
         val chooseFriendSpinner = Spinner(this)
-        val verifiedFriends = Friends().verifiedSpinnerList()
+
         val friendAdapter: ArrayAdapter<Friend> = ArrayAdapter(this, R.layout.spinner, verifiedFriends)
         var chosenFriend: Friend? = null
         chooseFriendSpinner.adapter = friendAdapter
@@ -293,24 +331,12 @@ class ImportImageActivity: AppCompatActivity(), OnItemSelectedListener
         messageArguments.startActivity(this)
     }
 
-    private fun makeSureAccessIsAllowed()
-    {
-        Persist.getStatus()
-
-        if (Persist.status == LoginStatus.NotRequired || Persist.status == LoginStatus.LoggedIn)
-        {
-            return
-        }
-        else
-        {
-            sendToLogin()
-        }
-    }
-
     private fun sendToLogin()
     {
         // If the status is not either NotRequired, or Logged in, request login
         this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
+
+        cleanUp()
 
         // Send user to the Login Activity
         val loginIntent = Intent(applicationContext, LogInActivity::class.java)
@@ -322,9 +348,21 @@ class ImportImageActivity: AppCompatActivity(), OnItemSelectedListener
             if (intent.type?.startsWith("image/") == true)
             {
                 val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
-                if (extraStream != null){
-                    val extraUri = Uri.parse(extraStream.toString())
-                    loginIntent.putExtra(Intent.EXTRA_STREAM, extraUri)
+                if (extraStream != null)
+                {
+                    try
+                    {
+                        val extraUri = extraStream as? Uri
+
+                        if (extraUri != null)
+                        {
+                            loginIntent.putExtra(Intent.EXTRA_STREAM, extraUri)
+                        }
+                    }
+                    catch (e: Exception)
+                    {
+                        showAlert(getString(R.string.alert_text_unable_to_process_request))
+                    }
                 }
                 else
                 {

@@ -44,7 +44,16 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         Persist.saveLoginStatus()
-        unregisterReceiver(receiver)
+
+        try
+        {
+            unregisterReceiver(receiver)
+        }
+        catch (e: Exception)
+        {
+            //Nothing to unregister
+        }
+
         super.onDestroy()
     }
 

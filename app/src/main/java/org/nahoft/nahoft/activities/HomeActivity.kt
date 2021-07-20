@@ -41,23 +41,34 @@ class HomeActivity : AppCompatActivity()
         Persist.app = Nahoft()
         Persist.loadEncryptedSharedPreferences(this.applicationContext)
 
-        makeSureAccessIsAllowed()
+        if (Persist.accessIsAllowed())
+        {
+            // Logout Button
+            if (status == LoginStatus.NotRequired) {
+                logout_button.visibility = View.INVISIBLE
+            } else {
+                logout_button.visibility = View.VISIBLE
+            }
 
-        // Logout Button
-        if (status == LoginStatus.NotRequired) {
-            logout_button.visibility = View.INVISIBLE
-        } else {
-            logout_button.visibility = View.VISIBLE
+            setupOnClicks()
+            setupFriends()
+            loadSavedMessages()
         }
-
-        setupOnClicks()
-        setupFriends()
-        loadSavedMessages()
+        else
+        {
+            sendToLogin()
+        }
     }
 
     override fun onResume()
     {
         super.onResume()
+
+        if (!Persist.accessIsAllowed())
+        {
+            finish()
+            sendToLogin()
+        }
 
         if (status == LoginStatus.NotRequired)
         {
@@ -70,22 +81,16 @@ class HomeActivity : AppCompatActivity()
     }
 
     override fun onDestroy() {
-        unregisterReceiver(receiver)
+        try
+        {
+            unregisterReceiver(receiver)
+        }
+        catch (e: Exception)
+        {
+            //Nothing to unregister
+        }
+
         super.onDestroy()
-    }
-
-    private fun makeSureAccessIsAllowed()
-    {
-        Persist.getStatus()
-
-        if (status == LoginStatus.NotRequired || status == LoginStatus.LoggedIn)
-        {
-            return
-        }
-        else
-        {
-            sendToLogin()
-        }
     }
 
     private fun sendToLogin()

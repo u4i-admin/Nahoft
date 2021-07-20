@@ -15,7 +15,6 @@ public class Solver(val coverImageBitmap: Bitmap, var messageARules: Array<Rule>
     {
         for ((index, rule) in messageARules.withIndex())
         {
-            println("A: $index / $messageARules.size")
             val success = rule.constrain()
             if (!success) {
                 return false

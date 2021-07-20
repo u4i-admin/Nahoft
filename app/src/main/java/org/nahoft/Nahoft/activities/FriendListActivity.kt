@@ -57,7 +57,15 @@ class FriendListActivity : AppCompatActivity()
 
     override fun onDestroy()
     {
-        unregisterReceiver(receiver)
+        try
+        {
+            unregisterReceiver(receiver)
+        }
+        catch (e: Exception)
+        {
+            //Nothing to unregister
+        }
+
         super.onDestroy()
     }
 

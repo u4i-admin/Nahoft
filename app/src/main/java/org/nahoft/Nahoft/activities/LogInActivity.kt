@@ -2,13 +2,11 @@ package org.nahoft.nahoft.activities
 
 import android.content.Intent
 import android.content.IntentFilter
-import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toUri
 import kotlinx.android.synthetic.main.activity_log_in.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
@@ -21,7 +19,6 @@ import org.nahoft.nahoft.Persist.Companion.sharedPrefSecondaryPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.nahoft.R
 import org.nahoft.util.showAlert
-import java.lang.NullPointerException
 import java.util.concurrent.TimeUnit
 
 class LogInActivity : AppCompatActivity()
@@ -62,7 +59,7 @@ class LogInActivity : AppCompatActivity()
             this.handleLoginPress()
         }
 
-        passcodeEditText.setOnEditorActionListener { _, keyCode, event ->
+        passcodeEditText.setOnEditorActionListener { _, keyCode, _ ->
           return@setOnEditorActionListener when (keyCode) {
              EditorInfo.IME_ACTION_DONE -> {
                  this.handleLoginPress()
@@ -74,7 +71,15 @@ class LogInActivity : AppCompatActivity()
     }
 
     override fun onDestroy() {
-        unregisterReceiver(receiver)
+        try
+        {
+            unregisterReceiver(receiver)
+        }
+        catch (e: Exception)
+        {
+            //Nothing to unregister
+        }
+
         super.onDestroy()
     }
 
@@ -115,7 +120,6 @@ class LogInActivity : AppCompatActivity()
             }
             catch (error: Exception)
             {
-                print("Received invalid status from EncryptedSharedPreferences. User is logged out.")
                 status = LoginStatus.LoggedOut
             }
         }
@@ -142,42 +146,49 @@ class LogInActivity : AppCompatActivity()
             LoginStatus.LoggedIn, LoginStatus.NotRequired ->
             {
                 val extraString = intent.getStringExtra(Intent.EXTRA_TEXT)
-                val extraStream = intent.getStringExtra(Intent.EXTRA_STREAM)
+                val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
 
-                if (extraString != null) // Check to see if we received a string message share
-                {
-                    // Received string message
-                    val importTextActivityIntent = Intent(this, ImportTextActivity::class.java)
-                    importTextActivityIntent.putExtra(Intent.EXTRA_TEXT, extraString)
-                    startActivity(importTextActivityIntent)
-                    return
-                }
-                else if (extraStream != null) // See if we received an image message share
-                {
-                    try
-                    {
-                        val extraUri = Uri.parse(extraStream)
-                        val importImageActivityIntent = Intent(this, ImportImageActivity()::class.java)
-                        importImageActivityIntent.putExtra(Intent.EXTRA_STREAM, extraUri)
-                        startActivity(importImageActivityIntent)
-                    }
-                    catch (e: NullPointerException)
-                    {
-                        // The string was not a url don't try to share it
-                    }
+                when {
+                    extraString != null // Check to see if we received a string message share
+                    -> {
+                        try
+                        {
+                            // Received string message
+                            val importTextActivityIntent = Intent(this, ImportTextActivity::class.java)
+                            importTextActivityIntent.putExtra(Intent.EXTRA_TEXT, extraString)
+                            startActivity(importTextActivityIntent)
+                            return
+                        }
+                        catch (e: Exception)
+                        {
+                            // Something went wrong, don't share this extra
+                        }
 
-                }
-                else
-                {
-                    val homeActivityIntent = Intent(this, HomeActivity::class.java)
-                    startActivity(homeActivityIntent)
+                    }
+                    extraStream != null // See if we received an image message share
+                    -> {
+                        try
+                        {
+                            val importImageActivityIntent = Intent(this, ImportImageActivity()::class.java)
+                            importImageActivityIntent.putExtra(Intent.EXTRA_STREAM, extraStream)
+                            startActivity(importImageActivityIntent)
+                        }
+                        catch (e: NullPointerException) {
+                            // Something went wrong, don't share this extra
+                        }
+
+                    }
+                    else -> {
+                        val homeActivityIntent = Intent(this, HomeActivity::class.java)
+                        startActivity(homeActivityIntent)
+                    }
                 }
             }
 
             // Destruction code entered delete user data
             LoginStatus.SecondaryLogin ->
             {
-                Persist.clearAllData()
+                clearAllData()
                 startActivity(Intent(this, HomeActivity::class.java))
             }
 
@@ -281,7 +292,7 @@ class LogInActivity : AppCompatActivity()
             //This should never happen all data should have already been deleted when the login failed the final time.
             //Delete everything like you would if user had entered a secondary passcode.
             showAlert(getString(R.string.alert_text_ninth_login_attempt))
-            Persist.clearAllData()
+            clearAllData()
             startActivity(Intent(this, HomeActivity::class.java))
 
             return false
