@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "296134399074",
+    "project_id": "nahoft-app",
+    "storage_bucket": "nahoft-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296134399074:android:7e8221dcfc765abb042d3b",
+        "android_client_info": {
+          "package_name": "org.nahoft.nahoft"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296134399074-u0s0o3v60d4mndjr7j9spf2sbiv7sm8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwcdiYe2qPeOpzVux9TS_Iq_5DBwEzNdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296134399074-u0s0o3v60d4mndjr7j9spf2sbiv7sm8a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
