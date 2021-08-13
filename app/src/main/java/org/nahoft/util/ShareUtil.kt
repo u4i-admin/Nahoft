@@ -13,7 +13,7 @@ object ShareUtil
     {
         val sendIntent = Intent(Intent.ACTION_SEND)
         sendIntent.putExtra(Intent.EXTRA_STREAM, imageUri)
-        sendIntent.type = "image/*"
+        sendIntent.type = "*/*"
         sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
         val shareIntent = Intent.createChooser(sendIntent, null)
