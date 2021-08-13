@@ -3,6 +3,7 @@ package org.nahoft.nahoft.activities
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.os.Process
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import org.nahoft.nahoft.Persist.Companion.messagesFilename
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.util.showAlert
 import java.io.File
+import kotlin.system.exitProcess
 
 class HomeActivity : AppCompatActivity()
 {
@@ -22,6 +24,10 @@ class HomeActivity : AppCompatActivity()
         LogoutTimerBroadcastReceiver {
             //
         }
+    }
+
+    override fun onBackPressed() {
+        finishAffinity()
     }
 
     @ExperimentalUnsignedTypes
