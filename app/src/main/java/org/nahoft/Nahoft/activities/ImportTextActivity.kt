@@ -9,7 +9,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.activity_import_text.*
+import kotlinx.android.synthetic.main.activity_import_text.go_to_home_button
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
 import org.nahoft.codex.LOGOUT_TIMER_VAL
@@ -64,6 +66,12 @@ class ImportTextActivity: AppCompatActivity(), AdapterView.OnItemSelectedListene
             import_text_button.setOnClickListener {
                 if (!accessIsAllowed()) { sendToLogin() }
                 else { handleMessageImport() }
+            }
+
+            // Return to Home
+            go_to_home_button.setOnClickListener {
+                val homeIntent = Intent(this, HomeActivity::class.java)
+                startActivity(homeIntent)
             }
 
             setupFriendDropdown()

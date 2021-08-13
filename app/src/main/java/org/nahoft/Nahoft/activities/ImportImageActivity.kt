@@ -15,8 +15,10 @@ import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
+import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_import_image.*
+import kotlinx.android.synthetic.main.activity_import_image.go_to_home_button
 import kotlinx.android.synthetic.main.activity_import_image.imageImportProgressBar
 import kotlinx.android.synthetic.main.activity_import_text.*
 import kotlinx.coroutines.*
@@ -77,6 +79,12 @@ class ImportImageActivity: AppCompatActivity(), OnItemSelectedListener
             import_image_button.setOnClickListener {
                 if (!Persist.accessIsAllowed()) { sendToLogin() }
                 else { handleImageImport() }
+            }
+
+            // Return to Home
+            go_to_home_button.setOnClickListener {
+                val homeIntent = Intent(this, HomeActivity::class.java)
+                startActivity(homeIntent)
             }
 
             setupFriendDropdown()

@@ -19,7 +19,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.activity_friend_info.*
+import kotlinx.android.synthetic.main.activity_friend_info.go_to_home_button
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
@@ -106,6 +108,12 @@ class FriendInfoActivity: AppCompatActivity()
 
         delete_friend_button.setOnClickListener {
             showDeleteConfirmationDialog()
+        }
+
+        // Return to Home
+        go_to_home_button.setOnClickListener {
+            val homeIntent = Intent(this, HomeActivity::class.java)
+            startActivity(homeIntent)
         }
     }
 

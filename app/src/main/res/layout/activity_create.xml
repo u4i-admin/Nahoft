@@ -29,12 +29,22 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginVertical="@dimen/padding_standard"
-        android:gravity="center"
         android:fontFamily="@font/open_sans_semibold"
+        android:gravity="center"
         android:text="@string/button_label_create"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="22sp"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/go_to_home_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginVertical="@dimen/padding_standard"
+        app:srcCompat="@drawable/ic_nahoft_icons_home"
         tools:ignore="ContentDescription" />
 
     <LinearLayout

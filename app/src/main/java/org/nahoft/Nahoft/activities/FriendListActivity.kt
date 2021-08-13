@@ -15,7 +15,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.activity_friend_list.*
+import kotlinx.android.synthetic.main.activity_friend_list.go_to_home_button
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
@@ -52,6 +54,12 @@ class FriendListActivity : AppCompatActivity()
 
         add_friend_button.setOnClickListener {
            showAddFriendDialog()
+        }
+
+        // Return to Home
+        go_to_home_button.setOnClickListener {
+            val homeIntent = Intent(this, HomeActivity::class.java)
+            startActivity(homeIntent)
         }
     }
 

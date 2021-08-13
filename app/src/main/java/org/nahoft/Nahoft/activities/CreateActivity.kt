@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.*
 import android.net.Uri
 import android.os.Bundle
+import android.os.Process
 import android.provider.MediaStore
 import android.view.View
 import android.view.WindowManager
@@ -25,6 +26,7 @@ import org.nahoft.org.nahoft.swatch.Encoder
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 import org.nahoft.util.showAlert
+import kotlin.system.exitProcess
 
 class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 {
@@ -104,6 +106,12 @@ class CreateActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         // Save message as image button
         save_image_button.setOnClickListener {
             trySendingOrSavingMessage(isImage = true, saveImage = true)
+        }
+
+        // Return to Home
+        go_to_home_button.setOnClickListener {
+            val homeIntent = Intent(this, HomeActivity::class.java)
+            startActivity(homeIntent)
         }
     }
 

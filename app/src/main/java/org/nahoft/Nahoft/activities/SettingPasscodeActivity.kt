@@ -1,11 +1,14 @@
 package org.nahoft.nahoft.activities
 
+import android.content.Intent
 import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.core.view.isGone
+import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.activity_setting_passcode.*
+import kotlinx.android.synthetic.main.activity_setting_passcode.go_to_home_button
 import kotlinx.android.synthetic.main.activity_setting_passcode.passcode_switch
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
@@ -74,6 +77,12 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
         destruction_code_submit_button.setOnClickListener {
             saveDestructionCode()
+        }
+
+        // Return to Home
+        go_to_home_button.setOnClickListener {
+            val homeIntent = Intent(this, HomeActivity::class.java)
+            startActivity(homeIntent)
         }
     }
 

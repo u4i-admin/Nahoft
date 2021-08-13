@@ -18,17 +18,27 @@
         android:background="@android:color/transparent"
         app:srcCompat="@drawable/ic_nahoft_icons_help"
         tools:ignore="ContentDescription" />
+
     <TextView
         android:id="@+id/help_activity_title"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:fontFamily="@font/open_sans_semibold"
+        android:gravity="center"
         android:text="@string/button_label_help"
         android:textColor="@color/white"
         android:textSize="22sp"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/go_to_home_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        app:srcCompat="@drawable/ic_nahoft_icons_home"
         tools:ignore="ContentDescription" />
 
     <LinearLayout

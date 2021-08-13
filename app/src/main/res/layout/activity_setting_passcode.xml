@@ -36,6 +36,15 @@
             android:textSize="22sp"
             tools:ignore="ContentDescription" />
 
+        <ImageView
+            android:id="@+id/go_to_home_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            app:srcCompat="@drawable/ic_nahoft_icons_home"
+            tools:ignore="ContentDescription" />
+
         <LinearLayout
             android:id="@+id/settingsActivityLayoutContainer"
             android:layout_width="match_parent"

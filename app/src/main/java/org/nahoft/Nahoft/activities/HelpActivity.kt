@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.activity_help.*
+import kotlinx.android.synthetic.main.activity_help.go_to_home_button
 import org.nahoft.nahoft.R
 
 class HelpActivity : AppCompatActivity()
@@ -40,6 +42,12 @@ class HelpActivity : AppCompatActivity()
         help_menu_button_settings.setOnClickListener {
             val intentSettingsUserGuide = Intent(this, SettingsUserGuideActivity::class.java)
             startActivity(intentSettingsUserGuide)
+        }
+
+        // Return to Home
+        go_to_home_button.setOnClickListener {
+            val homeIntent = Intent(this, HomeActivity::class.java)
+            startActivity(homeIntent)
         }
     }
 }

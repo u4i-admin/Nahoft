@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.activity_read.*
+import kotlinx.android.synthetic.main.activity_read.go_to_home_button
 import org.nahoft.nahoft.R
 
 class ReadActivity : AppCompatActivity() {
@@ -30,5 +32,11 @@ class ReadActivity : AppCompatActivity() {
         import_image_button.setOnClickListener{
             val importIntent = Intent(this, ImportImageActivity::class.java)
             startActivity(importIntent) }
+
+        // Return to Home
+        go_to_home_button.setOnClickListener {
+            val homeIntent = Intent(this, HomeActivity::class.java)
+            startActivity(homeIntent)
+        }
     }
 }

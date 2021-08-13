@@ -1,11 +1,14 @@
 package org.nahoft.nahoft.activities
 
+import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.activity_messages.*
+import kotlinx.android.synthetic.main.activity_messages.go_to_home_button
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.MessagesRecyclerAdapter
@@ -35,6 +38,12 @@ class MessagesActivity : AppCompatActivity()
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
         })
+
+        // Return to Home
+        go_to_home_button.setOnClickListener {
+            val homeIntent = Intent(this, HomeActivity::class.java)
+            startActivity(homeIntent)
+        }
 
         // Setup the messages RecyclerView
         linearLayoutManager = LinearLayoutManager(this)

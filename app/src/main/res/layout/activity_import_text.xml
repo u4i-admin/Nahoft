@@ -19,18 +19,28 @@
         android:layout_alignParentTop="true"
         app:srcCompat="@drawable/ic_nahoft_icons_import_text"
         tools:ignore="ContentDescription" />
+
     <TextView
         android:id="@+id/import_text_title"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:fontFamily="@font/open_sans_semibold"
+        android:gravity="center"
         android:text="@string/import_text"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="22sp"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/go_to_home_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        app:srcCompat="@drawable/ic_nahoft_icons_home"
         tools:ignore="ContentDescription" />
 
     <LinearLayout
