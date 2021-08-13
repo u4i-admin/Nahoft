@@ -80,6 +80,7 @@
                 android:text="@string/nickname"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                android:textAlignment="viewStart"
                 app:layout_constraintStart_toEndOf="@+id/nickname_status_container" />
             <LinearLayout
                 android:id="@+id/status_container"
@@ -143,6 +144,23 @@
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/friend_info_container"
             app:layout_constraintTop_toBottomOf="@id/nickname_status_container" />
+
+        <Button
+            android:id="@+id/edit_or_save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:paddingHorizontal="@dimen/padding_quarter"
+            android:layout_marginTop="@dimen/padding_doubled"
+            android:layout_marginBottom="@dimen/padding_half"
+            android:background="@drawable/transparent_overlay_radius_8_edit"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/edit_friend_button"
+            android:text="@string/edit_button"
+            android:textAllCaps="false"
+            android:textColor="@color/button_text_color_light"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/friend_info_container"
+            app:layout_constraintTop_toBottomOf="@id/nickname_status_container"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
