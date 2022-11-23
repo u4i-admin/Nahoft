@@ -1,49 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layoutDirection="ltr"
-    android:minHeight="56dp"
-    android:layout_marginVertical="@dimen/padding_quarter"
-    android:paddingHorizontal="@dimen/padding_half"
-    android:orientation="horizontal"
-    android:gravity="center"
-    android:filterTouchesWhenObscured="true"
-    android:background="@drawable/btn_bkgd_white_28">
+    android:layout_marginVertical="@dimen/activity_vertical_margin">
 
     <ImageView
         android:id="@+id/status_image_view"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/padding_quarter"
-        android:src="@drawable/ic_nahoft_arrow"
+        android:src="@drawable/ic_nahoft_icons_profile_picture"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/friend_info_name_text_view"
-        android:layout_width="0dp"
+        android:id="@+id/message_text_view"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/unknown_label"
-        android:textColor="@color/royalBlueDark"
-        android:textSize="20sp"
-        android:textAppearance="@font/open_sans"
-        app:layout_constraintStart_toEndOf="@+id/status_image_view"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/messages"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingStart="15dp"
+        android:paddingEnd="20dp"
+        android:paddingVertical="10dp"
+        android:maxWidth="250dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/transparent_overlay_message"
+        app:layout_constraintStart_toEndOf="@id/status_image_view"
+        app:layout_constraintTop_toTopOf="@id/status_image_view" />
 
     <TextView
         android:id="@+id/date_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/friend_info_name_text_view"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/sample_date_time"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@id/message_text_view"
+        app:layout_constraintTop_toBottomOf="@id/message_text_view" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

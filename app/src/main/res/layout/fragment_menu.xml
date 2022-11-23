@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".fragments.MenuFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_gravity="center"
+            android:hint="@string/nickname"
+            app:hintTextColor="@color/royalBlueDark"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/enter_name_input"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btn_bkgd_white_8"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:maxLength="32"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:textAlignment="viewStart"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/save_name_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center"
+            android:background="@color/transparentOverlayColor"
+            android:src="@drawable/ic_nahoft_icons_check"
+            android:contentDescription="@string/edit_button" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_gravity="center"
+            android:hint="@string/phone_number_optional"
+            app:hintTextColor="@color/royalBlueDark"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/enter_phone_input"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btn_bkgd_white_8"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:maxLength="11"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:textAlignment="viewStart"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/save_phone_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center"
+            android:background="@color/transparentOverlayColor"
+            android:src="@drawable/ic_nahoft_icons_check"
+            android:contentDescription="@string/edit_button" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/verify_button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/btn_bkgd_blue_8"
+        android:textColor="@color/white"
+        android:layout_margin="8dp"
+        android:textAlignment="viewStart"
+        android:drawablePadding="20dp"
+        android:paddingLeft="150dp"
+        android:drawableLeft="@drawable/ic_nahoft_icons_verify"
+        android:text="@string/verify_button" />
+
+</LinearLayout>

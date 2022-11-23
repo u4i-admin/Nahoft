@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".fragments.VerifyStatusFragment">
+
+    <LinearLayout
+        android:id="@+id/user_public_key_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bkgd_code_view"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/user_public_key_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/your_code"
+            android:textStyle="bold"
+            android:textAlignment="viewStart"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/user_public_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/your_code"
+            android:textAlignment="gravity"
+            android:gravity="right"
+            android:textSize="20sp"
+            tools:ignore="RtlHardcoded" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bkgd_code_view"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_public_key_layout">
+
+        <TextView
+            android:id="@+id/friend_public_key_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/friend_s_code"
+            android:textStyle="bold"
+            android:textAlignment="viewStart"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/friend_public_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/friend_s_code"
+            android:textAlignment="gravity"
+            android:gravity="right"
+            android:textSize="20sp"
+            tools:ignore="RtlHardcoded" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/approve_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/btn_bkgd_blue_circle"
+        android:src="@drawable/ic_nahoft_icons_approve"
+        android:padding="15dp"
+        android:elevation="10dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintVertical_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/alert_text_invitation_accepted" />
+
+    <ImageButton
+        android:id="@+id/decline_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/btn_bkgd_red_56"
+        android:src="@drawable/ic_nahoft_icons_decline"
+        android:padding="15dp"
+        android:elevation="10dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintVertical_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/decline_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
