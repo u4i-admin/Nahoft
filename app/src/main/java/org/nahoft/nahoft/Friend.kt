@@ -12,6 +12,10 @@ data class Friend constructor(
     @param:Element(name = "name")
     var name: String,
 
+    @field:Element(name = "phone")
+    @param:Element(name = "phone")
+    var phone: String? = null,
+
     @field:Element(name = "status")
     @param:Element(name = "status")
     var status: FriendStatus = FriendStatus.Default,
