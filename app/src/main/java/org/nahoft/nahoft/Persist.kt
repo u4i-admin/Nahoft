@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.lang.Exception
 import org.libsodium.jni.keys.PublicKey
+import kotlin.properties.Delegates
 
 class Persist {
 
@@ -22,6 +23,8 @@ class Persist {
         val sharedPrefSecondaryPasscodeKey = "NahoftSecondaryPasscode"
         val sharedPrefFailedLoginAttemptsKey = "NahoftFailedLogins"
         val sharedPrefFailedLoginTimeKey = "NahoftFailedLoginTime"
+        val sharedPrefUseSmsAsDefaultKey = "NahoftUseSmsAsDefault"
+        val sharedPrefAlreadySeeTutorialKey = "NahoftAlreadySeeTutorial"
 
         val sharedPrefFilename = "NahoftEncryptedPreferences"
 
@@ -39,6 +42,7 @@ class Persist {
         lateinit var friendsFile: File
         lateinit var messagesFile: File
         lateinit var app: Application
+        var sendWithSms by Delegates.notNull<Boolean>()
 
         var friendList = ArrayList<Friend>()
         var messageList = ArrayList<Message>()
@@ -120,12 +124,34 @@ class Persist {
             saveFriendsToFile(context)
         }
 
+        fun updateFriendsPhone(context: Context, friendToUpdate: Friend, newPhoneNumber: String) {
+
+            val oldFriend = friendList.find { it.name == friendToUpdate.name }
+
+            oldFriend?.let {
+                oldFriend.phone = newPhoneNumber
+            }
+
+            saveFriendsToFile(context)
+        }
+
         // Save something to Encrypted Shared Preferences
         fun saveKey(key:String, value:String) {
             encryptedSharedPreferences
                 .edit()
                 .putString(key, value)
                 .apply()
+        }
+
+        fun saveBooleanKey(key:String, value:Boolean) {
+            encryptedSharedPreferences
+                .edit()
+                .putBoolean(key, value)
+                .apply()
+        }
+
+        fun loadBooleanKey(key: String): Boolean {
+            return encryptedSharedPreferences.getBoolean(key, false)
         }
 
         // Remove something from Encrypted Shared Preferences
