@@ -25,16 +25,20 @@ data class Message constructor(
     @param:Element(name = "cipherText")
     var cipherText: ByteArray,
 
+    @field:Element(name = "from-me", required = false)
+    @param:Element(name = "from-me", required = false)
+    var fromMe: Boolean,
+
     @field:Element(name = "sender", required = false)
     @param:Element(name = "sender", required = false)
     var sender: Friend? = null
-
 ) : Serializable
 {
-    constructor(cipherText: ByteArray, sender: Friend) : this(
+    constructor(cipherText: ByteArray, sender: Friend, fromMe: Boolean) : this(
         timestampString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd", Locale.getDefault())),
         timestamp = Calendar.getInstance(),
         cipherText,
+        fromMe,
         sender)
 
     override fun equals(other: Any?): Boolean
