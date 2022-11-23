@@ -9,6 +9,9 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <application
         android:name=".Nahoft"
@@ -20,7 +23,13 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.AboutUserGuideActivity"></activity>
+        <activity
+            android:name=".activities.ContactListActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -32,9 +41,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <activity android:name=".activities.AboutUserGuideActivity" />
         <activity
             android:name=".activities.LogInActivity"
             android:excludeFromRecents="true"
+            android:exported="true"
             android:launchMode="singleTask"
             android:noHistory="true"
             android:screenOrientation="portrait"
@@ -48,31 +59,7 @@
         <activity
             android:name=".activities.HomeActivity"
             android:excludeFromRecents="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".activities.ReadActivity"
-            android:excludeFromRecents="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".activities.ImportImageActivity"
-            android:excludeFromRecents="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
-
-            <!-- Allows other apps to share text with us -->
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="image/*" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.ImportTextActivity"
-            android:excludeFromRecents="true"
+            android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
 
@@ -83,23 +70,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data android:mimeType="text/*" />
+                <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.MessageActivity"
-            android:excludeFromRecents="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".activities.FriendListActivity"
-            android:excludeFromRecents="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".activities.CreateActivity"
-            android:excludeFromRecents="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.CreateUserGuideActivity"
             android:excludeFromRecents="true"
@@ -131,18 +104,23 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activities.MessagesActivity"
+            android:name=".activities.FriendInfoActivity"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activities.FriendInfoActivity"
+            android:name=".activities.SlideActivity"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
+            tools:ignore="LockedOrientationActivity" />
 
-            <!-- Allows other apps to share images with us -->
-        </activity>
+        <receiver
+            android:name=".SmsReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
 
         <meta-data
             android:name="preloaded_fonts"
