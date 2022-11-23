@@ -59,189 +59,240 @@
     <string name="alert_text_which_friend_sent_this_message">Which friend sent this message?</string>
     <string name="alert_text_which_friend_sent_this_invitation">Which friend sent this invitation?</string>
     <string name="alert_text_friend_already_exists">You already have a friend with this name.</string>
+    <string name="alert_text_friend_phone_already_exists">You already have a friend with this phone number.</string>
     <string name="alert_text_unable_to_process_request">Something went wrong. We were unable to process your request.</string>
     <string name="paste_message_for_import_hint">Paste your text here…</string>
     <string name="button_label_import_image">Import Image</string>
 
     <!-- About User Guide -->
     <string name="button_label_about">About</string>
+    <string name="about_user_guide_english" translatable="false">
+        \n<b>About</b>
 
-    <string name="about_user_guide_english">About Nahoft:\n
-        \n Nahoft allows you to send encrypted messages to your friends using the strongest encryption available.
-        The encrypted message will be transformed into your choice of either a text or an image in order to hide the fact that it is encrypted.\n
-       \nThe following user guides describe how to use this application.\n\n
+        \n\n<b>About Nahoft:</b>
+        \n“Nahoft” is not a messaging app. It is a tool for encryption. Nahoft is an offline software for encrypting text messages on Android phones.
+        \n\nEncrypting your text messages means that even if your message gets intercepted by a third party, that party can not read it. The only person that can read your message is the one with whom you exchanged your public key.
+        \n\nNahoft is offline, which means you do not need to be connected to the internet to encrypt your messages.
+        \n\nNahoft only encrypts text messages. Currently, it does not provide encrypted voice and video messages.
+        \n\nNahoft can encrypt text messages as text. It also can encrypt them as a photo (Steganography.) You can send an encrypted text message or a photo containing a message via another channel that allows you to send the file (for example, SMS, MMS, or a messaging app that allows you to send the file unchanged.) So, the other person, after receiving the message, transfers the encrypted text or photo to Nahoft and reads it.
+        \n\nFor the time being, Nahoft can be installed on phones that use the Android operating system.
+        \n\nNahoft is not a messaging app. It only encrypts the user’s text messages. The user can send the encrypted message to another one through one of the messaging apps (in an insecure network or even using an insecure messaging app.) The other person should be using Nahoft as well. Both should have already exchanged the public keys with one another to enter the messages into this software and read the encrypted messages. Nahoft uses public keys that can be shared with others. It also creates a private key hidden in the app to read the sent messages between two users.
+        \n\nNahoft’s goal is to make it possible for users to send secure messages even through insecure messaging apps and networks. It means that if a user does not have access to secure internet or can not use secure messaging apps (in the case of internet censorship, filtering, and total internet shutdown) and only have access to insecure messaging apps and networks inside the country, even in this case, the users can encrypt the text messages and send them in the network. So, even if the message gets intercepted, it will still not be intelligible since it is encrypted.
+        \n\nNote: Public keys (also the private key) change whenever you delete and reinstall the app, as well as each time you change your phone and reinstall the app. So, each time you change your phone or delete the app and reinstall it, you need to exchange the keys with your friends.
+        \n\nImportant: Nahoft is open-source software, and everyone can have access to its code.
     </string>
 
-    <string name="about_user_guide_persian">\n راهنمای اپلیکیشن نهفت \n
+    <string name="about_user_guide_persian" translatable="false">
         <!-- Fix this first line by adding the English word About (1 to the right of the  (درباره) -->
         \n (درباره) About \n
         <!-- Fix this second line by adding a "(i" to the right of the Persian word below. Keep the colon where it is. -->
         \n درباره نهفت:  \n
-        \n نهفت یک پیام‌رسان نیست، بلکه ابزاری برای رمزنگاری است. «نهفت» اپلیکیشنی آفلاین برای رمزنگاری پیامهای متنی در گوشی‌های اندرویدی است. \n
-        \n این نرم‌افزار، آفلاین است، یعنی برای تبدیل پیامهای متنی به پیامهای رمزگذاری شده، نیازی به اتصال آنلاین ندارد و می‌تواند بصورت مستقل و بدون اینترنت جهانی، پیامهای نوشتاری را رمز کند. \n
-        \n «نهفت» تنها پیامهای متنی را رمزنگاری می‌کند و فعلا امکان رمزنگاری پیامای صوتی و تصویری فراهم نیست.  \n
-        \n نهفت می‌تواند پیامهای متنی را هم بصورت یک متن رمزنگاری کند و هم می‌تواند آن را در داخل یک عکس، که شما انتخاب می‌کنید، پنهان کند. شما می‌توانید پیام متنی یا عکس حاوی پیام را از طریق دیگری که امکان ارسال فایل را فراهم می‌کند (مثلا ایمیل، یا اس‌ام‌اس یا ام‌ام‌اس، یا یک پیام‌رسان که امکان ارسال فایل بدون تغییر را فراهم می‌کند) بفرستید تا طرف مقابل نیز پس از دریافت، متن یا عکس رمزنگاری شده را به نهفت منتقل کند و پیام را بخواند.   \n
-        \n «نهفت»، فعلا در سیستم عامل اندروید و در گوشی‌های موبایلی که از این سیستم عامل استفاده می‌کنند، قابل نصب است \n
-        \n نهفت یک پیام‌رسان نیست، بلکه تنها پیامهای متنی کاربر را رمزنگاری می‌کند و کاربر می‌تواند پیام رمز‌نگاری شده را از طریق یک پیام‌رسان دیگر (در شبکه‌ای ناامن و حتی با یک پیام‌رسان ناامن) به فرد دیگری ارسال کند که او نیز  از نهفت استفاده می‌کند. آنها باید  قبلا با هم کلیدهای عمومی خود را همرسان و جابجا کرده باشند تا پیامها را بعد از دریافت وارد این اپلیکیشن کنند و متن نهایی را در آنجا بخوانند. نهفت از کلیدهای عمومی که قابل همرسانی با دیگران است، استفاده می‌کند و کلیدی خصوصی می‌سازد که در داخل اپلیکیشن پنهان شده و می‌تواند پیامهای رد و بدل شده بین دو کاربر را بخواند. \n
-        \n هدف «نهفت» آن است که امکان ارسال پیام امن حتی در پیام‌رسان‌ها و شبکه‌های ناامن فراهم شود. به این معنی که اگر کاربری در شرایط خاص، دسترسی به شبکه امن اینترنت جهانی نداشت، و یا استفاده از پیام‌رسان‌های امن برای او امکان‌پذیر نبود (فرض کنید در شرایط سانسور، فیلترینگ و یا قطع کامل شبکه جهانی اینترنت) و تنها به پیام‌رسان‌های ناامن و یا شبکه‌های ناامن داخلی دسترسی داشت، حتی در اینصورت هم بتواند پیام خود را رمزنگاری کرده و در داخل این شبکه ارسال کند. در این صورت حتی اگر پیام او در میان راه توسط فرد سومی دیده شود، باز هم به علت آنکه رمزنگاری شده است، قابل خواندن نخواهد بود.   \n
-        \n توجه: با هر بار پاک کردن کامل نرم‌افزار نهفت و نصب دوباره آن و همچنین با هر بار تغییر گوشی شما و در نتیجه نصب دوباره نهفت، کلیدهای عمومی (و نیز کلید خصوصی) تغییر می‌کند. بنابراین هربار که گوشی شما تغییر می‌کند و یا نهفت را پاک کرده و دوباره نصب می‌کنید، باید دوباره با دوستان خود این کلیدها را جابجا کنید.   \n
-        \n مهم: نهفت یک نرم‌افزار  متن باز (اوپن‌سورس) است و همه می‌توانند به کدهای برنامه‌نویسی آن دسترسی داشته باشند.  \n
+        \n نهفت یک پیام‌رسان نیست، بلکه ابزاری برای رمزنگاری است. «نهفت» نرم‌افزار آفلاین برای رمزنگاری پیامهای متنی در گوشی‌های اندرویدی است. \n
+        \n رمزنگاری کردن پیام متنی یعنی حتی اگر پیام ارسالی شما در میان راه توسط فرد سومی دیده شود، برای آن شخص سوم قابل خواندن نخواهد بود و تنها شخصی که شما کلید عمومی خود را با او رد و بدل کرده‌اید، می‌تواند پیام مورد نظر را بخواند. \n
+        \n  این نرم‌افزار، آفلاین است، یعنی برای تبدیل پیام‌های متنی به پیام‌های رمزگذاری شده، نیازی به اینترنت آنلاین ندارد و می‌تواند بصورت مستقل و بدون اینترنت جهانی، پیام‌های نوشتاری را رمزنگاری کند. \n
+        \n «نهفت» تنها پیام‌های متنی را رمزنگاری می‌کند و در حال حاضر امکان رمزنگاری پیام‌های صوتی و تصویری در آن فراهم نیست. \n
+        \n نهفت می‌تواند پیام‌های متنی را هم بصورت یک متن رمزنگاری کند و هم می‌تواند آن را در داخل یک عکس، که شما انتخاب می‌کنید، پنهان کند. شما می‌توانید پیام متنی یا عکس حاوی پیام را از طریق دیگری که امکان ارسال فایل را فراهم می‌کند (مثلا ایمیل، یا اس‌ام‌اس یا ام‌ام‌اس، یا یک پیام‌رسان که امکان ارسال فایل بدون تغییر را فراهم می‌کند) بفرستید تا طرف مقابل نیز پس از دریافت، متن یا عکس رمزنگاری شده را به نهفت منتقل کند و پیام را بخواند. \n
+        \n  «نهفت»، فعلا در سیستم عامل اندروید و در گوشی‌های موبایلی که از این سیستم عامل استفاده می‌کنند، قابل نصب است. \n
+        \n نهفت یک پیام‌رسان نیست، بلکه تنها پیام‌های متنی کاربر را رمزنگاری می‌کند و کاربر می‌تواند پیام رمز‌نگاری شده را از طریق یکی از پیام رسان‌های خود (در شبکه‌ای ناامن و حتی با یک پیام‌رسان ناامن) به فرد دیگری ارسال کند که او نیز  از نهفت استفاده می‌کند. آنها باید  قبلا با هم کلیدهای عمومی خود را همرسان و جابجا کرده باشند تا پیام‌ها را بعد از دریافت وارد این نرم‌افزار کنند و متن نهایی را در آنجا بخوانند. نهفت از کلیدهای عمومی که قابل همرسانی با دیگران است، استفاده می‌کند و کلیدی خصوصی می‌سازد که در داخل نرم‌افزار پنهان شده و می‌تواند پیام‌های رد و بدل شده بین دو کاربر را بخواند. \n
+        \n هدف «نهفت» این است که امکان ارسال پیام امن برای کاربران حتی در پیام‌رسان‌ها و شبکه‌های ناامن فراهم شود. به این معنی که اگر کاربری در شرایط خاص، دسترسی به شبکه امن اینترنت جهانی نداشت، و یا استفاده از پیام‌رسان‌های امن برای او امکان‌پذیر نبود (فرض کنید در شرایط سانسور، فیلترینگ و یا قطع کامل شبکه جهانی اینترنت) و تنها به پیام‌رسان‌های ناامن و یا شبکه‌های ناامن داخلی دسترسی داشت، حتی در اینصورت هم بتواند پیام خود را رمزنگاری کرده و در داخل این شبکه ارسال کند. در این صورت حتی اگر پیام او در میان راه توسط فرد سومی دیده شود، باز هم به علت آنکه رمزنگاری شده است، قابل خواندن نخواهد بود. \n
+        \n توجه: با هر بار پاک کردن کامل نرم‌افزار نهفت و نصب دوباره آن و همچنین با هر بار تغییر گوشی شما و در نتیجه نصب دوباره نهفت، کلیدهای عمومی (و نیز کلید خصوصی) تغییر می‌کند. بنابراین هربار که گوشی شما تغییر می‌کند و یا نهفت را پاک کرده و دوباره نصب می‌کنید، باید دوباره با دوستان خود این کلیدها را جابجا کنید. \n
         <!--Fix this line by adding a "(ii" to the right of the Persian sentence below. -->
+        \n مهم: نهفت یک نرم‌افزار  متن باز (اوپن‌سورس) است و همه می‌توانند به کدهای برنامه‌نویسی آن دسترسی داشته باشند. \n
         \n درباره سازندگان نهفت \n
-        \n «نهفت» از جمله تولیداتی است که در برنامه ایران کوباتور۲ و تحت نظارت سازمان «اتحاد برای ایران» تهیه شده است. سازمان اتحاد برای ایران یک نهاد حقوق‌بشری است که مرکز آن در شهر برکلی، و در ایالت کالیفرنیا قرار دارد.  هدف این نهاد گسترش آزادی‌های مدنی در ایران، دفاع از حقوق بشر، حمایت از جامعه مدنی و ترغیب شهروندان به مشارکت از طریق فناوری است.   \n
+        \n «نهفت» از جمله تولیداتی است که در برنامه ایران کوباتور۲ و تحت نظارت سازمان «اتحاد برای ایران» تهیه شده است. سازمان اتحاد برای ایران یک نهاد حقوق‌بشری است که مرکز آن در شهر برکلی، ایالت کالیفرنیا قرار دارد.  هدف این نهاد گسترش آزادی‌های مدنی در ایران، دفاع از حقوق بشر، حمایت از جامعه مدنی و ترغیب شهروندان به مشارکت از طریق فناوری است. \n
+
     </string>
 
     <!-- Read User Guide -->
-    <string name="read_user_guide_english">
-       \nReading Messages:\n
-       \nTo read a message you must first import it.\n
-       \nTo share a received message directly to the Nahoft app from your preferred messaging app: click on the message, press select all, and share.\n
-       \nThis will generate a sharing menu and Nahoft will be amongst the apps you can to share to.\n
-       \nThe Nahoft app will pop up a message that states: "Which friend sent this message?"\n
-       \nChoose the friend that sent the message.\n
-       \nNext, the message will appear.\n
-       \nAnother way to import a message is to copy the message or image to your clipboard.\n
-       \nTap the green read icon on the home page.\n
-       \nNext, choose either the \'Import Text\' or \'Import Image\' button on the read menu screen based on the message type you have received.\n
-       \nChoose the name of the verified friend you received the message from.\n
-       \nTo import text, Long press on the white space that states, \'Paste text here\'.\n
-       \nTap \'Import Text\' to finish.\n
-       \nIf you have received an image, press \'Import Image\', select the image when prompted, and the sender when prompted.\n
-       \nIf the message is successfully imported, you will see the original text.\n
-       \nTo read a message that is saved navigate to the read screen and press messages.\n
-       \nAll received messages are stored here until deleted.\n\n
+    <string name="read_user_guide_english" translatable="false">
+        \n<b>Read</b>
+
+        \n\n<b>When you open Nahoft, you have five options on the home screen. One of those options is the "Read" option:</b>
+
+        \n\n<b>Messages:</b>
+        \nThis section will save the messages that you have already received and read. You have received the encrypted text from outside the Nahoft app. You have then transferred this text to the application and read it. Your message will now be saved in this section.
+
+        \n\nEach saved message is shown, the date that the message was saved, and the person who sent the message.
+
+        \n\nOpen the message. If you select the Trash icon in the right corner, your message will be deleted.
+
+        \n\n<b>Import Text:</b>
+        \nUse this section to enter and read a Nahoft text  you have received.
+
+        \n\nYou know who sent the message and you have already exchanged and verified your public keys. (See the Friends Section)
+
+        \n\nTo read the encrypted text, use the "Import Text" section. Copy the encrypted text message you received from a messenger and paste it into the “Text” section. Choose from whom you received the message. Click on “Import Text” to decrypt your text. Hidden text will appear and then it will be saved automatically in the “Messages” section.
+
+        \n\n<b>Import Image:</b>
+        \nUse this section to enter and read the message inside a Nahoft image you have received.
+
+        \n\nYou know who sent the message and you have already exchanged and verified your public keys. (See the Friends Section)
+
+        \n\nUse the "Import Image" section to read the image containing the encrypted text. Choose from whom you received the message. Click on the “Import Image” option, select the image you received from a messenger and previously saved. The displayed text will then be automatically saved in the “Messages” section.
+        \n
    </string>
 
-    <string name="read_user_guide_persian">
+    <string name="read_user_guide_persian" translatable="false">
         <!-- Fix this first line by adding the English word Read (2 to the right of the  (خواندن) -->
         \n (خواندن) Read \n
-     \n با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخابها گزینه «خواندن» یا Read است:\n
-        <!-- Fix this first line by adding a (i to the right of the (messages) پیامها  -->
-        \n پیامها (messages)\n
-     \n در این بخش پیامهایی که قبلا رسیده و خوانده‌اید، ذخیره خواهد شد. شما متن رمزنگاری شده را از طریقی خارج از اپ نهفت دریافت کرده‌اید. و بعد آن را به داخل این اپلیکیشن منتقل کرده و خوانده‌اید. در اینصورت پیام شما در این قسمت ذخیره می‌شود.\n
-     \n  هر پیام ذخیره شده، تاریخ ذخیره شدن پیام و  همچنین کسی که پیام را ارسال کرده، نشان می‌دهد. \n
-     \n  پیام را باز کنید. اگر علامت سطل آشغال در گوشه سمت راست را انتخاب کنید، پیام شما پاک خواهد شد.  \n
-        <!-- Fix this first line by adding (ii to the right on the screen  -->
-     \n  وارد کردن متن (Import Text) \n
-     \n  برای خواندن متن رمزنگاری شده، از این قسمت استفاده کنید. شما یک پیام را بصورت متن رمزنگاری شده دریافت کرده‌اید. \n
-     \n  شما می‌دانید که پیام را چه کسی ارسال کرده و قبلا کلیدهای عمومی خود را رد و بدل کرده و تایید کرده‌اید. (بخش۴ مربوط به دوستان را ببینید)
-برای خواندن متن رمزنگاری شده، از قسمت «وارد کردن متن» یا (Import Text) استفاده کنید. پیام متنی رمزنگاری شده را که از طریق یک پیامرسان دریافت کرده‌اید، کپی کرده و در بخش متن منتقل کنید. انتخاب کنید که پیام را از چه کسی دریافت کرده‌اید. گزینه Import Text را بزنید تا متن شما رمزگشایی شود. متن پنهان، ظاهر شده و بعد بصورت اتوماتیک در بخش پیامها ذخیره خواهد شد.
- \n
-        <!-- Fix this first line by adding (iii to the right on the screen for the next line -->
-        \n وارد کردن تصویر (Import Image)  \n
-     \n  برای خواندن پیام رمزنگاری در داخل عکس، از این قسمت استفاده کنید. شما یک عکس را بصورت رمزنگاری و در حالی که پیام در داخل آن قرار دارد، دریافت کرده‌اید.
-شما می‌دانید که پیام را چه کسی ارسال کرده و قبلا کلیدهای عمومی خود را رد و بدل کرده و تایید کرده‌اید. (بخش۴ مربوط به دوستان را ببینید)
-برای خواندن عکس حاوی متن رمزنگاری شده، از قسمت «وارد کردن تصویر» یا (Import Image) استفاده کنید. انتخاب کنید که پیام را از چه کسی دریافت کرده‌اید. گزینه Import Image را بزنید، عکسی را که از طریق یک پیامرسان دریافت کرده و قبلا ذخیره  کرده‌اید، انتخاب کنید. متن ظاهر شده و بعد بصورت اتوماتیک در بخش پیامها ذخیره خواهد شد.
- \n
+        \n با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخاب‌ها گزینه «خواندن» یا Read است: \n
+        \n پیام‌ها (massages) \n
+        \n در این بخش پیام‌هایی که قبلا رسیده و خوانده‌اید، ذخیره خواهد شد. شما متن رمزنگاری شده را از طریقی خارج از برنامه نهفت دریافت کرده‌اید. و بعد آن را به داخل این نرم‌افزار منتقل کرده و خوانده‌اید. در اینصورت پیام شما در این قسمت ذخیره می‌شود. \n
+        \n هر پیام ذخیره شده، تاریخ ذخیره شدن پیام و  همچنین کسی که پیام را ارسال کرده، نشان می‌دهد. \n
+        \n پیام را باز کنید. اگر علامت سطل آشغال در گوشه سمت راست را انتخاب کنید، پیام شما پاک خواهد شد. \n
+        \n وارد کردن متن (Import Text) \n
+        \n برای خواندن متن رمزنگاری شده، از این قسمت استفاده کنید. شما یک پیام را بصورت متن رمزنگاری شده دریافت کرده‌اید. \n
+        \n شما می‌دانید که پیام را چه کسی ارسال کرده و قبلا کلیدهای عمومی خود را رد و بدل کرده و تایید کرده‌اید. (بخش۴ مربوط به دوستان را ببینید) \n
+        \n برای خواندن متن رمزنگاری شده، از قسمت «وارد کردن متن» یا (Import Text) استفاده کنید. پیام متنی رمزنگاری شده را که از طریق یک پیامرسان دریافت کرده‌اید، کپی کرده و در بخش متن منتقل کنید. انتخاب کنید که پیام را از چه کسی دریافت کرده‌اید. گزینه Import Text را بزنید تا متن شما رمزگشایی شود. متن پنهان، ظاهر شده و بعد بصورت اتوماتیک در بخش پیام‌ها ذخیره خواهد شد. \n
+        \n وارد کردن تصویر (Import Image) \n
+        \n برای خواندن پیام رمزنگاری در داخل عکس، از این قسمت استفاده کنید. شما یک عکس را بصورت رمزنگاری و در حالی که پیام در داخل آن قرار دارد، دریافت کرده‌اید. \n
+        \n شما می‌دانید که پیام را چه کسی ارسال کرده و قبلا کلیدهای عمومی خود را رد و بدل کرده و تایید کرده‌اید. (بخش۴ مربوط به دوستان را ببینید) \n
+        \n برای خواندن عکس حاوی متن رمزنگاری شده، از قسمت «وارد کردن تصویر» یا (Import Image) استفاده کنید. انتخاب کنید که پیام را از چه کسی دریافت کرده‌اید. گزینه Import Image را بزنید، عکسی را که از طریق یک پیامرسان دریافت کرده و قبلا ذخیره  کرده‌اید، انتخاب کنید. متن ظاهر شده و بعد بصورت اتوماتیک در بخش پیام‌ها ذخیره خواهد شد. \n
 
     </string>
 
     <!-- Create User Guide -->
-    <string name="create_user_guide_english">
-       \nCreate Messages:\n
-       \nYou can only send messages to \'verified\' friends.\n
-       \nStart by tapping the purple create icon on the home screen.\n
-       \nClick the drop down menu beside the \'To\' on the create screen to choose the friend you would like to send a message to.\n
-       \nWrite your message in the window that says \'Message Body\'.\n
-       \nTap \'Send as Text\' to encrypt your message and transform it into a different series of characters.\n
-       \nPress \'Send as Image\' to encrypt your message and embed it in the image you select.\n
-       \nOnce you have made your selection you will be prompted to share the image or text. Here you can select your preferred messaging app or copy it to your clipboard to paste it directly into your preferred messaging app.\n
-       \nIf you do not currently have access to the internet, write your message and then choose \'Save Image\'. This will save the image to your phone so you can send it later once you have re-established internet connectivity.\n
-       \nTo delete a message, go to the read screen, open the message you want to remove and click the trash can icon.\n\n
+    <string name="create_user_guide_english" translatable="false">
+        \n<b>Create</b>
+
+        \n\n<b>When you open Nahoft, you have five options on the home screen. One of those options is the "Create" option:</b>
+
+        \n\n<b>To:</b>
+        \nHere is where you should select which verified friend you want to send your message to.
+
+        \n\nYou should have already exchanged and verified your public keys with others who also use the Nahoft app. (See the Friends Section)
+
+        \n\nTap on the empty field next to the "to" and select the person who is going to receive your message from the drop down menu of your verified friends.
+
+        \n\n<b>Writing the Message (Message Body):</b>
+        \nHere is where you can write the message you want to send. The message can be written in Persian, Turkish, Kurdish, Arabic, English, or in any language and in any alphabet you choose. But each message must contain a maximum of one thousand characters. If you have a longer message, split it into several shorter messages and send them separately.
+
+        \n\n<b>Save as Image:</b>
+        \nUse this option if you want your encrypted message to be encoded in an image, and then saved offline on your phone. When you press the “Save as Image” button, "Nahoft" will open your photo album. If you have not previously granted access to Nahoft, please grant this permission to Nahoft to access the photo album. Then select an image. This image will be saved. You can then send the saved image file to your friend in any way you want.
+
+        \n\n<b>Send as Image:</b>
+        \nUse this option if you want your encrypted message to be encoded in an image, and then sent (shared) via a messenger software. When you press the “Send as Image” button, "Nahoft" will open your photo album. If you have not previously granted access to Nahoft, please grant this permission to Nahoft to access the photo album. Then select an image to use for encoding the message. The message will be encoded in this image. Next you must select the messenger you want to send the message with. Note that the sending method should not change the structure of your file.
+
+        \n\n<b>Important: If you send the image via Telegram for example, you should send it as a file. If it is sent as an image, the file structure will be changed, and your message will be corrupted and unreadable.</b>
+
+        \n\n<b>Send as Text:</b>
+        \nUse this option if you want your encrypted message to be encoded as text. After writing the text and pressing the “Send as Text” key, you can send the message simultaneously through your favorite messenger, or you can copy the encrypted text and save it separately or take it to your favorite application and send it from there.
+        \n
     </string>
 
-    <string name="create_user_guide_persian">
+    <string name="create_user_guide_persian" translatable="false">
         \n (ایجاد پیام) Create \n
-     \n با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخابها گزینه «ایجاد پیام» یا Create است:\n
-     \n انتخاب گیرنده (To) \n
-     \n در این بخش شما انتخاب می‌کنید که پیام را به چه کسی ارسال می‌کنید.
-شما قبلا با تعدادی از دوستان خود که آنها هم از اپلیکیشن «نهفت» استفاده می‌کنند، کلیدهای عمومی خود را رد و بدل کرده‌ و تایید کرده‌اید. (بخش۴ مربوط به دوستان را ببینید)
- \n
-     \n از لیست این دوستان، کسی که قرار است پیام شما را دریافت کند انتخاب کنید. \n
-     \n نوشتن متن (Message Body) \n
-     \n در این قسمت شما پیامی را که می‌خواهید ارسال کنید بنویسید. پیام می‌تواند فارسی، ترکی، کردی، عربی، انگلیسی یا به هر زبان و با هر الفبایی که شما انتخاب می‌کنید نوشته شود. اما هر پیام حداکثر باید هزار کاراکتر شود. اگر پیام طولانی‌تری دارید، آن را به چند پیام کوتاه‌تر تقسیم کنید و در چند پیام جداگانه بفرستید. \n
-     \n ذخیره بصورت تصویر (Save as Image) \n
-     \n اگر می‌خواهید پیام شما در یک عکس جاسازی شود، و سپس بصورت آفلاین در گوشی شما ذخیره شود، از این گزینه استفاده کنید. با فشردن کلید Save as Image، «نهفت»، آلبوم عکس شما را باز می‌کند. اگر قبلا دسترسی نداده‌اید، لطفا به «نهفت» دسترسی به آلبوم عکس بدهید. سپس یک عکس انتخاب کنید. این عکس ذخیره می‌شود. سپس شما می‌توانید فایل عکس ذخیره شده را از هر طریقی که مناسب می‌دانید به دوست خود ارسال کنید.  \n
-     \n ارسال بصورت تصویر(Send as Image) \n
-     \n اگر می‌خواهید پیام شما در یک عکس جاسازی شود، و سپس همزمان از طریق یک نرم‌افزار پیام‌رسان ارسال شود، از این گزینه استفاده کنید. با فشردن کلید Send as Image ، «نهفت» آلبوم عکس شما را باز می‌کند. اگر قبلا دسترسی نداده‌اید، لطفا به «نهفت» دسترسی به آلبوم عکس بدهید. سپس یک عکس انتخاب کنید. پیام در این عکس جاسازی می‌شود و سپس شما باید پیامرسانی را که می‌خواهید پیام را ارسال کنید انتخاب کنید. توجه کنید نحوه ارسال به‌گونه‌ای نباشد که ساختار فایل شما را تغییر دهد. \n
-     \n مهم: مثلا اگر از طریق تلگرام ارسال می‌کنید، فقط بصورت فایل ارسال کنید. چون اگر بصورت عکس ارسال شود، ساختار فایل تغییر می‌کند و پیام شما آسیب خواهد دید و قابل خواندن نخواهد بود. \n
-     \n ارسال بصورت متن(Send as Text) \n
-     \n اگر می‌خواهید پیام شما بصورت متن رمزگذاری شود از این گزینه استفاده کنید. بعد از نوشتن متن و فشردن کلید Send as Text شما می‌توانید بصورت همزمان و از طریق یک پیامرسان دلخواه پیام را ارسال کنید و یا می‌توانید متن رمزگذاری شده را کپی کنید و جداگانه ذخیره کنید یا مثلا داخل اپلیکیشن دلخواهتان برده و ارسال کنید. \n
+        \n  با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخاب‌ها گزینه «ایجاد پیام» یا Create است: \n
+        \n انتخاب گیرنده (To) \n
+        \n در این بخش شما انتخاب می‌کنید که پیام را به چه کسی ارسال می‌کنید. \n
+        \n شما قبلا با تعدادی از دوستان خود که آنها هم از نرم‌افزار «نهفت» استفاده می‌کنند، کلیدهای عمومی خود را رد و بدل کرده‌ و تایید کرده‌اید. (بخش۴ مربوط به دوستان را ببینید) \n
+        \n از لیست این دوستان، کسی که قرار است پیام شما را دریافت کند انتخاب کنید. \n
+        \n نوشتن متن (Massage Body) \n
+        \n در این قسمت شما پیامی را که می‌خواهید ارسال کنید بنویسید. پیام می‌تواند فارسی، ترکی، کردی، عربی، انگلیسی یا به هر زبان و با هر الفبایی که شما انتخاب می‌کنید نوشته شود. اما هر پیام حداکثر باید هزار کاراکتر شود. اگر پیام طولانی‌تری دارید، آن را به چند پیام کوتاه‌تر تقسیم کنید و در چند پیام جداگانه بفرستید. \n
+        \n ذخیره بصورت تصویر (Save as Image) \n
+        \n اگر می‌خواهید پیام شما در یک عکس جاسازی شود، و سپس بصورت آفلاین در گوشی شما ذخیره شود، از این گزینه استفاده کنید. با فشردن کلید Save as Image، «نهفت»، آلبوم عکس شما را باز می‌کند. اگر قبلا دسترسی نداده‌اید، لطفا به «نهفت» دسترسی به آلبوم عکس بدهید. سپس یک عکس انتخاب کنید. این عکس ذخیره می‌شود. سپس شما می‌توانید فایل عکس ذخیره شده را از هر طریقی که مناسب می‌دانید به دوست خود ارسال کنید. \n
+        \n ارسال بصورت تصویر(Send as Image) \n
+        \n اگر می‌خواهید پیام شما در یک عکس جاسازی شود، و سپس همزمان از طریق یک نرم‌افزار پیام‌رسان ارسال شود، از این گزینه استفاده کنید. با فشردن کلید Send as Image ، «نهفت» آلبوم عکس شما را باز می‌کند. اگر قبلا دسترسی نداده‌اید، لطفا به «نهفت» دسترسی به آلبوم عکس بدهید. سپس یک عکس انتخاب کنید. پیام در این عکس جاسازی می‌شود و سپس شما باید پیامرسانی را که می‌خواهید پیام را ارسال کنید انتخاب کنید. توجه کنید نحوه ارسال به‌گونه‌ای نباشد که ساختار فایل شما را تغییر دهد. \n
+        \n مهم: مثلا اگر از طریق تلگرام ارسال می‌کنید، فقط بصورت فایل ارسال کنید. چون اگر بصورت عکس ارسال شود، ساختار فایل تغییر می‌کند و پیام شما آسیب خواهد دید و قابل خواندن نخواهد بود. \n
+        \n ارسال بصورت متن(Send as Text) \n
+        \n اگر می‌خواهید پیام شما بصورت متن رمزگذاری شود از این گزینه استفاده کنید. بعد از نوشتن متن و فشردن کلید Send as Text شما می‌توانید بصورت همزمان و از طریق یک پیامرسان دلخواه پیام را ارسال کنید و یا می‌توانید متن رمزگذاری شده را کپی کنید و جداگانه ذخیره کنید یا مثلا داخل نرم‌افزار دلخواهتان برده و ارسال کنید. \n
+
     </string>
 
     <!-- Friends User Guide -->
-    <string name="friends_user_guide_english">Adding Friends:\n
-        \nTap the friends icon on the home page.\n
-        \nPress the + icon at the bottom of the friends screen.\n
-        \nType the name of the friend you want to add and press add.\n
-        \nClick the invite button beside your friend\'s name.\n
-        \nA share menu will pop up. You will see your invitation to your friend as a message to send. It will look like random Persian text.\n
-        \nShare your invitation via your preferred messaging app here. If you are physically near your friend and their device, try sharing by using the nearby or bluetooth options in the sharing menu.\n
-        \nThe friend you are adding must also follow these same steps to send you an invitation back.\n
-        \nThere are several ways to accept the invitation you receive from your friend.\n
-        \nIf you have the invitation message copied to your clipboard, you can click the \'Import Invitation\' button beside your new friends name and paste the invite text directly.\n
-        \nSimilarly, with an invite copied to your clipboard you can tap the read button on the home screen, then tap the import text button in the read menu screen.\n
-        \nPaste the invitation message with a long press, choose the friend that sent it, and select import text.\n
-        \nTo share your invite directly from another app, find the text in your preferred messaging app, select all, and choose share.\n
-        \nSelect Nahoft as the app you want to share to.\n
-        \nWhen prompted, select the friend that sent the invitation.\n
-        \nReturn to the friends screen and select the friend you have received an invitation back from. Their name should say \'Approved\' as the status.\n
-        \nSelect the \'Verify\' button beside the friend you received the invitation from.\n
-        \nContact your friend outside of the app you normally use to confirm the information on the verification screen matches your friend.\n
-        \nIf the numbers on the verification screen match, tap OK. If not, tap reset.\n
-        \nClick the red \'Delete Friend\' button at the bottom of the screen\n\n
+    <string name="friends_user_guide_english" translatable="false">
+        \n<b>Friends</b>
+
+        \n\n<b>When you open Nahoft, you have five options on the home screen. One of those options is the "Friends" option.</b>
+
+        \n\n<b>(+) ADD Button (Enter Nickname):</b>
+        \nYou can add a friend to your list of friends by pressing the (+) sign.
+After pressing this (+) sign, you must first enter your friend\'s name. You can use nicknames for friends. This is considered more secure. After entering the name, a page will open with two options: “Invite” and “Import invitation”.
+
+        \n\nYou can change a friend’s name by pressing the “Edit” button.
+
+        \n\n<b>Invite:</b>
+        \nBy pressing the “Invite” button, your public key is ready to be sent. This key is the same for all your friends. You can save it anywhere and give it to anyone you want. Disclosing this key is not a problem, it is like giving your phone number to others. However, we recommend against publishing this key.
+
+        \n\nWhen you press the invite button the “share” menu will be presented. From here you should select which option you would like to use to invite a contact by sharing your key with them.
+
+        \n\nIf your friend is nearby, you can exchange your public keys in person.
+
+        \n\nAfter exchanging public keys, two friends can compare the keys, confirm that the keys are correct, and then press the verify button to update that contact to the verified status. At this point it is possible to send and receive encrypted messages between them.
+
+        \n\n<b>Import Invitation:</b>
+        \nYour friend, like you, has a public key that can be shared with everyone, including you. They can either give you this key through a messenger or give you this key in a face-to-face meeting.
+
+        \n\nIf you have received an invitation (public key) from a friend, you can paste that text in the import window and press the import button to accept the invitation. You will be prompted to select which friend sent you the invitation if you have already added them to your list. If not, you must first add them, and then import their invitation (public key).
+
+        \n\nAfter exchanging public keys, two friends can compare the keys, confirm that the keys are correct,  and then press the verify button to update that contact to the verified status. At this point it is possible to send and receive encrypted messages between them.
+
+        \n\n<b>Edit:</b>
+        \nYou can change the entered name by pressing the “Edit” button
+
+        \n\n<b>Delete Friend:</b>
+        \nYou can delete the friend contact entirely by pressing the “Delete friend” button.
+        \n
      </string>
 
-    <string name="friends_user_guide_persian"> \n (دوستان) Friends  \n
-     \n با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخابها گزینه «دوستان» یا Friends است. \n
-     \n وارد کردن یک نام (+) (Enter Nickname) )دگمه ADD) \n
-     \n با فشردن علامت (+) شما می‌توانید یک دوست را به لیست اضافه کنید.
-پس از  فشردن این علامت (+) ابتدا باید نام دوست خود را وارد کنید. شما می‌توانید از اسامی مستعار برای دوستان استفاده کنید. به نظر می‌رسد که این کار امنیت بالاتری خواهد داشت. بعد از  وارد کردن اسم، صفحه‌ای باز می‌شود که دو گزینه Invite و
- \n
-     \n  دارد. Import invitation \n
-     \n همچنین شما می‌توانید با فشردن دگمه Edit نام وارد شده را تغییر دهید. \n
-     \n ارسال کد دعوت (Invite) \n
-     \n با فشردن کلید دعوت (Invite)، کلید عمومی شما آمده ارسال می‌شود. این کلید برای همه دوستان شما یکسان است. شما می‌توانید آن را در جایی ذخیره کنید و به هر کسی که خواستید بدهید. افشای این کلید مشکلی ایجاد نمی‌کند و مثل این است که شماره تلفن خود را به دیگران می‌دهید. اما پیشنهاد ما این است که حتی این کلید را هم بصورت عمومی منتشر نکنید.  \n
-     \n برای دسترسی به کلید عمومی و ارسال آن می‌توانید کلید را کپی کرده و در جایی ذخیره کنید و هم اینکه هر بار می‌توانید بصورت همزمان از طریق یک نرم‌افزار پیام‌رسان دیگر که خود انتخاب می‌کنید، کلید را به دوست خود برسانید.\n
-     \n همچنین اگر دوست شما در نزدیکی است، می‌توانید بصورت حضوری کلید عمومی خود را به او برسانید و کلید عمومی او را دریافت کنید. \n
-     \n  اپلیکیشن نهفت با استفاده از این دو کلید عمومی، یک کلید خصوصی می‌سازد که هیچ‌کس به آن دسترسی ندارد. \n
-     \n بعد از دریافت کلیدهای عمومی دو دوست، آنها می‌توانند یکبار کلیدها را با هم مقایسه کرده و بعد تایید کنند که کلیدها درست بوده و بعد دگمه تایید نهایی را بزنند تا فرد مورد نظر وارد لیست دوستان تایید شده شود.  \n
-     \n وارد کردن کد دریافتی از دوست (Import invitation) \n
-     \n دوست شما هم مانند شما، یک کلید عمومی دارد که می‌تواند با همه -از جمله شما- همرسان کند. او هم می‌تواند از طریق یک پیامرسان این کلید را به شما برساند و هم می‌تواند در یک دیدار حضوری این کلید را به شما بدهد.
-اپلیکیشن نهفت با استفاده از این دو کلید عمومی، یک کلید خصوصی می‌سازد که هیچ‌کس به آن دسترسی ندارد.
- \n
-     \n  بعد از دریافت کلیدهای عمومی دو دوست، آنها می‌توانند یکبار کلیدها را با هم مقایسه کرده و بعد تایید کنند که کلیدها درست بوده است و بعد دگمه تایید نهایی را بزنند تا فرد مورد نظر وارد لیست دوستان تایید شده شود. \n
-     \n اصلاح نام (Edit) \n
-     \n شما می‌توانید با فشردن دگمه Edit نام وارد شده را تغییر دهید. \n
-     \n پاک کردن نام دوست (Delete friend) \n
-     \n شما می‌توانید با فشردن دگمه Delete friend نام وارد شده را پاک کنید. \n\n
+    <string name="friends_user_guide_persian" translatable="false">
+        \n (دوستان) Friends  \n
+        \n با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخاب‌ها گزینه «دوستان» یا Friends است. \n
+        \n مراحل تایید مخاطب رو میتونید با جزئیات بیشتر به شکل زیر دنبال کنید: \n
+        \n برای این کار به قسمت "friend"  رفته و روی علامت + میزنید \n
+        \n برای مخاطب مورد نظر یک اسم انتخاب میکنید \n
+        \n بعد از این روی گزینه "invite" میزنید و کلید اختصاصی خودتون رو از طریق هر پیام رسانی و حتی به صورت اس ام اس (پیام کوتاه) یا ایمیل برای شخص مقابل ارسال میکنید \n
+        \n تمام مراحل بالا رو شخص مقابل هم برای شما باید انجام بده \n
+        \n بعد از اینکه شخص مقابل کلید شخصی خودش رو ارسال کرد، شما باید وارد قسمت "friend" شده و اسم شخص مورد نظر رو انتخاب کنید و روی گزینه "import invitation" بزنید و کلید رو در اون قسمت وارد کنید (کپی و اضافه کردن) \n
+        \n بعد از اینکه هر دو طرف مراحل بالا رو انجام دادن مخاطب شما از حالت "invite" به حالت "approved"  در میاد \n
+        \n بعد با زدن روی "approved" مخاطب رو به حالت "verify" یعنی تایید شده در میارید که از این به بعد به راحتی میتونید تمام پیام‌های خودتون رو برای اون مخاطب خاص از طریق نهفت کدگذاری کنید و برای اون مخاطب خاص ارسال کنید و فقط و فقط اون مخاطب قادر به رمزگشایی پیام شما هست \n
+        \n برای ارسال پیام کدگذاری شده روی گزینه "create" بزنید و فرد مورد نظرتون رو از بین مخاطبینی که قبلا مراحل تایید رو باهاشون گذروندین انتخاب کنید و پیام مورد نظر رو در محل مخصوص درج پیام وارد کنید و در پایین از بین مسیرهای "save as a image" و "send as a image"  یا "send as a text"  یکی رو انتخاب کنید. سپس از بین نرم‌افزارهای ارسال پیامی که روی موبایلتون دارید حتی از طریق اس‌ام‌اس یا همون پیام کوتاه  یک مورد را انتخاب کنید و پیام خودتون رو برای شخص مورد نظرتون ارسال کنید \n
+        \n مخاطب شما یک پیام به صورت کلمات تصادفی و درهم دریافت میکنه که هیچ معنا و مفهوم مشخصی نداره \n
+        \n برای رمزگشایی و دریافت پیام اصلی مخاطب مقابل شما باید پیام شما رو کپی کرده و وارد نهفت بشه و روی گزینه "read"  بزنه و با وارد کردن پیام رمزگذاری شده به متن اصلی پیام دسترسی پیدا کنه. \n
+
     </string>
 
     <!-- Settings User Guide -->
-    <string name="settings_user_guide_english">
-       \nSetting Passcodes:\n
-       \nTap the settings icon on the home screen.\n
-       \nMove the toggle switch to allow the user to require a passcode.\n
-       \nThe first two passcode lines set the passcode to gain entry into the app.\n
-       \nThe last two passcode lines set the destruction code.\n
-       \nThe destruction code exists to remove all saved data and friends if entered into the initial passcode screen instead of the first set passcode.\n
-       \nHit submit to keep all changes.\n\n
+    <string name="settings_user_guide_english" translatable="false">
+        \n<b>Settings</b>
+
+       \n\n<b>When you open Nahoft, you have five options on the home screen. One of those options is the "Settings" option.</b>
+
+        \n\n<b>In this section, you can define two types of passwords for the Nahoft application. One password is for logging in and out of the app, and the other works exactly like the password, but by entering it all the information in Nahoft will be deleted.</b>
+
+        \n\n<b>Passcode:</b>
+        \nWhen you activate the “Passcode” option, you define a six-digit password that you will need to log in to the app.
+
+        \n\n<b>Destruction Code:</b>
+        \nWhen you activate the “Destruction Code” option, you define a six-digit password that will be used to destroy all information stored in the Nahoft app, including all messages and friend lists.
+
+        \n\nYou can use this password in an emergency situation so that your information will not be shared with anyone outside of your private network.
+
+        \n\nPlease note that you can only create a destruction code if you have already created and enabled a passcode.
+
+        \n\n<b>Logout:</b>
+        \nThe “Logout” option will not be activated until you have enabled and created a passcode. This option appears after defining the passcode. We recommend that you log out after using the app for added security.
+
+        \n\nIf you do not use the Logout option, Nahoft will log you out automatically after a few minutes, and you will be required to log in again the next time you open the application.
+
+        \n\nDon’t forget to enter your passcode, not the destruction code when trying to log in!
+        \n
    </string>
 
-    <string name="settings_user_guide_persian">
-     \n (تنظیمات) Settings \n
-     \n با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخابها گزینه «تنظیمات» یا Settings است.
-در این بخش شما می‌توانید دو نوع رمز برای اپلیکیشن نهفت تعریف کنید. یک رمز برای ورود و خروج به اپلیکیشن است، و دیگری دقیقا مشابه رمز ورود عمل می‌کند اما با وارد کردن آن همه اطلاعات داخل نهفت پاک خواهد شد.
- \n
-     \n کد ورود به اپ (Passcode) \n
-     \n با فعال کردن گزینه Passcode شما یک رمز شش رقمی تعریف می‌کنید که برای ورود به اپ در زمانی که Logout شده، نیاز خواهید داشت. \n
-     \n کد پاک کردن اطلاعات اپ (Destruction Code) \n
-     \n با فعال کردن گزینه Destruction Code شما یک رمز شش رقمی تعریف می‌کنید که برای نابودی همه اطلاعات ذخیره شده در داخل نهفت، از جمله همه پیامها و لیست همه دوستان به کار خواهد آمد. \n
-     \n شما از این رمز در مواقع اضطراری استفاده خواهید کرد تا اطلاعات شما احیانا در اختیار افرادی که صلاح نمی‌دانید، قرار نگیرد. \n
-     \n قفل کردن اپ (Logout) \n
-     \n تا زمانی که پسوورد ورود را تعریف نکرده‌اید، گزینه Logoutفعال نمی‌شود. این گزینه بعد از تعریف پسوورد نمایان می‌شود و پیشنهاد ما این است که پس از استفاده از اپ، از آن خارج شوید تا ورود دوباره به آن نیازمند رمز باشد.\n
-     \n اگر شما گزینه Logout را استفاده نکنید، نهفت بعد از چند دقیقه خود بخود خارج می‌شود و شما برای ورود به آن نیازمند رمز خود خواهید بود.  \n
-     \n دقت کنید که رمز اصلی را وارد کنید و نه رمزی که برای نابودی اطلاعات تعریف شده بود.   \n
+    <string name="settings_user_guide_persian" translatable="false">
+        \n (تنظیمات) Settings \n
+        \n با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخاب‌ها گزینه «تنظیمات» یا Settings است. \n
+        \n در این بخش شما می‌توانید دو نوع رمز برای نرم‌افزار نهفت تعریف کنید. یک رمز برای ورود و خروج به نرم‌افزار است، و دیگری دقیقا مشابه رمز ورود عمل می‌کند اما با وارد کردن آن همه اطلاعات داخل نهفت پاک خواهد شد. \n
+        \n کد ورود به برنامه (Passcode) \n
+        \n با فعال کردن گزینه Passcode شما یک رمز شش رقمی تعریف می‌کنید که برای ورود به برنامه در زمانی که Logout شده، نیاز خواهید داشت. \n
+        \n کد پاک کردن اطلاعات برنامه (Destruction Code) \n
+        \n با فعال کردن گزینه Destruction Code شما یک رمز شش رقمی تعریف می‌کنید که برای نابودی همه اطلاعات ذخیره شده در داخل نهفت، از جمله همه پیام‌ها و لیست همه دوستان به کار خواهد آمد. \n
+        \n شما از این رمز در مواقع اضطراری استفاده خواهید کرد تا اطلاعات شما احیانا در اختیار افرادی که صلاح نمی‌دانید، قرار نگیرد. \n
+        \n قفل کردن برنامه (Logout) \n
+        \n تا زمانی که پسوورد ورود را تعریف نکرده‌اید، گزینه Logout فعال نمی‌شود. این گزینه بعد از تعریف پسوورد نمایان می‌شود و پیشنهاد ما این است که پس از استفاده از برنامه، از آن خارج شوید تا ورود دوباره به آن نیازمند رمز باشد. \n
+        \n اگر شما گزینه Logout را استفاده نکنید، نهفت بعد از چند دقیقه خود بخود خارج می‌شود و شما برای ورود به آن نیازمند رمز خود خواهید بود. \n
+        \n دقت کنید که رمز اصلی را وارد کنید و نه رمزی که برای نابودی اطلاعات تعریف شده بود. \n
+
     </string>
 
     <!-- Content Descriptions -->
@@ -251,9 +302,9 @@
     <string name="alert_text_message_too_long">Your message is too long.</string>
     <string name="button_label_delete">Delete</string>
     <string name="button_label_reset">Reset</string>
-    <string name="button_label_english">English</string>
-    <string name="button_label_persian">فارسی</string>
-    <string name="alert_text_confirm_friend_delete">Are you sure?</string>
+    <string name="button_label_english" translatable="false">English</string>
+    <string name="button_label_persian" translatable="false">فارسی</string>
+    <string name="alert_text_confirm_friend_delete">Are you sure to delete %1$s?</string>
     <string name="button_label_cancel">Cancel</string>
     <string name="user_guide_button_description">This button will take you to the user guides.</string>
     <string name="settings_button_description">This button will take you to the settings menu.</string>
@@ -347,5 +398,146 @@
     <string name="from_with_colon">From:</string>
     <string name="alert_passcode_saved">Your passcode has been saved.</string>
     <string name="alert_destruction_code_saved">Your destruction code has been saved.</string>
+    <string name="large_text" translatable="false">
+        "Material is the metaphor.\n\n"
 
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+        "Bold, graphic, intentional.\n\n"
+
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
+
+        "Motion provides meaning.\n\n"
+
+        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+        "inflection points that initiate motion, transforming the whole design.\n"
+        "All action takes place in a single environment. Objects are presented to the user without "
+        "breaking the continuity of experience even as they transform and reorganize.\n"
+        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+
+        "3D world.\n\n"
+
+        "The material environment is a 3D space, which means all objects have x, y, and z "
+        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+        "position along the z-axis and has a standard 1dp thickness.\n"
+        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+        "emulated by manipulating the y-axis.\n\n"
+
+        "Light and shadow.\n\n"
+
+        "Within the material environment, virtual lights illuminate the scene. Key lights create "
+        "directional shadows, while ambient light creates soft shadows from all angles.\n"
+        "Shadows in the material environment are cast by these two light sources. In Android "
+        "development, shadows occur when light sources are blocked by sheets of material at "
+        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+
+        "Resting elevation.\n\n"
+
+        "All material objects, regardless of size, have a resting elevation, or default elevation "
+        "that does not change. If an object changes elevation, it should return to its resting "
+        "elevation as soon as possible.\n\n"
+
+        "Component elevations.\n\n"
+
+        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "does not vary from 6dp in one app to 16dp in another app).\n"
+        "Components may have different resting elevations across platforms, depending on the depth "
+        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+
+        "Responsive elevation and dynamic elevation offsets.\n\n"
+
+        "Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "changes are consistently implemented using dynamic elevation offsets.\n"
+        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+        "to the component’s resting state. They ensure that elevation changes are consistent "
+        "across actions and component types. For example, all components that lift on press have "
+        "the same elevation change relative to their resting elevation.\n"
+        "Once the input event is completed or cancelled, the component will return to its resting "
+        "elevation.\n\n"
+
+        "Avoiding elevation interference.\n\n"
+
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
+    </string>
+    <string name="logo_image">Logo Image</string>
+    <string name="messages">MESSAGES</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="type_your_message">Type Your Message</string>
+    <string name="return_button">Return Button</string>
+    <string name="status_icon">Status Icon</string>
+    <string name="resend_invitation">Resend invitation</string>
+    <string name="send_as_image">Send As Image</string>
+    <string name="destructionCodeDescription">You can set a destruction code for your app. If you use this code for login, all data in the app will purge, and then it will show the main page of the app</string>
+    <string name="get_started">Get Started</string>
+    <string name="skip">Skip</string>
+    <string name="what_is_nahoft">What is Nahoft?</string>
+    <string name="what_is_nahoft_description">Nahoft is not a messenger, but a tool for encrypting messages</string>
+    <string name="send_encrypted_messages">Send encrypted messages as text or image</string>
+    <string name="send_encrypted_messages_description">You can encrypt your messages and send them as text (random words) or image (choose any image from your device gallery)</string>
+    <string name="fully_offline">Fully offline</string>
+    <string name="fully_offline_description">It is not using any server to send or receive or encrypt your messages</string>
+    <string name="passcode_for_login">Passcode for login</string>
+    <string name="passcode_for_login_description">You can set a passcode for login</string>
+    <string name="passcode_description">When you activate the “Passcode” option, you define a six-digit password that you will need to log in to the app</string>
+    <string name="destruction_code_description">When you activate the “Destruction Code” option, you define a six-digit password that will be used to destroy all information stored in the Nahoft app, including all messages and friend lists</string>
+    <string name="close">Close</string>
+    <string name="logout_description">The “Logout” option will not be activated until you have enabled and created a passcode. This option appears after defining the passcode. We recommend that you log out after using the app for added security</string>
+    <string name="use_sms_as_default">Use SMS as default</string>
+    <string name="use_sms_as_default_description">If you activate this, Nahoft send your messages via SMS service automatically and in case of receive SMS from your friend, It will save the message into conversation</string>
+    <string name="default_fragment_text">You have to send your public key \n to your friend \n\n Use below button to send it.</string>
+    <string name="invited_fragment_text">You have to import your friend\'s \n public key \n\n Use below button to import it.</string>
+    <string name="your_code">Your Code:</string>
+    <string name="friend_s_code">Friend\'s Code:</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="sample_date_time">Yesterday 14:26 PM</string>
+    <string name="add_new_friend">Add New Friend</string>
+    <string name="phone_number_optional">Phone Number (Optional)</string>
+    <string name="select_sender">Select Sender</string>
+    <string name="sms_permission_needed">SMS Permission Needed</string>
+    <string name="read_contacts_permission_needed">Read contacts Permission Needed</string>
+    <string name="unable_to_send_sms">Unable to send SMS</string>
+    <string name="are_you_sure_to_delete">Are you sure to delete the message?</string>
+    <string name="import_encrypted_image_messages_using_this_button">Import encrypted image messages using this button</string>
+    <string name="import_encrypted_text_messages_using_this_button">Import encrypted text messages using this button</string>
+    <string name="send_encrypted_text_messages_using_this_button">Send encrypted text messages using this button</string>
+    <string name="send_encrypted_image_messages_using_this_button">Send encrypted image messages using this button</string>
+    <string name="friends_list">Friends list</string>
+    <string name="friends_list_description">Friends list description</string>
+    <string name="add_new_friend_description">Add new friend description</string>
+    <string name="approve_friend">Approve friend</string>
+    <string name="approve_friend_description">Approve friend description</string>
+    <string name="approve_friend_full_description">Approve friend full description</string>
+    <string name="delete_friend_description">Delete friend description</string>
+    <string name="read_more">read more</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="contact_list">Contact List</string>
 </resources>
