@@ -150,8 +150,8 @@ class FriendInfoActivity: AppCompatActivity()
         }
 
         btn_help.setOnClickListener {
-            val helpActivity = Intent(this, HelpActivity::class.java)
-            startActivity(helpActivity)
+            //val helpActivity = Intent(this, HelpActivity::class.java)
+            //startActivity(helpActivity)
         }
 
         profile_picture.setOnClickListener {
