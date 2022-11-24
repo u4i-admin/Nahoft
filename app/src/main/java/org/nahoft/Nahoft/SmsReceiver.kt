@@ -42,6 +42,9 @@ class SmsReceiver: BroadcastReceiver() {
 //                {
 //                    updateKeyAndStatus(context, friend, decodeResult.payload)
 //                }
+                else -> {
+
+                }
             }
         }
 //        else
@@ -79,9 +82,9 @@ class SmsReceiver: BroadcastReceiver() {
                 keySender.status = FriendStatus.Approved
                 keySender.publicKeyEncoded = keyData
             }
-//
-//            else ->
+            else -> {
 //                this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
+            }
         }
     }
 }
