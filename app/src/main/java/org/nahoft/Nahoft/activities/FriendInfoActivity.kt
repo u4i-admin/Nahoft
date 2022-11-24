@@ -178,7 +178,6 @@ class FriendInfoActivity: AppCompatActivity()
 
     private fun returnButtonPressed() {
         val lastFragment = supportFragmentManager.fragments.last()
-        lastFragment.tag?.let { Log.i("Sadra", it) }
         if (lastFragment.tag == menuFragmentTag) {
             setupViewByStatus()
         } else {
@@ -198,6 +197,7 @@ class FriendInfoActivity: AppCompatActivity()
         btn_import_text.isVisible = false
         btn_resend_invite.isVisible = false
         send_message_container.isVisible = false
+        if (isShareImageButtonShow) showHideShareImageButtons()
     }
 
     fun showVerificationStep() {
@@ -208,7 +208,8 @@ class FriendInfoActivity: AppCompatActivity()
             val userCode = codex.encodeKey(Encryption().ensureKeysExist().publicKey.toBytes())
             ft.replace(
                 R.id.frame_placeholder,
-                VerifyStatusFragment.newInstance(userCode, friendCode, thisFriend.name)
+                VerifyStatusFragment.newInstance(userCode, friendCode, thisFriend.name),
+                menuFragmentTag
             )
             ft.commit()
             btn_import_image.isVisible = false
