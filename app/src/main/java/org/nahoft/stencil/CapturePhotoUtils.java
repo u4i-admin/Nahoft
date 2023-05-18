@@ -35,7 +35,7 @@ public class CapturePhotoUtils {
         values.put(Images.Media.TITLE, title);
         values.put(Images.Media.DISPLAY_NAME, title);
         values.put(Images.Media.DESCRIPTION, description);
-        values.put(Images.Media.MIME_TYPE, "image/png");
+        values.put(Images.Media.MIME_TYPE, "image/jpg");
 
         // Add the date meta data to ensure the image is added at the front of the gallery
         values.put(Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000);
@@ -44,7 +44,7 @@ public class CapturePhotoUtils {
         }
 
         try {
-            File tempFile = File.createTempFile("image", ".png", context.getCacheDir());
+            File tempFile = File.createTempFile("image", ".jpg", context.getCacheDir());
 
             try (FileOutputStream outputStream = new FileOutputStream(tempFile)) {
                 Uri fileUri = getUriForFile(context, "org.nahoft.fileprovider", tempFile);

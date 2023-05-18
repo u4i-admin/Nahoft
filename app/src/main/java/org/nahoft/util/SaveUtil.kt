@@ -17,7 +17,7 @@ object SaveUtil
 {
     fun saveImageToGallery(context: Context, image: Bitmap): Boolean
     {
-        val filename = "${System.currentTimeMillis()}.png"
+        val filename = "${System.currentTimeMillis()}.jpg"
         // FileOutputStream
         var fos: OutputStream? = null
 
@@ -27,7 +27,7 @@ object SaveUtil
             context.contentResolver.also { resolver ->
                 val contentValues = ContentValues().apply {
                     put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
-                    put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
+                    put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
                     put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + separator + context.getString(R.string.saved_images))
                 }
 
