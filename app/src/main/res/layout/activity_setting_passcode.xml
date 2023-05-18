@@ -278,6 +278,34 @@
                     app:switchPadding="@dimen/padding_standard"
                     app:trackTint="@color/coolGrey" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:fontFamily="@font/open_sans_italic"
+                    android:text="@string/your_code"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/user_public_key_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/your_code"
+                    android:enabled="false"/>
+
+                <Button
+                    android:id="@+id/copy_public_key_button"
+                    android:layout_width="104dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="@dimen/padding_standard"
+                    android:background="@drawable/btn_bkgd_blue_56"
+                    android:fontFamily="@font/open_sans"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="@string/copy"
+                    android:textAllCaps="false"
+                    android:textColor="@color/button_text_color_light"
+                    android:textSize="18sp" />
+
             </LinearLayout>
 
         </RelativeLayout>

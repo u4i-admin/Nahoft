@@ -8,6 +8,7 @@ object RequestCodes {
     val selectKeySenderCode = 1049
     val selectImageForImport = 1050
     val requestPermissionCode = 1051
+    val requestSMSPermissionCode = 1052
 
     const val friendExtraTaskDescription = "friend"
 }

@@ -7,12 +7,26 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/activity_vertical_margin">
 
-    <ImageView
+<!--    <ImageView-->
+<!--        android:id="@+id/status_image_view"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="@dimen/padding_quarter"-->
+<!--        android:src="@drawable/ic_nahoft_icons_profile_picture"-->
+<!--        android:textColor="@color/colorPrimaryDark"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:ignore="ContentDescription" />-->
+
+    <TextView
         android:id="@+id/status_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/padding_quarter"
-        android:src="@drawable/ic_nahoft_icons_profile_picture"
+        android:text="N"
+        android:background="@drawable/bkgd_circle_white_56"
+        android:gravity="center"
+        android:textSize="20sp"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -7,19 +7,46 @@ import android.provider.Telephony
 import android.telephony.PhoneNumberUtils
 import org.nahoft.codex.Codex
 import org.nahoft.codex.KeyOrMessage
+import org.nahoft.nahoft.activities.FriendInfoActivity
 import org.nahoft.nahoft.activities.HomeActivity
+import org.nahoft.util.RequestCodes
 import org.nahoft.util.showAlert
 
 class SmsReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val data = Telephony.Sms.Intents.getMessagesFromIntent(intent)
         val smsSentByThisFriend = Persist.friendList.firstOrNull { PhoneNumberUtils.compare(it.phone, data[0].originatingAddress) }
+        var fullMessage = ""
+        for (sms in data) {
+            fullMessage += sms.displayMessageBody
+        }
         if (smsSentByThisFriend != null) {
-            var fullMessage = ""
-            for (sms in data) {
-                fullMessage += sms.displayMessageBody
-            }
             tryToDecryptMessage(context, smsSentByThisFriend, fullMessage)
+        } else {
+            val decodeResult = Codex().decode(fullMessage)
+            if (decodeResult?.type == KeyOrMessage.Key) {
+                val newFriend = saveFriend(data[0].originatingAddress.toString(), data[0].originatingAddress.toString(), context)
+                if (newFriend != null) {
+                    tryToDecryptMessage(context, newFriend, fullMessage)
+                }
+            }
+        }
+    }
+
+    private fun saveFriend(friendName: String, phoneNumber: String, context: Context?) : Friend? {
+        val newFriend = Friend(friendName, phoneNumber, FriendStatus.Default, null)
+
+        // Only add the friend if one with the same name doesn't already exist.
+        return if (Persist.friendList.any { friend -> friend.name == friendName }) {
+            null
+        } else if (phoneNumber != "" && Persist.friendList.any { friend -> friend.phone == phoneNumber}) {
+            null
+        } else {
+            Persist.friendList.add(newFriend)
+            if (context != null) {
+                Persist.saveFriendsToFile(context)
+            }
+            newFriend
         }
     }
 
@@ -38,10 +65,10 @@ class SmsReceiver: BroadcastReceiver() {
                         newMessage.save(context)
                     }
                 }
-//                KeyOrMessage.Key ->
-//                {
-//                    updateKeyAndStatus(context, friend, decodeResult.payload)
-//                }
+                KeyOrMessage.Key ->
+                {
+                    updateKeyAndStatus(context, friend, decodeResult.payload)
+                }
                 else -> {
 
                 }

@@ -19,6 +19,8 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
@@ -126,7 +128,22 @@ class FriendInfoActivity: AppCompatActivity()
         }
 
         send_as_text.setOnClickListener {
-            trySendingOrSavingMessage(isImage = false, saveImage = false)
+            if (message_edit_text.text.isNotEmpty())
+            {
+                if (message_edit_text.text.length > 5000)
+                {
+                    showAlert(getString(R.string.alert_text_message_too_long))
+                } else {
+                    val decodeResult = Codex().decode(message_edit_text.text.toString())
+                    if (decodeResult != null) {
+                        showConfirmationForImport()
+                    } else {
+                        trySendingOrSavingMessage(isImage = false, saveImage = false)
+                    }
+                }
+            } else {
+                showAlert(getString(R.string.alert_text_write_a_message_to_send))
+            }
         }
 
         send_as_image.setOnClickListener {
@@ -150,8 +167,9 @@ class FriendInfoActivity: AppCompatActivity()
         }
 
         btn_help.setOnClickListener {
-            //val helpActivity = Intent(this, HelpActivity::class.java)
-            //startActivity(helpActivity)
+            val slideActivity = Intent(this, SlideActivity::class.java)
+            slideActivity.putExtra(Intent.EXTRA_TEXT, slideNameChat)
+            startActivity(slideActivity)
         }
 
         profile_picture.setOnClickListener {
@@ -161,6 +179,50 @@ class FriendInfoActivity: AppCompatActivity()
         tv_friend_name.setOnClickListener {
             showMenuFragment()
         }
+    }
+
+    private fun showConfirmationForImport() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_AddFriendAlertDialog))
+        val title = SpannableString(getString(R.string.import_text))
+
+        // alert dialog title align center
+        title.setSpan(
+            AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+            0,
+            title.length,
+            0
+        )
+        builder.setTitle(title)
+
+        val alertDialogContent = LinearLayout(this)
+        alertDialogContent.orientation = LinearLayout.VERTICAL
+
+        // Set the input - EditText
+        val textView = TextView(this)
+        textView.setBackgroundResource(R.drawable.btn_bkgd_light_grey_outline_8)
+        textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
+        textView.text = getString(R.string.confirmation_for_import)
+        textView.compoundDrawablePadding = 10
+        textView.setPadding(25)
+        textView.setTextColor(ContextCompat.getColor(this, R.color.royalBlueDark))
+        alertDialogContent.addView(textView)
+
+        builder.setView(alertDialogContent)
+
+        // Set the Add and Cancel Buttons
+        builder.setPositiveButton(resources.getString(R.string.yes))
+        { _, _->
+            decodeStringMessage(message_edit_text.text.toString())
+            message_edit_text.setText("")
+        }
+
+        builder.setNeutralButton(resources.getString(R.string.no))
+        { dialog, _->
+            trySendingOrSavingMessage(isImage = false, saveImage = false)
+            dialog.cancel()
+        }
+            .create()
+            .show()
     }
 
     private fun showHideShareImageButtons() {
@@ -187,9 +249,15 @@ class FriendInfoActivity: AppCompatActivity()
 
     private fun showMenuFragment() {
         val ft = supportFragmentManager.beginTransaction()
+        val codex = Codex()
+        val friendCode =
+            if (thisFriend.status == FriendStatus.Approved || thisFriend.status == FriendStatus.Verified) {
+                codex.encodeKey(PublicKey(thisFriend.publicKeyEncoded).toBytes())
+            } else { "" }
+        val userCode = codex.encodeKey(Encryption().ensureKeysExist().publicKey.toBytes())
         ft.replace(
             R.id.frame_placeholder,
-            MenuFragment.newInstance(thisFriend),
+            MenuFragment.newInstance(thisFriend, userCode, friendCode),
             menuFragmentTag
         )
         ft.commit()
@@ -220,12 +288,13 @@ class FriendInfoActivity: AppCompatActivity()
     }
 
     private fun setupViewByStatus() {
-        tv_friend_name.text = thisFriend.name
+        tv_friend_name.text = if (thisFriend.name.length <= 10) thisFriend.name else thisFriend.name.substring(0, 8) + "..."
+        profile_picture.text = thisFriend.name.substring(0, 1)
         val ft = supportFragmentManager.beginTransaction()
         when (thisFriend.status) {
             FriendStatus.Default -> {
                 status_icon_image_view.setImageResource(FriendStatus.Default.getIcon())
-                ft.replace(R.id.frame_placeholder, DefaultStatusFragment())
+                ft.replace(R.id.frame_placeholder, DefaultStatusFragment.newInstance(thisFriend))
                 ft.commit()
                 btn_import_image.isVisible = false
                 btn_import_text.isVisible = false
@@ -234,7 +303,7 @@ class FriendInfoActivity: AppCompatActivity()
             }
             FriendStatus.Requested -> {
                 status_icon_image_view.setImageResource(FriendStatus.Requested.getIcon())
-                ft.replace(R.id.frame_placeholder, DefaultStatusFragment())
+                ft.replace(R.id.frame_placeholder, RequestedStatusFragment.newInstance(thisFriend))
                 ft.commit()
                 btn_import_image.isVisible = false
                 btn_import_text.isVisible = false
@@ -243,7 +312,7 @@ class FriendInfoActivity: AppCompatActivity()
             }
             FriendStatus.Invited -> {
                 status_icon_image_view.setImageResource(FriendStatus.Invited.getIcon())
-                ft.replace(R.id.frame_placeholder, InvitedStatusFragment())
+                ft.replace(R.id.frame_placeholder, InvitedStatusFragment.newInstance(thisFriend))
                 ft.commit()
                 btn_import_image.isVisible = false
                 btn_import_text.isVisible = false
@@ -287,7 +356,30 @@ class FriendInfoActivity: AppCompatActivity()
         val keyBytes = userPublicKey.toBytes()
 
         // Share the key
-        ShareUtil.shareKey(this, keyBytes)
+        if (Persist.loadBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey) && (thisFriend.phone?.isNotEmpty() == true)) {
+            try {
+                val codex = Codex()
+                val encodedKey = codex.encodeKey(keyBytes)
+                val smsManager: SmsManager = if (Build.VERSION.SDK_INT >= 31) {
+                    this.getSystemService(SmsManager::class.java)
+                } else {
+                    SmsManager.getDefault()
+                }
+                val parts = smsManager.divideMessage(encodedKey)
+                smsManager.sendMultipartTextMessage(
+                    thisFriend.phone,
+                    null,
+                    parts,
+                    null,
+                    null
+                )
+            } catch (e: Exception) {
+                this.showAlert(getString(R.string.unable_to_send_sms))
+                return
+            }
+        } else {
+            ShareUtil.shareKey(this, keyBytes)
+        }
 
         if (thisFriend.status == FriendStatus.Requested)
         {
@@ -595,6 +687,12 @@ class FriendInfoActivity: AppCompatActivity()
             {
                 KeyOrMessage.EncryptedMessage ->
                 {
+                    // Check for message type if user is not approved
+                    if (thisFriend.status == FriendStatus.Invited) {
+                        this.showAlert("The input was a message. You have to import your friend's public key.")
+                        return
+                    }
+
                     // Create Message Instance
                     val newMessage = Message(decodeResult.payload, thisFriend, false)
                     newMessage.save(this)
@@ -670,8 +768,9 @@ class FriendInfoActivity: AppCompatActivity()
 
     fun changeFriendsName(newName: String) {
         Persist.updateFriend(this, thisFriend, newName)
-        thisFriend.name = newName
+        thisFriend.name = if (newName.length <= 10) newName else newName.substring(0, 8) + "..."
         tv_friend_name.text = thisFriend.name
+        profile_picture.text = thisFriend.name.substring(0, 1)
         showAlert("New name saved")
     }
 

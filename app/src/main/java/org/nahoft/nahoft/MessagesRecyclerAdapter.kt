@@ -69,6 +69,10 @@ class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : Recycl
             this.view.date_text_view.text = newMessage.getDateStringForDetail()
             if (newMessage.fromMe) {
                 this.view.layoutDirection = View.LAYOUT_DIRECTION_RTL
+                this.view.status_image_view.text = "Me"
+            } else {
+                this.view.message_text_view.setBackgroundResource(R.drawable.transparent_overlay_message_white)
+                this.view.status_image_view.text = newMessage.sender?.name?.substring(0, 1)
             }
         }
 

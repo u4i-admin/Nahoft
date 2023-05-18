@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/main_image_view"
         android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:src="@drawable/ic_nahoft_intro_hacker_confused"
         app:layout_constraintBottom_toTopOf="@id/title_text_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
+        app:layout_constraintGuide_percent="0.55" />
 
     <TextView
         android:id="@+id/title_text_view"
@@ -64,6 +64,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="45dp"
         android:gravity="center"
+        android:textSize="15sp"
         android:text="@string/what_is_nahoft_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,11 +75,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/read_more"
-        android:textSize="11sp"
         android:textColor="@color/blueCrayola"
+        android:textSize="11sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/description_text_view"
-        app:layout_constraintBottom_toBottomOf="@+id/description_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/description_text_view" />
 
     <LinearLayout
         android:id="@+id/indicators_container"
@@ -99,9 +100,23 @@
         android:layout_marginBottom="16dp"
         android:text="@string/get_started"
         android:textColor="@color/white"
-        android:background="@drawable/btn_bkgd_tangerine_8"
+        android:background="@drawable/btn_bkgd_blue_8"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/skip_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/skip"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/royalBlueDark"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

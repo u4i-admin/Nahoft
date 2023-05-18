@@ -32,16 +32,30 @@
             app:layout_constraintTop_toTopOf="@id/profile_picture"
             android:contentDescription="@string/return_button" />
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:id="@+id/profile_picture"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginStart="25dp"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:contentDescription="@string/logo_image"-->
+<!--            app:layout_constraintStart_toEndOf="@id/button_back"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@drawable/ic_nahoft_icons_profile_picture" />-->
+
+        <TextView
             android:id="@+id/profile_picture"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="25dp"
             android:layout_marginTop="30dp"
+            android:text="N"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:background="@drawable/bkgd_circle_white_56"
             android:contentDescription="@string/logo_image"
             app:layout_constraintStart_toEndOf="@id/button_back"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_nahoft_icons_profile_picture" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_friend_name"

@@ -1,20 +1,24 @@
 package org.nahoft.nahoft.activities
 
+import android.R.attr.text
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Intent
 import android.content.IntentFilter
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import kotlinx.android.synthetic.main.activity_setting_passcode.*
-import kotlinx.android.synthetic.main.activity_setting_passcode.button_back
-import kotlinx.android.synthetic.main.activity_setting_passcode.passcode_switch
+import org.nahoft.codex.Codex
+import org.nahoft.codex.Encryption
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.R
 import org.nahoft.nahoft.slideNameSetting
 import org.nahoft.util.showAlert
+
 
 class SettingPasscodeActivity : AppCompatActivity() {
 
@@ -35,6 +39,10 @@ class SettingPasscodeActivity : AppCompatActivity() {
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
         })
+
+        val codex = Codex()
+        val userCode = codex.encodeKey(Encryption().ensureKeysExist().publicKey.toBytes())
+        user_public_key_edittext.setText(userCode)
 
         setupButtons()
         setDefaultView()
@@ -90,6 +98,12 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
         button_back.setOnClickListener {
             finish()
+        }
+
+        copy_public_key_button.setOnClickListener {
+            val clipboardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+            clipboardManager.setPrimaryClip(ClipData.newPlainText("", user_public_key_edittext.text))
+            this.showAlert(getString(R.string.copied))
         }
     }
 

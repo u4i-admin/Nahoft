@@ -51,6 +51,7 @@ class ContactsRecyclerAdapter(private val contacts: ArrayList<Contact>) : Recycl
             this.contact = newContact
             this.view.contact_name_text_view.text = newContact.name
             this.view.phone_number_text_view.text = newContact.number
+            this.view.friend_picture.text = newContact.name.substring(0, 1)
         }
     }
 }

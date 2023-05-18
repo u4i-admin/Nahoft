@@ -41,6 +41,13 @@ class SlideViewPagerAdapter(private val context: Context, private val slideList:
         view.next_button.isVisible = position != slideList.size - 1
         view.get_started_button.text = currentSlide.skipButtonText
         view.read_more_button.isInvisible = currentSlide.fullDescription.isNullOrEmpty()
+        if (currentSlide.showButtonAsLink) {
+            view.skip_button.isVisible = true
+            view.get_started_button.isVisible = false
+        } else {
+            view.skip_button.isVisible = false
+            view.get_started_button.isVisible = true
+        }
 
         setIndicatorColor(view, position)
 
@@ -53,6 +60,10 @@ class SlideViewPagerAdapter(private val context: Context, private val slideList:
         }
 
         view.get_started_button.setOnClickListener {
+            (context as Activity).finish()
+        }
+
+        view.skip_button.setOnClickListener {
             (context as Activity).finish()
         }
 

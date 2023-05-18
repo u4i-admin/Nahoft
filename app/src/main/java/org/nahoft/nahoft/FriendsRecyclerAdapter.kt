@@ -66,6 +66,7 @@ class FriendsRecyclerAdapter(private val friends: ArrayList<Friend>) : RecyclerV
             this.view.friend_name_text_view.text = newFriend.name
             this.view.status_text_view.text = newFriend.getStatusString(this.view.context)
             this.view.friend_icon_view.setImageResource(newFriend.status.getIcon())
+            this.view.friend_picture.text = newFriend.name.substring(0, 1)
         }
     }
 }

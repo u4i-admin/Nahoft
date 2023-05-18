@@ -34,7 +34,7 @@
             android:id="@+id/tv_messages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/messages"
+            android:text="@string/friends_list"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="26sp"
@@ -96,8 +96,33 @@
         android:layout_height="0dp"
         android:padding="10dp"
         android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/header_section"
-        app:layout_constraintBottom_toTopOf="@id/logout_button"/>
+        app:layout_constraintBottom_toTopOf="@id/logout_button"
+        app:layout_constraintTop_toBottomOf="@+id/header_section" />
+
+    <TextView
+        android:id="@+id/help_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/bkgd_code_view"
+        android:padding="25dp"
+        android:text="@string/to_import_or_create_a_new_friend_help"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/help_imageview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/help_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="80"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_nahoft_icons_arrows_import_image"
+        app:layout_constraintBottom_toTopOf="@+id/add_friend_button"
+        app:layout_constraintEnd_toStartOf="@+id/add_friend_button" />
 
     <Button
         android:id="@+id/logout_button"
@@ -128,6 +153,16 @@
         app:layout_constraintTop_toTopOf="@+id/add_friend_button"
         app:maxImageSize="18dp" />
 
+    <TextView
+        android:id="@+id/add_friend_manually_button_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_user_manually"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@id/add_friend_manually_button"
+        app:layout_constraintBottom_toBottomOf="@id/add_friend_manually_button"
+        app:layout_constraintEnd_toStartOf="@+id/add_friend_button" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_friend_contact_button"
         android:layout_width="wrap_content"
@@ -142,6 +177,16 @@
         app:layout_constraintStart_toStartOf="@+id/add_friend_button"
         app:layout_constraintTop_toTopOf="@+id/add_friend_button"
         app:maxImageSize="18dp" />
+
+    <TextView
+        android:id="@+id/add_friend_contact_button_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_user_from_contact_list"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@id/add_friend_contact_button"
+        app:layout_constraintBottom_toBottomOf="@id/add_friend_contact_button"
+        app:layout_constraintEnd_toStartOf="@+id/add_friend_button" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_friend_button"

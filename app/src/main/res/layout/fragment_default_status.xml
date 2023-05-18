@@ -5,6 +5,59 @@
     android:layout_height="match_parent"
     tools:context="org.nahoft.nahoft.fragments.DefaultStatusFragment">
 
+    <ImageView
+        android:id="@+id/my_phone"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:src="@drawable/phone_decline"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toStartOf="@id/friends_phone"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/your_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="You"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/my_phone"
+        app:layout_constraintStart_toStartOf="@+id/my_phone"
+        app:layout_constraintTop_toBottomOf="@+id/my_phone" />
+
+    <ImageView
+        android:id="@+id/key_imageview"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_nahoft_intro_key"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/my_phone"
+        app:layout_constraintEnd_toEndOf="@+id/my_phone"
+        app:layout_constraintTop_toTopOf="@+id/my_phone" />
+
+    <ImageView
+        android:id="@+id/friends_phone"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:src="@drawable/phone_decline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/my_phone"
+        app:layout_constraintTop_toTopOf="@id/my_phone" />
+
+    <TextView
+        android:id="@+id/friends_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Friends Name"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/friends_phone"
+        app:layout_constraintStart_toStartOf="@+id/friends_phone"
+        app:layout_constraintTop_toBottomOf="@+id/friends_phone" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -12,28 +65,29 @@
         android:text="@string/default_fragment_text"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:paddingHorizontal="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.35"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/your_name"
+        app:layout_constraintVertical_bias="0.35" />
 
     <ImageButton
         android:id="@+id/invite_button"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/btn_bkgd_blue_circle"
-        android:src="@drawable/ic_nahoft_icons_share"
-        android:padding="15dp"
+        android:contentDescription="@string/send_encrypted_messages"
         android:elevation="10dp"
+        android:padding="15dp"
         android:scaleType="fitCenter"
+        android:src="@drawable/ic_nahoft_icons_share"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.65"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/send_encrypted_messages" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.65" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

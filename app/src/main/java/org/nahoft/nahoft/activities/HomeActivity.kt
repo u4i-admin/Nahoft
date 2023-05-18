@@ -13,17 +13,15 @@ import android.text.style.AlignmentSpan
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.animation.Animation
-import android.view.animation.TranslateAnimation
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.core.view.marginBottom
 import androidx.core.view.setPadding
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -85,10 +83,12 @@ class HomeActivity : AppCompatActivity()
             loadSavedMessages()
             showFriendsList()
             receiveSharedMessages()
+            setupHelpText()
 
             if (!Persist.loadBooleanKey(Persist.sharedPrefAlreadySeeTutorialKey)) {
                 val slideActivity = Intent(applicationContext, SlideActivity::class.java)
                 startActivity(slideActivity)
+                showRequestSmsAccessDialog()
                 Persist.saveBooleanKey(Persist.sharedPrefAlreadySeeTutorialKey, true)
             }
 
@@ -144,9 +144,15 @@ class HomeActivity : AppCompatActivity()
 
     override fun onRestart() {
         super.onRestart()
+        loadSavedFriends()
+        updateFriendListAdapter()
+    }
+
+    private fun updateFriendListAdapter() {
         filteredFriendList.clear()
         filteredFriendList.addAll(Persist.friendList.filter { f -> f.name.contains(search_friends.text, true) } as ArrayList<Friend>)
         adapter.notifyDataSetChanged()
+        setupHelpText()
     }
 
     private fun showFriendsList() {
@@ -163,6 +169,11 @@ class HomeActivity : AppCompatActivity()
         adapter.onItemLongClick = { friend ->
             showDeleteConfirmationDialog(friend)
         }
+    }
+
+    private fun setupHelpText() {
+        help_textview.isVisible = Persist.friendList.isEmpty() && !isAddButtonShow
+        help_imageview.isVisible = Persist.friendList.isEmpty() && !isAddButtonShow
     }
 
     private fun showInfoActivity(friend: Friend?) {
@@ -356,6 +367,12 @@ class HomeActivity : AppCompatActivity()
             startActivity(slideActivity)
         }
 
+        nahoft_message_bottle.setOnClickListener {
+            val slideActivity = Intent(this, SlideActivity::class.java)
+            slideActivity.putExtra(Intent.EXTRA_TEXT, slideNameAbout)
+            startActivity(slideActivity)
+        }
+
         settings_button.setOnClickListener {
             val settingsIntent = Intent(this, SettingPasscodeActivity::class.java)
             startActivity(settingsIntent)
@@ -367,11 +384,23 @@ class HomeActivity : AppCompatActivity()
             duration = 500
             translationY(if (isAddButtonShow) 0F else -150F)
         }
+        add_friend_manually_button_help.animate().apply {
+            duration = 500
+            translationY(if (isAddButtonShow) 0F else -150F)
+        }
+        add_friend_manually_button_help.isVisible = !isAddButtonShow
+
         add_friend_contact_button.animate().apply {
             duration = 500
             translationY(if (isAddButtonShow) 0F else -275F)
         }
+        add_friend_contact_button_help.animate().apply {
+            duration = 500
+            translationY(if (isAddButtonShow) 0F else -275F)
+        }
+        add_friend_contact_button_help.isVisible = !isAddButtonShow
         isAddButtonShow = !isAddButtonShow
+        setupHelpText()
     }
 
     private fun showAddFriendDialog() {
@@ -388,7 +417,7 @@ class HomeActivity : AppCompatActivity()
         builder.setTitle(title)
 
         val alertDialogContent = LinearLayout(this)
-        alertDialogContent.setOrientation(LinearLayout.VERTICAL)
+        alertDialogContent.orientation = LinearLayout.VERTICAL
 
         // Set the input - EditText
         val inputEditText = EditText(this)
@@ -425,8 +454,8 @@ class HomeActivity : AppCompatActivity()
         // Set the Add and Cancel Buttons
         builder.setPositiveButton(resources.getString(R.string.add_button))
         {
-                dialog, _->
-            if (!inputEditText.text.isEmpty())
+                _, _->
+            if (inputEditText.text.isNotEmpty())
             {
                 val friendName = inputEditText.text.toString()
                 val phoneNumber = phoneEditText.text.toString()
@@ -447,6 +476,102 @@ class HomeActivity : AppCompatActivity()
             .show()
     }
 
+    private fun showRequestSmsAccessDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_AddFriendAlertDialog))
+        val title = SpannableString(getString(R.string.add_new_friend))
+
+        // alert dialog title align center
+        title.setSpan(
+            AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+            0,
+            title.length,
+            0
+        )
+        builder.setTitle(title)
+
+        val alertDialogContent = LinearLayout(this)
+        alertDialogContent.orientation = LinearLayout.VERTICAL
+
+        // Set the input - EditText
+        val textView = TextView(this)
+        textView.setBackgroundResource(R.drawable.btn_bkgd_light_grey_outline_8)
+        textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
+        textView.text = getString(R.string.sms_permission_first)
+        textView.compoundDrawablePadding = 10
+        textView.setPadding(25)
+        textView.setTextColor(ContextCompat.getColor(this, R.color.royalBlueDark))
+        alertDialogContent.addView(textView)
+
+        builder.setView(alertDialogContent)
+
+        // Set the Add and Cancel Buttons
+        builder.setPositiveButton(resources.getString(R.string.accept))
+        { _, _->
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS), RequestCodes.requestSMSPermissionCode)
+            }
+        }
+
+        builder.setNeutralButton(resources.getString(R.string.decline_button))
+        { dialog, _->
+            showSecondRequestSmsAccessDialog()
+            dialog.cancel()
+        }
+            .create()
+            .show()
+    }
+
+    private fun showSecondRequestSmsAccessDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_AddFriendAlertDialog))
+        val title = SpannableString(getString(R.string.are_you_sure))
+
+        // alert dialog title align center
+        title.setSpan(
+            AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+            0,
+            title.length,
+            0
+        )
+        builder.setTitle(title)
+
+        val alertDialogContent = LinearLayout(this)
+        alertDialogContent.orientation = LinearLayout.VERTICAL
+
+        // Set the input - EditText
+        val textView = TextView(this)
+        textView.setBackgroundResource(R.drawable.btn_bkgd_light_grey_outline_8)
+        textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
+        textView.text = getString(R.string.sms_permission_second)
+        textView.compoundDrawablePadding = 10
+        textView.setPadding(25)
+        textView.setTextColor(ContextCompat.getColor(this, R.color.royalBlueDark))
+        alertDialogContent.addView(textView)
+
+        builder.setView(alertDialogContent)
+
+        // Set the Add and Cancel Buttons
+        builder.setPositiveButton(resources.getString(R.string.allow))
+        { _, _->
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS), RequestCodes.requestSMSPermissionCode)
+            }
+        }
+
+        builder.setNeutralButton(resources.getString(R.string.deny))
+        { dialog, _->
+            dialog.cancel()
+        }
+            .create()
+            .show()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == RequestCodes.requestSMSPermissionCode && grantResults.first() == PackageManager.PERMISSION_GRANTED) {
+            Persist.saveBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey, true)
+        }
+    }
+
     private fun saveFriend(friendName: String, phoneNumber: String) : Friend? {
         val newFriend = Friend(friendName, phoneNumber, FriendStatus.Default, null)
 
@@ -456,7 +581,7 @@ class HomeActivity : AppCompatActivity()
             showAlert(getString(R.string.alert_text_friend_already_exists))
             return null
         }
-        else if (Persist.friendList.any { friend -> friend.phone == phoneNumber}) {
+        else if (phoneNumber != "" && Persist.friendList.any { friend -> friend.phone == phoneNumber}) {
             showAlert(getString(R.string.alert_text_friend_phone_already_exists))
             return null
         }
@@ -466,6 +591,7 @@ class HomeActivity : AppCompatActivity()
             Persist.saveFriendsToFile(this)
             filteredFriendList.add(newFriend)
             adapter.notifyDataSetChanged()
+            setupHelpText()
             return newFriend
         }
     }
@@ -501,9 +627,7 @@ class HomeActivity : AppCompatActivity()
     private fun deleteFriend(friend: Friend) {
         Persist.friendList.remove(friend)
         Persist.saveFriendsToFile(this)
-        filteredFriendList.clear()
-        filteredFriendList.addAll(Persist.friendList)
-        adapter.notifyDataSetChanged()
+        updateFriendListAdapter()
     }
 
     @ExperimentalUnsignedTypes
@@ -542,7 +666,7 @@ class HomeActivity : AppCompatActivity()
     private fun normalViewSetup() {
         settings_button.isVisible = true
         user_guide_button.isVisible = true
-        tv_messages.text = getString(R.string.messages)
+        tv_messages.text = getString(R.string.friends_list)
         tv_messages.isAllCaps = true
     }
 }

@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import org.nahoft.nahoft.*
 
-
 class SlideActivity : AppCompatActivity() {
     companion object {
         var viewPager: ViewPager? = null
@@ -35,6 +34,15 @@ class SlideActivity : AppCompatActivity() {
             }
             slideNameAboutAndFriends -> {
                 SlideViewPagerAdapter(this, getAboutAndFriendsSlides(applicationContext))
+            }
+            slideNameContactList -> {
+                SlideViewPagerAdapter(this, getContactSlides(applicationContext))
+            }
+            slideNameChat -> {
+                SlideViewPagerAdapter(this, getChatSlides(applicationContext))
+            }
+            slideNameAbout -> {
+                SlideViewPagerAdapter(this, getAboutSlides(applicationContext))
             }
             else -> {
                 isExitWithBack = false
