@@ -13,6 +13,7 @@ import android.provider.ContactsContract
 import android.view.WindowManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_contact_list.*
@@ -45,15 +46,23 @@ class ContactListActivity : AppCompatActivity() {
             addAction(LOGOUT_TIMER_VAL)
         })
 
+        contact_guide_button.setOnClickListener {
+            val slideActivity = Intent(this, SlideActivity::class.java)
+            slideActivity.putExtra(Intent.EXTRA_TEXT, slideNameContactList)
+            startActivity(slideActivity)
+        }
+
         if (Persist.accessIsAllowed()) {
             val permissionCheck = ContextCompat.checkSelfPermission(
                 this, Manifest.permission.READ_CONTACTS
             )
             if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                permissionDeniedTextView.isVisible = true
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS), RequestCodes.requestPermissionCode)
                 showAlert(getString(R.string.read_contacts_permission_needed))
             } else {
                 getContacts()
+                permissionDeniedTextView.isVisible = false
             }
             search_contacts.doOnTextChanged { text, _, _, _ ->
                 filteredContactList.clear()
@@ -100,8 +109,10 @@ class ContactListActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == RequestCodes.requestPermissionCode && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        if (requestCode == RequestCodes.requestPermissionCode && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getContacts()
+            permissionDeniedTextView.isVisible = false
+        }
     }
 
     @SuppressLint("Range")
@@ -110,13 +121,13 @@ class ContactListActivity : AppCompatActivity() {
         val cr = contentResolver
         val cur = cr.query(
             ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-            null, null, null)
+            null, null, "display_name ASC")
         if (cur!!.count > 0) {
             while (cur.moveToNext()) {
                 //val id = cur.getString(cur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NAME_RAW_CONTACT_ID))
                 val name = cur.getString(cur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
                 val number = cur.getString(cur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                names.add(Contact(name , number))
+                names.add(Contact(name, number))
             }
         }
         contactList = names
@@ -136,7 +147,7 @@ class ContactListActivity : AppCompatActivity() {
     }
 
     private fun saveAndShowInfoActivity(contact: Contact) {
-        val newFriend = saveFriend(contact.name, contact.number)
+        val newFriend = saveFriend(contact.name, contact.number.replace(" ", ""))
         if (newFriend != null) {
             val friendInfoActivityIntent = Intent(this, FriendInfoActivity::class.java)
             friendInfoActivityIntent.putExtra(RequestCodes.friendExtraTaskDescription, newFriend)
