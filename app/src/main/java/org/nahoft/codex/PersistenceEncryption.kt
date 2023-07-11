@@ -70,7 +70,11 @@ class PersistenceEncryption {
             keyGenerator.init(keyGenParameterSpec)
         }
 
-        keyGenerator.generateKey()
+        try {
+            keyGenerator.generateKey()
+        } catch (ex: Exception) {
+            print(ex)
+        }
     }
 
     fun writeEncryptedFile(file: File, contents: ByteArray, context: Context) {

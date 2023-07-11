@@ -2,6 +2,7 @@ package org.nahoft.nahoft.activities
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.KeyguardManager
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
@@ -583,6 +584,11 @@ class HomeActivity : AppCompatActivity()
         }
         else
         {
+            val mng = applicationContext.getSystemService(KEYGUARD_SERVICE) as KeyguardManager
+            if (!mng.isDeviceSecure) {
+                showAlert(getString(R.string.you_have_to_set_a_lock_screen))
+                return null
+            }
             Persist.friendList.add(newFriend)
             Persist.saveFriendsToFile(this)
             filteredFriendList.add(newFriend)
