@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_log_in.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
+import org.nahoft.nahoft.LoginStatus
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.Persist.Companion.clearAllData
 import org.nahoft.nahoft.Persist.Companion.sharedPrefFailedLoginAttemptsKey
@@ -324,13 +325,4 @@ class LogInActivity : AppCompatActivity()
         passcodeEditText.text.clear()
     }
 }
-
-    enum class LoginStatus {
-
-        NotRequired,
-        LoggedIn,
-        LoggedOut,
-        SecondaryLogin,
-        FailedLogin,
-    }
 

@@ -14,6 +14,7 @@ import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
+import org.nahoft.nahoft.LoginStatus
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.R
 import org.nahoft.nahoft.slideNameSetting

@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import org.nahoft.codex.PersistenceEncryption
-import org.nahoft.nahoft.activities.LoginStatus
+import org.nahoft.nahoft.LoginStatus
 import org.simpleframework.xml.core.Persister
 import java.io.ByteArrayOutputStream
 import java.io.File

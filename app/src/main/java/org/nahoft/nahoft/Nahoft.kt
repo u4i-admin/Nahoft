@@ -6,7 +6,7 @@ import android.os.CountDownTimer
 import androidx.lifecycle.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.nahoft.Persist.Companion.status
-import org.nahoft.nahoft.activities.LoginStatus
+import org.nahoft.nahoft.LoginStatus
 
 class Nahoft: Application(), LifecycleObserver {
 
