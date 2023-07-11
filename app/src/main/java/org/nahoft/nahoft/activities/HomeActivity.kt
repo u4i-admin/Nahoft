@@ -257,21 +257,17 @@ class HomeActivity : AppCompatActivity()
             }
             else if (intent.type?.startsWith("image/") == true)
             {
-                val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
+                val extraStream = intent.getStringExtra(Intent.EXTRA_STREAM)
                 if (extraStream != null)
                 {
                     try
                     {
-                        val extraUri = extraStream as? Uri
-
-                        if (extraUri != null)
-                        {
-                            loginIntent.putExtra(Intent.EXTRA_STREAM, extraUri)
-                        }
+                        val extraUri = Uri.parse(extraStream)
+                        loginIntent.putExtra(Intent.EXTRA_STREAM, extraUri)
                     }
                     catch (e: Exception)
                     {
-                        showAlert(getString(R.string.alert_text_unable_to_process_request))
+                        // The string was not a url don't try to share it
                     }
                 }
                 else
