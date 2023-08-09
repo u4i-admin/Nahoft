@@ -6,9 +6,13 @@ import android.content.ClipboardManager
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.provider.Settings
+import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
 import androidx.core.view.isGone
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_setting_passcode.*
 import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
@@ -218,6 +222,21 @@ class SettingPasscodeActivity : AppCompatActivity() {
     {
         if (required)
         {
+            if (!isBiometricAvailable()) {
+                val snack = Snackbar.make(findViewById(R.id.settingsActivityLayoutContainer), getString(R.string.you_have_to_set_a_lock_screen), Snackbar.LENGTH_LONG)
+                snack.setAction(getString(R.string.click_to_set)) {
+                    val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
+                        putExtra(
+                            Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
+                            BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL
+                        )
+                    }
+                    startActivity(enrollIntent)
+                }
+                snack.show()
+                passcode_switch.isChecked = false
+                return
+            }
             updateViewPasscodeOn(false)
         }
         else
@@ -378,7 +397,6 @@ class SettingPasscodeActivity : AppCompatActivity() {
     }
 
     // Returns true if all the numbers in the passcode are not the same.
-
     private fun isPasscodeNonRepeating(passcode: String): Boolean {
 
         val firstChar = passcode[0]
@@ -395,7 +413,18 @@ class SettingPasscodeActivity : AppCompatActivity() {
         return false
     }
 
-    fun cleanup(){
+    private fun isBiometricAvailable(): Boolean {
+        val biometricManager = BiometricManager.from(this)
+        return when (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)) {
+            BiometricManager.BIOMETRIC_SUCCESS -> true
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> false
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> false
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> false
+            else -> false
+        }
+    }
+
+    private fun cleanup(){
         enter_passcode_input.text?.clear()
         verify_passcode_input.text?.clear()
         destruction_code_input.text?.clear()

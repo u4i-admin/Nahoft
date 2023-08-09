@@ -609,4 +609,8 @@ After pressing this (+) sign, you must first enter your friend\'s name. You can 
     <string name="nahoft_creators">Nahoft creators</string>
     <string name="nahoft_creators_description">\"Nahoft\" is one of the apps that has been created in the Iran Cubator 2 program and under the supervision of the \"United for Iran\" organization. United for Iran is a human rights organization based in Berkeley, California. Its goal is to promote civil liberties in Iran, defend human rights, support civil society, and encourage citizens to participate through technology.</string>
     <string name="you_have_to_set_a_lock_screen">You have to set a lock screen before using this app</string>
+    <string name="login_using_device_credentials">Login using device credentials</string>
+    <string name="biometrics_pin_password_pattern">(Biometrics, PIN, Password, Pattern)</string>
+    <string name="two_step_login_description">By setting a password for Nahoft, the app automatically enables two-step login. In the first step, you need to enter the password you provided in the above field, and in the second step, you need to provide phone\'s password or face recognition sensor, or fingerprint sensor.</string>
+    <string name="click_to_set">Click to set</string>
 </resources>

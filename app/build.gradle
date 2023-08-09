@@ -25,8 +25,8 @@ android {
         applicationId "org.nahoft.nahoft"
         minSdkVersion 26
         targetSdkVersion 33
-        versionCode 7
-        versionName "2.0.3"
+        versionCode 8
+        versionName "2.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -54,6 +54,9 @@ dependencies {
 
     // Jetpack Security Library
     implementation 'androidx.security:security-crypto:1.1.0-alpha06'
+
+    //Biometric
+    implementation 'androidx.biometric:biometric:1.1.0'
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'

@@ -4,9 +4,15 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Parcelable
+import android.provider.Settings
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_log_in.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
@@ -20,10 +26,14 @@ import org.nahoft.nahoft.Persist.Companion.sharedPrefSecondaryPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.nahoft.R
 import org.nahoft.util.showAlert
+import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 
 class LogInActivity : AppCompatActivity()
 {
+    private lateinit var executor: Executor
+    private lateinit var biometricPrompt: BiometricPrompt
+    private lateinit var promptInfo: BiometricPrompt.PromptInfo
 
     private var failedLoginAttempts = 0
     private var lastFailedLoginTimeMillis: Long? = null
@@ -55,6 +65,7 @@ class LogInActivity : AppCompatActivity()
         // Load status from preferences
         getStatus()
         tryLogIn(status)
+        setupDeviceCredentials()
 
         login_button.setOnClickListener {
             this.handleLoginPress()
@@ -102,7 +113,27 @@ class LogInActivity : AppCompatActivity()
                 lastFailedLoginTimeMillis = savedTimeStamp
             }
 
-            verifyCode(enteredPasscode)
+            biometricPrompt = BiometricPrompt(this, executor,
+                object : BiometricPrompt.AuthenticationCallback() {
+                    override fun onAuthenticationError(errorCode: Int,
+                                                       errString: CharSequence) {
+                        super.onAuthenticationError(errorCode, errString)
+                        showAlert("Authentication error: $errString")
+                    }
+
+                    override fun onAuthenticationSucceeded(
+                        result: BiometricPrompt.AuthenticationResult) {
+                        super.onAuthenticationSucceeded(result)
+                        verifyCode(enteredPasscode)
+                    }
+
+                    override fun onAuthenticationFailed() {
+                        super.onAuthenticationFailed()
+                        showAlert("Authentication failed")
+                    }
+                })
+
+            biometricPrompt.authenticate(promptInfo)
         }
     }
 
@@ -323,6 +354,15 @@ class LogInActivity : AppCompatActivity()
     private fun cleanup()
     {
         passcodeEditText.text.clear()
+    }
+
+    private fun setupDeviceCredentials() {
+        executor = ContextCompat.getMainExecutor(this)
+        promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.login_using_device_credentials))
+            .setSubtitle(getString(R.string.biometrics_pin_password_pattern))
+            .setAllowedAuthenticators(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)
+            .build()
     }
 }
 
