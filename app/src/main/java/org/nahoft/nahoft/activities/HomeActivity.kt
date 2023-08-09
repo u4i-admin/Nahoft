@@ -77,6 +77,7 @@ class HomeActivity : AppCompatActivity()
                 logout_button.visibility = View.GONE
             } else {
                 logout_button.visibility = View.VISIBLE
+                startService(Intent(this, UpdateService::class.java))
             }
 
             setupOnClicks()
