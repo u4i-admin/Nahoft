@@ -48,7 +48,7 @@ public class CapturePhotoUtils {
 
             try (FileOutputStream outputStream = new FileOutputStream(tempFile)) {
                 Uri fileUri = getUriForFile(context, "org.nahoft.fileprovider", tempFile);
-                source.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                source.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
                 return fileUri;
             } catch (Exception e) {
                 System.out.println(e);
