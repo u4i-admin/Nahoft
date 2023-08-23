@@ -182,13 +182,16 @@ class Persist {
             saveMessagesToFile(context)
         }
 
-        fun clearAllData() {
+        fun clearAllData(secondaryCode: Boolean) {
             if (friendsFile.exists()) { friendsFile.delete() }
             if (messagesFile.exists()) { messagesFile.delete() }
             friendList.clear()
             messageList.clear()
 
-
+            var passcode = ""
+            if (secondaryCode) {
+                passcode = encryptedSharedPreferences.getString(sharedPrefSecondaryPasscodeKey, "").toString()
+            }
             // Overwrite the keys to EncryptedSharedPreferences
             val keyHex = "0000000000000000000000000000000000000000000000000000000000000000"
 
@@ -204,7 +207,14 @@ class Persist {
                 .clear()
                 .apply()
 
-            status = LoginStatus.NotRequired
+            if (secondaryCode) {
+                saveKey(sharedPrefPasscodeKey, passcode)
+                saveBooleanKey(sharedPrefAlreadySeeTutorialKey, true)
+                status = LoginStatus.LoggedIn
+                saveLoginStatus()
+            } else {
+                status = LoginStatus.NotRequired
+            }
         }
 
         fun saveFriendsToFile(context: Context) {

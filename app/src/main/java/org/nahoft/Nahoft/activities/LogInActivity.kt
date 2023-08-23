@@ -210,7 +210,7 @@ class LogInActivity : AppCompatActivity()
             // Destruction code entered delete user data
             LoginStatus.SecondaryLogin ->
             {
-                clearAllData()
+                clearAllData(true)
                 startActivity(Intent(this, HomeActivity::class.java))
             }
 
@@ -279,7 +279,7 @@ class LogInActivity : AppCompatActivity()
             println("Failed Login $failedLoginAttempts times, all information has been erased")
 
             //Delete everything like you would if user had entered a secondary passcode.
-            clearAllData()
+            clearAllData(false)
             startActivity(Intent(this, HomeActivity::class.java))
 
         } else if (failedLoginAttempts == 8) {
@@ -314,7 +314,7 @@ class LogInActivity : AppCompatActivity()
             //This should never happen all data should have already been deleted when the login failed the final time.
             //Delete everything like you would if user had entered a secondary passcode.
             showAlert(getString(R.string.alert_text_ninth_login_attempt))
-            clearAllData()
+            clearAllData(false)
             startActivity(Intent(this, HomeActivity::class.java))
 
             return false
