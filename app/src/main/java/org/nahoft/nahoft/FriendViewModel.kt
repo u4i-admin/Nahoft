@@ -14,9 +14,9 @@ object FriendViewModel: ViewModel() {
 
     fun getFriends(file: File, context: Context): ArrayList<Friend> {
 
-        if (friends == null) {
+        //if (friends == null) {
             loadFriends(file, context)
-        }
+        //}
 
         return friends ?: arrayListOf()
     }

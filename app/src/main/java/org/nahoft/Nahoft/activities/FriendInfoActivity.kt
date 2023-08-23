@@ -1,48 +1,68 @@
 package org.nahoft.nahoft.activities
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
+import android.provider.MediaStore
+import android.telephony.SmsManager
 import android.text.Layout
 import android.text.SpannableString
 import android.text.style.AlignmentSpan
 import android.util.Log
-import android.view.Gravity.CENTER
+import android.view.Gravity
+import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.LinearLayout.VERTICAL
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
-import androidx.core.view.isGone
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import kotlinx.android.synthetic.main.activity_create.*
+import androidx.core.view.setPadding
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_friend_info.*
-import kotlinx.android.synthetic.main.activity_friend_info.go_to_home_button
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.coroutines.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
+import org.nahoft.codex.KeyOrMessage
 import org.nahoft.nahoft.*
+import org.nahoft.nahoft.fragments.*
+import org.nahoft.org.nahoft.swatch.Decoder
+import org.nahoft.org.nahoft.swatch.Encoder
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
+import org.nahoft.util.showAlert
 
 class FriendInfoActivity: AppCompatActivity()
 {
+    private var decodePayload: ByteArray? = null
     private lateinit var thisFriend: Friend
+    private val parentJob = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
 
     private val TAG = "FriendInfoActivity"
-    private var editingMode = false
+    private val menuFragmentTag = "MenuFragment"
+    private var isShareImageButtonShow: Boolean = false
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friend_info)
 
         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                         WindowManager.LayoutParams.FLAG_SECURE)
+
+        if (!Persist.accessIsAllowed()) { sendToLogin() }
 
         // Get our pending friend
         val maybeFriend = intent.getSerializableExtra(RequestCodes.friendExtraTaskDescription) as? Friend
@@ -59,250 +79,112 @@ class FriendInfoActivity: AppCompatActivity()
 
         setClickListeners()
         setupViewByStatus()
+        receivedSharedMessage()
     }
 
-    override fun onResume()
-    {
+    override fun onResume() {
         super.onResume()
 
         setupViewByStatus()
     }
 
-    private fun setClickListeners()
-    {
-        invite_button.setOnClickListener {
+    @ExperimentalUnsignedTypes
+    private fun receivedSharedMessage() {
+        intent.getStringExtra(Intent.EXTRA_TEXT)?.let{
+            //Attempt to decode the message
+            decodeStringMessage(it)
+        }
+
+        intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)?.let {
+            try
+            {
+                // See if we received an image message
+                val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
+                if (extraStream != null)
+                {
+                    (extraStream as? Uri)?.let {
+                        decodeImage(it)
+                    }
+                }
+            }
+            catch (e:Exception)
+            {
+                showAlert(getString(R.string.alert_text_unable_to_process_request))
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        returnButtonPressed()
+    }
+
+    private fun setClickListeners() {
+        btn_resend_invite.setOnClickListener {
             inviteClicked()
         }
 
-        import_invitation_button.setOnClickListener {
+        button_back.setOnClickListener {
+            returnButtonPressed()
+        }
+
+        send_as_text.setOnClickListener {
+            if (message_edit_text.text.isNotEmpty())
+            {
+                if (message_edit_text.text.length > 5000)
+                {
+                    showAlert(getString(R.string.alert_text_message_too_long))
+                } else {
+                    val decodeResult = Codex().decode(message_edit_text.text.toString())
+                    if (decodeResult != null) {
+                        showConfirmationForImport()
+                    } else {
+                        trySendingOrSavingMessage(isImage = false, saveImage = false)
+                    }
+                }
+            } else {
+                showAlert(getString(R.string.alert_text_write_a_message_to_send))
+            }
+        }
+
+        send_as_image.setOnClickListener {
+            showHideShareImageButtons()
+        }
+
+        save_as_image.setOnClickListener {
+            trySendingOrSavingMessage(isImage = true, saveImage = true)
+        }
+
+        share_as_image.setOnClickListener {
+            trySendingOrSavingMessage(isImage = true, saveImage = false)
+        }
+
+        btn_import_text.setOnClickListener {
             importInvitationClicked()
         }
 
-        decline_button.setOnClickListener {
-            declineClicked()
+        btn_import_image.setOnClickListener {
+            handleImageImport()
         }
 
-        edit_or_save_button.setOnClickListener {
-           saveOrEditClicked()
+        btn_help.setOnClickListener {
+            val slideActivity = Intent(this, SlideActivity::class.java)
+            slideActivity.putExtra(Intent.EXTRA_TEXT, slideNameChat)
+            startActivity(slideActivity)
         }
 
-        verify_button.setOnClickListener {
-            showVerifyFriendDialog()
+        profile_picture.setOnClickListener {
+            showMenuFragment()
         }
 
-        send_message_button.setOnClickListener {
-            sendMessageClicked()
-        }
-
-        import_image_button.setOnClickListener {
-            importImageClicked()
-        }
-
-        import_text_button.setOnClickListener {
-            importTextClicked()
-        }
-
-        verification_code_button.setOnClickListener {
-            showVerificationCodeDialog()
-        }
-
-        delete_friend_button.setOnClickListener {
-            showDeleteConfirmationDialog()
-        }
-
-        // Return to Home
-        go_to_home_button.setOnClickListener {
-            val homeIntent = Intent(this, HomeActivity::class.java)
-            startActivity(homeIntent)
+        tv_friend_name.setOnClickListener {
+            showMenuFragment()
         }
     }
 
-    private fun saveOrEditClicked()
-    {
-        if (editingMode) // Save clicked
-        {
-            this.hideSoftKeyboard(friend_name_edit_text)
+    private fun showConfirmationForImport() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_AddFriendAlertDialog))
+        val title = SpannableString(getString(R.string.import_text))
 
-            // Save Changes and exit editing mode
-            editingMode = false
-
-            // If a new name has been entered, save it and display it
-            if (friend_name_edit_text.text.isNotBlank())
-            {
-                val newName = friend_name_edit_text.text.toString()
-
-                if (newName != thisFriend.name)
-                {
-                    Persist.updateFriend(this, thisFriend, newName)
-                    thisFriend.name = newName
-                    friend_info_name_text_view.text = thisFriend.name
-                }
-            }
-        }
-        else // Edit clicked
-        {
-            // enter editing mode
-            editingMode = true
-        }
-
-        // Update view to not be in the correct mode
-        setupViewByStatus()
-    }
-
-    private fun sendMessageClicked()
-    {
-        val createActivityIntent = Intent(this, CreateActivity::class.java)
-        createActivityIntent.putExtra(RequestCodes.friendExtraTaskDescription, thisFriend)
-        startActivity(createActivityIntent)
-    }
-
-    private fun importImageClicked()
-    {
-        val importImageActivityIntent = Intent(this, ImportImageActivity::class.java)
-        importImageActivityIntent.putExtra(RequestCodes.friendExtraTaskDescription, thisFriend)
-        startActivity(importImageActivityIntent)
-    }
-
-    private fun importTextClicked()
-    {
-        val importTextActivityIntent = Intent(this, ImportTextActivity::class.java)
-        importTextActivityIntent.putExtra(RequestCodes.friendExtraTaskDescription, thisFriend)
-        startActivity(importTextActivityIntent)
-    }
-
-    private fun inviteClicked()
-    {
-        // Get user's public key to send to contact
-        val userPublicKey = Encryption().ensureKeysExist().publicKey
-        val keyBytes = userPublicKey.toBytes()
-
-        // Share the key
-        ShareUtil.shareKey(this, keyBytes)
-
-        if (thisFriend.status == FriendStatus.Requested)
-        {
-            // We have already received an invitation from this friend.
-            // Set friend status to approved.
-            thisFriend.status = FriendStatus.Approved
-            Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Approved)
-            setupApprovedView()
-        }
-        else
-        {
-            // We have not received an invitation from this friend.
-            // Set friend status to Invited
-            thisFriend.status = FriendStatus.Invited
-            Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Invited)
-            setupInvitedView()
-        }
-    }
-
-    private fun importInvitationClicked()
-    {
-        val importIntent = Intent(this, ImportTextActivity::class.java)
-        importIntent.putExtra(RequestCodes.friendExtraTaskDescription, thisFriend)
-        this.startActivity(importIntent)
-        setupRequestedView()
-    }
-
-    private fun declineClicked()
-    {
-        // Set Friend Status to Default
-        thisFriend.status = FriendStatus.Default
-        thisFriend.publicKeyEncoded = null
-        Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Default)
-        setupDefaultView()
-    }
-
-    private fun createVerificationDialogBuilder():AlertDialog.Builder
-    {
-        // Display friend public key as encoded text.
-        val codex = Codex()
-        val friendCode = codex.encodeKey(PublicKey(thisFriend.publicKeyEncoded).toBytes())
-
-        // Display user public key as encoded text
-        val userCode = codex.encodeKey(Encryption().ensureKeysExist().publicKey.toBytes())
-        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_VerifyAlertDialog))
-
-        val friendCodeLabelTextView = TextView(this)
-        friendCodeLabelTextView.text = getString(R.string.label_verify_friend_number, thisFriend.name)
-        friendCodeLabelTextView.setTextAppearance(R.style.AppTheme_AlertTextTitle)
-        friendCodeLabelTextView.gravity = CENTER
-
-        val friendCodeTextView = TextView(this)
-        friendCodeTextView.text = friendCode
-        friendCodeTextView.setTextAppearance(R.style.AppTheme_AlertText)
-
-        val userCodeLabelTextView = TextView(this)
-        userCodeLabelTextView.text = getString(R.string.label_verify_friend_user_number)
-        userCodeLabelTextView.setTextAppearance(R.style.AppTheme_AlertTextTitle)
-        userCodeLabelTextView.gravity = CENTER
-
-        val userCodeTextView = TextView(this)
-        userCodeTextView.text = userCode
-        userCodeTextView.setTextAppearance(R.style.AppTheme_AlertText)
-
-        val verificationCodeLayout = LinearLayout(this)
-        val params = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT
-        )
-
-        verificationCodeLayout.layoutParams = params
-        verificationCodeLayout.orientation = VERTICAL
-        verificationCodeLayout.addView(friendCodeLabelTextView)
-        verificationCodeLayout.addView(friendCodeTextView)
-        verificationCodeLayout.addView(userCodeLabelTextView)
-        verificationCodeLayout.addView(userCodeTextView)
-        builder.setView(verificationCodeLayout)
-
-        return builder
-    }
-
-    private fun showVerifyFriendDialog()
-    {
-        val builder = createVerificationDialogBuilder()
-
-        // Set the Add and Cancel Buttons
-        builder.setPositiveButton(resources.getString(R.string.ok_button))
-        {
-                _, _->
-            
-            Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Verified,
-                encodedPublicKey = thisFriend.publicKeyEncoded)
-            finish()
-        }
-
-        builder.setNeutralButton(resources.getString(R.string.button_label_reset))
-        {
-                _, _->
-
-            thisFriend.publicKeyEncoded = null
-            Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Default)
-            finish()
-        }
-            .create()
-            .show()
-    }
-
-    private fun showVerificationCodeDialog()
-    {
-        val builder = createVerificationDialogBuilder()
-
-        builder.setPositiveButton(resources.getString(R.string.ok_button)) {
-                _, _->
-            //stub
-        }
-
-            .create()
-            .show()
-    }
-
-    private fun showDeleteConfirmationDialog()
-    {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_DeleteAlertDialog))
-
-        val title = SpannableString(getString(R.string.alert_text_confirm_friend_delete))
         // alert dialog title align center
         title.setSpan(
             AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
@@ -312,256 +194,594 @@ class FriendInfoActivity: AppCompatActivity()
         )
         builder.setTitle(title)
 
-        builder.setPositiveButton(resources.getString(R.string.button_label_delete))
-        {
-            _, _->
-            //delete friend
-            deleteFriend()
+        val alertDialogContent = LinearLayout(this)
+        alertDialogContent.orientation = LinearLayout.VERTICAL
+
+        // Set the input - EditText
+        val textView = TextView(this)
+        textView.setBackgroundResource(R.drawable.btn_bkgd_light_grey_outline_8)
+        textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
+        textView.text = getString(R.string.confirmation_for_import)
+        textView.compoundDrawablePadding = 10
+        textView.setPadding(25)
+        textView.setTextColor(ContextCompat.getColor(this, R.color.royalBlueDark))
+        alertDialogContent.addView(textView)
+
+        builder.setView(alertDialogContent)
+
+        // Set the Add and Cancel Buttons
+        builder.setPositiveButton(resources.getString(R.string.yes))
+        { _, _->
+            decodeStringMessage(message_edit_text.text.toString())
+            message_edit_text.setText("")
         }
 
-        builder.setNeutralButton(resources.getString(R.string.button_label_cancel))
-        {
-            _, _ ->
-            //cancel
+        builder.setNeutralButton(resources.getString(R.string.no))
+        { dialog, _->
+            trySendingOrSavingMessage(isImage = false, saveImage = false)
+            dialog.cancel()
         }
-
-        builder.create()
-        builder.show()
+            .create()
+            .show()
     }
 
-    private fun deleteFriend()
-    {
-        Persist.friendList.remove(thisFriend)
-        Persist.saveFriendsToFile(this)
-        finish()
+    private fun showHideShareImageButtons() {
+        share_as_image.animate().apply {
+            duration = 500
+            translationY(if (isShareImageButtonShow) 0F else -175F)
+            translationX(if (isShareImageButtonShow) 0F else 150F)
+        }
+        save_as_image.animate().apply {
+            duration = 500
+            translationY(if (isShareImageButtonShow) 0F else -175F)
+        }
+        isShareImageButtonShow = !isShareImageButtonShow
+    }
+
+    private fun returnButtonPressed() {
+        val lastFragment = supportFragmentManager.fragments.last()
+        if (lastFragment.tag == menuFragmentTag) {
+            setupViewByStatus()
+        } else {
+            finish()
+        }
+    }
+
+    private fun showMenuFragment() {
+        val ft = supportFragmentManager.beginTransaction()
+        val codex = Codex()
+        val friendCode =
+            if (thisFriend.status == FriendStatus.Approved || thisFriend.status == FriendStatus.Verified) {
+                codex.encodeKey(PublicKey(thisFriend.publicKeyEncoded).toBytes())
+            } else { "" }
+        val userCode = codex.encodeKey(Encryption().ensureKeysExist().publicKey.toBytes())
+        ft.replace(
+            R.id.frame_placeholder,
+            MenuFragment.newInstance(thisFriend, userCode, friendCode),
+            menuFragmentTag
+        )
+        ft.commit()
+        btn_import_image.isVisible = false
+        btn_import_text.isVisible = false
+        btn_resend_invite.isVisible = false
+        send_message_container.isVisible = false
+        if (isShareImageButtonShow) showHideShareImageButtons()
+    }
+
+    fun showVerificationStep() {
+        if (thisFriend.status == FriendStatus.Approved || thisFriend.status == FriendStatus.Verified) {
+            val ft = supportFragmentManager.beginTransaction()
+            val codex = Codex()
+            val friendCode = codex.encodeKey(PublicKey(thisFriend.publicKeyEncoded).toBytes())
+            val userCode = codex.encodeKey(Encryption().ensureKeysExist().publicKey.toBytes())
+            ft.replace(
+                R.id.frame_placeholder,
+                VerifyStatusFragment.newInstance(userCode, friendCode, thisFriend.name),
+                menuFragmentTag
+            )
+            ft.commit()
+            btn_import_image.isVisible = false
+            btn_import_text.isVisible = false
+            btn_resend_invite.isVisible = true
+            send_message_container.isVisible = false
+        }
     }
 
     private fun setupViewByStatus() {
-        friend_info_name_text_view.text = thisFriend.name
-        status_text_view.text = thisFriend.getStatusString(this)
+        tv_friend_name.text = if (thisFriend.name.length <= 10) thisFriend.name else thisFriend.name.substring(0, 8) + "..."
+        profile_picture.text = thisFriend.name.substring(0, 1)
+        val ft = supportFragmentManager.beginTransaction()
         when (thisFriend.status) {
-            FriendStatus.Default -> setupDefaultView()
-            FriendStatus.Requested -> setupRequestedView()
-            FriendStatus.Invited -> setupInvitedView()
-            FriendStatus.Verified -> setupVerifiedView()
-            FriendStatus.Approved -> setupApprovedView()
+            FriendStatus.Default -> {
+                status_icon_image_view.setImageResource(FriendStatus.Default.getIcon())
+                ft.replace(R.id.frame_placeholder, DefaultStatusFragment.newInstance(thisFriend))
+                ft.commit()
+                btn_import_image.isVisible = false
+                btn_import_text.isVisible = false
+                btn_resend_invite.isVisible = false
+                send_message_container.isVisible = false
+            }
+            FriendStatus.Requested -> {
+                status_icon_image_view.setImageResource(FriendStatus.Requested.getIcon())
+                ft.replace(R.id.frame_placeholder, RequestedStatusFragment.newInstance(thisFriend))
+                ft.commit()
+                btn_import_image.isVisible = false
+                btn_import_text.isVisible = false
+                btn_resend_invite.isVisible = false
+                send_message_container.isVisible = false
+            }
+            FriendStatus.Invited -> {
+                status_icon_image_view.setImageResource(FriendStatus.Invited.getIcon())
+                ft.replace(R.id.frame_placeholder, InvitedStatusFragment.newInstance(thisFriend))
+                ft.commit()
+                btn_import_image.isVisible = false
+                btn_import_text.isVisible = false
+                btn_resend_invite.isVisible = true
+                send_message_container.isVisible = false
+            }
+            FriendStatus.Verified -> {
+                status_icon_image_view.setImageResource(FriendStatus.Verified.getIcon())
+                ft.replace(R.id.frame_placeholder, VerifiedStatusFragment.newInstance(thisFriend))
+                ft.commit()
+                btn_import_image.isVisible = true
+                btn_import_text.isVisible = true
+                btn_resend_invite.isVisible = false
+                send_message_container.isVisible = true
+                verified_status_icon_image_view.isVisible = true
+            }
+            FriendStatus.Approved -> {
+                status_icon_image_view.setImageResource(FriendStatus.Approved.getIcon())
+                ft.replace(R.id.frame_placeholder, VerifiedStatusFragment.newInstance(thisFriend))
+                ft.commit()
+                btn_import_image.isVisible = true
+                btn_import_text.isVisible = true
+                btn_resend_invite.isVisible = false
+                send_message_container.isVisible = true
+//                val codex = Codex()
+//                val friendCode = codex.encodeKey(PublicKey(thisFriend.publicKeyEncoded).toBytes())
+//                val userCode = codex.encodeKey(Encryption().ensureKeysExist().publicKey.toBytes())
+//                ft.replace(R.id.frame_placeholder, VerifyStatusFragment.newInstance(userCode, friendCode, thisFriend.name))
+//                ft.commit()
+//                btn_import_image.isVisible = false
+//                btn_import_text.isVisible = false
+//                btn_resend_invite.isVisible = true
+//                send_message_container.isVisible = false
+            }
         }
     }
 
-    private fun setupEditViewBasics()
-    {
-        friend_name_edit_text.isVisible = true
-        friend_name_edit_text.setText(thisFriend.name)
-        friend_info_name_text_view.isVisible = false
-        delete_friend_button.isVisible = true
-        edit_or_save_button.text = getString(R.string.button_label_save)
-        edit_or_save_button.setBackgroundResource(R.drawable.btn_bkgd_blue_56)
-        status_description_text_view.isVisible = false
-    }
+    fun inviteClicked() {
+        // Get user's public key to send to contact
+        val userPublicKey = Encryption().ensureKeysExist().publicKey
+        val keyBytes = userPublicKey.toBytes()
 
-    private fun setupNormalViewBasics()
-    {
-        friend_name_edit_text.isVisible = false
-        friend_info_name_text_view.isVisible = true
-        delete_friend_button.isVisible = false
-        edit_or_save_button.text = getString(R.string.edit_button)
-        edit_or_save_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
-        status_description_text_view.isVisible = true
-    }
+        // Share the key
+        if (Persist.loadBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey) && (thisFriend.phone?.isNotEmpty() == true)) {
+            try {
+                val codex = Codex()
+                val encodedKey = codex.encodeKey(keyBytes)
+                val smsManager: SmsManager = if (Build.VERSION.SDK_INT >= 31) {
+                    this.getSystemService(SmsManager::class.java)
+                } else {
+                    SmsManager.getDefault()
+                }
+                val parts = smsManager.divideMessage(encodedKey)
+                smsManager.sendMultipartTextMessage(
+                    thisFriend.phone,
+                    null,
+                    parts,
+                    null,
+                    null
+                )
+            } catch (e: Exception) {
+                this.showAlert(getString(R.string.unable_to_send_sms))
+                return
+            }
+        } else {
+            ShareUtil.shareKey(this, keyBytes)
+        }
 
-    private fun setupDefaultView()
-    {
-        status_icon_image_view.setImageResource(FriendStatus.Default.getIcon())
-        import_invitation_button.isVisible = true
-        invite_button.isVisible = true
-        invite_button.text = getString(R.string.button_label_invite)
-
-        // These buttons should not be visible for default status friends
-        verification_code_button.isGone = true
-        verify_button.isVisible = false
-        decline_button.isVisible = false
-        send_message_button.isVisible = false
-        import_image_button.isVisible = false
-        import_text_button.isVisible = false
-
-        // Handle editing mode on/off
-        if (editingMode)
+        if (thisFriend.status == FriendStatus.Requested)
         {
-            setupEditViewBasics()
-
-            import_invitation_button.isEnabled = false
-            import_invitation_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
-            invite_button.isEnabled = false
-            invite_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
+            // We have already received an invitation from this friend.
+            // Set friend status to approved.
+            thisFriend.status = FriendStatus.Approved
+            Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Approved)
+            setupViewByStatus()
         }
         else
         {
-            setupNormalViewBasics()
-
-            import_invitation_button.isEnabled = true
-            import_invitation_button.setBackgroundResource(R.drawable.btn_bkgd_blue_56)
-            invite_button.isEnabled = true
-            invite_button.setBackgroundResource(R.drawable.btn_bkgd_blue_56)
+            // We have not received an invitation from this friend.
+            // Set friend status to Invited
+            thisFriend.status = FriendStatus.Invited
+            Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Invited)
+            setupViewByStatus()
         }
     }
 
-    private fun setupInvitedView()
+    fun importInvitationClicked() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_AddFriendAlertDialog))
+        val title = SpannableString(getString(R.string.import_text))
+
+        // alert dialog title align center
+        title.setSpan(
+            AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+            0,
+            title.length,
+            0
+        )
+        builder.setTitle(title)
+
+        // Set the input - EditText
+        val inputEditText = EditText(this)
+        inputEditText.setBackgroundResource(R.drawable.btn_bkgd_light_grey_outline_8)
+        inputEditText.textAlignment = View.TEXT_ALIGNMENT_VIEW_END
+        inputEditText.setPadding(20)
+        inputEditText.height = 500
+        inputEditText.gravity = Gravity.TOP
+        inputEditText.setTextColor(ContextCompat.getColor(this, R.color.royalBlueDark))
+        builder.setView(inputEditText)
+        builder.setPositiveButton(resources.getString(R.string.import_text))
+        { _, _->
+            if (inputEditText.text.isNotEmpty())
+            {
+                if (inputEditText.text.length > 5000)
+                {
+                    showAlert(getString(R.string.alert_text_message_too_long))
+                } else {
+                    decodeStringMessage(inputEditText.text.toString())
+                }
+            }
+        }
+        builder.setNeutralButton(resources.getString(R.string.cancel_button)) { dialog, _->
+            dialog.cancel()
+        }.create().show()
+    }
+
+    private fun trySendingOrSavingMessage(isImage: Boolean, saveImage: Boolean) {
+        // Make sure there is a message to send
+        val message = message_edit_text.text.toString()
+
+        if (message.isBlank()) {
+            showAlert(getString(R.string.alert_text_write_a_message_to_send))
+            return
+        }
+
+        if (message.length > 5000) {
+            showAlert(getString(R.string.alert_text_message_too_long))
+            return
+        }
+
+        if (isImage) {
+            // If the message is sent as an image
+            ActivityCompat.requestPermissions(
+                this@FriendInfoActivity,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE),
+                1
+            )
+            pickImageFromGallery(saveImage)
+        } else {
+            // If the message is sent as text
+            if (thisFriend.publicKeyEncoded != null) {
+                val encryptedMessage = Encryption().encrypt(thisFriend.publicKeyEncoded!!, message)
+                if (Persist.loadBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey) && (thisFriend.phone?.isNotEmpty() == true)) {
+                    val permissionCheck = ContextCompat.checkSelfPermission(
+                        this, Manifest.permission.SEND_SMS
+                    )
+                    if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS), RequestCodes.requestPermissionCode)
+                        showAlert(getString(R.string.sms_permission_needed))
+                        return
+                    } else {
+                        val codex = Codex()
+                        try {
+                            val encodedMessage = codex.encodeEncryptedMessage(encryptedMessage)
+                            try {
+                                val smsManager: SmsManager = if (Build.VERSION.SDK_INT >= 31) {
+                                    this.getSystemService(SmsManager::class.java)
+                                } else {
+                                    SmsManager.getDefault()
+                                }
+                                val parts = smsManager.divideMessage(encodedMessage)
+                                smsManager.sendMultipartTextMessage(
+                                    thisFriend.phone,
+                                    null,
+                                    parts,
+                                    null,
+                                    null
+                                )
+                                saveMessage(encryptedMessage, thisFriend, true)
+                            } catch (e: Exception) {
+                                this.showAlert(getString(R.string.unable_to_send_sms))
+                                return
+                            }
+
+                        } catch (exception: SecurityException) {
+                            this.showAlert(getString(R.string.alert_text_unable_to_process_request))
+                            return
+                        }
+                    }
+                } else {
+                    ShareUtil.shareText(this, message, thisFriend.publicKeyEncoded!!)
+                    saveMessage(encryptedMessage, thisFriend, true)
+                }
+
+                message_edit_text.text?.clear()
+            } else {
+                this.showAlert(getString(R.string.alert_text_verified_friends_only))
+                return
+            }
+        }
+    }
+
+    private fun pickImageFromGallery(saveImage: Boolean) {
+        // Calling GetContent contract
+        val pickImageIntent =
+            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        if (saveImage) {
+            startActivityForResult(pickImageIntent, RequestCodes.selectImageForSavingCode)
+        } else {
+            startActivityForResult(pickImageIntent, RequestCodes.selectImageForSharingCode)
+        }
+    }
+
+    private fun handleImageImport()
     {
-        status_icon_image_view.setImageResource(FriendStatus.Invited.getIcon())
-        import_invitation_button.isVisible = true
-        invite_button.isVisible = true
-        invite_button.text = getString(R.string.button_label_invite_again)
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, RequestCodes.selectImageForImport)
+    }
 
-        // These buttons should not be visible for invited status friends
-        verification_code_button.isGone = true
-        decline_button.isVisible = false
-        verify_button.isVisible = false
-        send_message_button.isVisible = false
-        import_image_button.isVisible = false
-        import_text_button.isVisible = false
-        delete_friend_button.isVisible = false
+    @ExperimentalUnsignedTypes
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-        // Handle editing mode on/off
-        if (editingMode)
+        if (resultCode == Activity.RESULT_OK)
         {
-            setupEditViewBasics()
+            if (requestCode == RequestCodes.selectImageForImport)
+            {
+                // get data?.data as URI
+                val imageURI = data?.data
+                imageURI?.let {
+                    decodeImage(it)
+                }
+            }
+            else if (requestCode == RequestCodes.selectImageForSharingCode || requestCode == RequestCodes.selectImageForSavingCode) {
+                // We can only share an image if a recipient with a public key has been selected
+                thisFriend.publicKeyEncoded?.let {
+                    // Get the message text
+                    val message = message_edit_text.text.toString()
+                    // get data?.data as URI
+                    val imageURI = data?.data
+                    imageURI?.let {
+                        imageImportProgressBar.visibility = View.VISIBLE
+                        shareOrSaveAsImage(
+                            imageURI,
+                            message,
+                            thisFriend.publicKeyEncoded!!,
+                            requestCode == RequestCodes.selectImageForSavingCode
+                        )
+                        message_edit_text.text?.clear()
+                    }
+                }
+            }
+        }
+    }
 
-            import_invitation_button.isEnabled = false
-            import_invitation_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
-            invite_button.isEnabled = false
-            invite_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
+    @ExperimentalUnsignedTypes
+    private fun shareOrSaveAsImage(imageUri: Uri, message: String, encodedFriendPublicKey: ByteArray, saveImage: Boolean) {
+        try {
+            // Encrypt the message
+            val encryptedMessage = Encryption().encrypt(encodedFriendPublicKey, message)
+            makeWait()
+            // Encode the image
+            val newUri: Deferred<Uri?> =
+                coroutineScope.async(Dispatchers.IO) {
+                    val swatch = Encoder()
+                    return@async swatch.encode(
+                        applicationContext,
+                        encryptedMessage,
+                        imageUri,
+                        saveImage
+                    )
+                }
+
+            coroutineScope.launch(Dispatchers.Main) {
+                val maybeUri = newUri.await()
+                noMoreWaiting()
+                imageImportProgressBar.visibility = View.INVISIBLE
+
+                if (maybeUri != null)
+                {
+                    if (saveImage) {
+                        showAlert(getString(R.string.alert_text_image_saved))
+                    }
+                    else {
+                        ShareUtil.shareImage(applicationContext, maybeUri)
+                    }
+                    saveMessage(encryptedMessage, thisFriend, true)
+                }
+                else
+                {
+                    applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
+                }
+            }
+
+        } catch (exception: SecurityException) {
+            applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
+            print("Unable to send message as photo, we were unable to encrypt the mess56age.")
+            return
+        }
+    }
+
+    @ExperimentalUnsignedTypes
+    private fun decodeImage(imageUri: Uri) {
+        makeWait()
+
+        val decodeResult: Deferred<ByteArray?> =
+            coroutineScope.async(Dispatchers.IO) {
+                val swatch = Decoder()
+                return@async swatch.decode(applicationContext, imageUri)
+            }
+
+        coroutineScope.launch(Dispatchers.Main) {
+            try
+            {
+                val maybeDecodeResult = decodeResult.await()
+                noMoreWaiting()
+
+                if (maybeDecodeResult != null)
+                {
+                    decodePayload = maybeDecodeResult
+                    handleImageDecodeResult()
+                }
+                else
+                {
+                    showAlert(getString(R.string.alert_text_unable_to_decode_message))
+                }
+            }
+            catch (e: Exception)
+            {
+                noMoreWaiting()
+                showAlert(getString(R.string.alert_text_unable_to_decode_message))
+            }
+        }
+    }
+
+    private fun handleImageDecodeResult() {
+        if (decodePayload == null)
+        {
+            showAlert(getString(R.string.alert_text_unable_to_decode_message))
+            return
+        }
+        saveMessage(decodePayload!!, thisFriend, false)
+    }
+
+    private fun saveMessage(cipherBytes: ByteArray, messageSender: Friend, fromMe: Boolean) {
+        val newMessage = Message(cipherBytes, messageSender, fromMe)
+        newMessage.save(this)
+
+        // Add to messages
+        setupViewByStatus()
+    }
+
+    private fun makeWait() {
+        imageImportProgressBar.visibility = View.VISIBLE
+        btn_import_image.isEnabled = false
+        btn_import_image.isClickable = false
+    }
+
+    private fun noMoreWaiting() {
+        imageImportProgressBar.visibility = View.INVISIBLE
+        btn_import_image.isEnabled = true
+        btn_import_image.isClickable = true
+    }
+
+    private fun decodeStringMessage(messageString: String) {
+        // Update UI to reflect text being shared
+        val decodeResult = Codex().decode(messageString)
+
+        if (decodeResult != null)
+        {
+            when (decodeResult.type)
+            {
+                KeyOrMessage.EncryptedMessage ->
+                {
+                    // Check for message type if user is not approved
+                    if (thisFriend.status == FriendStatus.Invited) {
+                        this.showAlert("The input was a message. You have to import your friend's public key.")
+                        return
+                    }
+
+                    // Create Message Instance
+                    val newMessage = Message(decodeResult.payload, thisFriend, false)
+                    newMessage.save(this)
+
+                    // Add to messages
+                    setupViewByStatus()
+                }
+                KeyOrMessage.Key ->
+                {
+                    updateKeyAndStatus(decodeResult.payload)
+                }
+            }
         }
         else
         {
-            setupNormalViewBasics()
-
-            import_invitation_button.isEnabled = true
-            import_invitation_button.setBackgroundResource(R.drawable.btn_bkgd_blue_56)
-            invite_button.isEnabled = true
-            invite_button.setBackgroundResource(R.drawable.btn_bkgd_blue_56)
+            this.showAlert(getString(R.string.alert_text_unable_to_decode_message))
         }
     }
 
-    private fun setupRequestedView()
-    {
-        status_icon_image_view.setImageResource(FriendStatus.Requested.getIcon())
-        decline_button.isVisible = true
-        invite_button.isVisible = true
-        invite_button.text = getString(R.string.button_label_invite)
-
-        // These buttons should not be visible for requested status friends
-
-        verification_code_button.isGone = true
-        verify_button.isVisible = false
-        send_message_button.isVisible = false
-        import_image_button.isVisible = false
-        import_text_button.isVisible = false
-        delete_friend_button.isVisible = false
-        import_invitation_button.isVisible = false
-
-        if (editingMode)
+    private fun updateKeyAndStatus(keyData: ByteArray) {
+        when (thisFriend.status)
         {
-            setupEditViewBasics()
-
-            decline_button.isEnabled = false
-            decline_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
-            invite_button.isEnabled = false
-            invite_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
-        }
-        else
-        {
-            setupNormalViewBasics()
-
-            decline_button.isEnabled = true
-            decline_button.setBackgroundResource(R.drawable.btn_bkgd_orange_56)
-            invite_button.isEnabled = true
-            invite_button.setBackgroundResource(R.drawable.btn_bkgd_blue_56)
+            FriendStatus.Default ->
+            {
+                Persist.updateFriend(
+                    context = this,
+                    friendToUpdate = thisFriend,
+                    newStatus = FriendStatus.Requested,
+                    encodedPublicKey = keyData
+                )
+                thisFriend.status = FriendStatus.Requested
+                setupViewByStatus()
+            }
+            FriendStatus.Invited ->
+            {
+                Persist.updateFriend(
+                    context = this,
+                    friendToUpdate = thisFriend,
+                    newStatus = FriendStatus.Approved,
+                    encodedPublicKey = keyData
+                )
+                thisFriend.status = FriendStatus.Approved
+                thisFriend.publicKeyEncoded = keyData
+                setupViewByStatus()
+            }
+            else ->
+                this.showAlert(getString(R.string.alert_text_unable_to_update_friend_status))
         }
     }
 
-    private fun setupApprovedView()
-    {
-        status_icon_image_view.setImageResource(FriendStatus.Approved.getIcon())
-        invite_button.isVisible = true
-        invite_button.text = getString(R.string.button_label_invite_again)
-        verify_button.isVisible = true
-
-        // These buttons should not be visible for approved status friends
-        verification_code_button.isGone = true
-        import_invitation_button.isVisible = false
-        decline_button.isVisible = false
-        send_message_button.isVisible = false
-        import_image_button.isVisible = false
-        import_text_button.isVisible = false
-        delete_friend_button.isVisible = false
-
-
-        if (editingMode)
-        {
-            setupEditViewBasics()
-
-            invite_button.isEnabled = false
-            invite_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
-            verify_button.isEnabled = false
-            verify_button.setBackgroundResource(R.drawable.btn_bkgd_transparent_56)
-        }
-        else
-        {
-            setupNormalViewBasics()
-
-            invite_button.isEnabled = true
-            invite_button.setBackgroundResource(R.drawable.btn_bkgd_blue_56)
-            verify_button.isEnabled = true
-            verify_button.setBackgroundResource(R.drawable.btn_bkgd_green_56)
-        }
+    fun approveVerifyFriend() {
+        Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Verified,
+            encodedPublicKey = thisFriend.publicKeyEncoded)
+        thisFriend.status = FriendStatus.Verified
+        setupViewByStatus()
     }
 
-    private fun setupVerifiedView()
-    {
-        status_icon_image_view.setImageResource(FriendStatus.Verified.getIcon())
-        verification_code_button.isGone = false
-        send_message_button.isVisible = true
-        import_image_button.isVisible = true
-        import_text_button.isVisible = true
-
-        // These buttons should not be visible for verified status friends
-        import_invitation_button.isVisible = false
-        decline_button.isVisible = false
-        invite_button.isVisible = false
-        verify_button.isVisible = false
-        status_description_text_view.isVisible = false
-
-        if (editingMode)
-        {
-            setupEditViewBasics()
-
-            verification_code_button.isEnabled = false
-            verification_code_button.setBackgroundResource(R.drawable.btn_bkgd_grey_outline_8)
-            send_message_button.isEnabled = false
-            send_message_button.setBackgroundResource(R.drawable.transparent_overlay_radius_8)
-            import_image_button.isEnabled = false
-            import_image_button.setBackgroundResource(R.drawable.transparent_overlay_radius_8)
-            import_text_button.isEnabled = false
-            import_text_button.setBackgroundResource(R.drawable.transparent_overlay_radius_8)
-        }
-        else
-        {
-            setupNormalViewBasics()
-
-            verification_code_button.isEnabled = true
-            verification_code_button.setBackgroundResource(R.drawable.btn_bkgd_green_outline_8)
-            send_message_button.isEnabled = true
-            send_message_button.setBackgroundResource(R.drawable.btn_bkgd_purple_8)
-            import_image_button.isEnabled = true
-            import_image_button.setBackgroundResource(R.drawable.btn_bkgd_green_8)
-            import_text_button.isEnabled = true
-            import_text_button.setBackgroundResource(R.drawable.btn_bkgd_green_8)
-        }
+    fun declineVerifyFriend() {
+        thisFriend.publicKeyEncoded = null
+        Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Default)
+        thisFriend.status = FriendStatus.Default
+        setupViewByStatus()
     }
 
-    private fun Activity.hideSoftKeyboard(editText: EditText)
-    {
-        (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).apply {
+    private fun sendToLogin() {
+        // If the status is not either NotRequired, or Logged in, request login
+        this.showAlert(getString(R.string.alert_text_passcode_required_to_proceed))
+        // Send user to the Login Activity
+        val loginIntent = Intent(applicationContext, LogInActivity::class.java)
+        startActivity(loginIntent)
+        finish()
+    }
+
+    fun changeFriendsName(newName: String) {
+        Persist.updateFriend(this, thisFriend, newName)
+        thisFriend.name = if (newName.length <= 10) newName else newName.substring(0, 8) + "..."
+        tv_friend_name.text = thisFriend.name
+        profile_picture.text = thisFriend.name.substring(0, 1)
+        showAlert("New name saved")
+    }
+
+    fun changeFriendsPhone(newPhoneNumber: String) {
+        Persist.updateFriendsPhone(this, thisFriend, newPhoneNumber)
+        thisFriend.phone = newPhoneNumber
+        showAlert("New phone number saved")
+    }
+
+    fun Activity.hideSoftKeyboard(editText: EditText) {
+        (getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager).apply {
             hideSoftInputFromWindow(editText.windowToken, 0)
         }
     }

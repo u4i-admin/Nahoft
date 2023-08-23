@@ -1,20 +1,29 @@
 package org.nahoft.nahoft.activities
 
+import android.R.attr.text
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Intent
 import android.content.IntentFilter
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
+import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
 import androidx.core.view.isGone
-import kotlinx.android.synthetic.main.activity_create.*
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_setting_passcode.*
-import kotlinx.android.synthetic.main.activity_setting_passcode.go_to_home_button
-import kotlinx.android.synthetic.main.activity_setting_passcode.passcode_switch
+import org.nahoft.codex.Codex
+import org.nahoft.codex.Encryption
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
+import org.nahoft.nahoft.LoginStatus
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.R
+import org.nahoft.nahoft.slideNameSetting
 import org.nahoft.util.showAlert
+
 
 class SettingPasscodeActivity : AppCompatActivity() {
 
@@ -35,6 +44,10 @@ class SettingPasscodeActivity : AppCompatActivity() {
         registerReceiver(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
         })
+
+        val codex = Codex()
+        val userCode = codex.encodeKey(Encryption().ensureKeysExist().publicKey.toBytes())
+        user_public_key_edittext.setText(userCode)
 
         setupButtons()
         setDefaultView()
@@ -67,8 +80,11 @@ class SettingPasscodeActivity : AppCompatActivity() {
         }
 
         destruction_code_switch.setOnCheckedChangeListener { _, isChecked ->
-
             handleDestructionCodeRequirementChange(isChecked)
+        }
+
+        use_sms_as_default_switch.setOnCheckedChangeListener { _, isChecked ->
+            Persist.saveBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey, isChecked)
         }
 
         passcode_submit_button.setOnClickListener {
@@ -79,17 +95,27 @@ class SettingPasscodeActivity : AppCompatActivity() {
             saveDestructionCode()
         }
 
-        // Return to Home
-        go_to_home_button.setOnClickListener {
-            val homeIntent = Intent(this, HomeActivity::class.java)
-            startActivity(homeIntent)
+        setting_guide_button.setOnClickListener {
+            val slideActivity = Intent(this, SlideActivity::class.java)
+            slideActivity.putExtra(Intent.EXTRA_TEXT, slideNameSetting)
+            startActivity(slideActivity)
+        }
+
+        button_back.setOnClickListener {
+            finish()
+        }
+
+        copy_public_key_button.setOnClickListener {
+            val clipboardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+            clipboardManager.setPrimaryClip(ClipData.newPlainText("", user_public_key_edittext.text))
+            this.showAlert(getString(R.string.copied))
         }
     }
 
     private fun setDefaultView()
     {
         destruction_code_entry_layout.isGone = true
-
+        use_sms_as_default_switch.isChecked = Persist.loadBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey)
         if (Persist.status == LoginStatus.LoggedIn)
         {
             updateViewPasscodeOn(true)
@@ -196,6 +222,21 @@ class SettingPasscodeActivity : AppCompatActivity() {
     {
         if (required)
         {
+            if (!isBiometricAvailable()) {
+                val snack = Snackbar.make(findViewById(R.id.settingsActivityLayoutContainer), getString(R.string.you_have_to_set_a_lock_screen), Snackbar.LENGTH_LONG)
+                snack.setAction(getString(R.string.click_to_set)) {
+                    val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
+                        putExtra(
+                            Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
+                            BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL
+                        )
+                    }
+                    startActivity(enrollIntent)
+                }
+                snack.show()
+                passcode_switch.isChecked = false
+                return
+            }
             updateViewPasscodeOn(false)
         }
         else
@@ -356,7 +397,6 @@ class SettingPasscodeActivity : AppCompatActivity() {
     }
 
     // Returns true if all the numbers in the passcode are not the same.
-
     private fun isPasscodeNonRepeating(passcode: String): Boolean {
 
         val firstChar = passcode[0]
@@ -373,7 +413,18 @@ class SettingPasscodeActivity : AppCompatActivity() {
         return false
     }
 
-    fun cleanup(){
+    private fun isBiometricAvailable(): Boolean {
+        val biometricManager = BiometricManager.from(this)
+        return when (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)) {
+            BiometricManager.BIOMETRIC_SUCCESS -> true
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> false
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> false
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> false
+            else -> false
+        }
+    }
+
+    private fun cleanup(){
         enter_passcode_input.text?.clear()
         verify_passcode_input.text?.clear()
         destruction_code_input.text?.clear()

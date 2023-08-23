@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,298 +7,225 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
-    android:background="@color/royalBlueDark"
+    android:background="@color/background"
     android:filterTouchesWhenObscured="true"
     tools:context=".activities.FriendInfoActivity">
 
-    <LinearLayout
-        android:id="@+id/friendInfoActivityLayoutContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginHorizontal="@dimen/padding_standard"
-        tools:context=".activities.ImportImageActivity">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/padding_standard"
-        android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/friends_image_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            app:srcCompat="@drawable/ic_nahoft_icons_friends"
-            tools:ignore="ContentDescription" />
-        <TextView
-            android:id="@+id/friends_info_two_text_heading"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:fontFamily="@font/open_sans_semibold"
-            android:text="@string/friends_info_activity_heading"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            tools:ignore="ContentDescription" />
-        <ImageView
-            android:id="@+id/go_to_home_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            app:srcCompat="@drawable/ic_nahoft_icons_home"
-            tools:ignore="ContentDescription" />
-
-    </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/friend_info_container"
+        android:id="@+id/header_section"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/padding_half"
-        android:background="@drawable/transparent_overlay_radius_8"
-        android:orientation="vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friends_info_two_text_heading"
-        tools:ignore="RtlHardcoded">
-        <LinearLayout
-            android:id="@+id/nickname_status_container"
-            android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/bkgd_header_main_page"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/button_back"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_half"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="15dp"
+            android:padding="5dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_nohoft_icons_arrow_back"
+            app:layout_constraintBottom_toBottomOf="@id/profile_picture"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <TextView
-                android:id="@+id/nickname_text_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginVertical="@dimen/padding_quarter"
-                android:text="@string/nickname"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textAlignment="viewStart"
-                app:layout_constraintStart_toEndOf="@+id/nickname_status_container" />
-            <LinearLayout
-                android:id="@+id/status_container"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/padding_standard"
-                android:layout_marginVertical="@dimen/padding_quarter"
-                android:gravity="end"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@id/nickname_text_view"
-                app:layout_constraintTop_toTopOf="parent">
-                <TextView
-                    android:id="@+id/status_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/padding_standard"
-                    android:text="@string/friend_status_default"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-                <ImageView
-                    android:id="@+id/status_icon_image_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/padding_standard"
-                    android:padding="@dimen/padding_quarter"
-                    app:srcCompat="@drawable/status_icon_default" />
-            </LinearLayout>
+            app:layout_constraintTop_toTopOf="@id/profile_picture"
+            android:contentDescription="@string/return_button" />
 
-        </LinearLayout>
-        <EditText
-            android:id="@+id/friend_name_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/royalBlueDark"
-            android:textSize="24sp"
-            android:paddingHorizontal="@dimen/padding_quarter"
-            app:layout_constraintEnd_toEndOf="@id/friend_info_container"
-            app:layout_constraintStart_toStartOf="@id/friend_info_container"
-            app:layout_constraintTop_toBottomOf="@id/nickname_status_container"
-            android:background="@drawable/btn_bkgd_white_8"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/profile_picture"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginStart="25dp"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:contentDescription="@string/logo_image"-->
+<!--            app:layout_constraintStart_toEndOf="@id/button_back"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@drawable/ic_nahoft_icons_profile_picture" />-->
+
         <TextView
-            android:id="@+id/friend_info_name_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/unknown_label"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@id/friend_info_container"
-            app:layout_constraintStart_toStartOf="@id/friend_info_container"
-            app:layout_constraintTop_toBottomOf="@id/nickname_status_container" />
-        <Button
-            android:id="@+id/verification_code_button"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:paddingHorizontal="@dimen/padding_quarter"
-            android:layout_marginTop="@dimen/padding_doubled"
-            android:layout_marginBottom="@dimen/padding_half"
-            android:background="@drawable/btn_bkgd_green_outline_8"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:text="@string/verification_code"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/button_text_color_light"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/friend_info_container"
-            app:layout_constraintTop_toBottomOf="@id/nickname_status_container" />
+            android:id="@+id/profile_picture"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:text="N"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:background="@drawable/bkgd_circle_white_56"
+            android:contentDescription="@string/logo_image"
+            app:layout_constraintStart_toEndOf="@id/button_back"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/edit_or_save_button"
+        <TextView
+            android:id="@+id/tv_friend_name"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:paddingHorizontal="@dimen/padding_quarter"
-            android:layout_marginTop="@dimen/padding_doubled"
-            android:layout_marginBottom="@dimen/padding_half"
-            android:background="@drawable/transparent_overlay_radius_8_edit"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:contentDescription="@string/edit_friend_button"
-            android:text="@string/edit_button"
-            android:textAllCaps="false"
-            android:textColor="@color/button_text_color_light"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@id/friend_info_container"
-            app:layout_constraintTop_toBottomOf="@id/nickname_status_container"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/friendNameRecyclerView"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/profile_picture"
+            app:layout_constraintStart_toEndOf="@id/profile_picture"
+            app:layout_constraintTop_toTopOf="@id/profile_picture" />
+
+        <ImageView
+            android:id="@+id/status_icon_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_picture"
+            app:layout_constraintEnd_toEndOf="@+id/profile_picture"
+            app:srcCompat="@drawable/status_icon_default"
+            android:contentDescription="@string/status_icon" />
+
+        <ImageView
+            android:id="@+id/verified_status_icon_image_view"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_picture"
+            app:layout_constraintEnd_toEndOf="@+id/profile_picture"
+            app:srcCompat="@drawable/ic_nahoft_icons_verify"
+            android:contentDescription="@string/status_icon" />
+
+        <ImageButton
+            android:id="@+id/btn_import_text"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:background="@drawable/btn_bkgd_toolbar"
+            android:contentDescription="@string/import_text"
+            android:padding="8dp"
+            android:src="@drawable/ic_nahoft_icons_import_text"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_friend_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_friend_name" />
+
+        <ImageButton
+            android:id="@+id/btn_import_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/btn_bkgd_toolbar"
+            android:contentDescription="@string/import_image_hint"
+            android:src="@drawable/ic_nahoft_icons_import_image"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_friend_name"
+            app:layout_constraintEnd_toStartOf="@id/btn_import_text"
+            app:layout_constraintTop_toTopOf="@+id/tv_friend_name" />
+
+        <ImageButton
+            android:id="@+id/btn_help"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/btn_bkgd_toolbar"
+            android:contentDescription="@string/import_image_hint"
+            android:src="@drawable/ic_nahoft_icons_question"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_friend_name"
+            app:layout_constraintEnd_toStartOf="@id/btn_resend_invite"
+            app:layout_constraintTop_toTopOf="@+id/tv_friend_name" />
+
+        <ImageButton
+            android:id="@+id/btn_resend_invite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/btn_bkgd_toolbar"
+            android:contentDescription="@string/resend_invitation"
+            android:src="@drawable/ic_nahoft_icons_share"
+            android:padding="5dp"
+            android:visibility="invisible"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_friend_name"
+            app:layout_constraintEnd_toStartOf="@id/btn_import_image"
+            app:layout_constraintTop_toTopOf="@+id/tv_friend_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <FrameLayout
+        android:id="@+id/frame_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignBottom="@+id/header_section"
+        app:layout_constraintBottom_toTopOf="@id/send_message_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_section" />
+
+    <ImageButton
+        android:id="@+id/share_as_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/transparent_overlay_send_message"
+        android:contentDescription="@string/send_as_image"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_nahoft_icons_share_image"
+        app:layout_constraintStart_toStartOf="@+id/send_message_container"
+        app:layout_constraintTop_toBottomOf="@+id/frame_placeholder" />
+
+    <ImageButton
+        android:id="@+id/save_as_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/transparent_overlay_send_message"
+        android:contentDescription="@string/send_as_image"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_nahoft_icons_save"
+        app:layout_constraintStart_toStartOf="@+id/send_message_container"
+        app:layout_constraintTop_toTopOf="@+id/send_message_container" />
+
+    <LinearLayout
+        android:id="@+id/send_message_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/padding_half"
-        app:layout_constraintTop_toBottomOf="@+id/friend_info_container">
-        <Button
-            android:id="@+id/invite_button"
-            android:layout_width="144dp"
-            android:layout_height="32dp"
-            android:background="@drawable/btn_bkgd_blue_56"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:contentDescription="@string/invite_button"
-            android:text="@string/invite_button"
-            android:textAllCaps="false"
-            android:textColor="@color/button_text_color_light"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <Button
-            android:id="@+id/verify_button"
-            android:layout_width="144dp"
-            android:layout_height="32dp"
-            android:background="@drawable/btn_bkgd_green_56"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:contentDescription="@string/verify_button"
-            android:text="@string/verify_button"
-            android:textAllCaps="false"
-            android:textColor="@color/button_text_color_light"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-        <Button
-            android:id="@+id/decline_button"
-            android:layout_width="144dp"
-            android:layout_height="32dp"
-            android:background="@drawable/btn_bkgd_orange_56"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:contentDescription="@string/decline_button"
-            android:text="@string/decline_button"
-            android:textAllCaps="false"
-            android:textColor="@color/button_text_color_light"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_margin="20dp"
+        android:background="@drawable/transparent_overlay_send_message"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <Button
-            android:id="@+id/import_invitation_button"
-            android:layout_width="144dp"
-            android:layout_height="32dp"
-            android:background="@drawable/btn_bkgd_blue_56"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:contentDescription="@string/import_text_label"
-            android:text="@string/import_invitation_button"
-            android:textAllCaps="false"
-            android:textColor="@color/button_text_color_light"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/verified_buttons_container"
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/send_as_image"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-            <Button
-                android:id="@+id/send_message_button"
-                android:layout_width="96dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/padding_half"
-                android:padding="@dimen/padding_half"
-                android:background="@drawable/btn_bkgd_purple_8"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:contentDescription="@string/send_message"
-                android:text="@string/send_message"
-                android:textAllCaps="false"
-                android:textColor="@color/button_text_color_light"
-                android:textSize="16sp" />
+            android:background="@drawable/transparent_overlay_send_message"
+            android:contentDescription="@string/send_as_image"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="20dp"
+            android:src="@drawable/ic_nahoft_icons_camera" />
 
-            <Button
-                android:id="@+id/import_image_button"
-                android:layout_width="96dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/padding_half"
-                android:layout_marginRight="@dimen/padding_half"
-                android:background="@drawable/btn_bkgd_green_8"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:contentDescription="@string/button_label_import_image"
-                android:text="@string/button_label_import_image"
-                android:textAllCaps="false"
-                android:textColor="@color/button_text_color_light"
-                android:textSize="16sp" />
+        <EditText
+            android:id="@+id/message_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/transparent_overlay_send_message"
+            android:hint="@string/type_your_message" />
 
-            <Button
-                android:id="@+id/import_text_button"
-                android:layout_width="96dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/padding_half"
-                android:background="@drawable/btn_bkgd_green_8"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:contentDescription="@string/import_text"
-                android:text="@string/import_text_label"
-                android:textAllCaps="false"
-                android:textColor="@color/button_text_color_light"
-                android:textSize="16sp" />
-        </LinearLayout>
-        <TextView
-            android:id="@+id/status_description_text_view"
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/send_as_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_doubled"
-            android:fontFamily="@font/open_sans_italic"
-            android:text="@string/button_descriptions"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/verified_buttons_container" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-     </LinearLayout>
-    <Button
-        android:id="@+id/delete_friend_button"
-        android:layout_width="152dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="@dimen/padding_standard"
-        android:background="@drawable/btn_bkgd_red_56"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:contentDescription="@string/delete_friend_button"
-        android:text="@string/delete_friend_button"
-        android:textAllCaps="false"
-        android:textColor="@color/button_text_color_light"
-        android:textSize="18sp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+            android:layout_margin="8dp"
+            android:background="@drawable/btn_bkgd_send_message"
+            android:contentDescription="@string/send_message"
+            android:padding="18dp"
+            android:src="@drawable/ic_nahoft_icons_send_message" />
 
-</android.widget.RelativeLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/imageImportProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

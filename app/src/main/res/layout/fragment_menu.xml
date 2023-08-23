@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.MenuFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_gravity="center"
+                android:hint="@string/nickname"
+                app:hintTextColor="@color/royalBlueDark"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/enter_name_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/btn_bkgd_white_8"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:maxLength="32"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textAlignment="viewStart"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+    <!--        <ImageButton-->
+    <!--            android:id="@+id/save_name_button"-->
+    <!--            android:layout_width="32dp"-->
+    <!--            android:layout_height="32dp"-->
+    <!--            android:scaleType="fitCenter"-->
+    <!--            android:layout_gravity="center"-->
+    <!--            android:background="@color/transparentOverlayColor"-->
+    <!--            android:src="@drawable/ic_nahoft_icons_check"-->
+    <!--            android:contentDescription="@string/edit_button" />-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_gravity="center"
+                android:hint="@string/phone_number_optional"
+                app:hintTextColor="@color/royalBlueDark"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/enter_phone_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/btn_bkgd_white_8"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textAlignment="viewStart"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+    <!--        <ImageButton-->
+    <!--            android:id="@+id/save_phone_button"-->
+    <!--            android:layout_width="32dp"-->
+    <!--            android:layout_height="32dp"-->
+    <!--            android:scaleType="fitCenter"-->
+    <!--            android:layout_gravity="center"-->
+    <!--            android:background="@color/transparentOverlayColor"-->
+    <!--            android:src="@drawable/ic_nahoft_icons_check"-->
+    <!--            android:contentDescription="@string/edit_button" />-->
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/btn_bkgd_blue_8"
+            android:textColor="@color/white"
+            android:layout_margin="8dp"
+            android:drawablePadding="20dp"
+            android:text="@string/button_label_save" />
+
+        <LinearLayout
+            android:id="@+id/user_public_key_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bkgd_code_view"
+            android:padding="10dp"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:id="@+id/user_public_key_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/your_code"
+                android:textStyle="bold"
+                android:textAlignment="viewStart"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/user_public_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/your_code"
+                android:textAlignment="gravity"
+                android:gravity="right"
+                android:textSize="20sp"
+                tools:ignore="RtlHardcoded" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bkgd_code_view"
+            android:padding="10dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/friend_public_key_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/friend_s_code"
+                android:textStyle="bold"
+                android:textAlignment="viewStart"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/friend_public_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/friend_s_code"
+                android:textAlignment="gravity"
+                android:gravity="right"
+                android:textSize="20sp"
+                tools:ignore="RtlHardcoded" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/decline_button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/btn_bkgd_red_56"
+                android:src="@drawable/ic_nahoft_icons_decline"
+                android:padding="15dp"
+                android:layout_marginHorizontal="30dp"
+                android:elevation="10dp"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/decline_button" />
+
+            <ImageButton
+                android:id="@+id/approve_button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/btn_bkgd_blue_circle"
+                android:src="@drawable/ic_nahoft_icons_approve"
+                android:padding="15dp"
+                android:elevation="10dp"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/alert_text_invitation_accepted" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

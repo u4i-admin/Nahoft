@@ -4,12 +4,19 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Parcelable
+import android.provider.Settings
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_log_in.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
+import org.nahoft.nahoft.LoginStatus
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.Persist.Companion.clearAllData
 import org.nahoft.nahoft.Persist.Companion.sharedPrefFailedLoginAttemptsKey
@@ -19,10 +26,14 @@ import org.nahoft.nahoft.Persist.Companion.sharedPrefSecondaryPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.nahoft.R
 import org.nahoft.util.showAlert
+import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 
 class LogInActivity : AppCompatActivity()
 {
+    private lateinit var executor: Executor
+    private lateinit var biometricPrompt: BiometricPrompt
+    private lateinit var promptInfo: BiometricPrompt.PromptInfo
 
     private var failedLoginAttempts = 0
     private var lastFailedLoginTimeMillis: Long? = null
@@ -54,6 +65,7 @@ class LogInActivity : AppCompatActivity()
         // Load status from preferences
         getStatus()
         tryLogIn(status)
+        setupDeviceCredentials()
 
         login_button.setOnClickListener {
             this.handleLoginPress()
@@ -101,7 +113,27 @@ class LogInActivity : AppCompatActivity()
                 lastFailedLoginTimeMillis = savedTimeStamp
             }
 
-            verifyCode(enteredPasscode)
+            biometricPrompt = BiometricPrompt(this, executor,
+                object : BiometricPrompt.AuthenticationCallback() {
+                    override fun onAuthenticationError(errorCode: Int,
+                                                       errString: CharSequence) {
+                        super.onAuthenticationError(errorCode, errString)
+                        showAlert("Authentication error: $errString")
+                    }
+
+                    override fun onAuthenticationSucceeded(
+                        result: BiometricPrompt.AuthenticationResult) {
+                        super.onAuthenticationSucceeded(result)
+                        verifyCode(enteredPasscode)
+                    }
+
+                    override fun onAuthenticationFailed() {
+                        super.onAuthenticationFailed()
+                        showAlert("Authentication failed")
+                    }
+                })
+
+            biometricPrompt.authenticate(promptInfo)
         }
     }
 
@@ -148,16 +180,14 @@ class LogInActivity : AppCompatActivity()
                 val extraString = intent.getStringExtra(Intent.EXTRA_TEXT)
                 val extraStream = intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM)
 
+                val homeActivityIntent = Intent(this, HomeActivity::class.java)
                 when {
                     extraString != null // Check to see if we received a string message share
                     -> {
                         try
                         {
                             // Received string message
-                            val importTextActivityIntent = Intent(this, ImportTextActivity::class.java)
-                            importTextActivityIntent.putExtra(Intent.EXTRA_TEXT, extraString)
-                            startActivity(importTextActivityIntent)
-                            return
+                            homeActivityIntent.putExtra(Intent.EXTRA_TEXT, extraString)
                         }
                         catch (e: Exception)
                         {
@@ -167,28 +197,20 @@ class LogInActivity : AppCompatActivity()
                     }
                     extraStream != null // See if we received an image message share
                     -> {
-                        try
-                        {
-                            val importImageActivityIntent = Intent(this, ImportImageActivity()::class.java)
-                            importImageActivityIntent.putExtra(Intent.EXTRA_STREAM, extraStream)
-                            startActivity(importImageActivityIntent)
-                        }
-                        catch (e: NullPointerException) {
+                        try {
+                            homeActivityIntent.putExtra(Intent.EXTRA_STREAM, extraStream)
+                        } catch (e: NullPointerException) {
                             // Something went wrong, don't share this extra
                         }
-
-                    }
-                    else -> {
-                        val homeActivityIntent = Intent(this, HomeActivity::class.java)
-                        startActivity(homeActivityIntent)
                     }
                 }
+                startActivity(homeActivityIntent)
             }
 
             // Destruction code entered delete user data
             LoginStatus.SecondaryLogin ->
             {
-                clearAllData()
+                clearAllData(true)
                 startActivity(Intent(this, HomeActivity::class.java))
             }
 
@@ -257,7 +279,7 @@ class LogInActivity : AppCompatActivity()
             println("Failed Login $failedLoginAttempts times, all information has been erased")
 
             //Delete everything like you would if user had entered a secondary passcode.
-            clearAllData()
+            clearAllData(false)
             startActivity(Intent(this, HomeActivity::class.java))
 
         } else if (failedLoginAttempts == 8) {
@@ -272,7 +294,7 @@ class LogInActivity : AppCompatActivity()
             showAlert(getString(R.string.alert_text_sixth_login_attempt))
             println("Failed Login $failedLoginAttempts times, 1 minute timeout")
 
-        } else if (failedLoginAttempts <= 5 && failedLoginAttempts > 0) {
+        } else if (failedLoginAttempts in 1..5) {
             showAlert(getString(R.string.alert_text_zero_to_five_login_attempts))
             println("Failed Login $failedLoginAttempts times")
 
@@ -292,7 +314,7 @@ class LogInActivity : AppCompatActivity()
             //This should never happen all data should have already been deleted when the login failed the final time.
             //Delete everything like you would if user had entered a secondary passcode.
             showAlert(getString(R.string.alert_text_ninth_login_attempt))
-            clearAllData()
+            clearAllData(false)
             startActivity(Intent(this, HomeActivity::class.java))
 
             return false
@@ -333,14 +355,14 @@ class LogInActivity : AppCompatActivity()
     {
         passcodeEditText.text.clear()
     }
-}
 
-    enum class LoginStatus {
-
-        NotRequired,
-        LoggedIn,
-        LoggedOut,
-        SecondaryLogin,
-        FailedLogin,
+    private fun setupDeviceCredentials() {
+        executor = ContextCompat.getMainExecutor(this)
+        promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.login_using_device_credentials))
+            .setSubtitle(getString(R.string.biometrics_pin_password_pattern))
+            .setAllowedAuthenticators(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)
+            .build()
     }
+}
 

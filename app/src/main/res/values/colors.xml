@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--   color for the app bar and other primary UI elements -->
-    <color name="royalBlueDark">#002066</color>
+    <color name="royalBlueDark">#006DF1</color>
     <color name="transparentOverlayColor">#33FFFFFF</color>
     
     <!-- colors to be used for new UI refresh -->
@@ -23,4 +23,9 @@
     <color name="colorAccent">@color/caribbeanGreen</color>
     <color name="colorHintText">#FFC7D4EC</color>
     <color name="black">#000000</color>
+
+    <color name="blue">#5879EE</color>
+    <color name="transparentWhiteColor">#77FFFFFF</color>
+    <color name="transparentWhiterColor">#55FFFFFF</color>
+    <color name="background">#f7f7f7</color>
 </resources>

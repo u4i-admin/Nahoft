@@ -1,142 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
-    android:background="@color/royalBlueDark"
+    android:background="@color/background"
     android:filterTouchesWhenObscured="true"
     tools:context=".activities.HomeActivity">
 
-    <ImageView
-        android:id="@+id/nahoft_message_bottle"
-        android:layout_width="104dp"
-        android:layout_height="104dp"
-        android:layout_marginTop="72dp"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/ic_nahoft_logo_transparent"
-        tools:ignore="ContentDescription" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header_section"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/bkgd_header_main_page"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/nahoft_message_bottle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/logo_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_nahoft_logo_transparent" />
+
+        <TextView
+            android:id="@+id/tv_messages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:text="@string/friends_list"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/nahoft_message_bottle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/nahoft_message_bottle" />
 
-            <Button
-                android:id="@+id/read_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/read_button_description"
-                android:background="@drawable/btn_bkgd_green_home"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:drawableLeft="@drawable/ic_nahoft_icons_read"
-                android:paddingHorizontal="@dimen/padding_quarter"
-                android:textColor="@color/button_text_color_light"
-                android:textSize="24sp"
-                android:textAllCaps="false"
-                android:text="@string/button_label_read"
-                style="?android:attr/buttonBarButtonStyle"
-                tools:ignore="RtlHardcoded" />
+        <ImageButton
+            android:id="@+id/settings_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:scaleType="fitCenter"
+            android:padding="10dp"
+            android:background="@drawable/btn_bkgd_toolbar"
+            android:contentDescription="@string/settings_activity_label"
+            android:src="@drawable/ic_nahoft_icons_setting"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_messages"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_messages" />
 
-            <Button
-                android:id="@+id/create_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/read_button_description"
-                android:drawableRight="@drawable/ic_nahoft_icons_create"
-                android:paddingHorizontal="@dimen/padding_quarter"
-                android:background="@drawable/btn_bkgd_purple_home"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:textColor="@color/button_text_color_light"
-                android:textSize="24sp"
-                android:textAllCaps="false"
-                android:text="@string/button_label_create"
-                style="?android:attr/buttonBarButtonStyle"
-                tools:ignore="RtlHardcoded" />
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/user_guide_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:scaleType="fitCenter"
+            android:padding="11dp"
+            android:background="@drawable/btn_bkgd_toolbar"
+            android:contentDescription="@string/user_guide_button_description"
+            android:src="@drawable/ic_nahoft_icons_question"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_messages"
+            app:layout_constraintEnd_toStartOf="@id/settings_button"
+            app:layout_constraintTop_toTopOf="@+id/tv_messages" />
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/search_friends"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginVertical="@dimen/padding_three_quarters"
-            android:layout_above="@id/logout_button"
-            android:orientation="horizontal">
+            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            android:background="@drawable/btn_bkgd_search_edit_text"
+            android:drawableStart="@drawable/ic_nahoft_icons_search"
+            android:drawablePadding="10dp"
+            android:inputType="textPersonName"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="@dimen/padding_half"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_messages"
+            tools:ignore="LabelFor" />
 
-            <Button
-                android:id="@+id/friends_button"
-                android:layout_width="104dp"
-                android:layout_height="104dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/friends_button_description"
-                android:drawableTop="@drawable/ic_nahoft_icons_friends"
-                android:fontFamily="@font/open_sans"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="@string/button_label_friends"
-                android:textAllCaps="false"
-                android:textColor="@color/button_text_color_light"
-                android:textSize="18sp"
-                style="?android:attr/buttonBarButtonStyle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
-                android:id="@+id/user_guide_button"
-                android:layout_width="104dp"
-                android:layout_height="104dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/user_guide_button_description"
-                android:drawableTop="@drawable/ic_nahoft_icons_help"
-                android:fontFamily="@font/open_sans"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="@string/button_label_help"
-                android:textAllCaps="false"
-                android:textColor="@color/button_text_color_light"
-                android:textSize="18sp"
-                style="?android:attr/buttonBarButtonStyle" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/friendsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="10dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@id/logout_button"
+        app:layout_constraintTop_toBottomOf="@+id/header_section" />
 
-            <Button
-                android:id="@+id/settings_button"
-                android:layout_width="104dp"
-                android:layout_height="104dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/settings_button_description"
-                android:drawableTop="@drawable/ic_nahoft_icons_settings"
-                android:fontFamily="@font/open_sans"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="@string/button_label_settings"
-                android:textAllCaps="false"
-                android:textColor="@color/button_text_color_light"
-                android:textSize="18sp"
-                style="?android:attr/buttonBarButtonStyle" />
+    <TextView
+        android:id="@+id/help_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/bkgd_code_view"
+        android:padding="25dp"
+        android:text="@string/to_import_or_create_a_new_friend_help"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/help_imageview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        </LinearLayout>
+    <ImageView
+        android:id="@+id/help_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="80"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_nahoft_icons_arrows_import_image"
+        app:layout_constraintBottom_toTopOf="@+id/add_friend_button"
+        app:layout_constraintEnd_toStartOf="@+id/add_friend_button" />
 
     <Button
         android:id="@+id/logout_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginVertical="@dimen/padding_three_quarters"
-        android:background="@android:color/transparent"
-        android:drawableEnd="@drawable/ic_nahoft_icons_logout"
-        android:drawablePadding="@dimen/padding_standard"
-        android:fontFamily="@font/open_sans"
+        android:background="@drawable/bkgd_blue_rect"
+        android:drawableRight="@drawable/ic_nahoft_icons_logout"
+        android:drawablePadding="20dp"
+        android:paddingRight="150dp"
         android:text="@string/button_label_logout"
-        android:textAllCaps="false"
-        android:textColor="@color/button_text_color_light"
-        android:textSize="18sp" />
+        android:textAlignment="textEnd"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/homeProgressBar"
-        android:layout_gravity="center_horizontal"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_friend_manually_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="invisible" />
+        android:backgroundTint="@color/royalBlueDark"
+        android:contentDescription="@string/add_contact"
+        android:src="@drawable/ic_nahoft_icons_manual_register"
+        app:elevation="6dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@+id/add_friend_button"
+        app:layout_constraintEnd_toEndOf="@+id/add_friend_button"
+        app:layout_constraintStart_toStartOf="@+id/add_friend_button"
+        app:layout_constraintTop_toTopOf="@+id/add_friend_button"
+        app:maxImageSize="18dp" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/add_friend_manually_button_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_user_manually"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@id/add_friend_manually_button"
+        app:layout_constraintBottom_toBottomOf="@id/add_friend_manually_button"
+        app:layout_constraintEnd_toStartOf="@+id/add_friend_button" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_friend_contact_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/royalBlueDark"
+        android:contentDescription="@string/add_contact"
+        android:src="@drawable/ic_nahoft_icons_contact"
+        app:elevation="6dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@+id/add_friend_button"
+        app:layout_constraintEnd_toEndOf="@+id/add_friend_button"
+        app:layout_constraintStart_toStartOf="@+id/add_friend_button"
+        app:layout_constraintTop_toTopOf="@+id/add_friend_button"
+        app:maxImageSize="18dp" />
+
+    <TextView
+        android:id="@+id/add_friend_contact_button_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_user_from_contact_list"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@id/add_friend_contact_button"
+        app:layout_constraintBottom_toBottomOf="@id/add_friend_contact_button"
+        app:layout_constraintEnd_toStartOf="@+id/add_friend_button" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_friend_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/logout_button"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/royalBlueDark"
+        android:contentDescription="@string/add_contact"
+        android:src="@drawable/ic_nahoft_icons_plus"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/friendsRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="12dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

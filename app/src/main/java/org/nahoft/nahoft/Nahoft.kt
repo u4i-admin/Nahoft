@@ -6,12 +6,12 @@ import android.os.CountDownTimer
 import androidx.lifecycle.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.nahoft.Persist.Companion.status
-import org.nahoft.nahoft.activities.LoginStatus
+import org.nahoft.nahoft.LoginStatus
 
 class Nahoft: Application(), LifecycleObserver {
 
-    // Set Logout Timer to 3 minutes.
-    private val logoutTimer = object: CountDownTimer(180000, 1000) {
+    // Set Logout Timer to 5 minutes.
+    private val logoutTimer = object: CountDownTimer(300000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             // stub
         }
@@ -27,6 +27,7 @@ class Nahoft: Application(), LifecycleObserver {
             sendBroadcast(Intent().apply {
                 action = LOGOUT_TIMER_VAL
             })
+            stopService(Intent(applicationContext, UpdateService::class.java))
         }
     }
 

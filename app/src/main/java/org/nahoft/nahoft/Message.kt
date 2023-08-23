@@ -25,16 +25,20 @@ data class Message constructor(
     @param:Element(name = "cipherText")
     var cipherText: ByteArray,
 
+    @field:Element(name = "from-me", required = false)
+    @param:Element(name = "from-me", required = false)
+    var fromMe: Boolean,
+
     @field:Element(name = "sender", required = false)
     @param:Element(name = "sender", required = false)
     var sender: Friend? = null
-
 ) : Serializable
 {
-    constructor(cipherText: ByteArray, sender: Friend) : this(
+    constructor(cipherText: ByteArray, sender: Friend, fromMe: Boolean) : this(
         timestampString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd", Locale.getDefault())),
         timestamp = Calendar.getInstance(),
         cipherText,
+        fromMe,
         sender)
 
     override fun equals(other: Any?): Boolean
@@ -81,11 +85,11 @@ data class Message constructor(
 
     fun getDateStringForDetail(): String
     {
+        val dateFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
+        val timeString = dateFormat.format(timestamp.time)
         if (DateUtils.isToday(timestamp.timeInMillis))
         {
-            val dateFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
-            val timeString = dateFormat.format(timestamp.time)
-            return "Today " + timeString
+            return "Today $timeString"
         }
         else
         {
@@ -94,15 +98,10 @@ data class Message constructor(
             val yesterdayDate = yesterday.get(Calendar.DATE)
             val todayDate = timestamp.get(Calendar.DATE)
 
-            if (yesterdayDate == todayDate)
-            {
-                val dateFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
-                val timeString = dateFormat.format(timestamp.time)
-                return "Yesterday" + timeString
-            }
-            else
-            {
-                return timestampString
+            return if (yesterdayDate == todayDate) {
+                "Yesterday $timeString"
+            } else {
+                "$timestampString $timeString"
             }
         }
     }

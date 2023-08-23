@@ -6,22 +6,43 @@
     android:layout_height="48dp"
     android:layoutDirection="ltr"
     android:layout_marginVertical="@dimen/padding_half"
-    android:filterTouchesWhenObscured="true"
-    android:background="@drawable/transparent_overlay_radius_8">
+    android:filterTouchesWhenObscured="true">
+
+<!--    <ImageView-->
+<!--        android:id="@+id/friend_picture"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable/ic_nahoft_icons_profile_picture"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:contentDescription="@string/profile_picture" />-->
+
+    <TextView
+        android:id="@+id/friend_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="N"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:background="@drawable/bkgd_circle_white_56"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/profile_picture" />
 
     <TextView
         android:id="@+id/friend_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:layout_marginStart="@dimen/padding_standard"
         android:text="@string/friendNameRecyclerView"
-        android:textColor="@android:color/white"
+        android:layout_marginStart="10dp"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/friend_picture"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/status_text_view"
@@ -29,7 +50,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
         android:textSize="15sp"
-        android:textColor="@color/white"
         android:text="@string/friend_status_default"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -59,6 +59,7 @@
     <string name="alert_text_which_friend_sent_this_message">Which friend sent this message?</string>
     <string name="alert_text_which_friend_sent_this_invitation">Which friend sent this invitation?</string>
     <string name="alert_text_friend_already_exists">You already have a friend with this name.</string>
+    <string name="alert_text_friend_phone_already_exists">You already have a friend with this phone number.</string>
     <string name="alert_text_unable_to_process_request">Something went wrong. We were unable to process your request.</string>
     <string name="paste_message_for_import_hint">Paste your text here…</string>
     <string name="button_label_import_image">Import Image</string>
@@ -303,7 +304,7 @@ After pressing this (+) sign, you must first enter your friend\'s name. You can 
     <string name="button_label_reset">Reset</string>
     <string name="button_label_english" translatable="false">English</string>
     <string name="button_label_persian" translatable="false">فارسی</string>
-    <string name="alert_text_confirm_friend_delete">Are you sure?</string>
+    <string name="alert_text_confirm_friend_delete">Are you sure to delete %1$s?</string>
     <string name="button_label_cancel">Cancel</string>
     <string name="user_guide_button_description">This button will take you to the user guides.</string>
     <string name="settings_button_description">This button will take you to the settings menu.</string>
@@ -397,5 +398,219 @@ After pressing this (+) sign, you must first enter your friend\'s name. You can 
     <string name="from_with_colon">From:</string>
     <string name="alert_passcode_saved">Your passcode has been saved.</string>
     <string name="alert_destruction_code_saved">Your destruction code has been saved.</string>
+    <string name="large_text" translatable="false">
+        "Material is the metaphor.\n\n"
 
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+        "Bold, graphic, intentional.\n\n"
+
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
+
+        "Motion provides meaning.\n\n"
+
+        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+        "inflection points that initiate motion, transforming the whole design.\n"
+        "All action takes place in a single environment. Objects are presented to the user without "
+        "breaking the continuity of experience even as they transform and reorganize.\n"
+        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+
+        "3D world.\n\n"
+
+        "The material environment is a 3D space, which means all objects have x, y, and z "
+        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+        "position along the z-axis and has a standard 1dp thickness.\n"
+        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+        "emulated by manipulating the y-axis.\n\n"
+
+        "Light and shadow.\n\n"
+
+        "Within the material environment, virtual lights illuminate the scene. Key lights create "
+        "directional shadows, while ambient light creates soft shadows from all angles.\n"
+        "Shadows in the material environment are cast by these two light sources. In Android "
+        "development, shadows occur when light sources are blocked by sheets of material at "
+        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+
+        "Resting elevation.\n\n"
+
+        "All material objects, regardless of size, have a resting elevation, or default elevation "
+        "that does not change. If an object changes elevation, it should return to its resting "
+        "elevation as soon as possible.\n\n"
+
+        "Component elevations.\n\n"
+
+        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "does not vary from 6dp in one app to 16dp in another app).\n"
+        "Components may have different resting elevations across platforms, depending on the depth "
+        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+
+        "Responsive elevation and dynamic elevation offsets.\n\n"
+
+        "Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "changes are consistently implemented using dynamic elevation offsets.\n"
+        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+        "to the component’s resting state. They ensure that elevation changes are consistent "
+        "across actions and component types. For example, all components that lift on press have "
+        "the same elevation change relative to their resting elevation.\n"
+        "Once the input event is completed or cancelled, the component will return to its resting "
+        "elevation.\n\n"
+
+        "Avoiding elevation interference.\n\n"
+
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
+    </string>
+    <string name="logo_image">Logo Image</string>
+    <string name="messages">MESSAGES</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="type_your_message">Type Your Message</string>
+    <string name="return_button">Return Button</string>
+    <string name="status_icon">Status Icon</string>
+    <string name="resend_invitation">Resend invitation</string>
+    <string name="send_as_image">Send As Image</string>
+
+    <!-- V2 -->
+    <string name="destructionCodeDescription">You can set a destruction code for your app. If you use this code for login, all data in the app will purge, and then it will show the main page of the app</string>
+    <string name="get_started">Get Started</string>
+    <string name="skip">Skip</string>
+    <string name="what_is_nahoft">What is Nahoft?</string>
+    <string name="what_is_nahoft_description">Nahoft is not a messenger, but a tool for encrypting messages</string>
+    <string name="send_encrypted_messages">Send encrypted messages as text or image</string>
+    <string name="send_encrypted_messages_description">You can encrypt your messages and send them as text (random words) or image (choose any image from your device gallery)</string>
+    <string name="fully_offline">Fully offline</string>
+    <string name="fully_offline_description">It is not using any server to send or receive or encrypt your messages</string>
+    <string name="passcode_for_login">Passcode for login</string>
+    <string name="passcode_for_login_description">You can set a passcode for login</string>
+    <string name="passcode_description">By activating the "Password" option, you can define a six-digit password that you will need every time you log in to Nahoft. By activating the password feature, at the bottom of the main screen, the "Logout" option will be activated.</string>
+    <string name="destruction_code_description">By enabling the "Destruction code" option, you define a six-digit password that will be used to destroy all information stored inside the app, including deleting messages and friend lists. \n You will use this password in emergency situations so that the people you don’t want can’t have access to your information.</string>
+    <string name="close">Close</string>
+    <string name="logout_description">The option to log out will only be displayed if you have set a "password." By clicking on this option, you will immediately get logged out of Nahoft. If you don\'t use the logout option, Nahoft will lock itself after a few minutes of inactivity, and you will need your password to enter it.</string>
+    <string name="use_sms_as_default">Use SMS as default</string>
+    <string name="use_sms_as_default_description">By enabling this option, Nahoft automatically sends encrypted messages via SMS to your desired contact, and upon receiving an encrypted message via SMS, it decrypts the message for you within the Nahoft app automatically.</string>
+    <string name="use_sms_as_default_full_description">By enabling this option, Nahoft automatically sends encrypted messages via SMS to your desired contact, and upon receiving an encrypted message via SMS, it decrypts the message for you within the Nahoft app automatically. \n We have added this option for the convenience of Nahoft users. Please note that to use this feature, your contacts must have phone numbers, and if you intend to send encrypted text as images, the MMS feature of your phone line should be activated. \n If you decide not to use this feature, we assume that you are an advanced user and have the ability to decrypt manually received messages and send encrypted messages manually. For a guide on sending and receiving messages manually, please refer to the Chat section\'s guide.</string>
+    <string name="default_fragment_text">No public key has been exchanged between you and %s yet. \n\n Please click the button below to submit your public key.</string>
+    <string name="invited_fragment_text">You have sent your public key to %s and are now awaiting their public key in return. \n\n Once you receive their public key, a secure connection will be established.</string>
+    <string name="requested_fragment_text">%s has sent you their public key; \n\n to complete the secure connection between you and %s you must send your public key to them.</string>
+    <string name="your_code">Your Code:</string>
+    <string name="friend_s_code">Friend\'s Code:</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="sample_date_time">Yesterday 14:26 PM</string>
+    <string name="add_new_friend">Add New Friend</string>
+    <string name="phone_number_optional">Phone Number (Optional)</string>
+    <string name="select_sender">Select Sender</string>
+    <string name="sms_permission_needed">SMS Permission Needed</string>
+    <string name="read_contacts_permission_needed">Read contacts Permission Needed</string>
+    <string name="unable_to_send_sms">Unable to send SMS</string>
+    <string name="are_you_sure_to_delete">Are you sure to delete the message?</string>
+    <string name="import_encrypted_image_messages_using_this_button">Use this button to import encrypted image messages.</string>
+    <string name="import_encrypted_text_messages_using_this_button">Use this button to import encrypted text messages.</string>
+    <string name="send_encrypted_text_messages_using_this_button">Use this button to send encrypted text messages.</string>
+    <string name="send_encrypted_image_messages_using_this_button">Use this button to send encrypted image messages.</string>
+    <string name="friends_list">Friends list</string>
+    <string name="friends_list_description">Friends list description</string>
+    <string name="add_new_friend_description">To add a new friend; Click on the plus +  icon on home page. Two options will appear: \n Option 1: Add a new contact from the contact list. \n Option 2: Create a new contact.</string>
+    <string name="add_new_friend_full_description">To add a new friend; Click on the plus +  icon on home page. Two options will appear: \n Option 1: Add a new contact from the contact list. \n By selecting this option, you will be directed to the \"contact list.\" If you have given Nahoft permission to access your phone\'s contacts, you can choose the contact you wish to add to your friends list from there. \n Option 2: Create a new contact. \n By choosing this option, a new window will open where you can enter your friend\'s name and phone number. Adding a phone number is optional, but if you plan to use the \"Use SMS by default\" feature, it\'s important to include the phone number. Otherwise, you\'ll need to manually send and receive messages to contacts without their phone numbers. For instructions on manual messaging, refer to the Chat Help section.</string>
+    <string name="approve_friend">Approve friend</string>
+    <string name="approve_friend_description">Approve friend description</string>
+    <string name="approve_friend_full_description">Approve friend full description</string>
+    <string name="delete_friend_description">To delete a contact, follow these steps: \n Hold your finger on the name of the desired friend for a few seconds. \n After a few seconds, you will see a message asking if you are sure you want to delete your friend. By selecting the "Yes" option, your friend will be deleted.</string>
+    <string name="read_more">read more</string>
+    <string name="contact_list">Contact List</string>
+    <string name="add_new_user_from_contact_list">Add a contact from the list</string>
+    <string name="add_new_user_manually">Create a new contact</string>
+    <string name="to_import_or_create_a_new_friend_help">Click this button to add or create a new friend.</string>
+    <string name="sms_permission_second">By not granting SMS permission, it\'s important to know that you\'re considered an advanced user. This means you\'ll need to manually encrypt and decrypt messages. While you can still securely use Nahoft, the app won\'t automatically send or receive your encrypted messages through SMS. However, if you change your mind, you can always go to the settings and grant SMS permission.</string>
+    <string name="sms_permission_first">To enhance your experience with the Nahoft app, please grant permission to access your text messages (SMS). Your privacy and security are our priority, and Nahoft uses this access only to identify encrypted messages that you want Nahoft to decrypt.</string>
+    <string name="sms_permission">SMS Access</string>
+    <string name="accept">Accept</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
+    <string name="contact_permission_declined">Nahoft needs permission to display phone contacts here. If you don\'t want to grant this access, you can manually add the contact you want from the friends list section.</string>
+    <string name="nahofts_team">Nahoft\'s team</string>
+    <string name="nahofts_team_description">Iranian and non-Iranian experts with work experience in big tech companies came together and created Nahoft with the support of the United4Iran Organization.</string>
+    <string name="nahofts_usage">Nahoft\'s usage</string>
+    <string name="nahofts_usage_description">Keep your conversations private and secure with Nahoft, the end-to-end encrypted communication app.</string>
+    <string name="nahofts_features">Nahoft\'s features</string>
+    <string name="nahofts_features_description">A security layer for sending messages over insecure channels \n Fully offline. Nahoft operates without servers \n Destruction code. Instantly erase your data.</string>
+    <string name="copy">Copy</string>
+    <string name="copied">Copied</string>
+    <string name="contact_list_description">If you give Nahoft permission to see your phone contacts, you can find all the names and numbers of people you know. From there, you can select the individuals you want to include in your list of friends.</string>
+    <string name="add_new_contact">Add new contact</string>
+    <string name="delete_a_contact">Delete a contact</string>
+    <string name="edit_contact_name">Edit contact name</string>
+    <string name="edit_contact_name_description">To edit the name or phone number of your friend, follow these steps: \n Click once on the name of your friend to go to the chat page. \n Once inside the chat page, click again on the name of your friend. \n A new page will open where you can edit the name and phone number of your friend.</string>
+    <string name="default_status">Default status</string>
+    <string name="default_status_description">This status is displayed with a gray circle next to your friend\'s name. And it means that you have added your friend to your friend list but you have not sent your public key to him/her yet, nor has he/she sent you his/her public key.</string>
+    <string name="requested_status">Requested status</string>
+    <string name="requested_status_description">This status is displayed with an orange circle next to your friend\'s name. It means that your friend has sent you his/her public key and is now requesting that you send him/her your public key.</string>
+    <string name="approve_status">Approve status</string>
+    <string name="approve_status_description">This status is displayed with a blue circle next to your friend\'s name. It means the public key has been exchanged between you and your friend.</string>
+    <string name="verify_status">Verify status</string>
+    <string name="verify_status_description">This status is displayed with a green and white confirmation icon next to your friend\'s name. It means that a public key exchange has occurred between you and your friend, and you have securely verified through a trusted third party that your friend has indeed sent their public key and not someone else.</string>
+    <string name="verify_status_full_description">This status is displayed with a green and white confirmation icon next to your friend\'s name. It means that a public key exchange has occurred between you and your friend, and you have securely verified through a trusted third party that your friend has indeed sent their public key and not someone else.\n Once you are confident about this, you should proceed to the chat page. Click on your friend\'s name and select the \"Verified\" option. By selecting this option, your friend\'s status in Nahoft will change from green (Approve) to a green and white icon with a confirmation sign. This status represents the most secure state in Nahoft.</string>
+    <string name="manually_send_text">How to manually send encrypted text</string>
+    <string name="manually_send_text_description">To manually send an encrypted text, you need to follow these steps:\n1. Exchange public keys with your desired friend beforehand.\n2. Go to your friend\'s chat page and, at the bottom of the page, write your message in the \"type your message\" section, similar to any other messaging platform…</string>
+    <string name="manually_send_text_full_description">To manually send an encrypted text, you need to follow these steps:\n1. Exchange public keys with your desired friend beforehand.\n2. Go to your friend\'s chat page and, at the bottom of the page, write your message in the \"type your message\" section, similar to any other messaging platform.\n3. Press the send button. Immediately after sending the message, a popup will appear.\n4. Copy the encrypted text and send it to the intended person through any messaging platform you prefer.</string>
+    <string name="manually_import_text">How to manually receive encrypted text</string>
+    <string name="manually_import_text_description">To decrypt and read an encrypted text, you need to follow these steps:\n1. Make sure you know who sent the message and that you have previously exchanged public keys.\n2. Copy the received encrypted text…</string>
+    <string name="manually_import_text_full_description">To decrypt and read an encrypted text, you need to follow these steps:\n1. Make sure you know who sent the message and that you have previously exchanged public keys.\n2. Copy the received encrypted text.\n3. Go to the chat page of the person whose message you want to decrypt.\n4. Click on the import file icon located at the top right of the page. A window will open.\n5. Paste the text into the window and click the \"Insert Text\" option.\n6. The decrypted message will be readable on the chat page.</string>
+    <string name="automatically_import_send_text">How to automatically receive and send encrypted text</string>
+    <string name="automatically_import_send_text_description">To send and receive encrypted text automatically, you need to follow these two conditions:\nCondition 1: You know who sent the message, you have previously exchanged public keys, and you have saved the phone number of the other person…</string>
+    <string name="automatically_import_send_text_full_description">To send and receive encrypted text automatically, you need to follow these two conditions:\nCondition 1: You know who sent the message, you have previously exchanged public keys, and you have saved the phone number of the other person.\nCondition 2: In the settings section, enable the \"Use SMS as defalut\" option. For further explanations regarding this condition, refer to the settings guide section.\nAssuming you have met the above two conditions, when you receive an encrypted message via SMS, Nahoft automatically decrypts the message inside the chat page of both you and your friend. Simply go to the chat page with your friend and read the message.\nSending a message automatically follows a similar process. Go to your friend\'s chat page. In the \"Type your message\" section at the bottom of the page, write the desired text and press the send button. As soon as you press the send button, Nahoft sends the encrypted message via SMS to your friend\'s mobile phone.</string>
+    <string name="share_image_title">How to send encrypted images</string>
+    <string name="share_image_description">To send an encrypted photo manually, you need to follow these two conditions:\nCondition 1: You know who you want to send the photo to and have previously exchanged public keys…</string>
+    <string name="share_image_full_description">To send an encrypted photo manually, you need to follow these two conditions:\nCondition 1: You know who you want to send the photo to and have previously exchanged public keys.\nCondition 2: You send the photo as a file to your friend. For example, if you are using Telegram to send the photo, you should send it as a file and not directly from your phone\'s gallery. This is because Telegram reduces the size of photos, and it won\'t be possible to decrypt such a photo. However, if you send the photo as a file, Telegram won\'t make any changes to the photo, and it can be decrypted.\nAssuming you have met the above two conditions, go to the chat page of the person you want to send the encrypted message to. On the bottom left side of the page, click on camera icon. After clicking, two new icons will appear.\nDownload icon is for when you want to hide your message in a photo and save the photo on your phone to send it to someone later.\nShare icon is for when you want to hide your message in a photo and immediately send the photo through other messaging apps to the desired person.</string>
+    <string name="import_image_title">How to receive encrypted images</string>
+    <string name="import_image_description">To manually decrypt an encrypted photo, you need to follow these two conditions:\nCondition 1: You know who sent the photo and have previously exchanged public keys…</string>
+    <string name="import_image_full_description">To manually decrypt an encrypted photo, you need to follow these two conditions:\nCondition 1: You know who sent the photo and have previously exchanged public keys.\nCondition 2: The sent photo has been sent to you as a file, and you have saved it as a file on your mobile device. If, for example, you receive a photo on Telegram that has been compressed by Telegram, it cannot be decrypted.\nAssuming you have met the above two conditions, go to the chat page of the person whose message you want to decrypt. On the top right side of the page, click on the image icon. A pop-up window will appear, allowing you to browse and select the desired photo from your mobile device. The decrypted message will be readable in the chat page.</string>
+    <string name="friends_public_key">Friend’s public key</string>
+    <string name="friends_public_key_description">To view your friend\'s public key, go to the chat page of you and your friend. On the chat page, click on their name, a new page will open where you can see both your friend\'s public key and your own public key. Your public key can also be viewed from the settings section.</string>
+    <string name="your_public_key">Your public key</string>
+    <string name="your_public_key_description">This software utilizes the well-known library libsodium and the Asymmetric Encryption with Authentication method for encryption and decryption. Each user has a private key and a public key. When User 1 wants to send a message to User 2, they use their own private key and User 2\'s public key for encryption…</string>
+    <string name="your_public_key_full_description">This software utilizes the well-known library libsodium and the Asymmetric Encryption with Authentication method for encryption and decryption. Each user has a private key and a public key. When User 1 wants to send a message to User 2, they use their own private key and User 2\'s public key for encryption. The generated message has only two possible ways for decryption:\n. Using User 1\'s private key, who generated the message, and User 2\'s public key.\n. Using User 2\'s private key, who is the recipient of the message, and User 1\'s public key.\nTherefore, in order for your friends to send you a message, they must have your public key. If you expose your public key to the public, it will not pose any security issues. You can see your public key from the setting.</string>
+    <string name="confirmation_for_import">The text you are attempting to send has already been encrypted. Would you like to decrypt it instead of sending it?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="invited_status">Invited status</string>
+    <string name="invited_status_description">This status is displayed with a purple circle next to your friend\'s name. It means that you have sent your public key to your friend and are waiting to receive his public key.</string>
+    <string name="import_share_title">Importing to Nahoft through share option</string>
+    <string name="import_share_description">Just like other apps, Nahoft lets you share a text or photo from your gallery or mobile memory by selecting Nahoft from the list of suggested apps. Choosing Nahoft will take you to Nahoft\'s friend list, where you can select who you want to send a picture to.</string>
+    <string name="about_nahoft">About Nahoft</string>
+    <string name="about_nahoft_description">“Nahoft” is not a messaging app. It is a tool for encryption. Nahoft is an offline software for encrypting text messages on Android phones.\nEncrypting your text messages means that even if your message gets intercepted by a third party, that party can not read it. The only person that can read your message is the one with whom you exchanged your public key…</string>
+    <string name="about_nahoft_full_description">“Nahoft” is not a messaging app. It is a tool for encryption. Nahoft is an offline software for encrypting text messages on Android phones.\nEncrypting your text messages means that even if your message gets intercepted by a third party, that party can not read it. The only person that can read your message is the one with whom you exchanged your public key.\nNahoft is offline, which means you do not need to be connected to the internet to encrypt your messages.\nNahoft only encrypts text messages. Currently, it does not provide encrypted voice and video messages.\nNahoft can encrypt text messages as text. It also can encrypt them as a photo (Steganography.) You can send an encrypted text message or a photo containing a message via another channel that allows you to send the file (for example, SMS, MMS, or a messaging app that allows you to send the file unchanged.) So, the other person, after receiving the message, transfers the encrypted text or photo to Nahoft and reads it. \n For the time being, Nahoft can be installed on phones that use the Android operating system.\nNahoft is not a messaging app. It only encrypts the user’s text messages. The user can send the encrypted message to another one through one of the messaging apps (in an insecure network or even using an insecure messaging app.) The other person should be using Nahoft as well. Both should have already exchanged the public keys with one another to enter the messages into this software and read the encrypted messages. Nahoft uses public keys that can be shared with others. It also creates a private key hidden in the app to read the sent messages between two users.\nNahoft’s goal is to make it possible for users to send secure messages even through insecure messaging apps and networks. It means that if a user does not have access to secure internet or can not use secure messaging apps (in the case of internet censorship, filtering, and total internet shutdown) and only have access to insecure messaging apps and networks inside the country, even in this case, the users can encrypt the text messages and send them in the network. So, even if the message gets intercepted, it will still not be intelligible since it is encrypted. \nNote: Public keys (also the private key) change whenever you delete and reinstall the app, as well as each time you change your phone and reinstall the app. So, each time you change your phone or delete the app and reinstall it, you need to exchange the keys with your friends.\nImportant: Nahoft is open-source software, and everyone can have access to its code.</string>
+    <string name="nahoft_creators">Nahoft creators</string>
+    <string name="nahoft_creators_description">\"Nahoft\" is one of the apps that has been created in the Iran Cubator 2 program and under the supervision of the \"United for Iran\" organization. United for Iran is a human rights organization based in Berkeley, California. Its goal is to promote civil liberties in Iran, defend human rights, support civil society, and encourage citizens to participate through technology.</string>
+    <string name="you_have_to_set_a_lock_screen">You have to set a lock screen before using this app</string>
+    <string name="login_using_device_credentials">Login using device credentials</string>
+    <string name="biometrics_pin_password_pattern">(Biometrics, PIN, Password, Pattern)</string>
+    <string name="two_step_login_description">By setting a password for Nahoft, the app automatically enables two-step login. In the first step, you need to enter the password you provided in the above field, and in the second step, you need to provide phone\'s password or face recognition sensor, or fingerprint sensor.</string>
+    <string name="click_to_set">Click to set</string>
 </resources>
