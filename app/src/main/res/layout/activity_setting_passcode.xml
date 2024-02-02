@@ -272,18 +272,18 @@
 
                 </LinearLayout>
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/use_sms_as_default_switch"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginVertical="@dimen/padding_half"
-                    android:drawableStart="@drawable/ic_nahoft_icons_message_bubble"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="@font/open_sans"
-                    android:text="@string/use_sms_as_default"
-                    android:textSize="22sp"
-                    app:switchPadding="@dimen/padding_standard"
-                    app:trackTint="@color/coolGrey" />
+<!--                <androidx.appcompat.widget.SwitchCompat-->
+<!--                    android:id="@+id/use_sms_as_default_switch"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="56dp"-->
+<!--                    android:layout_marginVertical="@dimen/padding_half"-->
+<!--                    android:drawableStart="@drawable/ic_nahoft_icons_message_bubble"-->
+<!--                    android:drawablePadding="10dp"-->
+<!--                    android:fontFamily="@font/open_sans"-->
+<!--                    android:text="@string/use_sms_as_default"-->
+<!--                    android:textSize="22sp"-->
+<!--                    app:switchPadding="@dimen/padding_standard"-->
+<!--                    app:trackTint="@color/coolGrey" />-->
 
                 <TextView
                     android:layout_width="wrap_content"

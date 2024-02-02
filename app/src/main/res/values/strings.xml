@@ -66,7 +66,7 @@
 
     <!-- About User Guide -->
     <string name="button_label_about">About</string>
-    <string name="about_user_guide_english" translatable="false">
+    <string name="about_user_guide_english">
         \n<b>About</b>
 
         \n\n<b>About Nahoft:</b>
@@ -82,7 +82,7 @@
         \n\nImportant: Nahoft is open-source software, and everyone can have access to its code.
     </string>
 
-    <string name="about_user_guide_persian" translatable="false">
+    <string name="about_user_guide_persian">
         <!-- Fix this first line by adding the English word About (1 to the right of the  (درباره) -->
         \n (درباره) About \n
         <!-- Fix this second line by adding a "(i" to the right of the Persian word below. Keep the colon where it is. -->
@@ -104,7 +104,7 @@
     </string>
 
     <!-- Read User Guide -->
-    <string name="read_user_guide_english" translatable="false">
+    <string name="read_user_guide_english">
         \n<b>Read</b>
 
         \n\n<b>When you open Nahoft, you have five options on the home screen. One of those options is the "Read" option:</b>
@@ -132,7 +132,7 @@
         \n
    </string>
 
-    <string name="read_user_guide_persian" translatable="false">
+    <string name="read_user_guide_persian">
         <!-- Fix this first line by adding the English word Read (2 to the right of the  (خواندن) -->
         \n (خواندن) Read \n
         \n با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخاب‌ها گزینه «خواندن» یا Read است: \n
@@ -152,7 +152,7 @@
     </string>
 
     <!-- Create User Guide -->
-    <string name="create_user_guide_english" translatable="false">
+    <string name="create_user_guide_english">
         \n<b>Create</b>
 
         \n\n<b>When you open Nahoft, you have five options on the home screen. One of those options is the "Create" option:</b>
@@ -180,7 +180,7 @@
         \n
     </string>
 
-    <string name="create_user_guide_persian" translatable="false">
+    <string name="create_user_guide_persian">
         \n (ایجاد پیام) Create \n
         \n  با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخاب‌ها گزینه «ایجاد پیام» یا Create است: \n
         \n انتخاب گیرنده (To) \n
@@ -200,7 +200,7 @@
     </string>
 
     <!-- Friends User Guide -->
-    <string name="friends_user_guide_english" translatable="false">
+    <string name="friends_user_guide_english">
         \n<b>Friends</b>
 
         \n\n<b>When you open Nahoft, you have five options on the home screen. One of those options is the "Friends" option.</b>
@@ -235,7 +235,7 @@ After pressing this (+) sign, you must first enter your friend\'s name. You can 
         \n
      </string>
 
-    <string name="friends_user_guide_persian" translatable="false">
+    <string name="friends_user_guide_persian">
         \n (دوستان) Friends  \n
         \n با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخاب‌ها گزینه «دوستان» یا Friends است. \n
         \n مراحل تایید مخاطب رو میتونید با جزئیات بیشتر به شکل زیر دنبال کنید: \n
@@ -253,7 +253,7 @@ After pressing this (+) sign, you must first enter your friend\'s name. You can 
     </string>
 
     <!-- Settings User Guide -->
-    <string name="settings_user_guide_english" translatable="false">
+    <string name="settings_user_guide_english">
         \n<b>Settings</b>
 
        \n\n<b>When you open Nahoft, you have five options on the home screen. One of those options is the "Settings" option.</b>
@@ -279,7 +279,7 @@ After pressing this (+) sign, you must first enter your friend\'s name. You can 
         \n
    </string>
 
-    <string name="settings_user_guide_persian" translatable="false">
+    <string name="settings_user_guide_persian">
         \n (تنظیمات) Settings \n
         \n با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخاب‌ها گزینه «تنظیمات» یا Settings است. \n
         \n در این بخش شما می‌توانید دو نوع رمز برای نرم‌افزار نهفت تعریف کنید. یک رمز برای ورود و خروج به نرم‌افزار است، و دیگری دقیقا مشابه رمز ورود عمل می‌کند اما با وارد کردن آن همه اطلاعات داخل نهفت پاک خواهد شد. \n
@@ -302,8 +302,8 @@ After pressing this (+) sign, you must first enter your friend\'s name. You can 
     <string name="alert_text_message_too_long">Your message is too long.</string>
     <string name="button_label_delete">Delete</string>
     <string name="button_label_reset">Reset</string>
-    <string name="button_label_english" translatable="false">English</string>
-    <string name="button_label_persian" translatable="false">فارسی</string>
+    <string name="button_label_english">English</string>
+    <string name="button_label_persian">فارسی</string>
     <string name="alert_text_confirm_friend_delete">Are you sure to delete %1$s?</string>
     <string name="button_label_cancel">Cancel</string>
     <string name="user_guide_button_description">This button will take you to the user guides.</string>
@@ -512,9 +512,6 @@ After pressing this (+) sign, you must first enter your friend\'s name. You can 
     <string name="destruction_code_description">By enabling the "Destruction code" option, you define a six-digit password that will be used to destroy all information stored inside the app, including deleting messages and friend lists. \n You will use this password in emergency situations so that the people you don’t want can’t have access to your information.</string>
     <string name="close">Close</string>
     <string name="logout_description">The option to log out will only be displayed if you have set a "password." By clicking on this option, you will immediately get logged out of Nahoft. If you don\'t use the logout option, Nahoft will lock itself after a few minutes of inactivity, and you will need your password to enter it.</string>
-    <string name="use_sms_as_default">Use SMS as default</string>
-    <string name="use_sms_as_default_description">By enabling this option, Nahoft automatically sends encrypted messages via SMS to your desired contact, and upon receiving an encrypted message via SMS, it decrypts the message for you within the Nahoft app automatically.</string>
-    <string name="use_sms_as_default_full_description">By enabling this option, Nahoft automatically sends encrypted messages via SMS to your desired contact, and upon receiving an encrypted message via SMS, it decrypts the message for you within the Nahoft app automatically. \n We have added this option for the convenience of Nahoft users. Please note that to use this feature, your contacts must have phone numbers, and if you intend to send encrypted text as images, the MMS feature of your phone line should be activated. \n If you decide not to use this feature, we assume that you are an advanced user and have the ability to decrypt manually received messages and send encrypted messages manually. For a guide on sending and receiving messages manually, please refer to the Chat section\'s guide.</string>
     <string name="default_fragment_text">No public key has been exchanged between you and %s yet. \n\n Please click the button below to submit your public key.</string>
     <string name="invited_fragment_text">You have sent your public key to %s and are now awaiting their public key in return. \n\n Once you receive their public key, a secure connection will be established.</string>
     <string name="requested_fragment_text">%s has sent you their public key; \n\n to complete the secure connection between you and %s you must send your public key to them.</string>
@@ -525,9 +522,6 @@ After pressing this (+) sign, you must first enter your friend\'s name. You can 
     <string name="add_new_friend">Add New Friend</string>
     <string name="phone_number_optional">Phone Number (Optional)</string>
     <string name="select_sender">Select Sender</string>
-    <string name="sms_permission_needed">SMS Permission Needed</string>
-    <string name="read_contacts_permission_needed">Read contacts Permission Needed</string>
-    <string name="unable_to_send_sms">Unable to send SMS</string>
     <string name="are_you_sure_to_delete">Are you sure to delete the message?</string>
     <string name="import_encrypted_image_messages_using_this_button">Use this button to import encrypted image messages.</string>
     <string name="import_encrypted_text_messages_using_this_button">Use this button to import encrypted text messages.</string>
@@ -535,8 +529,7 @@ After pressing this (+) sign, you must first enter your friend\'s name. You can 
     <string name="send_encrypted_image_messages_using_this_button">Use this button to send encrypted image messages.</string>
     <string name="friends_list">Friends list</string>
     <string name="friends_list_description">Friends list description</string>
-    <string name="add_new_friend_description">To add a new friend; Click on the plus +  icon on home page. Two options will appear: \n Option 1: Add a new contact from the contact list. \n Option 2: Create a new contact.</string>
-    <string name="add_new_friend_full_description">To add a new friend; Click on the plus +  icon on home page. Two options will appear: \n Option 1: Add a new contact from the contact list. \n By selecting this option, you will be directed to the \"contact list.\" If you have given Nahoft permission to access your phone\'s contacts, you can choose the contact you wish to add to your friends list from there. \n Option 2: Create a new contact. \n By choosing this option, a new window will open where you can enter your friend\'s name and phone number. Adding a phone number is optional, but if you plan to use the \"Use SMS by default\" feature, it\'s important to include the phone number. Otherwise, you\'ll need to manually send and receive messages to contacts without their phone numbers. For instructions on manual messaging, refer to the Chat Help section.</string>
+    <string name="add_new_friend_description">To add a new friend; Click on the plus +  icon on home page.</string>
     <string name="approve_friend">Approve friend</string>
     <string name="approve_friend_description">Approve friend description</string>
     <string name="approve_friend_full_description">Approve friend full description</string>
@@ -545,10 +538,7 @@ After pressing this (+) sign, you must first enter your friend\'s name. You can 
     <string name="contact_list">Contact List</string>
     <string name="add_new_user_from_contact_list">Add a contact from the list</string>
     <string name="add_new_user_manually">Create a new contact</string>
-    <string name="to_import_or_create_a_new_friend_help">Click this button to add or create a new friend.</string>
-    <string name="sms_permission_second">By not granting SMS permission, it\'s important to know that you\'re considered an advanced user. This means you\'ll need to manually encrypt and decrypt messages. While you can still securely use Nahoft, the app won\'t automatically send or receive your encrypted messages through SMS. However, if you change your mind, you can always go to the settings and grant SMS permission.</string>
-    <string name="sms_permission_first">To enhance your experience with the Nahoft app, please grant permission to access your text messages (SMS). Your privacy and security are our priority, and Nahoft uses this access only to identify encrypted messages that you want Nahoft to decrypt.</string>
-    <string name="sms_permission">SMS Access</string>
+    <string name="to_import_or_create_a_new_friend_help">Click this button to create a new friend.</string>
     <string name="accept">Accept</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="allow">Allow</string>
@@ -576,15 +566,12 @@ After pressing this (+) sign, you must first enter your friend\'s name. You can 
     <string name="verify_status">Verify status</string>
     <string name="verify_status_description">This status is displayed with a green and white confirmation icon next to your friend\'s name. It means that a public key exchange has occurred between you and your friend, and you have securely verified through a trusted third party that your friend has indeed sent their public key and not someone else.</string>
     <string name="verify_status_full_description">This status is displayed with a green and white confirmation icon next to your friend\'s name. It means that a public key exchange has occurred between you and your friend, and you have securely verified through a trusted third party that your friend has indeed sent their public key and not someone else.\n Once you are confident about this, you should proceed to the chat page. Click on your friend\'s name and select the \"Verified\" option. By selecting this option, your friend\'s status in Nahoft will change from green (Approve) to a green and white icon with a confirmation sign. This status represents the most secure state in Nahoft.</string>
-    <string name="manually_send_text">How to manually send encrypted text</string>
-    <string name="manually_send_text_description">To manually send an encrypted text, you need to follow these steps:\n1. Exchange public keys with your desired friend beforehand.\n2. Go to your friend\'s chat page and, at the bottom of the page, write your message in the \"type your message\" section, similar to any other messaging platform…</string>
-    <string name="manually_send_text_full_description">To manually send an encrypted text, you need to follow these steps:\n1. Exchange public keys with your desired friend beforehand.\n2. Go to your friend\'s chat page and, at the bottom of the page, write your message in the \"type your message\" section, similar to any other messaging platform.\n3. Press the send button. Immediately after sending the message, a popup will appear.\n4. Copy the encrypted text and send it to the intended person through any messaging platform you prefer.</string>
-    <string name="manually_import_text">How to manually receive encrypted text</string>
+    <string name="manually_send_text">How to send encrypted text</string>
+    <string name="manually_send_text_description">To send an encrypted text, you need to follow these steps:\n1. Exchange public keys with your desired friend beforehand.\n2. Go to your friend\'s chat page and, at the bottom of the page, write your message in the \"type your message\" section, similar to any other messaging platform…</string>
+    <string name="manually_send_text_full_description">To send an encrypted text, you need to follow these steps:\n1. Exchange public keys with your desired friend beforehand.\n2. Go to your friend\'s chat page and, at the bottom of the page, write your message in the \"type your message\" section, similar to any other messaging platform.\n3. Press the send button. Immediately after sending the message, a popup will appear.\n4. Copy the encrypted text and send it to the intended person through any messaging platform you prefer.</string>
+    <string name="manually_import_text">How to receive encrypted text</string>
     <string name="manually_import_text_description">To decrypt and read an encrypted text, you need to follow these steps:\n1. Make sure you know who sent the message and that you have previously exchanged public keys.\n2. Copy the received encrypted text…</string>
     <string name="manually_import_text_full_description">To decrypt and read an encrypted text, you need to follow these steps:\n1. Make sure you know who sent the message and that you have previously exchanged public keys.\n2. Copy the received encrypted text.\n3. Go to the chat page of the person whose message you want to decrypt.\n4. Click on the import file icon located at the top right of the page. A window will open.\n5. Paste the text into the window and click the \"Insert Text\" option.\n6. The decrypted message will be readable on the chat page.</string>
-    <string name="automatically_import_send_text">How to automatically receive and send encrypted text</string>
-    <string name="automatically_import_send_text_description">To send and receive encrypted text automatically, you need to follow these two conditions:\nCondition 1: You know who sent the message, you have previously exchanged public keys, and you have saved the phone number of the other person…</string>
-    <string name="automatically_import_send_text_full_description">To send and receive encrypted text automatically, you need to follow these two conditions:\nCondition 1: You know who sent the message, you have previously exchanged public keys, and you have saved the phone number of the other person.\nCondition 2: In the settings section, enable the \"Use SMS as defalut\" option. For further explanations regarding this condition, refer to the settings guide section.\nAssuming you have met the above two conditions, when you receive an encrypted message via SMS, Nahoft automatically decrypts the message inside the chat page of both you and your friend. Simply go to the chat page with your friend and read the message.\nSending a message automatically follows a similar process. Go to your friend\'s chat page. In the \"Type your message\" section at the bottom of the page, write the desired text and press the send button. As soon as you press the send button, Nahoft sends the encrypted message via SMS to your friend\'s mobile phone.</string>
     <string name="share_image_title">How to send encrypted images</string>
     <string name="share_image_description">To send an encrypted photo manually, you need to follow these two conditions:\nCondition 1: You know who you want to send the photo to and have previously exchanged public keys…</string>
     <string name="share_image_full_description">To send an encrypted photo manually, you need to follow these two conditions:\nCondition 1: You know who you want to send the photo to and have previously exchanged public keys.\nCondition 2: You send the photo as a file to your friend. For example, if you are using Telegram to send the photo, you should send it as a file and not directly from your phone\'s gallery. This is because Telegram reduces the size of photos, and it won\'t be possible to decrypt such a photo. However, if you send the photo as a file, Telegram won\'t make any changes to the photo, and it can be decrypted.\nAssuming you have met the above two conditions, go to the chat page of the person you want to send the encrypted message to. On the bottom left side of the page, click on camera icon. After clicking, two new icons will appear.\nDownload icon is for when you want to hide your message in a photo and save the photo on your phone to send it to someone later.\nShare icon is for when you want to hide your message in a photo and immediately send the photo through other messaging apps to the desired person.</string>

@@ -76,15 +76,15 @@ fun getSettingSlides(context: Context): ArrayList<Slide> {
             skipButtonText = context.getString(R.string.close)
         )
     )
-    arrayList.add(
-        Slide(
-            image = R.drawable.ic_nahoft_intro_message_bubble,
-            title = context.getString(R.string.use_sms_as_default),
-            description = context.getString(R.string.use_sms_as_default_description),
-            skipButtonText = context.getString(R.string.close),
-            fullDescription = context.getString(R.string.use_sms_as_default_full_description)
-        )
-    )
+//    arrayList.add(
+//        Slide(
+//            image = R.drawable.ic_nahoft_intro_message_bubble,
+//            title = context.getString(R.string.use_sms_as_default),
+//            description = context.getString(R.string.use_sms_as_default_description),
+//            skipButtonText = context.getString(R.string.close),
+//            fullDescription = context.getString(R.string.use_sms_as_default_full_description)
+//        )
+//    )
     arrayList.add(
         Slide(
             image = R.drawable.ic_nahoft_intro_key,
@@ -139,7 +139,6 @@ fun getAboutAndFriendsSlides(context: Context): ArrayList<Slide> {
             image = R.drawable.ic_nahoft_intro_add_user,
             title = context.getString(R.string.add_new_contact),
             description = context.getString(R.string.add_new_friend_description),
-            fullDescription = context.getString(R.string.add_new_friend_full_description),
             skipButtonText = context.getString(R.string.close)
         )
     )
@@ -204,19 +203,19 @@ fun getAboutAndFriendsSlides(context: Context): ArrayList<Slide> {
     return arrayList
 }
 
-fun getContactSlides(context: Context): ArrayList<Slide> {
-    val arrayList: ArrayList<Slide> = ArrayList()
-    arrayList.add(
-        Slide(
-            image = R.drawable.ic_nahoft_icons_contact_help,
-            title = context.getString(R.string.contact_list),
-            description = context.getString(R.string.contact_list_description),
-            skipButtonText = context.getString(R.string.close)
-        )
-    )
-
-    return arrayList
-}
+//fun getContactSlides(context: Context): ArrayList<Slide> {
+//    val arrayList: ArrayList<Slide> = ArrayList()
+//    arrayList.add(
+//        Slide(
+//            image = R.drawable.ic_nahoft_icons_contact_help,
+//            title = context.getString(R.string.contact_list),
+//            description = context.getString(R.string.contact_list_description),
+//            skipButtonText = context.getString(R.string.close)
+//        )
+//    )
+//
+//    return arrayList
+//}
 
 fun getChatSlides(context: Context): ArrayList<Slide> {
     val arrayList: ArrayList<Slide> = ArrayList()
@@ -238,15 +237,15 @@ fun getChatSlides(context: Context): ArrayList<Slide> {
             fullDescription = context.getString(R.string.manually_import_text_full_description)
         )
     )
-    arrayList.add(
-        Slide(
-            image = R.drawable.ic_nahoft_icons_auto_import_send,
-            title = context.getString(R.string.automatically_import_send_text),
-            description = context.getString(R.string.automatically_import_send_text_description),
-            skipButtonText = context.getString(R.string.close),
-            fullDescription = context.getString(R.string.automatically_import_send_text_full_description)
-        )
-    )
+//    arrayList.add(
+//        Slide(
+//            image = R.drawable.ic_nahoft_icons_auto_import_send,
+//            title = context.getString(R.string.automatically_import_send_text),
+//            description = context.getString(R.string.automatically_import_send_text_description),
+//            skipButtonText = context.getString(R.string.close),
+//            fullDescription = context.getString(R.string.automatically_import_send_text_full_description)
+//        )
+//    )
     arrayList.add(
         Slide(
             image = R.drawable.ic_nahoft_icons_share_image_help,

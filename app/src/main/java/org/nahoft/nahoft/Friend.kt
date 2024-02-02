@@ -12,9 +12,9 @@ data class Friend constructor(
     @param:Element(name = "name")
     var name: String,
 
-    @field:Element(name = "phone", required = false)
-    @param:Element(name = "phone", required = false)
-    var phone: String? = null,
+//    @field:Element(name = "phone", required = false)
+//    @param:Element(name = "phone", required = false)
+//    var phone: String? = null,
 
     @field:Element(name = "status")
     @param:Element(name = "status")

@@ -83,9 +83,9 @@ class SettingPasscodeActivity : AppCompatActivity() {
             handleDestructionCodeRequirementChange(isChecked)
         }
 
-        use_sms_as_default_switch.setOnCheckedChangeListener { _, isChecked ->
-            Persist.saveBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey, isChecked)
-        }
+//        use_sms_as_default_switch.setOnCheckedChangeListener { _, isChecked ->
+//            Persist.saveBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey, isChecked)
+//        }
 
         passcode_submit_button.setOnClickListener {
             savePasscode()
@@ -115,7 +115,7 @@ class SettingPasscodeActivity : AppCompatActivity() {
     private fun setDefaultView()
     {
         destruction_code_entry_layout.isGone = true
-        use_sms_as_default_switch.isChecked = Persist.loadBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey)
+//        use_sms_as_default_switch.isChecked = Persist.loadBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey)
         if (Persist.status == LoginStatus.LoggedIn)
         {
             updateViewPasscodeOn(true)

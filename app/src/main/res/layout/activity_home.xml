@@ -138,55 +138,55 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_friend_manually_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/royalBlueDark"
-        android:contentDescription="@string/add_contact"
-        android:src="@drawable/ic_nahoft_icons_manual_register"
-        app:elevation="6dp"
-        app:fabSize="mini"
-        app:layout_constraintBottom_toBottomOf="@+id/add_friend_button"
-        app:layout_constraintEnd_toEndOf="@+id/add_friend_button"
-        app:layout_constraintStart_toStartOf="@+id/add_friend_button"
-        app:layout_constraintTop_toTopOf="@+id/add_friend_button"
-        app:maxImageSize="18dp" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/add_friend_manually_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:backgroundTint="@color/royalBlueDark"-->
+<!--        android:contentDescription="@string/add_contact"-->
+<!--        android:src="@drawable/ic_nahoft_icons_manual_register"-->
+<!--        app:elevation="6dp"-->
+<!--        app:fabSize="mini"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/add_friend_button"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/add_friend_button"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/add_friend_button"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/add_friend_button"-->
+<!--        app:maxImageSize="18dp" />-->
 
-    <TextView
-        android:id="@+id/add_friend_manually_button_help"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_new_user_manually"
-        android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="@id/add_friend_manually_button"
-        app:layout_constraintBottom_toBottomOf="@id/add_friend_manually_button"
-        app:layout_constraintEnd_toStartOf="@+id/add_friend_button" />
+<!--    <TextView-->
+<!--        android:id="@+id/add_friend_manually_button_help"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/add_new_user_manually"-->
+<!--        android:visibility="invisible"-->
+<!--        app:layout_constraintTop_toTopOf="@id/add_friend_manually_button"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/add_friend_manually_button"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/add_friend_button" />-->
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_friend_contact_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/royalBlueDark"
-        android:contentDescription="@string/add_contact"
-        android:src="@drawable/ic_nahoft_icons_contact"
-        app:elevation="6dp"
-        app:fabSize="mini"
-        app:layout_constraintBottom_toBottomOf="@+id/add_friend_button"
-        app:layout_constraintEnd_toEndOf="@+id/add_friend_button"
-        app:layout_constraintStart_toStartOf="@+id/add_friend_button"
-        app:layout_constraintTop_toTopOf="@+id/add_friend_button"
-        app:maxImageSize="18dp" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/add_friend_contact_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:backgroundTint="@color/royalBlueDark"-->
+<!--        android:contentDescription="@string/add_contact"-->
+<!--        android:src="@drawable/ic_nahoft_icons_contact"-->
+<!--        app:elevation="6dp"-->
+<!--        app:fabSize="mini"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/add_friend_button"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/add_friend_button"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/add_friend_button"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/add_friend_button"-->
+<!--        app:maxImageSize="18dp" />-->
 
-    <TextView
-        android:id="@+id/add_friend_contact_button_help"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_new_user_from_contact_list"
-        android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="@id/add_friend_contact_button"
-        app:layout_constraintBottom_toBottomOf="@id/add_friend_contact_button"
-        app:layout_constraintEnd_toStartOf="@+id/add_friend_button" />
+<!--    <TextView-->
+<!--        android:id="@+id/add_friend_contact_button_help"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/add_new_user_from_contact_list"-->
+<!--        android:visibility="invisible"-->
+<!--        app:layout_constraintTop_toTopOf="@id/add_friend_contact_button"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/add_friend_contact_button"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/add_friend_button" />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_friend_button"

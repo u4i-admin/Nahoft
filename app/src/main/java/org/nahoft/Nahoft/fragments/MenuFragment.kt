@@ -66,7 +66,7 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         enter_name_input.setText(friend?.name)
-        enter_phone_input.setText(friend?.phone)
+//        enter_phone_input.setText(friend?.phone)
         user_public_key.text = userPublicKey
         friend_public_key.text = friendPublicKey
         friend_public_key_title.text = getString(R.string.label_verify_friend_number, friend?.name)
@@ -85,15 +85,15 @@ class MenuFragment : Fragment() {
             }
         }
 
-        enter_phone_input.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                savePhoneNumber()
-            }
-        }
+//        enter_phone_input.setOnFocusChangeListener { _, hasFocus ->
+//            if (!hasFocus) {
+//                savePhoneNumber()
+//            }
+//        }
 
         save_button.setOnClickListener {
             saveName()
-            savePhoneNumber()
+//            savePhoneNumber()
         }
 
         approve_button.setOnClickListener { (activity as FriendInfoActivity?)?.approveVerifyFriend() }
@@ -114,19 +114,19 @@ class MenuFragment : Fragment() {
         }
     }
 
-    private fun savePhoneNumber() {
-        // If a new phone number has been entered, save it
-        if (enter_phone_input.text?.isNotBlank() == true && enter_phone_input.isDirty)
-        {
-            val newPhoneNumber = enter_phone_input.text.toString()
-
-            if (newPhoneNumber != friend!!.phone)
-            {
-                (activity as FriendInfoActivity?)?.changeFriendsPhone(newPhoneNumber)
-                removePhoneKeypad()
-            }
-        }
-    }
+//    private fun savePhoneNumber() {
+//        // If a new phone number has been entered, save it
+//        if (enter_phone_input.text?.isNotBlank() == true && enter_phone_input.isDirty)
+//        {
+//            val newPhoneNumber = enter_phone_input.text.toString()
+//
+//            if (newPhoneNumber != friend!!.phone)
+//            {
+//                (activity as FriendInfoActivity?)?.changeFriendsPhone(newPhoneNumber)
+//                removePhoneKeypad()
+//            }
+//        }
+//    }
 
     private fun removePhoneKeypad() {
         val inputManager = view?.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

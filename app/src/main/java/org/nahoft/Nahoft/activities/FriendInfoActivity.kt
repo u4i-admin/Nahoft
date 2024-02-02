@@ -356,30 +356,30 @@ class FriendInfoActivity: AppCompatActivity()
         val keyBytes = userPublicKey.toBytes()
 
         // Share the key
-        if (Persist.loadBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey) && (thisFriend.phone?.isNotEmpty() == true)) {
-            try {
-                val codex = Codex()
-                val encodedKey = codex.encodeKey(keyBytes)
-                val smsManager: SmsManager = if (Build.VERSION.SDK_INT >= 31) {
-                    this.getSystemService(SmsManager::class.java)
-                } else {
-                    SmsManager.getDefault()
-                }
-                val parts = smsManager.divideMessage(encodedKey)
-                smsManager.sendMultipartTextMessage(
-                    thisFriend.phone,
-                    null,
-                    parts,
-                    null,
-                    null
-                )
-            } catch (e: Exception) {
-                this.showAlert(getString(R.string.unable_to_send_sms))
-                return
-            }
-        } else {
+//        if (Persist.loadBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey)) { // && (thisFriend.phone?.isNotEmpty() == true)) {
+//            try {
+//                val codex = Codex()
+//                val encodedKey = codex.encodeKey(keyBytes)
+//                val smsManager: SmsManager = if (Build.VERSION.SDK_INT >= 31) {
+//                    this.getSystemService(SmsManager::class.java)
+//                } else {
+//                    SmsManager.getDefault()
+//                }
+//                val parts = smsManager.divideMessage(encodedKey)
+//                smsManager.sendMultipartTextMessage(
+//                    thisFriend.phone,
+//                    null,
+//                    parts,
+//                    null,
+//                    null
+//                )
+//            } catch (e: Exception) {
+//                this.showAlert(getString(R.string.unable_to_send_sms))
+//                return
+//            }
+//        } else {
             ShareUtil.shareKey(this, keyBytes)
-        }
+//        }
 
         if (thisFriend.status == FriendStatus.Requested)
         {
@@ -464,47 +464,47 @@ class FriendInfoActivity: AppCompatActivity()
             // If the message is sent as text
             if (thisFriend.publicKeyEncoded != null) {
                 val encryptedMessage = Encryption().encrypt(thisFriend.publicKeyEncoded!!, message)
-                if (Persist.loadBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey) && (thisFriend.phone?.isNotEmpty() == true)) {
-                    val permissionCheck = ContextCompat.checkSelfPermission(
-                        this, Manifest.permission.SEND_SMS
-                    )
-                    if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS), RequestCodes.requestPermissionCode)
-                        showAlert(getString(R.string.sms_permission_needed))
-                        return
-                    } else {
-                        val codex = Codex()
-                        try {
-                            val encodedMessage = codex.encodeEncryptedMessage(encryptedMessage)
-                            try {
-                                val smsManager: SmsManager = if (Build.VERSION.SDK_INT >= 31) {
-                                    this.getSystemService(SmsManager::class.java)
-                                } else {
-                                    SmsManager.getDefault()
-                                }
-                                val parts = smsManager.divideMessage(encodedMessage)
-                                smsManager.sendMultipartTextMessage(
-                                    thisFriend.phone,
-                                    null,
-                                    parts,
-                                    null,
-                                    null
-                                )
-                                saveMessage(encryptedMessage, thisFriend, true)
-                            } catch (e: Exception) {
-                                this.showAlert(getString(R.string.unable_to_send_sms))
-                                return
-                            }
-
-                        } catch (exception: SecurityException) {
-                            this.showAlert(getString(R.string.alert_text_unable_to_process_request))
-                            return
-                        }
-                    }
-                } else {
+//                if (Persist.loadBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey) && (thisFriend.phone?.isNotEmpty() == true)) {
+//                    val permissionCheck = ContextCompat.checkSelfPermission(
+//                        this, Manifest.permission.SEND_SMS
+//                    )
+//                    if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+//                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS), RequestCodes.requestPermissionCode)
+//                        showAlert(getString(R.string.sms_permission_needed))
+//                        return
+//                    } else {
+//                        val codex = Codex()
+//                        try {
+//                            val encodedMessage = codex.encodeEncryptedMessage(encryptedMessage)
+//                            try {
+//                                val smsManager: SmsManager = if (Build.VERSION.SDK_INT >= 31) {
+//                                    this.getSystemService(SmsManager::class.java)
+//                                } else {
+//                                    SmsManager.getDefault()
+//                                }
+//                                val parts = smsManager.divideMessage(encodedMessage)
+//                                smsManager.sendMultipartTextMessage(
+//                                    thisFriend.phone,
+//                                    null,
+//                                    parts,
+//                                    null,
+//                                    null
+//                                )
+//                                saveMessage(encryptedMessage, thisFriend, true)
+//                            } catch (e: Exception) {
+//                                this.showAlert(getString(R.string.unable_to_send_sms))
+//                                return
+//                            }
+//
+//                        } catch (exception: SecurityException) {
+//                            this.showAlert(getString(R.string.alert_text_unable_to_process_request))
+//                            return
+//                        }
+//                    }
+//                } else {
                     ShareUtil.shareText(this, message, thisFriend.publicKeyEncoded!!)
                     saveMessage(encryptedMessage, thisFriend, true)
-                }
+//                }
 
                 message_edit_text.text?.clear()
             } else {
@@ -774,11 +774,11 @@ class FriendInfoActivity: AppCompatActivity()
         showAlert("New name saved")
     }
 
-    fun changeFriendsPhone(newPhoneNumber: String) {
-        Persist.updateFriendsPhone(this, thisFriend, newPhoneNumber)
-        thisFriend.phone = newPhoneNumber
-        showAlert("New phone number saved")
-    }
+//    fun changeFriendsPhone(newPhoneNumber: String) {
+//        Persist.updateFriendsPhone(this, thisFriend, newPhoneNumber)
+//        thisFriend.phone = newPhoneNumber
+//        showAlert("New phone number saved")
+//    }
 
     fun Activity.hideSoftKeyboard(editText: EditText) {
         (getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager).apply {

@@ -23,7 +23,7 @@ class Persist {
         val sharedPrefSecondaryPasscodeKey = "NahoftSecondaryPasscode"
         val sharedPrefFailedLoginAttemptsKey = "NahoftFailedLogins"
         val sharedPrefFailedLoginTimeKey = "NahoftFailedLoginTime"
-        val sharedPrefUseSmsAsDefaultKey = "NahoftUseSmsAsDefault"
+//        val sharedPrefUseSmsAsDefaultKey = "NahoftUseSmsAsDefault"
         val sharedPrefAlreadySeeTutorialKey = "NahoftAlreadySeeTutorial"
 
         val sharedPrefFilename = "NahoftEncryptedPreferences"
@@ -42,7 +42,7 @@ class Persist {
         lateinit var friendsFile: File
         lateinit var messagesFile: File
         lateinit var app: Application
-        var sendWithSms by Delegates.notNull<Boolean>()
+//        var sendWithSms by Delegates.notNull<Boolean>()
 
         var friendList = ArrayList<Friend>()
         var messageList = ArrayList<Message>()
@@ -128,9 +128,9 @@ class Persist {
 
             val oldFriend = friendList.find { it.name == friendToUpdate.name }
 
-            oldFriend?.let {
-                oldFriend.phone = newPhoneNumber
-            }
+//            oldFriend?.let {
+//                oldFriend.phone = newPhoneNumber
+//            }
 
             saveFriendsToFile(context)
         }

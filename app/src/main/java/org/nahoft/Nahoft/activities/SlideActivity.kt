@@ -35,9 +35,9 @@ class SlideActivity : AppCompatActivity() {
             slideNameAboutAndFriends -> {
                 SlideViewPagerAdapter(this, getAboutAndFriendsSlides(applicationContext))
             }
-            slideNameContactList -> {
-                SlideViewPagerAdapter(this, getContactSlides(applicationContext))
-            }
+//            slideNameContactList -> {
+//                SlideViewPagerAdapter(this, getContactSlides(applicationContext))
+//            }
             slideNameChat -> {
                 SlideViewPagerAdapter(this, getChatSlides(applicationContext))
             }
