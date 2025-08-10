@@ -3,10 +3,12 @@ package org.nahoft.nahoft.activities
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.KeyguardManager
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.text.*
@@ -26,13 +28,14 @@ import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_home.*
+import org.nahoft.Nahoft.utils.registerReceiverCompat
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.*
 import org.nahoft.nahoft.Persist.Companion.friendsFilename
 import org.nahoft.nahoft.Persist.Companion.messagesFilename
 import org.nahoft.nahoft.Persist.Companion.status
+import org.nahoft.nahoft.databinding.ActivityHomeBinding
 import org.nahoft.util.RequestCodes
 import org.nahoft.util.showAlert
 import java.io.File
@@ -45,6 +48,8 @@ class HomeActivity : AppCompatActivity()
         }
     }
 
+    private lateinit var binding: ActivityHomeBinding
+
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: FriendsRecyclerAdapter
     private lateinit var filteredFriendList: ArrayList<Friend>
@@ -55,16 +60,20 @@ class HomeActivity : AppCompatActivity()
         finishAffinity()
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @ExperimentalUnsignedTypes
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
-        registerReceiver(receiver, IntentFilter().apply {
+        registerReceiverCompat(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
-        })
+        }, exported = false)
 
         // Prepare persisted data
         Persist.app = Nahoft()
@@ -74,9 +83,9 @@ class HomeActivity : AppCompatActivity()
         {
             // Logout Button
             if (status == LoginStatus.NotRequired) {
-                logout_button.visibility = View.GONE
+                binding.logoutButton.visibility = View.GONE
             } else {
-                logout_button.visibility = View.VISIBLE
+                binding.logoutButton.visibility = View.VISIBLE
                 startService(Intent(this, UpdateService::class.java))
             }
 
@@ -100,7 +109,7 @@ class HomeActivity : AppCompatActivity()
 //                }
 //            }
 
-            search_friends.doOnTextChanged { text, _, _, _ ->
+            binding.searchFriends.doOnTextChanged { text, _, _, _ ->
                 filteredFriendList.clear()
                 filteredFriendList.addAll(Persist.friendList.filter { f -> f.name.contains(text.toString(), true) } as ArrayList<Friend>)
                 adapter.notifyDataSetChanged()
@@ -123,11 +132,11 @@ class HomeActivity : AppCompatActivity()
 
         if (status == LoginStatus.NotRequired)
         {
-            logout_button.visibility = View.GONE
+            binding.logoutButton.visibility = View.GONE
         }
         else
         {
-            logout_button.visibility = View.VISIBLE
+            binding.logoutButton.visibility = View.VISIBLE
         }
     }
 
@@ -152,7 +161,7 @@ class HomeActivity : AppCompatActivity()
 
     private fun updateFriendListAdapter() {
         filteredFriendList.clear()
-        filteredFriendList.addAll(Persist.friendList.filter { f -> f.name.contains(search_friends.text, true) } as ArrayList<Friend>)
+        filteredFriendList.addAll(Persist.friendList.filter { f -> f.name.contains(binding.searchFriends.text, true) } as ArrayList<Friend>)
         adapter.notifyDataSetChanged()
         setupHelpText()
     }
@@ -161,8 +170,8 @@ class HomeActivity : AppCompatActivity()
         linearLayoutManager = LinearLayoutManager(this)
         filteredFriendList = Persist.friendList.clone() as ArrayList<Friend>
         adapter = FriendsRecyclerAdapter(filteredFriendList)
-        friendsRecyclerView.layoutManager = linearLayoutManager
-        friendsRecyclerView.adapter = adapter
+        binding.friendsRecyclerView.layoutManager = linearLayoutManager
+        binding.friendsRecyclerView.adapter = adapter
 
         adapter.onItemClick = { friend ->
             showInfoActivity(friend)
@@ -174,8 +183,8 @@ class HomeActivity : AppCompatActivity()
     }
 
     private fun setupHelpText() {
-        help_textview.isVisible = Persist.friendList.isEmpty()// && !isAddButtonShow
-        help_imageview.isVisible = Persist.friendList.isEmpty()// && !isAddButtonShow
+        binding.helpTextview.isVisible = Persist.friendList.isEmpty()// && !isAddButtonShow
+        binding.helpImageview.isVisible = Persist.friendList.isEmpty()// && !isAddButtonShow
     }
 
     private fun showInfoActivity(friend: Friend?) {
@@ -337,11 +346,11 @@ class HomeActivity : AppCompatActivity()
     }
 
     private fun setupOnClicks() {
-        logout_button.setOnClickListener {
+        binding.logoutButton.setOnClickListener {
             logoutButtonClicked()
         }
 
-        add_friend_button.setOnClickListener {
+        binding.addFriendButton.setOnClickListener {
             showAddFriendDialog()
 //            showHideAddButtons()
         }
@@ -360,19 +369,19 @@ class HomeActivity : AppCompatActivity()
 //            showHideAddButtons()
 //        }
 
-        user_guide_button.setOnClickListener {
+        binding.userGuideButton.setOnClickListener {
             val slideActivity = Intent(this, SlideActivity::class.java)
             slideActivity.putExtra(Intent.EXTRA_TEXT, slideNameAboutAndFriends)
             startActivity(slideActivity)
         }
 
-        nahoft_message_bottle.setOnClickListener {
+        binding.nahoftMessageBottle.setOnClickListener {
             val slideActivity = Intent(this, SlideActivity::class.java)
             slideActivity.putExtra(Intent.EXTRA_TEXT, slideNameAbout)
             startActivity(slideActivity)
         }
 
-        settings_button.setOnClickListener {
+        binding.settingsButton.setOnClickListener {
             val settingsIntent = Intent(this, SettingPasscodeActivity::class.java)
             startActivity(settingsIntent)
         }
@@ -661,16 +670,16 @@ class HomeActivity : AppCompatActivity()
     }
 
     private fun shareViewSetup() {
-        settings_button.isVisible = false
-        user_guide_button.isVisible = false
-        tv_messages.text = getString(R.string.select_sender)
-        tv_messages.isAllCaps = false
+        binding.settingsButton.isVisible = false
+        binding.userGuideButton.isVisible = false
+        binding.tvMessages.text = getString(R.string.select_sender)
+        binding.tvMessages.isAllCaps = false
     }
 
     private fun normalViewSetup() {
-        settings_button.isVisible = true
-        user_guide_button.isVisible = true
-        tv_messages.text = getString(R.string.friends_list)
-        tv_messages.isAllCaps = true
+        binding.settingsButton.isVisible = true
+        binding.userGuideButton.isVisible = true
+        binding.tvMessages.text = getString(R.string.friends_list)
+        binding.tvMessages.isAllCaps = true
     }
 }

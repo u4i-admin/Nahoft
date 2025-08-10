@@ -3,13 +3,10 @@ package org.nahoft.nahoft.activities
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.provider.MediaStore
-import android.telephony.SmsManager
 import android.text.Layout
 import android.text.SpannableString
 import android.text.style.AlignmentSpan
@@ -28,15 +25,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
-import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_friend_info.*
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
 import org.nahoft.codex.KeyOrMessage
 import org.nahoft.nahoft.*
+import org.nahoft.nahoft.databinding.ActivityFriendInfoBinding
 import org.nahoft.nahoft.fragments.*
 import org.nahoft.org.nahoft.swatch.Decoder
 import org.nahoft.org.nahoft.swatch.Encoder
@@ -44,8 +39,15 @@ import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 import org.nahoft.util.showAlert
 
+import org.operatorfoundation.transmission.SerialConnectionFactory
+import org.operatorfoundation.transmission.SerialConnection
+import com.hoho.android.usbserial.driver.UsbSerialDriver
+import kotlinx.coroutines.flow.collect
+import timber.log.Timber
+
 class FriendInfoActivity: AppCompatActivity()
 {
+    private lateinit var binding: ActivityFriendInfoBinding
     private var decodePayload: ByteArray? = null
     private lateinit var thisFriend: Friend
     private val parentJob = Job()
@@ -55,9 +57,16 @@ class FriendInfoActivity: AppCompatActivity()
     private val menuFragmentTag = "MenuFragment"
     private var isShareImageButtonShow: Boolean = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    // Serial connection properties
+    private lateinit var connectionFactory: SerialConnectionFactory
+    private var serialConnection: SerialConnection? = null
+
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_friend_info)
+
+        binding = ActivityFriendInfoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                         WindowManager.LayoutParams.FLAG_SECURE)
@@ -80,6 +89,7 @@ class FriendInfoActivity: AppCompatActivity()
         setClickListeners()
         setupViewByStatus()
         receivedSharedMessage()
+        setupSerialConnection()
     }
 
     override fun onResume() {
@@ -88,8 +98,66 @@ class FriendInfoActivity: AppCompatActivity()
         setupViewByStatus()
     }
 
+    // Add this new method
+    private fun setupSerialConnection() {
+        connectionFactory = SerialConnectionFactory(this)
+
+        val devices = connectionFactory.findAvailableDevices()
+
+        if (devices.isNotEmpty()) {
+            // Show serial option in UI
+            binding.serialStatusContainer.visibility = View.VISIBLE
+            binding.serialStatusText.text = "Connecting..."
+
+            // Connect to first available device
+            connectToDevice(devices.first())
+        } else {
+            Log.d(TAG, "No serial devices found")
+        }
+    }
+
+    private fun connectToDevice(driver: UsbSerialDriver)
+    {
+        coroutineScope.launch {
+            connectionFactory.createConnection(driver.device).collect { state ->
+                when (state)
+                {
+                    is SerialConnectionFactory.ConnectionState.Connected -> {
+                        serialConnection = state.connection
+                        binding.serialStatusText.text = "✓ Serial Connected"
+                        binding.useSerialCheckbox.isEnabled = true
+                        binding.useSerialCheckbox.isChecked = true
+                        Log.d(TAG, "Serial connected successfully")
+                    }
+
+                    is SerialConnectionFactory.ConnectionState.Disconnected -> {
+                        serialConnection = null
+                        binding.serialStatusText.text = "✗ Disconnected"
+                        binding.useSerialCheckbox.isEnabled = false
+                        binding.useSerialCheckbox.isChecked = false
+                    }
+
+                    is SerialConnectionFactory.ConnectionState.RequestingPermission -> {
+                        binding.serialStatusText.text = "Requesting permission..."
+                    }
+
+                    is SerialConnectionFactory.ConnectionState.Connecting -> {
+                        binding.serialStatusText.text = "Connecting..."
+                    }
+
+                    is SerialConnectionFactory.ConnectionState.Error -> {
+                        binding.serialStatusText.text = "✗ Error"
+                        binding.useSerialCheckbox.isEnabled = false
+                        Log.e(TAG, "Serial connection error: ${state.message}")
+                    }
+                }
+            }
+        }
+    }
+
     @ExperimentalUnsignedTypes
-    private fun receivedSharedMessage() {
+    private fun receivedSharedMessage()
+    {
         intent.getStringExtra(Intent.EXTRA_TEXT)?.let{
             //Attempt to decode the message
             decodeStringMessage(it)
@@ -118,70 +186,74 @@ class FriendInfoActivity: AppCompatActivity()
         returnButtonPressed()
     }
 
-    private fun setClickListeners() {
-        btn_resend_invite.setOnClickListener {
+    private fun setClickListeners()
+    {
+        binding.btnResendInvite.setOnClickListener {
             inviteClicked()
         }
 
-        button_back.setOnClickListener {
+        binding.buttonBack.setOnClickListener {
             returnButtonPressed()
         }
 
-        send_as_text.setOnClickListener {
-            if (message_edit_text.text.isNotEmpty())
+        binding.sendAsText.setOnClickListener {
+            if (binding.messageEditText.text.isNotEmpty())
             {
-                if (message_edit_text.text.length > 5000)
+                if (binding.messageEditText.text.length > 5000)
                 {
                     showAlert(getString(R.string.alert_text_message_too_long))
                 } else {
-                    val decodeResult = Codex().decode(message_edit_text.text.toString())
+                    val decodeResult = Codex().decode(binding.messageEditText.text.toString())
                     if (decodeResult != null) {
                         showConfirmationForImport()
                     } else {
                         trySendingOrSavingMessage(isImage = false, saveImage = false)
                     }
                 }
-            } else {
+            }
+            else
+            {
                 showAlert(getString(R.string.alert_text_write_a_message_to_send))
             }
         }
 
-        send_as_image.setOnClickListener {
+        binding.sendAsImage.setOnClickListener {
             showHideShareImageButtons()
         }
 
-        save_as_image.setOnClickListener {
+        binding.saveAsImage.setOnClickListener {
             trySendingOrSavingMessage(isImage = true, saveImage = true)
         }
 
-        share_as_image.setOnClickListener {
+        binding.shareAsImage.setOnClickListener {
             trySendingOrSavingMessage(isImage = true, saveImage = false)
         }
 
-        btn_import_text.setOnClickListener {
+        binding.btnImportText.setOnClickListener {
             importInvitationClicked()
         }
 
-        btn_import_image.setOnClickListener {
+        binding.btnImportImage.setOnClickListener {
             handleImageImport()
         }
 
-        btn_help.setOnClickListener {
+        binding.btnHelp.setOnClickListener {
             val slideActivity = Intent(this, SlideActivity::class.java)
             slideActivity.putExtra(Intent.EXTRA_TEXT, slideNameChat)
             startActivity(slideActivity)
         }
 
-        profile_picture.setOnClickListener {
+        binding.profilePicture.setOnClickListener {
             showMenuFragment()
         }
 
-        tv_friend_name.setOnClickListener {
+        binding.tvFriendName.setOnClickListener {
             showMenuFragment()
         }
     }
 
-    private fun showConfirmationForImport() {
+    private fun showConfirmationForImport()
+    {
         val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_AddFriendAlertDialog))
         val title = SpannableString(getString(R.string.import_text))
 
@@ -212,8 +284,8 @@ class FriendInfoActivity: AppCompatActivity()
         // Set the Add and Cancel Buttons
         builder.setPositiveButton(resources.getString(R.string.yes))
         { _, _->
-            decodeStringMessage(message_edit_text.text.toString())
-            message_edit_text.setText("")
+            decodeStringMessage(binding.messageEditText.text.toString())
+            binding.messageEditText.setText("")
         }
 
         builder.setNeutralButton(resources.getString(R.string.no))
@@ -225,20 +297,22 @@ class FriendInfoActivity: AppCompatActivity()
             .show()
     }
 
-    private fun showHideShareImageButtons() {
-        share_as_image.animate().apply {
+    private fun showHideShareImageButtons()
+    {
+        binding.shareAsImage.animate().apply {
             duration = 500
             translationY(if (isShareImageButtonShow) 0F else -175F)
             translationX(if (isShareImageButtonShow) 0F else 150F)
         }
-        save_as_image.animate().apply {
+        binding.saveAsImage.animate().apply {
             duration = 500
             translationY(if (isShareImageButtonShow) 0F else -175F)
         }
         isShareImageButtonShow = !isShareImageButtonShow
     }
 
-    private fun returnButtonPressed() {
+    private fun returnButtonPressed()
+    {
         val lastFragment = supportFragmentManager.fragments.last()
         if (lastFragment.tag == menuFragmentTag) {
             setupViewByStatus()
@@ -261,10 +335,10 @@ class FriendInfoActivity: AppCompatActivity()
             menuFragmentTag
         )
         ft.commit()
-        btn_import_image.isVisible = false
-        btn_import_text.isVisible = false
-        btn_resend_invite.isVisible = false
-        send_message_container.isVisible = false
+        binding.btnImportImage.isVisible = false
+        binding.btnImportText.isVisible = false
+        binding.btnResendInvite.isVisible = false
+        binding.sendMessageContainer.isVisible = false
         if (isShareImageButtonShow) showHideShareImageButtons()
     }
 
@@ -280,63 +354,69 @@ class FriendInfoActivity: AppCompatActivity()
                 menuFragmentTag
             )
             ft.commit()
-            btn_import_image.isVisible = false
-            btn_import_text.isVisible = false
-            btn_resend_invite.isVisible = true
-            send_message_container.isVisible = false
+            binding.btnImportImage.isVisible = false
+            binding.btnImportText.isVisible = false
+            binding.btnResendInvite.isVisible = true
+            binding.sendMessageContainer.isVisible = false
         }
     }
 
-    private fun setupViewByStatus() {
-        tv_friend_name.text = if (thisFriend.name.length <= 10) thisFriend.name else thisFriend.name.substring(0, 8) + "..."
-        profile_picture.text = thisFriend.name.substring(0, 1)
+    private fun setupViewByStatus()
+    {
+        binding.tvFriendName.text = if (thisFriend.name.length <= 10) thisFriend.name else thisFriend.name.substring(0, 8) + "..."
+        binding.profilePicture.text = thisFriend.name.substring(0, 1)
         val ft = supportFragmentManager.beginTransaction()
-        when (thisFriend.status) {
+        when (thisFriend.status)
+        {
             FriendStatus.Default -> {
-                status_icon_image_view.setImageResource(FriendStatus.Default.getIcon())
+                binding.statusIconImageView.setImageResource(FriendStatus.Default.getIcon())
                 ft.replace(R.id.frame_placeholder, DefaultStatusFragment.newInstance(thisFriend))
                 ft.commit()
-                btn_import_image.isVisible = false
-                btn_import_text.isVisible = false
-                btn_resend_invite.isVisible = false
-                send_message_container.isVisible = false
+                binding.btnImportImage.isVisible = false
+                binding.btnImportText.isVisible = false
+                binding.btnResendInvite.isVisible = false
+                binding.sendMessageContainer.isVisible = false
             }
+
             FriendStatus.Requested -> {
-                status_icon_image_view.setImageResource(FriendStatus.Requested.getIcon())
+                binding.statusIconImageView.setImageResource(FriendStatus.Requested.getIcon())
                 ft.replace(R.id.frame_placeholder, RequestedStatusFragment.newInstance(thisFriend))
                 ft.commit()
-                btn_import_image.isVisible = false
-                btn_import_text.isVisible = false
-                btn_resend_invite.isVisible = false
-                send_message_container.isVisible = false
+                binding.btnImportImage.isVisible = false
+                binding.btnImportText.isVisible = false
+                binding.btnResendInvite.isVisible = false
+                binding.sendMessageContainer.isVisible = false
             }
+
             FriendStatus.Invited -> {
-                status_icon_image_view.setImageResource(FriendStatus.Invited.getIcon())
+                binding.statusIconImageView.setImageResource(FriendStatus.Invited.getIcon())
                 ft.replace(R.id.frame_placeholder, InvitedStatusFragment.newInstance(thisFriend))
                 ft.commit()
-                btn_import_image.isVisible = false
-                btn_import_text.isVisible = false
-                btn_resend_invite.isVisible = true
-                send_message_container.isVisible = false
+                binding.btnImportImage.isVisible = false
+                binding.btnImportText.isVisible = false
+                binding.btnResendInvite.isVisible = true
+                binding.sendMessageContainer.isVisible = false
             }
+
             FriendStatus.Verified -> {
-                status_icon_image_view.setImageResource(FriendStatus.Verified.getIcon())
+                binding.statusIconImageView.setImageResource(FriendStatus.Verified.getIcon())
                 ft.replace(R.id.frame_placeholder, VerifiedStatusFragment.newInstance(thisFriend))
                 ft.commit()
-                btn_import_image.isVisible = true
-                btn_import_text.isVisible = true
-                btn_resend_invite.isVisible = false
-                send_message_container.isVisible = true
-                verified_status_icon_image_view.isVisible = true
+                binding.btnImportImage.isVisible = true
+                binding.btnImportText.isVisible = true
+                binding.btnResendInvite.isVisible = false
+                binding.sendMessageContainer.isVisible = true
+                binding.verifiedStatusIconImageView.isVisible = true
             }
+
             FriendStatus.Approved -> {
-                status_icon_image_view.setImageResource(FriendStatus.Approved.getIcon())
+                binding.statusIconImageView.setImageResource(FriendStatus.Approved.getIcon())
                 ft.replace(R.id.frame_placeholder, VerifiedStatusFragment.newInstance(thisFriend))
                 ft.commit()
-                btn_import_image.isVisible = true
-                btn_import_text.isVisible = true
-                btn_resend_invite.isVisible = false
-                send_message_container.isVisible = true
+                binding.btnImportImage.isVisible = true
+                binding.btnImportText.isVisible = true
+                binding.btnResendInvite.isVisible = false
+                binding.sendMessageContainer.isVisible = true
 //                val codex = Codex()
 //                val friendCode = codex.encodeKey(PublicKey(thisFriend.publicKeyEncoded).toBytes())
 //                val userCode = codex.encodeKey(Encryption().ensureKeysExist().publicKey.toBytes())
@@ -350,7 +430,8 @@ class FriendInfoActivity: AppCompatActivity()
         }
     }
 
-    fun inviteClicked() {
+    fun inviteClicked()
+    {
         // Get user's public key to send to contact
         val userPublicKey = Encryption().ensureKeysExist().publicKey
         val keyBytes = userPublicKey.toBytes()
@@ -378,7 +459,7 @@ class FriendInfoActivity: AppCompatActivity()
 //                return
 //            }
 //        } else {
-            ShareUtil.shareKey(this, keyBytes)
+        ShareUtil.shareKey(this, keyBytes)
 //        }
 
         if (thisFriend.status == FriendStatus.Requested)
@@ -438,9 +519,10 @@ class FriendInfoActivity: AppCompatActivity()
         }.create().show()
     }
 
-    private fun trySendingOrSavingMessage(isImage: Boolean, saveImage: Boolean) {
+    private fun trySendingOrSavingMessage(isImage: Boolean, saveImage: Boolean)
+    {
         // Make sure there is a message to send
-        val message = message_edit_text.text.toString()
+        val message = binding.messageEditText.text.toString()
 
         if (message.isBlank()) {
             showAlert(getString(R.string.alert_text_write_a_message_to_send))
@@ -452,6 +534,12 @@ class FriendInfoActivity: AppCompatActivity()
             return
         }
 
+        // Check if serial is selected and available
+        if (binding.useSerialCheckbox.isChecked && serialConnection != null) {
+            sendViaSerial(message)
+            return
+        }
+
         if (isImage) {
             // If the message is sent as an image
             ActivityCompat.requestPermissions(
@@ -460,9 +548,12 @@ class FriendInfoActivity: AppCompatActivity()
                 1
             )
             pickImageFromGallery(saveImage)
-        } else {
+        }
+        else
+        {
             // If the message is sent as text
-            if (thisFriend.publicKeyEncoded != null) {
+            if (thisFriend.publicKeyEncoded != null)
+            {
                 val encryptedMessage = Encryption().encrypt(thisFriend.publicKeyEncoded!!, message)
 //                if (Persist.loadBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey) && (thisFriend.phone?.isNotEmpty() == true)) {
 //                    val permissionCheck = ContextCompat.checkSelfPermission(
@@ -502,25 +593,131 @@ class FriendInfoActivity: AppCompatActivity()
 //                        }
 //                    }
 //                } else {
-                    ShareUtil.shareText(this, message, thisFriend.publicKeyEncoded!!)
-                    saveMessage(encryptedMessage, thisFriend, true)
+//                    ShareUtil.shareText(this, message, thisFriend.publicKeyEncoded!!)
+//                    saveMessage(encryptedMessage, thisFriend, true)
 //                }
 
-                message_edit_text.text?.clear()
-            } else {
+                ShareUtil.shareText(this, message, thisFriend.publicKeyEncoded!!)
+                saveMessage(encryptedMessage, thisFriend, true)
+
+                binding.messageEditText.text?.clear()
+            }
+            else
+            {
                 this.showAlert(getString(R.string.alert_text_verified_friends_only))
                 return
             }
         }
     }
 
-    private fun pickImageFromGallery(saveImage: Boolean) {
+    private fun sendViaSerial(message: String)
+    {
+        coroutineScope.launch(Dispatchers.IO) {
+            try
+            {
+                serialConnection?.let { connection ->
+                    Timber.d("=== Starting Command Sequence ===")
+
+                    // Predefined command sequence from demo app
+                    val commandSequence = listOf(
+                        "2",
+                        "#",
+                        "2",
+                        "3",
+                        "QA0DEF",
+                        "7",
+                        "BK8600",
+                        "6",
+                        "11",
+                        "2",
+                        "4",
+                        "14097157",
+                        "q"
+                    )
+
+                    // Send each command without waiting for response
+                    for ((index, command) in commandSequence.withIndex())
+                    {
+                        try
+                        {
+                            Timber.d("Sequence [${index + 1}/${commandSequence.size}]: Sending '$command'")
+
+                            // Send the command with CRLF
+                            val sendSuccess = connection.write(command + "\r\n")
+
+                            if (!sendSuccess) {
+                                Timber.e("Failed to send command: $command")
+                                throw Exception("Failed to send command at step ${index + 1}")
+                            }
+
+                            Timber.d("→ Sent: $command")
+
+                            // Brief pause between commands
+                            delay(50) // 50ms delay between commands
+
+                        }
+                        catch (e: Exception)
+                        {
+                            Timber.e("Error during command sequence at step ${index + 1}: $command")
+                            throw e
+                        }
+                    }
+
+                    // Send final '1' command for transmit
+                    Timber.d("Sending final transmit command...")
+                    val finalSuccess = connection.write("1")
+
+                    if (finalSuccess) {
+                        Timber.d("→ Transmit command sent: 1")
+
+                        // Wait a bit for transmission to complete
+                        delay(500)
+
+                        // Send quit command
+                        connection.write("q")
+                        Timber.d("→ Quit command sent: q")
+
+                        Timber.d("=== Command Sequence Completed ===")
+                    }
+                    else
+                    {
+                        Timber.e("Failed to send transmit command")
+                    }
+
+                    withContext(Dispatchers.Main) {
+                        binding.messageEditText.text?.clear()
+                        showAlert("Command sequence sent via serial")
+
+                        // Optionally save the message to history
+                        thisFriend.publicKeyEncoded?.let { key ->
+                            val encryptedMessage = Encryption().encrypt(key, message)
+                            saveMessage(encryptedMessage, thisFriend, true)
+                        }
+                    }
+                } ?:
+                throw Exception("Serial connection is null")
+
+            }
+            catch (e: Exception)
+            {
+                withContext(Dispatchers.Main) {
+                    showAlert("Serial send failed: ${e.message}")
+                }
+            }
+        }
+    }
+
+    private fun pickImageFromGallery(saveImage: Boolean)
+    {
         // Calling GetContent contract
         val pickImageIntent =
             Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        if (saveImage) {
+        if (saveImage)
+        {
             startActivityForResult(pickImageIntent, RequestCodes.selectImageForSavingCode)
-        } else {
+        }
+        else
+        {
             startActivityForResult(pickImageIntent, RequestCodes.selectImageForSharingCode)
         }
     }
@@ -533,7 +730,8 @@ class FriendInfoActivity: AppCompatActivity()
     }
 
     @ExperimentalUnsignedTypes
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+    {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK)
@@ -550,18 +748,18 @@ class FriendInfoActivity: AppCompatActivity()
                 // We can only share an image if a recipient with a public key has been selected
                 thisFriend.publicKeyEncoded?.let {
                     // Get the message text
-                    val message = message_edit_text.text.toString()
+                    val message = binding.messageEditText.text.toString()
                     // get data?.data as URI
                     val imageURI = data?.data
                     imageURI?.let {
-                        imageImportProgressBar.visibility = View.VISIBLE
+                        binding.imageImportProgressBar.visibility = View.VISIBLE
                         shareOrSaveAsImage(
                             imageURI,
                             message,
                             thisFriend.publicKeyEncoded!!,
                             requestCode == RequestCodes.selectImageForSavingCode
                         )
-                        message_edit_text.text?.clear()
+                        binding.messageEditText.text?.clear()
                     }
                 }
             }
@@ -569,8 +767,10 @@ class FriendInfoActivity: AppCompatActivity()
     }
 
     @ExperimentalUnsignedTypes
-    private fun shareOrSaveAsImage(imageUri: Uri, message: String, encodedFriendPublicKey: ByteArray, saveImage: Boolean) {
-        try {
+    private fun shareOrSaveAsImage(imageUri: Uri, message: String, encodedFriendPublicKey: ByteArray, saveImage: Boolean)
+    {
+        try
+        {
             // Encrypt the message
             val encryptedMessage = Encryption().encrypt(encodedFriendPublicKey, message)
             makeWait()
@@ -589,7 +789,7 @@ class FriendInfoActivity: AppCompatActivity()
             coroutineScope.launch(Dispatchers.Main) {
                 val maybeUri = newUri.await()
                 noMoreWaiting()
-                imageImportProgressBar.visibility = View.INVISIBLE
+                binding.imageImportProgressBar.visibility = View.INVISIBLE
 
                 if (maybeUri != null)
                 {
@@ -615,7 +815,8 @@ class FriendInfoActivity: AppCompatActivity()
     }
 
     @ExperimentalUnsignedTypes
-    private fun decodeImage(imageUri: Uri) {
+    private fun decodeImage(imageUri: Uri)
+    {
         makeWait()
 
         val decodeResult: Deferred<ByteArray?> =
@@ -666,15 +867,15 @@ class FriendInfoActivity: AppCompatActivity()
     }
 
     private fun makeWait() {
-        imageImportProgressBar.visibility = View.VISIBLE
-        btn_import_image.isEnabled = false
-        btn_import_image.isClickable = false
+        binding.imageImportProgressBar.visibility = View.VISIBLE
+        binding.btnImportImage.isEnabled = false
+        binding.btnImportImage.isClickable = false
     }
 
     private fun noMoreWaiting() {
-        imageImportProgressBar.visibility = View.INVISIBLE
-        btn_import_image.isEnabled = true
-        btn_import_image.isClickable = true
+        binding.imageImportProgressBar.visibility = View.INVISIBLE
+        binding.btnImportImage.isEnabled = true
+        binding.btnImportImage.isClickable = true
     }
 
     private fun decodeStringMessage(messageString: String) {
@@ -769,8 +970,8 @@ class FriendInfoActivity: AppCompatActivity()
     fun changeFriendsName(newName: String) {
         Persist.updateFriend(this, thisFriend, newName)
         thisFriend.name = if (newName.length <= 10) newName else newName.substring(0, 8) + "..."
-        tv_friend_name.text = thisFriend.name
-        profile_picture.text = thisFriend.name.substring(0, 1)
+        binding.tvFriendName.text = thisFriend.name
+        binding.profilePicture.text = thisFriend.name.substring(0, 1)
         showAlert("New name saved")
     }
 
@@ -784,5 +985,16 @@ class FriendInfoActivity: AppCompatActivity()
         (getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager).apply {
             hideSoftInputFromWindow(editText.windowToken, 0)
         }
+    }
+
+    override fun onDestroy()
+    {
+        super.onDestroy()
+
+        // Clean up serial connection
+        serialConnection?.close()
+        connectionFactory.disconnect()
+
+        parentJob.cancel()
     }
 }

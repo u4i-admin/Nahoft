@@ -3,7 +3,6 @@
 //import android.view.View
 //import android.view.ViewGroup
 //import androidx.recyclerview.widget.RecyclerView
-//import kotlinx.android.synthetic.main.contact_recyclerview_item_row.view.*
 //import org.nahoft.util.inflate
 //
 //class ContactsRecyclerAdapter(private val contacts: ArrayList<Contact>) : RecyclerView.Adapter<ContactsRecyclerAdapter.ContactViewHolder>()

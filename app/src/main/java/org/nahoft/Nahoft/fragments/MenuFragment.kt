@@ -9,25 +9,27 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_menu.*
-import kotlinx.android.synthetic.main.fragment_menu.friend_public_key
-import kotlinx.android.synthetic.main.fragment_menu.friend_public_key_title
-import kotlinx.android.synthetic.main.fragment_menu.user_public_key
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.R
 import org.nahoft.nahoft.activities.FriendInfoActivity
+import org.nahoft.nahoft.databinding.FragmentMenuBinding
 
 // the fragment initialization parameters
 private const val FRIEND = "friend"
 private const val USER_PUBLIC_KEY = "User's Public key"
 private const val FRIEND_PUBLIC_KEY = "Friend's public key"
-class MenuFragment : Fragment() {
+class MenuFragment : Fragment()
+{
+    private var _binding: FragmentMenuBinding? = null
+    private val binding get() = _binding!!
     private var friend: Friend? = null
     private var userPublicKey: String? = null
     private var friendPublicKey: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             friend = it.getSerializable(FRIEND) as Friend?
             userPublicKey = it.getString(USER_PUBLIC_KEY)
@@ -38,9 +40,11 @@ class MenuFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View?
+    {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu, container, false)
+        _binding = FragmentMenuBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     companion object {
@@ -65,21 +69,21 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        enter_name_input.setText(friend?.name)
+        binding.enterNameInput.setText(friend?.name)
 //        enter_phone_input.setText(friend?.phone)
-        user_public_key.text = userPublicKey
-        friend_public_key.text = friendPublicKey
-        friend_public_key_title.text = getString(R.string.label_verify_friend_number, friend?.name)
+        binding.userPublicKey.text = userPublicKey
+        binding.friendPublicKey.text = friendPublicKey
+        binding.friendPublicKeyTitle.text = getString(R.string.label_verify_friend_number, friend?.name)
 
         if (friendPublicKey == "") {
-            approve_button.isVisible = false
-            decline_button.isVisible = false
+            binding.approveButton.isVisible = false
+            binding.declineButton.isVisible = false
         } else {
-            approve_button.isVisible = true
-            decline_button.isVisible = true
+            binding.approveButton.isVisible = true
+            binding.declineButton.isVisible = true
         }
 
-        enter_name_input.setOnFocusChangeListener { _, hasFocus ->
+        binding.enterNameInput.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 saveName()
             }
@@ -91,20 +95,20 @@ class MenuFragment : Fragment() {
 //            }
 //        }
 
-        save_button.setOnClickListener {
+        binding.saveButton.setOnClickListener {
             saveName()
 //            savePhoneNumber()
         }
 
-        approve_button.setOnClickListener { (activity as FriendInfoActivity?)?.approveVerifyFriend() }
-        decline_button.setOnClickListener { (activity as FriendInfoActivity?)?.declineVerifyFriend() }
+        binding.approveButton.setOnClickListener { (activity as FriendInfoActivity?)?.approveVerifyFriend() }
+        binding.declineButton.setOnClickListener { (activity as FriendInfoActivity?)?.declineVerifyFriend() }
     }
 
     private fun saveName() {
         // If a new name has been entered, save it and display it
-        if (enter_name_input.text?.isNotBlank() == true && enter_name_input.isDirty)
+        if (binding.enterNameInput.text?.isNotBlank() == true && binding.enterNameInput.isDirty)
         {
-            val newName = enter_name_input.text.toString()
+            val newName = binding.enterNameInput.text.toString()
 
             if (newName != friend!!.name)
             {
@@ -135,5 +139,13 @@ class MenuFragment : Fragment() {
             binder,
             InputMethodManager.HIDE_NOT_ALWAYS
         )
+    }
+
+    // Clean up binding reference when Fragment's view is destroyed
+    // This is important to prevent memory leaks in Fragments
+    override fun onDestroyView()
+    {
+        super.onDestroyView()
+        _binding = null
     }
 }

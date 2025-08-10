@@ -5,15 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_verify_status.*
 import org.nahoft.nahoft.R
 import org.nahoft.nahoft.activities.FriendInfoActivity
+import org.nahoft.nahoft.databinding.FragmentVerifyStatusBinding
 
 private const val USER_PUBLIC_KEY = "User's Public key"
 private const val FRIEND_PUBLIC_KEY = "Friend's public key"
 private const val FRIEND_NAME = "Friend's name"
 
-class VerifyStatusFragment : Fragment() {
+class VerifyStatusFragment : Fragment()
+{
+    private var _binding: FragmentVerifyStatusBinding? = null
+    private val binding get() = _binding!!
     private var userPublicKey: String? = null
     private var friendPublicKey: String? = null
     private var friendsName: String? = null
@@ -30,9 +33,11 @@ class VerifyStatusFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View?
+    {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_verify_status, container, false)
+        _binding = FragmentVerifyStatusBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     companion object {
@@ -59,11 +64,19 @@ class VerifyStatusFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        user_public_key.text = userPublicKey
-        friend_public_key.text = friendPublicKey
-        friend_public_key_title.text = getString(R.string.label_verify_friend_number, friendsName)
+        binding.userPublicKey.text = userPublicKey
+        binding.friendPublicKey.text = friendPublicKey
+        binding.friendPublicKeyTitle.text = getString(R.string.label_verify_friend_number, friendsName)
 
-        approve_button.setOnClickListener { (activity as FriendInfoActivity?)?.approveVerifyFriend() }
-        decline_button.setOnClickListener { (activity as FriendInfoActivity?)?.declineVerifyFriend() }
+        binding.approveButton.setOnClickListener { (activity as FriendInfoActivity?)?.approveVerifyFriend() }
+        binding.declineButton.setOnClickListener { (activity as FriendInfoActivity?)?.declineVerifyFriend() }
+    }
+
+    // Clean up binding reference when Fragment's view is destroyed
+    // This is important to prevent memory leaks in Fragments
+    override fun onDestroyView()
+    {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -1,7 +1,10 @@
 package org.nahoft.nahoft.activities
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.provider.Settings
@@ -13,7 +16,7 @@ import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.activity_log_in.*
+import org.nahoft.Nahoft.utils.registerReceiverCompat
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.LoginStatus
@@ -25,12 +28,14 @@ import org.nahoft.nahoft.Persist.Companion.sharedPrefPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.sharedPrefSecondaryPasscodeKey
 import org.nahoft.nahoft.Persist.Companion.status
 import org.nahoft.nahoft.R
+import org.nahoft.nahoft.databinding.ActivityLogInBinding
 import org.nahoft.util.showAlert
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 
 class LogInActivity : AppCompatActivity()
 {
+    private lateinit var binding: ActivityLogInBinding
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
@@ -48,16 +53,21 @@ class LogInActivity : AppCompatActivity()
         // User should not be able to back out of this activity
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_log_in)
+
+        // Initialize View Binding
+        binding = ActivityLogInBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                         WindowManager.LayoutParams.FLAG_SECURE)
 
-        registerReceiver(receiver, IntentFilter().apply {
+        registerReceiverCompat(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
-        })
+        }, exported = false)
 
         // Load encryptedSharedPreferences
         Persist.loadEncryptedSharedPreferences(this.applicationContext)
@@ -67,11 +77,11 @@ class LogInActivity : AppCompatActivity()
         tryLogIn(status)
         setupDeviceCredentials()
 
-        login_button.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             this.handleLoginPress()
         }
 
-        passcodeEditText.setOnEditorActionListener { _, keyCode, _ ->
+        binding.passcodeEditText.setOnEditorActionListener { _, keyCode, _ ->
           return@setOnEditorActionListener when (keyCode) {
              EditorInfo.IME_ACTION_DONE -> {
                  this.handleLoginPress()
@@ -97,7 +107,7 @@ class LogInActivity : AppCompatActivity()
 
     private fun handleLoginPress()
     {
-        val enteredPasscode = passcodeEditText.text.toString()
+        val enteredPasscode = binding.passcodeEditText.text.toString()
 
         if (enteredPasscode.isNotBlank())
         {
@@ -353,7 +363,7 @@ class LogInActivity : AppCompatActivity()
 
     private fun cleanup()
     {
-        passcodeEditText.text.clear()
+        binding.passcodeEditText.text.clear()
     }
 
     private fun setupDeviceCredentials() {

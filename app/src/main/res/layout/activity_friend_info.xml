@@ -177,6 +177,40 @@
         app:layout_constraintTop_toTopOf="@+id/send_message_container" />
 
     <LinearLayout
+        android:id="@+id/serial_status_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/btn_bkgd_light_grey_outline_8"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/send_message_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/serial_status_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Serial Device"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical" />
+
+        <CheckBox
+            android:id="@+id/use_serial_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Use Serial"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white"
+            android:enabled="false" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/send_message_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

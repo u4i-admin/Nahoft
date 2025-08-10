@@ -18,8 +18,8 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.viewpager.widget.PagerAdapter
-import kotlinx.android.synthetic.main.slide_screen.view.*
 import org.nahoft.nahoft.activities.SlideActivity
+import org.nahoft.nahoft.databinding.SlideScreenBinding
 
 class SlideViewPagerAdapter(private val context: Context, private val slideList: ArrayList<Slide>) : PagerAdapter() {
     override fun getCount(): Int {
@@ -30,44 +30,55 @@ class SlideViewPagerAdapter(private val context: Context, private val slideList:
         return view == `object`
     }
 
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view = LayoutInflater.from(context).inflate(R.layout.slide_screen, container, false)
+    override fun instantiateItem(container: ViewGroup, position: Int): Any
+    {
+        val binding = SlideScreenBinding.inflate(
+            LayoutInflater.from(context),
+            container,
+            false
+        )
+        val view = binding.root
 
         val currentSlide = slideList[position]
-        view.main_image_view.setImageResource(currentSlide.image)
-        view.title_text_view.text = currentSlide.title
-        view.description_text_view.text = currentSlide.description
-        view.prev_button.isVisible = position != 0
-        view.next_button.isVisible = position != slideList.size - 1
-        view.get_started_button.text = currentSlide.skipButtonText
-        view.read_more_button.isInvisible = currentSlide.fullDescription.isNullOrEmpty()
-        if (currentSlide.showButtonAsLink) {
-            view.skip_button.isVisible = true
-            view.get_started_button.isVisible = false
-        } else {
-            view.skip_button.isVisible = false
-            view.get_started_button.isVisible = true
+
+        binding.mainImageView.setImageResource(currentSlide.image)
+        binding.titleTextView.text = currentSlide.title
+        binding.descriptionTextView.text = currentSlide.description
+        binding.prevButton.isVisible = position != 0
+        binding.nextButton.isVisible = position != slideList.size - 1
+        binding.getStartedButton.text = currentSlide.skipButtonText
+        binding.readMoreButton.isInvisible = currentSlide.fullDescription.isNullOrEmpty()
+
+        if (currentSlide.showButtonAsLink)
+        {
+            binding.skipButton.isVisible = true
+            binding.getStartedButton.isVisible = false
+        }
+        else
+        {
+            binding.skipButton.isVisible = false
+            binding.getStartedButton.isVisible = true
         }
 
-        setIndicatorColor(view, position)
+        setIndicatorColor(binding, position)
 
-        view.next_button.setOnClickListener {
+        binding.nextButton.setOnClickListener {
             SlideActivity.viewPager?.currentItem = position + 1
         }
 
-        view.prev_button.setOnClickListener {
+        binding.prevButton.setOnClickListener {
             SlideActivity.viewPager?.currentItem = position - 1
         }
 
-        view.get_started_button.setOnClickListener {
+        binding.getStartedButton.setOnClickListener {
             (context as Activity).finish()
         }
 
-        view.skip_button.setOnClickListener {
+        binding.skipButton.setOnClickListener {
             (context as Activity).finish()
         }
 
-        view.read_more_button.setOnClickListener {
+        binding.readMoreButton.setOnClickListener {
             currentSlide.fullDescription?.let { desc ->
                 showFullDescription(context, currentSlide.title, desc)
             }
@@ -81,7 +92,8 @@ class SlideViewPagerAdapter(private val context: Context, private val slideList:
         container.removeView(`object` as View)
     }
 
-    private fun setIndicatorColor(view: View, activeInd: Int) {
+    private fun setIndicatorColor(binding: SlideScreenBinding, activeInd: Int)
+    {
         val params: LinearLayout.LayoutParams =
             LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         params.setMargins(0, 0, 8, 0)
@@ -89,25 +101,26 @@ class SlideViewPagerAdapter(private val context: Context, private val slideList:
         params.height = 40
 
         for (i in 0 until slideList.size) {
-            val ind = ImageView(view.context)
+            val ind = ImageView(binding.root.context)
             ind.setImageResource(if (i == activeInd) R.drawable.active_slide_indicator else R.drawable.unactive_slide_indicator)
             ind.layoutParams = params
-            view.indicators_container.addView(ind)
+            binding.indicatorsContainer.addView(ind)
         }
     }
 
-    private fun showFullDescription(context: Context, title: String, body: String) {
+    private fun showFullDescription(context: Context, title: String, body: String)
+    {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.AppTheme_AlertDialog)
-        val title = SpannableString(title)
+        val titleSpan = SpannableString(title)
 
         // alert dialog title align center
-        title.setSpan(
+        titleSpan.setSpan(
             AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
             0,
-            title.length,
+            titleSpan.length,
             0
         )
-        builder.setTitle(title)
+        builder.setTitle(titleSpan)
 
         val inputTextView = TextView(context)
         inputTextView.textAlignment = View.TEXT_ALIGNMENT_CENTER

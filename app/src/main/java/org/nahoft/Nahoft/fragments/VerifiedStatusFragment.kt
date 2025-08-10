@@ -11,13 +11,16 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_verified_status.*
 import org.nahoft.nahoft.*
+import org.nahoft.nahoft.databinding.FragmentVerifiedStatusBinding
 
 // the fragment initialization parameters
 private const val FRIEND = "friend"
 
-class VerifiedStatusFragment : Fragment() {
+class VerifiedStatusFragment : Fragment()
+{
+    var _binding: FragmentVerifiedStatusBinding? = null
+    val binding get() = _binding!!
     private var friend: Friend? = null
     private lateinit var filteredMessages: ArrayList<Message>
 
@@ -34,15 +37,17 @@ class VerifiedStatusFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View?
+    {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_verified_status, container, false)
+        _binding = FragmentVerifiedStatusBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onResume() {
         super.onResume()
 
-        messages_recycler_view.adapter?.notifyDataSetChanged()
+        binding.messagesRecyclerView.adapter?.notifyDataSetChanged()
     }
 
     companion object {
@@ -68,11 +73,11 @@ class VerifiedStatusFragment : Fragment() {
         // Setup the messages RecyclerView
         linearLayoutManager = LinearLayoutManager(context)
         filteredMessages = Persist.messageList.filter { message ->  message.sender == friend } as ArrayList<Message>
-        if (filteredMessages.size > 0) no_data_layout.isVisible = false
+        if (filteredMessages.size > 0) binding.noDataLayout.isVisible = false
         adapter = MessagesRecyclerAdapter(filteredMessages)
-        messages_recycler_view.layoutManager = linearLayoutManager
-        messages_recycler_view.adapter = adapter
-        messages_recycler_view.scrollToPosition(adapter.itemCount - 1)
+        binding.messagesRecyclerView.layoutManager = linearLayoutManager
+        binding.messagesRecyclerView.adapter = adapter
+        binding.messagesRecyclerView.scrollToPosition(adapter.itemCount - 1)
         adapter.onItemLongClick = { message ->
             showDeleteConfirmationDialog(message)
         }
@@ -112,5 +117,13 @@ class VerifiedStatusFragment : Fragment() {
             filteredMessages.removeIf { msg -> msg == message && msg.timestamp == message.timestamp }
             adapter.notifyDataSetChanged()
         }
+    }
+
+    // Clean up binding reference when Fragment's view is destroyed
+    // This is important to prevent memory leaks in Fragments
+    override fun onDestroyView()
+    {
+        super.onDestroyView()
+        _binding = null
     }
 }

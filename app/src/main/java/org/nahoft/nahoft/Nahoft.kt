@@ -6,10 +6,10 @@ import android.os.CountDownTimer
 import androidx.lifecycle.*
 import org.nahoft.codex.LOGOUT_TIMER_VAL
 import org.nahoft.nahoft.Persist.Companion.status
-import org.nahoft.nahoft.LoginStatus
+import timber.log.Timber
 
-class Nahoft: Application(), LifecycleObserver {
-
+class Nahoft: Application(), LifecycleObserver
+{
     // Set Logout Timer to 5 minutes.
     private val logoutTimer = object: CountDownTimer(300000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
@@ -31,8 +31,14 @@ class Nahoft: Application(), LifecycleObserver {
         }
     }
 
-    override fun onCreate() {
+    override fun onCreate()
+    {
         super.onCreate()
+
+        if (BuildConfig.DEBUG)
+        {
+            Timber.plant(Timber.DebugTree())
+        }
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
     }

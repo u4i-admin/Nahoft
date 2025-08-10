@@ -1,12 +1,13 @@
 package org.nahoft.nahoft
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.message_item_row.view.*
 import org.libsodium.jni.keys.PublicKey
 import org.nahoft.codex.Encryption
-import org.nahoft.util.inflate
+import org.nahoft.nahoft.databinding.ActivitySettingPasscodeBinding
+import org.nahoft.nahoft.databinding.MessageItemRowBinding
 
 class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : RecyclerView.Adapter<MessagesRecyclerAdapter.MessageViewHolder>()
 {
@@ -14,18 +15,18 @@ class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : Recycl
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder
     {
-        val inflatedView = parent.inflate(R.layout.message_item_row, false)
-        return MessageViewHolder(inflatedView)
+        val binding = MessageItemRowBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return MessageViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int)
     {
         val messageItem = messages[position]
         holder.bindMessage(messageItem)
-        holder.itemView.setOnLongClickListener {
-            onItemLongClick?.invoke(messageItem)
-            return@setOnLongClickListener true
-        }
     }
 
     override fun getItemCount(): Int = messages.size
@@ -36,15 +37,14 @@ class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : Recycl
     }
 
     // ViewHolder
-    inner class MessageViewHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener
+    inner class MessageViewHolder(private val binding: MessageItemRowBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener
     {
-
         private var message: Message? = null
-        private var view: View = v
 
         init {
-            v.setOnClickListener(this)
-            v.setOnLongClickListener {
+            binding.root.setOnClickListener(this)
+
+            binding.root.setOnLongClickListener {
                 message?.let { it1 ->
                     onItemLongClick?.invoke(it1)
                 }
@@ -65,14 +65,14 @@ class MessagesRecyclerAdapter(private val messages: ArrayList<Message>) : Recycl
         fun bindMessage(newMessage: Message)
         {
             this.message = newMessage
-            this.view.message_text_view.text = loadMessageContent() // newMessage.sender?.name
-            this.view.date_text_view.text = newMessage.getDateStringForDetail()
+            binding.messageTextView.text = loadMessageContent() // newMessage.sender?.name
+            binding.dateTextView.text = newMessage.getDateStringForDetail()
             if (newMessage.fromMe) {
-                this.view.layoutDirection = View.LAYOUT_DIRECTION_RTL
-                this.view.status_image_view.text = "Me"
+                binding.root.layoutDirection = View.LAYOUT_DIRECTION_RTL
+                binding.statusImageView.text = "Me"
             } else {
-                this.view.message_text_view.setBackgroundResource(R.drawable.transparent_overlay_message_white)
-                this.view.status_image_view.text = newMessage.sender?.name?.substring(0, 1)
+                binding.messageTextView.setBackgroundResource(R.drawable.transparent_overlay_message_white)
+                binding.statusImageView.text = newMessage.sender?.name?.substring(0, 1)
             }
         }
 

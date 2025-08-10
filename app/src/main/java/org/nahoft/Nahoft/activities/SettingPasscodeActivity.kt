@@ -7,13 +7,12 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.provider.Settings
-import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.core.view.isGone
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_setting_passcode.*
+import org.nahoft.Nahoft.utils.registerReceiverCompat
 import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
 import org.nahoft.codex.LOGOUT_TIMER_VAL
@@ -21,12 +20,14 @@ import org.nahoft.codex.LogoutTimerBroadcastReceiver
 import org.nahoft.nahoft.LoginStatus
 import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.R
+import org.nahoft.nahoft.databinding.ActivitySettingPasscodeBinding
 import org.nahoft.nahoft.slideNameSetting
 import org.nahoft.util.showAlert
 
 
-class SettingPasscodeActivity : AppCompatActivity() {
-
+class SettingPasscodeActivity : AppCompatActivity()
+{
+    private lateinit var binding: ActivitySettingPasscodeBinding
     private val receiver by lazy {
         LogoutTimerBroadcastReceiver {
             cleanup()
@@ -36,25 +37,26 @@ class SettingPasscodeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_setting_passcode)
+
+        binding = ActivitySettingPasscodeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                         WindowManager.LayoutParams.FLAG_SECURE)
 
-        registerReceiver(receiver, IntentFilter().apply {
+        registerReceiverCompat(receiver, IntentFilter().apply {
             addAction(LOGOUT_TIMER_VAL)
-        })
+        }, exported = false)
 
         val codex = Codex()
         val userCode = codex.encodeKey(Encryption().ensureKeysExist().publicKey.toBytes())
-        user_public_key_edittext.setText(userCode)
+        binding.userPublicKeyEdittext.setText(userCode)
 
         setupButtons()
         setDefaultView()
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         Persist.saveLoginStatus()
     }
 
@@ -75,11 +77,11 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
     private fun setupButtons()
     {
-        passcode_switch.setOnCheckedChangeListener { _, isChecked ->
+        binding.passcodeSwitch.setOnCheckedChangeListener { _, isChecked ->
             handlePasscodeRequirementChange(isChecked)
         }
 
-        destruction_code_switch.setOnCheckedChangeListener { _, isChecked ->
+        binding.destructionCodeSwitch.setOnCheckedChangeListener { _, isChecked ->
             handleDestructionCodeRequirementChange(isChecked)
         }
 
@@ -87,34 +89,34 @@ class SettingPasscodeActivity : AppCompatActivity() {
 //            Persist.saveBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey, isChecked)
 //        }
 
-        passcode_submit_button.setOnClickListener {
+        binding.passcodeSubmitButton.setOnClickListener {
             savePasscode()
         }
 
-        destruction_code_submit_button.setOnClickListener {
+        binding.destructionCodeSubmitButton.setOnClickListener {
             saveDestructionCode()
         }
 
-        setting_guide_button.setOnClickListener {
+        binding.settingGuideButton.setOnClickListener {
             val slideActivity = Intent(this, SlideActivity::class.java)
             slideActivity.putExtra(Intent.EXTRA_TEXT, slideNameSetting)
             startActivity(slideActivity)
         }
 
-        button_back.setOnClickListener {
+        binding.buttonBack.setOnClickListener {
             finish()
         }
 
-        copy_public_key_button.setOnClickListener {
+        binding.copyPublicKeyButton.setOnClickListener {
             val clipboardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-            clipboardManager.setPrimaryClip(ClipData.newPlainText("", user_public_key_edittext.text))
+            clipboardManager.setPrimaryClip(ClipData.newPlainText("", binding.userPublicKeyEdittext.text))
             this.showAlert(getString(R.string.copied))
         }
     }
 
     private fun setDefaultView()
     {
-        destruction_code_entry_layout.isGone = true
+        binding.destructionCodeEntryLayout.isGone = true
 //        use_sms_as_default_switch.isChecked = Persist.loadBooleanKey(Persist.sharedPrefUseSmsAsDefaultKey)
         if (Persist.status == LoginStatus.LoggedIn)
         {
@@ -128,8 +130,8 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
     private fun updateViewPasscodeOn (entryHidden: Boolean)
     {
-        passcode_switch.isChecked = true
-        passcode_entry_layout.isGone = entryHidden
+        binding.passcodeSwitch.isChecked = true
+        binding.passcodeEntryLayout.isGone = entryHidden
 
         // We will not update the status to logged in until the user has entered valid passcodes
         // Check for passcodes in shared preferences
@@ -139,15 +141,15 @@ class SettingPasscodeActivity : AppCompatActivity() {
         if (maybePasscode != null)
         {
             // Populate our text inputs
-            enter_passcode_input.setText(maybePasscode)
-            verify_passcode_input.setText(maybePasscode)
-            destruction_code_switch.isEnabled = true // Destruction code switch should only be enabled if a passcode exists
+            binding.enterPasscodeInput.setText(maybePasscode)
+            binding.verifyPasscodeInput.setText(maybePasscode)
+            binding.destructionCodeSwitch.isEnabled = true // Destruction code switch should only be enabled if a passcode exists
         }
 
         // Make sure that our passcodes are enabled
-        enter_passcode_input.isEnabled = true
-        verify_passcode_input.isEnabled = true
-        passcode_submit_button.isEnabled = true
+        binding.enterPasscodeInput.isEnabled = true
+        binding.verifyPasscodeInput.isEnabled = true
+        binding.passcodeSubmitButton.isEnabled = true
 
         // Check for Destruction Code
         val maybeDestructionCode = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefSecondaryPasscodeKey, null)
@@ -163,17 +165,17 @@ class SettingPasscodeActivity : AppCompatActivity() {
     }
 
     private fun updateViewPasscodeOff () {
-        passcode_switch.isChecked = false
-        passcode_entry_layout.isGone = true
+        binding.passcodeSwitch.isChecked = false
+        binding.passcodeEntryLayout.isGone = true
 
         // Disable passcode inputs and clear them out
-        enter_passcode_input.text?.clear()
-        enter_passcode_input.isEnabled = false
-        verify_passcode_input.text?.clear()
-        verify_passcode_input.isEnabled = false
-        passcode_submit_button.isEnabled = false
+        binding.enterPasscodeInput.text?.clear()
+        binding.enterPasscodeInput.isEnabled = false
+        binding.verifyPasscodeInput.text?.clear()
+        binding.verifyPasscodeInput.isEnabled = false
+        binding.passcodeSubmitButton.isEnabled = false
 
-        destruction_code_switch.isEnabled = false
+        binding.destructionCodeSwitch.isEnabled = false
         updateViewDestructionCodeOff()
     }
 
@@ -192,30 +194,30 @@ class SettingPasscodeActivity : AppCompatActivity() {
         else
         {
             // Populate our text inputs
-            destruction_code_input.setText(maybeDestructionCode)
-            verify_destruction_code_input.setText(maybeDestructionCode)
+            binding.destructionCodeInput.setText(maybeDestructionCode)
+            binding.verifyDestructionCodeInput.setText(maybeDestructionCode)
         }
 
-        destruction_code_switch.isChecked = true
+        binding.destructionCodeSwitch.isChecked = true
 
         // Make sure that our passcodes are enabled
-        destruction_code_input.isEnabled = true
-        verify_destruction_code_input.isEnabled = true
-        destruction_code_submit_button.isEnabled = true
-        destruction_code_entry_layout.isGone = entryHidden
+        binding.destructionCodeInput.isEnabled = true
+        binding.verifyDestructionCodeInput.isEnabled = true
+        binding.destructionCodeSubmitButton.isEnabled = true
+        binding.destructionCodeEntryLayout.isGone = entryHidden
     }
 
     private fun updateViewDestructionCodeOff()
     {
-        destruction_code_switch.isChecked = false
-        destruction_code_entry_layout.isGone = true
+        binding.destructionCodeSwitch.isChecked = false
+        binding.destructionCodeEntryLayout.isGone = true
 
         // Disable passcode inputs and clear them out
-        destruction_code_input.text?.clear()
-        destruction_code_input.isEnabled = false
-        verify_destruction_code_input.text?.clear()
-        verify_destruction_code_input.isEnabled = false
-        destruction_code_submit_button.isEnabled = false
+        binding.destructionCodeInput.text?.clear()
+        binding.destructionCodeInput.isEnabled = false
+        binding.verifyDestructionCodeInput.text?.clear()
+        binding.verifyDestructionCodeInput.isEnabled = false
+        binding.destructionCodeSubmitButton.isEnabled = false
     }
 
     private fun handlePasscodeRequirementChange(required: Boolean)
@@ -234,7 +236,7 @@ class SettingPasscodeActivity : AppCompatActivity() {
                     startActivity(enrollIntent)
                 }
                 snack.show()
-                passcode_switch.isChecked = false
+                binding.passcodeSwitch.isChecked = false
                 return
             }
             updateViewPasscodeOn(false)
@@ -261,8 +263,8 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
     private fun savePasscode()
     {
-        val passcode = enter_passcode_input.text.toString()
-        val passcode2 = verify_passcode_input.text.toString()
+        val passcode = binding.enterPasscodeInput.text.toString()
+        val passcode2 = binding.verifyPasscodeInput.text.toString()
 
         if (passcode == "") {
             this.showAlert(getString(R.string.alert_text_passcode_field_empty))
@@ -290,15 +292,15 @@ class SettingPasscodeActivity : AppCompatActivity() {
         Persist.saveLoginStatus()
 
         // Allow Destruction Code
-        destruction_code_switch.isEnabled = true
-        passcode_entry_layout.isGone = true
+        binding.destructionCodeSwitch.isEnabled = true
+        binding.passcodeEntryLayout.isGone = true
         showAlert(getString(R.string.alert_passcode_saved))
     }
 
     private fun saveDestructionCode()
     {
-        val secondaryPasscode = destruction_code_input.text.toString()
-        val secondaryPasscode2 = verify_destruction_code_input.text.toString()
+        val secondaryPasscode = binding.destructionCodeInput.text.toString()
+        val secondaryPasscode2 = binding.verifyDestructionCodeInput.text.toString()
         val maybePasscode = Persist.encryptedSharedPreferences.getString(Persist.sharedPrefPasscodeKey, null)
 
         if (maybePasscode == null)
@@ -343,7 +345,7 @@ class SettingPasscodeActivity : AppCompatActivity() {
 
             Persist.saveKey(Persist.sharedPrefSecondaryPasscodeKey, secondaryPasscode)
 
-            destruction_code_entry_layout.isGone = true
+            binding.destructionCodeEntryLayout.isGone = true
             showAlert(getString(R.string.alert_destruction_code_saved))
         }
     }
@@ -425,10 +427,10 @@ class SettingPasscodeActivity : AppCompatActivity() {
     }
 
     private fun cleanup(){
-        enter_passcode_input.text?.clear()
-        verify_passcode_input.text?.clear()
-        destruction_code_input.text?.clear()
-        verify_destruction_code_input.text?.clear()
+        binding.enterPasscodeInput.text?.clear()
+        binding.verifyPasscodeInput.text?.clear()
+        binding.destructionCodeInput.text?.clear()
+        binding.verifyDestructionCodeInput.text?.clear()
     }
 }
 

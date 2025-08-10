@@ -16,8 +16,6 @@
 //import androidx.core.view.isVisible
 //import androidx.core.widget.doOnTextChanged
 //import androidx.recyclerview.widget.LinearLayoutManager
-//import kotlinx.android.synthetic.main.activity_contact_list.*
-//import kotlinx.android.synthetic.main.activity_home.*
 //import org.nahoft.codex.LOGOUT_TIMER_VAL
 //import org.nahoft.codex.LogoutTimerBroadcastReceiver
 //import org.nahoft.nahoft.*

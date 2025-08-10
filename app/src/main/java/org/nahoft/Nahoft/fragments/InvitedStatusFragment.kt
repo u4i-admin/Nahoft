@@ -5,19 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_invited_status.*
 import org.nahoft.nahoft.Friend
 import org.nahoft.nahoft.R
 import org.nahoft.nahoft.activities.FriendInfoActivity
+import org.nahoft.nahoft.databinding.FragmentInvitedStatusBinding
 
 // the fragment initialization parameters
 private const val FRIEND = "friend"
 
-class InvitedStatusFragment : Fragment() {
+class InvitedStatusFragment : Fragment()
+{
+    private var _binding: FragmentInvitedStatusBinding? = null
+    private val binding get() = _binding!!
     private var friend: Friend? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             friend = it.getSerializable(FRIEND) as Friend?
         }
@@ -26,9 +31,11 @@ class InvitedStatusFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View?
+    {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_invited_status, container, false)
+        _binding = FragmentInvitedStatusBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     companion object {
@@ -51,8 +58,16 @@ class InvitedStatusFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        friends_name.text = friend?.name
-        textView.text = String.format(getString(R.string.invited_fragment_text), friend?.name)
-        import_invitation_button.setOnClickListener { (activity as FriendInfoActivity?)?.importInvitationClicked() }
+        binding.friendsName.text = friend?.name
+        binding.textView.text = String.format(getString(R.string.invited_fragment_text), friend?.name)
+        binding.importInvitationButton.setOnClickListener { (activity as FriendInfoActivity?)?.importInvitationClicked() }
+    }
+
+    // Clean up binding reference when Fragment's view is destroyed
+    // This is important to prevent memory leaks in Fragments
+    override fun onDestroyView()
+    {
+        super.onDestroyView()
+        _binding = null
     }
 }
