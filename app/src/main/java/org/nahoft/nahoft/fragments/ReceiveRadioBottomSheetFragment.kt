@@ -29,8 +29,8 @@ import org.nahoft.nahoft.services.PacketRequirement
 import org.nahoft.nahoft.services.ReceiveSessionService
 import org.nahoft.nahoft.services.ReceiveSessionState
 import org.nahoft.nahoft.viewmodels.FriendInfoViewModel
-import org.operatorfoundation.audiocoder.models.WSPRCycleInformation
-import org.operatorfoundation.audiocoder.models.WSPRStationState
+import org.operatorfoundation.audiocoder.wspr.models.WSPRCycleInformation
+import org.operatorfoundation.audiocoder.wspr.models.WSPRStationState
 import org.operatorfoundation.signalbridge.models.AudioLevelInfo
 
 /**

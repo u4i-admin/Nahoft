@@ -34,7 +34,7 @@ class RequestedStatusFragment : Fragment()
     ): View?
     {
         // Inflate the layout for this fragment
-        _binding = FragmentRequestedStatusBinding.inflate(layoutInflater)
+        _binding = FragmentRequestedStatusBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -59,7 +59,7 @@ class RequestedStatusFragment : Fragment()
         super.onViewCreated(view, savedInstanceState)
 
         binding.friendsName.text = friend?.name
-        binding.textView.text = String.format(getString(R.string.requested_fragment_text), friend?.name, friend?.name)
+        binding.textView.text = String.format(getString(R.string.requested_fragment_text), friend?.name)
         binding.inviteButton.setOnClickListener { (activity as FriendInfoActivity?)?.inviteClicked() }
     }
 

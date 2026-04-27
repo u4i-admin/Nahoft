@@ -22,9 +22,9 @@ import org.nahoft.nahoft.models.WSPRSpotItem
 import org.nahoft.nahoft.services.PacketRequirement
 import org.nahoft.nahoft.services.ReceiveSessionService
 import org.nahoft.nahoft.services.ReceiveSessionState
-import org.operatorfoundation.audiocoder.WSPRTimingCoordinator
-import org.operatorfoundation.audiocoder.models.WSPRCycleInformation
-import org.operatorfoundation.audiocoder.models.WSPRStationState
+import org.operatorfoundation.audiocoder.wspr.WSPRTimingCoordinator
+import org.operatorfoundation.audiocoder.wspr.models.WSPRCycleInformation
+import org.operatorfoundation.audiocoder.wspr.models.WSPRStationState
 import org.operatorfoundation.signalbridge.UsbAudioDeviceMonitor
 import org.operatorfoundation.signalbridge.models.AudioLevelInfo
 import timber.log.Timber

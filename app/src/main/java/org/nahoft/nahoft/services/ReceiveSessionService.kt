@@ -20,12 +20,13 @@ import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.R
 import org.nahoft.nahoft.activities.FriendInfoActivity
 import org.nahoft.nahoft.models.*
-import org.operatorfoundation.audiocoder.WSPRStation
-import org.operatorfoundation.audiocoder.WSPRTimingCoordinator
-import org.operatorfoundation.audiocoder.models.WSPRCycleInformation
-import org.operatorfoundation.audiocoder.models.WSPRDecodeResult
-import org.operatorfoundation.audiocoder.models.WSPRStationConfiguration
-import org.operatorfoundation.audiocoder.models.WSPRStationState
+import org.operatorfoundation.audiocoder.wspr.WSPRConstants
+import org.operatorfoundation.audiocoder.wspr.WSPRStation
+import org.operatorfoundation.audiocoder.wspr.WSPRTimingCoordinator
+import org.operatorfoundation.audiocoder.wspr.models.WSPRCycleInformation
+import org.operatorfoundation.audiocoder.wspr.models.WSPRDecodeResult
+import org.operatorfoundation.audiocoder.wspr.models.WSPRStationConfiguration
+import org.operatorfoundation.audiocoder.wspr.models.WSPRStationState
 import org.operatorfoundation.codex.extractUnencryptedSpotCount
 import org.operatorfoundation.codex.symbols.WSPRMessage
 import org.operatorfoundation.codex.tryDecodeUnencryptedPayload
@@ -383,7 +384,7 @@ class ReceiveSessionService : Service()
             // while still waiting for the first WSPR window.
             audioSource = SignalBridgeWSPRAudioSource(
                 usbAudioConnection = connection,
-                bufferConfiguration = AudioBufferConfiguration.createDefault()
+                bufferConfiguration = AudioBufferConfiguration.createDefault(WSPRConstants.WSPR_REQUIRED_SAMPLE_RATE)
             )
 
             val earlyInitResult = audioSource!!.initialize()

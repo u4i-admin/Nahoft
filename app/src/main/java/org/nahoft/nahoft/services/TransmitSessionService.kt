@@ -22,8 +22,8 @@ import org.nahoft.nahoft.Persist
 import org.nahoft.nahoft.R
 import org.nahoft.nahoft.activities.FriendInfoActivity
 import org.nahoft.nahoft.models.Message
-import org.operatorfoundation.audiocoder.WSPREncoder
-import org.operatorfoundation.audiocoder.WSPRTimingCoordinator
+import org.operatorfoundation.audiocoder.wspr.WSPREncoder
+import org.operatorfoundation.audiocoder.wspr.WSPRTimingCoordinator
 import org.operatorfoundation.codex.WSPRMessageFields
 import org.operatorfoundation.codex.encodeDataToWSPRMessages
 import org.operatorfoundation.codex.encodeUnencryptedPayload
@@ -353,7 +353,7 @@ class TransmitSessionService : Service()
 
         val symbolArrays = wsprFields.map { fields ->
             WSPREncoder.encodeToFrequencies(
-                WSPREncoder.WSPRMessage(
+                WSPREncoder.WSPREncodeRequest(
                     fields.callsign,
                     fields.gridSquare,
                     fields.powerDbm,
@@ -386,7 +386,7 @@ class TransmitSessionService : Service()
 
         val symbolArrays = wsprFields.map { fields ->
             WSPREncoder.encodeToFrequencies(
-                WSPREncoder.WSPRMessage(
+                WSPREncoder.WSPREncodeRequest(
                     fields.callsign,
                     fields.gridSquare,
                     fields.powerDbm,

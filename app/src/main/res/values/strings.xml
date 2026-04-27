@@ -158,9 +158,9 @@
 
     <!-- Friend status screen body text — shown in the chat area depending on connection state -->
     <!-- %s = friend's name -->
-    <string name="default_fragment_text">No public key has been exchanged between you and %s yet. \n\n Please click the button below to submit your public key.</string>
+    <string name="default_fragment_text">No public key has been exchanged between you and %s yet. \n\n Tap the button below to get started.</string>
     <!-- %s = friend's name -->
-    <string name="invited_fragment_text">You have sent your public key to %s and are now awaiting their public key in return. \n\n Once you receive their public key, a secure connection will be established.</string>
+    <string name="invited_fragment_text">To connect with %s, you need to exchange public keys with each other. \n\n Use the button below to share your public key, then ask %s to share theirs back with you.</string>
     <!-- First %s = friend's name (they sent their key); second %s = friend's name (send your key to them) -->
     <string name="requested_fragment_text">%1$s has sent you their public key; \n\n to complete the secure connection between you and %1$s you must send your public key to them.</string>
 
@@ -189,7 +189,7 @@
     <string name="import_invitation_button">Import Invitation</string>
 
     <!-- Friend management alerts -->
-    <string name="alert_text_verified_friends_only">You can only message a verified friend.</string>
+    <string name="alert_text_verified_friends_only">You can only message a contact once keys have been exchanged.</string>
     <string name="alert_text_friend_already_exists">You already have a friend with this name.</string>
     <string name="alert_text_which_friend_sent_this_message">Which friend sent this message?</string>
     <string name="alert_text_unable_to_update_friend_status">Something went wrong, we were unable to update your friend status.</string>

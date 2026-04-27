@@ -202,7 +202,6 @@ class FriendInfoActivity: AppCompatActivity()
         }
 
         setClickListeners()
-        setupViewByStatus()
         receivedSharedMessage()
         setupConnectionObservers()
 

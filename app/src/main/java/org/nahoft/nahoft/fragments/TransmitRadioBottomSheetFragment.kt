@@ -29,7 +29,7 @@ import org.nahoft.nahoft.databinding.FragmentBottomSheetTransmitRadioBinding
 import org.nahoft.nahoft.services.TransmitSessionState
 import org.nahoft.nahoft.viewmodels.FriendInfoViewModel
 import org.nahoft.nahoft.viewmodels.TransmitRadioViewModel
-import org.operatorfoundation.audiocoder.WSPRConstants
+import org.operatorfoundation.audiocoder.wspr.WSPRConstants
 import timber.log.Timber
 
 /**

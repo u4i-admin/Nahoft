@@ -164,7 +164,7 @@
     <string name="default_fragment_text">هنوز هیچ کلید عمومی بین شما و %s رد و بدل نشده است. لطفا برای ارسال کلید عمومی خود، روی دکمه‌ی زیر کلیک کنید.</string>
 
     <!-- %s = friend's name -->
-    <string name="invited_fragment_text">You have sent your public key to %s and are now awaiting their public key in return. \n\n Once you receive their public key, a secure connection will be established.</string>
+    <string name="invited_fragment_text">After you have sent your public key to %s you will need their public key in return. \n\n Once you receive their public key, a secure connection will be established.</string>
 
     <!-- %1$s = friend's name (they sent their key); second %1$s = friend's name (send your key to them) -->
     <string name="requested_fragment_text">%1$s has sent you their public key; \n\n to complete the secure connection between you and %1$s you must send your public key to them.</string>
@@ -194,7 +194,7 @@
     <string name="import_invitation_button">وارد کردن دعوتنامه</string>
 
     <!-- Friend management alerts -->
-    <string name="alert_text_verified_friends_only">فقط می‌توانید به یک دوست تأییدشده پیام بفرستید.</string>
+    <string name="alert_text_verified_friends_only">You can only message a contact once keys have been exchanged.</string>
     <string name="alert_text_friend_already_exists">شما از قبل دوستی با این نام دارید.</string>
     <string name="alert_text_unable_to_update_friend_status"> خطایی رخ داد، وضعیت دوست به‌روزرسانی نشد.</string>
     <string name="alert_text_which_friend_sent_this_message">کدام دوست این پیام را ارسال کرده است؟</string>

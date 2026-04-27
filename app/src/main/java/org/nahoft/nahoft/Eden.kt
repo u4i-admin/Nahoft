@@ -6,7 +6,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import org.operatorfoundation.audiocoder.WSPRConstants
+import org.operatorfoundation.audiocoder.wspr.WSPRConstants
 import org.operatorfoundation.ion.storage.NounType
 import org.operatorfoundation.ion.storage.Word
 import org.operatorfoundation.transmission.SerialConnection
@@ -170,28 +170,60 @@ class Eden(private val connection: SerialConnection)
         }
 
         Timber.d("Eden: beginning WSPR transmission (${symbolFrequenciesCHz.size} symbols)")
+        return@withContext transmitSymbols(symbolFrequenciesCHz, WSPRConstants.SYMBOL_DURATION_MS, onSymbolSent)
+    }
 
-        // Single reader coroutine — owns all serial reads for the entire transmission.
-        // Logs all firmware responses without blocking the symbol loop.
+    /**
+     * Transmits an MFSK message as a sequence of FSK symbols.
+     *
+     * Symbol frequencies should be derived as:
+     *   `(baseFrequencyHz + symbolIndex * toneSpacingHz) * 100` (centihertz)
+     *
+     * Use [org.operatorfoundation.audiocoder.mfsk.MFSKEncoder.encodeToSymbols] to produce
+     * symbol indices, then convert each to a frequency before calling this method.
+     *
+     * @param symbolFrequenciesCHz Frequencies in centihertz, one per symbol.
+     * @param symbolDurationMs     Duration of each symbol in milliseconds.
+     *                             Derive from [org.operatorfoundation.audiocoder.mfsk.MFSKMode.symbolDurationSeconds].
+     * @param onSymbolSent         Optional progress callback, called with (symbolIndex, total).
+     * @return True if all symbols were sent successfully.
+     */
+    suspend fun transmitMFSK(
+        symbolFrequenciesCHz: LongArray,
+        symbolDurationMs: Long,
+        onSymbolSent: ((Int, Int) -> Unit)? = null
+    ): Boolean = withContext(Dispatchers.IO)
+    {
+        require(symbolFrequenciesCHz.isNotEmpty())
+        {
+            "symbolFrequenciesCHz must not be empty"
+        }
+
+        Timber.d("Eden: beginning MFSK transmission (${symbolFrequenciesCHz.size} symbols)")
+        return@withContext transmitSymbols(symbolFrequenciesCHz, symbolDurationMs, onSymbolSent)
+    }
+
+    private suspend fun transmitSymbols(
+        symbolFrequenciesCHz: LongArray,
+        symbolDurationMs: Long,
+        onSymbolSent: ((Int, Int) -> Unit)?
+    ): Boolean = withContext(Dispatchers.IO)
+    {
+        Timber.d("Eden: beginning transmission (${symbolFrequenciesCHz.size} symbols at ${symbolDurationMs}ms each)")
+
         val readerJob = CoroutineScope(Dispatchers.IO).launch {
             while (isActive)
             {
                 try
                 {
                     val bytes = connection.readAvailable()
-
                     if (bytes != null && bytes.isNotEmpty())
                     {
-                        // Split on line endings so each response logs on its own line
-                        val responses = bytes.decodeToString()
+                        bytes.decodeToString()
                             .split("\r\n", "\n", "\r")
                             .map { it.trim() }
                             .filter { it.isNotEmpty() }
-
-                        for (response in responses)
-                        {
-                            Timber.i("[Received Eden]: $response")
-                        }
+                            .forEach { Timber.i("[Received Eden]: $it") }
                     }
                 }
                 catch (e: Exception)
@@ -203,50 +235,35 @@ class Eden(private val connection: SerialConnection)
 
         try
         {
-            // Switch relay to TX
-            Timber.d("Eden.kt: sending CONTROL_TX")
             Word.to_conn(connection, Word.make(CONTROL_TX, NounType.INTEGER.value))
             currentMode = Mode.TX
 
-            // Set first symbol frequency, wait one symbol period, then enable oscillator
             sendFrequency(symbolFrequenciesCHz[0])
-
-            // Enable oscillator output
-            Timber.d("Eden.kt: sending CONTROL_ON")
             Word.to_conn(connection, Word.make(CONTROL_ON, NounType.INTEGER.value))
-            delay(WSPRConstants.SYMBOL_DURATION_MS)
-
+            delay(symbolDurationMs)
             onSymbolSent?.invoke(0, symbolFrequenciesCHz.size)
 
-            // Send remaining 161 symbols, pacing at one symbol period each
             for (index in 1 until symbolFrequenciesCHz.size)
             {
                 sendFrequency(symbolFrequenciesCHz[index])
-                delay(WSPRConstants.SYMBOL_DURATION_MS)
+                delay(symbolDurationMs)
                 onSymbolSent?.invoke(index, symbolFrequenciesCHz.size)
             }
 
-            // Disable oscillator and return relay to RX
-            Timber.d("Eden.kt: sending CONTROL_OFF")
             Word.to_conn(connection, Word.make(CONTROL_OFF, NounType.INTEGER.value))
-
-            Timber.d("Eden.kt: sending CONTROL_RX")
             Word.to_conn(connection, Word.make(CONTROL_RX, NounType.INTEGER.value))
             currentMode = Mode.RX
 
-            Timber.i("Eden.kt: WSPR transmission complete")
+            Timber.i("Eden: transmission complete")
             true
         }
         finally
         {
-            // Reader is no longer needed
             readerJob.cancel()
 
-            // If currentMode is still TX, something failed mid-transmission.
-            // Best-effort cleanup to prevent Eden from being stuck in TX mode.
             if (currentMode == Mode.TX)
             {
-                Timber.w("Eden.kt: transmission interrupted — attempting return to RX mode")
+                Timber.w("Eden: transmission interrupted — attempting return to RX mode")
                 try
                 {
                     Word.to_conn(connection, Word.make(CONTROL_OFF, NounType.INTEGER.value))
@@ -255,7 +272,7 @@ class Eden(private val connection: SerialConnection)
                 }
                 catch (e: Exception)
                 {
-                    Timber.e(e, "Eden.kt: failed to return to RX mode after interrupted transmission")
+                    Timber.e(e, "Eden: failed to return to RX mode after interrupted transmission")
                 }
             }
         }
