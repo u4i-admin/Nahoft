@@ -338,6 +338,7 @@ class MFSKTransmitSessionService : Service()
         // Apply <base64(ciphertext)> framing so the transmission looks like
         // standard MFSK-16 text traffic to any compliant receiver.
         val framedText = MFSKStation.framePayload(encryptedBytes)
+        Timber.d("MFSKTransmitSessionService: transmitting framed string (${framedText.length} chars): $framedText")
 
         val symbolIndices = MFSKEncoder.encodeToSymbols(framedText, mode)
 
