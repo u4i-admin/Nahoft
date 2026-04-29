@@ -307,6 +307,24 @@
     <string name="stop_session">Stop Session</string>
     <string name="session_stopped">Session stopped</string>
 
+    <!-- ════════════════════════════════════════════════════════
+         RADIO — Mode selector (RadioModeBottomSheetFragment)
+         ════════════════════════════════════════════════════════ -->
+
+    <!-- Sheet titles — match the button label the user tapped to open the selector -->
+    <string name="radio_mode_title_tx">Send via Radio</string>
+    <string name="radio_mode_title_rx">Receive via Radio</string>
+
+    <!-- Mode card labels and descriptions -->
+    <string name="radio_mode_wspr_name">WSPR</string>
+    <string name="radio_mode_wspr_description">Narrow band, low speed, high noise resistance</string>
+    <string name="radio_mode_mfsk_name">MFSK-16</string>
+    <string name="radio_mode_mfsk_description">Wider band, faster, standard HF text mode</string>
+
+    <!-- Shown when the user picks a mode while a session of the other mode is active.
+         %1$s = conflicting mode name, e.g. "MFSK" or "WSPR" -->
+    <string name="radio_mode_conflict_error">A %1$s session is already active. Stop it before starting a new session.</string>
+
 
     <!-- ════════════════════════════════════════════════════════
          RADIO — Receive (RX) session (ReceiveRadioBottomSheetFragment)
@@ -339,6 +357,12 @@
     <!-- Alert when the user tries to transmit while a receive session is running -->
     <string name="alert_transmit_blocked_by_receive">A receive session is active. Stop receiving before transmitting.</string>
 
+    <!-- MFSK-16 receive sheet -->
+    <string name="mfsk_receive_via_radio">Receive via Radio (MFSK-16)</string>
+    <string name="mfsk_rx_base_frequency_hz">Base Frequency (Hz)</string>
+    <string name="mfsk_rx_starting">Starting MFSK session…</string>
+    <string name="mfsk_listening_for_signals">Listening for MFSK signals…</string>
+    <string name="mfsk_rx_session_failed">Session failed</string>
 
     <!-- ════════════════════════════════════════════════════════
          RADIO — Transmit (TX) session (TransmitRadioBottomSheetFragment)
@@ -379,6 +403,14 @@
     <string name="session_started_encrypted">Session started with encryption enabled. Stop to change.</string>
     <string name="session_started_unencrypted">Session started without encryption. Stop to change.</string>
     <string name="alert_text_message_too_long_for_radio">Message is too long to transmit via radio. Please shorten your message.</string>
+
+    <!-- MFSK-16 transmit sheet -->
+    <string name="mfsk_transmit_via_radio">Transmit via Radio (MFSK-16)</string>
+    <string name="mfsk_tx_base_frequency_hz">Base Frequency (Hz)</string>
+    <string name="mfsk_tx_complete_detail">Message sent successfully</string>
+
+    <!-- %1$d = elapsed seconds, %2$d = total seconds -->
+    <string name="mfsk_tx_time_elapsed_format">%1$ds / %2$ds</string>
 
     <!-- ════════════════════════════════════════════════════════
          RADIO — VU Meter audio level indicators
@@ -452,5 +484,7 @@
     <string name="messages_this_session">Messages</string>
     <!-- Row header: %1$s = timestamp string, %2$d = number of WSPR packets used to decode the message -->
     <string name="message_row_header">%1$s · decoded from %2$d packets</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

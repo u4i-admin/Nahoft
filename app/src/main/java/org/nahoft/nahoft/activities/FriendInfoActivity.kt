@@ -54,6 +54,7 @@ import org.nahoft.nahoft.models.Friend
 import org.nahoft.nahoft.models.FriendStatus
 import org.nahoft.nahoft.models.Message
 import org.nahoft.nahoft.models.slideNameChat
+import org.nahoft.nahoft.services.MFSKReceiveSessionState
 import org.nahoft.nahoft.services.ReceiveSessionState
 import org.nahoft.nahoft.viewmodels.FriendInfoViewModel
 import org.nahoft.util.applySecureFlag
@@ -93,7 +94,7 @@ class FriendInfoActivity: AppCompatActivity()
         if (isGranted)
         {
             Timber.d("POST_NOTIFICATIONS permission granted")
-            showReceiveBottomSheet()
+            showRadioModeSelector(RadioModeBottomSheetFragment.Purpose.RX)
         }
         else
         {
@@ -128,7 +129,7 @@ class FriendInfoActivity: AppCompatActivity()
 
         builder.setPositiveButton(getString(R.string.continue_anyway)) { dialog, _ ->
             dialog.dismiss()
-            showReceiveBottomSheet()
+            showRadioModeSelector(RadioModeBottomSheetFragment.Purpose.RX)
         }
 
         builder.setNeutralButton(getString(R.string.stop_button)) { dialog, _ ->
@@ -214,6 +215,55 @@ class FriendInfoActivity: AppCompatActivity()
             setupViewByStatus()
         }
 
+        // Refresh UI when an MFSK TX session completes and the sheet is dismissed
+        supportFragmentManager.setFragmentResultListener(
+            MFSKTransmitRadioBottomSheetFragment.RESULT_TX_COMPLETE,
+            this
+        ) { _, _ ->
+            binding.messageEditText.text?.clear()
+            setupViewByStatus()
+        }
+
+        // Radio mode chosen for TX — launch the appropriate TX sheet
+        supportFragmentManager.setFragmentResultListener(
+            RadioModeBottomSheetFragment.RESULT_KEY_TX,
+            this
+        ) { _, bundle ->
+            val mode = RadioModeBottomSheetFragment.RadioMode.valueOf(
+                bundle.getString(RadioModeBottomSheetFragment.EXTRA_MODE)!!
+            )
+            val message   = binding.messageEditText.text.toString()
+            val publicKey = thisFriend.publicKeyEncoded ?: return@setFragmentResultListener
+
+            when (mode)
+            {
+                RadioModeBottomSheetFragment.RadioMode.WSPR ->
+                    TransmitRadioBottomSheetFragment
+                        .newInstance(message, thisFriend.name, publicKey)
+                        .show(supportFragmentManager, "TransmitRadioBottomSheet")
+
+                RadioModeBottomSheetFragment.RadioMode.MFSK ->
+                    MFSKTransmitRadioBottomSheetFragment
+                        .newInstance(message, thisFriend.name, publicKey)
+                        .show(supportFragmentManager, "MFSKTransmitRadioBottomSheet")
+            }
+        }
+
+        // Radio mode chosen for RX — launch the appropriate RX sheet
+        supportFragmentManager.setFragmentResultListener(
+            RadioModeBottomSheetFragment.RESULT_KEY_RX,
+            this
+        ) { _, bundle ->
+            val mode = RadioModeBottomSheetFragment.RadioMode.valueOf(
+                bundle.getString(RadioModeBottomSheetFragment.EXTRA_MODE)!!
+            )
+            when (mode)
+            {
+                RadioModeBottomSheetFragment.RadioMode.WSPR -> showWsprReceiveBottomSheet()
+                RadioModeBottomSheetFragment.RadioMode.MFSK -> showMfskReceiveBottomSheet()
+            }
+        }
+
         // Start audio device discovery (doesn't require permission)
         viewModel.startAudioDeviceDiscovery()
 
@@ -238,7 +288,8 @@ class FriendInfoActivity: AppCompatActivity()
         super.onStart()
 
         // Bind to service if it's running (restores UI state)
-        viewModel.bindToServiceIfRunning()
+        viewModel.bindToWsprServiceIfRunning()
+        viewModel.bindToMfskServiceIfRunning()
     }
 
     override fun onStop()
@@ -246,7 +297,8 @@ class FriendInfoActivity: AppCompatActivity()
         super.onStop()
 
         // Unbind from service (service continues running)
-        viewModel.unbindFromService()
+        viewModel.unbindFromWsprService()
+        viewModel.unbindFromMfskService()
     }
 
     /**
@@ -279,21 +331,35 @@ class FriendInfoActivity: AppCompatActivity()
         // Observe serial connection for send button visibility
         coroutineScope.launch {
             viewModel.canSendViaSerial.collect { canSend ->
-                binding.sendViaSerial.visibility = if (canSend) View.VISIBLE else View.GONE
+                binding.sendViaRadio.visibility = if (canSend) View.VISIBLE else View.GONE
             }
         }
 
         // Observe receive session state for indicator
         coroutineScope.launch {
-            viewModel.receiveSessionState.collect { state ->
+            viewModel.wsprReceiveSessionState.collect { state ->
                 updateReceiveButtonState(state)
             }
         }
 
         // Observe received messages and save them
         coroutineScope.launch {
-            viewModel.lastReceivedMessage.collect { _ ->
+            viewModel.wsprLastReceivedMessage.collect { _ ->
                 // Message already saved by service, just refresh UI
+                setupViewByStatus()
+            }
+        }
+
+        // Observe MFSK receive session state for receive button indicator
+        coroutineScope.launch {
+            viewModel.mfskSessionState.collect { state ->
+                updateMfskReceiveButtonState(state)
+            }
+        }
+
+        // Observe MFSK received messages and refresh message list
+        coroutineScope.launch {
+            viewModel.mfskLastReceivedMessage.collect { _ ->
                 setupViewByStatus()
             }
         }
@@ -369,41 +435,91 @@ class FriendInfoActivity: AppCompatActivity()
 
     private fun receiveViaRadioClicked()
     {
-        // Check if sheet is already showing
-        val existingSheet = supportFragmentManager.findFragmentByTag("ReceiveRadioBottomSheet")
-        if (existingSheet != null) return
+        // If a sheet of either mode is already open, don't open another
+        if (supportFragmentManager.findFragmentByTag("ReceiveRadioBottomSheet") != null) return
+        if (supportFragmentManager.findFragmentByTag("MFSKReceiveRadioBottomSheet") != null) return
 
-        // If no active session, validate prerequisites
-        if (!viewModel.isSessionActive())
+        // If a session is already active, re-open its sheet directly
+        if (viewModel.isWsprSessionActive())
         {
-            if (!viewModel.usbAudioAvailable.value)
-            {
-                showAlert(getString(R.string.usb_audio_not_connected))
-                return
-            }
-
-            if (thisFriend.publicKeyEncoded == null)
-            {
-                showAlert(getString(R.string.alert_text_verified_friends_only))
-                return
-            }
-
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED)
-            {
-                showNotificationPermissionExplanation()
-                return
-            }
+            showWsprReceiveBottomSheet()
+            return
+        }
+        if (viewModel.isMfskSessionActive())
+        {
+            showMfskReceiveBottomSheet()
+            return
         }
 
-        // Show the bottom sheet
-        showReceiveBottomSheet()
+        // No active session — validate prerequisites before showing mode selector
+        if (!viewModel.usbAudioAvailable.value)
+        {
+            showAlert(getString(R.string.usb_audio_not_connected))
+            return
+        }
+
+        if (thisFriend.publicKeyEncoded == null)
+        {
+            showAlert(getString(R.string.alert_text_verified_friends_only))
+            return
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+            != PackageManager.PERMISSION_GRANTED)
+        {
+            showNotificationPermissionExplanation()
+            return
+        }
+
+        showRadioModeSelector(RadioModeBottomSheetFragment.Purpose.RX)
     }
 
-    private fun showReceiveBottomSheet()
+    private fun showWsprReceiveBottomSheet()
     {
         val bottomSheet = ReceiveRadioBottomSheetFragment()
         bottomSheet.show(supportFragmentManager, "ReceiveRadioBottomSheet")
+    }
+
+    private fun showMfskReceiveBottomSheet()
+    {
+        MFSKReceiveRadioBottomSheetFragment.newInstance()
+            .show(supportFragmentManager, "MFSKReceiveRadioBottomSheet")
+    }
+
+    private fun showRadioModeSelector(purpose: RadioModeBottomSheetFragment.Purpose)
+    {
+        RadioModeBottomSheetFragment.newInstance(purpose)
+            .show(supportFragmentManager, "RadioModeBottomSheet")
+    }
+
+    /**
+     * Updates the receive button appearance based on MFSK session state.
+     * Mirrors [updateReceiveButtonState] for the WSPR session.
+     * Mutual exclusion ensures only one of the two will ever show an active state.
+     */
+    private fun updateMfskReceiveButtonState(state: MFSKReceiveSessionState)
+    {
+        when (state)
+        {
+            is MFSKReceiveSessionState.Starting,
+            is MFSKReceiveSessionState.Running ->
+            {
+                binding.btnReceiveRadio.drawable?.setTint(
+                    ContextCompat.getColor(this, R.color.caribbeanGreen)
+                )
+                startButtonPulseAnimation()
+            }
+
+            is MFSKReceiveSessionState.Idle,
+            is MFSKReceiveSessionState.Stopped,
+            is MFSKReceiveSessionState.Failed ->
+            {
+                stopButtonAnimation()
+                binding.btnReceiveRadio.drawable?.setTint(
+                    ContextCompat.getColor(this, R.color.white)
+                )
+            }
+        }
     }
 
     private fun showNotificationPermissionExplanation()
@@ -436,7 +552,7 @@ class FriendInfoActivity: AppCompatActivity()
 
         builder.setNeutralButton(getString(R.string.continue_without)) { dialog, _ ->
             dialog.dismiss()
-            showReceiveBottomSheet()
+            showRadioModeSelector(RadioModeBottomSheetFragment.Purpose.RX)
         }
 
         builder.create().show()
@@ -475,7 +591,7 @@ class FriendInfoActivity: AppCompatActivity()
 
         builder.setPositiveButton(getString(R.string.ok)) { dialog, _ ->
             dialog.dismiss()
-            viewModel.resetSession()
+            viewModel.resetWsprSession()
         }
 
         builder.create().show()
@@ -550,9 +666,9 @@ class FriendInfoActivity: AppCompatActivity()
             }
         }
 
-        binding.sendViaSerial.setOnClickListener {
-
-            if (viewModel.isSessionActive()) {
+        binding.sendViaRadio.setOnClickListener {
+            if (viewModel.isWsprSessionActive() || viewModel.isMfskSessionActive())
+            {
                 showAlert(getString(R.string.alert_transmit_blocked_by_receive))
                 return@setOnClickListener
             }
@@ -569,15 +685,12 @@ class FriendInfoActivity: AppCompatActivity()
                 return@setOnClickListener
             }
 
-            val publicKey = thisFriend.publicKeyEncoded
-            if (publicKey == null) {
+            if (thisFriend.publicKeyEncoded == null) {
                 showAlert(getString(R.string.alert_text_verified_friends_only))
                 return@setOnClickListener
             }
 
-            // Launch TX sheet — it owns the full pipeline from here
-            val sheet = TransmitRadioBottomSheetFragment.newInstance(message, thisFriend.name, publicKey)
-            sheet.show(supportFragmentManager, "TransmitRadioBottomSheet")
+            showRadioModeSelector(RadioModeBottomSheetFragment.Purpose.TX)
         }
 
         binding.sendAsImage.setOnClickListener {

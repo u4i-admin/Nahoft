@@ -19,9 +19,12 @@ import org.nahoft.nahoft.models.DecryptedMessageRecord
 import org.nahoft.nahoft.models.Friend
 import org.nahoft.nahoft.models.FriendStatus
 import org.nahoft.nahoft.models.WSPRSpotItem
+import org.nahoft.nahoft.services.MFSKReceiveSessionService
+import org.nahoft.nahoft.services.MFSKReceiveSessionState
 import org.nahoft.nahoft.services.PacketRequirement
 import org.nahoft.nahoft.services.ReceiveSessionService
 import org.nahoft.nahoft.services.ReceiveSessionState
+import org.operatorfoundation.audiocoder.mfsk.MFSKMode
 import org.operatorfoundation.audiocoder.wspr.WSPRTimingCoordinator
 import org.operatorfoundation.audiocoder.wspr.models.WSPRCycleInformation
 import org.operatorfoundation.audiocoder.wspr.models.WSPRStationState
@@ -34,82 +37,137 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
     private val timingCoordinator = WSPRTimingCoordinator()
 
     fun getMillisUntilNextEvenMinute(): Long = timingCoordinator.getMillisUntilNextEvenMinute()
-    fun getTxFrequencyKHz(): Int =
-        Persist.loadIntKey(Persist.sharedPrefTxFrequencyKHzKey, 14095)
 
-    fun saveTxFrequencyKHz(frequencyKHz: Int) =
-        Persist.saveIntKey(Persist.sharedPrefTxFrequencyKHzKey, frequencyKHz)
+    // ── WSPR frequency preferences ────────────────────────────────────────────
+    fun getTxFrequencyKHz(): Int  = Persist.loadIntKey(Persist.sharedPrefTxFrequencyKHzKey, 14095)
+    fun saveTxFrequencyKHz(frequencyKHz: Int) = Persist.saveIntKey(Persist.sharedPrefTxFrequencyKHzKey, frequencyKHz)
+    fun getRxFrequencyKHz(): Int  = Persist.loadIntKey(Persist.sharedPrefRxFrequencyKHzKey, 14095)
+    fun saveRxFrequencyKHz(frequencyKHz: Int) = Persist.saveIntKey(Persist.sharedPrefRxFrequencyKHzKey, frequencyKHz)
 
-    fun getRxFrequencyKHz(): Int =
-        Persist.loadIntKey(Persist.sharedPrefRxFrequencyKHzKey, 14095)
+    // ── MFSK frequency preferences ────────────────────────────────────────────
+    fun getMfskBaseFrequencyHz(): Int = Persist.loadIntKey(Persist.sharedPrefMfskBaseFrequencyHzKey, 1500)
+    fun saveMfskBaseFrequencyHz(frequencyHz: Int) = Persist.saveIntKey(Persist.sharedPrefMfskBaseFrequencyHzKey, frequencyHz)
 
-    fun saveRxFrequencyKHz(frequencyKHz: Int) =
-        Persist.saveIntKey(Persist.sharedPrefRxFrequencyKHzKey, frequencyKHz)
+    // ==================== WSPR Service Binding ====================
 
-    // ==================== Service Binding ====================
-    private var receiveService: ReceiveSessionService? = null
-    private var serviceBound = false
+    private var wsprReceiveService: ReceiveSessionService? = null
+    private var wsprServiceBound = false
 
-    private val _serviceConnected = MutableStateFlow(false)
-    val serviceConnected: StateFlow<Boolean> = _serviceConnected.asStateFlow()
+    private val _wsprServiceConnected = MutableStateFlow(false)
+    val wsprServiceConnected: StateFlow<Boolean> = _wsprServiceConnected.asStateFlow()
 
-    private val serviceConnection = object : ServiceConnection
+    private val wsprServiceConnection = object : ServiceConnection
     {
         override fun onServiceConnected(name: ComponentName?, binder: IBinder?)
         {
             Timber.d("ReceiveSessionService connected")
             val localBinder = binder as ReceiveSessionService.LocalBinder
-            receiveService = localBinder.getService()
-            serviceBound = true
-            _serviceConnected.value = true
-
-            startServiceFlowRelay()
+            wsprReceiveService = localBinder.getService()
+            wsprServiceBound = true
+            _wsprServiceConnected.value = true
+            startWsprServiceFlowRelay()
         }
 
         override fun onServiceDisconnected(name: ComponentName?)
         {
             Timber.d("ReceiveSessionService disconnected")
-            receiveService = null
-            serviceBound = false
-            _serviceConnected.value = false
+            wsprReceiveService = null
+            wsprServiceBound = false
+            _wsprServiceConnected.value = false
         }
     }
 
-    // ==================== Receive Session State (Relayed from Service) ====================
+    // ==================== WSPR Receive Session State (Relayed from Service) ====================
 
-    private val _receiveSessionState = MutableStateFlow<ReceiveSessionState>(ReceiveSessionState.Idle)
-    val receiveSessionState: StateFlow<ReceiveSessionState> = _receiveSessionState.asStateFlow()
+    private val _wsprReceiveSessionState =
+        MutableStateFlow<ReceiveSessionState>(ReceiveSessionState.Idle)
+    val wsprReceiveSessionState: StateFlow<ReceiveSessionState> =
+        _wsprReceiveSessionState.asStateFlow()
 
-    private val _receivedSpots = MutableStateFlow<List<WSPRSpotItem>>(emptyList())
-    val receivedSpots: StateFlow<List<WSPRSpotItem>> = _receivedSpots.asStateFlow()
+    private val _wsprReceivedSpots = MutableStateFlow<List<WSPRSpotItem>>(emptyList())
+    val wsprReceivedSpots: StateFlow<List<WSPRSpotItem>> = _wsprReceivedSpots.asStateFlow()
 
-    private val _stationState = MutableStateFlow<WSPRStationState?>(null)
-    val stationState: StateFlow<WSPRStationState?> = _stationState.asStateFlow()
+    private val _wsprStationState = MutableStateFlow<WSPRStationState?>(null)
+    val wsprStationState: StateFlow<WSPRStationState?> = _wsprStationState.asStateFlow()
 
-    private val _cycleInformation = MutableStateFlow<WSPRCycleInformation?>(null)
-    val cycleInformation: StateFlow<WSPRCycleInformation?> = _cycleInformation.asStateFlow()
+    private val _wsprCycleInformation = MutableStateFlow<WSPRCycleInformation?>(null)
+    val wsprCycleInformation: StateFlow<WSPRCycleInformation?> =
+        _wsprCycleInformation.asStateFlow()
 
-    private val _audioLevel = MutableStateFlow<AudioLevelInfo?>(null)
-    val audioLevel: StateFlow<AudioLevelInfo?> = _audioLevel.asStateFlow()
+    private val _wsprAudioLevel = MutableStateFlow<AudioLevelInfo?>(null)
+    val wsprAudioLevel: StateFlow<AudioLevelInfo?> = _wsprAudioLevel.asStateFlow()
 
-    private val _messageJustReceived = MutableStateFlow(false)
-    val messageJustReceived: StateFlow<Boolean> = _messageJustReceived.asStateFlow()
+    private val _wsprMessageJustReceived = MutableStateFlow(false)
+    val wsprMessageJustReceived: StateFlow<Boolean> = _wsprMessageJustReceived.asStateFlow()
 
-    private val _lastReceivedMessage = MutableSharedFlow<ByteArray>(replay = 0)
-    val lastReceivedMessage: SharedFlow<ByteArray> = _lastReceivedMessage.asSharedFlow()
+    private val _wsprLastReceivedMessage = MutableSharedFlow<ByteArray>(replay = 0)
+    val wsprLastReceivedMessage: SharedFlow<ByteArray> = _wsprLastReceivedMessage.asSharedFlow()
 
-    private val _decryptedMessageRecords = MutableStateFlow<List<DecryptedMessageRecord>>(emptyList())
-    val decryptedMessageRecords: StateFlow<List<DecryptedMessageRecord>> = _decryptedMessageRecords.asStateFlow()
+    private val _wsprDecryptedMessageRecords =
+        MutableStateFlow<List<DecryptedMessageRecord>>(emptyList())
+    val wsprDecryptedMessageRecords: StateFlow<List<DecryptedMessageRecord>> =
+        _wsprDecryptedMessageRecords.asStateFlow()
 
-    private val _packetRequirement = MutableStateFlow<PacketRequirement>(
+    private val _wsprPacketRequirement = MutableStateFlow<PacketRequirement>(
         PacketRequirement.Fixed(ReceiveSessionService.MIN_SPOTS_FOR_DECRYPTION)
     )
-    val packetRequirement: StateFlow<PacketRequirement> = _packetRequirement.asStateFlow()
+    val wsprPacketRequirement: StateFlow<PacketRequirement> = _wsprPacketRequirement.asStateFlow()
 
-    val receivedMessageCount: Int
-        get() = receiveService?.receivedMessageCount ?: 0
+    val wsprReceivedMessageCount: Int
+        get() = wsprReceiveService?.receivedMessageCount ?: 0
 
-    private var flowRelayJob: Job? = null
+    private var wsprFlowRelayJob: Job? = null
+
+    // ==================== MFSK Service Binding ====================
+
+    private var mfskReceiveService: MFSKReceiveSessionService? = null
+    private var mfskServiceBound = false
+
+    private val _mfskServiceConnected = MutableStateFlow(false)
+    val mfskServiceConnected: StateFlow<Boolean> = _mfskServiceConnected.asStateFlow()
+
+    private val mfskServiceConnection = object : ServiceConnection
+    {
+        override fun onServiceConnected(name: ComponentName?, binder: IBinder?)
+        {
+            Timber.d("MFSKReceiveSessionService connected")
+            val localBinder = binder as MFSKReceiveSessionService.LocalBinder
+            mfskReceiveService = localBinder.getService()
+            mfskServiceBound = true
+            _mfskServiceConnected.value = true
+            startMfskServiceFlowRelay()
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?)
+        {
+            Timber.d("MFSKReceiveSessionService disconnected")
+            mfskReceiveService = null
+            mfskServiceBound = false
+            _mfskServiceConnected.value = false
+        }
+    }
+
+    // ==================== MFSK Receive Session State (Relayed from Service) ====================
+
+    private val _mfskSessionState =
+        MutableStateFlow<MFSKReceiveSessionState>(MFSKReceiveSessionState.Idle)
+    val mfskSessionState: StateFlow<MFSKReceiveSessionState> = _mfskSessionState.asStateFlow()
+
+    private val _mfskAudioLevel = MutableStateFlow<AudioLevelInfo?>(null)
+    val mfskAudioLevel: StateFlow<AudioLevelInfo?> = _mfskAudioLevel.asStateFlow()
+
+    private val _mfskMessageJustReceived = MutableStateFlow(false)
+    val mfskMessageJustReceived: StateFlow<Boolean> = _mfskMessageJustReceived.asStateFlow()
+
+    private val _mfskDecryptedMessageRecords =
+        MutableStateFlow<List<DecryptedMessageRecord>>(emptyList())
+    val mfskDecryptedMessageRecords: StateFlow<List<DecryptedMessageRecord>> =
+        _mfskDecryptedMessageRecords.asStateFlow()
+
+    private val _mfskLastReceivedMessage = MutableSharedFlow<ByteArray>(replay = 0)
+    val mfskLastReceivedMessage: SharedFlow<ByteArray> = _mfskLastReceivedMessage.asSharedFlow()
+
+    private var mfskFlowRelayJob: Job? = null
 
     // ==================== Friend State ====================
 
@@ -118,38 +176,28 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
 
     fun initializeFriend(friend: Friend)
     {
-        if (_friend.value == null)
-        {
-            _friend.value = friend
-        }
+        if (_friend.value == null) _friend.value = friend
     }
 
-    // ==================== Serial Connection (WSPR Transmit) ====================
+    // ==================== Serial Connection ====================
 
-    /** Eden instance from application scope. Null when no serial device is connected. */
-    private val appEden: StateFlow<Eden?> =
-        (getApplication<Nahoft>()).eden
+    private val appEden: StateFlow<Eden?> = (getApplication<Nahoft>()).eden
 
-    /** True when Eden hardware is connected. Observed by UI for button visibility. */
     val isEdenConnected: StateFlow<Boolean> = appEden
         .map { it != null }
         .stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
-    // ==================== USB Audio Connection (for UI visibility) ====================
+    // ==================== USB Audio Connection ====================
 
     private val _usbAudioAvailable = MutableStateFlow(false)
     val usbAudioAvailable: StateFlow<Boolean> = _usbAudioAvailable.asStateFlow()
 
-    /**
-     * Starts monitoring USB audio input device availability.
-     * Uses lightweight monitor - does not create connections.
-     */
     fun startAudioDeviceDiscovery()
     {
         viewModelScope.launch {
             UsbAudioDeviceMonitor.observeAvailability(
                 context = getApplication(),
-                requireInput = true  // WSPR receive needs input capability
+                requireInput = true
             ).collect { available ->
                 Timber.d("USB audio input available: $available")
                 _usbAudioAvailable.value = available
@@ -160,241 +208,305 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
     // ==================== Service Lifecycle ====================
 
     /**
-     * Binds to ReceiveSessionService if it's running.
+     * Binds to [ReceiveSessionService] if it is running.
      * Call from Activity.onStart().
      */
-    fun bindToServiceIfRunning()
+    fun bindToWsprServiceIfRunning()
     {
         val context = getApplication<Application>()
-        val intent = Intent(context, ReceiveSessionService::class.java)
-
-        // bindService returns false if service isn't running
-        val bound = context.bindService(intent, serviceConnection, 0)
-        Timber.d("Attempted to bind to service: $bound")
+        val bound = context.bindService(
+            Intent(context, ReceiveSessionService::class.java),
+            wsprServiceConnection,
+            0
+        )
+        Timber.d("Attempted to bind to WSPR service: $bound")
     }
 
     /**
-     * Unbinds from ReceiveSessionService.
+     * Unbinds from [ReceiveSessionService].
      * Call from Activity.onStop().
      */
-    fun unbindFromService()
+    fun unbindFromWsprService()
     {
-        if (serviceBound)
+        if (wsprServiceBound)
         {
-            flowRelayJob?.cancel()
-            flowRelayJob = null
-
-            try
-            {
-                getApplication<Application>().unbindService(serviceConnection)
-            }
-            catch (e: Exception)
-            {
-                Timber.w(e, "Error unbinding from service")
-            }
-
-            serviceBound = false
-            _serviceConnected.value = false
-            receiveService = null
+            wsprFlowRelayJob?.cancel()
+            wsprFlowRelayJob = null
+            try { getApplication<Application>().unbindService(wsprServiceConnection) }
+            catch (e: Exception) { Timber.w(e, "Error unbinding from WSPR service") }
+            wsprServiceBound = false
+            _wsprServiceConnected.value = false
+            wsprReceiveService = null
         }
     }
 
-    // ==================== Receive Session Control ====================
+    /**
+     * Binds to [MFSKReceiveSessionService] if it is running.
+     * Call from Activity.onStart().
+     */
+    fun bindToMfskServiceIfRunning()
+    {
+        val context = getApplication<Application>()
+        val bound = context.bindService(
+            Intent(context, MFSKReceiveSessionService::class.java),
+            mfskServiceConnection,
+            0
+        )
+        Timber.d("Attempted to bind to MFSK service: $bound")
+    }
 
     /**
-     * Starts a receive session via the foreground service.
+     * Unbinds from [MFSKReceiveSessionService].
+     * Call from Activity.onStop().
+     */
+    fun unbindFromMfskService()
+    {
+        if (mfskServiceBound)
+        {
+            mfskFlowRelayJob?.cancel()
+            mfskFlowRelayJob = null
+            try { getApplication<Application>().unbindService(mfskServiceConnection) }
+            catch (e: Exception) { Timber.w(e, "Error unbinding from MFSK service") }
+            mfskServiceBound = false
+            _mfskServiceConnected.value = false
+            mfskReceiveService = null
+        }
+    }
+
+    // ==================== WSPR Session Control ====================
+
+    /**
+     * Starts a WSPR receive session via the foreground service.
+     *
+     * Refuses to start if an MFSK session is already active — the two modes
+     * are mutually exclusive since both claim USB audio.
      *
      * @param isEncrypted Whether to expect encrypted or unencrypted WSPR payloads.
-     *                    Defaults to true. Note: public key is still required even
-     *                    in unencrypted mode since sessions are friend-scoped and
-     *                    verified friends always have a key.
      */
-    fun startReceiveSession(isEncrypted: Boolean = true)
+    fun startWsprReceiveSession(isEncrypted: Boolean = true)
     {
-        val currentFriend = _friend.value
-        if (currentFriend == null)
+        if (isMfskSessionActive())
         {
-            Timber.w("Cannot start session: no friend initialized")
+            Timber.w("Cannot start WSPR receive session: MFSK session already active")
             return
         }
 
-        val publicKey = currentFriend.publicKeyEncoded
-        if (publicKey == null)
-        {
-            Timber.w("Cannot start session: friend has no public key")
+        val currentFriend = _friend.value ?: run {
+            Timber.w("Cannot start WSPR session: no friend initialized")
+            return
+        }
+
+        val publicKey = currentFriend.publicKeyEncoded ?: run {
+            Timber.w("Cannot start WSPR session: friend has no public key")
             return
         }
 
         if (!_usbAudioAvailable.value)
         {
-            Timber.w("Cannot start session: no USB audio available")
+            Timber.w("Cannot start WSPR session: no USB audio available")
             return
         }
 
-        // Check if service already has an active session
-        receiveService?.let { service ->
+        wsprReceiveService?.let { service ->
             if (service.isSessionActive())
             {
-                val activeId = service.currentFriendName.value
-                if (activeId == currentFriend.name)
-                {
-                    Timber.d("Session already active for this friend")
-                    return
-                }
-                else
-                {
-                    Timber.w("Session active for different friend ($activeId)")
-                    return
-                }
+                Timber.d(
+                    if (service.currentFriendName.value == currentFriend.name)
+                        "WSPR session already active for this friend"
+                    else
+                        "WSPR session active for different friend (${service.currentFriendName.value})"
+                )
+                return
             }
         }
 
         val context = getApplication<Application>()
 
-        // Start the foreground service
-        val startIntent = ReceiveSessionService.createStartIntent(
-            context = context,
-            friendName = currentFriend.name,
-            friendPublicKey = publicKey,
-            isEncrypted = isEncrypted
+        context.startForegroundService(
+            ReceiveSessionService.createStartIntent(
+                context        = context,
+                friendName     = currentFriend.name,
+                friendPublicKey = publicKey,
+                isEncrypted    = isEncrypted
+            )
         )
 
-        context.startForegroundService(startIntent)
-
-        // Bind to observe state
         viewModelScope.launch {
-            delay(100) // Brief delay for service to start
-            val intent = Intent(context, ReceiveSessionService::class.java)
-            context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+            delay(100)
+            context.bindService(
+                Intent(context, ReceiveSessionService::class.java),
+                wsprServiceConnection,
+                Context.BIND_AUTO_CREATE
+            )
         }
     }
 
-    fun updateEncryptionMode(isEncrypted: Boolean)
+    fun updateWsprEncryptionMode(isEncrypted: Boolean)
     {
-        receiveService?.updateEncryptionMode(isEncrypted)
+        wsprReceiveService?.updateEncryptionMode(isEncrypted)
     }
 
-    /**
-     * Stops the current receive session.
-     */
-    fun stopReceiveSession()
+    fun stopWsprReceiveSession()
     {
-        receiveService?.stopSession()
+        wsprReceiveService?.stopSession()
+        getApplication<Application>().startService(
+            ReceiveSessionService.createStopIntent(getApplication())
+        )
+    }
+
+    fun resetWsprSession()
+    {
+        wsprReceiveService?.resetSession()
+        _wsprReceiveSessionState.value = ReceiveSessionState.Idle
+        _wsprReceivedSpots.value = emptyList()
+        _wsprMessageJustReceived.value = false
+    }
+
+    fun isWsprSessionActive(): Boolean = wsprReceiveService?.isSessionActive() ?: false
+    fun getWsprSessionElapsedMs(): Long = wsprReceiveService?.getSessionElapsedMs() ?: 0L
+    fun getWsprDecryptionAttempts(): Int = wsprReceiveService?.getDecryptionAttempts() ?: 0
+
+    fun clearWsprMessageReceivedFlag()
+    {
+        wsprReceiveService?.clearMessageReceivedFlag()
+        _wsprMessageJustReceived.value = false
+    }
+
+    // ==================== MFSK Session Control ====================
+
+    /**
+     * Starts an MFSK receive session via the foreground service.
+     *
+     * Refuses to start if a WSPR session is already active.
+     * Mode is fixed to [MFSKMode.MFSK16] until multi-mode selection is added.
+     */
+    fun startMfskReceiveSession()
+    {
+        if (isWsprSessionActive())
+        {
+            Timber.w("Cannot start MFSK receive session: WSPR session already active")
+            return
+        }
+
+        val currentFriend = _friend.value ?: run {
+            Timber.w("Cannot start MFSK session: no friend initialized")
+            return
+        }
+
+        val publicKey = currentFriend.publicKeyEncoded ?: run {
+            Timber.w("Cannot start MFSK session: friend has no public key")
+            return
+        }
+
+        if (!_usbAudioAvailable.value)
+        {
+            Timber.w("Cannot start MFSK session: no USB audio available")
+            return
+        }
 
         val context = getApplication<Application>()
-        val stopIntent = ReceiveSessionService.createStopIntent(context)
-        context.startService(stopIntent)
+        val mode = MFSKMode.MFSK16  // TODO: expose mode selection when additional modes are supported
+
+        context.startForegroundService(
+            MFSKReceiveSessionService.createStartIntent(
+                context         = context,
+                friendName      = currentFriend.name,
+                friendPublicKey = publicKey,
+                mode            = mode,
+                baseFrequencyHz = getMfskBaseFrequencyHz()
+            )
+        )
+
+        viewModelScope.launch {
+            delay(100)
+            context.bindService(
+                Intent(context, MFSKReceiveSessionService::class.java),
+                mfskServiceConnection,
+                Context.BIND_AUTO_CREATE
+            )
+        }
     }
 
-    /**
-     * Resets session state after stopping.
-     */
-    fun resetSession()
+    fun stopMfskReceiveSession()
     {
-        receiveService?.resetSession()
-
-        // Also reset local state
-        _receiveSessionState.value = ReceiveSessionState.Idle
-        _receivedSpots.value = emptyList()
-        _messageJustReceived.value = false
+        mfskReceiveService?.stopSession()
+        getApplication<Application>().startService(
+            MFSKReceiveSessionService.createStopIntent(getApplication())
+        )
     }
 
-    /**
-     * Returns whether a receive session is currently active.
-     */
-    fun isSessionActive(): Boolean
+    fun resetMfskSession()
     {
-        return receiveService?.isSessionActive() ?: false
+        mfskReceiveService?.resetSession()
+        _mfskSessionState.value = MFSKReceiveSessionState.Idle
+        _mfskMessageJustReceived.value = false
     }
 
-    /**
-     * Returns elapsed session time in milliseconds, or 0 if no session.
-     */
-    fun getSessionElapsedMs(): Long
+    fun isMfskSessionActive(): Boolean = mfskReceiveService?.isSessionActive() ?: false
+    fun getMfskSessionElapsedMs(): Long = mfskReceiveService?.getSessionElapsedMs() ?: 0L
+
+    fun clearMfskMessageReceivedFlag()
     {
-        return receiveService?.getSessionElapsedMs() ?: 0L
+        mfskReceiveService?.clearMessageReceivedFlag()
+        _mfskMessageJustReceived.value = false
     }
 
-    /**
-     * Returns current decryption attempts count.
-     */
-    fun getDecryptionAttempts(): Int
+    // ==================== WSPR Flow Relay ====================
+
+    private fun startWsprServiceFlowRelay()
     {
-        return receiveService?.getDecryptionAttempts() ?: 0
+        wsprFlowRelayJob?.cancel()
+        val service = wsprReceiveService ?: return
+
+        wsprFlowRelayJob = viewModelScope.launch {
+            launch { service.receiveSessionState.collect    { _wsprReceiveSessionState.value = it } }
+            launch { service.receivedSpots.collect          { _wsprReceivedSpots.value = it } }
+            launch { service.stationState.collect           { _wsprStationState.value = it } }
+            launch { service.cycleInformation.collect       { _wsprCycleInformation.value = it } }
+            launch { service.audioLevel.collect             { _wsprAudioLevel.value = it } }
+            launch { service.messageJustReceived.collect    { _wsprMessageJustReceived.value = it } }
+            launch { service.lastReceivedMessage.collect    { _wsprLastReceivedMessage.emit(it) } }
+            launch { service.decryptedMessageRecords.collect { _wsprDecryptedMessageRecords.value = it } }
+            launch { service.packetRequirement.collect      { _wsprPacketRequirement.value = it } }
+        }
     }
 
-    /**
-     * Resets the messageJustReceived flag (call after UI has shown celebration).
-     */
-    fun clearMessageReceivedFlag()
+    // ==================== MFSK Flow Relay ====================
+
+    private fun startMfskServiceFlowRelay()
     {
-        receiveService?.clearMessageReceivedFlag()
-        _messageJustReceived.value = false
-    }
+        mfskFlowRelayJob?.cancel()
+        val service = mfskReceiveService ?: return
 
-    // ==================== Flow Relay ====================
-
-    /**
-     * Starts collecting from service StateFlows and relaying to ViewModel flows.
-     */
-    private fun startServiceFlowRelay()
-    {
-        flowRelayJob?.cancel()
-
-        val service = receiveService ?: return
-
-        flowRelayJob = viewModelScope.launch {
-            launch {
-                service.receiveSessionState.collect { _receiveSessionState.value = it }
-            }
-            launch {
-                service.receivedSpots.collect { _receivedSpots.value = it }
-            }
-            launch {
-                service.stationState.collect { _stationState.value = it }
-            }
-            launch {
-                service.cycleInformation.collect { _cycleInformation.value = it }
-            }
-            launch {
-                service.audioLevel.collect { _audioLevel.value = it }
-            }
-            launch {
-                service.messageJustReceived.collect { _messageJustReceived.value = it }
-            }
-            launch {
-                service.lastReceivedMessage.collect { _lastReceivedMessage.emit(it) }
-            }
-            launch {
-                service.decryptedMessageRecords.collect { _decryptedMessageRecords.value = it }
-            }
-            launch {
-                service.packetRequirement.collect { _packetRequirement.value = it }
-            }
+        mfskFlowRelayJob = viewModelScope.launch {
+            launch { service.sessionState.collect             { _mfskSessionState.value = it } }
+            launch { service.audioLevel.collect               { _mfskAudioLevel.value = it } }
+            launch { service.messageJustReceived.collect      { _mfskMessageJustReceived.value = it } }
+            launch { service.decryptedMessageRecords.collect  { _mfskDecryptedMessageRecords.value = it } }
+            launch { service.lastReceivedMessage.collect      { _mfskLastReceivedMessage.emit(it) } }
         }
     }
 
     // ==================== Derived State ====================
 
     /**
-     * Whether the send via serial button should be visible.
-     * True when: serial connected AND friend is Verified or Approved.
+     * Whether the send via serial (radio) button should be visible.
+     * True when Eden is connected AND friend is Verified or Approved.
      */
     val canSendViaSerial: Flow<Boolean> = combine(appEden, _friend) { edenInstance, friend ->
-        val hasValidStatus = friend?.status == FriendStatus.Verified || friend?.status == FriendStatus.Approved
+        val hasValidStatus =
+            friend?.status == FriendStatus.Verified || friend?.status == FriendStatus.Approved
         edenInstance != null && hasValidStatus
     }
 
     /**
      * Whether the receive via radio button should be visible.
-     * True when: audio connected AND friend is Verified or Approved.
+     * True when USB audio is connected AND friend is Verified or Approved.
      */
     val canReceiveRadio: Flow<Boolean> = combine(_usbAudioAvailable, _friend)
     { audioAvailable, friend ->
-
         val hasValidStatus =
             friend?.status == FriendStatus.Verified || friend?.status == FriendStatus.Approved
-
         audioAvailable && hasValidStatus
     }
 
@@ -403,8 +515,7 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
     override fun onCleared()
     {
         super.onCleared()
-
-        // Don't stop the service - it should persist independently, just unbind.
-        unbindFromService()
+        unbindFromWsprService()
+        unbindFromMfskService()
     }
 }

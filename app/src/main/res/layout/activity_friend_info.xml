@@ -285,7 +285,7 @@
             android:hint="@string/type_your_message" />
 
         <ImageButton
-            android:id="@+id/sendViaSerial"
+            android:id="@+id/sendViaRadio"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@drawable/btn_bkgd_send_message_stateful"

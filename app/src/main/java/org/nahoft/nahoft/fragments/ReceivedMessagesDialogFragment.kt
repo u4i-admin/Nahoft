@@ -61,7 +61,12 @@ class ReceivedMessagesDialogFragment : BottomSheetDialogFragment()
 
         binding.btnClose.setOnClickListener { dismissAllowingStateLoss() }
 
-        val records      = viewModel.decryptedMessageRecords.value
+        val isMfsk   = arguments?.getBoolean(ARG_IS_MFSK, false) ?: false
+        val records  = if (isMfsk)
+            viewModel.mfskDecryptedMessageRecords.value
+        else
+            viewModel.wsprDecryptedMessageRecords.value
+
         val friendName   = viewModel.friend.value?.name
         val publicKeyBytes = viewModel.friend.value?.publicKeyEncoded
 
@@ -244,5 +249,20 @@ class ReceivedMessagesDialogFragment : BottomSheetDialogFragment()
         super.onDestroyView()
         uiScope.cancel()
         _binding = null
+    }
+
+    companion object
+    {
+        private const val ARG_IS_MFSK = "arg_is_mfsk"
+
+        /**
+         * @param isMfsk True when opened from [MFSKReceiveRadioBottomSheetFragment] —
+         *               reads from [FriendInfoViewModel.mfskDecryptedMessageRecords].
+         *               False (default) reads from [FriendInfoViewModel.wsprDecryptedMessageRecords].
+         */
+        fun newInstance(isMfsk: Boolean = false): ReceivedMessagesDialogFragment =
+            ReceivedMessagesDialogFragment().apply {
+                arguments = Bundle().apply { putBoolean(ARG_IS_MFSK, isMfsk) }
+            }
     }
 }

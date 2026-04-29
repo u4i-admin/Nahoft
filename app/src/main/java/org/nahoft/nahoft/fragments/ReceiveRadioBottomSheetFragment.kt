@@ -98,7 +98,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
 
         when
         {
-            viewModel.isSessionActive() -> {
+            viewModel.isWsprSessionActive() -> {
                 // Session already running — show live state
                 showFrequencyReadOnly()
             }
@@ -110,7 +110,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
 
             else -> {
                 // No Eden — start immediately, no frequency input needed
-                viewModel.startReceiveSession(currentEncryptionMode())
+                viewModel.startWsprReceiveSession(currentEncryptionMode())
                 showFrequencyReadOnly()
             }
         }
@@ -127,8 +127,8 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
 
         // Stop button (ends session)
         binding.btnStop.setOnClickListener {
-            viewModel.stopReceiveSession()
-            viewModel.resetSession()
+            viewModel.stopWsprReceiveSession()
+            viewModel.resetWsprSession()
             dismissAllowingStateLoss()
         }
 
@@ -174,7 +174,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
 
             // Push mode change to service — safe during WaitingForWindow,
             // ignored by service if Running
-            viewModel.updateEncryptionMode(!isChecked)
+            viewModel.updateWsprEncryptionMode(!isChecked)
         }
     }
 
@@ -185,62 +185,62 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
     {
         // Observe session state
         uiScope.launch {
-            viewModel.receiveSessionState.collect { state ->
+            viewModel.wsprReceiveSessionState.collect { state ->
                 updateSessionStateUI(state)
             }
         }
 
         // Observe station state for status icon/animation
         uiScope.launch {
-            viewModel.stationState.collect { state ->
+            viewModel.wsprStationState.collect { state ->
                 state?.let { updateStationStateUI(it) }
             }
         }
 
         // Observe cycle information for progress
         uiScope.launch {
-            viewModel.cycleInformation.collect { info ->
+            viewModel.wsprCycleInformation.collect { info ->
                 info?.let { updateCycleProgress(it) }
             }
         }
 
         // Observe spots
         uiScope.launch {
-            viewModel.receivedSpots.collect { spots ->
+            viewModel.wsprReceivedSpots.collect { spots ->
                 updateSpotsUI(spots)
             }
         }
 
         // Observe audio level
         uiScope.launch {
-            viewModel.audioLevel.collect { info ->
+            viewModel.wsprAudioLevel.collect { info ->
                 info?.let { updateAudioLevel(it) }
             }
         }
 
         // Observe message received flag
         uiScope.launch {
-            viewModel.messageJustReceived.collect { received ->
+            viewModel.wsprMessageJustReceived.collect { received ->
                 if (received) {
                     showMessageReceivedCelebration()
-                    viewModel.clearMessageReceivedFlag()
-                    updateSpotsUI(viewModel.receivedSpots.value)
+                    viewModel.clearWsprMessageReceivedFlag()
+                    updateSpotsUI(viewModel.wsprReceivedSpots.value)
                 }
             }
         }
 
         uiScope.launch {
-            viewModel.decryptedMessageRecords.collect { records ->
+            viewModel.wsprDecryptedMessageRecords.collect { records ->
                 updateMessagesCard(records)
             }
         }
 
         // Observe service connection for loading state
         uiScope.launch {
-            viewModel.serviceConnected.collect { connected ->
+            viewModel.wsprServiceConnected.collect { connected ->
                 if (_binding == null) return@collect
 
-                if (!connected && viewModel.isSessionActive())
+                if (!connected && viewModel.isWsprSessionActive())
                 {
                     // Service running but not yet bound - show connecting state
                     updateStatus("Connecting to session...")
@@ -253,7 +253,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
             viewModel.usbAudioAvailable.collect { available ->
 
                 // Use the StateFlow value directly
-                if (viewModel.receiveSessionState.value == ReceiveSessionState.Idle)
+                if (viewModel.wsprReceiveSessionState.value == ReceiveSessionState.Idle)
                 {
                     binding.btnStop.isEnabled = available
                     updateStatus(
@@ -267,16 +267,16 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
         // Frequency section visibility — Eden connection controls this pre-session
         uiScope.launch {
             viewModel.isEdenConnected.collect { edenConnected ->
-                if (viewModel.receiveSessionState.value != ReceiveSessionState.Idle) return@collect
+                if (viewModel.wsprReceiveSessionState.value != ReceiveSessionState.Idle) return@collect
                 binding.rxFrequencySection.visibility =
                     if (edenConnected) View.VISIBLE else View.GONE
             }
         }
 
         uiScope.launch {
-            viewModel.packetRequirement.collect { requirement ->
+            viewModel.wsprPacketRequirement.collect { requirement ->
                 packetRequirement = requirement
-                updateSpotsUI(viewModel.receivedSpots.value)
+                updateSpotsUI(viewModel.wsprReceivedSpots.value)
             }
         }
     }
@@ -502,7 +502,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
     {
         elapsedTimeJob = uiScope.launch {
             while (isActive) {
-                val elapsedMs = viewModel.getSessionElapsedMs()
+                val elapsedMs = viewModel.getWsprSessionElapsedMs()
                 val minutes = (elapsedMs / 60000).toInt()
                 val seconds = ((elapsedMs % 60000) / 1000).toInt()
 
@@ -542,12 +542,12 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
             is PacketRequirement.Unknown ->
             {
                 // Unencrypted: spot 0 not yet received, denominator unknown
-                "${viewModel.receivedMessageCount} / ?"
+                "${viewModel.wsprReceivedMessageCount} / ?"
             }
             is PacketRequirement.Known ->
             {
                 // Unencrypted: N known from spot 0 header
-                "${viewModel.receivedMessageCount} / ${req.count}"
+                "${viewModel.wsprReceivedMessageCount} / ${req.count}"
             }
         }
 
@@ -567,7 +567,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
 
     private fun showReceivedMessagesDialog()
     {
-        ReceivedMessagesDialogFragment()
+        ReceivedMessagesDialogFragment.newInstance()
             .show(childFragmentManager, "ReceivedMessagesDialog")
     }
 
@@ -583,7 +583,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
     private fun showSpotsDialog()
     {
         spotsDialog = WSPRSpotsDialogFragment.newInstance().also { dialog ->
-            dialog.updateSpots(viewModel.receivedSpots.value)
+            dialog.updateSpots(viewModel.wsprReceivedSpots.value)
             dialog.show(childFragmentManager, "WSPRSpotsDialog")
         }
     }
@@ -615,7 +615,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
                 ?: viewModel.getRxFrequencyKHz()
 
             viewModel.saveRxFrequencyKHz(freqKHz)
-            viewModel.startReceiveSession(currentEncryptionMode())
+            viewModel.startWsprReceiveSession(currentEncryptionMode())
             showFrequencyReadOnly()
         }
 
@@ -637,8 +637,8 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
         binding.btnStop.isEnabled = true
         binding.btnStop.text = getString(R.string.stop_session)
         binding.btnStop.setOnClickListener {
-            viewModel.stopReceiveSession()
-            viewModel.resetSession()
+            viewModel.stopWsprReceiveSession()
+            viewModel.resetWsprSession()
             dismissAllowingStateLoss()
         }
     }

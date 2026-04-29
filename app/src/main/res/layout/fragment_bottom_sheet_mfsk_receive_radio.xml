@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bkgd_blue_rect"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- ── Header ─────────────────────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!--
+            Minimize button — dismisses the sheet while keeping the session running.
+            Hidden before a session starts (no session to minimize to).
+        -->
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/minimize_sheet"
+            android:src="@drawable/ic_minimize"
+            android:visibility="gone"
+            app:tint="@color/white" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/mfsk_receive_via_radio"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Spacer balances the minimize button and keeps the title centered -->
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+    <!-- ── Scrollable content ──────────────────────────────────────────── -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ── Base frequency section ─────────────────────────────────── -->
+            <!--
+                Editable before session starts, read-only once Running or Starting.
+                Frequency is in Hz (not kHz) — MFSK uses audio-range frequencies.
+                Managed by showFrequencyInput() / showFrequencyReadOnly().
+            -->
+            <LinearLayout
+                android:id="@+id/rx_frequency_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/section_bkgd_dark_grey_8"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/mfsk_rx_base_frequency_hz"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <!-- Stepper row: [−] [EditText] [+] -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_mfsk_rx_freq_minus"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/btn_bkgd_transparent_56"
+                        android:padding="0dp"
+                        android:text="−"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/et_mfsk_rx_frequency"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/section_bkgd_dark_grey_8"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:padding="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/btn_mfsk_rx_freq_plus"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/btn_bkgd_transparent_56"
+                        android:padding="0dp"
+                        android:text="+"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- ── State icon + status ───────────────────────────────────── -->
+            <ImageView
+                android:id="@+id/iv_state_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:contentDescription="@string/mfsk_listening_for_signals"
+                android:src="@drawable/ic_radio"
+                app:tint="@color/caribbeanGreen" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="@string/tap_start_to_listen"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!--
+                Shown only in Failed state. Displays the human-readable reason
+                from MFSKReceiveSessionState.Failed.reason.
+                Hidden in all other states.
+            -->
+            <TextView
+                android:id="@+id/tv_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:textColor="@color/madderLake"
+                android:textSize="13sp"
+                android:visibility="gone" />
+
+            <!-- ── Audio level ───────────────────────────────────────────── -->
+            <!--
+                Hidden until Running state. Shown automatically when the station
+                starts collecting audio. Unlike WSPR, MFSK audio is continuous —
+                no per-cycle collection window to indicate.
+            -->
+            <LinearLayout
+                android:id="@+id/audio_level_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/section_bkgd_dark_grey_8"
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:contentDescription="@string/audio_level"
+                        android:src="@drawable/ic_volume"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/audio_level"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <org.nahoft.nahoft.views.VuMeterView
+                    android:id="@+id/vu_meter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
+
+            </LinearLayout>
+
+            <!-- ── Session elapsed time + messages card ──────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <!-- Elapsed time card — read-only, not tappable -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/lightGrey"
+                    app:cardCornerRadius="@dimen/button_corner_radius"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/activity_margin"
+                            android:layout_height="@dimen/activity_margin"
+                            android:contentDescription="@string/session_label"
+                            android:src="@drawable/ic_timer"
+                            app:tint="@color/caribbeanGreen" />
+
+                        <TextView
+                            android:id="@+id/tv_elapsed_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0:00"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/session_label"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Messages received card — tappable to open received messages dialog -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_messages"
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="@color/lightGrey"
+                    app:cardCornerRadius="@dimen/button_corner_radius"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/activity_margin"
+                            android:layout_height="@dimen/activity_margin"
+                            android:contentDescription="@string/messages_this_session"
+                            android:src="@drawable/ic_success"
+                            app:tint="@color/caribbeanGreen" />
+
+                        <TextView
+                            android:id="@+id/tv_messages_received"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/messages_this_session"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ── Stop / Start button — always visible below scroll content ───── -->
+    <!--
+        Label and behavior change with state:
+        Idle / Stopped / Failed → "Start Session" — launches receive pipeline
+        Starting / Running      → "Stop Session"  — stops session and dismisses
+    -->
+    <Button
+        android:id="@+id/btn_stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_bkgd_transparent_56"
+        android:text="@string/start_session"
+        android:textColor="@color/button_text_color_light" />
+
+</LinearLayout>
