@@ -8,16 +8,16 @@ package org.nahoft.nahoft.services
  *
  * Any state can transition to Failed or Cancelled.
  */
-sealed class TransmitSessionState
+sealed class WSPRTransmitSessionState
 {
     /** No active session. Frequency is editable. */
-    object Idle : TransmitSessionState()
+    object Idle : WSPRTransmitSessionState()
 
     /**
      * Encrypting and encoding the message into WSPR symbol arrays.
      * Transitions to [WaitingForWindow] on success, [Failed] on error.
      */
-    object Preparing : TransmitSessionState()
+    object Preparing : WSPRTransmitSessionState()
 
     /**
      * Waiting for the next even UTC minute before transmitting the next spot.
@@ -30,7 +30,7 @@ sealed class TransmitSessionState
         val spotIndex: Int,
         val totalSpots: Int,
         val msRemaining: Long
-    ) : TransmitSessionState()
+    ) : WSPRTransmitSessionState()
 
     /**
      * Actively transmitting WSPR symbols for one spot.
@@ -43,7 +43,7 @@ sealed class TransmitSessionState
         val spotIndex: Int,
         val totalSpots: Int,
         val symbolIndex: Int
-    ) : TransmitSessionState()
+    ) : WSPRTransmitSessionState()
 
     /**
      * Spot transmitted successfully. Switching relay back to RX between spots.
@@ -54,14 +54,14 @@ sealed class TransmitSessionState
     data class SwitchingToRx(
         val spotIndex: Int,
         val totalSpots: Int
-    ) : TransmitSessionState()
+    ) : WSPRTransmitSessionState()
 
     /**
      * All spots transmitted successfully. Message has been sent.
      *
      * @param totalSpots  Total number of spots that were transmitted
      */
-    data class Complete(val totalSpots: Int) : TransmitSessionState()
+    data class Complete(val totalSpots: Int) : WSPRTransmitSessionState()
 
     /**
      * Transmission failed. The message was not fully sent.
@@ -69,11 +69,11 @@ sealed class TransmitSessionState
      * @param reason  Human-readable description of what went wrong,
      *                suitable for display in the UI.
      */
-    data class Failed(val reason: String) : TransmitSessionState()
+    data class Failed(val reason: String) : WSPRTransmitSessionState()
 
     /**
      * Transmission was cancelled by the user before completion.
      * Eden has been returned to RX mode.
      */
-    object Cancelled : TransmitSessionState()
+    object Cancelled : WSPRTransmitSessionState()
 }

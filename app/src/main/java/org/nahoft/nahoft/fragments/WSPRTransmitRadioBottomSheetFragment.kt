@@ -25,10 +25,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.nahoft.nahoft.R
-import org.nahoft.nahoft.databinding.FragmentBottomSheetTransmitRadioBinding
-import org.nahoft.nahoft.services.TransmitSessionState
+import org.nahoft.nahoft.databinding.FragmentBottomSheetWsprTransmitRadioBinding
+import org.nahoft.nahoft.services.WSPRTransmitSessionState
 import org.nahoft.nahoft.viewmodels.FriendInfoViewModel
-import org.nahoft.nahoft.viewmodels.TransmitRadioViewModel
+import org.nahoft.nahoft.viewmodels.WSPRTransmitRadioViewModel
 import org.operatorfoundation.audiocoder.wspr.WSPRConstants
 import timber.log.Timber
 
@@ -36,16 +36,16 @@ import timber.log.Timber
  * Bottom sheet for transmitting encrypted messages via WSPR radio.
  *
  * Receives the message and friend public key as arguments — the full TX
- * pipeline runs inside [TransmitSessionService] via [TransmitRadioViewModel].
+ * pipeline runs inside [TransmitSessionService] via [WSPRTransmitRadioViewModel].
  * This fragment is purely a UI observer.
  *
  * Not cancelable by outside tap. The user must explicitly press Stop or Dismiss.
  */
-class TransmitRadioBottomSheetFragment : BottomSheetDialogFragment()
+class WSPRTransmitRadioBottomSheetFragment : BottomSheetDialogFragment()
 {
     // ==================== View Binding ====================
 
-    private var _binding: FragmentBottomSheetTransmitRadioBinding? = null
+    private var _binding: FragmentBottomSheetWsprTransmitRadioBinding? = null
     private val binding get() = _binding!!
 
     // ==================== ViewModels ====================
@@ -54,8 +54,8 @@ class TransmitRadioBottomSheetFragment : BottomSheetDialogFragment()
      * Fragment-scoped ViewModel created with the Factory.
      * Arguments are required — fragment will throw if missing.
      */
-    private val viewModel: TransmitRadioViewModel by viewModels {
-        TransmitRadioViewModel.Factory(
+    private val viewModel: WSPRTransmitRadioViewModel by viewModels {
+        WSPRTransmitRadioViewModel.Factory(
             message = requireArguments().getString(ARG_MESSAGE)!!,
             friendName = requireArguments().getString(ARG_FRIEND_NAME)!!,
             friendPublicKey = requireArguments().getByteArray(ARG_FRIEND_PUBLIC_KEY)!!
@@ -91,7 +91,7 @@ class TransmitRadioBottomSheetFragment : BottomSheetDialogFragment()
         savedInstanceState: Bundle?
     ): View
     {
-        _binding = FragmentBottomSheetTransmitRadioBinding.inflate(inflater, container, false)
+        _binding = FragmentBottomSheetWsprTransmitRadioBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -193,7 +193,7 @@ class TransmitRadioBottomSheetFragment : BottomSheetDialogFragment()
         // Eden availability controls Start button in Idle state
         uiScope.launch {
             viewModel.isEdenConnected.collect { connected ->
-                if (viewModel.transmitSessionState.value == TransmitSessionState.Idle)
+                if (viewModel.transmitSessionState.value == WSPRTransmitSessionState.Idle)
                 {
                     binding.btnAction.isEnabled = connected
                     if (!connected)
@@ -210,27 +210,27 @@ class TransmitRadioBottomSheetFragment : BottomSheetDialogFragment()
     /**
      * Central dispatcher — routes each state to its specific UI update.
      */
-    private fun updateUI(state: TransmitSessionState)
+    private fun updateUI(state: WSPRTransmitSessionState)
     {
         if (_binding == null) return
 
         when (state)
         {
-            is TransmitSessionState.Idle -> showIdleState()
+            is WSPRTransmitSessionState.Idle -> showIdleState()
 
-            is TransmitSessionState.Preparing -> showPreparingState()
+            is WSPRTransmitSessionState.Preparing -> showPreparingState()
 
-            is TransmitSessionState.WaitingForWindow -> showWaitingForWindowState(state)
+            is WSPRTransmitSessionState.WaitingForWindow -> showWaitingForWindowState(state)
 
-            is TransmitSessionState.TransmittingSpot -> showTransmittingState(state)
+            is WSPRTransmitSessionState.TransmittingSpot -> showTransmittingState(state)
 
-            is TransmitSessionState.SwitchingToRx -> showSwitchingToRxState(state)
+            is WSPRTransmitSessionState.SwitchingToRx -> showSwitchingToRxState(state)
 
-            is TransmitSessionState.Complete -> showCompleteState(state)
+            is WSPRTransmitSessionState.Complete -> showCompleteState(state)
 
-            is TransmitSessionState.Failed -> showFailedState(state)
+            is WSPRTransmitSessionState.Failed -> showFailedState(state)
 
-            is TransmitSessionState.Cancelled -> showCancelledState()
+            is WSPRTransmitSessionState.Cancelled -> showCancelledState()
         }
     }
 
@@ -266,7 +266,7 @@ class TransmitRadioBottomSheetFragment : BottomSheetDialogFragment()
         binding.cbDisableEncryption.isEnabled = false
     }
 
-    private fun showWaitingForWindowState(state: TransmitSessionState.WaitingForWindow)
+    private fun showWaitingForWindowState(state: WSPRTransmitSessionState.WaitingForWindow)
     {
         updateStateIcon(R.drawable.ic_access_time, R.color.tangerine, AnimationType.PULSE)
         showFrequencyReadOnly()
@@ -290,7 +290,7 @@ class TransmitRadioBottomSheetFragment : BottomSheetDialogFragment()
         startCountdown(state.msRemaining)
     }
 
-    private fun showTransmittingState(state: TransmitSessionState.TransmittingSpot)
+    private fun showTransmittingState(state: WSPRTransmitSessionState.TransmittingSpot)
     {
         cancelCountdown()
         updateStateIcon(R.drawable.ic_nahoft_radio_transmit, R.color.tangerine, AnimationType.PULSE)
@@ -316,7 +316,7 @@ class TransmitRadioBottomSheetFragment : BottomSheetDialogFragment()
         binding.countdownRow.visibility = View.GONE
     }
 
-    private fun showSwitchingToRxState(state: TransmitSessionState.SwitchingToRx)
+    private fun showSwitchingToRxState(state: WSPRTransmitSessionState.SwitchingToRx)
     {
         cancelCountdown()
         updateStateIcon(R.drawable.ic_sync, R.color.coolGrey, AnimationType.NONE)
@@ -336,7 +336,7 @@ class TransmitRadioBottomSheetFragment : BottomSheetDialogFragment()
         binding.countdownRow.visibility = View.GONE
     }
 
-    private fun showCompleteState(state: TransmitSessionState.Complete)
+    private fun showCompleteState(state: WSPRTransmitSessionState.Complete)
     {
         cancelCountdown()
         updateStateIcon(R.drawable.ic_success, R.color.caribbeanGreen, AnimationType.NONE)
@@ -366,7 +366,7 @@ class TransmitRadioBottomSheetFragment : BottomSheetDialogFragment()
         binding.btnClose.visibility = View.VISIBLE
     }
 
-    private fun showFailedState(state: TransmitSessionState.Failed)
+    private fun showFailedState(state: WSPRTransmitSessionState.Failed)
     {
         cancelCountdown()
         updateStateIcon(R.drawable.ic_error, R.color.madderLake, AnimationType.NONE)
@@ -678,9 +678,9 @@ class TransmitRadioBottomSheetFragment : BottomSheetDialogFragment()
             message: String,
             friendName: String,
             friendPublicKey: ByteArray
-        ): TransmitRadioBottomSheetFragment
+        ): WSPRTransmitRadioBottomSheetFragment
         {
-            return TransmitRadioBottomSheetFragment().apply {
+            return WSPRTransmitRadioBottomSheetFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_MESSAGE, message)
                     putString(ARG_FRIEND_NAME, friendName)

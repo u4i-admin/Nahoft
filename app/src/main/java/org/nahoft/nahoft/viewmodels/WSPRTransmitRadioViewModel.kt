@@ -18,8 +18,8 @@ import kotlinx.coroutines.launch
 
 import org.nahoft.nahoft.Nahoft
 import org.nahoft.nahoft.Persist
-import org.nahoft.nahoft.services.TransmitSessionService
-import org.nahoft.nahoft.services.TransmitSessionState
+import org.nahoft.nahoft.services.WSPRTransmitSessionService
+import org.nahoft.nahoft.services.WSPRTransmitSessionState
 
 import timber.log.Timber
 
@@ -31,15 +31,15 @@ import timber.log.Timber
  * lifetime of the sheet.
  *
  * Responsibilities:
- * - Start and bind to [TransmitSessionService]
- * - Relay [TransmitSessionState] to the fragment
+ * - Start and bind to [WSPRTransmitSessionService]
+ * - Relay [WSPRTransmitSessionState] to the fragment
  * - Provide frequency preference access
  * - Expose Eden availability for pre-start validation
  *
  * Does not perform encryption or serial communication directly.
- * All TX logic lives in [TransmitSessionService].
+ * All TX logic lives in [WSPRTransmitSessionService].
  */
-class TransmitRadioViewModel(
+class WSPRTransmitRadioViewModel(
     application: Application,
     val message: String,
     val friendName: String,
@@ -48,7 +48,7 @@ class TransmitRadioViewModel(
 {
     // ==================== Service Binding ====================
 
-    private var transmitService: TransmitSessionService? = null
+    private var transmitService: WSPRTransmitSessionService? = null
     private var serviceBound = false
 
     private val serviceConnection = object : ServiceConnection
@@ -56,7 +56,7 @@ class TransmitRadioViewModel(
         override fun onServiceConnected(name: ComponentName?, binder: IBinder?)
         {
             Timber.d("TransmitSessionService connected")
-            val localBinder = binder as TransmitSessionService.LocalBinder
+            val localBinder = binder as WSPRTransmitSessionService.LocalBinder
             transmitService = localBinder.getService()
             serviceBound = true
             startServiceFlowRelay()
@@ -73,14 +73,14 @@ class TransmitRadioViewModel(
     // ==================== State ====================
 
     /**
-     * Current transmit session state relayed from [TransmitSessionService].
+     * Current transmit session state relayed from [WSPRTransmitSessionService].
      *
      * The fragment collects this single flow for its lifetime. Once the service
      * binds, [startServiceFlowRelay] pipes service state into this flow so
      * the fragment never needs to re-subscribe.
      */
-    private val _transmitSessionState = MutableStateFlow<TransmitSessionState>(TransmitSessionState.Idle)
-    val transmitSessionState: StateFlow<TransmitSessionState> = _transmitSessionState
+    private val _transmitSessionState = MutableStateFlow<WSPRTransmitSessionState>(WSPRTransmitSessionState.Idle)
+    val transmitSessionState: StateFlow<WSPRTransmitSessionState> = _transmitSessionState
 
     // ==================== Hardware Availability ====================
 
@@ -118,7 +118,7 @@ class TransmitRadioViewModel(
 
         val context = getApplication<Application>()
 
-        val startIntent = TransmitSessionService.createStartIntent(
+        val startIntent = WSPRTransmitSessionService.createStartIntent(
             context = context,
             message = message,
             friendName = friendName,
@@ -129,7 +129,7 @@ class TransmitRadioViewModel(
         context.startForegroundService(startIntent)
 
         // Bind immediately after starting so we can observe state
-        val bindIntent = Intent(context, TransmitSessionService::class.java)
+        val bindIntent = Intent(context, WSPRTransmitSessionService::class.java)
         context.bindService(bindIntent, serviceConnection, Context.BIND_AUTO_CREATE)
     }
 
@@ -147,14 +147,14 @@ class TransmitRadioViewModel(
         {
             // Service running but not yet bound — send stop intent
             val context = getApplication<Application>()
-            context.startService(TransmitSessionService.createStopIntent(context))
+            context.startService(WSPRTransmitSessionService.createStopIntent(context))
         }
     }
 
     // ==================== Flow Relay ====================
 
     /**
-     * Pipes [TransmitSessionService.transmitSessionState] into [_transmitSessionState].
+     * Pipes [WSPRTransmitSessionService.transmitSessionState] into [_transmitSessionState].
      * Called once when service binding completes.
      * The fragment's existing collector receives all subsequent states automatically.
      */
@@ -193,7 +193,7 @@ class TransmitRadioViewModel(
     // ==================== Factory ====================
 
     /**
-     * Creates [TransmitRadioViewModel] with the message and friend context
+     * Creates [WSPRTransmitRadioViewModel] with the message and friend context
      * required for the TX pipeline.
      *
      * Usage in fragment:
@@ -220,7 +220,7 @@ class TransmitRadioViewModel(
         ): T
         {
             val application = extras[APPLICATION_KEY]!!
-            return TransmitRadioViewModel(
+            return WSPRTransmitRadioViewModel(
                 application,
                 message,
                 friendName,

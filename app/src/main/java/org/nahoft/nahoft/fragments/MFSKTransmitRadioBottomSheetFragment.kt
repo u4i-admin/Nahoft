@@ -32,7 +32,7 @@ import timber.log.Timber
 /**
  * Bottom sheet for transmitting encrypted messages via MFSK-16 radio.
  *
- * Simpler than [TransmitRadioBottomSheetFragment]:
+ * Simpler than [WSPRTransmitRadioBottomSheetFragment]:
  * - No window-waiting step (MFSK transmits immediately after encoding)
  * - No spot progress dots (single continuous transmission)
  * - No encryption toggle (MFSK TX is always encrypted)

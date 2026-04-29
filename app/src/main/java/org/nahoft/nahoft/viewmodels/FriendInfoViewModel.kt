@@ -21,9 +21,9 @@ import org.nahoft.nahoft.models.FriendStatus
 import org.nahoft.nahoft.models.WSPRSpotItem
 import org.nahoft.nahoft.services.MFSKReceiveSessionService
 import org.nahoft.nahoft.services.MFSKReceiveSessionState
-import org.nahoft.nahoft.services.PacketRequirement
-import org.nahoft.nahoft.services.ReceiveSessionService
-import org.nahoft.nahoft.services.ReceiveSessionState
+import org.nahoft.nahoft.services.WSPRPacketRequirement
+import org.nahoft.nahoft.services.WSPRReceiveSessionService
+import org.nahoft.nahoft.services.WSPRReceiveSessionState
 import org.operatorfoundation.audiocoder.mfsk.MFSKMode
 import org.operatorfoundation.audiocoder.wspr.WSPRTimingCoordinator
 import org.operatorfoundation.audiocoder.wspr.models.WSPRCycleInformation
@@ -50,7 +50,7 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
 
     // ==================== WSPR Service Binding ====================
 
-    private var wsprReceiveService: ReceiveSessionService? = null
+    private var wsprReceiveService: WSPRReceiveSessionService? = null
     private var wsprServiceBound = false
 
     private val _wsprServiceConnected = MutableStateFlow(false)
@@ -61,7 +61,7 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
         override fun onServiceConnected(name: ComponentName?, binder: IBinder?)
         {
             Timber.d("ReceiveSessionService connected")
-            val localBinder = binder as ReceiveSessionService.LocalBinder
+            val localBinder = binder as WSPRReceiveSessionService.LocalBinder
             wsprReceiveService = localBinder.getService()
             wsprServiceBound = true
             _wsprServiceConnected.value = true
@@ -80,8 +80,8 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
     // ==================== WSPR Receive Session State (Relayed from Service) ====================
 
     private val _wsprReceiveSessionState =
-        MutableStateFlow<ReceiveSessionState>(ReceiveSessionState.Idle)
-    val wsprReceiveSessionState: StateFlow<ReceiveSessionState> =
+        MutableStateFlow<WSPRReceiveSessionState>(WSPRReceiveSessionState.Idle)
+    val wsprReceiveSessionState: StateFlow<WSPRReceiveSessionState> =
         _wsprReceiveSessionState.asStateFlow()
 
     private val _wsprReceivedSpots = MutableStateFlow<List<WSPRSpotItem>>(emptyList())
@@ -108,10 +108,10 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
     val wsprDecryptedMessageRecords: StateFlow<List<DecryptedMessageRecord>> =
         _wsprDecryptedMessageRecords.asStateFlow()
 
-    private val _wsprPacketRequirement = MutableStateFlow<PacketRequirement>(
-        PacketRequirement.Fixed(ReceiveSessionService.MIN_SPOTS_FOR_DECRYPTION)
+    private val _wsprPacketRequirement = MutableStateFlow<WSPRPacketRequirement>(
+        WSPRPacketRequirement.Fixed(WSPRReceiveSessionService.MIN_SPOTS_FOR_DECRYPTION)
     )
-    val wsprPacketRequirement: StateFlow<PacketRequirement> = _wsprPacketRequirement.asStateFlow()
+    val wsprPacketRequirement: StateFlow<WSPRPacketRequirement> = _wsprPacketRequirement.asStateFlow()
 
     val wsprReceivedMessageCount: Int
         get() = wsprReceiveService?.receivedMessageCount ?: 0
@@ -208,14 +208,14 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
     // ==================== Service Lifecycle ====================
 
     /**
-     * Binds to [ReceiveSessionService] if it is running.
+     * Binds to [WSPRReceiveSessionService] if it is running.
      * Call from Activity.onStart().
      */
     fun bindToWsprServiceIfRunning()
     {
         val context = getApplication<Application>()
         val bound = context.bindService(
-            Intent(context, ReceiveSessionService::class.java),
+            Intent(context, WSPRReceiveSessionService::class.java),
             wsprServiceConnection,
             0
         )
@@ -223,7 +223,7 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     /**
-     * Unbinds from [ReceiveSessionService].
+     * Unbinds from [WSPRReceiveSessionService].
      * Call from Activity.onStop().
      */
     fun unbindFromWsprService()
@@ -323,7 +323,7 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
         val context = getApplication<Application>()
 
         context.startForegroundService(
-            ReceiveSessionService.createStartIntent(
+            WSPRReceiveSessionService.createStartIntent(
                 context        = context,
                 friendName     = currentFriend.name,
                 friendPublicKey = publicKey,
@@ -334,7 +334,7 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
         viewModelScope.launch {
             delay(100)
             context.bindService(
-                Intent(context, ReceiveSessionService::class.java),
+                Intent(context, WSPRReceiveSessionService::class.java),
                 wsprServiceConnection,
                 Context.BIND_AUTO_CREATE
             )
@@ -350,14 +350,14 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
     {
         wsprReceiveService?.stopSession()
         getApplication<Application>().startService(
-            ReceiveSessionService.createStopIntent(getApplication())
+            WSPRReceiveSessionService.createStopIntent(getApplication())
         )
     }
 
     fun resetWsprSession()
     {
         wsprReceiveService?.resetSession()
-        _wsprReceiveSessionState.value = ReceiveSessionState.Idle
+        _wsprReceiveSessionState.value = WSPRReceiveSessionState.Idle
         _wsprReceivedSpots.value = emptyList()
         _wsprMessageJustReceived.value = false
     }
@@ -467,7 +467,7 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
             launch { service.messageJustReceived.collect    { _wsprMessageJustReceived.value = it } }
             launch { service.lastReceivedMessage.collect    { _wsprLastReceivedMessage.emit(it) } }
             launch { service.decryptedMessageRecords.collect { _wsprDecryptedMessageRecords.value = it } }
-            launch { service.packetRequirement.collect      { _wsprPacketRequirement.value = it } }
+            launch { service.wsprPacketRequirement.collect      { _wsprPacketRequirement.value = it } }
         }
     }
 

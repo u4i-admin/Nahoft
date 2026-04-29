@@ -51,11 +51,11 @@ import java.math.BigInteger
  * [Known]   — unencrypted mode: spot 0 has been received and N has been extracted
  *             from its header. N is the total packet count including spot 0.
  */
-sealed class PacketRequirement
+sealed class WSPRPacketRequirement
 {
-    data class Fixed(val count: Int) : PacketRequirement()
-    object Unknown : PacketRequirement()
-    data class Known(val count: Int) : PacketRequirement()
+    data class Fixed(val count: Int) : WSPRPacketRequirement()
+    object Unknown : WSPRPacketRequirement()
+    data class Known(val count: Int) : WSPRPacketRequirement()
 }
 
 /**
@@ -70,7 +70,7 @@ sealed class PacketRequirement
  * - Bind to observe StateFlows
  * - Stop with ACTION_STOP_SESSION or stopSelf()
  */
-class ReceiveSessionService : Service()
+class WSPRReceiveSessionService : Service()
 {
     companion object
     {
@@ -104,7 +104,7 @@ class ReceiveSessionService : Service()
             isEncrypted: Boolean = true
         ): Intent
         {
-            return Intent(context, ReceiveSessionService::class.java).apply {
+            return Intent(context, WSPRReceiveSessionService::class.java).apply {
                 action = ACTION_START_SESSION
                 putExtra(EXTRA_FRIEND_NAME, friendName)
                 putExtra(EXTRA_FRIEND_PUBLIC_KEY, friendPublicKey)
@@ -117,7 +117,7 @@ class ReceiveSessionService : Service()
          */
         fun createStopIntent(context: Context): Intent
         {
-            return Intent(context, ReceiveSessionService::class.java).apply {
+            return Intent(context, WSPRReceiveSessionService::class.java).apply {
                 action = ACTION_STOP_SESSION
             }
         }
@@ -127,7 +127,7 @@ class ReceiveSessionService : Service()
          */
         fun createExtendIntent(context: Context): Intent
         {
-            return Intent(context, ReceiveSessionService::class.java).apply {
+            return Intent(context, WSPRReceiveSessionService::class.java).apply {
                 action = ACTION_EXTEND_SESSION
             }
         }
@@ -137,15 +137,15 @@ class ReceiveSessionService : Service()
 
     inner class LocalBinder : Binder()
     {
-        fun getService(): ReceiveSessionService = this@ReceiveSessionService
+        fun getService(): WSPRReceiveSessionService = this@WSPRReceiveSessionService
     }
 
     private val binder = LocalBinder()
 
     // ==================== Session State (Observable) ====================
 
-    private val _receiveSessionState = MutableStateFlow<ReceiveSessionState>(ReceiveSessionState.Idle)
-    val receiveSessionState: StateFlow<ReceiveSessionState> = _receiveSessionState.asStateFlow()
+    private val _wsprReceiveSessionState = MutableStateFlow<WSPRReceiveSessionState>(WSPRReceiveSessionState.Idle)
+    val receiveSessionState: StateFlow<WSPRReceiveSessionState> = _wsprReceiveSessionState.asStateFlow()
 
     private val _receivedSpots = MutableStateFlow<List<WSPRSpotItem>>(emptyList())
     val receivedSpots: StateFlow<List<WSPRSpotItem>> = _receivedSpots.asStateFlow()
@@ -175,8 +175,8 @@ class ReceiveSessionService : Service()
 
     // Describes how many packets are required to attempt a decode.
     // Updated as session mode and incoming spots change.
-    private val _packetRequirement = MutableStateFlow<PacketRequirement>(PacketRequirement.Fixed(MIN_SPOTS_FOR_DECRYPTION))
-    val packetRequirement: StateFlow<PacketRequirement> = _packetRequirement.asStateFlow()
+    private val _wsprPacketRequirement = MutableStateFlow<WSPRPacketRequirement>(WSPRPacketRequirement.Fixed(MIN_SPOTS_FOR_DECRYPTION))
+    val wsprPacketRequirement: StateFlow<WSPRPacketRequirement> = _wsprPacketRequirement.asStateFlow()
 
     // ==================== Internal State ====================
 
@@ -202,13 +202,13 @@ class ReceiveSessionService : Service()
     private var decryptionAttempts = 0
 
     private var sessionIsEncrypted: Boolean
-        get() = _packetRequirement.value is PacketRequirement.Fixed
+        get() = _wsprPacketRequirement.value is WSPRPacketRequirement.Fixed
         set(value)
         {
-            _packetRequirement.value = if (value)
-                PacketRequirement.Fixed(MIN_SPOTS_FOR_DECRYPTION)
+            _wsprPacketRequirement.value = if (value)
+                WSPRPacketRequirement.Fixed(MIN_SPOTS_FOR_DECRYPTION)
             else
-                PacketRequirement.Unknown
+                WSPRPacketRequirement.Unknown
         }
 
 
@@ -364,7 +364,7 @@ class ReceiveSessionService : Service()
             if (!connected)
             {
                 Timber.e("Failed to connect to USB audio")
-                _receiveSessionState.value = ReceiveSessionState.Stopped
+                _wsprReceiveSessionState.value = WSPRReceiveSessionState.Stopped
                 stopSelf()
                 return@launch
             }
@@ -375,7 +375,7 @@ class ReceiveSessionService : Service()
             if (connection == null)
             {
                 Timber.e("USB audio connection is null after connect")
-                _receiveSessionState.value = ReceiveSessionState.Stopped
+                _wsprReceiveSessionState.value = WSPRReceiveSessionState.Stopped
                 stopSelf()
                 return@launch
             }
@@ -391,7 +391,7 @@ class ReceiveSessionService : Service()
             if (earlyInitResult.isFailure)
             {
                 Timber.e("Failed to pre-initialize audio source: ${earlyInitResult.exceptionOrNull()?.message}")
-                _receiveSessionState.value = ReceiveSessionState.Stopped
+                _wsprReceiveSessionState.value = WSPRReceiveSessionState.Stopped
                 stopSelf()
                 return@launch
             }
@@ -406,7 +406,7 @@ class ReceiveSessionService : Service()
             }
             else
             {
-                _receiveSessionState.value = ReceiveSessionState.WaitingForWindow
+                _wsprReceiveSessionState.value = WSPRReceiveSessionState.WaitingForWindow
                 waitForNextWindowAndStart(connection)
             }
 
@@ -468,7 +468,7 @@ class ReceiveSessionService : Service()
         }
 
         // Reset state
-        _receiveSessionState.value = ReceiveSessionState.Stopped
+        _wsprReceiveSessionState.value = WSPRReceiveSessionState.Stopped
         _cycleInformation.value = null
         _stationState.value = null
         _audioLevel.value = null
@@ -480,7 +480,7 @@ class ReceiveSessionService : Service()
 
     fun resetSession()
     {
-        _receiveSessionState.value = ReceiveSessionState.Idle
+        _wsprReceiveSessionState.value = WSPRReceiveSessionState.Idle
         _receivedSpots.value = emptyList()
         _decryptedMessageRecords.value = emptyList()
         receivedMessages.clear()
@@ -493,8 +493,8 @@ class ReceiveSessionService : Service()
 
     fun isSessionActive(): Boolean
     {
-        return _receiveSessionState.value == ReceiveSessionState.Running ||
-                _receiveSessionState.value == ReceiveSessionState.WaitingForWindow
+        return _wsprReceiveSessionState.value == WSPRReceiveSessionState.Running ||
+                _wsprReceiveSessionState.value == WSPRReceiveSessionState.WaitingForWindow
     }
 
     fun getSessionElapsedMs(): Long
@@ -551,7 +551,7 @@ class ReceiveSessionService : Service()
     private fun waitForNextWindowAndStart(connection: UsbAudioConnection)
     {
         waitForWindowJob = serviceScope.launch {
-            while (isActive && _receiveSessionState.value == ReceiveSessionState.WaitingForWindow)
+            while (isActive && _wsprReceiveSessionState.value == WSPRReceiveSessionState.WaitingForWindow)
             {
                 val windowInfo = timingCoordinator.getTimeUntilNextDecodeWindow()
 
@@ -581,11 +581,11 @@ class ReceiveSessionService : Service()
                 if (startResult.isFailure)
                 {
                     Timber.e("Failed to start WSPR station: ${startResult.exceptionOrNull()?.message}")
-                    _receiveSessionState.value = ReceiveSessionState.Stopped
+                    _wsprReceiveSessionState.value = WSPRReceiveSessionState.Stopped
                     return@launch
                 }
 
-                _receiveSessionState.value = ReceiveSessionState.Running
+                _wsprReceiveSessionState.value = WSPRReceiveSessionState.Running
 
                 // Observe station flows
                 launch { observeStationState() }
@@ -595,7 +595,7 @@ class ReceiveSessionService : Service()
             catch (e: Exception)
             {
                 Timber.e(e, "Error starting WSPR station")
-                _receiveSessionState.value = ReceiveSessionState.Stopped
+                _wsprReceiveSessionState.value = WSPRReceiveSessionState.Stopped
             }
         }
     }
@@ -637,7 +637,7 @@ class ReceiveSessionService : Service()
 
     fun updateEncryptionMode(isEncrypted: Boolean)
     {
-        if (_receiveSessionState.value == ReceiveSessionState.Running)
+        if (_wsprReceiveSessionState.value == WSPRReceiveSessionState.Running)
         {
             Timber.w("Cannot change encryption mode during active decode — ignoring")
             return
@@ -679,12 +679,12 @@ class ReceiveSessionService : Service()
                 // can show the correct required packet count immediately.
                 if (!sessionIsEncrypted &&
                     receivedMessages.size == 1 &&
-                    _packetRequirement.value is PacketRequirement.Unknown)
+                    _wsprPacketRequirement.value is WSPRPacketRequirement.Unknown)
                 {
                     val n = extractUnencryptedSpotCount(receivedMessages[0])
                     if (n != null)
                     {
-                        _packetRequirement.value = PacketRequirement.Known(n)
+                        _wsprPacketRequirement.value = WSPRPacketRequirement.Known(n)
                     }
                 }
 
@@ -824,7 +824,7 @@ class ReceiveSessionService : Service()
 
         // Return to Unknown so the next message in this session shows "x / ?"
         // until spot 0 arrives and N is extracted.
-        _packetRequirement.value = PacketRequirement.Unknown
+        _wsprPacketRequirement.value = WSPRPacketRequirement.Unknown
 
         receivedMessages.clear()
 
@@ -1051,7 +1051,7 @@ class ReceiveSessionService : Service()
         }
 
         // Set timed out state (before stopping service)
-        _receiveSessionState.value = ReceiveSessionState.TimedOut(spotsReceived, messagesDecrypted)
+        _wsprReceiveSessionState.value = WSPRReceiveSessionState.TimedOut(spotsReceived, messagesDecrypted)
 
         // Show timeout notification
         showTimeoutNotification(spotsReceived, messagesDecrypted)
@@ -1208,10 +1208,10 @@ class ReceiveSessionService : Service()
         val spots = _receivedSpots.value.size
         val parts = receivedMessages.size
 
-        val statusText = when (_receiveSessionState.value)
+        val statusText = when (_wsprReceiveSessionState.value)
         {
-            is ReceiveSessionState.Running -> "Listening for signals"
-            is ReceiveSessionState.WaitingForWindow -> "Waiting for WSPR window"
+            is WSPRReceiveSessionState.Running -> "Listening for signals"
+            is WSPRReceiveSessionState.WaitingForWindow -> "Waiting for WSPR window"
             else -> "Session active"
         }
 
@@ -1301,20 +1301,20 @@ class ReceiveSessionService : Service()
 /**
  * Represents the current state of a WSPR receive session.
  */
-sealed class ReceiveSessionState
+sealed class WSPRReceiveSessionState
 {
     /** No active session */
-    object Idle : ReceiveSessionState()
+    object Idle : WSPRReceiveSessionState()
 
     /** Session started, waiting for a fresh WSPR window */
-    object WaitingForWindow : ReceiveSessionState()
+    object WaitingForWindow : WSPRReceiveSessionState()
 
     /** Actively collecting and decoding WSPR signals */
-    object Running : ReceiveSessionState()
+    object Running : WSPRReceiveSessionState()
 
     /** Session stopped (manually) */
-    object Stopped : ReceiveSessionState()
+    object Stopped : WSPRReceiveSessionState()
 
     /** Session ended due to timeout */
-    data class TimedOut(val spotsReceived: Int, val messagesDecrypted: Int) : ReceiveSessionState()
+    data class TimedOut(val spotsReceived: Int, val messagesDecrypted: Int) : WSPRReceiveSessionState()
 }

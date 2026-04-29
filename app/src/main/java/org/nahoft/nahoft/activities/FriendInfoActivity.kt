@@ -49,13 +49,13 @@ import org.nahoft.util.RequestCodes
 import org.nahoft.util.ShareUtil
 import org.nahoft.util.showAlert
 
-import org.nahoft.nahoft.fragments.ReceiveRadioBottomSheetFragment
+import org.nahoft.nahoft.fragments.WSPRReceiveRadioBottomSheetFragment
 import org.nahoft.nahoft.models.Friend
 import org.nahoft.nahoft.models.FriendStatus
 import org.nahoft.nahoft.models.Message
 import org.nahoft.nahoft.models.slideNameChat
 import org.nahoft.nahoft.services.MFSKReceiveSessionState
-import org.nahoft.nahoft.services.ReceiveSessionState
+import org.nahoft.nahoft.services.WSPRReceiveSessionState
 import org.nahoft.nahoft.viewmodels.FriendInfoViewModel
 import org.nahoft.util.applySecureFlag
 
@@ -208,7 +208,7 @@ class FriendInfoActivity: AppCompatActivity()
 
         // Refresh message list when a TX session completes and the sheet is dismissed.
         supportFragmentManager.setFragmentResultListener(
-            TransmitRadioBottomSheetFragment.RESULT_TX_COMPLETE,
+            WSPRTransmitRadioBottomSheetFragment.RESULT_TX_COMPLETE,
             this
         ) { _, _ ->
             binding.messageEditText.text?.clear()
@@ -238,9 +238,9 @@ class FriendInfoActivity: AppCompatActivity()
             when (mode)
             {
                 RadioModeBottomSheetFragment.RadioMode.WSPR ->
-                    TransmitRadioBottomSheetFragment
+                    WSPRTransmitRadioBottomSheetFragment
                         .newInstance(message, thisFriend.name, publicKey)
-                        .show(supportFragmentManager, "TransmitRadioBottomSheet")
+                        .show(supportFragmentManager, "WSPRTransmitRadioBottomSheet")
 
                 RadioModeBottomSheetFragment.RadioMode.MFSK ->
                     MFSKTransmitRadioBottomSheetFragment
@@ -369,11 +369,11 @@ class FriendInfoActivity: AppCompatActivity()
      * Updates the receive button appearance based on session state.
      * Animates the button icon when a session is active.
      */
-    private fun updateReceiveButtonState(state: ReceiveSessionState)
+    private fun updateReceiveButtonState(state: WSPRReceiveSessionState)
     {
         when (state) {
-            is ReceiveSessionState.Running,
-            is ReceiveSessionState.WaitingForWindow -> {
+            is WSPRReceiveSessionState.Running,
+            is WSPRReceiveSessionState.WaitingForWindow -> {
                 // Tint green and start pulse animation
                 binding.btnReceiveRadio.drawable?.setTint(
                     ContextCompat.getColor(this, R.color.caribbeanGreen)
@@ -381,7 +381,7 @@ class FriendInfoActivity: AppCompatActivity()
                 startButtonPulseAnimation()
             }
 
-            is ReceiveSessionState.TimedOut -> {
+            is WSPRReceiveSessionState.TimedOut -> {
                 // Reset button state
                 stopButtonAnimation()
                 binding.btnReceiveRadio.drawable?.setTint(
@@ -391,8 +391,8 @@ class FriendInfoActivity: AppCompatActivity()
                 showSessionTimeoutDialog(state.spotsReceived, state.messagesDecrypted)
             }
 
-            is ReceiveSessionState.Idle,
-            is ReceiveSessionState.Stopped -> {
+            is WSPRReceiveSessionState.Idle,
+            is WSPRReceiveSessionState.Stopped -> {
                 // Reset to white and stop animation
                 stopButtonAnimation()
                 binding.btnReceiveRadio.drawable?.setTint(
@@ -436,7 +436,7 @@ class FriendInfoActivity: AppCompatActivity()
     private fun receiveViaRadioClicked()
     {
         // If a sheet of either mode is already open, don't open another
-        if (supportFragmentManager.findFragmentByTag("ReceiveRadioBottomSheet") != null) return
+        if (supportFragmentManager.findFragmentByTag("WSPRReceiveRadioBottomSheet") != null) return
         if (supportFragmentManager.findFragmentByTag("MFSKReceiveRadioBottomSheet") != null) return
 
         // If a session is already active, re-open its sheet directly
@@ -476,8 +476,8 @@ class FriendInfoActivity: AppCompatActivity()
 
     private fun showWsprReceiveBottomSheet()
     {
-        val bottomSheet = ReceiveRadioBottomSheetFragment()
-        bottomSheet.show(supportFragmentManager, "ReceiveRadioBottomSheet")
+        val bottomSheet = WSPRReceiveRadioBottomSheetFragment()
+        bottomSheet.show(supportFragmentManager, "WSPRReceiveRadioBottomSheet")
     }
 
     private fun showMfskReceiveBottomSheet()

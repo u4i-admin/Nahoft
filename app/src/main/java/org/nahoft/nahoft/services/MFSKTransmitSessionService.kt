@@ -33,7 +33,7 @@ import timber.log.Timber
  * Owns the full TX pipeline:
  *   encrypt → frame → encode to symbol indices → convert to centihertz → transmit
  *
- * Unlike [TransmitSessionService], there is no window-waiting step — MFSK
+ * Unlike [WSPRTransmitSessionService], there is no window-waiting step — MFSK
  * transmission begins immediately after encoding.
  *
  * Note: MFSK transmission is encrypted only. Unencrypted MFSK TX is not

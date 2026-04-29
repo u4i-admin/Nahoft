@@ -46,7 +46,7 @@ import timber.log.Timber
  * - Bind to observe [transmitSessionState]
  * - Stop early with ACTION_STOP_SESSION or call [cancelTransmission] via binder
  */
-class TransmitSessionService : Service()
+class WSPRTransmitSessionService : Service()
 {
     companion object
     {
@@ -69,7 +69,7 @@ class TransmitSessionService : Service()
             friendPublicKey: ByteArray,
             frequencyKHz: Int,
             isEncrypted: Boolean = true
-        ): Intent = Intent(context, TransmitSessionService::class.java).apply {
+        ): Intent = Intent(context, WSPRTransmitSessionService::class.java).apply {
             action = ACTION_START_SESSION
             putExtra(EXTRA_MESSAGE, message)
             putExtra(EXTRA_FRIEND_NAME, friendName)
@@ -79,7 +79,7 @@ class TransmitSessionService : Service()
         }
 
         fun createStopIntent(context: Context): Intent =
-            Intent(context, TransmitSessionService::class.java).apply {
+            Intent(context, WSPRTransmitSessionService::class.java).apply {
                 action = ACTION_STOP_SESSION
             }
     }
@@ -88,15 +88,15 @@ class TransmitSessionService : Service()
 
     inner class LocalBinder : Binder()
     {
-        fun getService(): TransmitSessionService = this@TransmitSessionService
+        fun getService(): WSPRTransmitSessionService = this@WSPRTransmitSessionService
     }
 
     private val binder = LocalBinder()
 
     // ==================== State ====================
 
-    private val _transmitSessionState = MutableStateFlow<TransmitSessionState>(TransmitSessionState.Idle)
-    val transmitSessionState: StateFlow<TransmitSessionState> = _transmitSessionState.asStateFlow()
+    private val _transmitSessionState = MutableStateFlow<WSPRTransmitSessionState>(WSPRTransmitSessionState.Idle)
+    val transmitSessionState: StateFlow<WSPRTransmitSessionState> = _transmitSessionState.asStateFlow()
 
     // ==================== Internal ====================
 
@@ -208,7 +208,7 @@ class TransmitSessionService : Service()
         {
             Timber.d("TransmitSessionService: cancelling transmission")
             sessionJob?.cancel()
-            _transmitSessionState.value = TransmitSessionState.Cancelled
+            _transmitSessionState.value = WSPRTransmitSessionState.Cancelled
         }
     }
 
@@ -223,7 +223,7 @@ class TransmitSessionService : Service()
      * 3. For each spot: wait for window, transmit, switch to RX
      * 4. Save message and emit Complete
      *
-     * Any failure emits [TransmitSessionState.Failed] with a descriptive reason.
+     * Any failure emits [WSPRTransmitSessionState.Failed] with a descriptive reason.
      * Eden serial communication is fully delegated — no serial reads here.
      */
     private suspend fun runTxPipeline(
@@ -240,13 +240,13 @@ class TransmitSessionService : Service()
         if (eden == null)
         {
             Timber.e("TransmitSessionService: Eden not connected")
-            _transmitSessionState.value = TransmitSessionState.Failed("Eden device not connected")
+            _transmitSessionState.value = WSPRTransmitSessionState.Failed("Eden device not connected")
             return
         }
 
         // ── 2. Encrypt and encode ─────────────────────────────────────────────
 
-        _transmitSessionState.value = TransmitSessionState.Preparing
+        _transmitSessionState.value = WSPRTransmitSessionState.Preparing
         updateNotification()
 
         // payloadBytes holds cipher bytes (encrypted) or raw UTF-8 (unencrypted).
@@ -268,7 +268,7 @@ class TransmitSessionService : Service()
         catch (e: Exception)
         {
             Timber.e(e, "TransmitSessionService: encrypt/encode failed")
-            _transmitSessionState.value = TransmitSessionState.Failed(
+            _transmitSessionState.value = WSPRTransmitSessionState.Failed(
                 "Failed to encode message. It may be too large."
             )
             return
@@ -276,7 +276,7 @@ class TransmitSessionService : Service()
 
         if (symbolArrays.isEmpty())
         {
-            _transmitSessionState.value = TransmitSessionState.Failed(
+            _transmitSessionState.value = WSPRTransmitSessionState.Failed(
                 "Failed to encode message. It may be too large."
             )
             return
@@ -293,7 +293,7 @@ class TransmitSessionService : Service()
             val windowMs = timingCoordinator.getMillisUntilNextEvenMinute()
             var elapsed = 0L
             while (elapsed < windowMs) {
-                _transmitSessionState.value = TransmitSessionState.WaitingForWindow(
+                _transmitSessionState.value = WSPRTransmitSessionState.WaitingForWindow(
                     spotIndex, totalSpots, windowMs - elapsed
                 )
                 updateNotification()
@@ -304,7 +304,7 @@ class TransmitSessionService : Service()
 
             // Transmit this spot — symbol callback updates state per symbol
             val success = eden.transmitWSPR(symbolFrequencies) { symbolIndex, _ ->
-                _transmitSessionState.value = TransmitSessionState.TransmittingSpot(
+                _transmitSessionState.value = WSPRTransmitSessionState.TransmittingSpot(
                     spotIndex, totalSpots, symbolIndex
                 )
             }
@@ -312,7 +312,7 @@ class TransmitSessionService : Service()
             if (!success)
             {
                 Timber.e("TransmitSessionService: transmission failed on spot ${spotIndex + 1}")
-                _transmitSessionState.value = TransmitSessionState.Failed(
+                _transmitSessionState.value = WSPRTransmitSessionState.Failed(
                     "Transmission failed on spot ${spotIndex + 1} of $totalSpots"
                 )
                 return
@@ -320,14 +320,14 @@ class TransmitSessionService : Service()
 
             // Eden.transmitWSPR() already sent CONTROL_OFF + CONTROL_RX at end of spot.
             // Briefly show switching state before the next waiting-for-window countdown.
-            _transmitSessionState.value = TransmitSessionState.SwitchingToRx(spotIndex, totalSpots)
+            _transmitSessionState.value = WSPRTransmitSessionState.SwitchingToRx(spotIndex, totalSpots)
             updateNotification()
         }
 
         // ── 4. Complete ───────────────────────────────────────────────────────
 
         saveMessage(payloadBytes, friendName, isEncrypted)
-        _transmitSessionState.value = TransmitSessionState.Complete(totalSpots)
+        _transmitSessionState.value = WSPRTransmitSessionState.Complete(totalSpots)
         updateNotification()
 
         Timber.i("TransmitSessionService: transmission complete — $totalSpots spot(s) sent")
@@ -458,19 +458,19 @@ class TransmitSessionService : Service()
 
         val statusText = when (val state = _transmitSessionState.value)
         {
-            is TransmitSessionState.Idle          -> "Starting…"
-            is TransmitSessionState.Preparing     -> "Encoding message…"
-            is TransmitSessionState.WaitingForWindow -> {
+            is WSPRTransmitSessionState.Idle          -> "Starting…"
+            is WSPRTransmitSessionState.Preparing     -> "Encoding message…"
+            is WSPRTransmitSessionState.WaitingForWindow -> {
                 val secondsRemaining = (state.msRemaining / 1000).toInt()
                 "Spot ${state.spotIndex + 1}/${state.totalSpots} — TX in ${secondsRemaining}s"
             }
-            is TransmitSessionState.TransmittingSpot ->
+            is WSPRTransmitSessionState.TransmittingSpot ->
                 "Transmitting spot ${state.spotIndex + 1}/${state.totalSpots} — symbol ${state.symbolIndex + 1}/162"
-            is TransmitSessionState.SwitchingToRx ->
+            is WSPRTransmitSessionState.SwitchingToRx ->
                 "Spot ${state.spotIndex + 1}/${state.totalSpots} complete"
-            is TransmitSessionState.Complete      -> "Transmission complete"
-            is TransmitSessionState.Failed        -> "Transmission failed"
-            is TransmitSessionState.Cancelled     -> "Transmission cancelled"
+            is WSPRTransmitSessionState.Complete      -> "Transmission complete"
+            is WSPRTransmitSessionState.Failed        -> "Transmission failed"
+            is WSPRTransmitSessionState.Cancelled     -> "Transmission cancelled"
         }
 
         return NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)

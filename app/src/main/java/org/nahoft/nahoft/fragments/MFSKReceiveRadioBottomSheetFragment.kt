@@ -31,7 +31,7 @@ import org.operatorfoundation.signalbridge.models.AudioLevelInfo
 /**
  * Bottom sheet for receiving encrypted messages via MFSK-16 radio.
  *
- * Simpler than [ReceiveRadioBottomSheetFragment]:
+ * Simpler than [WSPRReceiveRadioBottomSheetFragment]:
  * - No cycle progress bar (MFSK has no fixed timing windows)
  * - No spots card or packet requirement tracking (MFSK delivers complete messages)
  * - No encryption toggle (MFSK RX always expects encrypted payloads)

@@ -43,7 +43,7 @@ import org.nahoft.nahoft.models.FriendStatus
 import org.nahoft.nahoft.models.LoginStatus
 import org.nahoft.nahoft.models.slideNameAbout
 import org.nahoft.nahoft.models.slideNameAboutAndFriends
-import org.nahoft.nahoft.services.ReceiveSessionService
+import org.nahoft.nahoft.services.WSPRReceiveSessionService
 import org.nahoft.nahoft.services.UpdateService
 import org.nahoft.nahoft.viewmodels.FriendViewModel
 import org.nahoft.nahoft.viewmodels.MessageViewModel
@@ -69,14 +69,14 @@ class HomeActivity : AppCompatActivity()
     private var receivingFriendName: String? = null
 
     // Service binding for receiving indicator
-    private var receiveService: ReceiveSessionService? = null
+    private var receiveService: WSPRReceiveSessionService? = null
     private var serviceBound = false
 
     private val serviceConnection = object : ServiceConnection
     {
         override fun onServiceConnected(name: ComponentName?, binder: IBinder?)
         {
-            val localBinder = binder as ReceiveSessionService.LocalBinder
+            val localBinder = binder as WSPRReceiveSessionService.LocalBinder
             receiveService = localBinder.getService()
             serviceBound = true
             observeReceivingFriend()
@@ -163,7 +163,7 @@ class HomeActivity : AppCompatActivity()
         super.onStart()
 
         // Bind to receive service if running (for receiving indicator)
-        val intent = Intent(this, ReceiveSessionService::class.java)
+        val intent = Intent(this, WSPRReceiveSessionService::class.java)
         bindService(intent, serviceConnection, 0)
     }
 

@@ -52,13 +52,13 @@
             android:exported="false" />
 
         <service
-            android:name=".services.ReceiveSessionService"
+            android:name=".services.WSPRReceiveSessionService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="microphone" />
 
         <service
-            android:name=".services.TransmitSessionService"
+            android:name=".services.WSPRTransmitSessionService"
             android:foregroundServiceType="connectedDevice"
             android:exported="false" />
 

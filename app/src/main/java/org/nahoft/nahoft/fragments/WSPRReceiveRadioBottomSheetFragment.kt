@@ -22,12 +22,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.nahoft.nahoft.R
-import org.nahoft.nahoft.databinding.FragmentBottomSheetReceiveRadioBinding
+import org.nahoft.nahoft.databinding.FragmentBottomSheetWsprReceiveRadioBinding
 import org.nahoft.nahoft.models.DecryptedMessageRecord
 import org.nahoft.nahoft.models.WSPRSpotItem
-import org.nahoft.nahoft.services.PacketRequirement
-import org.nahoft.nahoft.services.ReceiveSessionService
-import org.nahoft.nahoft.services.ReceiveSessionState
+import org.nahoft.nahoft.services.WSPRPacketRequirement
+import org.nahoft.nahoft.services.WSPRReceiveSessionService
+import org.nahoft.nahoft.services.WSPRReceiveSessionState
 import org.nahoft.nahoft.viewmodels.FriendInfoViewModel
 import org.operatorfoundation.audiocoder.wspr.models.WSPRCycleInformation
 import org.operatorfoundation.audiocoder.wspr.models.WSPRStationState
@@ -36,9 +36,9 @@ import org.operatorfoundation.signalbridge.models.AudioLevelInfo
 /**
  * BottomSheet for receiving encrypted messages via WSPR radio.
  */
-class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
+class WSPRReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
 {
-    private var _binding: FragmentBottomSheetReceiveRadioBinding? = null
+    private var _binding: FragmentBottomSheetWsprReceiveRadioBinding? = null
     private val binding get() = _binding!!
     private val viewModel: FriendInfoViewModel by activityViewModels()
 
@@ -53,8 +53,8 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
 
     // Current packet requirement, relayed from the service via ViewModel.
     // Drives the spots card denominator. Updated via its collector below.
-    private var packetRequirement: PacketRequirement =
-        PacketRequirement.Fixed(ReceiveSessionService.MIN_SPOTS_FOR_DECRYPTION)
+    private var wsprPacketRequirement: WSPRPacketRequirement =
+        WSPRPacketRequirement.Fixed(WSPRReceiveSessionService.MIN_SPOTS_FOR_DECRYPTION)
 
     // Job for elapsed time updates
     private var elapsedTimeJob: Job? = null
@@ -74,7 +74,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBottomSheetReceiveRadioBinding.inflate(inflater, container, false)
+        _binding = FragmentBottomSheetWsprReceiveRadioBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -253,7 +253,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
             viewModel.usbAudioAvailable.collect { available ->
 
                 // Use the StateFlow value directly
-                if (viewModel.wsprReceiveSessionState.value == ReceiveSessionState.Idle)
+                if (viewModel.wsprReceiveSessionState.value == WSPRReceiveSessionState.Idle)
                 {
                     binding.btnStop.isEnabled = available
                     updateStatus(
@@ -267,7 +267,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
         // Frequency section visibility — Eden connection controls this pre-session
         uiScope.launch {
             viewModel.isEdenConnected.collect { edenConnected ->
-                if (viewModel.wsprReceiveSessionState.value != ReceiveSessionState.Idle) return@collect
+                if (viewModel.wsprReceiveSessionState.value != WSPRReceiveSessionState.Idle) return@collect
                 binding.rxFrequencySection.visibility =
                     if (edenConnected) View.VISIBLE else View.GONE
             }
@@ -275,7 +275,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
 
         uiScope.launch {
             viewModel.wsprPacketRequirement.collect { requirement ->
-                packetRequirement = requirement
+                wsprPacketRequirement = requirement
                 updateSpotsUI(viewModel.wsprReceivedSpots.value)
             }
         }
@@ -284,20 +284,20 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
     /**
      * Updates UI based on session state.
      */
-    private fun updateSessionStateUI(state: ReceiveSessionState)
+    private fun updateSessionStateUI(state: WSPRReceiveSessionState)
     {
         if (_binding == null) return
 
         when (state)
         {
-            is ReceiveSessionState.Idle -> {
+            is WSPRReceiveSessionState.Idle -> {
                 updateStatus(getString(R.string.status_waiting))
                 binding.cbDisableEncryption.isEnabled = true
                 binding.tvEncryptionSessionInfo.visibility = View.GONE
                 binding.vuMeter.reset()
             }
 
-            is ReceiveSessionState.WaitingForWindow -> {
+            is WSPRReceiveSessionState.WaitingForWindow -> {
                 showFrequencyReadOnly()
                 updateStatus(getString(R.string.waiting_for_next_window))
                 updateStateIcon(R.drawable.ic_access_time, R.color.coolGrey, AnimationType.NONE)
@@ -305,7 +305,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
                 binding.tvEncryptionSessionInfo.visibility = View.GONE
             }
 
-            is ReceiveSessionState.Running -> {
+            is WSPRReceiveSessionState.Running -> {
                 showFrequencyReadOnly()
 
                 // Station state observer will override icon/status once it emits
@@ -323,7 +323,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
                 )
             }
 
-            is ReceiveSessionState.Stopped -> {
+            is WSPRReceiveSessionState.Stopped -> {
                 updateStatus(getString(R.string.session_stopped))
                 updateStateIcon(R.drawable.ic_sync, R.color.coolGrey, AnimationType.NONE)
                 showFrequencyInput() // resets button and shows frequency stepper
@@ -332,7 +332,7 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
                 binding.vuMeter.reset()
             }
 
-            is ReceiveSessionState.TimedOut -> {
+            is WSPRReceiveSessionState.TimedOut -> {
                 updateStatus(getString(R.string.session_timed_out))
                 updateStateIcon(R.drawable.ic_access_time, R.color.tangerine, AnimationType.NONE)
                 binding.cbDisableEncryption.isEnabled = false
@@ -520,31 +520,31 @@ class ReceiveRadioBottomSheetFragment : BottomSheetDialogFragment()
     /**
      * Updates the spots card with progress toward the current decode requirement.
      *
-     * [PacketRequirement.Fixed]   — encrypted mode, shows total spots toward the
+     * [WSPRPacketRequirement.Fixed]   — encrypted mode, shows total spots toward the
      *                               fixed minimum threshold.
-     * [PacketRequirement.Unknown] — unencrypted mode, spot 0 not yet received,
+     * [WSPRPacketRequirement.Unknown] — unencrypted mode, spot 0 not yet received,
      *                               shows Nahoft packet count with unknown denominator.
-     * [PacketRequirement.Known]   — unencrypted mode, shows Nahoft packet count
+     * [WSPRPacketRequirement.Known]   — unencrypted mode, shows Nahoft packet count
      *                               toward N extracted from spot 0's header.
      */
     private fun updateSpotsUI(spots: List<WSPRSpotItem>)
     {
         if (_binding == null) return
 
-        binding.tvSpotsCount.text = when (val req = packetRequirement)
+        binding.tvSpotsCount.text = when (val req = wsprPacketRequirement)
         {
-            is PacketRequirement.Fixed ->
+            is WSPRPacketRequirement.Fixed ->
             {
                 // Encrypted: "8+" indicates a minimum, not an exact target —
                 // decryption is attempted on every new spot once threshold is reached.
                 "${ spots.size} / ${req.count}+"
             }
-            is PacketRequirement.Unknown ->
+            is WSPRPacketRequirement.Unknown ->
             {
                 // Unencrypted: spot 0 not yet received, denominator unknown
                 "${viewModel.wsprReceivedMessageCount} / ?"
             }
-            is PacketRequirement.Known ->
+            is WSPRPacketRequirement.Known ->
             {
                 // Unencrypted: N known from spot 0 header
                 "${viewModel.wsprReceivedMessageCount} / ${req.count}"
