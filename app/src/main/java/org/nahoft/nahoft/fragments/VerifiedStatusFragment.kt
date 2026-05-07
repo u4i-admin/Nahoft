@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.nahoft.nahoft.*
@@ -76,7 +78,25 @@ class VerifiedStatusFragment : Fragment()
         // Setup the messages RecyclerView
         linearLayoutManager = LinearLayoutManager(context)
         filteredMessages = Persist.messageList.filter { message ->  message.sender == friend } as ArrayList<Message>
+
         if (filteredMessages.size > 0) binding.noDataLayout.isVisible = false
+
+        // Hide the empty-state hints when the keyboard is open. The hints are corner-anchored
+        // to the fragment's full-height ConstraintLayout, so when adjustResize shrinks the
+        // frame they collide in the middle. Hiding them on IME visibility avoids the collision
+        // and is appropriate UX — the user is actively typing, not reading first-run guidance.
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
+            val imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
+            val hasMessages = filteredMessages.isNotEmpty()
+
+            // Only show hints when there are no messages AND the keyboard is closed.
+            binding.noDataLayout.isVisible = !hasMessages && !imeVisible
+
+            insets
+        }
+        ViewCompat.requestApplyInsets(view)
+
+
         adapter = MessagesRecyclerAdapter(filteredMessages)
         binding.messagesRecyclerView.layoutManager = linearLayoutManager
         binding.messagesRecyclerView.adapter = adapter
