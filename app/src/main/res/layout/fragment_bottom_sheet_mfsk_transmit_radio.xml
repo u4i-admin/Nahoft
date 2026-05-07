@@ -154,6 +154,20 @@
 
             </LinearLayout>
 
+            <!-- ── DEBUG ONLY: hard-coded test message ─────────────────────────────
+             Sends a fixed plaintext through MFSKEncoder, bypassing encryption
+             and Base64. Used to verify TX pipeline correctness against fldigi.
+             Visibility set in code based on BuildConfig.DEBUG. -->
+            <Button
+                android:id="@+id/btn_debug_send_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/btn_bkgd_transparent_56"
+                android:text="@string/mfsk_debug_send_test"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
             <!-- ── State icon + status text ──────────────────────────────── -->
             <ImageView
                 android:id="@+id/iv_state_icon"

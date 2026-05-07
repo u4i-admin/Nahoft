@@ -364,6 +364,7 @@
     <string name="mfsk_listening_for_signals">Listening for MFSK signals…</string>
     <string name="mfsk_rx_session_failed">Session failed</string>
 
+
     <!-- ════════════════════════════════════════════════════════
          RADIO — Transmit (TX) session (TransmitRadioBottomSheetFragment)
          ════════════════════════════════════════════════════════ -->
@@ -408,6 +409,7 @@
     <string name="mfsk_transmit_via_radio">Transmit via Radio (MFSK-16)</string>
     <string name="mfsk_tx_base_frequency_hz">Base Frequency (Hz)</string>
     <string name="mfsk_tx_complete_detail">Message sent successfully</string>
+    <string name="mfsk_debug_send_test">Send test message (debug)</string>
 
     <!-- %1$d = elapsed seconds, %2$d = total seconds -->
     <string name="mfsk_tx_time_elapsed_format">%1$ds / %2$ds</string>

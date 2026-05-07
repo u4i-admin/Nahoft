@@ -24,11 +24,10 @@ import org.nahoft.nahoft.models.Message
 import org.operatorfoundation.audiocoder.mfsk.MFSKConfiguration
 import org.operatorfoundation.audiocoder.mfsk.MFSKMode
 import org.operatorfoundation.audiocoder.mfsk.MFSKStation
-import org.operatorfoundation.signalbridge.SignalBridgeMFSKAudioSource
 import org.operatorfoundation.signalbridge.UsbAudioConnection
 import org.operatorfoundation.signalbridge.UsbAudioDeviceMonitor
 import org.operatorfoundation.signalbridge.UsbAudioManager
-import org.operatorfoundation.signalbridge.models.AudioBufferConfiguration
+import org.operatorfoundation.signalbridge.asAudioFlow
 import org.operatorfoundation.signalbridge.models.AudioLevelInfo
 import timber.log.Timber
 
@@ -149,7 +148,6 @@ class MFSKReceiveSessionService : Service()
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     private var mfskStation: MFSKStation? = null
-    private var audioSource: SignalBridgeMFSKAudioSource? = null
     private lateinit var usbAudioManager: UsbAudioManager
     private var usbAudioConnection: UsbAudioConnection? = null
 
@@ -360,6 +358,7 @@ class MFSKReceiveSessionService : Service()
     )
     {
         // ── 1. Connect to USB audio ───────────────────────────────────────────
+        // (unchanged from original)
 
         val devices = usbAudioManager.discoverDevices().first()
         if (devices.isEmpty())
@@ -382,32 +381,10 @@ class MFSKReceiveSessionService : Service()
         usbAudioConnection = connection
         Timber.i("MFSKReceiveSessionService: USB audio connected — ${devices.first().displayName}")
 
-        // Monitor for USB disconnect
         serviceScope.launch { observeUsbDisconnect() }
 
-        // ── 2. Initialize audio source ────────────────────────────────────────
-
-        audioSource = SignalBridgeMFSKAudioSource(
-            usbAudioConnection = connection,
-            bufferConfiguration = AudioBufferConfiguration.createDefault(
-                org.operatorfoundation.audiocoder.mfsk.MFSKConstants.MFSK_RECOMMENDED_SAMPLE_RATE
-            )
-        )
-
-        val initResult = audioSource!!.initialize()
-        if (initResult.isFailure)
-        {
-            Timber.e("MFSKReceiveSessionService: audio source init failed — " +
-                    "${initResult.exceptionOrNull()?.message}")
-            _sessionState.value =
-                MFSKReceiveSessionState.Failed("Failed to initialize audio source")
-            return
-        }
-
-        // Start audio level monitoring
-        serviceScope.launch { observeAudioLevels(connection) }
-
-        // ── 3. Start MFSKStation ──────────────────────────────────────────────
+        // ── 2. Build configuration and audio stream ───────────────────────────
+        // Configuration is created here so its sampleRate can be passed to asAudioFlow().
 
         val configuration = MFSKConfiguration(
             mode            = mode,
@@ -415,7 +392,13 @@ class MFSKReceiveSessionService : Service()
             // sampleRate, amplitude, and timeoutMs use MFSKConstants defaults
         )
 
-        mfskStation = MFSKStation(audioSource!!, configuration)
+        val audioStream = connection.asAudioFlow(configuration.sampleRate)
+
+        serviceScope.launch { observeAudioLevels(connection) }
+
+        // ── 3. Start MFSKStation ──────────────────────────────────────────────
+
+        mfskStation = MFSKStation(audioStream, configuration)
         val startResult = mfskStation!!.start()
 
         if (startResult.isFailure)
@@ -432,49 +415,50 @@ class MFSKReceiveSessionService : Service()
 
         // ── 4. Collect and decrypt messages ───────────────────────────────────
 
-        mfskStation!!.messages.collect { mfskMessage ->
-            processReceivedMessage(mfskMessage.data, name, key)
+        mfskStation!!.receivedMessages.collect { mfskMessage ->
+            processReceivedMessage(mfskMessage.text, name, key)
             updateNotification()
         }
     }
 
     /**
-     * Decrypts a received MFSK payload and, on success, saves and emits it.
+     * Base64-decodes and decrypts a received MFSK text payload.
      *
-     * Decryption failure is expected when noise causes [MFSKStation] to emit a
-     * complete-but-garbage frame. Log and continue — do not transition to [Failed].
+     * A Base64 decode failure or decryption failure is expected when noise causes
+     * [MFSKStation] to emit a complete-but-garbage frame. Log and continue.
      *
-     * @param payloadBytes Raw bytes emitted by [MFSKStation] (ciphertext if valid Nahoft message)
-     * @param name         Friend's display name, for saving the message
-     * @param key          Friend's public key bytes, for decryption
+     * @param receivedText  The text string from [MFSKMessage.text], containing
+     *                      Base64 ciphertext with surrounding CR characters.
+     * @param name          Friend's display name, for saving the message.
+     * @param key           Friend's public key bytes, for decryption.
      */
-    private fun processReceivedMessage(payloadBytes: ByteArray, name: String, key: ByteArray)
+    private fun processReceivedMessage(receivedText: String, name: String, key: ByteArray)
     {
         try
         {
+            val ciphertextBytes = android.util.Base64.decode(
+                receivedText.trim(),
+                android.util.Base64.DEFAULT
+            )
+
             val friendPubKey = PublicKey(key)
 
-            // Validate decryption — throws SecurityException if ciphertext is invalid
-            Encryption().decrypt(friendPubKey, payloadBytes)
+            // Validate decryption — throws SecurityException if ciphertext is invalid.
+            Encryption().decrypt(friendPubKey, ciphertextBytes)
 
             Timber.i("MFSKReceiveSessionService: successfully decrypted message from '$name'")
 
-            // Save ciphertext (not plaintext) to persistent storage
-            saveReceivedMessage(payloadBytes, name)
+            saveReceivedMessage(ciphertextBytes, name)
 
             _messageJustReceived.value = true
 
-            // DecryptedMessageRecord stores only metadata — no plaintext, no ciphertext.
-            // spotCount = 1 because MFSK delivers one complete framed payload per message,
-            // unlike WSPR which accumulates multiple spots.
-            _decryptedMessageRecords.value = _decryptedMessageRecords.value +
-                    DecryptedMessageRecord(
-                        timestamp = System.currentTimeMillis(),
-                        spotCount = 1
-                    )
+            _decryptedMessageRecords.value += DecryptedMessageRecord(
+                                    timestamp = System.currentTimeMillis(),
+                                    spotCount = 1
+                                )
 
             serviceScope.launch {
-                _lastReceivedMessage.emit(payloadBytes)
+                _lastReceivedMessage.emit(ciphertextBytes)
             }
         }
         catch (e: SecurityException)
@@ -482,13 +466,14 @@ class MFSKReceiveSessionService : Service()
             // Invalid ciphertext — most likely noise or a spurious frame decode.
             // Continue listening.
             Timber.d("MFSKReceiveSessionService: decryption failed (likely noise) — " +
-                    "${payloadBytes.size} bytes, continuing")
+                    "${receivedText.length} chars received, continuing")
         }
         catch (e: Exception)
         {
             Timber.w(e, "MFSKReceiveSessionService: unexpected error processing message")
         }
     }
+
 
     private fun saveReceivedMessage(ciphertextBytes: ByteArray, name: String)
     {
@@ -541,7 +526,6 @@ class MFSKReceiveSessionService : Service()
         try
         {
             mfskStation?.stop()
-            audioSource?.cleanup()
             usbAudioConnection?.disconnect()
         }
         catch (e: Exception)
@@ -550,8 +534,7 @@ class MFSKReceiveSessionService : Service()
         }
         finally
         {
-            mfskStation = null
-            audioSource = null
+            mfskStation        = null
             usbAudioConnection = null
         }
     }

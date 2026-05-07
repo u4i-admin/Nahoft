@@ -137,6 +137,37 @@ class MFSKTransmitRadioViewModel(
     }
 
     /**
+     * Starts a debug transmission that bypasses encryption and Base64.
+     *
+     * Sends a hard-coded plaintext payload directly through MFSKEncoder so that
+     * fldigi's RX window should display the same string character-for-character.
+     * Used to verify TX pipeline correctness independent of the encryption layer.
+     *
+     * No message is saved on completion. Debug builds only — the calling fragment
+     * gates this behind BuildConfig.DEBUG.
+     *
+     * @param baseFrequencyHz Audio base frequency in Hz (e.g. 1500).
+     */
+    fun startDebugTransmission(baseFrequencyHz: Int)
+    {
+        saveMfskBaseFrequencyHz(baseFrequencyHz)
+
+        val context = getApplication<Application>()
+        val mode = MFSKMode.MFSK16
+
+        val startIntent = MFSKTransmitSessionService.createDebugStartIntent(
+            context         = context,
+            debugPlaintext  = DEBUG_TEST_MESSAGE,
+            mode            = mode,
+            baseFrequencyHz = baseFrequencyHz
+        )
+        context.startForegroundService(startIntent)
+
+        val bindIntent = Intent(context, MFSKTransmitSessionService::class.java)
+        context.bindService(bindIntent, serviceConnection, Context.BIND_AUTO_CREATE)
+    }
+
+    /**
      * Cancels an in-progress transmission immediately.
      * Delegates to the service if bound; sends a stop intent as fallback.
      */
@@ -230,5 +261,16 @@ class MFSKTransmitRadioViewModel(
                 friendPublicKey
             ) as T
         }
+    }
+
+    companion object
+    {
+        /**
+         * Hard-coded plaintext for debug transmissions. Repeating "HELLO WORLD"
+         * gives fldigi an easy pattern to match even with bit errors, and exercises
+         * both letters and the space character (which has a distinctive short
+         * IZ8BLY Varicode code word).
+         */
+        private const val DEBUG_TEST_MESSAGE = "HELLO WORLD HELLO WORLD HELLO WORLD "
     }
 }

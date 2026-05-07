@@ -24,7 +24,6 @@ import org.nahoft.nahoft.activities.FriendInfoActivity
 import org.nahoft.nahoft.models.Message
 import org.operatorfoundation.audiocoder.mfsk.MFSKEncoder
 import org.operatorfoundation.audiocoder.mfsk.MFSKMode
-import org.operatorfoundation.audiocoder.mfsk.MFSKStation
 import timber.log.Timber
 
 /**
@@ -59,6 +58,7 @@ class MFSKTransmitSessionService : Service()
         const val EXTRA_FRIEND_PUBLIC_KEY = "mfsk_tx_friend_public_key"
         const val EXTRA_MODE_LABEL        = "mfsk_tx_mode_label"
         const val EXTRA_BASE_FREQUENCY_HZ = "mfsk_tx_base_frequency_hz"
+        const val EXTRA_DEBUG_BYPASS_ENCRYPTION = "mfsk_tx_debug_bypass_encryption"
 
         private const val NOTIFICATION_CHANNEL_ID = "nahoft_mfsk_transmit_session"
         private const val NOTIFICATION_ID = 1004
@@ -77,6 +77,32 @@ class MFSKTransmitSessionService : Service()
             putExtra(EXTRA_FRIEND_PUBLIC_KEY, friendPublicKey)
             putExtra(EXTRA_MODE_LABEL, mode.label)
             putExtra(EXTRA_BASE_FREQUENCY_HZ, baseFrequencyHz)
+        }
+
+        /**
+         * Creates a start intent that bypasses encryption and Base64 encoding.
+         *
+         * The [debugPlaintext] is sent through MFSKEncoder.encodeToSymbols() directly,
+         * making fldigi's decoded text directly comparable to [debugPlaintext]. Used
+         * only by the debug-build test button — production callers must use
+         * [createStartIntent].
+         *
+         * No message is saved on success; nothing is decrypted on the receiving end
+         * because nothing was encrypted.
+         */
+        fun createDebugStartIntent(
+            context: Context,
+            debugPlaintext: String,
+            mode: MFSKMode,
+            baseFrequencyHz: Int
+        ): Intent = Intent(context, MFSKTransmitSessionService::class.java).apply {
+            action = ACTION_START_SESSION
+            putExtra(EXTRA_MESSAGE, debugPlaintext)
+            putExtra(EXTRA_FRIEND_NAME, "")              // unused in debug path
+            putExtra(EXTRA_FRIEND_PUBLIC_KEY, ByteArray(0))  // unused in debug path
+            putExtra(EXTRA_MODE_LABEL, mode.label)
+            putExtra(EXTRA_BASE_FREQUENCY_HZ, baseFrequencyHz)
+            putExtra(EXTRA_DEBUG_BYPASS_ENCRYPTION, true)
         }
 
         fun createStopIntent(context: Context): Intent =
@@ -148,7 +174,8 @@ class MFSKTransmitSessionService : Service()
                     return START_NOT_STICKY
                 }
 
-                startSession(message, name, publicKey, mode, baseFreqHz)
+                val bypassEncryption = intent.getBooleanExtra(EXTRA_DEBUG_BYPASS_ENCRYPTION, false)
+                startSession(message, name, publicKey, mode, baseFreqHz, bypassEncryption)
             }
 
             ACTION_STOP_SESSION -> cancelTransmission()
@@ -174,7 +201,8 @@ class MFSKTransmitSessionService : Service()
         name: String,
         publicKey: ByteArray,
         mode: MFSKMode,
-        baseFrequencyHz: Int
+        baseFrequencyHz: Int,
+        bypassEncryption: Boolean
     )
     {
         if (sessionJob?.isActive == true)
@@ -193,7 +221,7 @@ class MFSKTransmitSessionService : Service()
         sessionJob = serviceScope.launch {
             try
             {
-                runTxPipeline(message, name, publicKey, mode, baseFrequencyHz)
+                runTxPipeline(message, name, publicKey, mode, baseFrequencyHz, bypassEncryption)
             }
             finally
             {
@@ -243,7 +271,8 @@ class MFSKTransmitSessionService : Service()
         friendName: String,
         publicKey: ByteArray,
         mode: MFSKMode,
-        baseFrequencyHz: Int
+        baseFrequencyHz: Int,
+        bypassEncryption: Boolean
     )
     {
         // ── 1. Validate Eden ──────────────────────────────────────────────────
@@ -262,7 +291,7 @@ class MFSKTransmitSessionService : Service()
         _transmitSessionState.value = MFSKTransmitSessionState.Preparing
         updateNotification()
 
-        val encryptedBytes: ByteArray
+        val payloadBytes: ByteArray
         val symbolFrequenciesCHz: LongArray
         val totalDurationMs: Long
         val symbolDurationMs: Long
@@ -270,9 +299,17 @@ class MFSKTransmitSessionService : Service()
         try
         {
             val result = withContext(Dispatchers.Default) {
-                encryptAndEncode(message, publicKey, mode, baseFrequencyHz)
+                if (bypassEncryption)
+                {
+                    Timber.w("MFSKTransmitSessionService: DEBUG BYPASS — sending plaintext, no encryption")
+                    encodePlaintextForDebug(message, mode, baseFrequencyHz)
+                }
+                else
+                {
+                    encryptAndEncode(message, publicKey, mode, baseFrequencyHz)
+                }
             }
-            encryptedBytes       = result.first
+            payloadBytes       = result.first
             symbolFrequenciesCHz = result.second
 
             symbolDurationMs = (mode.symbolDurationSeconds * 1000).toLong()
@@ -306,7 +343,11 @@ class MFSKTransmitSessionService : Service()
             return
         }
 
-        saveMessage(encryptedBytes, friendName)
+        if (!bypassEncryption)
+        {
+            saveMessage(payloadBytes, friendName)
+        }
+
         _transmitSessionState.value = MFSKTransmitSessionState.Complete
         updateNotification()
 
@@ -316,12 +357,13 @@ class MFSKTransmitSessionService : Service()
 
     // ==================== Encrypt and Encode ================================
 
+
     /**
-     * Encrypts [message] with [publicKey], applies MFSK framing, encodes to symbol
-     * indices, and converts each symbol index to a centihertz frequency.
+     * Encrypts [message] with [publicKey], Base64-encodes the ciphertext, then
+     * encodes the Base64 string as a complete MFSK symbol sequence.
      *
      * Returns a pair of (encryptedBytes, symbolFrequenciesCHz).
-     * Throws on any failure — caller handles the exception.
+     * Throws on any failure.
      *
      * Symbol index → frequency conversion:
      *   `(baseFrequencyHz + toneIndex × mode.toneSpacingHz) × 100` cHz
@@ -335,20 +377,53 @@ class MFSKTransmitSessionService : Service()
     {
         val encryptedBytes = Encryption().encrypt(publicKey, message)
 
-        // Apply <base64(ciphertext)> framing so the transmission looks like
-        // standard MFSK-16 text traffic to any compliant receiver.
-        val framedText = MFSKStation.framePayload(encryptedBytes)
-        Timber.d("MFSKTransmitSessionService: transmitting framed string (${framedText.length} chars): $framedText")
+        // Base64-encode the ciphertext so it is pure ASCII.
+        // NO_WRAP prevents line breaks being inserted into the Base64 output,
+        // which would otherwise be decoded as separate characters by the receiver.
+        val base64Ciphertext = android.util.Base64.encodeToString(
+            encryptedBytes,
+            android.util.Base64.NO_WRAP
+        )
 
-        val symbolIndices = MFSKEncoder.encodeToSymbols(framedText, mode)
+        val symbolIndices = MFSKEncoder.encodeToSymbols(base64Ciphertext, mode)
 
         // Convert tone indices to centihertz frequencies for Eden.
-        // Each symbol index maps to: baseFrequencyHz + index × toneSpacingHz
         val symbolFrequenciesCHz = symbolIndices.map { toneIndex ->
             ((baseFrequencyHz + toneIndex * mode.toneSpacingHz) * 100).toLong()
         }.toLongArray()
 
+        Timber.d("MFSKTransmitSessionService: encoded ${base64Ciphertext.length} base64 chars → ${symbolIndices.size} symbols")
+        Timber.d("MFSKTransmitSessionService: payload = \"$base64Ciphertext\"")
+
         return Pair(encryptedBytes, symbolFrequenciesCHz)
+    }
+
+    /**
+     * Debug-only encoding path. Skips encryption and Base64.
+     * The plaintext goes directly into MFSKEncoder, so fldigi's RX window
+     * should display [plaintext] character-for-character if TX is correct.
+     *
+     * Returns (emptyBytes, symbolFrequenciesCHz). The empty ByteArray
+     * stands in for the encrypted ciphertext that the production path returns —
+     * the caller must skip saveMessage() when bypassing encryption.
+     */
+    private fun encodePlaintextForDebug(
+        plaintext: String,
+        mode: MFSKMode,
+        baseFrequencyHz: Int
+    ): Pair<ByteArray, LongArray>
+    {
+        Timber.d("MFSKTransmitSessionService: DEBUG payload = \"$plaintext\"")
+
+        val symbolIndices = MFSKEncoder.encodeToSymbols(plaintext, mode)
+
+        val symbolFrequenciesCHz = symbolIndices.map { toneIndex ->
+            ((baseFrequencyHz + toneIndex * mode.toneSpacingHz) * 100).toLong()
+        }.toLongArray()
+
+        Timber.d("MFSKTransmitSessionService: DEBUG encoded ${plaintext.length} chars → ${symbolIndices.size} symbols")
+
+        return Pair(ByteArray(0), symbolFrequenciesCHz)
     }
 
     // ==================== Save Message ======================================
