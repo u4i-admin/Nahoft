@@ -14,17 +14,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header_section"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bkgd_header_main_page"
+        android:paddingBottom="@dimen/padding_half"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/button_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:padding="5dp"
+            android:layout_width="@dimen/min_touch_target"
+            android:layout_height="@dimen/min_touch_target"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:padding="12dp"
+            android:scaleType="fitCenter"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_nohoft_icons_arrow_back"
             android:contentDescription="@string/return_button"

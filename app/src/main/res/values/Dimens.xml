@@ -5,7 +5,7 @@
     <dimen name="activity_half_margin">8dp</dimen>
     <dimen name="layout_top_margin">4dp</dimen>
 
-    <dimen name="favorite_button_size">48dp</dimen>
+    <dimen name="min_touch_target">48dp</dimen>
     <dimen name="detail_name_text_size">24sp</dimen>
     <dimen name="detail_header_image_size">200dp</dimen>
     <dimen name="detail_planet_text_size">18sp</dimen>
