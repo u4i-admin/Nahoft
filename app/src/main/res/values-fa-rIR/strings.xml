@@ -164,7 +164,7 @@
     <string name="default_fragment_text">هنوز هیچ کلید عمومی بین شما و %s رد و بدل نشده است. لطفا برای ارسال کلید عمومی خود، روی دکمه‌ی زیر کلیک کنید.</string>
 
     <!-- %s = friend's name -->
-    <string name="invited_fragment_text">After you have sent your public key to %s you will need their public key in return. \n\n Once you receive their public key, a secure connection will be established.</string>
+    <string name="invited_fragment_text">To connect with %s, you need to exchange public keys with each other. \n\n Use the button below to share your public key, then ask %s to share theirs back with you.</string>
 
     <!-- %1$s = friend's name (they sent their key); second %1$s = friend's name (send your key to them) -->
     <string name="requested_fragment_text">%1$s has sent you their public key; \n\n to complete the secure connection between you and %1$s you must send your public key to them.</string>
@@ -210,6 +210,30 @@
     <string name="import_text">وارد کردن متن</string>
     <string name="type_your_message">پیام خود را وارد کنید</string>
     <string name="send_as_image">ارسال به صورت تصویر</string>
+
+    <!-- Title shown on the import dialog when pasting a contact's security code (public key) -->
+    <string name="dialog_title_import_key">Import Contact\'s Security Code</string>
+
+    <!-- Hint shown in the import dialog's input field when pasting a contact's security code -->
+    <string name="import_dialog_hint_key">Paste your contact\'s security code here</string>
+
+    <!-- Title shown on the import dialog when pasting an encrypted message -->
+    <string name="dialog_title_import_message">Import Encrypted Message</string>
+
+    <!-- Hint shown in the import dialog's input field when pasting an encrypted message -->
+    <string name="import_dialog_hint_message">Paste the encrypted message here</string>
+
+    <!-- Label for the Import action button inside the import dialog -->
+    <string name="button_label_import">Import</string>
+
+    <!-- Label for the dialog button that pastes clipboard contents into the input field -->
+    <string name="paste_from_clipboard">Paste</string>
+
+    <!-- Shown when the user taps Import with an empty input field -->
+    <string name="alert_text_paste_key_before_import">Paste a key or message before tapping Import.</string>
+
+    <!-- Shown when the user taps Paste but the clipboard is empty -->
+    <string name="alert_text_clipboard_empty">Your clipboard is empty. Copy a key or message first.</string>
 
     <!-- Button accessibility / content descriptions -->
     <string name="import_encrypted_image_messages_using_this_button">از این دکمه برای وارد کردن  دستی پیام تصویری رمزنگاری شده استفاده کنید.</string>

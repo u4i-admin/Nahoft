@@ -206,6 +206,30 @@
     <string name="type_your_message">Type Your Message</string>
     <string name="send_as_image">Send As Image</string>
 
+    <!-- Title shown on the import dialog when pasting a contact's security code (public key) -->
+    <string name="dialog_title_import_key">Import Contact\'s Security Code</string>
+
+    <!-- Hint shown in the import dialog's input field when pasting a contact's security code -->
+    <string name="import_dialog_hint_key">Paste your contact\'s security code here</string>
+
+    <!-- Title shown on the import dialog when pasting an encrypted message -->
+    <string name="dialog_title_import_message">Import Encrypted Message</string>
+
+    <!-- Hint shown in the import dialog's input field when pasting an encrypted message -->
+    <string name="import_dialog_hint_message">Paste the encrypted message here</string>
+
+    <!-- Label for the Import action button inside the import dialog -->
+    <string name="button_label_import">Import</string>
+
+    <!-- Label for the dialog button that pastes clipboard contents into the input field -->
+    <string name="paste_from_clipboard">Paste</string>
+
+    <!-- Shown when the user taps Import with an empty input field -->
+    <string name="alert_text_paste_key_before_import">Paste a key or message before tapping Import.</string>
+
+    <!-- Shown when the user taps Paste but the clipboard is empty -->
+    <string name="alert_text_clipboard_empty">Your clipboard is empty. Copy a key or message first.</string>
+
     <!-- Button accessibility / content descriptions -->
     <string name="import_encrypted_image_messages_using_this_button">Use this button to import encrypted image messages.</string>
     <string name="import_encrypted_text_messages_using_this_button">Use this button to import encrypted text messages.</string>

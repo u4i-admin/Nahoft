@@ -26,6 +26,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
+import android.content.ClipboardManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -36,6 +37,7 @@ import androidx.core.view.updatePadding
 import kotlinx.coroutines.*
 import org.libsodium.jni.keys.PublicKey
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.button.MaterialButton
 
 import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
@@ -63,6 +65,8 @@ import timber.log.Timber
 
 class FriendInfoActivity: AppCompatActivity()
 {
+    enum class ImportPurpose { IMPORT_KEY, IMPORT_MESSAGE }
+
     private lateinit var viewModel: FriendInfoViewModel
     private lateinit var binding: ActivityFriendInfoBinding
     private var decodePayload: ByteArray? = null
@@ -717,7 +721,7 @@ class FriendInfoActivity: AppCompatActivity()
         }
 
         binding.btnImportText.setOnClickListener {
-            importInvitationClicked()
+            importInvitationClicked(ImportPurpose.IMPORT_MESSAGE)
         }
 
         binding.btnImportImage.setOnClickListener {
@@ -1030,39 +1034,78 @@ class FriendInfoActivity: AppCompatActivity()
         }
     }
 
-    fun importInvitationClicked() {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.AppTheme_AddFriendAlertDialog))
-        val title = SpannableString(getString(R.string.import_text))
+    fun importInvitationClicked(purpose: ImportPurpose)
+    {
+        val builder = AlertDialog.Builder(
+            ContextThemeWrapper(this, R.style.AppTheme_AddFriendAlertDialog)
+        )
 
-        // alert dialog title align center
+        // Title and hint are chosen by purpose.
+        val titleResId = when (purpose) {
+            ImportPurpose.IMPORT_KEY     -> R.string.dialog_title_import_key
+            ImportPurpose.IMPORT_MESSAGE -> R.string.dialog_title_import_message
+        }
+
+        val hintResId = when (purpose) {
+            ImportPurpose.IMPORT_KEY     -> R.string.import_dialog_hint_key
+            ImportPurpose.IMPORT_MESSAGE -> R.string.import_dialog_hint_message
+        }
+
+        val title = SpannableString(getString(titleResId))
         title.setSpan(
             AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-            0,
-            title.length,
-            0
+            0, title.length, 0
         )
         builder.setTitle(title)
 
-        // Set the input - EditText
-        val inputEditText = EditText(this)
-        inputEditText.setBackgroundResource(R.drawable.btn_bkgd_light_grey_outline_8)
-        inputEditText.textAlignment = View.TEXT_ALIGNMENT_VIEW_END
-        inputEditText.setPadding(20)
-        inputEditText.height = 500
-        inputEditText.gravity = Gravity.TOP
-        inputEditText.setTextColor(ContextCompat.getColor(this, R.color.royalBlueDark))
-        builder.setView(inputEditText)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_import, null)
+        val inputEditText = dialogView.findViewById<EditText>(R.id.import_edit_text)
+        val buttonCancel = dialogView.findViewById<MaterialButton>(R.id.button_cancel)
+        val buttonPaste  = dialogView.findViewById<MaterialButton>(R.id.button_paste)
+        val buttonImport = dialogView.findViewById<MaterialButton>(R.id.button_import)
 
-        builder.setPositiveButton(resources.getString(R.string.import_text))
-        { _, _->
-            if (inputEditText.text.isNotEmpty())
-            {
-                decodeStringMessage(inputEditText.text.toString())
-            }
-        }
-        builder.setNeutralButton(resources.getString(R.string.stop_button)) { dialog, _->
+        inputEditText.hint = getString(hintResId)
+        builder.setView(dialogView)
+
+        val dialog = builder.create()
+        dialog.show()
+
+        // Cancel: dismiss without acting on input.
+        buttonCancel.setOnClickListener {
             dialog.cancel()
-        }.create().show()
+        }
+
+        // Paste: fill the field from clipboard, leaving the dialog open so the user
+        // can review the pasted content before tapping Import.
+        buttonPaste.setOnClickListener {
+            val clipboardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = clipboardManager.primaryClip
+
+            if (clip == null || clip.itemCount == 0) {
+                showAlert(getString(R.string.alert_text_clipboard_empty))
+                return@setOnClickListener
+            }
+
+            val pastedText = clip.getItemAt(0).coerceToText(this).toString()
+
+            if (pastedText.isEmpty()) {
+                showAlert(getString(R.string.alert_text_clipboard_empty))
+                return@setOnClickListener
+            }
+
+            inputEditText.setText(pastedText)
+        }
+
+        // Import: validate the field before decoding. Dismiss only on success so
+        // the user can correct an empty/invalid field without re-opening the dialog.
+        buttonImport.setOnClickListener {
+            if (inputEditText.text.isEmpty()) {
+                showAlert(getString(R.string.alert_text_paste_key_before_import))
+                return@setOnClickListener
+            }
+            decodeStringMessage(inputEditText.text.toString())
+            dialog.dismiss()
+        }
     }
 
     private fun trySendingOrSavingMessage(isImage: Boolean, saveImage: Boolean)
