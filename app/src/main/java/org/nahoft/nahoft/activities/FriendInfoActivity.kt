@@ -13,7 +13,6 @@ import android.os.Parcelable
 import android.text.Layout
 import android.text.SpannableString
 import android.text.style.AlignmentSpan
-import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
