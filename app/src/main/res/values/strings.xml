@@ -64,7 +64,7 @@
     <!-- Subtitle listing available authentication methods for the system prompt -->
     <string name="biometrics_pin_password_pattern">(Biometrics, PIN, Password, Pattern)</string>
     <!-- Explains two-step login behavior once a passcode has been set -->
-    <string name="two_step_login_description">By setting a password for Nahoft, the app automatically enables two-step login. In the first step, you need to enter the password you provided in the above field, and in the second step, you need to provide phone\'s password or face recognition sensor, or fingerprint sensor.</string>
+    <string name="two_step_login_description">When you set a passcode for Nahoft, the app automatically enables two-step login. The first step asks for the passcode you set above. The second step asks for your phone\'s lock — your fingerprint, face, PIN, password, or pattern.</string>
 
     <!-- Failed login attempt alerts — shown progressively as attempt count increases -->
     <string name="alert_text_zero_to_five_login_attempts">The passcode entered is incorrect. Please try again.</string>
@@ -74,7 +74,7 @@
     <!-- Shown on the 9th failed attempt — all app data is erased at this point -->
     <string name="alert_text_ninth_login_attempt">The passcode entered is incorrect. This account has been deleted.</string>
     <!-- Lockout countdown: %1$d = minutes remaining, %2$d = seconds remaining -->
-    <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">Please wait, %1$d minutes %2$d seconds before attempting to login again</string>
+    <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">Please wait %1$d minutes %2$d seconds before attempting to log in again.</string>
     <string name="alert_text_passcode_required_to_proceed">Passcode required to proceed.</string>
 
 
@@ -91,7 +91,7 @@
     <string name="reenter_destruction_code">Verify Destruction Code</string>
 
     <!-- Shown when a device lock screen has not been set up -->
-    <string name="you_have_to_set_a_lock_screen">You have to set a lock screen before using this app</string>
+    <string name="you_have_to_set_a_lock_screen">You have to set a lock screen before using this app.</string>
     <!-- Label for the Snackbar action button that opens device security settings -->
     <string name="click_to_set">Click to set</string>
 
@@ -116,10 +116,9 @@
     <string name="alert_destruction_code_saved">Your destruction code has been saved.</string>
 
     <!-- Help text shown in the Settings section of the onboarding slides -->
-    <string name="passcode_description">By activating the "Password" option, you can define a six-digit password that you will need every time you log in to Nahoft. By activating the password feature, at the bottom of the main screen, the "Logout" option will be activated.</string>
-    <string name="destruction_code_description">By enabling the "Destruction code" option, you define a six-digit password that will be used to destroy all information stored inside the app, including deleting messages and friend lists. \nYou will use this password in emergency situations so that the people you don\'t want can\'t have access to your information.</string>
-    <string name="logout_description">The option to log out will only be displayed if you have set a "password." By clicking on this option, you will immediately get logged out of Nahoft. If you don\'t use the logout option, Nahoft will lock itself after a few minutes of inactivity, and you will need your password to enter it.</string>
-
+    <string name="passcode_description">By activating the "Passcode" option, you can define a six-digit passcode that you will need every time you log in to Nahoft. By activating the passcode feature, the "Logout" option will be activated at the bottom of the main screen.</string>
+    <string name="destruction_code_description">By enabling the "Destruction code" option, you define a six-digit code that will erase all information stored inside the app — including messages and your friend list. \nUse this code in emergencies to prevent unwanted access to your information.</string>
+    <string name="logout_description">The Logout option only appears if you have set a passcode. Tap it to immediately log out of Nahoft. If you don\'t use Logout, Nahoft will lock itself after a few minutes of inactivity and require your passcode to unlock.</string>
 
     <!-- ════════════════════════════════════════════════════════
          FRIENDS & CONTACTS — Home screen and friend management
@@ -240,9 +239,6 @@
     <string name="import_image_hint">Import an image from your device.</string>
     <!-- Folder name shown when an encoded image is saved to device storage -->
     <string name="saved_images">Saved Images</string>
-
-    <!-- NOTE: No code reference found — likely used only as layout preview text (tools:text).
-         Confirm whether this needs translation. Format is: Day HH:MM AM/PM -->
     <string name="sample_date_time">Yesterday 14:26 PM</string>
 
     <!-- Confirmation dialog when pasted text is already encrypted —
@@ -278,33 +274,33 @@
 
     <!-- Nahoft team, usage, and features -->
     <string name="nahofts_team">Nahoft\'s team</string>
-    <string name="nahofts_team_description">Iranian and non-Iranian experts with work experience in big tech companies came together and created Nahoft with the support of the United4Iran Organization.</string>
+    <string name="nahofts_team_description">Iranian and non-Iranian experts with experience at major tech companies came together to create Nahoft, with support from the United4Iran Organization.</string>
     <string name="nahofts_usage">Nahoft\'s usage</string>
     <string name="nahofts_usage_description">Keep your conversations private and secure with Nahoft, the end-to-end encrypted communication app.</string>
     <string name="nahofts_features">Nahoft\'s features</string>
-    <string name="nahofts_features_description">A security layer for sending messages over insecure channels \n Fully offline. Nahoft operates without servers \n Destruction code. Instantly erase your data.</string>
+    <string name="nahofts_features_description">A security layer for sending messages over insecure channels.\nFully offline - Nahoft operates without servers.\nDestruction code - instantly erase your data.</string>
     <string name="nahoft_creators">Nahoft creators</string>
-    <string name="nahoft_creators_description">\"Nahoft\" is one of the apps that has been created in the Iran Cubator 2 program and under the supervision of the \"United for Iran\" organization. United for Iran is a human rights organization based in Berkeley, California. Its goal is to promote civil liberties in Iran, defend human rights, support civil society, and encourage citizens to participate through technology.</string>
+    <string name="nahoft_creators_description">\"Nahoft\" is one of the apps created in the Iran Cubator 2 program under the supervision of the \"United for Iran\" organization. United for Iran is a human rights organization based in Berkeley, California. Its goal is to promote civil liberties in Iran, defend human rights, support civil society, and encourage citizens to participate through technology.</string>
 
     <!-- How-to: sending and receiving encrypted text -->
     <string name="manually_send_text">How to send encrypted text</string>
-    <string name="manually_send_text_description">To send an encrypted text, you need to follow these steps:\n1. Exchange security codes with your friend beforehand.\n2. Go to your friend\'s chat page and, at the bottom of the page, write your message in the \"type your message\" section, similar to any other messaging platform…</string>
-    <string name="manually_send_text_full_description">To send an encrypted text, you need to follow these steps:\n1. Exchange security codes with your friend beforehand.\n2. Go to your friend\'s chat page and, at the bottom of the page, write your message in the \"type your message\" section, similar to any other messaging platform.\n3. Press the send button. Immediately after sending the message, a popup will appear.\n4. Copy the encrypted text and send it to the intended person through any messaging platform you prefer.</string>
+    <string name="manually_send_text_description">To send an encrypted text, follow these steps:\n1. Exchange security codes with your friend beforehand.\n2. Go to your friend\'s chat page and write your message at the bottom of the page, in the \"type your message\" section…</string>
+    <string name="manually_send_text_full_description">To send an encrypted text, follow these steps:\n1. Exchange security codes with your friend beforehand.\n2. Go to your friend\'s chat page and write your message at the bottom of the page, in the \"type your message\" section.\n3. Press the send button. A popup will appear with the encrypted text.\n4. Copy the encrypted text and send it to your friend through any messaging app you prefer.</string>
     <string name="manually_import_text">How to receive encrypted text</string>
-    <string name="manually_import_text_description">To decrypt and read an encrypted text, you need to follow these steps:\n1. Make sure you know who sent the message and that you have previously exchanged security codes.\n2. Copy the received encrypted text…</string>
-    <string name="manually_import_text_full_description">To decrypt and read an encrypted text, you need to follow these steps:\n1. Make sure you know who sent the message and that you have previously exchanged security codes.\n2. Copy the received encrypted text.\n3. Go to the chat page of the person whose message you want to decrypt.\n4. Click on the import file icon located at the top right of the page. A window will open.\n5. Paste the text into the window and click the \"Insert Text\" option.\n6. The decrypted message will be readable on the chat page.</string>
+    <string name="manually_import_text_description">To decrypt and read an encrypted text, follow these steps:\n1. Make sure you know who sent the message and that you have previously exchanged security codes.\n2. Copy the encrypted text you received…</string>
+    <string name="manually_import_text_full_description">To decrypt and read an encrypted text, follow these steps:\n1. Make sure you know who sent the message and that you have previously exchanged security codes.\n2. Copy the encrypted text you received.\n3. Go to the chat page of the friend who sent it.\n4. Tap the import icon in the top right corner of the page.\n5. Paste the text into the window and tap \"Import\".\n6. The decrypted message will appear in the chat.</string>
 
     <!-- How-to: sending and receiving encrypted images -->
     <string name="share_image_title">How to send encrypted images</string>
-    <string name="share_image_description">To send an encrypted photo manually, you need to follow these two conditions:\nCondition 1: You know who you want to send the photo to and have previously exchanged security codes.</string>
-    <string name="share_image_full_description">To send an encrypted photo manually, you need to follow these two conditions:\nCondition 1: You know who you want to send the photo to and have previously exchanged security codes.\nCondition 2: You send the photo as a file to your friend. For example, if you are using Telegram to send the photo, you should send it as a file and not directly from your phone\'s gallery. This is because Telegram reduces the size of photos, and it won\'t be possible to decrypt such a photo. However, if you send the photo as a file, Telegram won\'t make any changes to the photo, and it can be decrypted.\nAssuming you have met the above two conditions, go to the chat page of the person you want to send the encrypted message to. On the bottom left side of the page, click on camera icon. After clicking, two new icons will appear.\nDownload icon is for when you want to hide your message in a photo and save the photo on your phone to send it to someone later.\nShare icon is for when you want to hide your message in a photo and immediately send the photo through other messaging apps to the desired person.</string>
+    <string name="share_image_description">To send an encrypted photo manually, two conditions must be met:\nFirst: you know who you\'re sending the photo to and have previously exchanged security codes…</string>
+    <string name="share_image_full_description">To send an encrypted photo manually, two conditions must be met:\nFirst: you know who you\'re sending the photo to and have previously exchanged security codes.\nSecond: you send the photo as a file, not from your gallery. For example, Telegram compresses gallery photos, which makes them impossible to decrypt — but Telegram sends files unchanged, so they can still be decrypted.\n\nWith both conditions met, go to the chat page of the friend you want to message. Tap the camera icon at the bottom left of the page. Two new icons will appear:\n• The download icon hides your message in a photo and saves it to your device, so you can send it later.\n• The share icon hides your message in a photo and immediately opens the share sheet to send it through another app.</string>
     <string name="import_image_title">How to receive encrypted images</string>
-    <string name="import_image_description">To manually decrypt an encrypted photo, you need to follow these two conditions:\nCondition 1: You know who sent the photo and have previously exchanged security codes.</string>
-    <string name="import_image_full_description">To manually decrypt an encrypted photo, you need to follow these two conditions:\nCondition 1: You know who sent the photo and have previously exchanged security codes.\nCondition 2: The sent photo has been sent to you as a file, and you have saved it as a file on your mobile device. If, for example, you receive a photo on Telegram that has been compressed by Telegram, it cannot be decrypted.\nAssuming you have met the above two conditions, go to the chat page of the person whose message you want to decrypt. On the top right side of the page, click on the image icon. A pop-up window will appear, allowing you to browse and select the desired photo from your mobile device. The decrypted message will be readable in the chat page.</string>
+    <string name="import_image_description">To decrypt an encrypted photo manually, two conditions must be met:\nFirst: you know who sent the photo and have previously exchanged security codes…</string>
+    <string name="import_image_full_description">To decrypt an encrypted photo manually, two conditions must be met:\nFirst: you know who sent the photo and have previously exchanged security codes.\nSecond: the photo was sent to you as a file and saved to your device as a file. Photos that were compressed in transit (for example, photos sent through Telegram\'s normal photo upload) cannot be decrypted.\n\nWith both conditions met, go to the chat page of the friend who sent the photo. Tap the image icon in the top right corner. A picker will open — choose the photo from your device, and the decrypted message will appear in the chat.</string>
 
     <!-- How-to: sharing via the Android share sheet -->
-    <string name="import_share_title">Importing to Nahoft through share option</string>
-    <string name="import_share_description">Just like other apps, Nahoft lets you share a text or photo from your gallery or mobile memory by selecting Nahoft from the list of suggested apps. Choosing Nahoft will take you to Nahoft\'s friend list, where you can select who you want to send a picture to.</string>
+    <string name="import_share_title">Importing to Nahoft through the share option</string>
+    <string name="import_share_description">Like other apps, Nahoft lets you share text or a photo from your gallery or device storage. Choose Nahoft from the list of suggested apps, and you\'ll be taken to your friend list to select who to send to.</string>
 
     <!-- Public key explanations -->
     <string name="friends_public_key">Friend\'s Security Code</string>
@@ -510,7 +506,5 @@
     <string name="messages_this_session">Messages</string>
     <!-- Row header: %1$s = timestamp string, %2$d = number of WSPR packets used to decode the message -->
     <string name="message_row_header">%1$s · decoded from %2$d packets</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
