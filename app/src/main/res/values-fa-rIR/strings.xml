@@ -196,7 +196,7 @@
     <!-- Friend action buttons -->
     <string name="resend_invitation">ارسال دوباره دعوتنامه</string>
     <string name="decline_button">نپذیرفتن</string>
-    <string name="import_invitation_button">وارد کردن دعوتنامه</string>
+    <string name="import_invitation_button"></string>
 
     <!-- Friend management alerts -->
     <string name="alert_text_verified_friends_only">You can only message a friend once codes have been exchanged.</string>
@@ -454,7 +454,7 @@
     <string name="mfsk_transmit_via_radio">Transmit via Radio (MFSK-16)</string>
     <string name="mfsk_tx_base_frequency_hz">Base Frequency (Hz)</string>
     <string name="mfsk_tx_complete_detail">Message sent successfully</string>
-    <string name="mfsk_debug_send_test">Send test message (debug)</string>
+    <string name="mfsk_debug_send_test" translatable="false">Send test message (debug)</string>
 
     <!-- %1$d = elapsed seconds, %2$d = total seconds -->
     <string name="mfsk_tx_time_elapsed_format">%1$ds / %2$ds</string>
@@ -516,7 +516,7 @@
          ════════════════════════════════════════════════════════ -->
 
     <!-- Packages / WSPR spots dialog -->
-    <string name="packages_title">Packages Dialog</string>
+    <string name="packages_title" translatable="false">Packages Dialog</string>
 
     <!-- Legend entry explaining the Nahoft symbol in the spots list -->
     <string name="nahoft_message_legend">= Nahoft message</string>

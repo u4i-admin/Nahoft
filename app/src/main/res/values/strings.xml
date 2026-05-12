@@ -185,7 +185,7 @@
     <!-- Friend action buttons -->
     <string name="resend_invitation">Resend invitation</string>
     <string name="decline_button">Decline</string>
-    <string name="import_invitation_button">Import Invitation</string>
+    <string name="import_invitation_button">Import Friend\'s Code</string>
 
     <!-- Friend management alerts -->
     <string name="alert_text_verified_friends_only">You can only message a friend once codes have been exchanged.</string>
@@ -255,8 +255,8 @@
 
     <!-- Byte counter labels shown below the message input field.
      %1$d = current byte count, %2$d = limit -->
-    <string name="byte_counter_radio_format">radio: %1$d / %2$d</string>
-    <string name="byte_counter_message_format">text: %1$d / %2$d</string>
+    <string name="byte_counter_radio_format">Radio: %1$d / %2$d</string>
+    <string name="byte_counter_message_format">Message: %1$d / %2$d</string>
 
     <!-- ════════════════════════════════════════════════════════
          ONBOARDING & HELP — Slide content and user guides (SlideActivity)
@@ -315,9 +315,9 @@
          ════════════════════════════════════════════════════════ -->
 
     <!-- Shown when the Eden serial device is not connected -->
-    <string name="alert_text_serial_not_connected">No serial device connected</string>
+    <string name="alert_text_serial_not_connected">No serial device connected.</string>
     <!-- Shown when the USB audio device is not connected -->
-    <string name="usb_audio_not_connected">USB audio device not connected</string>
+    <string name="usb_audio_not_connected">USB audio device not connected.</string>
     <!-- Content description for the "send via radio" action button -->
     <string name="send_via_radio">Button for sending the message via radio.</string>
     <!-- Generic "Packets" label used in packet count display -->
@@ -325,7 +325,7 @@
     <string name="session_label">Session:</string>
     <string name="start_session">Start Session</string>
     <string name="stop_session">Stop Session</string>
-    <string name="session_stopped">Session stopped</string>
+    <string name="session_stopped">Session stopped.</string>
 
     <!-- ════════════════════════════════════════════════════════
          RADIO — Mode selector (RadioModeBottomSheetFragment)
@@ -369,8 +369,8 @@
     <string name="listening_for_signals">Listening for WSPR signals…</string>
     <string name="collecting_audio">Collecting audio…</string>
     <string name="processing_decode">Processing decode…</string>
-    <string name="decode_complete">Decode complete</string>
-    <string name="message_received">Message received!</string>
+    <string name="decode_complete">Decode complete.</string>
+    <string name="message_received">Message received.</string>
     <!-- Label on the animated receive indicator shown in the friends list -->
     <string name="receiving_indicator">Receiving message</string>
 
@@ -429,7 +429,7 @@
     <string name="mfsk_transmit_via_radio">Transmit via Radio (MFSK-16)</string>
     <string name="mfsk_tx_base_frequency_hz">Base Frequency (Hz)</string>
     <string name="mfsk_tx_complete_detail">Message sent successfully</string>
-    <string name="mfsk_debug_send_test">Send test message (debug)</string>
+    <string name="mfsk_debug_send_test" translatable="false">Send test message (debug)</string>
 
     <!-- %1$d = elapsed seconds, %2$d = total seconds -->
     <string name="mfsk_tx_time_elapsed_format">%1$ds / %2$ds</string>
@@ -486,7 +486,7 @@
          ════════════════════════════════════════════════════════ -->
 
     <!-- Packages / WSPR spots dialog -->
-    <string name="packages_title">Packages Dialog</string>
+    <string name="packages_title" translatable="false">Packages Dialog</string>
     <!-- Legend entry explaining the Nahoft symbol in the spots list -->
     <string name="nahoft_message_legend">= Nahoft message</string>
     <!-- Empty state shown before any packets have been decoded -->
