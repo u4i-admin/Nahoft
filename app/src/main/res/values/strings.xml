@@ -13,7 +13,7 @@
     <string name="dismiss">Dismiss</string>
     <string name="skip">Skip</string>
     <string name="get_started">Get Started</string>
-    <string name="read_more">read more</string>
+    <string name="read_more">Read More</string>
     <string name="copy">Copy</string>
 
     <!-- Shown briefly after the user copies text to clipboard -->
@@ -239,7 +239,7 @@
     <string name="import_image_hint">Import an image from your device.</string>
     <!-- Folder name shown when an encoded image is saved to device storage -->
     <string name="saved_images">Saved Images</string>
-    <string name="sample_date_time">Yesterday 14:26 PM</string>
+    <string name="sample_date_time" translatable="false">Yesterday 14:26</string>
 
     <!-- Confirmation dialog when pasted text is already encrypted —
          asks the user whether to decrypt it rather than re-encrypt and send -->
@@ -307,7 +307,7 @@
     <string name="friends_public_key_description">To view your friend\'s security code, go to your chat page with that friend. Click on their name and a new page will open where you can see both your friend\'s code and your own. Your code can also be viewed in the settings.</string>
     <string name="your_public_key">Your Security Code</string>
     <string name="your_public_key_description">Your security code is what Nahoft calls your public key. This software utilizes the well-known library libsodium and the Asymmetric Encryption with Authentication method for encryption and decryption. Each user has a private key and a public key. When User 1 wants to send a message to User 2, they use their own private key and User 2\'s public key for encryption…</string>
-    <string name="your_public_key_full_description">Your security code is what Nahoft calls your public key. This software utilizes the well-known library libsodium and the Asymmetric Encryption with Authentication method for encryption and decryption. Each user has a private key and a public key. When User 1 wants to send a message to User 2, they use their own private key and User 2\'s public key for encryption. The generated message has only two possible ways for decryption:\n. Using User 1\'s private key, who generated the message, and User 2\'s public key.\n. Using User 2\'s private key, who is the recipient of the message, and User 1\'s public key.\nTherefore, in order for your friends to send you a message, they must have your public key. If you expose your public key to the public, it will not pose any security issues. You can see your public key from the setting.</string>
+    <string name="your_public_key_full_description">Your security code is what Nahoft calls your public key. This software uses the well-known library libsodium and the Asymmetric Encryption with Authentication method for encryption and decryption. Each user has a private key and a public key. When User 1 wants to send a message to User 2, they use their own private key and User 2\'s public key for encryption. The generated message has only two possible ways to decrypt:\n• Using User 1\'s private key (the sender) and User 2\'s public key.\n• Using User 2\'s private key (the recipient) and User 1\'s public key.\nTherefore, in order for your friends to send you a message, they must have your public key. If you make your public key publicly available, it will not pose any security issues. You can view your public key from the settings.</string>
 
 
     <!-- ════════════════════════════════════════════════════════

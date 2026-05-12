@@ -11,7 +11,7 @@
     <string name="yes">بله</string>
     <string name="no">خیر</string>
     <string name="close">بستن</string>
-    <string name="dismiss">Dismiss</string>
+    <string name="dismiss"></string>
     <string name="skip">رد کن</string>
     <string name="get_started">شروع کنید</string>
     <string name="read_more">بیشتر بخوانید</string>
@@ -157,7 +157,11 @@
     <string name="friend_status_requested">درخواست‌ شده</string>
     <string name="friend_status_invited">دعوت‌ شده</string>
     <string name="friend_status_verified">تأیید شده</string>
-    <string name="friend_status_approved">تأیید شده</string>
+
+    <!-- NEEDS_REVIEW: Farsi was identical to friend_status_verified — these are
+     two different states (Approved = codes exchanged; Verified = codes exchanged
+     AND verified out-of-band). They need distinct Farsi terms. -->
+    <string name="friend_status_approved"></string>
 
     <!-- Friend status screen body text — shown in the chat area depending on connection state -->
 
@@ -318,8 +322,7 @@
     <!-- NEEDS_REVIEW: terminology changed - Add "Your security code is what Nahoft calls your public key." -->
     <string name="your_public_key_description">نهفت چگونه کار می کند؟\nاین نرم‌افزار از کتابخانه معتبر libsodium استفاده می‌کند و از روش رمزگذاری و رمزگشایی با امضای دوطرفه (Asymmetric Encryption with Authentication) بهره می‌برد. هر کاربر دارای یک کلید خصوصی و یک کلید عمومی است. زمانی که کاربر ۱ می‌خواهد پیامی را به کاربر ۲ ارسال کند، از کلید خصوصی خود و کلید عمومی کاربر ۲ برای رمزگذاری استفاده می‌کند.…</string>
 
-    <!-- NEEDS_REVIEW: terminology changed - Add "Your security code is what Nahoft calls your public key." -->
-    <string name="your_public_key_full_description">نهفت چگونه کار می کند؟\nاین نرم‌افزار از کتابخانه معتبر libsodium استفاده می‌کند و از روش رمزگذاری و رمزگشایی با امضای دوطرفه (Asymmetric Encryption with Authentication) بهره می‌برد. هر کاربر دارای یک کلید خصوصی و یک کلید عمومی است. زمانی که کاربر ۱ می‌خواهد پیامی را به کاربر ۲ ارسال کند، از کلید خصوصی خود و کلید عمومی کاربر ۲ برای رمزگذاری استفاده می‌کند. پیام تولید شده فقط دو راه برای رمزگشایی دارد:\nاستفاده از کلید خصوصی کاربر ۱ که پیام را تولید کرده است و کلید عمومی کاربر ۲.\n. استفاده از کلید خصوصی کاربر ۲ که دریافت کننده پیام است و کلید عمومی کاربر ۱.\n. بنابراین، دوستان شما برای ارسال پیام به شما باید کلید عمومی شما را داشته باشند. اگر شما کلید عمومی خود را در دسترس عموم قرار دهید، هیچ مشکل امنیتی ای وجود نخواهد داشت.\nشما می‌توانید کلید عمومی خودتان را از بخش تنظمیات مشاهده کنید.</string>
+    <string name="your_public_key_full_description"></string>
 
 
     <!-- ════════════════════════════════════════════════════════
