@@ -137,6 +137,7 @@
     <string name="nickname">Nickname</string>
 
     <!-- Add / manage friend UI -->
+    <!-- NEEDS_REVIEW: terminology change (contact → friend) -->
     <string name="add_contact">Add Friend</string>
     <string name="add_new_friend">Add New Friend</string>
     <!-- Used in onboarding help slides -->
@@ -153,6 +154,9 @@
     <string name="friend_status_requested">Requested</string>
     <string name="friend_status_invited">Invited</string>
     <string name="friend_status_verified">Verified</string>
+    <!-- NEEDS_REVIEW: Farsi was identical to friend_status_verified — these are
+    two different states (Approved = codes exchanged; Verified = codes exchanged
+    AND verified out-of-band). They need distinct Farsi terms. -->
     <string name="friend_status_approved">Approved</string>
 
     <!-- Friend status screen body text — shown in the chat area depending on connection state -->
@@ -269,7 +273,9 @@
 
     <!-- About Nahoft -->
     <string name="about_nahoft">About Nahoft</string>
+    <!-- NEEDS_REVIEW: terminology change (public key → security code) -->
     <string name="about_nahoft_description">"Nahoft" is not a messaging app. It is a tool for encryption. Nahoft is an offline software for encrypting text messages on Android phones.\nEncrypting your text messages means that even if your message gets intercepted by a third party, that party can not read it. The only person that can read your message is the one with whom you exchanged security codes (also called public keys).</string>
+    <!-- NEEDS_REVIEW: terminology change - The only person that can read your message is the one with whom you exchanged security codes (also called public keys). -->
     <string name="about_nahoft_full_description">"Nahoft" is not a messaging app. It is a tool for encryption. Nahoft is an offline software for encrypting text messages on Android phones.\nEncrypting your text messages means that even if your message gets intercepted by a third party, that party can not read it. The only person that can read your message is the one with whom you exchanged security codes (also called public keys).\nNahoft is offline, which means you do not need to be connected to the internet to encrypt your messages.\nNahoft only encrypts text messages. Currently, it does not provide encrypted voice and video messages.\nNahoft can encrypt text messages as text. It also can encrypt them as a photo (Steganography.) You can send an encrypted text message or a photo containing a message via another channel that allows you to send the file (for example, SMS, MMS, or a messaging app that allows you to send the file unchanged.) So, the other person, after receiving the message, transfers the encrypted text or photo to Nahoft and reads it. \nFor the time being, Nahoft can be installed on phones that use the Android operating system.\nNahoft is not a messaging app. It only encrypts the user\'s text messages. The user can send the encrypted message to another one through one of the messaging apps (in an insecure network or even using an insecure messaging app.) The other person should be using Nahoft as well. Both should have already exchanged the public keys with one another to enter the messages into this software and read the encrypted messages. Nahoft uses public keys that can be shared with others. It also creates a private key hidden in the app to read the sent messages between two users.\nNahoft\'s goal is to make it possible for users to send secure messages even through insecure messaging apps and networks. It means that if a user does not have access to secure internet or can not use secure messaging apps (in the case of internet censorship, filtering, and total internet shutdown) and only have access to insecure messaging apps and networks inside the country, even in this case, the users can encrypt the text messages and send them in the network. So, even if the message gets intercepted, it will still not be intelligible since it is encrypted. \nNote: Public keys (also the private key) change whenever you delete and reinstall the app, as well as each time you change your phone and reinstall the app. So, each time you change your phone or delete the app and reinstall it, you need to exchange the keys with your friends.\nImportant: Nahoft is open-source software, and everyone can have access to its code.</string>
 
     <!-- Nahoft team, usage, and features -->
@@ -306,6 +312,7 @@
     <string name="friends_public_key">Friend\'s Security Code</string>
     <string name="friends_public_key_description">To view your friend\'s security code, go to your chat page with that friend. Click on their name and a new page will open where you can see both your friend\'s code and your own. Your code can also be viewed in the settings.</string>
     <string name="your_public_key">Your Security Code</string>
+    <!-- NEEDS_REVIEW: terminology changed - Add "Your security code is what Nahoft calls your public key." -->
     <string name="your_public_key_description">Your security code is what Nahoft calls your public key. This software utilizes the well-known library libsodium and the Asymmetric Encryption with Authentication method for encryption and decryption. Each user has a private key and a public key. When User 1 wants to send a message to User 2, they use their own private key and User 2\'s public key for encryption…</string>
     <string name="your_public_key_full_description">Your security code is what Nahoft calls your public key. This software uses the well-known library libsodium and the Asymmetric Encryption with Authentication method for encryption and decryption. Each user has a private key and a public key. When User 1 wants to send a message to User 2, they use their own private key and User 2\'s public key for encryption. The generated message has only two possible ways to decrypt:\n• Using User 1\'s private key (the sender) and User 2\'s public key.\n• Using User 2\'s private key (the recipient) and User 1\'s public key.\nTherefore, in order for your friends to send you a message, they must have your public key. If you make your public key publicly available, it will not pose any security issues. You can view your public key from the settings.</string>
 
