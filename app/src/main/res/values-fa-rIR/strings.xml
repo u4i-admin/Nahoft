@@ -139,6 +139,7 @@
     <string name="nickname">نام</string>
 
     <!-- Add / manage friend UI -->
+    <!-- NEEDS_REVIEW: terminology change (contact → friende) -->
     <string name="add_contact">افزودن مخاطب</string>
     <string name="add_new_friend">افزودن دوست جدید</string>
 
@@ -148,7 +149,7 @@
     <string name="edit_contact_name">ویرایش مشخصات دوست</string>
     <string name="edit_contact_name_description">برای ویرایش نام و یا شماره تلفن دوستتان این مراحل را دنبال کنید: \n  با یک بار کلیک بر روی نام دوست خود به صفحه چت بروید. \n  از داخل صفحه‌ی چت دوباره روی نام دوست خود کلیک کنید. \n یک صفحه باز می‌شود که در آنجا می‌توانید نام و شماره تلفن دوست خود را ویرایش کنید.</string>
     <string name="to_import_or_create_a_new_friend_help">برای ایجاد یک دوست جدید، روی این دکمه کلیک کنید.</string>
-    <string name="add_new_friend_description">برای افزودن یک دوست جدید؛ بر روی آیکن به علاوه + بزنید. دو گزینه پدیدار می‌شود: \n گزینه 1، افزودن مخاطب جدید از لیست مخاطبین. \n گزینه 2، ایجاد مخاطب جدید</string>
+    <string name="add_new_friend_description"></string>
     <string name="delete_friend_description">برای حذف یک مخاطب، مراحل زیر را دنبال کنید: \n انگشت خود را روی نام دوست مورد نظر چند ثانیه نگه دارید. \n پس از چند ثانیه، پیامی خواهید دید که از شما می‌پرسد آیا مطمئن هستید که می‌خواهید دوست خود را حذف کنید یا خیر. با انتخاب گزینه "بله" دوست شما حذف می‌شود.</string>
 
     <!-- Friend status labels — shown next to each friend's name in the list -->
@@ -161,32 +162,32 @@
     <!-- Friend status screen body text — shown in the chat area depending on connection state -->
 
     <!-- %s = friend's name -->
-    <string name="default_fragment_text">هنوز هیچ کلید عمومی بین شما و %s رد و بدل نشده است. لطفا برای ارسال کلید عمومی خود، روی دکمه‌ی زیر کلیک کنید.</string>
+    <string name="default_fragment_text"></string>
 
     <!-- %s = friend's name -->
-    <string name="invited_fragment_text">To connect with %s, you need to exchange public keys with each other. \n\n Use the button below to share your public key, then ask %s to share theirs back with you.</string>
+    <string name="invited_fragment_text"></string>
 
     <!-- %1$s = friend's name (they sent their key); second %1$s = friend's name (send your key to them) -->
-    <string name="requested_fragment_text">%1$s has sent you their public key; \n\n to complete the secure connection between you and %1$s you must send your public key to them.</string>
+    <string name="requested_fragment_text"></string>
 
     <!-- Status descriptions used in onboarding help slides -->
     <string name="default_status">وضعیت پیش‌فرض</string>
-    <string name="default_status_description">این وضعیت با یک دایره خاکستری رنگ در کنار اسم دوست شما نمایش داده می‌شود. و به این معنی است که شما دوست خود را به لیست دوستتان اضافه کرده‌اید اما هنوز نه شما کلید عمومی‌تان را برای او فرستاده‌اید و نه او کلید عمومی خود را برای شما فرستاده است.</string>
+    <string name="default_status_description"></string>
     <string name="requested_status">وضعیت در انتظار</string>
-    <string name="requested_status_description">این وضعیت با یک دایره  نارنجی رنگ در کنار اسم دوست شما نمایش داده می‌شود. به این معنی است که دوست شما کلید عمومی خود را برای شما ارسال کرده است و اکنون منتظر شما است تا کلید عمومی خود را برای او ارسال کنید.</string>
+    <string name="requested_status_description"></string>
     <string name="approve_status">وضعیت پذیرش</string>
-    <string name="approve_status_description">این وضعیت با یک دایره آبی رنگ در کنار اسم دوست شما نمایش داده می‌شود. به این معنی است که کلید عمومی بین شما و دوستتان رد و بدل شده است.</string>
+    <string name="approve_status_description"></string>
     <string name="invited_status">وضعیت دعوت شده</string>
-    <string name="invited_status_description">این وضعیت با یک دایره بنفش رنگ در کنار اسم دوست شما نمایش داده می‌شود. به این معنی است که شما کلید عمومی خود را برای دوستتان فرستاده‌اید و منتظر دریافت کلید عمومی او هستید.</string>
+    <string name="invited_status_description"></string>
     <string name="verify_status">وضعیت تایید شده</string>
-    <string name="verify_status_description">این وضعیت با یک آیکن تایید سبز و سفید رنگ کنار نام دوست شما نمایش داده می‌شود. این به این معنی است که یک تبادل کلید عمومی بین شما و دوستتان رخ داده است و شما از طریق یک  روش سوم به صورت امن تأیید کرده‌اید که دوست شما واقعاً کلید عمومی خود را ارسال کرده است و نه فرد دیگری.</string>
-    <string name="verify_status_full_description">این وضعیت با یک آیکن تایید سبز و سفید رنگ کنار نام دوست شما نمایش داده می‌شود. این به این معنی است که یک تبادل کلید عمومی بین شما و دوستتان رخ داده است و شما از طریق یک  روش سوم به صورت امن تأیید کرده‌اید که دوست شما واقعاً کلید عمومی خود را ارسال کرده است و نه فرد دیگری. \n پس از اطمینان حاصل از این موضوع، شما باید به صفحه چت بروید. بر روی نام دوستتان کلیک کرده و گزینه "تایید شده" را انتخاب کنید. با انتخاب این گزینه، وضعیت دوست شما در نهفت از رنگ سبز معمولی (پذیرش) به آیکن تایید سبز و سفید تغییر می‌کند. این وضعیت امن‌ترین حالت ارتباط را در نهفت نمایش می‌دهد.</string>
+    <string name="verify_status_description"></string>
+    <string name="verify_status_full_description"></string>
 
     <!-- Public key display and verification -->
     <!-- %1$s = friend's name -->
-    <string name="label_verify_friend_number">کلید عمومی %1$s</string>
-    <string name="your_code">کلید عمومی شما</string>
-    <string name="friend_s_code">کلید عمومی دوستتان:</string>
+    <string name="label_verify_friend_number"></string>
+    <string name="your_code"></string>
+    <string name="friend_s_code"></string>
 
     <!-- Friend action buttons -->
     <string name="resend_invitation">ارسال دوباره دعوتنامه</string>
@@ -194,7 +195,7 @@
     <string name="import_invitation_button">وارد کردن دعوتنامه</string>
 
     <!-- Friend management alerts -->
-    <string name="alert_text_verified_friends_only">You can only message a contact once keys have been exchanged.</string>
+    <string name="alert_text_verified_friends_only">You can only message a friend once codes have been exchanged.</string>
     <string name="alert_text_friend_already_exists">شما از قبل دوستی با این نام دارید.</string>
     <string name="alert_text_unable_to_update_friend_status"> خطایی رخ داد، وضعیت دوست به‌روزرسانی نشد.</string>
     <string name="alert_text_which_friend_sent_this_message">کدام دوست این پیام را ارسال کرده است؟</string>
@@ -212,28 +213,28 @@
     <string name="send_as_image">ارسال به صورت تصویر</string>
 
     <!-- Title shown on the import dialog when pasting a contact's security code (public key) -->
-    <string name="dialog_title_import_key">Import Contact\'s Security Code</string>
+    <string name="dialog_title_import_key"></string>
 
     <!-- Hint shown in the import dialog's input field when pasting a contact's security code -->
-    <string name="import_dialog_hint_key">Paste your contact\'s security code here</string>
+    <string name="import_dialog_hint_key"></string>
 
     <!-- Title shown on the import dialog when pasting an encrypted message -->
-    <string name="dialog_title_import_message">Import Encrypted Message</string>
+    <string name="dialog_title_import_message"></string>
 
     <!-- Hint shown in the import dialog's input field when pasting an encrypted message -->
-    <string name="import_dialog_hint_message">Paste the encrypted message here</string>
+    <string name="import_dialog_hint_message"></string>
 
     <!-- Label for the Import action button inside the import dialog -->
-    <string name="button_label_import">Import</string>
+    <string name="button_label_import"></string>
 
     <!-- Label for the dialog button that pastes clipboard contents into the input field -->
-    <string name="paste_from_clipboard">Paste</string>
+    <string name="paste_from_clipboard"></string>
 
     <!-- Shown when the user taps Import with an empty input field -->
-    <string name="alert_text_paste_key_before_import">Paste a key or message before tapping Import.</string>
+    <string name="alert_text_paste_key_before_import"></string>
 
     <!-- Shown when the user taps Paste but the clipboard is empty -->
-    <string name="alert_text_clipboard_empty">Your clipboard is empty. Copy a key or message first.</string>
+    <string name="alert_text_clipboard_empty"></string>
 
     <!-- Button accessibility / content descriptions -->
     <string name="import_encrypted_image_messages_using_this_button">از این دکمه برای وارد کردن  دستی پیام تصویری رمزنگاری شده استفاده کنید.</string>
@@ -274,7 +275,9 @@
 
     <!-- About Nahoft -->
     <string name="about_nahoft">درباره نهفت</string>
+    <!-- NEEDS_REVIEW: terminology change (public key → security code) -->
     <string name="about_nahoft_description">نهفت یک پیام‌رسان نیست، بلکه ابزاری برای رمزنگاری است. «نهفت» نرم‌افزار آفلاین برای رمزنگاری پیام‌های متنی در گوشی‌های اندرویدی است.\nرمزنگاری کردن پیام متنی یعنی حتی اگر پیام ارسالی شما در میان راه توسط فرد سومی دیده شود، برای آن شخص سوم قابل خواندن نخواهد بود …</string>
+    <!-- NEEDS_REVIEW: terminology change - The only person that can read your message is the one with whom you exchanged security codes (also called public keys). -->
     <string name="about_nahoft_full_description">نهفت یک پیام‌رسان نیست، بلکه ابزاری برای رمزنگاری است. «نهفت» نرم‌افزار آفلاین برای رمزنگاری پیام‌های متنی در گوشی‌های اندرویدی است.\nرمزنگاری کردن پیام متنی یعنی حتی اگر پیام ارسالی شما در میان راه توسط فرد سومی دیده شود، برای آن شخص سوم قابل خواندن نخواهد بود و تنها شخصی که شما کلید عمومی خود را با او رد و بدل کرده‌اید، می‌تواند پیام مورد نظر را بخواند.\n این نرم‌افزار، آفلاین است، یعنی برای تبدیل پیام‌های متنی به پیام‌های رمزگذاری شده، نیازی به اینترنت آنلاین ندارد و می‌تواند بصورت مستقل و بدون اینترنت جهانی، پیام‌های نوشتاری را رمزنگاری کند.\n«نهفت» تنها پیام‌های متنی را رمزنگاری می‌کند و در حال حاضر امکان رمزنگاری پیام‌های صوتی و تصویری در آن فراهم نیست.\nنهفت می‌تواند پیام‌های متنی را هم بصورت یک متن رمزنگاری کند و هم می‌تواند آن را در داخل یک عکس، که شما انتخاب می‌کنید، پنهان کند. شما می‌توانید پیام متنی یا عکس حاوی پیام را از طریق دیگری که امکان ارسال فایل را فراهم می‌کند (مثلا ایمیل، یا اس‌ام‌اس یا ام‌ام‌اس، یا یک پیام‌رسان که امکان ارسال فایل بدون تغییر را فراهم می‌کند) بفرستید تا طرف مقابل نیز پس از دریافت، متن یا عکس رمزنگاری شده را به نهفت منتقل کند و پیام را بخواند.\n «نهفت»، فعلا در سیستم عامل اندروید و در گوشی‌های موبایلی که از این سیستم عامل استفاده می‌کنند، قابل نصب است.\nنهفت یک پیام‌رسان نیست، بلکه تنها پیام‌های متنی کاربر را رمزنگاری می‌کند و کاربر می‌تواند پیام رمز‌نگاری شده را از طریق یکی از پیام رسان‌های خود (در شبکه‌ای ناامن و حتی با یک پیام‌رسان ناامن) به فرد دیگری ارسال کند که او نیز  از نهفت استفاده می‌کند. آنها باید  قبلا با هم کلیدهای عمومی خود را همرسان و جابجا کرده باشند تا پیام‌ها را بعد از دریافت وارد این نرم‌افزار کنند و متن نهایی را در آنجا بخوانند. نهفت از کلیدهای عمومی که قابل همرسانی با دیگران است، استفاده می‌کند و کلیدی خصوصی می‌سازد که در داخل نرم‌افزار پنهان شده و می‌تواند پیام‌های رد و بدل شده بین دو کاربر را بخواند.\nهدف «نهفت» این است که امکان ارسال پیام امن برای کاربران حتی در پیام‌رسان‌ها و شبکه‌های ناامن فراهم شود. به این معنی که اگر کاربری در شرایط خاص، دسترسی به شبکه امن اینترنت جهانی نداشت، و یا استفاده از پیام‌رسان‌های امن برای او امکان‌پذیر نبود (فرض کنید در شرایط سانسور، فیلترینگ و یا قطع کامل شبکه جهانی اینترنت) و تنها به پیام‌رسان‌های ناامن و یا شبکه‌های ناامن داخلی دسترسی داشت، حتی در اینصورت هم بتواند پیام خود را رمزنگاری کرده و در داخل این شبکه ارسال کند. در این صورت حتی اگر پیام او در میان راه توسط فرد سومی دیده شود، باز هم به علت آنکه رمزنگاری شده است، قابل خواندن نخواهد بود.\nتوجه: با هر بار پاک کردن کامل نرم‌افزار نهفت و نصب دوباره آن و همچنین با هر بار تغییر گوشی شما و در نتیجه نصب دوباره نهفت، کلیدهای عمومی (و نیز کلید خصوصی) تغییر می‌کند. بنابراین هربار که گوشی شما تغییر می‌کند و یا نهفت را پاک کرده و دوباره نصب می‌کنید، باید دوباره با دوستان خود این کلیدها را جابجا کنید.\nمهم: نهفت یک نرم‌افزار  متن باز (اوپن‌سورس) است و همه می‌توانند به کدهای برنامه‌نویسی آن دسترسی داشته باشند.</string>
 
     <!-- Nahoft team, usage, and features -->
@@ -289,10 +292,15 @@
 
     <!-- How-to: sending and receiving encrypted text -->
     <string name="manually_send_text">نحوه ارسال متن رمزگذاری شده</string>
+
+    <!-- NEEDS_REVIEW: terminology change (public key → security code) -->
     <string name="manually_send_text_description">برای ارسال متن رمزنگاری شده، این شرط باید رعایت شود:\nشما قبلا کلیدهای عمومی خود را با دوست مورد نظرتان رد و بدل کرده‌اید.\nبه صفحه‌ی چت دوست مورد نظر خود بروید و در پایین صفحه در بخش "پیام خود را بنویس" مانند هر پیام رسان دیگری پیام را بنویسید…</string>
+    <!-- NEEDS_REVIEW: terminology change (public key → security code) -->
     <string name="manually_send_text_full_description">برای ارسال متن رمزنگاری شده، این شرط باید رعایت شود:\nشما قبلا کلیدهای عمومی خود را با دوست مورد نظرتان رد و بدل کرده‌اید.\nبه صفحه‌ی چت دوست مورد نظر خود بروید و در پایین صفحه در بخش "پیام خود را بنویس" مانند هر پیام رسان دیگری پیام را بنویسید و دکمه ارسال را بزنید. بلافاصله پس از ارسال پیام، یک صفحه بالا می‌آید، متن رمزنگاری شده را کپی کرده و از طریق هر پیام‌رسانی که صلاح می‌دانید برای شخص مورد نظر ارسال کنید.</string>
     <string name="manually_import_text">نحوه دریافت متن رمزگذاری شده</string>
+    <!-- NEEDS_REVIEW: terminology change (public key → security code) -->
     <string name="manually_import_text_description">برای خواندن متن رمزنگاری شده، این شرط باید رعایت شود:\nشما می‌دانید که پیام را چه کسی ارسال کرده و قبلا کلیدهای عمومی خود را رد و بدل کرده‌اید.\nسپس  پیام متنی رمزنگاری شده دریافت شده را کپی کرده و در نهفت به صفحه چت شخصی که پیامش را میخواهید رمزگشایی کنید بروید.…</string>
+    <!-- NEEDS_REVIEW: terminology change (public key → security code) -->
     <string name="manually_import_text_full_description">برای خواندن متن رمزنگاری شده، این شرط باید رعایت شود:\nشما می‌دانید که پیام را چه کسی ارسال کرده و قبلا کلیدهای عمومی خود را رد و بدل کرده‌اید.\nسپس  پیام متنی رمزنگاری شده دریافت شده را کپی کرده و در نهفت به صفحه چت شخصی که پیامش را میخواهید رمزگشایی کنید بروید. سمت راست بالای صفحه روی آیکن سند یا داکیومنت کلیک کنید. یک پنجره باز می‌شود. متن را در آنجا بگذارید. و گزینه‌ی "وارد کردن متن" کلیک کنید. پیام رمگشایی شده در  صفحه‌ی چت قابل خواندن است.</string>
 
     <!-- How-to: sending and receiving encrypted images -->
@@ -309,9 +317,13 @@
 
     <!-- Public key explanations -->
     <string name="friends_public_key">کلید عمومی دوست شما</string>
-    <string name="friends_public_key_description">برای دیدن کلید عمومی دوستتان به صفحه چت  با او در نهفت بروید. در صفحه‌ی چت روی نام دوست خود کلیک کنید. یک صفحه باز می‌شود در این صفحه شما می‌توانید کلید عمومی دوستتان و کلید عمومی خودتان را ببینید. کلید عمومی شما از بخش تنظیمات نهفت هم قابل مشاهده است.</string>
-    <string name="your_public_key">کلید عمومی شما</string>
+    <string name="friends_public_key_description"></string>
+    <string name="your_public_key"></string>
+
+    <!-- NEEDS_REVIEW: terminology changed - Add "Your security code is what Nahoft calls your public key." -->
     <string name="your_public_key_description">نهفت چگونه کار می کند؟\nاین نرم‌افزار از کتابخانه معتبر libsodium استفاده می‌کند و از روش رمزگذاری و رمزگشایی با امضای دوطرفه (Asymmetric Encryption with Authentication) بهره می‌برد. هر کاربر دارای یک کلید خصوصی و یک کلید عمومی است. زمانی که کاربر ۱ می‌خواهد پیامی را به کاربر ۲ ارسال کند، از کلید خصوصی خود و کلید عمومی کاربر ۲ برای رمزگذاری استفاده می‌کند.…</string>
+
+    <!-- NEEDS_REVIEW: terminology changed - Add "Your security code is what Nahoft calls your public key." -->
     <string name="your_public_key_full_description">نهفت چگونه کار می کند؟\nاین نرم‌افزار از کتابخانه معتبر libsodium استفاده می‌کند و از روش رمزگذاری و رمزگشایی با امضای دوطرفه (Asymmetric Encryption with Authentication) بهره می‌برد. هر کاربر دارای یک کلید خصوصی و یک کلید عمومی است. زمانی که کاربر ۱ می‌خواهد پیامی را به کاربر ۲ ارسال کند، از کلید خصوصی خود و کلید عمومی کاربر ۲ برای رمزگذاری استفاده می‌کند. پیام تولید شده فقط دو راه برای رمزگشایی دارد:\nاستفاده از کلید خصوصی کاربر ۱ که پیام را تولید کرده است و کلید عمومی کاربر ۲.\n. استفاده از کلید خصوصی کاربر ۲ که دریافت کننده پیام است و کلید عمومی کاربر ۱.\n. بنابراین، دوستان شما برای ارسال پیام به شما باید کلید عمومی شما را داشته باشند. اگر شما کلید عمومی خود را در دسترس عموم قرار دهید، هیچ مشکل امنیتی ای وجود نخواهد داشت.\nشما می‌توانید کلید عمومی خودتان را از بخش تنظمیات مشاهده کنید.</string>
 
 
