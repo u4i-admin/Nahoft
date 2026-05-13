@@ -59,7 +59,7 @@ class RequestedStatusFragment : Fragment()
         super.onViewCreated(view, savedInstanceState)
 
         binding.friendsName.text = friend?.name
-        binding.textView.text = String.format(getString(R.string.requested_fragment_text), friend?.name)
+        binding.textView.text = getString(R.string.requested_fragment_text, friend?.name)
         binding.inviteButton.setOnClickListener { (activity as FriendInfoActivity?)?.inviteClicked() }
     }
 

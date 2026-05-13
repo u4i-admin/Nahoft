@@ -35,6 +35,7 @@
     <string name="status_icon">آیکن وضعیت</string>
     <string name="user_guide_button_description">این دکمه شما را به راهنمای کاربر هدایت می‌کند.</string>
     <string name="minimize_sheet">Minimize — session keeps running</string>
+    <string name="content_description_share_security_code"></string>
 
     <!-- ════════════════════════════════════════════════════════
          App appearance / identity switcher
@@ -161,7 +162,7 @@
     <!-- Friend status screen body text — shown in the chat area depending on connection state -->
 
     <!-- %s = friend's name -->
-    <string name="default_fragment_text"></string>
+    <string name="default_fragment_text">%s</string>
 
     <!-- %s = friend's name -->
     <string name="invited_fragment_text"></string>

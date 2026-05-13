@@ -78,7 +78,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/btn_bkgd_blue_circle"
-        android:contentDescription="@string/send_encrypted_messages"
+        android:contentDescription="@string/content_description_share_security_code"
         android:elevation="10dp"
         android:padding="15dp"
         android:scaleType="fitCenter"

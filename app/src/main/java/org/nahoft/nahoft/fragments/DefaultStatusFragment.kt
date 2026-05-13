@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import org.nahoft.nahoft.models.Friend
 import org.nahoft.nahoft.R
 import org.nahoft.nahoft.activities.FriendInfoActivity
 import org.nahoft.nahoft.databinding.FragmentDefaultStatusBinding
+import timber.log.Timber
 
 private const val FRIEND = "friend"
 
@@ -59,7 +61,19 @@ class DefaultStatusFragment : Fragment()
         super.onViewCreated(view, savedInstanceState)
 
         binding.friendsName.text = friend?.name
-        binding.textView.text = String.format(getString(R.string.default_fragment_text), friend?.name)
+        binding.textView.text = getString(R.string.default_fragment_text, friend?.name, friend?.name)
+
+        // Diagnostic: log layout state at multiple points to see when invite_button collapses
+        binding.inviteButton.post {
+            Timber.d("inviteButton onViewCreated.post: h=${binding.inviteButton.height} " + "textView_h=${binding.textView.height} " + "parent_h=${(binding.inviteButton.parent as View).height}")
+        }
+
+        view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                Timber.d("inviteButton onGlobalLayout: h=${binding.inviteButton.height} " + "textView_h=${binding.textView.height} " + "parent_h=${(binding.inviteButton.parent as View).height}")
+            }
+        })
+
         binding.inviteButton.setOnClickListener {
             binding.keyImageview.isVisible = true
             binding.keyImageview.animate().apply {

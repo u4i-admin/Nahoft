@@ -33,7 +33,8 @@
     <string name="return_button">Return Button</string>
     <string name="status_icon">Status Icon</string>
     <string name="user_guide_button_description">This button will take you to the user guides.</string>
-    <string name="minimize_sheet">Minimize — session keeps running</string>
+    <string name="minimize_sheet">Minimize - session keeps running</string>
+    <string name="content_description_share_security_code">Share your security code</string>
 
     <!-- ════════════════════════════════════════════════════════
          App appearance / identity switcher
@@ -64,7 +65,7 @@
     <!-- Subtitle listing available authentication methods for the system prompt -->
     <string name="biometrics_pin_password_pattern">(Biometrics, PIN, Password, Pattern)</string>
     <!-- Explains two-step login behavior once a passcode has been set -->
-    <string name="two_step_login_description">When you set a passcode for Nahoft, the app automatically enables two-step login. The first step asks for the passcode you set above. The second step asks for your phone\'s lock — your fingerprint, face, PIN, password, or pattern.</string>
+    <string name="two_step_login_description">When you set a passcode for Nahoft, the app automatically enables two-step login. The first step asks for the passcode you set above. The second step asks for your phone\'s lock - your fingerprint, face, PIN, password, or pattern.</string>
 
     <!-- Failed login attempt alerts — shown progressively as attempt count increases -->
     <string name="alert_text_zero_to_five_login_attempts">The passcode entered is incorrect. Please try again.</string>
@@ -117,7 +118,7 @@
 
     <!-- Help text shown in the Settings section of the onboarding slides -->
     <string name="passcode_description">By activating the "Passcode" option, you can define a six-digit passcode that you will need every time you log in to Nahoft. By activating the passcode feature, the "Logout" option will be activated at the bottom of the main screen.</string>
-    <string name="destruction_code_description">By enabling the "Destruction code" option, you define a six-digit code that will erase all information stored inside the app — including messages and your friend list. \nUse this code in emergencies to prevent unwanted access to your information.</string>
+    <string name="destruction_code_description">By enabling the "Destruction code" option, you define a six-digit code that will erase all information stored inside the app, including messages and your friend list. \nUse this code in emergencies to prevent unwanted access to your information.</string>
     <string name="logout_description">The Logout option only appears if you have set a passcode. Tap it to immediately log out of Nahoft. If you don\'t use Logout, Nahoft will lock itself after a few minutes of inactivity and require your passcode to unlock.</string>
 
     <!-- ════════════════════════════════════════════════════════
@@ -146,7 +147,7 @@
     <string name="edit_contact_name">Edit friend name</string>
     <string name="edit_contact_name_description">To edit the name or phone number of your friend, follow these steps: \n Click once on the name of your friend to go to the chat page. \n Once inside the chat page, click again on the name of your friend. \n A new page will open where you can edit the name and phone number of your friend.</string>
     <string name="to_import_or_create_a_new_friend_help">Click this button to create a new friend.</string>
-    <string name="add_new_friend_description">To add a new friend; Click on the plus +  icon on home page.</string>
+    <string name="add_new_friend_description">To add a new friend, tap the plus (+) icon on the home page.</string>
     <string name="delete_friend_description">To delete a friend, follow these steps: \n Hold your finger on the name of the desired friend for a few seconds. \n After a few seconds, you will see a message asking if you are sure you want to delete your friend. By selecting the "Yes" option, your friend will be deleted.</string>
 
     <!-- Friend status labels — shown next to each friend's name in the list -->
@@ -161,11 +162,11 @@
 
     <!-- Friend status screen body text — shown in the chat area depending on connection state -->
     <!-- %s = friend's name -->
-    <string name="default_fragment_text">No security code has been exchanged between you and %s yet. \n\n Tap the button below to get started.</string>
+    <string name="default_fragment_text">%s needs your security code to exchange encrypted messages with you.\n\nNahoft is offline, so nothing is sent automatically. Tap the button below to share your security code with %s using any messaging app, then ask them to send theirs back to you.</string>
     <!-- %s = friend's name -->
-    <string name="invited_fragment_text">To connect with %s, you need to exchange security codes with each other. \n\n Use the button below to share your code, then ask %s to share theirs back with you.</string>
-    <!-- First %s = friend's name (they sent their key); second %s = friend's name (send your key to them) -->
-    <string name="requested_fragment_text">%1$s has sent you their security code; \n\n to complete the secure connection between you and %1$s send them your code.</string>
+    <string name="invited_fragment_text">To exchange encrypted messages with %s, you need their security code.\n\nWhen %s sends you their security code you can share it directly to Nahoft from your messaging app, or you can tap the button below to paste it from your clipboard.\n\n Tap the share button above if you need to share your code again.</string>
+    <!--  %s = friend's name-->
+    <string name="requested_fragment_text">To exchange encrypted messages with %s, they need your security code.\n\nTap the button below to share your security code with them using any messaging app.</string>
 
     <!-- Status descriptions used in onboarding help slides -->
     <string name="default_status">Default status</string>
@@ -299,10 +300,10 @@
     <!-- How-to: sending and receiving encrypted images -->
     <string name="share_image_title">How to send encrypted images</string>
     <string name="share_image_description">To send an encrypted photo manually, two conditions must be met:\nFirst: you know who you\'re sending the photo to and have previously exchanged security codes…</string>
-    <string name="share_image_full_description">To send an encrypted photo manually, two conditions must be met:\nFirst: you know who you\'re sending the photo to and have previously exchanged security codes.\nSecond: you send the photo as a file, not from your gallery. For example, Telegram compresses gallery photos, which makes them impossible to decrypt — but Telegram sends files unchanged, so they can still be decrypted.\n\nWith both conditions met, go to the chat page of the friend you want to message. Tap the camera icon at the bottom left of the page. Two new icons will appear:\n• The download icon hides your message in a photo and saves it to your device, so you can send it later.\n• The share icon hides your message in a photo and immediately opens the share sheet to send it through another app.</string>
+    <string name="share_image_full_description">To send an encrypted photo manually, two conditions must be met:\nFirst: you know who you\'re sending the photo to and have previously exchanged security codes.\nSecond: you send the photo as a file, not from your gallery. For example, Telegram compresses gallery photos, which makes them impossible to decrypt, but Telegram sends files unchanged, so they can still be decrypted.\n\nWith both conditions met, go to the chat page of the friend you want to message. Tap the camera icon at the bottom left of the page. Two new icons will appear:\n• The download icon hides your message in a photo and saves it to your device, so you can send it later.\n• The share icon hides your message in a photo and immediately opens the share sheet to send it through another app.</string>
     <string name="import_image_title">How to receive encrypted images</string>
     <string name="import_image_description">To decrypt an encrypted photo manually, two conditions must be met:\nFirst: you know who sent the photo and have previously exchanged security codes…</string>
-    <string name="import_image_full_description">To decrypt an encrypted photo manually, two conditions must be met:\nFirst: you know who sent the photo and have previously exchanged security codes.\nSecond: the photo was sent to you as a file and saved to your device as a file. Photos that were compressed in transit (for example, photos sent through Telegram\'s normal photo upload) cannot be decrypted.\n\nWith both conditions met, go to the chat page of the friend who sent the photo. Tap the image icon in the top right corner. A picker will open — choose the photo from your device, and the decrypted message will appear in the chat.</string>
+    <string name="import_image_full_description">To decrypt an encrypted photo manually, two conditions must be met:\nFirst: you know who sent the photo and have previously exchanged security codes.\nSecond: the photo was sent to you as a file and saved to your device as a file. Photos that were compressed in transit (for example, photos sent through Telegram\'s normal photo upload) cannot be decrypted.\n\nWith both conditions met, go to the chat page of the friend who sent the photo. Tap the image icon in the top right corner. A picker will open - choose the photo from your device, and the decrypted message will appear in the chat.</string>
 
     <!-- How-to: sharing via the Android share sheet -->
     <string name="import_share_title">Importing to Nahoft through the share option</string>
@@ -446,9 +447,9 @@
          ════════════════════════════════════════════════════════ -->
 
     <!-- These three strings describe the current USB audio input level -->
-    <string name="audio_signal_too_weak">Signal too weak — check radio gain</string>
+    <string name="audio_signal_too_weak">Signal too weak - check radio gain</string>
     <string name="audio_signal_good">Good signal</string>
-    <string name="audio_signal_clipping">Clipping — reduce gain</string>
+    <string name="audio_signal_clipping">Clipping - reduce gain</string>
 
 
     <!-- ════════════════════════════════════════════════════════
@@ -464,7 +465,7 @@
     <!-- One of the three strings below is shown in the timeout dialog depending on session results -->
     <!-- %d = number of messages successfully decrypted before timeout -->
     <string name="timeout_with_messages">Successfully received %d message(s) before timeout.</string>
-    <!-- %d = number of WSPR spots received (partial data — not enough to decrypt a message) -->
+    <!-- %d = number of WSPR spots received (partial data, not enough to decrypt a message) -->
     <string name="timeout_with_packets">Received %d signal(s) but no complete messages.</string>
     <string name="timeout_no_signals">No signals were received during this session.</string>
 

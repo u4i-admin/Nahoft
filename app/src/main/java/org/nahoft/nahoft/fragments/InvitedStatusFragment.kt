@@ -59,7 +59,7 @@ class InvitedStatusFragment : Fragment()
         super.onViewCreated(view, savedInstanceState)
 
         binding.friendsName.text = friend?.name
-        binding.textView.text = String.format(getString(R.string.invited_fragment_text), friend?.name, friend?.name)
+        binding.textView.text = getString(R.string.invited_fragment_text, friend?.name, friend?.name)
         binding.importInvitationButton.setOnClickListener { (activity as FriendInfoActivity?)?.importInvitationClicked(FriendInfoActivity.ImportPurpose.IMPORT_KEY) }
     }
 
