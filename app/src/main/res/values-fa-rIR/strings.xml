@@ -359,6 +359,9 @@
          ════════════════════════════════════════════════════════ -->
 
     <string name="receive_via_radio">Receive via Radio</string>
+    <string name="microphone_permission_required_title"></string>
+    <string name="alert_microphone_permission_required"></string>
+    <string name="open_settings"></string>
 
     <!-- Label for the RX frequency input field; value entered in kHz -->
     <string name="rx_frequency_title_khz">RX Frequency in kHz</string>

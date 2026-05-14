@@ -359,6 +359,9 @@
          ════════════════════════════════════════════════════════ -->
 
     <string name="receive_via_radio">Receive via Radio</string>
+    <string name="microphone_permission_required_title">Microphone Permission Required</string>
+    <string name="alert_microphone_permission_required">Nahoft needs microphone permission to listen for messages over radio. Tap the button below to open settings and grant microphone permission.</string>
+    <string name="open_settings">Open settings</string>
     <!-- Label for the RX frequency input field; value entered in kHz -->
     <string name="rx_frequency_title_khz">RX Frequency in kHz</string>
     <string name="audio_level">Radio Audio Level</string>

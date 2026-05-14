@@ -10,6 +10,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.provider.Settings
 import android.text.Layout
 import android.text.SpannableString
 import android.text.style.AlignmentSpan
@@ -18,7 +19,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -38,6 +38,7 @@ import kotlinx.coroutines.*
 import org.libsodium.jni.keys.PublicKey
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 import org.nahoft.codex.Codex
 import org.nahoft.codex.Encryption
@@ -79,16 +80,26 @@ class FriendInfoActivity: AppCompatActivity()
     private var isShareImageButtonShow: Boolean = false
     private var indicatorAnimator: ObjectAnimator? = null
 
-    // Audio permission launcher (for USB audio recording)
+    // True when the user has tapped "receive via radio" and we're waiting for the
+    // system permission dialog. The launcher callback uses this to decide whether
+    // to continue the receive flow on grant.
+    private var pendingReceiveRequest = false
+
     private val audioPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
-    )
-    { isGranted ->
+    ) { isGranted ->
+        val wasPendingRequest = pendingReceiveRequest
+        pendingReceiveRequest = false
 
-        if (!isGranted)
+        if (isGranted)
+        {
+            Timber.d("RECORD_AUDIO permission granted")
+            if (wasPendingRequest) receiveViaRadioClicked()
+        }
+        else
         {
             Timber.w("RECORD_AUDIO permission denied")
-            Toast.makeText(this, "Microphone permission is required for USB audio", Toast.LENGTH_LONG).show()
+            if (wasPendingRequest) showMicrophonePermissionDeniedDialog()
         }
     }
 
@@ -176,14 +187,9 @@ class FriendInfoActivity: AppCompatActivity()
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
 
-            Timber.d("Insets - top: ${systemBars.top}, bottom: ${systemBars.bottom}, ime: ${ime.bottom}")
-            Timber.d("Header padding before: ${binding.headerSection.paddingTop}")
-
             binding.headerSection.updatePadding(top = systemBars.top)
-
-            Timber.d("Header padding after: ${binding.headerSection.paddingTop}")
-
             view.updatePadding(bottom = maxOf(systemBars.bottom, ime.bottom))
+
             insets
         }
 
@@ -270,13 +276,6 @@ class FriendInfoActivity: AppCompatActivity()
 
         // Start audio device discovery (doesn't require permission)
         viewModel.startAudioDeviceDiscovery()
-
-        // Request RECORD_AUDIO permission if needed (service will need it for recording)
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
-            != PackageManager.PERMISSION_GRANTED)
-        {
-            audioPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-        }
     }
 
     override fun onResume()
@@ -468,6 +467,15 @@ class FriendInfoActivity: AppCompatActivity()
             return
         }
 
+        // RECORD_AUDIO is required by the foreground service when it starts.
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+            != PackageManager.PERMISSION_GRANTED)
+        {
+            pendingReceiveRequest = true
+            audioPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+            return
+        }
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
             != PackageManager.PERMISSION_GRANTED)
         {
@@ -560,6 +568,29 @@ class FriendInfoActivity: AppCompatActivity()
         }
 
         builder.create().show()
+    }
+
+    private fun showMicrophonePermissionDeniedDialog()
+    {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.microphone_permission_required_title))
+            .setMessage(getString(R.string.alert_microphone_permission_required))
+            .setPositiveButton(getString(R.string.open_settings)) { _, _ ->
+                openAppSettings()
+            }
+            .setNegativeButton(getString(R.string.button_label_cancel)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun openAppSettings()
+    {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = Uri.fromParts("package", packageName, null)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        startActivity(intent)
     }
 
     private fun showSessionTimeoutDialog(spotsReceived: Int, messagesDecrypted: Int)

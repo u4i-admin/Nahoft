@@ -63,17 +63,6 @@ class DefaultStatusFragment : Fragment()
         binding.friendsName.text = friend?.name
         binding.textView.text = getString(R.string.default_fragment_text, friend?.name, friend?.name)
 
-        // Diagnostic: log layout state at multiple points to see when invite_button collapses
-        binding.inviteButton.post {
-            Timber.d("inviteButton onViewCreated.post: h=${binding.inviteButton.height} " + "textView_h=${binding.textView.height} " + "parent_h=${(binding.inviteButton.parent as View).height}")
-        }
-
-        view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                Timber.d("inviteButton onGlobalLayout: h=${binding.inviteButton.height} " + "textView_h=${binding.textView.height} " + "parent_h=${(binding.inviteButton.parent as View).height}")
-            }
-        })
-
         binding.inviteButton.setOnClickListener {
             binding.keyImageview.isVisible = true
             binding.keyImageview.animate().apply {
