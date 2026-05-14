@@ -702,8 +702,7 @@ class FriendInfoActivity: AppCompatActivity()
         }
 
         binding.sendViaRadio.setOnClickListener {
-            if (viewModel.isWsprSessionActive() || viewModel.isMfskSessionActive())
-            {
+            if (viewModel.isWsprSessionActive() || viewModel.isMfskSessionActive()) {
                 showAlert(getString(R.string.alert_transmit_blocked_by_receive))
                 return@setOnClickListener
             }
@@ -724,6 +723,10 @@ class FriendInfoActivity: AppCompatActivity()
                 showAlert(getString(R.string.alert_text_verified_friends_only))
                 return@setOnClickListener
             }
+
+            // Claim the serial device if available but not yet claimed.
+            // No-op if already claimed; triggers USB permission flow if not.
+            viewModel.claimSerialDevice()
 
             showRadioModeSelector(RadioModeBottomSheetFragment.Purpose.TX)
         }

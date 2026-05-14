@@ -72,6 +72,7 @@ class Nahoft: Application(), LifecycleObserver
                         Timber.d("Eden instance created")
                     }
                     is SerialConnectionFactory.ConnectionState.Disconnected,
+                    is SerialConnectionFactory.ConnectionState.DeviceAvailable,
                     is SerialConnectionFactory.ConnectionState.Error -> {
                         eden.value?.close()
                         eden.value = null

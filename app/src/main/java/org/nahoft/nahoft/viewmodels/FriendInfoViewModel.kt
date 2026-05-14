@@ -30,9 +30,10 @@ import org.operatorfoundation.audiocoder.wspr.models.WSPRCycleInformation
 import org.operatorfoundation.audiocoder.wspr.models.WSPRStationState
 import org.operatorfoundation.signalbridge.UsbAudioDeviceMonitor
 import org.operatorfoundation.signalbridge.models.AudioLevelInfo
+import org.operatorfoundation.transmission.SerialConnectionFactory
 import timber.log.Timber
 
-class FriendInfoViewModel(application: Application) : AndroidViewModel(application)
+class   FriendInfoViewModel(application: Application) : AndroidViewModel(application)
 {
     private val timingCoordinator = WSPRTimingCoordinator()
 
@@ -180,6 +181,28 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     // ==================== Serial Connection ====================
+
+    private val nahoftApp = getApplication<Nahoft>()
+
+    /** True when a serial device is plugged in, whether or not it's been claimed. */
+    val isSerialDeviceAvailable: StateFlow<Boolean> = nahoftApp.serialDeviceMonitor.connectionState
+        .map { state ->
+            state is SerialConnectionFactory.ConnectionState.Connected ||
+                    state is SerialConnectionFactory.ConnectionState.DeviceAvailable ||
+                    state is SerialConnectionFactory.ConnectionState.RequestingPermission ||
+                    state is SerialConnectionFactory.ConnectionState.Connecting
+        }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
+    /**
+     * Claims the available serial device. Call this only when the user has
+     * explicitly opted into a feature that requires serial (transmit via radio,
+     * or receive on Eden hardware).
+     */
+    fun claimSerialDevice()
+    {
+        nahoftApp.serialDeviceMonitor.claim()
+    }
 
     private val appEden: StateFlow<Eden?> = (getApplication<Nahoft>()).eden
 
@@ -489,14 +512,10 @@ class FriendInfoViewModel(application: Application) : AndroidViewModel(applicati
 
     // ==================== Derived State ====================
 
-    /**
-     * Whether the send via serial (radio) button should be visible.
-     * True when Eden is connected AND friend is Verified or Approved.
-     */
-    val canSendViaSerial: Flow<Boolean> = combine(appEden, _friend) { edenInstance, friend ->
+    val canSendViaSerial: Flow<Boolean> = combine(isSerialDeviceAvailable, _friend) { available, friend ->
         val hasValidStatus =
             friend?.status == FriendStatus.Verified || friend?.status == FriendStatus.Approved
-        edenInstance != null && hasValidStatus
+        available && hasValidStatus
     }
 
     /**
