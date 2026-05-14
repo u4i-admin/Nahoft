@@ -30,6 +30,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import androidx.core.view.updatePadding
@@ -873,17 +874,29 @@ class FriendInfoActivity: AppCompatActivity()
         Persist.saveBooleanKey(Persist.sharedPrefImageSaveConsentShownKey, true)
     }
 
-    private fun showHideShareImageButtons()
-    {
+    private fun showHideShareImageButtons() {
+        val revealing = !isShareImageButtonShow
+
+        if (revealing) {
+            binding.shareAsImage.isVisible = true
+            binding.saveAsImage.isVisible = true
+        }
+
         binding.shareAsImage.animate().apply {
             duration = 500
             translationY(if (isShareImageButtonShow) 0F else -175F)
             translationX(if (isShareImageButtonShow) 0F else 150F)
+        }.withEndAction {
+            if (!revealing) binding.shareAsImage.isInvisible = true
         }
+
         binding.saveAsImage.animate().apply {
             duration = 500
             translationY(if (isShareImageButtonShow) 0F else -175F)
+        }.withEndAction {
+            if (!revealing) binding.saveAsImage.isInvisible = true
         }
+
         isShareImageButtonShow = !isShareImageButtonShow
     }
 
@@ -936,7 +949,7 @@ class FriendInfoActivity: AppCompatActivity()
                 binding.btnImportImage.isVisible = false
                 binding.btnImportText.isVisible = false
                 binding.btnResendInvite.isVisible = false
-                binding.sendMessageContainer.isVisible = false
+                binding.compositionArea.isVisible = false
             }
 
             FriendStatus.Requested -> {
@@ -946,7 +959,7 @@ class FriendInfoActivity: AppCompatActivity()
                 binding.btnImportImage.isVisible = false
                 binding.btnImportText.isVisible = false
                 binding.btnResendInvite.isVisible = false
-                binding.sendMessageContainer.isVisible = false
+                binding.compositionArea.isVisible = false
             }
 
             FriendStatus.Invited -> {
@@ -956,7 +969,7 @@ class FriendInfoActivity: AppCompatActivity()
                 binding.btnImportImage.isVisible = false
                 binding.btnImportText.isVisible = false
                 binding.btnResendInvite.isVisible = true
-                binding.sendMessageContainer.isVisible = false
+                binding.compositionArea.isVisible = false
             }
 
             FriendStatus.Verified -> {
@@ -966,7 +979,7 @@ class FriendInfoActivity: AppCompatActivity()
                 binding.btnImportImage.isVisible = true
                 binding.btnImportText.isVisible = true
                 binding.btnResendInvite.isVisible = false
-                binding.sendMessageContainer.isVisible = true
+                binding.compositionArea.isVisible = true
                 binding.verifiedStatusIconImageView.isVisible = true
             }
 
@@ -977,7 +990,7 @@ class FriendInfoActivity: AppCompatActivity()
                 binding.btnImportImage.isVisible = true
                 binding.btnImportText.isVisible = true
                 binding.btnResendInvite.isVisible = false
-                binding.sendMessageContainer.isVisible = true
+                binding.compositionArea.isVisible = true
             }
         }
     }

@@ -4,6 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
@@ -155,158 +157,178 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_alignBottom="@+id/header_section"
-        app:layout_constraintBottom_toTopOf="@id/byte_counter_container"
+        app:layout_constraintBottom_toTopOf="@id/composition_area"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header_section" />
 
-    <ImageButton
-        android:id="@+id/share_as_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/transparent_overlay_send_message"
-        android:contentDescription="@string/send_as_image"
-        android:padding="10dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_nahoft_icons_share_image"
-        app:layout_constraintStart_toStartOf="@+id/send_message_container"
-        app:layout_constraintTop_toTopOf="@+id/send_message_container" />
-
-    <ImageButton
-        android:id="@+id/save_as_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/transparent_overlay_send_message"
-        android:contentDescription="@string/send_as_image"
-        android:padding="10dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_nahoft_icons_save"
-        app:layout_constraintStart_toStartOf="@+id/send_message_container"
-        app:layout_constraintTop_toTopOf="@+id/send_message_container" />
-
-    <LinearLayout
-        android:id="@+id/serial_status_container"
+    <!-- Composition area -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/composition_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/btn_bkgd_light_grey_outline_8"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/byte_counter_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/serial_status_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Serial Device"
-            android:textColor="@color/white"
-            android:layout_gravity="center_vertical" />
-
-    </LinearLayout>
-
-    <!-- Byte counter row: end-aligned above the message bar.
-     Radio counter and separator are gone when Eden is not connected. -->
-    <LinearLayout
-        android:id="@+id/byte_counter_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/activity_margin"
-        android:layout_marginBottom="@dimen/activity_half_margin"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/send_message_container">
-
-        <!-- Visible only when Eden hardware is connected -->
-        <TextView
-            android:id="@+id/tv_radio_byte_counter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/byte_counter_text_size"
-            android:textColor="@color/coolGrey"
-            android:visibility="gone"
-            tools:text="radio: 87 / 130" />
-
-        <!-- Separator — visibility always matches tv_radio_byte_counter -->
-        <TextView
-            android:id="@+id/tv_byte_counter_separator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" · "
-            android:textSize="@dimen/byte_counter_seperator_size"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:visibility="gone" />
-
-        <!-- Always visible while on this screen -->
-        <TextView
-            android:id="@+id/tv_message_byte_counter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/byte_counter_text_size"
-            android:textColor="@color/coolGrey"
-            tools:text="text: 0 / 5000" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/send_message_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/transparent_overlay_send_message"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
-            android:id="@+id/send_as_image"
+        <LinearLayout
+            android:id="@+id/serial_status_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/btn_bkgd_light_grey_outline_8"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/byte_counter_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/serial_status_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Serial Device"
+                android:textColor="@color/white"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+
+        <!-- Byte counter row: end-aligned above the message bar.
+             Radio counter and separator are gone when Eden is not connected. -->
+        <LinearLayout
+            android:id="@+id/byte_counter_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:layout_marginBottom="@dimen/activity_half_margin"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/send_message_container">
+
+            <!-- Visible only when Eden hardware is connected -->
+            <TextView
+                android:id="@+id/tv_radio_byte_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/byte_counter_text_size"
+                android:textColor="@color/coolGrey"
+                android:visibility="gone"
+                tools:text="radio: 87 / 130" />
+
+            <!-- Separator — visibility always matches tv_radio_byte_counter -->
+            <TextView
+                android:id="@+id/tv_byte_counter_separator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" · "
+                android:textSize="@dimen/byte_counter_seperator_size"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <!-- Always visible while composition area is showing -->
+            <TextView
+                android:id="@+id/tv_message_byte_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/byte_counter_text_size"
+                android:textColor="@color/coolGrey"
+                tools:text="text: 0 / 5000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/send_message_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/transparent_overlay_send_message"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageButton
+                android:id="@+id/send_as_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/transparent_overlay_send_message"
+                android:contentDescription="@string/send_as_image"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="20dp"
+                android:src="@drawable/ic_nahoft_icons_camera" />
+
+            <EditText
+                android:id="@+id/message_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/transparent_overlay_send_message"
+                android:hint="@string/type_your_message" />
+
+            <ImageButton
+                android:id="@+id/sendViaRadio"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/btn_bkgd_send_message_stateful"
+                android:contentDescription="@string/send_via_radio"
+                android:padding="18dp"
+                android:src="@drawable/ic_nahoft_radio_transmit"
+                android:visibility="gone"
+                android:layout_marginStart="8dp"
+                app:tint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/send_as_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/btn_bkgd_send_message_stateful"
+                android:contentDescription="@string/send_message"
+                android:padding="18dp"
+                android:src="@drawable/ic_nahoft_icons_send_message" />
+
+        </LinearLayout>
+
+        <!-- Image-share buttons: visually overlay the camera icon position in
+             send_message_container, animate out diagonally when revealed.
+             Sit at the end of the composition_area so they draw on top of
+             send_message_container in z-order. -->
+        <ImageButton
+            android:id="@+id/share_as_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@drawable/transparent_overlay_send_message"
             android:contentDescription="@string/send_as_image"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="20dp"
-            android:src="@drawable/ic_nahoft_icons_camera" />
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_nahoft_icons_share_image"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/send_message_container"
+            app:layout_constraintTop_toTopOf="@+id/send_message_container" />
 
-        <EditText
-            android:id="@+id/message_edit_text"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+        <ImageButton
+            android:id="@+id/save_as_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@drawable/transparent_overlay_send_message"
-            android:hint="@string/type_your_message" />
+            android:contentDescription="@string/send_as_image"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_nahoft_icons_save"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/send_message_container"
+            app:layout_constraintTop_toTopOf="@+id/send_message_container" />
 
-        <ImageButton
-            android:id="@+id/sendViaRadio"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/btn_bkgd_send_message_stateful"
-            android:contentDescription="@string/send_via_radio"
-            android:padding="18dp"
-            android:src="@drawable/ic_nahoft_radio_transmit"
-            android:visibility="gone"
-            android:layout_marginStart="8dp"
-            app:tint="@color/white" />
-
-        <ImageButton
-            android:id="@+id/send_as_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/btn_bkgd_send_message_stateful"
-            android:contentDescription="@string/send_message"
-            android:padding="18dp"
-            android:src="@drawable/ic_nahoft_icons_send_message" />
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
         android:id="@+id/imageImportProgressBar"
