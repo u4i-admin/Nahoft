@@ -1388,7 +1388,15 @@ class FriendInfoActivity: AppCompatActivity()
         }
     }
 
-    private fun updateKeyAndStatus(keyData: ByteArray) {
+    private fun updateKeyAndStatus(keyData: ByteArray)
+    {
+        // Reject if the user is trying to add their own public key as a contact's key.
+        if (isOwnPublicKey(keyData))
+        {
+            showOwnKeyRejectedDialog()
+            return
+        }
+
         when (thisFriend.status)
         {
             FriendStatus.Default ->
@@ -1399,7 +1407,9 @@ class FriendInfoActivity: AppCompatActivity()
                     newStatus = FriendStatus.Requested,
                     encodedPublicKey = keyData
                 )
+
                 thisFriend.status = FriendStatus.Requested
+                thisFriend.publicKeyEncoded = keyData
                 setupViewByStatus()
             }
             FriendStatus.Invited ->
@@ -1410,6 +1420,7 @@ class FriendInfoActivity: AppCompatActivity()
                     newStatus = FriendStatus.Approved,
                     encodedPublicKey = keyData
                 )
+
                 thisFriend.status = FriendStatus.Approved
                 thisFriend.publicKeyEncoded = keyData
                 setupViewByStatus()
@@ -1419,7 +1430,27 @@ class FriendInfoActivity: AppCompatActivity()
         }
     }
 
-    fun approveVerifyFriend() {
+    /**
+     * Returns true if [keyData] matches the user's own public key.
+     * Used to prevent users from adding their own key as a contact's key.
+     */
+    private fun isOwnPublicKey(keyData: ByteArray): Boolean
+    {
+        val ownKey = Encryption().ensureKeysExist().toBytes()
+        return keyData.contentEquals(ownKey)
+    }
+
+    private fun showOwnKeyRejectedDialog()
+    {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.own_key_rejected_title))
+            .setMessage(getString(R.string.own_key_rejected_message))
+            .setPositiveButton(getString(R.string.ok)) { dialog, _ -> dialog.dismiss() }
+            .show()
+    }
+
+    fun approveVerifyFriend()
+    {
         Persist.updateFriend(this, thisFriend, newStatus = FriendStatus.Verified,
             encodedPublicKey = thisFriend.publicKeyEncoded)
         thisFriend.status = FriendStatus.Verified

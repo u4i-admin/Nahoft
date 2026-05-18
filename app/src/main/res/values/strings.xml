@@ -187,6 +187,14 @@
     <string name="your_code">Your Code:</string>
     <string name="friend_s_code">Friend\'s Code:</string>
 
+    <!-- Title for the dialog shown when the user tries to import their own public key
+     as a contact's key -->
+    <string name="own_key_rejected_title">That\'s Your Own Code</string>
+
+    <!-- Body of the own-key-rejected dialog. Explains why the import was blocked
+         without using jargon. -->
+    <string name="own_key_rejected_message">The security code you imported belongs to you, not to your contact. You\'ll need their Nahoft security code.</string>
+
     <!-- Friend action buttons -->
     <string name="resend_invitation">Resend invitation</string>
     <string name="decline_button">Decline</string>
