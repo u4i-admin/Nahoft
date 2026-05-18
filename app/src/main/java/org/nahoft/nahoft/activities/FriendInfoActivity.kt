@@ -736,6 +736,9 @@ class FriendInfoActivity: AppCompatActivity()
         }
 
         binding.saveAsImage.setOnClickListener {
+
+            Timber.d("saveAsImage tapped")
+
             // Show consent dialog before proceeding with image save
             if (hasImageSaveConsentBeenShown())
             {
@@ -751,6 +754,7 @@ class FriendInfoActivity: AppCompatActivity()
         }
 
         binding.shareAsImage.setOnClickListener {
+            Timber.d("shareAsImage tapped")
             trySendingOrSavingMessage(isImage = true, saveImage = false)
         }
 
@@ -908,7 +912,8 @@ class FriendInfoActivity: AppCompatActivity()
         Persist.saveBooleanKey(Persist.sharedPrefImageSaveConsentShownKey, true)
     }
 
-    private fun showHideShareImageButtons() {
+    private fun showHideShareImageButtons()
+    {
         val revealing = !isShareImageButtonShow
 
         if (revealing) {
@@ -918,15 +923,14 @@ class FriendInfoActivity: AppCompatActivity()
 
         binding.shareAsImage.animate().apply {
             duration = 500
-            translationY(if (isShareImageButtonShow) 0F else -175F)
-            translationX(if (isShareImageButtonShow) 0F else 150F)
+            translationY(if (revealing) 0F else 175F)
         }.withEndAction {
             if (!revealing) binding.shareAsImage.isInvisible = true
         }
 
         binding.saveAsImage.animate().apply {
             duration = 500
-            translationY(if (isShareImageButtonShow) 0F else -175F)
+            translationY(if (revealing) 0F else 175F)
         }.withEndAction {
             if (!revealing) binding.saveAsImage.isInvisible = true
         }

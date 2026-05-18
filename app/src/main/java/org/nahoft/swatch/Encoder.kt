@@ -134,41 +134,43 @@ class Encoder
         return cover
     }
 
-    fun scale(bitmap: Bitmap, bits: Int): Bitmap {
-        var p = bits * 2 * Swatch.minimumPatchSize
-        val size = bitmap.height * bitmap.width
-        if (size == p) {
-            return bitmap
-        } else {
-            val originalSize = ImageSize(
-                bitmap.height.toDouble(),
-                bitmap.width.toDouble(),
-                32.0 //ARGB_8888 8 bits for each in ARGB added together
-            )
+    /**
+     * Returns a bitmap sized appropriately for encoding `bits` bits of payload.
+     */
+    fun scale(bitmap: Bitmap, bits: Int): Bitmap
+    {
+        var targetPixels = bits * 2 * Swatch.minimumPatchSize
+        val currentPixels = bitmap.height * bitmap.width
 
-            var scaledSize = resizePreservingAspectRatio(originalSize, p)
-            var newHeight = scaledSize.height.roundToInt()
-            var newWidth = scaledSize.width.roundToInt()
-            var newNumPixels = newHeight * newWidth
-            var newBits = newNumPixels / (Swatch.minimumPatchSize * 2)
-            while (newBits < bits) {
-                print("Error in scaling algorithm.")
-                p += 1
-                scaledSize = resizePreservingAspectRatio(originalSize, p)
-                newHeight = scaledSize.height.roundToInt()
-                newWidth = scaledSize.width.roundToInt()
-                newNumPixels = newHeight * newWidth
-                newBits = newNumPixels / (Swatch.minimumPatchSize * 2)
-            }
-            val newBitmap = Bitmap.createScaledBitmap(
-                bitmap,
-                newHeight,
-                newWidth,
-                true
-            )
+        if (currentPixels == targetPixels) { return bitmap }
 
-            return newBitmap
+        val originalSize = ImageSize(
+            bitmap.height.toDouble(),
+            bitmap.width.toDouble(),
+            32.0  // ARGB_8888
+        )
+
+        var scaledSize = resizePreservingAspectRatio(originalSize, targetPixels)
+        var newHeight = scaledSize.height.roundToInt()
+        var newWidth = scaledSize.width.roundToInt()
+        var newCapacityBits = (newHeight * newWidth) / (Swatch.minimumPatchSize * 2)
+
+        // Rounding can land us 1-2 pixels short. Nudge up if so.
+        while (newCapacityBits < bits)
+        {
+            targetPixels += 1
+            scaledSize = resizePreservingAspectRatio(originalSize, targetPixels)
+            newHeight = scaledSize.height.roundToInt()
+            newWidth = scaledSize.width.roundToInt()
+            newCapacityBits = (newHeight * newWidth) / (Swatch.minimumPatchSize * 2)
         }
+
+        // NOTE: createScaledBitmap signature is (source, dstWidth, dstHeight, filter).
+        // The arguments below look swapped because resizePreservingAspectRatio
+        // computes aspectRatio = height / width (inverted from convention), so
+        // its `height` field actually carries the new width and vice versa.
+        // The two inversions cancel and the output has correct aspect ratio.
+        return Bitmap.createScaledBitmap(bitmap, newHeight, newWidth, true)
     }
 
     private fun resizePreservingAspectRatio(originalSize: ImageSize, targetSizePixels: Int): ImageSize {

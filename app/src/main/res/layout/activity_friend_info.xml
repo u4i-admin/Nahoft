@@ -306,27 +306,32 @@
             android:id="@+id/share_as_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/transparent_overlay_send_message"
             android:contentDescription="@string/send_as_image"
             android:padding="10dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_nahoft_icons_share_image"
+            android:translationY="175dp"
             android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/send_message_container"
-            app:layout_constraintTop_toTopOf="@+id/send_message_container" />
+            app:layout_constraintBottom_toTopOf="@+id/send_message_container"
+            app:layout_constraintStart_toStartOf="@+id/send_message_container" />
 
         <ImageButton
             android:id="@+id/save_as_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/transparent_overlay_send_message"
             android:contentDescription="@string/send_as_image"
             android:padding="10dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_nahoft_icons_save"
+            android:translationY="175dp"
             android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/send_message_container"
-            app:layout_constraintTop_toTopOf="@+id/send_message_container" />
+            app:layout_constraintBottom_toTopOf="@+id/send_message_container"
+            app:layout_constraintStart_toStartOf="@+id/send_message_container" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

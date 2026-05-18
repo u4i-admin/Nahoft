@@ -3,8 +3,18 @@ package org.nahoft.swatch
 val lengthMessageKey = 1
 val payloadMessageKey = 2
 
-class Swatch {
-    companion object {
+class Swatch
+{
+    companion object
+    {
+        // Pixels per patch. The encoder sizes encoded images to exactly
+        // `bits * 2 * minimumPatchSize` pixels; the decoder uses the same
+        // constant to recover the bit count from pixel count. Both sides
+        // MUST use the same value.
+        //
+        // Increasing this improves output image quality (larger output
+        // images, larger patches = better noise tolerance) but is NOT
+        // backwards compatible.
         val minimumPatchSize = 400
 
         // Maximum Message Size:
