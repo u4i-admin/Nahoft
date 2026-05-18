@@ -73,7 +73,7 @@ class FriendInfoActivity: AppCompatActivity()
     private var decodePayload: ByteArray? = null
     private lateinit var thisFriend: Friend
 
-    private val parentJob = Job()
+    private val parentJob = SupervisorJob()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob)
 
     private val menuFragmentTag = "MenuFragment"
@@ -1231,11 +1231,12 @@ class FriendInfoActivity: AppCompatActivity()
             // Encrypt the message
             val encryptedMessage = Encryption().encrypt(encodedFriendPublicKey, message)
             makeWait()
-            // Encode the image
+
+            // Encode the image off the main thread
             val newUri: Deferred<Uri?> =
                 coroutineScope.async(Dispatchers.IO) {
                     val swatch = Encoder()
-                    return@async swatch.encode(
+                    swatch.encode(
                         applicationContext,
                         encryptedMessage,
                         imageUri,
@@ -1244,30 +1245,43 @@ class FriendInfoActivity: AppCompatActivity()
                 }
 
             coroutineScope.launch(Dispatchers.Main) {
-                val maybeUri = newUri.await()
-                noMoreWaiting()
-                binding.imageImportProgressBar.visibility = View.INVISIBLE
+                try
+                {
+                    val maybeUri = newUri.await()
+                    noMoreWaiting()
 
-                if (maybeUri != null)
-                {
-                    if (saveImage) {
-                        showAlert(getString(R.string.alert_text_image_saved))
+                    if (maybeUri != null)
+                    {
+                        if (saveImage)
+                        {
+                            showAlert(getString(R.string.alert_text_image_saved))
+                        }
+                        else
+                        {
+                            ShareUtil.shareImage(applicationContext, maybeUri)
+                        }
+
+                        saveMessage(encryptedMessage, thisFriend, true)
                     }
-                    else {
-                        ShareUtil.shareImage(applicationContext, maybeUri)
+                    else
+                    {
+                        showAlert(getString(R.string.alert_text_unable_to_process_request))
                     }
-                    saveMessage(encryptedMessage, thisFriend, true)
                 }
-                else
+                catch (e: Exception)
                 {
-                    applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
+                    Timber.e(e, "shareOrSaveAsImage: encode coroutine failed")
+                    noMoreWaiting()
+                    showAlert(getString(R.string.alert_text_unable_to_process_request))
                 }
             }
 
-        } catch (_: SecurityException) {
-            applicationContext.showAlert(applicationContext.getString(R.string.alert_text_unable_to_process_request))
-            print("Unable to send message as photo, we were unable to encrypt the mess56age.")
-            return
+        }
+        catch (e: SecurityException)
+        {
+            Timber.e(e, "shareOrSaveAsImage: encrypt failed")
+            noMoreWaiting()
+            showAlert(getString(R.string.alert_text_unable_to_process_request))
         }
     }
 
