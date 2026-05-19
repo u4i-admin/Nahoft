@@ -7,8 +7,8 @@ android {
     buildToolsVersion "35.0.0"
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     packaging {
@@ -18,7 +18,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 
     testOptions {
@@ -60,11 +60,11 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     // Operator Libraries
-    implementation("com.github.OperatorFoundation:AudioCoderAndroid:68b803e837") // Radio codec (WSPR) Library
+    implementation("com.github.OperatorFoundation:AudioCoderAndroid:v1.3.6") // Radio codec (WSPR) Library
     implementation("com.github.OperatorFoundation:TransmissionAndroid:1.5.1") // Serial communications
     implementation("com.github.OperatorFoundation:ion-android:v1.2.1") // Communication protocol
     implementation("com.github.OperatorFoundation:CodexKotlin:v1.2.1") // Message Encoding
-    implementation ("com.github.OperatorFoundation:SignalBridge:8fe6e327ca") // USBAudio Management
+    implementation ("com.github.OperatorFoundation:SignalBridge:v1.2.7") // USBAudio Management
 
     // 3rd party
     implementation 'com.github.mik3y:usb-serial-for-android:3.9.0'

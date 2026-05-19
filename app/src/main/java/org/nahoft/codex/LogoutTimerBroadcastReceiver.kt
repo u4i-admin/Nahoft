@@ -7,7 +7,7 @@ import android.content.Intent
 const val LOGOUT_TIMER_VAL = "Logout Timer Has Been Called"
 
 class LogoutTimerBroadcastReceiver(
-    private inline val onBroadcastReceived: () -> Unit
+    private val onBroadcastReceived: () -> Unit
 ) : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {

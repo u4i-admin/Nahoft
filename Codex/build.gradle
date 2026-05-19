@@ -15,7 +15,6 @@ android {
 
     defaultConfig {
         minSdkVersion 33
-        targetSdkVersion 36
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -33,6 +32,12 @@ android {
     }
 
     namespace 'org.nahoft.codex'
+    lint {
+        targetSdk 36
+    }
+    testOptions {
+        targetSdk 36
+    }
 }
 
 dependencies {

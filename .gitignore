@@ -85,3 +85,4 @@ lint/tmp/
 *.DS_Store
 /.idea
 /.idea
+gradle/gradle-daemon-jvm.properties
