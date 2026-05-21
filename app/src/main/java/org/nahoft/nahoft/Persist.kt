@@ -255,17 +255,6 @@ class Persist
             saveFriendsToFile(context)
         }
 
-        fun updateFriendsPhone(context: Context, friendToUpdate: Friend, newPhoneNumber: String) {
-
-            val oldFriend = friendList.find { it.name == friendToUpdate.name }
-
-//            oldFriend?.let {
-//                oldFriend.phone = newPhoneNumber
-//            }
-
-            saveFriendsToFile(context)
-        }
-
         // Save something to Encrypted Shared Preferences
         fun saveKey(key:String, value:String) {
             encryptedSharedPreferences

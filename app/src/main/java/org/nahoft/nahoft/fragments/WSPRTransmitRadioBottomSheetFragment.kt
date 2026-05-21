@@ -347,7 +347,7 @@ class WSPRTransmitRadioBottomSheetFragment : BottomSheetDialogFragment()
 
         // All dots completed
         ensureSpotDots(state.totalSpots)
-        updateAllDotsCompleted(state.totalSpots)
+        updateAllDotsCompleted()
         updateSpotProgressLabel(state.totalSpots - 1, state.totalSpots)
         binding.progressSymbols.progress = WSPRConstants.SYMBOLS_PER_MESSAGE
         binding.tvSymbolProgress.text = "${WSPRConstants.SYMBOLS_PER_MESSAGE} / ${WSPRConstants.SYMBOLS_PER_MESSAGE}"
@@ -520,7 +520,7 @@ class WSPRTransmitRadioBottomSheetFragment : BottomSheetDialogFragment()
     /**
      * Colors all dots white — used when transmission completes successfully.
      */
-    private fun updateAllDotsCompleted(totalSpots: Int)
+    private fun updateAllDotsCompleted()
     {
         val ctx = requireContext()
         for (i in 0 until binding.llSpotDots.childCount)

@@ -11,7 +11,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore.Images;
 import static androidx.core.content.FileProvider.getUriForFile;
 

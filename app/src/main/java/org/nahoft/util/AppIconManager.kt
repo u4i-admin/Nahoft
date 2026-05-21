@@ -22,13 +22,14 @@ object AppIconManager
      * Returns the currently active identity.
      * Falls back to NAHOFT if the stored value is missing or invalid
      */
-    fun getActiveIdentity(context: Context): AppIdentity
+    fun getActiveIdentity(): AppIdentity
     {
         val ordinal = Persist.loadIntKey(
             Persist.sharedPrefActiveIdentityKey,
             AppIdentity.NAHOFT.ordinal
         )
-        return AppIdentity.values().getOrElse(ordinal) { AppIdentity.NAHOFT }
+
+        return AppIdentity.entries.toTypedArray().getOrElse(ordinal) { AppIdentity.NAHOFT }
     }
 
     /**
@@ -42,7 +43,7 @@ object AppIconManager
      */
     fun setActiveIdentity(context: Context, newIdentity: AppIdentity)
     {
-        val current = getActiveIdentity(context)
+        val current = getActiveIdentity()
         if (current == newIdentity) return
 
         val pm = context.packageManager

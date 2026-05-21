@@ -402,7 +402,7 @@ class WSPRReceiveSessionService : Service()
             // Check if early enough in cycle to start immediately
             if (timingCoordinator.isEarlyEnoughToStartCollection())
             {
-                startWSPRStation(connection)
+                startWSPRStation()
             }
             else
             {
@@ -557,7 +557,7 @@ class WSPRReceiveSessionService : Service()
 
                 if (windowInfo.secondsUntilWindow <= 0)
                 {
-                    startWSPRStation(connection)
+                    startWSPRStation()
                     return@launch
                 }
 
@@ -567,7 +567,7 @@ class WSPRReceiveSessionService : Service()
         }
     }
 
-    private fun startWSPRStation(connection: UsbAudioConnection)
+    private fun startWSPRStation()
     {
         sessionJob = serviceScope.launch {
             try

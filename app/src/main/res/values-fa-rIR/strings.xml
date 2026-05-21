@@ -1,89 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- ════════════════════════════════════════════════════════
-     COMMON — Buttons, labels, and responses used app-wide
-     ════════════════════════════════════════════════════════ -->
-
-    <!-- Generic action buttons -->
-    <string name="approve_button">Approve</string>
-    <string name="ok">OK</string>
     <string name="yes">بله</string>
     <string name="no">خیر</string>
     <string name="close">بستن</string>
-    <string name="dismiss"></string>
     <string name="skip">رد کن</string>
     <string name="get_started">شروع کنید</string>
     <string name="read_more">بیشتر بخوانید</string>
     <string name="copy">کپی</string>
-
-    <!-- Shown briefly after the user copies text to clipboard -->
     <string name="copied">کپی شد</string>
     <string name="add_button">افزودن</string>
-
-    <!-- "Stop" as a neutral cancel/dismiss action in dialogs -->
     <string name="stop_button">لغو</string>
     <string name="button_label_save">ذخیره کردن</string>
     <string name="button_label_delete">حذف کردن</string>
     <string name="button_label_cancel">لغو</string>
     <string name="button_label_logout">خروج</string>
-
-    <!-- Accessibility content descriptions -->
     <string name="logo_image">عکس لوگو</string>
     <string name="profile_picture">عکس نمایه</string>
     <string name="return_button">دکمه بازگشت</string>
     <string name="status_icon">آیکن وضعیت</string>
     <string name="user_guide_button_description">این دکمه شما را به راهنمای کاربر هدایت می‌کند.</string>
-    <string name="minimize_sheet">Minimize — session keeps running</string>
-    <string name="content_description_share_security_code"></string>
-
-    <!-- ════════════════════════════════════════════════════════
-         App appearance / identity switcher
-         ════════════════════════════════════════════════════════ -->
-
-    <string name="app_appearance">App Appearance</string>
-    <string name="dialog_title_app_appearance">Choose App Appearance</string>
     <string name="app_identity_label_nahoft">نهفت</string>
     <string name="app_identity_label_bloom">شکوفا</string>
     <string name="app_identity_label_sleeply">خوابالو</string>
     <string name="app_identity_label_rooten">ریشه</string>
     <string name="app_identity_label_xo">دوز</string>
     <string name="app_identity_label_deco">دکور</string>
-    <string name="app_appearance_change">Change Appearance</string>
-    <string name="app_appearance_current">Current: %1$s</string>
 
-    <!-- ════════════════════════════════════════════════════════
-         AUTHENTICATION — Login screen (LogInActivity)
-         ════════════════════════════════════════════════════════ -->
-
-    <!-- Submit button on the login screen.
-         Note to translator: the string key is named "Login" but the displayed value is "Submit". -->
     <string name="Login">ورود</string>
     <string name="enter_passcode">رمز عبور خود را وارد کنید</string>
 
-    <!-- Title for the biometric / device credential system prompt -->
     <string name="login_using_device_credentials">ورود با استفاده از احراز هویت سیستم عامل</string>
 
-    <!-- Subtitle listing available authentication methods for the system prompt -->
     <string name="biometrics_pin_password_pattern">(اثر انگشت, تشخیص چهر, رمز و …)</string>
 
-    <!-- Explains two-step login behavior once a passcode has been set -->
-    <string name="two_step_login_description"></string>
-
-    <!-- Failed login attempt alerts — shown progressively as attempt count increases -->
     <string name="alert_text_zero_to_five_login_attempts">رمز عبور واردشده نادرست است. لطفاً دوباره امتحان کنید.</string>
     <string name="alert_text_sixth_login_attempt">رمز عبور واردشده نادرست است. می‌توانید بعد از ۶۰ ثانیه دوباره وارد سیستم شوید.</string>
     <string name="alert_text_seventh_login_attempt">رمز عبور واردشده نادرست است. می‌توانید بعد از ۵ دقیقه دوباره وارد سیستم شوید.</string>
     <string name="alert_text_eighth_login_attempt"> رمز عبور واردشده نادرست است. می‌توانید بعد از ۱۵ دقیقه دوباره وارد سیستم شوید.</string>
     <string name="alert_text_ninth_login_attempt"> رمز عبور واردشده نادرست است. این حساب حذف شده است.</string>
 
-    <!-- Lockout countdown: %1$d = minutes remaining, %2$d = seconds remaining -->
     <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">لطفا صبر کنید, %1$d دقیقه %2$d ثانیه قبل از تلاش برای ورود مجدد</string>
     <string name="alert_text_passcode_required_to_proceed">برای ادامه، رمز عبور لازم است.</string>
-
-    <!-- ════════════════════════════════════════════════════════
-     AUTHENTICATION — Passcode & Destruction Code setup (SettingsActivity)
-     ════════════════════════════════════════════════════════ -->
 
     <string name="settings_activity_label">تنظیمات</string>
     <string name="passcode">رمز عبور</string>
@@ -92,12 +49,9 @@
     <string name="enter_destruction_code">کد نابودی را وارد کنید</string>
     <string name="reenter_destruction_code">کد نابودی را مجدداً وارد کنید</string>
 
-    <!-- Shown when a device lock screen has not been set up -->
     <string name="you_have_to_set_a_lock_screen">قبل از استفاده از این برنامه باید برای موبایل خود یک قفل صفحه تنظیم کنید</string>
-    <!-- Label for the Snackbar action button that opens device security settings -->
     <string name="click_to_set">تنظیم کنید</string>
 
-    <!-- Passcode validation errors -->
     <string name="alert_text_passcode_field_empty">قسمت رمز عبور خالی است.</string>
     <string name="alert_text_verify_passcode_field_empty">لطفاً رمز خود را تأیید کنید.</string>
     <string name="alert_text_passcode_entries_do_not_match">ورودی‌های رمز عبور با هم مطابقت ندارند.</string>
@@ -106,188 +60,65 @@
     <string name="alert_text_passcode_is_a_repeated_digit"> رمز عبور نمی‌تواند یک رقم تکراری باشد.</string>
     <string name="alert_text_incorrect_passcode_length">رمز عبور باید ۶ رقمی باشد.</string>
 
-    <!-- Destruction code validation errors -->
     <string name="alert_text_secondary_passcode_field_empty">قسمت کد نابودی خالی است.</string>
     <string name="alert_text_verify_secondary_passcode_empty">لطفاً کد نابودی خود را تأیید کنید.</string>
     <string name="alert_text_secondary_passcode_entries_do_not_match">ورودی‌های کد نابودی با هم مطابقت ندارند.</string>
     <string name="alert_text_passcode_required_for_destruction_code">قبل از ایجاد رمز عبور نمی‌توانید کد نابودی ایجاد کنید.</string>
     <string name="alert_text_secondary_passcode_and_passcode_may_not_match">کد نابودی نمی‌تواند با رمز عبور یکسان باشد.</string>
-
-    <!-- Success confirmations -->
     <string name="alert_passcode_saved">رمز عبور شما ذخیره شده است.</string>
     <string name="alert_destruction_code_saved">کد نابودی شما ذخیره شده است.</string>
-
-    <!-- Help text shown in the Settings section of the onboarding slides -->
-    <string name="passcode_description"></string>
-    <string name="destruction_code_description"></string>
-    <string name="logout_description"></string>
-
-    <!-- ════════════════════════════════════════════════════════
-         FRIENDS & CONTACTS — Home screen and friend management
-         ════════════════════════════════════════════════════════ -->
-
-    <!-- Home screen section header. -->
     <string name="messages">پیام‌ها</string>
-
-    <!-- Shown as the home screen header in normal (non-share) mode -->
     <string name="friends_list">لیست دوستان</string>
-
-    <!-- Shown as the home screen header when the user is picking who sent a shared message -->
     <string name="select_sender">فرستنده را انتخاب کن</string>
-
-    <!-- Friend list item labels -->
     <string name="friendNameRecyclerView">نام</string>
     <string name="nickname">نام</string>
-
-    <!-- Add / manage friend UI -->
     <string name="add_contact">افزودن مخاطب</string>
     <string name="add_new_friend">افزودن دوست جدید</string>
-
-    <!-- Used in onboarding help slides -->
     <string name="add_new_contact">افزودن دوست جدید</string>
     <string name="delete_a_contact">حذف دوست</string>
     <string name="edit_contact_name">ویرایش مشخصات دوست</string>
     <string name="edit_contact_name_description">برای ویرایش نام و یا شماره تلفن دوستتان این مراحل را دنبال کنید: \n  با یک بار کلیک بر روی نام دوست خود به صفحه چت بروید. \n  از داخل صفحه‌ی چت دوباره روی نام دوست خود کلیک کنید. \n یک صفحه باز می‌شود که در آنجا می‌توانید نام و شماره تلفن دوست خود را ویرایش کنید.</string>
     <string name="to_import_or_create_a_new_friend_help">برای ایجاد یک دوست جدید، روی این دکمه کلیک کنید.</string>
-    <string name="add_new_friend_description"></string>
     <string name="delete_friend_description">برای حذف یک مخاطب، مراحل زیر را دنبال کنید: \n انگشت خود را روی نام دوست مورد نظر چند ثانیه نگه دارید. \n پس از چند ثانیه، پیامی خواهید دید که از شما می‌پرسد آیا مطمئن هستید که می‌خواهید دوست خود را حذف کنید یا خیر. با انتخاب گزینه "بله" دوست شما حذف می‌شود.</string>
-
-    <!-- Friend status labels — shown next to each friend's name in the list -->
     <string name="friend_status_default">پیش‌فرض</string>
     <string name="friend_status_requested">درخواست‌ شده</string>
     <string name="friend_status_invited">دعوت‌ شده</string>
     <string name="friend_status_verified">تأیید شده</string>
-    <string name="friend_status_approved"></string>
-
-    <!-- Friend status screen body text — shown in the chat area depending on connection state -->
-
-    <!-- %s = friend's name -->
-    <string name="default_fragment_text">%s</string>
-
-    <!-- %s = friend's name -->
-    <string name="invited_fragment_text"></string>
-
-    <!-- %1$s = friend's name (they sent their key); second %1$s = friend's name (send your key to them) -->
-    <string name="requested_fragment_text"></string>
-
-    <!-- Status descriptions used in onboarding help slides -->
     <string name="default_status">وضعیت پیش‌فرض</string>
-    <string name="default_status_description"></string>
     <string name="requested_status">وضعیت در انتظار</string>
-    <string name="requested_status_description"></string>
     <string name="approve_status">وضعیت پذیرش</string>
-    <string name="approve_status_description"></string>
     <string name="invited_status">وضعیت دعوت شده</string>
-    <string name="invited_status_description"></string>
     <string name="verify_status">وضعیت تایید شده</string>
-    <string name="verify_status_description"></string>
-    <string name="verify_status_full_description"></string>
-
-    <!-- Public key display and verification -->
-    <!-- %1$s = friend's name -->
-    <string name="label_verify_friend_number"></string>
-    <string name="your_code"></string>
-    <string name="friend_s_code"></string>
-
-    <!-- Title for the dialog shown when the user tries to import their own public key
-     as a contact's key -->
-    <string name="own_key_rejected_title"></string>
-
-    <!-- Body of the own-key-rejected dialog. Explains why the import was blocked
-         without using jargon. -->
-    <string name="own_key_rejected_message"></string>
-
-
-    <!-- Friend action buttons -->
     <string name="resend_invitation">ارسال دوباره دعوتنامه</string>
     <string name="decline_button">نپذیرفتن</string>
-    <string name="import_invitation_button"></string>
-
-    <!-- Friend management alerts -->
-    <string name="alert_text_verified_friends_only">You can only message a friend once codes have been exchanged.</string>
     <string name="alert_text_friend_already_exists">شما از قبل دوستی با این نام دارید.</string>
     <string name="alert_text_unable_to_update_friend_status"> خطایی رخ داد، وضعیت دوست به‌روزرسانی نشد.</string>
     <string name="alert_text_which_friend_sent_this_message">کدام دوست این پیام را ارسال کرده است؟</string>
-
-    <!-- %1$s = friend's name -->
     <string name="alert_text_confirm_friend_delete">برای حذف %1$s مطمئنید؟</string>
-
-    <!-- ════════════════════════════════════════════════════════
-         MESSAGING — Chat screen and message import/export (FriendInfoActivity)
-         ════════════════════════════════════════════════════════ -->
-
     <string name="send_message">ارسال پیام</string>
     <string name="import_text">وارد کردن متن</string>
     <string name="type_your_message">پیام خود را وارد کنید</string>
     <string name="send_as_image">ارسال به صورت تصویر</string>
-
-    <!-- Title shown on the import dialog when pasting a contact's security code (public key) -->
-    <string name="dialog_title_import_key"></string>
-
-    <!-- Hint shown in the import dialog's input field when pasting a contact's security code -->
-    <string name="import_dialog_hint_key"></string>
-
-    <!-- Title shown on the import dialog when pasting an encrypted message -->
-    <string name="dialog_title_import_message"></string>
-
-    <!-- Hint shown in the import dialog's input field when pasting an encrypted message -->
-    <string name="import_dialog_hint_message"></string>
-
-    <!-- Label for the Import action button inside the import dialog -->
-    <string name="button_label_import"></string>
-
-    <!-- Label for the dialog button that pastes clipboard contents into the input field -->
-    <string name="paste_from_clipboard"></string>
-
-    <!-- Shown when the user taps Import with an empty input field -->
-    <string name="alert_text_paste_key_before_import"></string>
-
-    <!-- Shown when the user taps Paste but the clipboard is empty -->
-    <string name="alert_text_clipboard_empty"></string>
-
-    <!-- Button accessibility / content descriptions -->
     <string name="import_encrypted_image_messages_using_this_button">از این دکمه برای وارد کردن  دستی پیام تصویری رمزنگاری شده استفاده کنید.</string>
     <string name="import_encrypted_text_messages_using_this_button">از این دکمه برای وارد کردن پیام متنی رمزنگاری شده استفاده کنید.</string>
     <string name="send_encrypted_text_messages_using_this_button">از این دکمه برای ارسال پیام‌ متنی رمزنگاری شده استفاده کنید.</string>
     <string name="send_encrypted_image_messages_using_this_button">از این دکمه برای ارسال پیام‌ تصویری رمزنگاری شده استفاده کنید.</string>
-
-    <!-- Image import / export -->
     <string name="import_image_hint">تصویری را از حافظه دستگاه خود وارد کنید.</string>
-
-    <!-- Folder name shown when an encoded image is saved to device storage -->
     <string name="saved_images">تصاویر ذخیره‌شده</string>
-
     <string name="sample_date_time">دیروز ساعت ۱۴:۲۶</string>
     <string name="confirmation_for_import">متنی که قصد ارسال آن را دارید، قبلاً رمزگذاری شده است. آیا می‌خواهید به جای ارسال، آن را رمزگشایی کنید؟</string>
-
-    <!-- Message alerts -->
     <string name="alert_text_write_a_message_to_send">پیامی را برای ارسال بنویسید.</string>
     <string name="alert_text_message_too_long">پیام شما بسیار طولانی است.</string>
     <string name="alert_text_unable_to_decode_message">خطایی رخ داد. این پیام رمزگشایی نشد.</string>
     <string name="alert_text_unable_to_process_request">خطایی رخ داد. درخواست شما پردازش نشد.</string>
     <string name="alert_text_image_saved">این تصویر در تلفن شما ذخیره شده است.</string>
     <string name="are_you_sure_to_delete">آیا از حذف پیام مطمئن هستید؟</string>
-
-    <!-- Byte counter labels shown below the message input field.
-     %1$d = current byte count, %2$d = limit -->
-    <string name="byte_counter_radio_format">radio: %1$d / %2$d</string>
-    <string name="byte_counter_message_format">message: %1$d / %2$d</string>
-
-    <!-- ════════════════════════════════════════════════════════
-     ONBOARDING & HELP — Slide content and user guides (SlideActivity)
-     ════════════════════════════════════════════════════════ -->
-
-    <!-- Intro slides -->
     <string name="what_is_nahoft">نهفت چیست؟</string>
     <string name="what_is_nahoft_description">نهفت یک ابزار برای رمزگذاری پیام‌هاست و به عنوان یک پیام‌رسان شناخته نمی‌شود.</string>
     <string name="send_encrypted_messages">.پیام‌های رمزگذاری شده را به صورت متنی یا تصویری ارسال کنید</string>
-
-    <!-- About Nahoft -->
     <string name="about_nahoft">درباره نهفت</string>
     <string name="about_nahoft_description">نهفت یک پیام‌رسان نیست، بلکه ابزاری برای رمزنگاری است. «نهفت» نرم‌افزار آفلاین برای رمزنگاری پیام‌های متنی در گوشی‌های اندرویدی است.\nرمزنگاری کردن پیام متنی یعنی حتی اگر پیام ارسالی شما در میان راه توسط فرد سومی دیده شود، برای آن شخص سوم قابل خواندن نخواهد بود …</string>
     <string name="about_nahoft_full_description">نهفت یک پیام‌رسان نیست، بلکه ابزاری برای رمزنگاری است. «نهفت» نرم‌افزار آفلاین برای رمزنگاری پیام‌های متنی در گوشی‌های اندرویدی است.\nرمزنگاری کردن پیام متنی یعنی حتی اگر پیام ارسالی شما در میان راه توسط فرد سومی دیده شود، برای آن شخص سوم قابل خواندن نخواهد بود و تنها شخصی که شما کلید عمومی خود را با او رد و بدل کرده‌اید، می‌تواند پیام مورد نظر را بخواند.\n این نرم‌افزار، آفلاین است، یعنی برای تبدیل پیام‌های متنی به پیام‌های رمزگذاری شده، نیازی به اینترنت آنلاین ندارد و می‌تواند بصورت مستقل و بدون اینترنت جهانی، پیام‌های نوشتاری را رمزنگاری کند.\n«نهفت» تنها پیام‌های متنی را رمزنگاری می‌کند و در حال حاضر امکان رمزنگاری پیام‌های صوتی و تصویری در آن فراهم نیست.\nنهفت می‌تواند پیام‌های متنی را هم بصورت یک متن رمزنگاری کند و هم می‌تواند آن را در داخل یک عکس، که شما انتخاب می‌کنید، پنهان کند. شما می‌توانید پیام متنی یا عکس حاوی پیام را از طریق دیگری که امکان ارسال فایل را فراهم می‌کند (مثلا ایمیل، یا اس‌ام‌اس یا ام‌ام‌اس، یا یک پیام‌رسان که امکان ارسال فایل بدون تغییر را فراهم می‌کند) بفرستید تا طرف مقابل نیز پس از دریافت، متن یا عکس رمزنگاری شده را به نهفت منتقل کند و پیام را بخواند.\n «نهفت»، فعلا در سیستم عامل اندروید و در گوشی‌های موبایلی که از این سیستم عامل استفاده می‌کنند، قابل نصب است.\nنهفت یک پیام‌رسان نیست، بلکه تنها پیام‌های متنی کاربر را رمزنگاری می‌کند و کاربر می‌تواند پیام رمز‌نگاری شده را از طریق یکی از پیام رسان‌های خود (در شبکه‌ای ناامن و حتی با یک پیام‌رسان ناامن) به فرد دیگری ارسال کند که او نیز  از نهفت استفاده می‌کند. آنها باید  قبلا با هم کلیدهای عمومی خود را همرسان و جابجا کرده باشند تا پیام‌ها را بعد از دریافت وارد این نرم‌افزار کنند و متن نهایی را در آنجا بخوانند. نهفت از کلیدهای عمومی که قابل همرسانی با دیگران است، استفاده می‌کند و کلیدی خصوصی می‌سازد که در داخل نرم‌افزار پنهان شده و می‌تواند پیام‌های رد و بدل شده بین دو کاربر را بخواند.\nهدف «نهفت» این است که امکان ارسال پیام امن برای کاربران حتی در پیام‌رسان‌ها و شبکه‌های ناامن فراهم شود. به این معنی که اگر کاربری در شرایط خاص، دسترسی به شبکه امن اینترنت جهانی نداشت، و یا استفاده از پیام‌رسان‌های امن برای او امکان‌پذیر نبود (فرض کنید در شرایط سانسور، فیلترینگ و یا قطع کامل شبکه جهانی اینترنت) و تنها به پیام‌رسان‌های ناامن و یا شبکه‌های ناامن داخلی دسترسی داشت، حتی در اینصورت هم بتواند پیام خود را رمزنگاری کرده و در داخل این شبکه ارسال کند. در این صورت حتی اگر پیام او در میان راه توسط فرد سومی دیده شود، باز هم به علت آنکه رمزنگاری شده است، قابل خواندن نخواهد بود.\nتوجه: با هر بار پاک کردن کامل نرم‌افزار نهفت و نصب دوباره آن و همچنین با هر بار تغییر گوشی شما و در نتیجه نصب دوباره نهفت، کلیدهای عمومی (و نیز کلید خصوصی) تغییر می‌کند. بنابراین هربار که گوشی شما تغییر می‌کند و یا نهفت را پاک کرده و دوباره نصب می‌کنید، باید دوباره با دوستان خود این کلیدها را جابجا کنید.\nمهم: نهفت یک نرم‌افزار  متن باز (اوپن‌سورس) است و همه می‌توانند به کدهای برنامه‌نویسی آن دسترسی داشته باشند.</string>
-
-    <!-- Nahoft team, usage, and features -->
     <string name="nahofts_team">تیم نهفت</string>
     <string name="nahofts_team_description">کارشناسان ایرانی و غیرایرانی با سابقه کار در شرکت‌های بزرگ فناوری، گرد هم آمدند و با حمایت سازمان اتحاد برای ایران نهفت را ایجاد کردند.</string>
     <string name="nahofts_usage">کاربرد نهفت</string>
@@ -296,255 +127,11 @@
     <string name="nahofts_features_description">یک لایه امنیتی برای ارسال پیام‌ از طریق کانال‌های ناامن \n کاملاً آفلاین. نهفت بدون سرور عمل می‌کند. \n کد نابودی. بلافاصله داده‌هایتان را پاک کنید.</string>
     <string name="nahoft_creators">سازندگان نهفت</string>
     <string name="nahoft_creators_description">«نهفت» از جمله تولیداتی است که در برنامه ایران کوباتور۲ و تحت نظارت سازمان «اتحاد برای ایران» تهیه شده است. سازمان اتحاد برای ایران یک نهاد حقوق‌بشری است که مرکز آن در شهر برکلی، ایالت کالیفرنیا قرار دارد.  هدف این نهاد گسترش آزادی‌های مدنی در ایران، دفاع از حقوق بشر، حمایت از جامعه مدنی و ترغیب شهروندان به مشارکت از طریق فناوری است.</string>
-
-    <!-- How-to: sending and receiving encrypted text -->
     <string name="manually_send_text">نحوه ارسال متن رمزگذاری شده</string>
-    <string name="manually_send_text_description"></string>
-    <string name="manually_send_text_full_description"></string>
     <string name="manually_import_text">نحوه دریافت متن رمزگذاری شده</string>
-    <string name="manually_import_text_description"></string>
-    <string name="manually_import_text_full_description"></string>
-
-    <!-- How-to: sending and receiving encrypted images -->
     <string name="share_image_title">نحوه ارسال دستی عکس رمزگذاری شده</string>
-    <string name="share_image_description"></string>
-    <string name="share_image_full_description"></string>
     <string name="import_image_title">نحوه دریافت دستی عکس رمزگذاری شده</string>
-    <string name="import_image_description"></string>
-    <string name="import_image_full_description"></string>
-
-    <!-- How-to: sharing via the Android share sheet -->
     <string name="import_share_title">وارد کردن اطلاعات به نهفت از طریق گزینه‌ اشتراک گذاری</string>
-    <string name="import_share_description"></string>
-
-    <!-- Public key explanations -->
     <string name="friends_public_key">کلید عمومی دوست شما</string>
-    <string name="friends_public_key_description"></string>
-    <string name="your_public_key"></string>
     <string name="your_public_key_description">نهفت چگونه کار می کند؟\nاین نرم‌افزار از کتابخانه معتبر libsodium استفاده می‌کند و از روش رمزگذاری و رمزگشایی با امضای دوطرفه (Asymmetric Encryption with Authentication) بهره می‌برد. هر کاربر دارای یک کلید خصوصی و یک کلید عمومی است. زمانی که کاربر ۱ می‌خواهد پیامی را به کاربر ۲ ارسال کند، از کلید خصوصی خود و کلید عمومی کاربر ۲ برای رمزگذاری استفاده می‌کند.…</string>
-    <string name="your_public_key_full_description"></string>
-
-
-    <!-- ════════════════════════════════════════════════════════
-     RADIO — Strings shared by both RX and TX sessions
-     ════════════════════════════════════════════════════════ -->
-
-    <!-- Shown when the Eden serial device is not connected -->
-    <string name="alert_text_serial_not_connected">No serial device connected</string>
-
-    <!-- Shown when the USB audio device is not connected -->
-    <string name="usb_audio_not_connected">USB audio device not connected</string>
-
-    <!-- Content description for the "send via radio" action button -->
-    <string name="send_via_radio">Button for sending the message via radio.</string>
-
-    <!-- Generic "Packets" label used in packet count display -->
-    <string name="packets_label">Packets</string>
-    <string name="session_label">Session:</string>
-    <string name="start_session">Start Session</string>
-    <string name="stop_session">Stop Session</string>
-    <string name="session_stopped">Session stopped</string>
-
-    <!-- ════════════════════════════════════════════════════════
-         RADIO — Mode selector (RadioModeBottomSheetFragment)
-         ════════════════════════════════════════════════════════ -->
-
-    <!-- Sheet titles — match the button label the user tapped to open the selector -->
-    <string name="radio_mode_title_tx">Send via Radio</string>
-    <string name="radio_mode_title_rx">Receive via Radio</string>
-
-    <!-- Mode card labels and descriptions -->
-    <string name="radio_mode_wspr_name">WSPR</string>
-    <string name="radio_mode_wspr_description">Narrow band, low speed, high noise resistance</string>
-    <string name="radio_mode_mfsk_name">MFSK-16</string>
-    <string name="radio_mode_mfsk_description">Wider band, faster, standard HF text mode</string>
-
-    <!-- Shown when the user picks a mode while a session of the other mode is active.
-         %1$s = conflicting mode name, e.g. "MFSK" or "WSPR" -->
-    <string name="radio_mode_conflict_error">A %1$s session is already active. Stop it before starting a new session.</string>
-
-    <!-- ════════════════════════════════════════════════════════
-         RADIO — Receive (RX) session (ReceiveRadioBottomSheetFragment)
-         ════════════════════════════════════════════════════════ -->
-
-    <string name="receive_via_radio">Receive via Radio</string>
-    <string name="microphone_permission_required_title"></string>
-    <string name="alert_microphone_permission_required"></string>
-    <string name="open_settings"></string>
-
-    <!-- Label for the RX frequency input field; value entered in kHz -->
-    <string name="rx_frequency_title_khz">RX Frequency in kHz</string>
-    <string name="audio_level">Radio Audio Level</string>
-    <string name="cycle_progress">Cycle Progress</string>
-    <string name="next_decode_window">Next decode window</string>
-
-    <!-- %1$d = seconds until the next WSPR decode window -->
-    <string name="next_decode_window_in">Next decode window in: %1$ds</string>
-
-    <!-- %1$d = elapsed seconds in current cycle, %2$d = total cycle length (120s for WSPR) -->
-    <string name="cycle_time_format">%1$d sec / %2$d sec</string>
-
-    <!-- RX session status messages -->
-    <string name="status_waiting">Listening</string>
-    <string name="tap_start_to_listen">Tap Start to listen</string>
-    <string name="waiting_for_wspr_window">Waiting for WSPR window…</string>
-    <string name="waiting_for_next_window">Waiting for next transmission window…</string>
-    <string name="listening_for_signals">Listening for WSPR signals…</string>
-    <string name="collecting_audio">Collecting audio…</string>
-    <string name="processing_decode">Processing decode…</string>
-    <string name="decode_complete">Decode complete</string>
-    <string name="message_received">Message received!</string>
-
-    <!-- Label on the animated receive indicator shown in the friends list -->
-    <string name="receiving_indicator">Receiving message</string>
-
-    <!-- Alert when the user tries to transmit while a receive session is running -->
-    <string name="alert_transmit_blocked_by_receive">A receive session is active. Stop receiving before transmitting.</string>
-
-    <!-- MFSK-16 receive sheet -->
-    <string name="mfsk_receive_via_radio">Receive via Radio (MFSK-16)</string>
-    <string name="mfsk_rx_base_frequency_hz">Base Frequency (Hz)</string>
-    <string name="mfsk_rx_starting">Starting MFSK session…</string>
-    <string name="mfsk_listening_for_signals">Listening for MFSK signals…</string>
-    <string name="mfsk_rx_session_failed">Session failed</string>
-
-    <!-- ════════════════════════════════════════════════════════
-         RADIO — Transmit (TX) session (TransmitRadioBottomSheetFragment)
-         ════════════════════════════════════════════════════════ -->
-
-    <string name="transmit_via_radio">Transmit via Radio</string>
-
-    <!-- Label for the TX frequency input field; value entered in kHz -->
-    <string name="tx_frequency_title_khz">TX Frequency in kHz</string>
-    <string name="message_label">Message</string>
-    <string name="transmit_status">Transmit status</string>
-    <string name="symbols_label">Symbols</string>
-    <string name="next_tx_window">Next TX window</string>
-
-    <!-- Shown in idle state before the user starts transmission -->
-    <string name="tap_start_to_transmit">Set frequency and tap Start</string>
-    <string name="start_transmission">Start</string>
-
-    <!-- TX in-progress status messages -->
-    <string name="tx_preparing">Encoding message…</string>
-    <string name="tx_transmitting">Transmitting…</string>
-
-    <!-- Brief status shown while Eden switches back to receive mode between spots -->
-    <string name="tx_switching_rx">Switching to receive…</string>
-
-    <!-- Countdown until next TX window: %1$d = seconds remaining -->
-    <string name="next_tx_window_in">Next TX window in: %1$ds</string>
-
-    <!-- TX terminal state titles and details -->
-    <string name="tx_complete_title">Transmission Complete</string>
-
-    <!-- %1$d = number of packets (WSPR spots) successfully sent -->
-    <string name="tx_complete_detail">%1$d packet(s) sent successfully</string>
-    <string name="tx_failed_title">Transmission Failed</string>
-    <string name="tx_cancelled_title">Transmission Cancelled</string>
-
-    <!-- Shown when TX is cancelled — the hardware returns to passive receive mode -->
-    <string name="tx_cancelled_detail">Eden has returned to receive mode</string>
-    <string name="send_without_encryption">Send without encryption</string>
-    <string name="encryption_warning">Message will be sent as plaintext</string>
-    <string name="receive_without_encryption">Receive unencrypted messages</string>
-    <string name="encryption_warning_rx">Message will be received as plaintext</string>
-    <string name="session_started_encrypted">Session started with encryption enabled. Stop to change.</string>
-    <string name="session_started_unencrypted">Session started without encryption. Stop to change.</string>
-    <string name="alert_text_message_too_long_for_radio">Message is too long to transmit via radio. Please shorten your message.</string>
-
-    <!-- MFSK-16 transmit sheet -->
-    <string name="mfsk_transmit_via_radio">Transmit via Radio (MFSK-16)</string>
-    <string name="mfsk_tx_base_frequency_hz">Base Frequency (Hz)</string>
-    <string name="mfsk_tx_complete_detail">Message sent successfully</string>
-    <string name="mfsk_debug_send_test" translatable="false">Send test message (debug)</string>
-
-    <!-- %1$d = elapsed seconds, %2$d = total seconds -->
-    <string name="mfsk_tx_time_elapsed_format">%1$ds / %2$ds</string>
-
-    <!-- ════════════════════════════════════════════════════════
-         RADIO — VU Meter audio level indicators
-         ════════════════════════════════════════════════════════ -->
-
-    <!-- These three strings describe the current USB audio input level -->
-    <string name="audio_signal_too_weak">Signal too weak — check radio gain</string>
-    <string name="audio_signal_good">Good signal</string>
-    <string name="audio_signal_clipping">Clipping — reduce gain</string>
-
-
-    <!-- ════════════════════════════════════════════════════════
-         SESSION TIMEOUT — Background session time limit
-         ════════════════════════════════════════════════════════ -->
-
-    <!-- Session times out after 20 minutes when the app is backgrounded -->
-    <string name="session_timeout_title">Session Timed Out</string>
-    <string name="session_timeout_explanation">The 20-minute session limit was reached. You can start a new session to continue listening.</string>
-
-    <!-- Compact status label used on the receive button -->
-    <string name="session_timed_out">Session timed out</string>
-
-    <!-- One of the three strings below is shown in the timeout dialog depending on session results -->
-    <!-- %d = number of messages successfully decrypted before timeout -->
-    <string name="timeout_with_messages">Successfully received %d message(s) before timeout.</string>
-
-    <!-- %d = number of WSPR spots received (partial data — not enough to decrypt a message) -->
-    <string name="timeout_with_packets">Received %d signal(s) but no complete messages.</string>
-    <string name="timeout_no_signals">No signals were received during this session.</string>
-
-
-    <!-- ════════════════════════════════════════════════════════
-         NOTIFICATIONS — Session notification permission (Android 13+)
-         ════════════════════════════════════════════════════════ -->
-
-    <!-- Explanation dialog shown before requesting POST_NOTIFICATIONS permission -->
-    <string name="radio_session_notification_title">Session Notification</string>
-    <string name="radio_session_notification_explanation">Radio message reception can take 10 minutes or longer.\n\nA notification allows you to:\n\n• See session progress while using other apps\n• Keep the session active when your phone locks\n• Return to the session if you navigate away\n\nThis notification only appears during active radio sessions and contains no message content.</string>
-
-    <!-- Button to grant notification permission -->
-    <string name="enable_notification">Enable</string>
-
-    <!-- Button to skip the notification permission and proceed without it -->
-    <string name="continue_without">Skip</string>
-
-    <!-- Warning shown when the user denies notification permission -->
-    <string name="notification_denied_title">Limited Background Operation</string>
-    <string name="notification_denied_warning">Without notifications, your phone may stop the radio session when the screen locks or you switch apps.\n\nYou can enable notifications later in system settings if needed.</string>
-
-    <!-- Button to acknowledge the warning and continue anyway -->
-    <string name="continue_anyway">Continue</string>
-
-
-    <!-- ════════════════════════════════════════════════════════
-         DIALOGS — WSPR spots, received messages, and packages
-         ════════════════════════════════════════════════════════ -->
-
-    <!-- Packages / WSPR spots dialog -->
-    <string name="packages_title" translatable="false">Packages Dialog</string>
-
-    <!-- Legend entry explaining the Nahoft symbol in the spots list -->
-    <string name="nahoft_message_legend">= Nahoft message</string>
-
-    <!-- Empty state shown before any packets have been decoded -->
-    <string name="no_packets_yet">No packets decoded yet.\nListening for signals…</string>
-
-    <!-- Plural string for packet count header in the spots dialog -->
-    <plurals name="packet_count_format">
-        <item quantity="one">%d packet</item>
-        <item quantity="other">%d packets</item>
-    </plurals>
-
-    <!-- Received messages dialog -->
-    <string name="received_messages_title">Received Messages</string>
-    <string name="no_messages_this_session">No messages received this session</string>
-
-    <!-- Shown in place of message content when the app is locked -->
-    <string name="message_content_locked">Unlock app to view message</string>
-
-    <!-- Card label showing the count of messages received this session -->
-    <string name="messages_this_session">Messages</string>
-
-    <!-- Row header: %1$s = timestamp string, %2$d = number of WSPR packets used to decode the message -->
-    <string name="message_row_header">%1$s · decoded from %2$d packets</string>
-
-
 </resources>

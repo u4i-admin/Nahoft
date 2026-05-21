@@ -91,7 +91,8 @@ class Stencil {
         return result
     }
 
-    private fun resizePreservingAspectRatio(originalSize: ImageSize, targetSizeBytes: Double): ImageSize {
+    private fun resizePreservingAspectRatio(originalSize: ImageSize, targetSizeBytes: Double): ImageSize
+    {
         val aspectRatio = originalSize.height/originalSize.width
         val targetSizePixels = targetSizeBytes/originalSize.colorDepthBytes
         val scaledWidth = sqrt(targetSizePixels/aspectRatio)
