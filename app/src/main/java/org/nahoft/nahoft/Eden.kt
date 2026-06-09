@@ -179,9 +179,6 @@ class Eden(private val connection: SerialConnection)
      * Symbol frequencies should be derived as:
      *   `(baseFrequencyHz + symbolIndex * toneSpacingHz) * 100` (centihertz)
      *
-     * Use [org.operatorfoundation.audiocoder.mfsk.MFSKEncoder.encodeToSymbols] to produce
-     * symbol indices, then convert each to a frequency before calling this method.
-     *
      * @param symbolFrequenciesCHz Frequencies in centihertz, one per symbol.
      * @param symbolDurationMs     Duration of each symbol in milliseconds.
      *                             Derive from [org.operatorfoundation.audiocoder.mfsk.MFSKMode.symbolDurationSeconds].
@@ -238,16 +235,27 @@ class Eden(private val connection: SerialConnection)
             Word.to_conn(connection, Word.make(CONTROL_TX, NounType.INTEGER.value))
             currentMode = Mode.TX
 
+            // Anchor the timing reference before the first frequency is sent.
+            val transmissionStartMs = System.currentTimeMillis()
+
             sendFrequency(symbolFrequenciesCHz[0])
             Word.to_conn(connection, Word.make(CONTROL_ON, NounType.INTEGER.value))
-            delay(symbolDurationMs)
-            onSymbolSent?.invoke(0, symbolFrequenciesCHz.size)
 
-            for (index in 1 until symbolFrequenciesCHz.size)
+            for (index in 0 until symbolFrequenciesCHz.size)
             {
-                sendFrequency(symbolFrequenciesCHz[index])
-                delay(symbolDurationMs)
+                // Compute remaining time until the target end of this symbol.
+                // Using an absolute target corrects for accumulated overshoot —
+                // if a previous iteration ran long, the next delay is shorter to compensate.
+                val targetMs = transmissionStartMs + (index + 1).toLong() * symbolDurationMs
+                val remainingMs = targetMs - System.currentTimeMillis()
+                if (remainingMs > 0) delay(remainingMs)
+
                 onSymbolSent?.invoke(index, symbolFrequenciesCHz.size)
+
+                if (index + 1 < symbolFrequenciesCHz.size)
+                {
+                    sendFrequency(symbolFrequenciesCHz[index + 1])
+                }
             }
 
             Word.to_conn(connection, Word.make(CONTROL_OFF, NounType.INTEGER.value))
