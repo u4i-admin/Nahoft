@@ -101,6 +101,12 @@ class MFSKTransmitRadioViewModel(
     fun saveMfskBaseFrequencyHz(frequencyHz: Int) =
         Persist.saveIntKey(Persist.sharedPrefMfskBaseFrequencyHzKey, frequencyHz)
 
+    fun getMfskUseFldigiEngine(): Boolean =
+        Persist.loadBooleanKey(Persist.sharedPrefMfskUseFldigiEngineKey)
+
+    fun saveMfskUseFldigiEngine(useFldigiEngine: Boolean) =
+        Persist.saveBooleanKey(Persist.sharedPrefMfskUseFldigiEngineKey, useFldigiEngine)
+
     // ==================== Session Control ====================
 
     /**
@@ -114,20 +120,23 @@ class MFSKTransmitRadioViewModel(
      *
      * @param baseFrequencyHz Audio base frequency in Hz (e.g. 1500).
      */
-    fun startTransmission(baseFrequencyHz: Int)
+    fun startTransmission(baseFrequencyHz: Int, useFldigiEngine: Boolean)
     {
         saveMfskBaseFrequencyHz(baseFrequencyHz)
 
         val context = getApplication<Application>()
         val mode = MFSKMode.MFSK16  // TODO: expose mode selection when additional modes are supported
 
+        saveMfskUseFldigiEngine(useFldigiEngine)
+
         val startIntent = MFSKTransmitSessionService.createStartIntent(
-            context         = context,
-            message         = message,
-            friendName      = friendName,
-            friendPublicKey = friendPublicKey,
-            mode            = mode,
-            baseFrequencyHz = baseFrequencyHz
+            context          = context,
+            message          = message,
+            friendName       = friendName,
+            friendPublicKey  = friendPublicKey,
+            mode             = mode,
+            baseFrequencyHz  = baseFrequencyHz,
+            useFldigiEngine  = useFldigiEngine
         )
         context.startForegroundService(startIntent)
 
@@ -148,9 +157,10 @@ class MFSKTransmitRadioViewModel(
      *
      * @param baseFrequencyHz Audio base frequency in Hz (e.g. 1500).
      */
-    fun startDebugTransmission(baseFrequencyHz: Int)
+    fun startDebugTransmission(baseFrequencyHz: Int, useFldigiEngine: Boolean)
     {
         saveMfskBaseFrequencyHz(baseFrequencyHz)
+        saveMfskUseFldigiEngine(useFldigiEngine)
 
         val context = getApplication<Application>()
         val mode = MFSKMode.MFSK16
@@ -159,7 +169,8 @@ class MFSKTransmitRadioViewModel(
             context         = context,
             debugPlaintext  = DEBUG_TEST_MESSAGE,
             mode            = mode,
-            baseFrequencyHz = baseFrequencyHz
+            baseFrequencyHz = baseFrequencyHz,
+            useFldigiEngine = getMfskUseFldigiEngine()
         )
         context.startForegroundService(startIntent)
 

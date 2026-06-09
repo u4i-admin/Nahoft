@@ -121,6 +121,29 @@
 
             </LinearLayout>
 
+            <!-- ── Engine selection ───────────────────────────────────────────── -->
+            <!--
+                Selects between the fldigi C++ engine and the pure Kotlin encoder.
+                Editable before TX starts, disabled once transmission begins.
+            -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/section_bkgd_dark_grey_8"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <CheckBox
+                    android:id="@+id/cb_use_fldigi_engine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mfsk_use_fldigi_engine"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
             <!-- ── Message preview ───────────────────────────────────────── -->
             <!--
                 Plaintext is already in memory when the sheet opens.

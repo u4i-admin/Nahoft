@@ -161,7 +161,7 @@ class SettingsActivity : AppCompatActivity()
 
     private fun showAppearanceDialog()
     {
-        val current = AppIconManager.getActiveIdentity(this)
+        val current = AppIconManager.getActiveIdentity()
         AppearanceDialogFragment.newInstance(current).apply {
             onIdentitySelected = { identity ->
                 AppIconManager.setActiveIdentity(this@SettingsActivity, identity)
@@ -172,7 +172,7 @@ class SettingsActivity : AppCompatActivity()
 
     private fun updateAppearanceLabel()
     {
-        val current = AppIconManager.getActiveIdentity(this)
+        val current = AppIconManager.getActiveIdentity()
         val sizePx = resources.getDimensionPixelSize(R.dimen.app_icon_preview_size)
 
         val bitmap = BitmapFactory.decodeResource(resources, current.dialogIconRes)

@@ -450,6 +450,8 @@
     <string name="mfsk_tx_complete_detail">Message sent successfully</string>
     <string name="mfsk_debug_send_test" translatable="false">Send test message (debug)</string>
 
+    <string name="mfsk_use_fldigi_engine">Use fldigi engine</string>
+
     <!-- %1$d = elapsed seconds, %2$d = total seconds -->
     <string name="mfsk_tx_time_elapsed_format">%1$ds / %2$ds</string>
 

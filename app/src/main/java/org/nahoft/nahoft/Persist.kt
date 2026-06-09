@@ -46,6 +46,7 @@ class Persist
         const val sharedPrefTxFrequencyKHzKey = "NahoftTxFrequencyKHz"
         const val sharedPrefRxFrequencyKHzKey = "NahoftRxFrequencyKHz"
         const val sharedPrefMfskBaseFrequencyHzKey = "NahoftMfskBaseFrequencyHz"
+        const val sharedPrefMfskUseFldigiEngineKey = "NahoftMfskUseFldigiEngine"
 
         val sharedPrefAlreadySeeTutorialKey = "NahoftAlreadySeeTutorial"
 
