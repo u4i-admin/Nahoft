@@ -14,7 +14,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/packages_title"
+        android:text="@string/packets_label"
         android:textSize="20sp"
         android:textColor="@color/white"
         android:textStyle="bold"

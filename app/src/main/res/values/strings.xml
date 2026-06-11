@@ -507,7 +507,6 @@
          ════════════════════════════════════════════════════════ -->
 
     <!-- Packages / WSPR spots dialog -->
-    <string name="packages_title" translatable="false">Packages Dialog</string>
     <!-- Legend entry explaining the Nahoft symbol in the spots list -->
     <string name="nahoft_message_legend">= Nahoft message</string>
     <!-- Empty state shown before any packets have been decoded -->
