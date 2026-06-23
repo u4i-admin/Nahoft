@@ -1,7 +1,8 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <!-- Base application theme.
+         Migrated from Theme.AppCompat to Theme.MaterialComponents to support
+         MaterialCardView and other Material Components widgets app-wide. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/royalBlueDark</item>
         <item name="colorPrimaryDark">@color/royalBlueDark</item>
         <item name="colorAccent">@color/caribbeanGreen</item>

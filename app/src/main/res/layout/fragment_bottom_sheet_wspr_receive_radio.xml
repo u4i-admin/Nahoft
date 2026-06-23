@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bkgd_blue_rect"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- ── Header ─────────────────────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/minimize_sheet"
+            android:src="@drawable/ic_minimize"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/receive_via_radio"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Spacer to balance close button and keep title truly centered -->
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+    <!-- ── Scrollable content ──────────────────────────────────────────── -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--
+                RX Frequency input section.
+                Shown before session starts. Hidden once session is running.
+                Managed by showFrequencyInput() / hideFrequencyInput().
+            -->
+            <LinearLayout
+                android:id="@+id/rx_frequency_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/section_bkgd_dark_grey_8"
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:visibility="visible">
+
+                <!-- Combined label: name + unit on one line -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/rx_frequency_title_khz"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <!-- Stepper row: [−] [EditText] [+] -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_rx_freq_minus"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/btn_bkgd_transparent_56"
+                        android:padding="0dp"
+                        android:text="−"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/et_rx_frequency"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/section_bkgd_dark_grey_8"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:padding="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/btn_rx_freq_plus"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/btn_bkgd_transparent_56"
+                        android:padding="0dp"
+                        android:text="+"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- ── Encryption mode ────────────────────────────────────────────── -->
+            <LinearLayout
+                android:id="@+id/encryption_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/section_bkgd_dark_grey_8"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <!-- Checkbox + warning icon row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cb_disable_encryption"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/white"
+                        android:checked="false"
+                        android:text="@string/receive_without_encryption"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_encryption_warning"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
+                        android:contentDescription="@string/encryption_warning_rx"
+                        android:src="@drawable/ic_warning"
+                        android:visibility="gone"
+                        app:tint="@color/tangerine" />
+
+                </LinearLayout>
+
+                <!--
+                    Shown only during Running state — informs the user that encryption
+                    mode is locked while spots are accumulating. Hidden otherwise.
+                    Sits on section_bkgd_dark_grey_8 so white text reads correctly.
+                -->
+                <TextView
+                    android:id="@+id/tv_encryption_session_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/coolGrey"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <!-- ── State icon + status ───────────────────────────────────── -->
+            <ImageView
+                android:id="@+id/iv_state_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:contentDescription="@string/listening_for_signals"
+                android:src="@drawable/ic_radio"
+                app:tint="@color/caribbeanGreen" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="@string/waiting_for_wspr_window"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- ── Cycle progress ────────────────────────────────────────── -->
+            <LinearLayout
+                android:id="@+id/cycle_progress_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/section_bkgd_dark_grey_8"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:contentDescription="@string/cycle_progress"
+                        android:src="@drawable/ic_access_time"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/cycle_progress"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_cycle_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0s / 120s"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progress_cycle"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/section_bkgd_dark_grey_8"
+                    android:max="120"
+                    android:progress="0"
+                    android:progressBackgroundTint="#40FFFFFF"
+                    android:progressTint="@color/caribbeanGreen" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:contentDescription="@string/next_decode_window"
+                        android:src="@drawable/ic_access_time"
+                        app:tint="@color/coolGrey" />
+
+                    <TextView
+                        android:id="@+id/tv_next_window"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/next_decode_window_in"
+                        android:textColor="@color/coolGrey"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="16dp"
+                        android:contentDescription="@string/session_label"
+                        android:src="@drawable/ic_timer"
+                        app:tint="@color/coolGrey" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/session_label"
+                        android:textColor="@color/coolGrey"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_elapsed_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="0:00"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ── Audio level ───────────────────────────────────────────── -->
+            <LinearLayout
+                android:id="@+id/audio_level_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/section_bkgd_dark_grey_8"
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:contentDescription="@string/audio_level"
+                        android:src="@drawable/ic_volume"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tv_audio_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="@string/audio_level"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+                <org.nahoft.nahoft.views.VuMeterView
+                    android:id="@+id/vu_meter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+            <!-- ── Stat cards ─────────────────────────────────────────────── -->
+            <LinearLayout
+                android:id="@+id/stats_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <!-- WSPR Spots — tappable to open spots dialog -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_spots"
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="@color/lightGrey"
+                    app:cardCornerRadius="@dimen/button_corner_radius"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/activity_margin"
+                            android:layout_height="@dimen/activity_margin"
+                            android:contentDescription="@string/packets_label"
+                            android:src="@drawable/ic_radio"
+                            app:tint="@color/caribbeanGreen" />
+
+                        <TextView
+                            android:id="@+id/tv_spots_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/packets_label"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_messages"
+                    android:layout_width="0dp"
+                    android:layout_height="84dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="@color/lightGrey"
+                    app:cardCornerRadius="@dimen/button_corner_radius"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/activity_margin"
+                            android:layout_height="@dimen/activity_margin"
+                            android:contentDescription="@string/messages_this_session"
+                            android:src="@drawable/ic_success"
+                            app:tint="@color/caribbeanGreen" />
+
+                        <TextView
+                            android:id="@+id/tv_messages_received"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_messages_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/messages_this_session"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ── Stop / Start button — always visible below scroll content ───── -->
+    <Button
+        android:id="@+id/btn_stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_bkgd_transparent_56"
+        android:text="@string/stop_session"
+        android:textColor="@color/button_text_color_light" />
+
+</LinearLayout>

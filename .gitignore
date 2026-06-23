@@ -1,3 +1,13 @@
+.project
+.settings/
+AGENTS.md
+**/.classpath
+**/.project
+**/.settings
+
+.DS_Store
+**/.DS_Store
+.idea
 # Built application files
 *.apk
 *.ap_
@@ -75,3 +85,4 @@ lint/tmp/
 *.DS_Store
 /.idea
 /.idea
+gradle/gradle-daemon-jvm.properties

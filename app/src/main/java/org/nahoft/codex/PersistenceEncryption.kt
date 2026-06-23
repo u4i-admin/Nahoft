@@ -40,35 +40,18 @@ class PersistenceEncryption {
 
         val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, keystoreProvider)
 
-         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-         {
-             val keyGenParameterSpec = KeyGenParameterSpec.Builder(keyAlias,
-                KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
-                .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
-                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
-                // use a new IV each time, 4 different ciphertext for same plaintext on each call
-                .setRandomizedEncryptionRequired(true)
-                // This makes the key unavailable once the device has detected it is no longer on the person.
-                .setUserAuthenticationValidWhileOnBody(true)
-                .setUnlockedDeviceRequired(true)
-                .build()
+        val keyGenParameterSpec = KeyGenParameterSpec.Builder(keyAlias,
+           KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
+           .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+           .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+           // use a new IV each time, 4 different ciphertext for same plaintext on each call
+           .setRandomizedEncryptionRequired(true)
+           // This makes the key unavailable once the device has detected it is no longer on the person.
+           .setUserAuthenticationValidWhileOnBody(true)
+           .setUnlockedDeviceRequired(true)
+           .build()
 
-             keyGenerator.init(keyGenParameterSpec)
-        }
-         else
-        {
-            val keyGenParameterSpec = KeyGenParameterSpec.Builder(keyAlias,
-                KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
-                .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
-                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
-                // use a new IV each time, 4 different ciphertext for same plaintext on each call
-                .setRandomizedEncryptionRequired(true)
-                // This makes the key unavailable once the device has detected it is no longer on the person.
-                .setUserAuthenticationValidWhileOnBody(true)
-                .build()
-
-            keyGenerator.init(keyGenParameterSpec)
-        }
+        keyGenerator.init(keyGenParameterSpec)
 
         try {
             keyGenerator.generateKey()

@@ -26,35 +26,70 @@ class Encoder
         }
 
         val exifInterface = ExifInterface(inputStream)
-        val orientation: String = exifInterface.getAttribute(ExifInterface.TAG_ORIENTATION) ?: ExifInterface.ORIENTATION_UNDEFINED.toString()
+        val orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+            ExifInterface.ORIENTATION_NORMAL)
 
-        // Refresh inputStream
+        // Close the EXIF stream and open a fresh one for bitmap decoding.
+        // ExifInterface consumes part of the stream, so it can't be reused.
         inputStream = context.contentResolver.openInputStream(coverUri)
+        val rawCover = BitmapFactory.decodeStream(inputStream) ?: return null
 
-        // Get the photo
-        val cover = BitmapFactory.decodeStream(inputStream)
-        val result = encode(encrypted, cover)
+        // Apply EXIF orientation. Without this, photos taken in portrait mode
+        // (stored as landscape pixels + a "rotate 90" EXIF flag)
+        // will appear sideways in the saved/shared output.
+        val cover = applyExifOrientation(rawCover, orientation)
+
+        val result = encode(encrypted, cover) ?: return null
+
         val title = ""
         val description = ""
 
-        if (result == null) { return null }
-
-        if (saveToGallery)
+        return if (saveToGallery)
         {
-            val saved = SaveUtil.saveImageToGallery(context, result)
-            if (saved)
-            {
-                return coverUri
-            }
-            else
-            {
-                return null
-            }
+            if (SaveUtil.saveImageToGallery(context, result)) coverUri else null
         }
         else
         {
-            return CapturePhotoUtils.insertImage(context, result, title, description)
+            CapturePhotoUtils.insertImage(context, result, title, description)
         }
+    }
+
+    /**
+     * Applies the rotation/flip described by an EXIF orientation tag to a bitmap.
+     * Returns the original bitmap unchanged for ORIENTATION_NORMAL or UNDEFINED.
+     *
+     * The eight EXIF orientation values describe combinations of rotation and
+     * mirroring. We handle all of them, though in practice only the four pure
+     * rotations (1, 3, 6, 8) appear in camera output.
+     */
+    private fun applyExifOrientation(bitmap: Bitmap, orientation: Int): Bitmap
+    {
+        val matrix = android.graphics.Matrix()
+
+        when (orientation)
+        {
+            ExifInterface.ORIENTATION_NORMAL,
+            ExifInterface.ORIENTATION_UNDEFINED -> return bitmap
+
+            ExifInterface.ORIENTATION_ROTATE_90       -> matrix.postRotate(90f)
+            ExifInterface.ORIENTATION_ROTATE_180      -> matrix.postRotate(180f)
+            ExifInterface.ORIENTATION_ROTATE_270      -> matrix.postRotate(270f)
+            ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> matrix.postScale(-1f, 1f)
+            ExifInterface.ORIENTATION_FLIP_VERTICAL   -> matrix.postScale(1f, -1f)
+            ExifInterface.ORIENTATION_TRANSPOSE       -> { matrix.postRotate(90f);  matrix.postScale(-1f, 1f) }
+            ExifInterface.ORIENTATION_TRANSVERSE      -> { matrix.postRotate(270f); matrix.postScale(-1f, 1f) }
+
+            else -> return bitmap
+        }
+
+        val rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+
+        // createBitmap may return the same instance if the matrix is identity.
+        // Only recycle if we got a genuinely new bitmap, otherwise we'd be
+        // recycling the bitmap we're about to return.
+        if (rotated != bitmap) bitmap.recycle()
+
+        return rotated
     }
 
     @ExperimentalUnsignedTypes
@@ -99,41 +134,43 @@ class Encoder
         return cover
     }
 
-    fun scale(bitmap: Bitmap, bits: Int): Bitmap {
-        var p = bits * 2 * Swatch.minimumPatchSize
-        val size = bitmap.height * bitmap.width
-        if (size == p) {
-            return bitmap
-        } else {
-            val originalSize = ImageSize(
-                bitmap.height.toDouble(),
-                bitmap.width.toDouble(),
-                32.0 //ARGB_8888 8 bits for each in ARGB added together
-            )
+    /**
+     * Returns a bitmap sized appropriately for encoding `bits` bits of payload.
+     */
+    fun scale(bitmap: Bitmap, bits: Int): Bitmap
+    {
+        var targetPixels = bits * 2 * Swatch.minimumPatchSize
+        val currentPixels = bitmap.height * bitmap.width
 
-            var scaledSize = resizePreservingAspectRatio(originalSize, p)
-            var newHeight = scaledSize.height.roundToInt()
-            var newWidth = scaledSize.width.roundToInt()
-            var newNumPixels = newHeight * newWidth
-            var newBits = newNumPixels / (Swatch.minimumPatchSize * 2)
-            while (newBits < bits) {
-                print("Error in scaling algorithm.")
-                p += 1
-                scaledSize = resizePreservingAspectRatio(originalSize, p)
-                newHeight = scaledSize.height.roundToInt()
-                newWidth = scaledSize.width.roundToInt()
-                newNumPixels = newHeight * newWidth
-                newBits = newNumPixels / (Swatch.minimumPatchSize * 2)
-            }
-            val newBitmap = Bitmap.createScaledBitmap(
-                bitmap,
-                newHeight,
-                newWidth,
-                true
-            )
+        if (currentPixels == targetPixels) { return bitmap }
 
-            return newBitmap
+        val originalSize = ImageSize(
+            bitmap.height.toDouble(),
+            bitmap.width.toDouble(),
+            32.0  // ARGB_8888
+        )
+
+        var scaledSize = resizePreservingAspectRatio(originalSize, targetPixels)
+        var newHeight = scaledSize.height.roundToInt()
+        var newWidth = scaledSize.width.roundToInt()
+        var newCapacityBits = (newHeight * newWidth) / (Swatch.minimumPatchSize * 2)
+
+        // Rounding can land us 1-2 pixels short. Nudge up if so.
+        while (newCapacityBits < bits)
+        {
+            targetPixels += 1
+            scaledSize = resizePreservingAspectRatio(originalSize, targetPixels)
+            newHeight = scaledSize.height.roundToInt()
+            newWidth = scaledSize.width.roundToInt()
+            newCapacityBits = (newHeight * newWidth) / (Swatch.minimumPatchSize * 2)
         }
+
+        // NOTE: createScaledBitmap signature is (source, dstWidth, dstHeight, filter).
+        // The arguments below look swapped because resizePreservingAspectRatio
+        // computes aspectRatio = height / width (inverted from convention), so
+        // its `height` field actually carries the new width and vice versa.
+        // The two inversions cancel and the output has correct aspect ratio.
+        return Bitmap.createScaledBitmap(bitmap, newHeight, newWidth, true)
     }
 
     private fun resizePreservingAspectRatio(originalSize: ImageSize, targetSizePixels: Int): ImageSize {

@@ -11,7 +11,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore.Images;
 import static androidx.core.content.FileProvider.getUriForFile;
 
@@ -20,7 +19,8 @@ import static androidx.core.content.FileProvider.getUriForFile;
  * the correct date meta data
  * @author samuelkirton
  */
-public class CapturePhotoUtils {
+public class CapturePhotoUtils
+{
     /**
      * A copy of the Android internals  insertImage method, this method populates the
      * meta data with DATE_ADDED and DATE_TAKEN. This fixes a common problem where media
@@ -39,18 +39,20 @@ public class CapturePhotoUtils {
 
         // Add the date meta data to ensure the image is added at the front of the gallery
         values.put(Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            values.put(Images.Media.DATE_TAKEN, System.currentTimeMillis());
-        }
+        values.put(Images.Media.DATE_TAKEN, System.currentTimeMillis());
 
-        try {
-            File tempFile = File.createTempFile("image", ".jpg", context.getCacheDir());
+        try
+        {
+            File tempFile = File.createTempFile("image", ".png", context.getCacheDir());
 
-            try (FileOutputStream outputStream = new FileOutputStream(tempFile)) {
+            try (FileOutputStream outputStream = new FileOutputStream(tempFile))
+            {
                 Uri fileUri = getUriForFile(context, "org.nahoft.fileprovider", tempFile);
-                source.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                source.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
                 return fileUri;
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 System.out.println(e);
                 return null;
             }

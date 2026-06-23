@@ -99,11 +99,11 @@
             android:id="@+id/save_button"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@drawable/btn_bkgd_blue_8"
-            android:textColor="@color/white"
             android:layout_margin="8dp"
+            android:background="@drawable/btn_bkgd_blue_8"
             android:drawablePadding="20dp"
-            android:text="@string/button_label_save" />
+            android:text="@string/button_label_save"
+            android:textColor="@color/white" />
 
         <LinearLayout
             android:id="@+id/user_public_key_layout"
@@ -191,7 +191,7 @@
                 android:padding="15dp"
                 android:elevation="10dp"
                 android:scaleType="fitCenter"
-                android:contentDescription="@string/alert_text_invitation_accepted" />
+                android:contentDescription="@string/approve_button" />
 
         </LinearLayout>
 

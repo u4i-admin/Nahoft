@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr"
+    android:background="@color/background"
+    android:filterTouchesWhenObscured="true"
+    tools:context=".activities.SettingsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bkgd_header_main_page"
+        android:paddingBottom="@dimen/padding_half"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/button_back"
+            android:layout_width="@dimen/min_touch_target"
+            android:layout_height="@dimen/min_touch_target"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:padding="12dp"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_nohoft_icons_arrow_back"
+            android:contentDescription="@string/return_button"
+            app:layout_constraintBottom_toBottomOf="@id/profile_picture"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/profile_picture" />
+
+        <ImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/logo_image"
+            app:layout_constraintStart_toEndOf="@id/button_back"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_nahoft_icons_setting" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_activity_label"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toBottomOf="@id/profile_picture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/profile_picture" />
+
+        <ImageButton
+            android:id="@+id/setting_guide_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:scaleType="fitCenter"
+            android:padding="11dp"
+            android:background="@drawable/btn_bkgd_toolbar"
+            android:contentDescription="@string/user_guide_button_description"
+            android:src="@drawable/ic_nahoft_icons_question"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- settingsActivityLayoutContainer is used as the Snackbar anchor -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:filterTouchesWhenObscured="true"
+        android:layoutDirection="ltr"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_section">
+
+        <LinearLayout
+            android:id="@+id/settingsActivityLayoutContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/padding_standard"
+            android:paddingHorizontal="@dimen/padding_three_quarters">
+
+            <!-- Authentication: passcode and destruction code -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_half"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/button_corner_radius"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_three_quarters">
+
+                    <!-- Full-width tappable row — click handled in SettingsActivity,
+                         which calls passcodeSwitch.toggle(). The switch itself has
+                         clickable/focusable disabled to prevent double-firing. -->
+                    <LinearLayout
+                        android:id="@+id/passcode_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="@dimen/padding_half"
+                            android:src="@drawable/ic_nahoft_icons_passcode"
+                            android:contentDescription="@null"
+                            app:tint="@color/coolGrey" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/passcode_switch"
+                            android:layout_width="0dp"
+                            android:layout_height="56dp"
+                            android:layout_weight="1"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:fontFamily="@font/open_sans"
+                            android:text="@string/passcode"
+                            android:textSize="22sp"
+                            app:switchPadding="@dimen/padding_standard"
+                            app:trackTint="@color/coolGrey" />
+
+                    </LinearLayout>
+
+                    <!-- Passcode entry fields — hidden until switch is enabled -->
+                    <LinearLayout
+                        android:id="@+id/passcode_entry_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/enter_passcode"
+                            app:endIconMode="password_toggle">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/enter_passcode_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:importantForAutofill="no"
+                                android:inputType="number|numberPassword"
+                                android:maxLength="6"
+                                android:maxLines="1"
+                                android:textAlignment="center"
+                                android:textSize="@dimen/input_field_text_size" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/passcodeTwice"
+                            app:endIconMode="password_toggle">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/verify_passcode_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionDone"
+                                android:importantForAutofill="no"
+                                android:inputType="number|numberPassword"
+                                android:maxLength="6"
+                                android:maxLines="1"
+                                android:textAlignment="center"
+                                android:textSize="@dimen/input_field_text_size" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/passcode_submit_button"
+                            android:layout_width="104dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/padding_standard"
+                            android:background="@drawable/btn_bkgd_blue_56"
+                            android:fontFamily="@font/open_sans"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:text="@string/Login"
+                            android:textAllCaps="false"
+                            android:textColor="@color/button_text_color_light"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans_italic"
+                            android:text="@string/two_step_login_description"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="@dimen/padding_quarter"
+                        android:background="@color/lightGrey" />
+
+                    <LinearLayout
+                        android:id="@+id/destruction_code_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="@dimen/padding_half"
+                            android:src="@drawable/ic_nahoft_icons_sweeper"
+                            android:contentDescription="@null"
+                            app:tint="@color/coolGrey" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/destruction_code_switch"
+                            android:layout_width="0dp"
+                            android:layout_height="56dp"
+                            android:layout_weight="1"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:fontFamily="@font/open_sans"
+                            android:text="@string/destructionCode"
+                            android:textSize="@dimen/input_field_text_size"
+                            app:switchPadding="@dimen/padding_standard"
+                            app:trackTint="@color/coolGrey" />
+
+                    </LinearLayout>
+
+                    <!-- Destruction code entry fields — hidden until switch is enabled -->
+                    <LinearLayout
+                        android:id="@+id/destruction_code_entry_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/enter_destruction_code"
+                            app:endIconMode="password_toggle">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/destruction_code_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionDone"
+                                android:importantForAutofill="no"
+                                android:inputType="number|numberPassword"
+                                android:maxLength="6"
+                                android:maxLines="1"
+                                android:textAlignment="center"
+                                android:textSize="@dimen/input_field_text_size" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/reenter_destruction_code"
+                            app:endIconMode="password_toggle">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/verify_destruction_code_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionDone"
+                                android:importantForAutofill="no"
+                                android:inputType="number|numberPassword"
+                                android:maxLength="6"
+                                android:maxLines="1"
+                                android:textAlignment="center"
+                                android:textSize="@dimen/input_field_text_size" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/destruction_code_submit_button"
+                            android:layout_width="104dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:layout_marginVertical="@dimen/padding_standard"
+                            android:background="@drawable/btn_bkgd_blue_56"
+                            android:fontFamily="@font/open_sans"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:text="@string/Login"
+                            android:textAllCaps="false"
+                            android:textColor="@color/button_text_color_light"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Your public key: read-only display with copy action -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_half"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/button_corner_radius"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/padding_three_quarters">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans_italic"
+                            android:text="@string/your_code"
+                            android:textSize="14sp"
+                            android:textColor="@color/coolGrey" />
+
+                        <TextView
+                            android:id="@+id/tv_public_key"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/copy_public_key_button"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="@dimen/padding_half"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/copy"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_content_copy"
+                        app:tint="@color/coolGrey" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- App appearance: launcher icon and display name switcher -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_standard"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/button_corner_radius"
+                app:cardElevation="2dp">
+
+                <!-- Single tappable row: icon | label + current identity | chevron -->
+                <LinearLayout
+                    android:id="@+id/app_appearance_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:minHeight="56dp"
+                    android:padding="@dimen/padding_three_quarters"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <ImageView
+                        android:id="@+id/iv_app_appearance_icon"
+                        android:layout_width="@dimen/app_icon_preview_size"
+                        android:layout_height="@dimen/app_icon_preview_size"
+                        android:contentDescription="@string/app_appearance" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/padding_half"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/app_appearance_heading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans"
+                            android:text="@string/app_appearance"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/app_appearance_current"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans_italic"
+                            android:textSize="14sp"
+                            android:textColor="@color/coolGrey" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_chevron_right"
+                        android:contentDescription="@null"
+                        app:tint="@color/coolGrey" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

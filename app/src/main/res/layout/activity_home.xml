@@ -13,18 +13,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header_section"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bkgd_header_main_page"
+        android:paddingBottom="@dimen/padding_half"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Row 1: Logo and title -->
         <ImageView
             android:id="@+id/nahoft_message_bottle"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/activity_margin"
             android:contentDescription="@string/logo_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,50 +35,25 @@
         <TextView
             android:id="@+id/tv_messages"
             android:layout_width="wrap_content"
+            android:textAlignment="viewStart"
+            android:layout_marginStart="@dimen/padding_half"
+            app:layout_constraintStart_toEndOf="@id/nahoft_message_bottle"
+            app:layout_constraintTop_toTopOf="@id/nahoft_message_bottle"
+            app:layout_constraintBottom_toBottomOf="@id/nahoft_message_bottle"
             android:layout_height="wrap_content"
             android:text="@string/friends_list"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="26sp"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/nahoft_message_bottle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/nahoft_message_bottle" />
+            android:textSize="26sp"/>
 
-        <ImageButton
-            android:id="@+id/settings_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:scaleType="fitCenter"
-            android:padding="10dp"
-            android:background="@drawable/btn_bkgd_toolbar"
-            android:contentDescription="@string/settings_activity_label"
-            android:src="@drawable/ic_nahoft_icons_setting"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_messages"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_messages" />
-
-        <ImageButton
-            android:id="@+id/user_guide_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="10dp"
-            android:scaleType="fitCenter"
-            android:padding="11dp"
-            android:background="@drawable/btn_bkgd_toolbar"
-            android:contentDescription="@string/user_guide_button_description"
-            android:src="@drawable/ic_nahoft_icons_question"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_messages"
-            app:layout_constraintEnd_toStartOf="@id/settings_button"
-            app:layout_constraintTop_toTopOf="@+id/tv_messages" />
-
+        <!-- Row 2: Search bar with action buttons to the right -->
         <EditText
             android:id="@+id/search_friends"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="@dimen/padding_half"
+            android:layout_marginEnd="@dimen/padding_quarter"
             android:background="@drawable/btn_bkgd_search_edit_text"
             android:drawableStart="@drawable/ic_nahoft_icons_search"
             android:drawablePadding="10dp"
@@ -84,9 +61,39 @@
             android:paddingHorizontal="15dp"
             android:paddingVertical="@dimen/padding_half"
             android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/user_guide_button"
+            app:layout_constraintTop_toBottomOf="@id/nahoft_message_bottle"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_messages"
             tools:ignore="LabelFor" />
+
+        <ImageButton
+            android:id="@+id/user_guide_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/padding_quarter"
+            android:scaleType="fitCenter"
+            android:padding="11dp"
+            android:background="@drawable/btn_bkgd_toolbar"
+            android:contentDescription="@string/user_guide_button_description"
+            android:src="@drawable/ic_nahoft_icons_question"
+            app:layout_constraintEnd_toStartOf="@id/settings_button"
+            app:layout_constraintTop_toTopOf="@id/search_friends"
+            app:layout_constraintBottom_toBottomOf="@id/search_friends" />
+
+        <ImageButton
+            android:id="@+id/settings_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:scaleType="fitCenter"
+            android:padding="10dp"
+            android:background="@drawable/btn_bkgd_toolbar"
+            android:contentDescription="@string/settings_activity_label"
+            android:src="@drawable/ic_nahoft_icons_setting"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/search_friends"
+            app:layout_constraintBottom_toBottomOf="@id/search_friends" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -138,55 +145,55 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/add_friend_manually_button"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="@color/royalBlueDark"-->
-<!--        android:contentDescription="@string/add_contact"-->
-<!--        android:src="@drawable/ic_nahoft_icons_manual_register"-->
-<!--        app:elevation="6dp"-->
-<!--        app:fabSize="mini"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/add_friend_button"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/add_friend_button"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/add_friend_button"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/add_friend_button"-->
-<!--        app:maxImageSize="18dp" />-->
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/add_friend_manually_button"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:backgroundTint="@color/royalBlueDark"-->
+    <!--        android:contentDescription="@string/add_contact"-->
+    <!--        android:src="@drawable/ic_nahoft_icons_manual_register"-->
+    <!--        app:elevation="6dp"-->
+    <!--        app:fabSize="mini"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/add_friend_button"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/add_friend_button"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/add_friend_button"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/add_friend_button"-->
+    <!--        app:maxImageSize="18dp" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/add_friend_manually_button_help"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/add_new_user_manually"-->
-<!--        android:visibility="invisible"-->
-<!--        app:layout_constraintTop_toTopOf="@id/add_friend_manually_button"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/add_friend_manually_button"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/add_friend_button" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/add_friend_manually_button_help"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/add_new_user_manually"-->
+    <!--        android:visibility="invisible"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/add_friend_manually_button"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/add_friend_manually_button"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/add_friend_button" />-->
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/add_friend_contact_button"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="@color/royalBlueDark"-->
-<!--        android:contentDescription="@string/add_contact"-->
-<!--        android:src="@drawable/ic_nahoft_icons_contact"-->
-<!--        app:elevation="6dp"-->
-<!--        app:fabSize="mini"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/add_friend_button"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/add_friend_button"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/add_friend_button"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/add_friend_button"-->
-<!--        app:maxImageSize="18dp" />-->
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/add_friend_contact_button"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:backgroundTint="@color/royalBlueDark"-->
+    <!--        android:contentDescription="@string/add_contact"-->
+    <!--        android:src="@drawable/ic_nahoft_icons_contact"-->
+    <!--        app:elevation="6dp"-->
+    <!--        app:fabSize="mini"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/add_friend_button"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/add_friend_button"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/add_friend_button"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/add_friend_button"-->
+    <!--        app:maxImageSize="18dp" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/add_friend_contact_button_help"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/add_new_user_from_contact_list"-->
-<!--        android:visibility="invisible"-->
-<!--        app:layout_constraintTop_toTopOf="@id/add_friend_contact_button"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/add_friend_contact_button"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/add_friend_button" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/add_friend_contact_button_help"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/add_new_user_from_contact_list"-->
+    <!--        android:visibility="invisible"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/add_friend_contact_button"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/add_friend_contact_button"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/add_friend_button" />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_friend_button"

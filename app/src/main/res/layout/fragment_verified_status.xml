@@ -10,7 +10,7 @@
         android:id="@+id/messages_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/padding_standard" />
+        android:layout_marginHorizontal="@dimen/padding_standard" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/no_data_layout"

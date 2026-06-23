@@ -4,6 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
@@ -14,131 +16,139 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header_section"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bkgd_header_main_page"
+        android:paddingBottom="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Row 1: Back button, profile picture, name, status icon -->
         <ImageButton
             android:id="@+id/button_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="@dimen/activity_margin"
             android:padding="5dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_nohoft_icons_arrow_back"
-            app:layout_constraintBottom_toBottomOf="@id/profile_picture"
+            android:contentDescription="@string/return_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/profile_picture"
-            android:contentDescription="@string/return_button" />
-
-<!--        <ImageView-->
-<!--            android:id="@+id/profile_picture"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginStart="25dp"-->
-<!--            android:layout_marginTop="30dp"-->
-<!--            android:contentDescription="@string/logo_image"-->
-<!--            app:layout_constraintStart_toEndOf="@id/button_back"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:srcCompat="@drawable/ic_nahoft_icons_profile_picture" />-->
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/profile_picture"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="30dp"
             android:text="N"
             android:textSize="20sp"
             android:gravity="center"
             android:background="@drawable/bkgd_circle_white_56"
             android:contentDescription="@string/logo_image"
             app:layout_constraintStart_toEndOf="@id/button_back"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_friend_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/friendNameRecyclerView"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@id/profile_picture"
-            app:layout_constraintStart_toEndOf="@id/profile_picture"
-            app:layout_constraintTop_toTopOf="@id/profile_picture" />
+            app:layout_constraintTop_toTopOf="@id/button_back"
+            app:layout_constraintBottom_toBottomOf="@id/button_back" />
 
         <ImageView
             android:id="@+id/status_icon_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_picture"
-            app:layout_constraintEnd_toEndOf="@+id/profile_picture"
-            app:srcCompat="@drawable/status_icon_default"
-            android:contentDescription="@string/status_icon" />
+            android:contentDescription="@string/status_icon"
+            app:layout_constraintBottom_toBottomOf="@id/profile_picture"
+            app:layout_constraintEnd_toEndOf="@id/profile_picture"
+            app:srcCompat="@drawable/status_icon_default" />
 
         <ImageView
             android:id="@+id/verified_status_icon_image_view"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_picture"
-            app:layout_constraintEnd_toEndOf="@+id/profile_picture"
-            app:srcCompat="@drawable/ic_nahoft_icons_verify"
-            android:contentDescription="@string/status_icon" />
+            android:contentDescription="@string/status_icon"
+            app:layout_constraintBottom_toBottomOf="@id/profile_picture"
+            app:layout_constraintEnd_toEndOf="@id/profile_picture"
+            app:srcCompat="@drawable/ic_nahoft_icons_verify" />
 
-        <ImageButton
-            android:id="@+id/btn_import_text"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:background="@drawable/btn_bkgd_toolbar"
-            android:contentDescription="@string/import_text"
-            android:padding="8dp"
-            android:src="@drawable/ic_nahoft_icons_import_text"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_friend_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_friend_name" />
-
-        <ImageButton
-            android:id="@+id/btn_import_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/btn_bkgd_toolbar"
-            android:contentDescription="@string/import_image_hint"
-            android:src="@drawable/ic_nahoft_icons_import_image"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_friend_name"
-            app:layout_constraintEnd_toStartOf="@id/btn_import_text"
-            app:layout_constraintTop_toTopOf="@+id/tv_friend_name" />
-
-        <ImageButton
-            android:id="@+id/btn_help"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/btn_bkgd_toolbar"
-            android:contentDescription="@string/import_image_hint"
-            android:src="@drawable/ic_nahoft_icons_question"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_friend_name"
-            app:layout_constraintEnd_toStartOf="@id/btn_resend_invite"
-            app:layout_constraintTop_toTopOf="@+id/tv_friend_name" />
-
-        <ImageButton
-            android:id="@+id/btn_resend_invite"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <TextView
+            android:id="@+id/tv_friend_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/btn_bkgd_toolbar"
-            android:contentDescription="@string/resend_invitation"
-            android:src="@drawable/ic_nahoft_icons_share"
-            android:padding="5dp"
-            android:visibility="invisible"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_friend_name"
-            app:layout_constraintEnd_toStartOf="@id/btn_import_image"
-            app:layout_constraintTop_toTopOf="@+id/tv_friend_name" />
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/friendNameRecyclerView"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/profile_picture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/profile_picture"
+            app:layout_constraintTop_toTopOf="@id/profile_picture" />
+
+        <!-- Row 2: Action buttons -->
+        <LinearLayout
+            android:id="@+id/toolbar_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_picture">
+
+            <ImageButton
+                android:id="@+id/btn_help"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/btn_bkgd_toolbar"
+                android:contentDescription="@string/import_image_hint"
+                android:src="@drawable/ic_nahoft_icons_question" />
+
+            <ImageButton
+                android:id="@+id/btn_receive_radio"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/btn_bkgd_toolbar"
+                android:contentDescription="@string/receive_via_radio"
+                android:padding="8dp"
+                android:src="@drawable/ic_nahoft_radio_transmit"
+                android:visibility="gone"
+                app:tint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/btn_resend_invite"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/btn_bkgd_toolbar"
+                android:contentDescription="@string/resend_invitation"
+                android:src="@drawable/ic_nahoft_icons_share"
+                android:padding="5dp"
+                android:visibility="invisible"
+                android:scaleType="fitCenter" />
+
+            <ImageButton
+                android:id="@+id/btn_import_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/btn_bkgd_toolbar"
+                android:contentDescription="@string/import_image_hint"
+                android:src="@drawable/ic_nahoft_icons_import_image" />
+
+            <ImageButton
+                android:id="@+id/btn_import_text"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_bkgd_toolbar"
+                android:contentDescription="@string/import_text"
+                android:padding="8dp"
+                android:src="@drawable/ic_nahoft_icons_import_text" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -147,110 +157,183 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_alignBottom="@+id/header_section"
-        app:layout_constraintBottom_toTopOf="@id/send_message_container"
+        app:layout_constraintBottom_toTopOf="@id/composition_area"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header_section" />
 
-    <ImageButton
-        android:id="@+id/share_as_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/transparent_overlay_send_message"
-        android:contentDescription="@string/send_as_image"
-        android:padding="10dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_nahoft_icons_share_image"
-        app:layout_constraintStart_toStartOf="@+id/send_message_container"
-        app:layout_constraintTop_toBottomOf="@+id/frame_placeholder" />
-
-    <ImageButton
-        android:id="@+id/save_as_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/transparent_overlay_send_message"
-        android:contentDescription="@string/send_as_image"
-        android:padding="10dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_nahoft_icons_save"
-        app:layout_constraintStart_toStartOf="@+id/send_message_container"
-        app:layout_constraintTop_toTopOf="@+id/send_message_container" />
-
-    <LinearLayout
-        android:id="@+id/serial_status_container"
+    <!-- Composition area -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/composition_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/btn_bkgd_light_grey_outline_8"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/send_message_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/serial_status_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Serial Device"
-            android:textColor="@color/white"
-            android:layout_gravity="center_vertical" />
-
-        <CheckBox
-            android:id="@+id/use_serial_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Use Serial"
-            android:textColor="@color/white"
-            android:buttonTint="@color/white"
-            android:enabled="false" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/send_message_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/transparent_overlay_send_message"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
-            android:id="@+id/send_as_image"
+        <LinearLayout
+            android:id="@+id/serial_status_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/btn_bkgd_light_grey_outline_8"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/byte_counter_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/serial_status_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Serial Device"
+                android:textColor="@color/white"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+
+        <!-- Byte counter row: end-aligned above the message bar.
+             Radio counter and separator are gone when Eden is not connected. -->
+        <LinearLayout
+            android:id="@+id/byte_counter_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:layout_marginBottom="@dimen/activity_half_margin"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/send_message_container">
+
+            <!-- Visible only when Eden hardware is connected -->
+            <TextView
+                android:id="@+id/tv_radio_byte_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/byte_counter_text_size"
+                android:textColor="@color/coolGrey"
+                android:visibility="gone"
+                tools:text="radio: 87 / 130" />
+
+            <!-- Separator — visibility always matches tv_radio_byte_counter -->
+            <TextView
+                android:id="@+id/tv_byte_counter_separator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" · "
+                android:textSize="@dimen/byte_counter_seperator_size"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <!-- Always visible while composition area is showing -->
+            <TextView
+                android:id="@+id/tv_message_byte_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/byte_counter_text_size"
+                android:textColor="@color/coolGrey"
+                tools:text="text: 0 / 5000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/send_message_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/transparent_overlay_send_message"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageButton
+                android:id="@+id/send_as_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/transparent_overlay_send_message"
+                android:contentDescription="@string/send_as_image"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="20dp"
+                android:src="@drawable/ic_nahoft_icons_camera" />
+
+            <EditText
+                android:id="@+id/message_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/transparent_overlay_send_message"
+                android:hint="@string/type_your_message" />
+
+            <ImageButton
+                android:id="@+id/sendViaRadio"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/btn_bkgd_send_message_stateful"
+                android:contentDescription="@string/send_via_radio"
+                android:padding="18dp"
+                android:src="@drawable/ic_nahoft_radio_transmit"
+                android:visibility="gone"
+                android:layout_marginStart="8dp"
+                app:tint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/send_as_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/btn_bkgd_send_message_stateful"
+                android:contentDescription="@string/send_message"
+                android:padding="18dp"
+                android:src="@drawable/ic_nahoft_icons_send_message" />
+
+        </LinearLayout>
+
+        <!-- Image-share buttons: visually overlay the camera icon position in
+             send_message_container, animate out diagonally when revealed.
+             Sit at the end of the composition_area so they draw on top of
+             send_message_container in z-order. -->
+        <ImageButton
+            android:id="@+id/share_as_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/transparent_overlay_send_message"
             android:contentDescription="@string/send_as_image"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="20dp"
-            android:src="@drawable/ic_nahoft_icons_camera" />
-
-        <EditText
-            android:id="@+id/message_edit_text"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/transparent_overlay_send_message"
-            android:hint="@string/type_your_message" />
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_nahoft_icons_share_image"
+            android:translationY="175dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/send_message_container"
+            app:layout_constraintStart_toStartOf="@+id/send_message_container" />
 
         <ImageButton
-            android:id="@+id/send_as_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/btn_bkgd_send_message"
-            android:contentDescription="@string/send_message"
-            android:padding="18dp"
-            android:src="@drawable/ic_nahoft_icons_send_message" />
+            android:id="@+id/save_as_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/transparent_overlay_send_message"
+            android:contentDescription="@string/send_as_image"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_nahoft_icons_save"
+            android:translationY="175dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/send_message_container"
+            app:layout_constraintStart_toStartOf="@+id/send_message_container" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
         android:id="@+id/imageImportProgressBar"
@@ -261,5 +344,54 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/serial_progress_card"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/royalBlueDark"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center">
+
+            <ProgressBar
+                android:id="@+id/serial_progress_bar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:indeterminateTint="@color/white" />
+
+            <TextView
+                android:id="@+id/serial_progress_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Sending commands..."
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/serial_progress_step"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Step 1 of 16"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

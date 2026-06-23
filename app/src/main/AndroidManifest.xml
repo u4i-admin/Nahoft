@@ -16,6 +16,24 @@
         android:name="com.google.android.gms.permission.AD_ID"
         tools:node="remove" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-feature android:name="android.hardware.usb.host" android:required="true" />
+
+    <!-- Foreground service -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+
+    <!-- Notifications (Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Wake lock for audio capture during doze -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Consider: Request battery optimization exemption for reliability -->
+    <!-- User must grant this manually in settings -->
+    <!-- <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" /> -->
+
 
     <application
         android:name=".Nahoft"
@@ -29,8 +47,29 @@
         android:theme="@style/AppTheme">
 
         <service
-            android:name=".UpdateService"
+            android:name=".services.UpdateService"
             android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name=".services.WSPRReceiveSessionService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="microphone" />
+
+        <service
+            android:name=".services.WSPRTransmitSessionService"
+            android:foregroundServiceType="connectedDevice"
+            android:exported="false" />
+
+        <service
+            android:name=".services.MFSKTransmitSessionService"
+            android:foregroundServiceType="connectedDevice"
+            android:exported="false" />
+
+        <service
+            android:name=".services.MFSKReceiveSessionService"
+            android:foregroundServiceType="microphone"
             android:exported="false" />
 
         <provider
@@ -43,20 +82,99 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <!-- No launcher intent-filter, aliases handle launching.
+        exported=false because this activity is only ever started by our own aliases. -->
         <activity
             android:name=".activities.LogInActivity"
+            android:exported="false"
             android:excludeFromRecents="true"
-            android:exported="true"
             android:launchMode="singleTask"
             android:noHistory="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
+            tools:ignore="LockedOrientationActivity" />
+
+        <!-- App identity aliases. Only one can be enabled at a time.
+         All target LogInActivity and inherit its launchMode, noHistory, and screenOrientation.
+         Switch between them using AppIconManager — never enable/disable these directly. -->
+
+        <activity-alias
+            android:name=".activities.NahoftAlias"
+            android:targetActivity=".activities.LogInActivity"
+            android:label="@string/app_identity_label_nahoft"
+            android:icon="@mipmap/ic_launcher"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".activities.BloomAlias"
+            android:targetActivity=".activities.LogInActivity"
+            android:label="@string/app_identity_label_bloom"
+            android:icon="@mipmap/ic_launcher_bloom"
+            android:enabled="false"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".activities.SleeplyAlias"
+            android:targetActivity=".activities.LogInActivity"
+            android:label="@string/app_identity_label_sleeply"
+            android:icon="@mipmap/ic_launcher_sleeply"
+            android:enabled="false"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".activities.RootenAlias"
+            android:targetActivity=".activities.LogInActivity"
+            android:label="@string/app_identity_label_rooten"
+            android:icon="@mipmap/ic_launcher_rooten"
+            android:enabled="false"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".activities.XOAlias"
+            android:targetActivity=".activities.LogInActivity"
+            android:label="@string/app_identity_label_xo"
+            android:icon="@mipmap/ic_launcher_xo"
+            android:enabled="false"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".activities.DecoAlias"
+            android:targetActivity=".activities.LogInActivity"
+            android:label="@string/app_identity_label_deco"
+            android:icon="@mipmap/ic_launcher_deco"
+            android:enabled="false"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+
         <activity
             android:name=".activities.HomeActivity"
             android:excludeFromRecents="false"
@@ -75,12 +193,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.SettingPasscodeActivity"
+            android:name=".activities.SettingsActivity"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.FriendInfoActivity"
+            android:windowSoftInputMode="adjustResize"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

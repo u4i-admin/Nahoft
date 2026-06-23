@@ -1,603 +1,530 @@
 <resources>
 
-    <!-- Login Activity Strings -->
-    <string name="Login">Submit</string>
+    <!-- ════════════════════════════════════════════════════════
+         COMMON — Buttons, labels, and responses used app-wide
+         ════════════════════════════════════════════════════════ -->
 
-    <!-- Home Activity -->
-    <string name="button_label_friends">Friends</string>
-    <string name="button_label_messages">Messages</string>
-    <string name="button_label_settings">Settings</string>
+    <!-- Generic action buttons -->
+    <string name="approve_button">Approve</string>
+    <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="close">Close</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="skip">Skip</string>
+    <string name="get_started">Get Started</string>
+    <string name="read_more">Read More</string>
+    <string name="copy">Copy</string>
+
+    <!-- Shown briefly after the user copies text to clipboard -->
+    <string name="copied">Copied</string>
+    <string name="add_button">Add</string>
+
+    <!-- "Stop" as a neutral cancel/dismiss action in dialogs -->
+    <string name="stop_button">Stop</string>
+    <string name="button_label_save">Save</string>
+    <string name="button_label_delete">Delete</string>
+    <string name="button_label_cancel">Cancel</string>
     <string name="button_label_logout">Logout</string>
 
-    <!-- Create Activity -->
-    <string name="enter_message_here_hint">Message Body</string>
-    <string name="sendAsImageButton">Send as Image</string>
-    <string name="button_import_text_label">Import Text</string>
-    <string name="to">To</string>
-    <string name="sendAsTextButtonLabel">Send as Text</string>
-    <string name="saveImageButtonLabel">Save as Image</string>
+    <!-- Accessibility content descriptions -->
+    <string name="logo_image">Logo Image</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="return_button">Return Button</string>
+    <string name="status_icon">Status Icon</string>
+    <string name="user_guide_button_description">This button will take you to the user guides.</string>
+    <string name="minimize_sheet">Minimize - session keeps running</string>
+    <string name="content_description_share_security_code">Share your security code</string>
 
-    <!-- Create Activity Alerts -->
-    <string name="alert_text_verified_friends_only">You can only message a verified friend.</string>
-    <string name="alert_text_select_friend_to_send_message">Select a friend to send a message to.</string>
-    <string name="alert_text_write_a_message_to_send">Write a message to send.</string>
+    <!-- ════════════════════════════════════════════════════════
+         App appearance / identity switcher
+         ════════════════════════════════════════════════════════ -->
 
-    <!-- Help Activity-->
-    <string name="button_label_passcode">Passcode</string>
-    <string name="button_label_importing">Importing</string>
+    <string name="app_appearance">App Appearance</string>
+    <string name="dialog_title_app_appearance">Choose App Appearance</string>
+    <string name="app_identity_label_nahoft">Nahoft</string>
+    <string name="app_identity_label_bloom">Bloom</string>
+    <string name="app_identity_label_sleeply">Sleeply</string>
+    <string name="app_identity_label_rooten">Rooten</string>
+    <string name="app_identity_label_xo">XO</string>
+    <string name="app_identity_label_deco">Deco</string>
+    <string name="app_appearance_change">Change Appearance</string>
+    <string name="app_appearance_current">Current: %1$s</string>
 
-    <!-- Friend Info Activity-->
-    <string name="button_label_save">Save</string>
 
-    <!-- Friends Recycler View Item Row-->
-    <string name="friendNameRecyclerView">Name</string>
+    <!-- ════════════════════════════════════════════════════════
+         AUTHENTICATION — Login screen (LogInActivity)
+         ════════════════════════════════════════════════════════ -->
 
-    <!-- Message View -->
-    <string name="unknown_label">Unknown</string>
-    <string name="button_label_invite">Invite</string>
-    <string name="button_label_invite_again">Invite Again</string>
+    <!-- Submit button on the login screen.
+         Note to translator: the string key is named "Login" but the displayed value is "Submit". -->
+    <string name="Login">Submit</string>
 
-    <!-- Friend Info Activity -->
-    <string name="label_verify_friend_number">%1$s\'s Code</string>
-    <string name="label_verify_friend_user_number">Your Code</string>
+    <!-- Title for the biometric / device credential system prompt -->
+    <string name="login_using_device_credentials">Login using device credentials</string>
+    <!-- Subtitle listing available authentication methods for the system prompt -->
+    <string name="biometrics_pin_password_pattern">(Biometrics, PIN, Password, Pattern)</string>
+    <!-- Explains two-step login behavior once a passcode has been set -->
+    <string name="two_step_login_description">When you set a passcode for Nahoft, the app automatically enables two-step login. The first step asks for the passcode you set above. The second step asks for your phone\'s lock - your fingerprint, face, PIN, password, or pattern.</string>
 
-    <!-- Alert Strings -->
+    <!-- Failed login attempt alerts — shown progressively as attempt count increases -->
+    <string name="alert_text_zero_to_five_login_attempts">The passcode entered is incorrect. Please try again.</string>
+    <string name="alert_text_sixth_login_attempt">The passcode entered is incorrect. You can try logging in again in 60 seconds.</string>
+    <string name="alert_text_seventh_login_attempt">The passcode entered is incorrect. You can try logging in again in 5 minutes.</string>
+    <string name="alert_text_eighth_login_attempt">The passcode entered is incorrect. You can try logging in again in 15 minutes.</string>
+    <!-- Shown on the 9th failed attempt — all app data is erased at this point -->
+    <string name="alert_text_ninth_login_attempt">The passcode entered is incorrect. This account has been deleted.</string>
+    <!-- Lockout countdown: %1$d = minutes remaining, %2$d = seconds remaining -->
+    <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">Please wait %1$d minutes %2$d seconds before attempting to log in again.</string>
+    <string name="alert_text_passcode_required_to_proceed">Passcode required to proceed.</string>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         AUTHENTICATION — Passcode & Destruction Code setup (SettingsActivity)
+         ════════════════════════════════════════════════════════ -->
+
+    <string name="settings_activity_label">Settings</string>
+    <string name="passcode">Passcode</string>
+    <string name="destructionCode">Destruction Code</string>
+    <string name="enter_passcode">Type Passcode</string>
+    <string name="passcodeTwice">Verify Passcode</string>
+    <string name="enter_destruction_code">Type Destruction Code</string>
+    <string name="reenter_destruction_code">Verify Destruction Code</string>
+
+    <!-- Shown when a device lock screen has not been set up -->
+    <string name="you_have_to_set_a_lock_screen">You have to set a lock screen before using this app.</string>
+    <!-- Label for the Snackbar action button that opens device security settings -->
+    <string name="click_to_set">Click to set</string>
+
+    <!-- Passcode validation errors -->
     <string name="alert_text_passcode_field_empty">The passcode field is empty.</string>
     <string name="alert_text_verify_passcode_field_empty">Please verify your passcode.</string>
     <string name="alert_text_passcode_entries_do_not_match">Passcode entries do not match.</string>
+    <string name="alert_text_invalid_passcode">This passcode is invalid.</string>
+    <string name="alert_text_passcode_is_sequential">Sequential passcodes are not allowed.</string>
+    <string name="alert_text_passcode_is_a_repeated_digit">The passcode cannot be a repeated digit.</string>
+    <string name="alert_text_incorrect_passcode_length">The passcode must be 6 digits long.</string>
+
+    <!-- Destruction code validation errors -->
     <string name="alert_text_secondary_passcode_field_empty">The destruction code field is empty.</string>
     <string name="alert_text_verify_secondary_passcode_empty">Please verify your destruction code.</string>
     <string name="alert_text_secondary_passcode_entries_do_not_match">Destruction code entries do not match.</string>
     <string name="alert_text_passcode_required_for_destruction_code">You cannot create a destruction code until you create a passcode.</string>
     <string name="alert_text_secondary_passcode_and_passcode_may_not_match">You cannot have a destruction code that is the same as your passcode.</string>
-    <string name="alert_text_received_invitation">Received an invitation from %1$s. Send them an invitation to start communicating.</string>
-    <string name="alert_text_passcode_required_to_proceed">Passcode required to proceed.</string>
-    <string name="alert_text_unable_to_decode_message">Something went wrong. We were unable to decode this message.</string>
-    <string name="alert_text_unable_to_decrypt_message">We were unable to decrypt this message.</string>
-    <string name="alert_text_invitation_accepted">${sender.name} accepted your invitation. You can now communicate securely.</string>
-    <string name="alert_text_unable_to_update_friend_status">Something went wrong, we were unable to update your friend status.</string>
-    <string name="alert_text_which_friend_sent_this_message">Which friend sent this message?</string>
-    <string name="alert_text_which_friend_sent_this_invitation">Which friend sent this invitation?</string>
-    <string name="alert_text_friend_already_exists">You already have a friend with this name.</string>
-    <string name="alert_text_friend_phone_already_exists">You already have a friend with this phone number.</string>
-    <string name="alert_text_unable_to_process_request">Something went wrong. We were unable to process your request.</string>
-    <string name="paste_message_for_import_hint">Paste your text here…</string>
-    <string name="button_label_import_image">Import Image</string>
 
-    <!-- About User Guide -->
-    <string name="button_label_about">About</string>
-    <string name="about_user_guide_english">
-        \n<b>About</b>
-
-        \n\n<b>About Nahoft:</b>
-        \n“Nahoft” is not a messaging app. It is a tool for encryption. Nahoft is an offline software for encrypting text messages on Android phones.
-        \n\nEncrypting your text messages means that even if your message gets intercepted by a third party, that party can not read it. The only person that can read your message is the one with whom you exchanged your public key.
-        \n\nNahoft is offline, which means you do not need to be connected to the internet to encrypt your messages.
-        \n\nNahoft only encrypts text messages. Currently, it does not provide encrypted voice and video messages.
-        \n\nNahoft can encrypt text messages as text. It also can encrypt them as a photo (Steganography.) You can send an encrypted text message or a photo containing a message via another channel that allows you to send the file (for example, SMS, MMS, or a messaging app that allows you to send the file unchanged.) So, the other person, after receiving the message, transfers the encrypted text or photo to Nahoft and reads it.
-        \n\nFor the time being, Nahoft can be installed on phones that use the Android operating system.
-        \n\nNahoft is not a messaging app. It only encrypts the user’s text messages. The user can send the encrypted message to another one through one of the messaging apps (in an insecure network or even using an insecure messaging app.) The other person should be using Nahoft as well. Both should have already exchanged the public keys with one another to enter the messages into this software and read the encrypted messages. Nahoft uses public keys that can be shared with others. It also creates a private key hidden in the app to read the sent messages between two users.
-        \n\nNahoft’s goal is to make it possible for users to send secure messages even through insecure messaging apps and networks. It means that if a user does not have access to secure internet or can not use secure messaging apps (in the case of internet censorship, filtering, and total internet shutdown) and only have access to insecure messaging apps and networks inside the country, even in this case, the users can encrypt the text messages and send them in the network. So, even if the message gets intercepted, it will still not be intelligible since it is encrypted.
-        \n\nNote: Public keys (also the private key) change whenever you delete and reinstall the app, as well as each time you change your phone and reinstall the app. So, each time you change your phone or delete the app and reinstall it, you need to exchange the keys with your friends.
-        \n\nImportant: Nahoft is open-source software, and everyone can have access to its code.
-    </string>
-
-    <string name="about_user_guide_persian">
-        <!-- Fix this first line by adding the English word About (1 to the right of the  (درباره) -->
-        \n (درباره) About \n
-        <!-- Fix this second line by adding a "(i" to the right of the Persian word below. Keep the colon where it is. -->
-        \n درباره نهفت:  \n
-        \n نهفت یک پیام‌رسان نیست، بلکه ابزاری برای رمزنگاری است. «نهفت» نرم‌افزار آفلاین برای رمزنگاری پیامهای متنی در گوشی‌های اندرویدی است. \n
-        \n رمزنگاری کردن پیام متنی یعنی حتی اگر پیام ارسالی شما در میان راه توسط فرد سومی دیده شود، برای آن شخص سوم قابل خواندن نخواهد بود و تنها شخصی که شما کلید عمومی خود را با او رد و بدل کرده‌اید، می‌تواند پیام مورد نظر را بخواند. \n
-        \n  این نرم‌افزار، آفلاین است، یعنی برای تبدیل پیام‌های متنی به پیام‌های رمزگذاری شده، نیازی به اینترنت آنلاین ندارد و می‌تواند بصورت مستقل و بدون اینترنت جهانی، پیام‌های نوشتاری را رمزنگاری کند. \n
-        \n «نهفت» تنها پیام‌های متنی را رمزنگاری می‌کند و در حال حاضر امکان رمزنگاری پیام‌های صوتی و تصویری در آن فراهم نیست. \n
-        \n نهفت می‌تواند پیام‌های متنی را هم بصورت یک متن رمزنگاری کند و هم می‌تواند آن را در داخل یک عکس، که شما انتخاب می‌کنید، پنهان کند. شما می‌توانید پیام متنی یا عکس حاوی پیام را از طریق دیگری که امکان ارسال فایل را فراهم می‌کند (مثلا ایمیل، یا اس‌ام‌اس یا ام‌ام‌اس، یا یک پیام‌رسان که امکان ارسال فایل بدون تغییر را فراهم می‌کند) بفرستید تا طرف مقابل نیز پس از دریافت، متن یا عکس رمزنگاری شده را به نهفت منتقل کند و پیام را بخواند. \n
-        \n  «نهفت»، فعلا در سیستم عامل اندروید و در گوشی‌های موبایلی که از این سیستم عامل استفاده می‌کنند، قابل نصب است. \n
-        \n نهفت یک پیام‌رسان نیست، بلکه تنها پیام‌های متنی کاربر را رمزنگاری می‌کند و کاربر می‌تواند پیام رمز‌نگاری شده را از طریق یکی از پیام رسان‌های خود (در شبکه‌ای ناامن و حتی با یک پیام‌رسان ناامن) به فرد دیگری ارسال کند که او نیز  از نهفت استفاده می‌کند. آنها باید  قبلا با هم کلیدهای عمومی خود را همرسان و جابجا کرده باشند تا پیام‌ها را بعد از دریافت وارد این نرم‌افزار کنند و متن نهایی را در آنجا بخوانند. نهفت از کلیدهای عمومی که قابل همرسانی با دیگران است، استفاده می‌کند و کلیدی خصوصی می‌سازد که در داخل نرم‌افزار پنهان شده و می‌تواند پیام‌های رد و بدل شده بین دو کاربر را بخواند. \n
-        \n هدف «نهفت» این است که امکان ارسال پیام امن برای کاربران حتی در پیام‌رسان‌ها و شبکه‌های ناامن فراهم شود. به این معنی که اگر کاربری در شرایط خاص، دسترسی به شبکه امن اینترنت جهانی نداشت، و یا استفاده از پیام‌رسان‌های امن برای او امکان‌پذیر نبود (فرض کنید در شرایط سانسور، فیلترینگ و یا قطع کامل شبکه جهانی اینترنت) و تنها به پیام‌رسان‌های ناامن و یا شبکه‌های ناامن داخلی دسترسی داشت، حتی در اینصورت هم بتواند پیام خود را رمزنگاری کرده و در داخل این شبکه ارسال کند. در این صورت حتی اگر پیام او در میان راه توسط فرد سومی دیده شود، باز هم به علت آنکه رمزنگاری شده است، قابل خواندن نخواهد بود. \n
-        \n توجه: با هر بار پاک کردن کامل نرم‌افزار نهفت و نصب دوباره آن و همچنین با هر بار تغییر گوشی شما و در نتیجه نصب دوباره نهفت، کلیدهای عمومی (و نیز کلید خصوصی) تغییر می‌کند. بنابراین هربار که گوشی شما تغییر می‌کند و یا نهفت را پاک کرده و دوباره نصب می‌کنید، باید دوباره با دوستان خود این کلیدها را جابجا کنید. \n
-        <!--Fix this line by adding a "(ii" to the right of the Persian sentence below. -->
-        \n مهم: نهفت یک نرم‌افزار  متن باز (اوپن‌سورس) است و همه می‌توانند به کدهای برنامه‌نویسی آن دسترسی داشته باشند. \n
-        \n درباره سازندگان نهفت \n
-        \n «نهفت» از جمله تولیداتی است که در برنامه ایران کوباتور۲ و تحت نظارت سازمان «اتحاد برای ایران» تهیه شده است. سازمان اتحاد برای ایران یک نهاد حقوق‌بشری است که مرکز آن در شهر برکلی، ایالت کالیفرنیا قرار دارد.  هدف این نهاد گسترش آزادی‌های مدنی در ایران، دفاع از حقوق بشر، حمایت از جامعه مدنی و ترغیب شهروندان به مشارکت از طریق فناوری است. \n
-
-    </string>
-
-    <!-- Read User Guide -->
-    <string name="read_user_guide_english">
-        \n<b>Read</b>
-
-        \n\n<b>When you open Nahoft, you have five options on the home screen. One of those options is the "Read" option:</b>
-
-        \n\n<b>Messages:</b>
-        \nThis section will save the messages that you have already received and read. You have received the encrypted text from outside the Nahoft app. You have then transferred this text to the application and read it. Your message will now be saved in this section.
-
-        \n\nEach saved message is shown, the date that the message was saved, and the person who sent the message.
-
-        \n\nOpen the message. If you select the Trash icon in the right corner, your message will be deleted.
-
-        \n\n<b>Import Text:</b>
-        \nUse this section to enter and read a Nahoft text  you have received.
-
-        \n\nYou know who sent the message and you have already exchanged and verified your public keys. (See the Friends Section)
-
-        \n\nTo read the encrypted text, use the "Import Text" section. Copy the encrypted text message you received from a messenger and paste it into the “Text” section. Choose from whom you received the message. Click on “Import Text” to decrypt your text. Hidden text will appear and then it will be saved automatically in the “Messages” section.
-
-        \n\n<b>Import Image:</b>
-        \nUse this section to enter and read the message inside a Nahoft image you have received.
-
-        \n\nYou know who sent the message and you have already exchanged and verified your public keys. (See the Friends Section)
-
-        \n\nUse the "Import Image" section to read the image containing the encrypted text. Choose from whom you received the message. Click on the “Import Image” option, select the image you received from a messenger and previously saved. The displayed text will then be automatically saved in the “Messages” section.
-        \n
-   </string>
-
-    <string name="read_user_guide_persian">
-        <!-- Fix this first line by adding the English word Read (2 to the right of the  (خواندن) -->
-        \n (خواندن) Read \n
-        \n با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخاب‌ها گزینه «خواندن» یا Read است: \n
-        \n پیام‌ها (massages) \n
-        \n در این بخش پیام‌هایی که قبلا رسیده و خوانده‌اید، ذخیره خواهد شد. شما متن رمزنگاری شده را از طریقی خارج از برنامه نهفت دریافت کرده‌اید. و بعد آن را به داخل این نرم‌افزار منتقل کرده و خوانده‌اید. در اینصورت پیام شما در این قسمت ذخیره می‌شود. \n
-        \n هر پیام ذخیره شده، تاریخ ذخیره شدن پیام و  همچنین کسی که پیام را ارسال کرده، نشان می‌دهد. \n
-        \n پیام را باز کنید. اگر علامت سطل آشغال در گوشه سمت راست را انتخاب کنید، پیام شما پاک خواهد شد. \n
-        \n وارد کردن متن (Import Text) \n
-        \n برای خواندن متن رمزنگاری شده، از این قسمت استفاده کنید. شما یک پیام را بصورت متن رمزنگاری شده دریافت کرده‌اید. \n
-        \n شما می‌دانید که پیام را چه کسی ارسال کرده و قبلا کلیدهای عمومی خود را رد و بدل کرده و تایید کرده‌اید. (بخش۴ مربوط به دوستان را ببینید) \n
-        \n برای خواندن متن رمزنگاری شده، از قسمت «وارد کردن متن» یا (Import Text) استفاده کنید. پیام متنی رمزنگاری شده را که از طریق یک پیامرسان دریافت کرده‌اید، کپی کرده و در بخش متن منتقل کنید. انتخاب کنید که پیام را از چه کسی دریافت کرده‌اید. گزینه Import Text را بزنید تا متن شما رمزگشایی شود. متن پنهان، ظاهر شده و بعد بصورت اتوماتیک در بخش پیام‌ها ذخیره خواهد شد. \n
-        \n وارد کردن تصویر (Import Image) \n
-        \n برای خواندن پیام رمزنگاری در داخل عکس، از این قسمت استفاده کنید. شما یک عکس را بصورت رمزنگاری و در حالی که پیام در داخل آن قرار دارد، دریافت کرده‌اید. \n
-        \n شما می‌دانید که پیام را چه کسی ارسال کرده و قبلا کلیدهای عمومی خود را رد و بدل کرده و تایید کرده‌اید. (بخش۴ مربوط به دوستان را ببینید) \n
-        \n برای خواندن عکس حاوی متن رمزنگاری شده، از قسمت «وارد کردن تصویر» یا (Import Image) استفاده کنید. انتخاب کنید که پیام را از چه کسی دریافت کرده‌اید. گزینه Import Image را بزنید، عکسی را که از طریق یک پیامرسان دریافت کرده و قبلا ذخیره  کرده‌اید، انتخاب کنید. متن ظاهر شده و بعد بصورت اتوماتیک در بخش پیام‌ها ذخیره خواهد شد. \n
-
-    </string>
-
-    <!-- Create User Guide -->
-    <string name="create_user_guide_english">
-        \n<b>Create</b>
-
-        \n\n<b>When you open Nahoft, you have five options on the home screen. One of those options is the "Create" option:</b>
-
-        \n\n<b>To:</b>
-        \nHere is where you should select which verified friend you want to send your message to.
-
-        \n\nYou should have already exchanged and verified your public keys with others who also use the Nahoft app. (See the Friends Section)
-
-        \n\nTap on the empty field next to the "to" and select the person who is going to receive your message from the drop down menu of your verified friends.
-
-        \n\n<b>Writing the Message (Message Body):</b>
-        \nHere is where you can write the message you want to send. The message can be written in Persian, Turkish, Kurdish, Arabic, English, or in any language and in any alphabet you choose. But each message must contain a maximum of one thousand characters. If you have a longer message, split it into several shorter messages and send them separately.
-
-        \n\n<b>Save as Image:</b>
-        \nUse this option if you want your encrypted message to be encoded in an image, and then saved offline on your phone. When you press the “Save as Image” button, "Nahoft" will open your photo album. If you have not previously granted access to Nahoft, please grant this permission to Nahoft to access the photo album. Then select an image. This image will be saved. You can then send the saved image file to your friend in any way you want.
-
-        \n\n<b>Send as Image:</b>
-        \nUse this option if you want your encrypted message to be encoded in an image, and then sent (shared) via a messenger software. When you press the “Send as Image” button, "Nahoft" will open your photo album. If you have not previously granted access to Nahoft, please grant this permission to Nahoft to access the photo album. Then select an image to use for encoding the message. The message will be encoded in this image. Next you must select the messenger you want to send the message with. Note that the sending method should not change the structure of your file.
-
-        \n\n<b>Important: If you send the image via Telegram for example, you should send it as a file. If it is sent as an image, the file structure will be changed, and your message will be corrupted and unreadable.</b>
-
-        \n\n<b>Send as Text:</b>
-        \nUse this option if you want your encrypted message to be encoded as text. After writing the text and pressing the “Send as Text” key, you can send the message simultaneously through your favorite messenger, or you can copy the encrypted text and save it separately or take it to your favorite application and send it from there.
-        \n
-    </string>
-
-    <string name="create_user_guide_persian">
-        \n (ایجاد پیام) Create \n
-        \n  با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخاب‌ها گزینه «ایجاد پیام» یا Create است: \n
-        \n انتخاب گیرنده (To) \n
-        \n در این بخش شما انتخاب می‌کنید که پیام را به چه کسی ارسال می‌کنید. \n
-        \n شما قبلا با تعدادی از دوستان خود که آنها هم از نرم‌افزار «نهفت» استفاده می‌کنند، کلیدهای عمومی خود را رد و بدل کرده‌ و تایید کرده‌اید. (بخش۴ مربوط به دوستان را ببینید) \n
-        \n از لیست این دوستان، کسی که قرار است پیام شما را دریافت کند انتخاب کنید. \n
-        \n نوشتن متن (Massage Body) \n
-        \n در این قسمت شما پیامی را که می‌خواهید ارسال کنید بنویسید. پیام می‌تواند فارسی، ترکی، کردی، عربی، انگلیسی یا به هر زبان و با هر الفبایی که شما انتخاب می‌کنید نوشته شود. اما هر پیام حداکثر باید هزار کاراکتر شود. اگر پیام طولانی‌تری دارید، آن را به چند پیام کوتاه‌تر تقسیم کنید و در چند پیام جداگانه بفرستید. \n
-        \n ذخیره بصورت تصویر (Save as Image) \n
-        \n اگر می‌خواهید پیام شما در یک عکس جاسازی شود، و سپس بصورت آفلاین در گوشی شما ذخیره شود، از این گزینه استفاده کنید. با فشردن کلید Save as Image، «نهفت»، آلبوم عکس شما را باز می‌کند. اگر قبلا دسترسی نداده‌اید، لطفا به «نهفت» دسترسی به آلبوم عکس بدهید. سپس یک عکس انتخاب کنید. این عکس ذخیره می‌شود. سپس شما می‌توانید فایل عکس ذخیره شده را از هر طریقی که مناسب می‌دانید به دوست خود ارسال کنید. \n
-        \n ارسال بصورت تصویر(Send as Image) \n
-        \n اگر می‌خواهید پیام شما در یک عکس جاسازی شود، و سپس همزمان از طریق یک نرم‌افزار پیام‌رسان ارسال شود، از این گزینه استفاده کنید. با فشردن کلید Send as Image ، «نهفت» آلبوم عکس شما را باز می‌کند. اگر قبلا دسترسی نداده‌اید، لطفا به «نهفت» دسترسی به آلبوم عکس بدهید. سپس یک عکس انتخاب کنید. پیام در این عکس جاسازی می‌شود و سپس شما باید پیامرسانی را که می‌خواهید پیام را ارسال کنید انتخاب کنید. توجه کنید نحوه ارسال به‌گونه‌ای نباشد که ساختار فایل شما را تغییر دهد. \n
-        \n مهم: مثلا اگر از طریق تلگرام ارسال می‌کنید، فقط بصورت فایل ارسال کنید. چون اگر بصورت عکس ارسال شود، ساختار فایل تغییر می‌کند و پیام شما آسیب خواهد دید و قابل خواندن نخواهد بود. \n
-        \n ارسال بصورت متن(Send as Text) \n
-        \n اگر می‌خواهید پیام شما بصورت متن رمزگذاری شود از این گزینه استفاده کنید. بعد از نوشتن متن و فشردن کلید Send as Text شما می‌توانید بصورت همزمان و از طریق یک پیامرسان دلخواه پیام را ارسال کنید و یا می‌توانید متن رمزگذاری شده را کپی کنید و جداگانه ذخیره کنید یا مثلا داخل نرم‌افزار دلخواهتان برده و ارسال کنید. \n
-
-    </string>
-
-    <!-- Friends User Guide -->
-    <string name="friends_user_guide_english">
-        \n<b>Friends</b>
-
-        \n\n<b>When you open Nahoft, you have five options on the home screen. One of those options is the "Friends" option.</b>
-
-        \n\n<b>(+) ADD Button (Enter Nickname):</b>
-        \nYou can add a friend to your list of friends by pressing the (+) sign.
-After pressing this (+) sign, you must first enter your friend\'s name. You can use nicknames for friends. This is considered more secure. After entering the name, a page will open with two options: “Invite” and “Import invitation”.
-
-        \n\nYou can change a friend’s name by pressing the “Edit” button.
-
-        \n\n<b>Invite:</b>
-        \nBy pressing the “Invite” button, your public key is ready to be sent. This key is the same for all your friends. You can save it anywhere and give it to anyone you want. Disclosing this key is not a problem, it is like giving your phone number to others. However, we recommend against publishing this key.
-
-        \n\nWhen you press the invite button the “share” menu will be presented. From here you should select which option you would like to use to invite a contact by sharing your key with them.
-
-        \n\nIf your friend is nearby, you can exchange your public keys in person.
-
-        \n\nAfter exchanging public keys, two friends can compare the keys, confirm that the keys are correct, and then press the verify button to update that contact to the verified status. At this point it is possible to send and receive encrypted messages between them.
-
-        \n\n<b>Import Invitation:</b>
-        \nYour friend, like you, has a public key that can be shared with everyone, including you. They can either give you this key through a messenger or give you this key in a face-to-face meeting.
-
-        \n\nIf you have received an invitation (public key) from a friend, you can paste that text in the import window and press the import button to accept the invitation. You will be prompted to select which friend sent you the invitation if you have already added them to your list. If not, you must first add them, and then import their invitation (public key).
-
-        \n\nAfter exchanging public keys, two friends can compare the keys, confirm that the keys are correct,  and then press the verify button to update that contact to the verified status. At this point it is possible to send and receive encrypted messages between them.
-
-        \n\n<b>Edit:</b>
-        \nYou can change the entered name by pressing the “Edit” button
-
-        \n\n<b>Delete Friend:</b>
-        \nYou can delete the friend contact entirely by pressing the “Delete friend” button.
-        \n
-     </string>
-
-    <string name="friends_user_guide_persian">
-        \n (دوستان) Friends  \n
-        \n با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخاب‌ها گزینه «دوستان» یا Friends است. \n
-        \n مراحل تایید مخاطب رو میتونید با جزئیات بیشتر به شکل زیر دنبال کنید: \n
-        \n برای این کار به قسمت "friend"  رفته و روی علامت + میزنید \n
-        \n برای مخاطب مورد نظر یک اسم انتخاب میکنید \n
-        \n بعد از این روی گزینه "invite" میزنید و کلید اختصاصی خودتون رو از طریق هر پیام رسانی و حتی به صورت اس ام اس (پیام کوتاه) یا ایمیل برای شخص مقابل ارسال میکنید \n
-        \n تمام مراحل بالا رو شخص مقابل هم برای شما باید انجام بده \n
-        \n بعد از اینکه شخص مقابل کلید شخصی خودش رو ارسال کرد، شما باید وارد قسمت "friend" شده و اسم شخص مورد نظر رو انتخاب کنید و روی گزینه "import invitation" بزنید و کلید رو در اون قسمت وارد کنید (کپی و اضافه کردن) \n
-        \n بعد از اینکه هر دو طرف مراحل بالا رو انجام دادن مخاطب شما از حالت "invite" به حالت "approved"  در میاد \n
-        \n بعد با زدن روی "approved" مخاطب رو به حالت "verify" یعنی تایید شده در میارید که از این به بعد به راحتی میتونید تمام پیام‌های خودتون رو برای اون مخاطب خاص از طریق نهفت کدگذاری کنید و برای اون مخاطب خاص ارسال کنید و فقط و فقط اون مخاطب قادر به رمزگشایی پیام شما هست \n
-        \n برای ارسال پیام کدگذاری شده روی گزینه "create" بزنید و فرد مورد نظرتون رو از بین مخاطبینی که قبلا مراحل تایید رو باهاشون گذروندین انتخاب کنید و پیام مورد نظر رو در محل مخصوص درج پیام وارد کنید و در پایین از بین مسیرهای "save as a image" و "send as a image"  یا "send as a text"  یکی رو انتخاب کنید. سپس از بین نرم‌افزارهای ارسال پیامی که روی موبایلتون دارید حتی از طریق اس‌ام‌اس یا همون پیام کوتاه  یک مورد را انتخاب کنید و پیام خودتون رو برای شخص مورد نظرتون ارسال کنید \n
-        \n مخاطب شما یک پیام به صورت کلمات تصادفی و درهم دریافت میکنه که هیچ معنا و مفهوم مشخصی نداره \n
-        \n برای رمزگشایی و دریافت پیام اصلی مخاطب مقابل شما باید پیام شما رو کپی کرده و وارد نهفت بشه و روی گزینه "read"  بزنه و با وارد کردن پیام رمزگذاری شده به متن اصلی پیام دسترسی پیدا کنه. \n
-
-    </string>
-
-    <!-- Settings User Guide -->
-    <string name="settings_user_guide_english">
-        \n<b>Settings</b>
-
-       \n\n<b>When you open Nahoft, you have five options on the home screen. One of those options is the "Settings" option.</b>
-
-        \n\n<b>In this section, you can define two types of passwords for the Nahoft application. One password is for logging in and out of the app, and the other works exactly like the password, but by entering it all the information in Nahoft will be deleted.</b>
-
-        \n\n<b>Passcode:</b>
-        \nWhen you activate the “Passcode” option, you define a six-digit password that you will need to log in to the app.
-
-        \n\n<b>Destruction Code:</b>
-        \nWhen you activate the “Destruction Code” option, you define a six-digit password that will be used to destroy all information stored in the Nahoft app, including all messages and friend lists.
-
-        \n\nYou can use this password in an emergency situation so that your information will not be shared with anyone outside of your private network.
-
-        \n\nPlease note that you can only create a destruction code if you have already created and enabled a passcode.
-
-        \n\n<b>Logout:</b>
-        \nThe “Logout” option will not be activated until you have enabled and created a passcode. This option appears after defining the passcode. We recommend that you log out after using the app for added security.
-
-        \n\nIf you do not use the Logout option, Nahoft will log you out automatically after a few minutes, and you will be required to log in again the next time you open the application.
-
-        \n\nDon’t forget to enter your passcode, not the destruction code when trying to log in!
-        \n
-   </string>
-
-    <string name="settings_user_guide_persian">
-        \n (تنظیمات) Settings \n
-        \n با باز کردن نهفت، شما با پنج انتخاب در صفحه اصلی مواجه می‌شوید. یکی از آن انتخاب‌ها گزینه «تنظیمات» یا Settings است. \n
-        \n در این بخش شما می‌توانید دو نوع رمز برای نرم‌افزار نهفت تعریف کنید. یک رمز برای ورود و خروج به نرم‌افزار است، و دیگری دقیقا مشابه رمز ورود عمل می‌کند اما با وارد کردن آن همه اطلاعات داخل نهفت پاک خواهد شد. \n
-        \n کد ورود به برنامه (Passcode) \n
-        \n با فعال کردن گزینه Passcode شما یک رمز شش رقمی تعریف می‌کنید که برای ورود به برنامه در زمانی که Logout شده، نیاز خواهید داشت. \n
-        \n کد پاک کردن اطلاعات برنامه (Destruction Code) \n
-        \n با فعال کردن گزینه Destruction Code شما یک رمز شش رقمی تعریف می‌کنید که برای نابودی همه اطلاعات ذخیره شده در داخل نهفت، از جمله همه پیام‌ها و لیست همه دوستان به کار خواهد آمد. \n
-        \n شما از این رمز در مواقع اضطراری استفاده خواهید کرد تا اطلاعات شما احیانا در اختیار افرادی که صلاح نمی‌دانید، قرار نگیرد. \n
-        \n قفل کردن برنامه (Logout) \n
-        \n تا زمانی که پسوورد ورود را تعریف نکرده‌اید، گزینه Logout فعال نمی‌شود. این گزینه بعد از تعریف پسوورد نمایان می‌شود و پیشنهاد ما این است که پس از استفاده از برنامه، از آن خارج شوید تا ورود دوباره به آن نیازمند رمز باشد. \n
-        \n اگر شما گزینه Logout را استفاده نکنید، نهفت بعد از چند دقیقه خود بخود خارج می‌شود و شما برای ورود به آن نیازمند رمز خود خواهید بود. \n
-        \n دقت کنید که رمز اصلی را وارد کنید و نه رمزی که برای نابودی اطلاعات تعریف شده بود. \n
-
-    </string>
-
-    <!-- Content Descriptions -->
-
-    <string name="content_description_add_friend_button">Add Friend</string>
-    <string name="from">From</string>
-    <string name="alert_text_message_too_long">Your message is too long.</string>
-    <string name="button_label_delete">Delete</string>
-    <string name="button_label_reset">Reset</string>
-    <string name="button_label_english">English</string>
-    <string name="button_label_persian">فارسی</string>
-    <string name="alert_text_confirm_friend_delete">Are you sure to delete %1$s?</string>
-    <string name="button_label_cancel">Cancel</string>
-    <string name="user_guide_button_description">This button will take you to the user guides.</string>
-    <string name="settings_button_description">This button will take you to the settings menu.</string>
-    <string name="friends_button_description">This button will take you to the friends menu.</string>
-    <string name="read_button_description">This button will take you to the read messages, import text, and import image menu.</string>
-
-    <!-- Help Dialog Buttons -->
-
-    <string name="ok_button">OK</string>
-
-    <!-- New Content Descriptions -->
-    <string name="alert_text_invalid_passcode">This passcode is invalid.</string>
-    <string name="alert_text_passcode_is_sequential">Sequential passcodes are not allowed.</string>
-    <string name="alert_text_passcode_is_a_repeated_digit">The passcode cannot be a repeated digit.</string>
-    <string name="alert_text_incorrect_passcode_length">The passcode must be 6 digits long.</string>
-    <string name="alert_text_image_saved">This image has been saved to your phone.</string>
-
-    <!-- Enter Passcode Activity -->
-    <string name="alert_text_zero_to_five_login_attempts">The passcode entered is incorrect. Please try again.</string>
-    <string name="alert_text_sixth_login_attempt">The passcode entered is incorrect. You can try logging in again in 60 seconds.</string>
-    <string name="alert_text_seventh_login_attempt">The passcode entered is incorrect. You can try logging in again in 5 minutes.</string>
-    <string name="alert_text_eighth_login_attempt">The passcode entered is incorrect. You can try logging in again in 15 minutes.</string>
-    <string name="alert_text_ninth_login_attempt">The passcode entered is incorrect. This account has been deleted.</string>
-    <string name="alert_text_minutes_to_wait_until_user_can_attempt_to_login_again">Please wait, %1$d minutes %2$d seconds before attempting to login again</string>
-
-    <!-- SaveUtil.kt file -->
-    <string name="saved_images">Saved Images</string>
-
-    <!-- Enter Passcode Activity XML -->
-    <string name="enter_passcode">Enter Your Passcode</string>
-
-    <!-- Home Activity -->
-    <string name="button_label_help">Help</string>
-    <string name="button_label_read">Read</string>
-    <string name="button_label_create">Create</string>
-
-    <!-- Import Image Activity -->
-    <string name="import_image_hint">Import an image from your device.</string>
-
-    <!-- Import Text Activity -->
-    <string name="import_text_label">Import Text</string>
-
-    <!-- Settings Activity -->
-    <string name="settings_activity_label">Settings</string>
-    <string name="passcode">Passcode</string>
-    <string name="destructionCode">Destruction Code</string>
-    <string name="passcodeTwice">Re-enter Your Passcode</string>
-
-    <!-- Friends Info Activity -->
-    <string name="friends_info_activity_heading">Info</string>
-    <string name="edit_friend_button">Edit Friend Button</string>
-    <string name="edit_button">Edit</string>
-    <string name="send_message">Send Message</string>
-    <string name="import_text">Import Text</string>
-    <string name="verify_button">Verify</string>
-    <string name="invite_button">Invite</string>
-    <string name="decline_button">Decline</string>
-    <string name="import_invitation_button">Import Invitation</string>
-
-    <string name="button_descriptions">
-        \nPress Invite to send a key to a new friend.
-        \nPress Invite Again if you need to resend a key.
-        \nPress Import Invitation to receive a key from your friend.
-        \nPress Verify to compare and confirm that your keys match.
-        \nPress Decline to reject the last key sent, and start the key exchange process again.</string>
-
-    <string name="delete_friend_button">Delete Friend</string>
-
-    <!-- Messages Activity -->
-    <string name="messages_activity_heading">Messages</string>
-
-    <!-- Add Friend Alert Dialog -->
-    <string name="enter_nickname">Enter Nickname</string>
-    <string name="add_button">Add</string>
-    <string name="cancel_button">Cancel</string>
-
-    <!-- Activity Friends Info -->
+    <!-- Success confirmations -->
+    <string name="alert_passcode_saved">Your passcode has been saved.</string>
+    <string name="alert_destruction_code_saved">Your destruction code has been saved.</string>
+
+    <!-- Help text shown in the Settings section of the onboarding slides -->
+    <string name="passcode_description">By activating the "Passcode" option, you can define a six-digit passcode that you will need every time you log in to Nahoft. By activating the passcode feature, the "Logout" option will be activated at the bottom of the main screen.</string>
+    <string name="destruction_code_description">By enabling the "Destruction code" option, you define a six-digit code that will erase all information stored inside the app, including messages and your friend list. \nUse this code in emergencies to prevent unwanted access to your information.</string>
+    <string name="logout_description">The Logout option only appears if you have set a passcode. Tap it to immediately log out of Nahoft. If you don\'t use Logout, Nahoft will lock itself after a few minutes of inactivity and require your passcode to unlock.</string>
+
+    <!-- ════════════════════════════════════════════════════════
+         FRIENDS & CONTACTS — Home screen and friend management
+         ════════════════════════════════════════════════════════ -->
+
+    <!-- Home screen section header.
+         Note to translator: displayed in ALL CAPS by the layout — translate in natural case. -->
+    <string name="messages">messages</string>
+    <!-- Shown as the home screen header in normal (non-share) mode -->
+    <string name="friends_list">Friends list</string>
+    <!-- Shown as the home screen header when the user is picking who sent a shared message -->
+    <string name="select_sender">Select Sender</string>
+
+    <!-- Friend list item labels -->
+    <string name="friendNameRecyclerView">Name</string>
     <string name="nickname">Nickname</string>
-    <string name="verification_code">Verification Code</string>
+
+    <!-- Add / manage friend UI -->
+    <!-- NEEDS_REVIEW: terminology change (contact → friend) -->
+    <string name="add_contact">Add Friend</string>
+    <string name="add_new_friend">Add New Friend</string>
+    <!-- Used in onboarding help slides -->
+    <string name="add_new_contact">Add new friend</string>
+    <string name="delete_a_contact">Delete a friend</string>
+    <string name="edit_contact_name">Edit friend name</string>
+    <string name="edit_contact_name_description">To edit the name or phone number of your friend, follow these steps: \n Click once on the name of your friend to go to the chat page. \n Once inside the chat page, click again on the name of your friend. \n A new page will open where you can edit the name and phone number of your friend.</string>
+    <string name="to_import_or_create_a_new_friend_help">Click this button to create a new friend.</string>
+    <string name="add_new_friend_description">To add a new friend, tap the plus (+) icon on the home page.</string>
+    <string name="delete_friend_description">To delete a friend, follow these steps: \n Hold your finger on the name of the desired friend for a few seconds. \n After a few seconds, you will see a message asking if you are sure you want to delete your friend. By selecting the "Yes" option, your friend will be deleted.</string>
+
+    <!-- Friend status labels — shown next to each friend's name in the list -->
     <string name="friend_status_default">Default</string>
     <string name="friend_status_requested">Requested</string>
     <string name="friend_status_invited">Invited</string>
     <string name="friend_status_verified">Verified</string>
+    <!-- NEEDS_REVIEW: Farsi was identical to friend_status_verified — these are
+    two different states (Approved = codes exchanged; Verified = codes exchanged
+    AND verified out-of-band). They need distinct Farsi terms. -->
     <string name="friend_status_approved">Approved</string>
 
-    <!-- Setting Passcode -->
-    <string name="enter_destruction_code">Enter Your Destruction Code</string>
-    <string name="reenter_destruction_code">Re-enter Your Destruction Code</string>
+    <!-- Friend status screen body text — shown in the chat area depending on connection state -->
+    <!-- %s = friend's name -->
+    <string name="default_fragment_text">%s needs your security code to exchange encrypted messages with you.\n\nNahoft is offline, so nothing is sent automatically. Tap the button below to share your security code with %s using any messaging app, then ask them to send theirs back to you.</string>
+    <!-- %s = friend's name -->
+    <string name="invited_fragment_text">To exchange encrypted messages with %s, you need their security code.\n\nWhen %s sends you their security code you can share it directly to Nahoft from your messaging app, or you can tap the button below to paste it from your clipboard.\n\n Tap the share button above if you need to share your code again.</string>
+    <!--  %s = friend's name-->
+    <string name="requested_fragment_text">To exchange encrypted messages with %s, they need your security code.\n\nTap the button below to share your security code with them using any messaging app.</string>
 
-    <!-- Message -->
-    <string name="from_with_colon">From:</string>
-    <string name="alert_passcode_saved">Your passcode has been saved.</string>
-    <string name="alert_destruction_code_saved">Your destruction code has been saved.</string>
-    <string name="large_text" translatable="false">
-        "Material is the metaphor.\n\n"
+    <!-- Status descriptions used in onboarding help slides -->
+    <string name="default_status">Default status</string>
+    <string name="default_status_description">This status is displayed with a gray circle next to your friend\'s name. It means you have added your friend to your friend list but no security codes have been exchanged yet - you have not sent your code to your friend, and they have not sent theirs to you.</string>
+    <string name="requested_status">Requested status</string>
+    <string name="requested_status_description">This status is displayed with an orange circle next to your friend\'s name. It means that your friend has sent you their security code and is now waiting for you to send them yours.</string>
+    <string name="approve_status">Approve status</string>
+    <string name="approve_status_description">This status is displayed with a blue circle next to your friend\'s name. It means security codes have been exchanged between you and your friend.</string>
+    <string name="invited_status">Invited status</string>
+    <string name="invited_status_description">This status is displayed with a purple circle next to your friend\'s name. It means that you have sent your security code to your friend and are waiting to receive theirs.</string>
+    <string name="verify_status">Verify status</string>
+    <string name="verify_status_description">This status is displayed with a green and white confirmation icon next to your friend\'s name. It means that a security code exchange has occurred between you and your friend, and you have securely verified through a trusted third party that your friend was the one who actually sent the code, not an imposter.</string>
+    <string name="verify_status_full_description">This status is displayed with a green and white confirmation icon next to your friend\'s name. It means that a security code exchange has occurred between you and your friend, and you have securely verified through a trusted third party that your friend was the one who actually sent the code, not an imposter.\n Once you are confident about this, you can proceed to the chat page. Click on your friend\'s name and select the \"Verified\" option. By selecting this option, your friend\'s status in Nahoft will change from green (Approved) to a green and white icon with a confirmation sign. This status represents the most secure state in Nahoft.</string>
 
-        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
-        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
-        "technologically advanced and open to imagination and magic.\n"
-        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
-        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
-        "flexibility of the material creates new affordances that supercede those in the physical "
-        "world, without breaking the rules of physics.\n"
-        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
-        "interact, and exist in space and in relation to each other. Realistic lighting shows "
-        "seams, divides space, and indicates moving parts.\n\n"
-
-        "Bold, graphic, intentional.\n\n"
-
-        "The foundational elements of print based design typography, grids, space, scale, color, "
-        "and use of imagery guide visual treatments. These elements do far more than please the "
-        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
-        "imagery, large scale typography, and intentional white space create a bold and graphic "
-        "interface that immerse the user in the experience.\n"
-        "An emphasis on user actions makes core functionality immediately apparent and provides "
-        "waypoints for the user.\n\n"
-
-        "Motion provides meaning.\n\n"
-
-        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
-        "inflection points that initiate motion, transforming the whole design.\n"
-        "All action takes place in a single environment. Objects are presented to the user without "
-        "breaking the continuity of experience even as they transform and reorganize.\n"
-        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
-        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
-
-        "3D world.\n\n"
-
-        "The material environment is a 3D space, which means all objects have x, y, and z "
-        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
-        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
-        "position along the z-axis and has a standard 1dp thickness.\n"
-        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
-        "emulated by manipulating the y-axis.\n\n"
-
-        "Light and shadow.\n\n"
-
-        "Within the material environment, virtual lights illuminate the scene. Key lights create "
-        "directional shadows, while ambient light creates soft shadows from all angles.\n"
-        "Shadows in the material environment are cast by these two light sources. In Android "
-        "development, shadows occur when light sources are blocked by sheets of material at "
-        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
-        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
-
-        "Resting elevation.\n\n"
-
-        "All material objects, regardless of size, have a resting elevation, or default elevation "
-        "that does not change. If an object changes elevation, it should return to its resting "
-        "elevation as soon as possible.\n\n"
-
-        "Component elevations.\n\n"
-
-        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
-        "does not vary from 6dp in one app to 16dp in another app).\n"
-        "Components may have different resting elevations across platforms, depending on the depth "
-        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
-
-        "Responsive elevation and dynamic elevation offsets.\n\n"
-
-        "Some component types have responsive elevation, meaning they change elevation in response "
-        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
-        "changes are consistently implemented using dynamic elevation offsets.\n"
-        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
-        "to the component’s resting state. They ensure that elevation changes are consistent "
-        "across actions and component types. For example, all components that lift on press have "
-        "the same elevation change relative to their resting elevation.\n"
-        "Once the input event is completed or cancelled, the component will return to its resting "
-        "elevation.\n\n"
-
-        "Avoiding elevation interference.\n\n"
-
-        "Components with responsive elevations may encounter other components as they move between "
-        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
-        "through other material, components avoid interfering with one another any number of ways, "
-        "whether on a per component basis or using the entire app layout.\n"
-        "On a component level, components can move or be removed before they cause interference. "
-        "For example, a floating action button (FAB) can disappear or move off screen before a "
-        "user picks up a card, or it can move if a snackbar appears.\n"
-        "On the layout level, design your app layout to minimize opportunities for interference. "
-        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
-        "when a user tries to pick up one of cards.\n\n"
-    </string>
-    <string name="logo_image">Logo Image</string>
-    <string name="messages">MESSAGES</string>
-    <string name="add_contact">Add Contact</string>
-    <string name="type_your_message">Type Your Message</string>
-    <string name="return_button">Return Button</string>
-    <string name="status_icon">Status Icon</string>
-    <string name="resend_invitation">Resend invitation</string>
-    <string name="send_as_image">Send As Image</string>
-
-    <!-- V2 -->
-    <string name="destructionCodeDescription">You can set a destruction code for your app. If you use this code for login, all data in the app will purge, and then it will show the main page of the app</string>
-    <string name="get_started">Get Started</string>
-    <string name="skip">Skip</string>
-    <string name="what_is_nahoft">What is Nahoft?</string>
-    <string name="what_is_nahoft_description">Nahoft is not a messenger, but a tool for encrypting messages</string>
-    <string name="send_encrypted_messages">Send encrypted messages as text or image</string>
-    <string name="send_encrypted_messages_description">You can encrypt your messages and send them as text (random words) or image (choose any image from your device gallery)</string>
-    <string name="fully_offline">Fully offline</string>
-    <string name="fully_offline_description">It is not using any server to send or receive or encrypt your messages</string>
-    <string name="passcode_for_login">Passcode for login</string>
-    <string name="passcode_for_login_description">You can set a passcode for login</string>
-    <string name="passcode_description">By activating the "Password" option, you can define a six-digit password that you will need every time you log in to Nahoft. By activating the password feature, at the bottom of the main screen, the "Logout" option will be activated.</string>
-    <string name="destruction_code_description">By enabling the "Destruction code" option, you define a six-digit password that will be used to destroy all information stored inside the app, including deleting messages and friend lists. \n You will use this password in emergency situations so that the people you don’t want can’t have access to your information.</string>
-    <string name="close">Close</string>
-    <string name="logout_description">The option to log out will only be displayed if you have set a "password." By clicking on this option, you will immediately get logged out of Nahoft. If you don\'t use the logout option, Nahoft will lock itself after a few minutes of inactivity, and you will need your password to enter it.</string>
-    <string name="default_fragment_text">No public key has been exchanged between you and %s yet. \n\n Please click the button below to submit your public key.</string>
-    <string name="invited_fragment_text">You have sent your public key to %s and are now awaiting their public key in return. \n\n Once you receive their public key, a secure connection will be established.</string>
-    <string name="requested_fragment_text">%s has sent you their public key; \n\n to complete the secure connection between you and %s you must send your public key to them.</string>
+    <!-- Public key display and verification -->
+    <!-- %1$s = friend's name -->
+    <string name="label_verify_friend_number">%1$s\'s Code</string>
     <string name="your_code">Your Code:</string>
     <string name="friend_s_code">Friend\'s Code:</string>
-    <string name="profile_picture">Profile Picture</string>
-    <string name="sample_date_time">Yesterday 14:26 PM</string>
-    <string name="add_new_friend">Add New Friend</string>
-    <string name="phone_number_optional">Phone Number (Optional)</string>
-    <string name="select_sender">Select Sender</string>
-    <string name="are_you_sure_to_delete">Are you sure to delete the message?</string>
+
+    <!-- Title for the dialog shown when the user tries to import their own public key
+     as a contact's key -->
+    <string name="own_key_rejected_title">That\'s Your Own Code</string>
+
+    <!-- Body of the own-key-rejected dialog. Explains why the import was blocked
+         without using jargon. -->
+    <string name="own_key_rejected_message">The security code you imported belongs to you, not to your contact. You\'ll need their Nahoft security code.</string>
+
+    <!-- Friend action buttons -->
+    <string name="resend_invitation">Resend invitation</string>
+    <string name="decline_button">Decline</string>
+    <string name="import_invitation_button">Import Friend\'s Code</string>
+
+    <!-- Friend management alerts -->
+    <string name="alert_text_verified_friends_only">You can only message a friend once codes have been exchanged.</string>
+    <string name="alert_text_friend_already_exists">You already have a friend with this name.</string>
+    <string name="alert_text_which_friend_sent_this_message">Which friend sent this message?</string>
+    <string name="alert_text_unable_to_update_friend_status">Something went wrong, we were unable to update your friend status.</string>
+    <!-- %1$s = friend's name -->
+    <string name="alert_text_confirm_friend_delete">Are you sure you want to delete %1$s?</string>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         MESSAGING — Chat screen and message import/export (FriendInfoActivity)
+         ════════════════════════════════════════════════════════ -->
+
+    <string name="send_message">Send Message</string>
+    <string name="import_text">Import Text</string>
+    <string name="type_your_message">Type Your Message</string>
+    <string name="send_as_image">Send As Image</string>
+
+    <!-- Title shown on the import dialog when pasting a contact's security code (public key) -->
+    <string name="dialog_title_import_key">Import Friend\'s Security Code</string>
+
+    <!-- Hint shown in the import dialog's input field when pasting a contact's security code -->
+    <string name="import_dialog_hint_key">Paste your friend\'s security code here</string>
+
+    <!-- Title shown on the import dialog when pasting an encrypted message -->
+    <string name="dialog_title_import_message">Import Encrypted Message</string>
+
+    <!-- Hint shown in the import dialog's input field when pasting an encrypted message -->
+    <string name="import_dialog_hint_message">Paste the encrypted message here</string>
+
+    <!-- Label for the Import action button inside the import dialog -->
+    <string name="button_label_import">Import</string>
+
+    <!-- Label for the dialog button that pastes clipboard contents into the input field -->
+    <string name="paste_from_clipboard">Paste</string>
+
+    <!-- Shown when the user taps Import with an empty input field -->
+    <string name="alert_text_paste_key_before_import">Paste a code or message before tapping Import.</string>
+
+    <!-- Shown when the user taps Paste but the clipboard is empty -->
+    <string name="alert_text_clipboard_empty">Your clipboard is empty. Copy a code or message first.</string>
+
+    <!-- Button accessibility / content descriptions -->
     <string name="import_encrypted_image_messages_using_this_button">Use this button to import encrypted image messages.</string>
     <string name="import_encrypted_text_messages_using_this_button">Use this button to import encrypted text messages.</string>
     <string name="send_encrypted_text_messages_using_this_button">Use this button to send encrypted text messages.</string>
     <string name="send_encrypted_image_messages_using_this_button">Use this button to send encrypted image messages.</string>
-    <string name="friends_list">Friends list</string>
-    <string name="friends_list_description">Friends list description</string>
-    <string name="add_new_friend_description">To add a new friend; Click on the plus +  icon on home page.</string>
-    <string name="approve_friend">Approve friend</string>
-    <string name="approve_friend_description">Approve friend description</string>
-    <string name="approve_friend_full_description">Approve friend full description</string>
-    <string name="delete_friend_description">To delete a contact, follow these steps: \n Hold your finger on the name of the desired friend for a few seconds. \n After a few seconds, you will see a message asking if you are sure you want to delete your friend. By selecting the "Yes" option, your friend will be deleted.</string>
-    <string name="read_more">read more</string>
-    <string name="contact_list">Contact List</string>
-    <string name="add_new_user_from_contact_list">Add a contact from the list</string>
-    <string name="add_new_user_manually">Create a new contact</string>
-    <string name="to_import_or_create_a_new_friend_help">Click this button to create a new friend.</string>
-    <string name="accept">Accept</string>
-    <string name="are_you_sure">Are you sure?</string>
-    <string name="allow">Allow</string>
-    <string name="deny">Deny</string>
-    <string name="contact_permission_declined">Nahoft needs permission to display phone contacts here. If you don\'t want to grant this access, you can manually add the contact you want from the friends list section.</string>
+
+    <!-- Image import / export -->
+    <string name="import_image_hint">Import an image from your device.</string>
+    <!-- Folder name shown when an encoded image is saved to device storage -->
+    <string name="saved_images">Saved Images</string>
+    <string name="sample_date_time" translatable="false">Yesterday 14:26</string>
+
+    <!-- Confirmation dialog when pasted text is already encrypted —
+         asks the user whether to decrypt it rather than re-encrypt and send -->
+    <string name="confirmation_for_import">The text you are attempting to send has already been encrypted. Would you like to decrypt it instead of sending it?</string>
+
+    <!-- Message alerts -->
+    <string name="alert_text_write_a_message_to_send">Write a message to send.</string>
+    <string name="alert_text_message_too_long">Your message is too long.</string>
+    <string name="alert_text_unable_to_decode_message">Something went wrong. We were unable to decode this message.</string>
+    <string name="alert_text_unable_to_process_request">Something went wrong. We were unable to process your request.</string>
+    <string name="alert_text_image_saved">This image has been saved to your phone.</string>
+    <string name="are_you_sure_to_delete">Are you sure you want to delete this message?</string>
+
+    <!-- Byte counter labels shown below the message input field.
+     %1$d = current byte count, %2$d = limit -->
+    <string name="byte_counter_radio_format">Radio: %1$d / %2$d</string>
+    <string name="byte_counter_message_format">Message: %1$d / %2$d</string>
+
+    <!-- ════════════════════════════════════════════════════════
+         ONBOARDING & HELP — Slide content and user guides (SlideActivity)
+         ════════════════════════════════════════════════════════ -->
+
+    <!-- Intro slides -->
+    <string name="what_is_nahoft">What is Nahoft?</string>
+    <string name="what_is_nahoft_description">Nahoft is not a messenger, but a tool for encrypting messages</string>
+    <string name="send_encrypted_messages">Send encrypted messages as text or image</string>
+
+    <!-- About Nahoft -->
+    <string name="about_nahoft">About Nahoft</string>
+    <!-- NEEDS_REVIEW: terminology change (public key → security code) -->
+    <string name="about_nahoft_description">"Nahoft" is not a messaging app. It is a tool for encryption. Nahoft is an offline software for encrypting text messages on Android phones.\nEncrypting your text messages means that even if your message gets intercepted by a third party, that party can not read it. The only person that can read your message is the one with whom you exchanged security codes (also called public keys).</string>
+    <!-- NEEDS_REVIEW: terminology change - The only person that can read your message is the one with whom you exchanged security codes (also called public keys). -->
+    <string name="about_nahoft_full_description">"Nahoft" is not a messaging app. It is a tool for encryption. Nahoft is an offline software for encrypting text messages on Android phones.\nEncrypting your text messages means that even if your message gets intercepted by a third party, that party can not read it. The only person that can read your message is the one with whom you exchanged security codes (also called public keys).\nNahoft is offline, which means you do not need to be connected to the internet to encrypt your messages.\nNahoft only encrypts text messages. Currently, it does not provide encrypted voice and video messages.\nNahoft can encrypt text messages as text. It also can encrypt them as a photo (Steganography.) You can send an encrypted text message or a photo containing a message via another channel that allows you to send the file (for example, SMS, MMS, or a messaging app that allows you to send the file unchanged.) So, the other person, after receiving the message, transfers the encrypted text or photo to Nahoft and reads it. \nFor the time being, Nahoft can be installed on phones that use the Android operating system.\nNahoft is not a messaging app. It only encrypts the user\'s text messages. The user can send the encrypted message to another one through one of the messaging apps (in an insecure network or even using an insecure messaging app.) The other person should be using Nahoft as well. Both should have already exchanged the public keys with one another to enter the messages into this software and read the encrypted messages. Nahoft uses public keys that can be shared with others. It also creates a private key hidden in the app to read the sent messages between two users.\nNahoft\'s goal is to make it possible for users to send secure messages even through insecure messaging apps and networks. It means that if a user does not have access to secure internet or can not use secure messaging apps (in the case of internet censorship, filtering, and total internet shutdown) and only have access to insecure messaging apps and networks inside the country, even in this case, the users can encrypt the text messages and send them in the network. So, even if the message gets intercepted, it will still not be intelligible since it is encrypted. \nNote: Public keys (also the private key) change whenever you delete and reinstall the app, as well as each time you change your phone and reinstall the app. So, each time you change your phone or delete the app and reinstall it, you need to exchange the keys with your friends.\nImportant: Nahoft is open-source software, and everyone can have access to its code.</string>
+
+    <!-- Nahoft team, usage, and features -->
     <string name="nahofts_team">Nahoft\'s team</string>
-    <string name="nahofts_team_description">Iranian and non-Iranian experts with work experience in big tech companies came together and created Nahoft with the support of the United4Iran Organization.</string>
+    <string name="nahofts_team_description">Iranian and non-Iranian experts with experience at major tech companies came together to create Nahoft, with support from the United4Iran Organization.</string>
     <string name="nahofts_usage">Nahoft\'s usage</string>
     <string name="nahofts_usage_description">Keep your conversations private and secure with Nahoft, the end-to-end encrypted communication app.</string>
     <string name="nahofts_features">Nahoft\'s features</string>
-    <string name="nahofts_features_description">A security layer for sending messages over insecure channels \n Fully offline. Nahoft operates without servers \n Destruction code. Instantly erase your data.</string>
-    <string name="copy">Copy</string>
-    <string name="copied">Copied</string>
-    <string name="contact_list_description">If you give Nahoft permission to see your phone contacts, you can find all the names and numbers of people you know. From there, you can select the individuals you want to include in your list of friends.</string>
-    <string name="add_new_contact">Add new contact</string>
-    <string name="delete_a_contact">Delete a contact</string>
-    <string name="edit_contact_name">Edit contact name</string>
-    <string name="edit_contact_name_description">To edit the name or phone number of your friend, follow these steps: \n Click once on the name of your friend to go to the chat page. \n Once inside the chat page, click again on the name of your friend. \n A new page will open where you can edit the name and phone number of your friend.</string>
-    <string name="default_status">Default status</string>
-    <string name="default_status_description">This status is displayed with a gray circle next to your friend\'s name. And it means that you have added your friend to your friend list but you have not sent your public key to him/her yet, nor has he/she sent you his/her public key.</string>
-    <string name="requested_status">Requested status</string>
-    <string name="requested_status_description">This status is displayed with an orange circle next to your friend\'s name. It means that your friend has sent you his/her public key and is now requesting that you send him/her your public key.</string>
-    <string name="approve_status">Approve status</string>
-    <string name="approve_status_description">This status is displayed with a blue circle next to your friend\'s name. It means the public key has been exchanged between you and your friend.</string>
-    <string name="verify_status">Verify status</string>
-    <string name="verify_status_description">This status is displayed with a green and white confirmation icon next to your friend\'s name. It means that a public key exchange has occurred between you and your friend, and you have securely verified through a trusted third party that your friend has indeed sent their public key and not someone else.</string>
-    <string name="verify_status_full_description">This status is displayed with a green and white confirmation icon next to your friend\'s name. It means that a public key exchange has occurred between you and your friend, and you have securely verified through a trusted third party that your friend has indeed sent their public key and not someone else.\n Once you are confident about this, you should proceed to the chat page. Click on your friend\'s name and select the \"Verified\" option. By selecting this option, your friend\'s status in Nahoft will change from green (Approve) to a green and white icon with a confirmation sign. This status represents the most secure state in Nahoft.</string>
-    <string name="manually_send_text">How to send encrypted text</string>
-    <string name="manually_send_text_description">To send an encrypted text, you need to follow these steps:\n1. Exchange public keys with your desired friend beforehand.\n2. Go to your friend\'s chat page and, at the bottom of the page, write your message in the \"type your message\" section, similar to any other messaging platform…</string>
-    <string name="manually_send_text_full_description">To send an encrypted text, you need to follow these steps:\n1. Exchange public keys with your desired friend beforehand.\n2. Go to your friend\'s chat page and, at the bottom of the page, write your message in the \"type your message\" section, similar to any other messaging platform.\n3. Press the send button. Immediately after sending the message, a popup will appear.\n4. Copy the encrypted text and send it to the intended person through any messaging platform you prefer.</string>
-    <string name="manually_import_text">How to receive encrypted text</string>
-    <string name="manually_import_text_description">To decrypt and read an encrypted text, you need to follow these steps:\n1. Make sure you know who sent the message and that you have previously exchanged public keys.\n2. Copy the received encrypted text…</string>
-    <string name="manually_import_text_full_description">To decrypt and read an encrypted text, you need to follow these steps:\n1. Make sure you know who sent the message and that you have previously exchanged public keys.\n2. Copy the received encrypted text.\n3. Go to the chat page of the person whose message you want to decrypt.\n4. Click on the import file icon located at the top right of the page. A window will open.\n5. Paste the text into the window and click the \"Insert Text\" option.\n6. The decrypted message will be readable on the chat page.</string>
-    <string name="share_image_title">How to send encrypted images</string>
-    <string name="share_image_description">To send an encrypted photo manually, you need to follow these two conditions:\nCondition 1: You know who you want to send the photo to and have previously exchanged public keys…</string>
-    <string name="share_image_full_description">To send an encrypted photo manually, you need to follow these two conditions:\nCondition 1: You know who you want to send the photo to and have previously exchanged public keys.\nCondition 2: You send the photo as a file to your friend. For example, if you are using Telegram to send the photo, you should send it as a file and not directly from your phone\'s gallery. This is because Telegram reduces the size of photos, and it won\'t be possible to decrypt such a photo. However, if you send the photo as a file, Telegram won\'t make any changes to the photo, and it can be decrypted.\nAssuming you have met the above two conditions, go to the chat page of the person you want to send the encrypted message to. On the bottom left side of the page, click on camera icon. After clicking, two new icons will appear.\nDownload icon is for when you want to hide your message in a photo and save the photo on your phone to send it to someone later.\nShare icon is for when you want to hide your message in a photo and immediately send the photo through other messaging apps to the desired person.</string>
-    <string name="import_image_title">How to receive encrypted images</string>
-    <string name="import_image_description">To manually decrypt an encrypted photo, you need to follow these two conditions:\nCondition 1: You know who sent the photo and have previously exchanged public keys…</string>
-    <string name="import_image_full_description">To manually decrypt an encrypted photo, you need to follow these two conditions:\nCondition 1: You know who sent the photo and have previously exchanged public keys.\nCondition 2: The sent photo has been sent to you as a file, and you have saved it as a file on your mobile device. If, for example, you receive a photo on Telegram that has been compressed by Telegram, it cannot be decrypted.\nAssuming you have met the above two conditions, go to the chat page of the person whose message you want to decrypt. On the top right side of the page, click on the image icon. A pop-up window will appear, allowing you to browse and select the desired photo from your mobile device. The decrypted message will be readable in the chat page.</string>
-    <string name="friends_public_key">Friend’s public key</string>
-    <string name="friends_public_key_description">To view your friend\'s public key, go to the chat page of you and your friend. On the chat page, click on their name, a new page will open where you can see both your friend\'s public key and your own public key. Your public key can also be viewed from the settings section.</string>
-    <string name="your_public_key">Your public key</string>
-    <string name="your_public_key_description">This software utilizes the well-known library libsodium and the Asymmetric Encryption with Authentication method for encryption and decryption. Each user has a private key and a public key. When User 1 wants to send a message to User 2, they use their own private key and User 2\'s public key for encryption…</string>
-    <string name="your_public_key_full_description">This software utilizes the well-known library libsodium and the Asymmetric Encryption with Authentication method for encryption and decryption. Each user has a private key and a public key. When User 1 wants to send a message to User 2, they use their own private key and User 2\'s public key for encryption. The generated message has only two possible ways for decryption:\n. Using User 1\'s private key, who generated the message, and User 2\'s public key.\n. Using User 2\'s private key, who is the recipient of the message, and User 1\'s public key.\nTherefore, in order for your friends to send you a message, they must have your public key. If you expose your public key to the public, it will not pose any security issues. You can see your public key from the setting.</string>
-    <string name="confirmation_for_import">The text you are attempting to send has already been encrypted. Would you like to decrypt it instead of sending it?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="invited_status">Invited status</string>
-    <string name="invited_status_description">This status is displayed with a purple circle next to your friend\'s name. It means that you have sent your public key to your friend and are waiting to receive his public key.</string>
-    <string name="import_share_title">Importing to Nahoft through share option</string>
-    <string name="import_share_description">Just like other apps, Nahoft lets you share a text or photo from your gallery or mobile memory by selecting Nahoft from the list of suggested apps. Choosing Nahoft will take you to Nahoft\'s friend list, where you can select who you want to send a picture to.</string>
-    <string name="about_nahoft">About Nahoft</string>
-    <string name="about_nahoft_description">“Nahoft” is not a messaging app. It is a tool for encryption. Nahoft is an offline software for encrypting text messages on Android phones.\nEncrypting your text messages means that even if your message gets intercepted by a third party, that party can not read it. The only person that can read your message is the one with whom you exchanged your public key…</string>
-    <string name="about_nahoft_full_description">“Nahoft” is not a messaging app. It is a tool for encryption. Nahoft is an offline software for encrypting text messages on Android phones.\nEncrypting your text messages means that even if your message gets intercepted by a third party, that party can not read it. The only person that can read your message is the one with whom you exchanged your public key.\nNahoft is offline, which means you do not need to be connected to the internet to encrypt your messages.\nNahoft only encrypts text messages. Currently, it does not provide encrypted voice and video messages.\nNahoft can encrypt text messages as text. It also can encrypt them as a photo (Steganography.) You can send an encrypted text message or a photo containing a message via another channel that allows you to send the file (for example, SMS, MMS, or a messaging app that allows you to send the file unchanged.) So, the other person, after receiving the message, transfers the encrypted text or photo to Nahoft and reads it. \n For the time being, Nahoft can be installed on phones that use the Android operating system.\nNahoft is not a messaging app. It only encrypts the user’s text messages. The user can send the encrypted message to another one through one of the messaging apps (in an insecure network or even using an insecure messaging app.) The other person should be using Nahoft as well. Both should have already exchanged the public keys with one another to enter the messages into this software and read the encrypted messages. Nahoft uses public keys that can be shared with others. It also creates a private key hidden in the app to read the sent messages between two users.\nNahoft’s goal is to make it possible for users to send secure messages even through insecure messaging apps and networks. It means that if a user does not have access to secure internet or can not use secure messaging apps (in the case of internet censorship, filtering, and total internet shutdown) and only have access to insecure messaging apps and networks inside the country, even in this case, the users can encrypt the text messages and send them in the network. So, even if the message gets intercepted, it will still not be intelligible since it is encrypted. \nNote: Public keys (also the private key) change whenever you delete and reinstall the app, as well as each time you change your phone and reinstall the app. So, each time you change your phone or delete the app and reinstall it, you need to exchange the keys with your friends.\nImportant: Nahoft is open-source software, and everyone can have access to its code.</string>
+    <string name="nahofts_features_description">A security layer for sending messages over insecure channels.\nFully offline - Nahoft operates without servers.\nDestruction code - instantly erase your data.</string>
     <string name="nahoft_creators">Nahoft creators</string>
-    <string name="nahoft_creators_description">\"Nahoft\" is one of the apps that has been created in the Iran Cubator 2 program and under the supervision of the \"United for Iran\" organization. United for Iran is a human rights organization based in Berkeley, California. Its goal is to promote civil liberties in Iran, defend human rights, support civil society, and encourage citizens to participate through technology.</string>
-    <string name="you_have_to_set_a_lock_screen">You have to set a lock screen before using this app</string>
-    <string name="login_using_device_credentials">Login using device credentials</string>
-    <string name="biometrics_pin_password_pattern">(Biometrics, PIN, Password, Pattern)</string>
-    <string name="two_step_login_description">By setting a password for Nahoft, the app automatically enables two-step login. In the first step, you need to enter the password you provided in the above field, and in the second step, you need to provide phone\'s password or face recognition sensor, or fingerprint sensor.</string>
-    <string name="click_to_set">Click to set</string>
+    <string name="nahoft_creators_description">\"Nahoft\" is one of the apps created in the Iran Cubator 2 program under the supervision of the \"United for Iran\" organization. United for Iran is a human rights organization based in Berkeley, California. Its goal is to promote civil liberties in Iran, defend human rights, support civil society, and encourage citizens to participate through technology.</string>
+
+    <!-- How-to: sending and receiving encrypted text -->
+    <string name="manually_send_text">How to send encrypted text</string>
+    <string name="manually_send_text_description">To send an encrypted text, follow these steps:\n1. Exchange security codes with your friend beforehand.\n2. Go to your friend\'s chat page and write your message at the bottom of the page, in the \"type your message\" section…</string>
+    <string name="manually_send_text_full_description">To send an encrypted text, follow these steps:\n1. Exchange security codes with your friend beforehand.\n2. Go to your friend\'s chat page and write your message at the bottom of the page, in the \"type your message\" section.\n3. Press the send button. A popup will appear with the encrypted text.\n4. Copy the encrypted text and send it to your friend through any messaging app you prefer.</string>
+    <string name="manually_import_text">How to receive encrypted text</string>
+    <string name="manually_import_text_description">To decrypt and read an encrypted text, follow these steps:\n1. Make sure you know who sent the message and that you have previously exchanged security codes.\n2. Copy the encrypted text you received…</string>
+    <string name="manually_import_text_full_description">To decrypt and read an encrypted text, follow these steps:\n1. Make sure you know who sent the message and that you have previously exchanged security codes.\n2. Copy the encrypted text you received.\n3. Go to the chat page of the friend who sent it.\n4. Tap the import icon in the top right corner of the page.\n5. Paste the text into the window and tap \"Import\".\n6. The decrypted message will appear in the chat.</string>
+
+    <!-- How-to: sending and receiving encrypted images -->
+    <string name="share_image_title">How to send encrypted images</string>
+    <string name="share_image_description">To send an encrypted photo manually, two conditions must be met:\nFirst: you know who you\'re sending the photo to and have previously exchanged security codes…</string>
+    <string name="share_image_full_description">To send an encrypted photo manually, two conditions must be met:\nFirst: you know who you\'re sending the photo to and have previously exchanged security codes.\nSecond: you send the photo as a file, not from your gallery. For example, Telegram compresses gallery photos, which makes them impossible to decrypt, but Telegram sends files unchanged, so they can still be decrypted.\n\nWith both conditions met, go to the chat page of the friend you want to message. Tap the camera icon at the bottom left of the page. Two new icons will appear:\n• The download icon hides your message in a photo and saves it to your device, so you can send it later.\n• The share icon hides your message in a photo and immediately opens the share sheet to send it through another app.</string>
+    <string name="import_image_title">How to receive encrypted images</string>
+    <string name="import_image_description">To decrypt an encrypted photo manually, two conditions must be met:\nFirst: you know who sent the photo and have previously exchanged security codes…</string>
+    <string name="import_image_full_description">To decrypt an encrypted photo manually, two conditions must be met:\nFirst: you know who sent the photo and have previously exchanged security codes.\nSecond: the photo was sent to you as a file and saved to your device as a file. Photos that were compressed in transit (for example, photos sent through Telegram\'s normal photo upload) cannot be decrypted.\n\nWith both conditions met, go to the chat page of the friend who sent the photo. Tap the image icon in the top right corner. A picker will open - choose the photo from your device, and the decrypted message will appear in the chat.</string>
+
+    <!-- How-to: sharing via the Android share sheet -->
+    <string name="import_share_title">Importing to Nahoft through the share option</string>
+    <string name="import_share_description">Like other apps, Nahoft lets you share text or a photo from your gallery or device storage. Choose Nahoft from the list of suggested apps, and you\'ll be taken to your friend list to select who to send to.</string>
+
+    <!-- Public key explanations -->
+    <string name="friends_public_key">Friend\'s Security Code</string>
+    <string name="friends_public_key_description">To view your friend\'s security code, go to your chat page with that friend. Click on their name and a new page will open where you can see both your friend\'s code and your own. Your code can also be viewed in the settings.</string>
+    <string name="your_public_key">Your Security Code</string>
+    <!-- NEEDS_REVIEW: terminology changed - Add "Your security code is what Nahoft calls your public key." -->
+    <string name="your_public_key_description">Your security code is what Nahoft calls your public key. This software utilizes the well-known library libsodium and the Asymmetric Encryption with Authentication method for encryption and decryption. Each user has a private key and a public key. When User 1 wants to send a message to User 2, they use their own private key and User 2\'s public key for encryption…</string>
+    <string name="your_public_key_full_description">Your security code is what Nahoft calls your public key. This software uses the well-known library libsodium and the Asymmetric Encryption with Authentication method for encryption and decryption. Each user has a private key and a public key. When User 1 wants to send a message to User 2, they use their own private key and User 2\'s public key for encryption. The generated message has only two possible ways to decrypt:\n• Using User 1\'s private key (the sender) and User 2\'s public key.\n• Using User 2\'s private key (the recipient) and User 1\'s public key.\nTherefore, in order for your friends to send you a message, they must have your public key. If you make your public key publicly available, it will not pose any security issues. You can view your public key from the settings.</string>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         RADIO — Strings shared by both RX and TX sessions
+         ════════════════════════════════════════════════════════ -->
+
+    <!-- Shown when the Eden serial device is not connected -->
+    <string name="alert_text_serial_not_connected">No serial device connected.</string>
+    <!-- Shown when the USB audio device is not connected -->
+    <string name="usb_audio_not_connected">USB audio device not connected.</string>
+    <!-- Content description for the "send via radio" action button -->
+    <string name="send_via_radio">Button for sending the message via radio.</string>
+    <!-- Generic "Packets" label used in packet count display -->
+    <string name="packets_label">Packets</string>
+    <string name="session_label">Session:</string>
+    <string name="start_session">Start Session</string>
+    <string name="stop_session">Stop Session</string>
+    <string name="session_stopped">Session stopped.</string>
+
+    <!-- ════════════════════════════════════════════════════════
+         RADIO — Mode selector (RadioModeBottomSheetFragment)
+         ════════════════════════════════════════════════════════ -->
+
+    <!-- Sheet titles — match the button label the user tapped to open the selector -->
+    <string name="radio_mode_title_tx">Send via Radio</string>
+    <string name="radio_mode_title_rx">Receive via Radio</string>
+
+    <!-- Mode card labels and descriptions -->
+    <string name="radio_mode_wspr_name">WSPR</string>
+    <string name="radio_mode_wspr_description">Narrow band, low speed, high noise resistance</string>
+    <string name="radio_mode_mfsk_name">MFSK-16</string>
+    <string name="radio_mode_mfsk_description">Wider band, faster, standard HF text mode</string>
+
+    <!-- Shown when the user picks a mode while a session of the other mode is active.
+         %1$s = conflicting mode name, e.g. "MFSK" or "WSPR" -->
+    <string name="radio_mode_conflict_error">A %1$s session is already active. Stop it before starting a new session.</string>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         RADIO — Receive (RX) session (ReceiveRadioBottomSheetFragment)
+         ════════════════════════════════════════════════════════ -->
+
+    <string name="receive_via_radio">Receive via Radio</string>
+    <string name="microphone_permission_required_title">Microphone Permission Required</string>
+    <string name="alert_microphone_permission_required">Nahoft needs microphone permission to listen for messages over radio. Tap the button below to open settings and grant microphone permission.</string>
+    <string name="open_settings">Open settings</string>
+    <!-- Label for the RX frequency input field; value entered in kHz -->
+    <string name="rx_frequency_title_khz">RX Frequency in kHz</string>
+    <string name="audio_level">Radio Audio Level</string>
+    <string name="cycle_progress">Cycle Progress</string>
+    <string name="next_decode_window">Next decode window</string>
+    <!-- %1$d = seconds until the next WSPR decode window -->
+    <string name="next_decode_window_in">Next decode window in: %1$ds</string>
+    <!-- %1$d = elapsed seconds in current cycle, %2$d = total cycle length (120s for WSPR) -->
+    <string name="cycle_time_format">%1$d sec / %2$d sec</string>
+
+    <!-- RX session status messages -->
+    <string name="status_waiting">Listening</string>
+    <string name="tap_start_to_listen">Tap Start to listen</string>
+    <string name="waiting_for_wspr_window">Waiting for WSPR window…</string>
+    <string name="waiting_for_next_window">Waiting for next transmission window…</string>
+    <string name="listening_for_signals">Listening for WSPR signals…</string>
+    <string name="collecting_audio">Collecting audio…</string>
+    <string name="processing_decode">Processing decode…</string>
+    <string name="decode_complete">Decode complete.</string>
+    <string name="message_received">Message received.</string>
+    <!-- Label on the animated receive indicator shown in the friends list -->
+    <string name="receiving_indicator">Receiving message</string>
+
+    <!-- Alert when the user tries to transmit while a receive session is running -->
+    <string name="alert_transmit_blocked_by_receive">A receive session is active. Stop receiving before transmitting.</string>
+
+    <!-- MFSK-16 receive sheet -->
+    <string name="mfsk_receive_via_radio">Receive via Radio (MFSK-16)</string>
+    <string name="mfsk_rx_base_frequency_hz">Base Frequency (Hz)</string>
+    <string name="mfsk_rx_starting">Starting MFSK session…</string>
+    <string name="mfsk_listening_for_signals">Listening for MFSK signals…</string>
+    <string name="mfsk_rx_session_failed">Session failed</string>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         RADIO — Transmit (TX) session (TransmitRadioBottomSheetFragment)
+         ════════════════════════════════════════════════════════ -->
+
+    <string name="transmit_via_radio">Transmit via Radio</string>
+    <!-- Label for the TX frequency input field; value entered in kHz -->
+    <string name="tx_frequency_title_khz">TX Frequency in kHz</string>
+    <string name="message_label">Message</string>
+    <string name="transmit_status">Transmit status</string>
+    <string name="symbols_label">Symbols</string>
+    <string name="next_tx_window">Next TX window</string>
+    <!-- Shown in idle state before the user starts transmission -->
+    <string name="tap_start_to_transmit">Set frequency and tap Start</string>
+    <string name="start_transmission">Start</string>
+
+    <!-- TX in-progress status messages -->
+    <string name="tx_preparing">Encoding message…</string>
+    <string name="tx_transmitting">Transmitting…</string>
+    <!-- Brief status shown while Eden switches back to receive mode between spots -->
+    <string name="tx_switching_rx">Switching to receive…</string>
+
+    <!-- Countdown until next TX window: %1$d = seconds remaining -->
+    <string name="next_tx_window_in">Next TX window in: %1$ds</string>
+
+    <!-- TX terminal state titles and details -->
+    <string name="tx_complete_title">Transmission Complete</string>
+    <!-- %1$d = number of packets (WSPR spots) successfully sent -->
+    <string name="tx_complete_detail">%1$d packet(s) sent successfully</string>
+    <string name="tx_failed_title">Transmission Failed</string>
+    <string name="tx_cancelled_title">Transmission Cancelled</string>
+    <!-- Shown when TX is cancelled — the hardware returns to passive receive mode -->
+    <string name="tx_cancelled_detail">Eden has returned to receive mode</string>
+    <string name="send_without_encryption">Send without encryption</string>
+    <string name="encryption_warning">Message will be sent as plaintext</string>
+    <string name="receive_without_encryption">Receive unencrypted messages</string>
+    <string name="encryption_warning_rx">Message will be received as plaintext</string>
+    <string name="session_started_encrypted">Session started with encryption enabled. Stop to change.</string>
+    <string name="session_started_unencrypted">Session started without encryption. Stop to change.</string>
+    <string name="alert_text_message_too_long_for_radio">Message is too long to transmit via radio. Please shorten your message.</string>
+
+    <!-- MFSK-16 transmit sheet -->
+    <string name="mfsk_transmit_via_radio">Transmit via Radio (MFSK-16)</string>
+    <string name="mfsk_tx_base_frequency_hz">Base Frequency (Hz)</string>
+    <string name="mfsk_tx_complete_detail">Message sent successfully</string>
+    <string name="mfsk_debug_send_test" translatable="false">Send test message (debug)</string>
+
+    <string name="mfsk_use_fldigi_engine">Use fldigi engine</string>
+
+    <!-- %1$d = elapsed seconds, %2$d = total seconds -->
+    <string name="mfsk_tx_time_elapsed_format">%1$ds / %2$ds</string>
+
+    <!-- ════════════════════════════════════════════════════════
+         RADIO — VU Meter audio level indicators
+         ════════════════════════════════════════════════════════ -->
+
+    <!-- These three strings describe the current USB audio input level -->
+    <string name="audio_signal_too_weak">Signal too weak - check radio gain</string>
+    <string name="audio_signal_good">Good signal</string>
+    <string name="audio_signal_clipping">Clipping - reduce gain</string>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         SESSION TIMEOUT — Background session time limit
+         ════════════════════════════════════════════════════════ -->
+
+    <!-- Session times out after 20 minutes when the app is backgrounded -->
+    <string name="session_timeout_title">Session Timed Out</string>
+    <string name="session_timeout_explanation">The 20-minute session limit was reached. You can start a new session to continue listening.</string>
+    <!-- Compact status label used on the receive button -->
+    <string name="session_timed_out">Session timed out</string>
+
+    <!-- One of the three strings below is shown in the timeout dialog depending on session results -->
+    <!-- %d = number of messages successfully decrypted before timeout -->
+    <string name="timeout_with_messages">Successfully received %d message(s) before timeout.</string>
+    <!-- %d = number of WSPR spots received (partial data, not enough to decrypt a message) -->
+    <string name="timeout_with_packets">Received %d signal(s) but no complete messages.</string>
+    <string name="timeout_no_signals">No signals were received during this session.</string>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         NOTIFICATIONS — Session notification permission (Android 13+)
+         ════════════════════════════════════════════════════════ -->
+
+    <!-- Explanation dialog shown before requesting POST_NOTIFICATIONS permission -->
+    <string name="radio_session_notification_title">Session Notification</string>
+    <string name="radio_session_notification_explanation">Radio message reception can take 10 minutes or longer.\n\nA notification allows you to:\n\n• See session progress while using other apps\n• Keep the session active when your phone locks\n• Return to the session if you navigate away\n\nThis notification only appears during active radio sessions and contains no message content.</string>
+    <!-- Button to grant notification permission -->
+    <string name="enable_notification">Enable</string>
+    <!-- Button to skip the notification permission and proceed without it -->
+    <string name="continue_without">Skip</string>
+
+    <!-- Warning shown when the user denies notification permission -->
+    <string name="notification_denied_title">Limited Background Operation</string>
+    <string name="notification_denied_warning">Without notifications, your phone may stop the radio session when the screen locks or you switch apps.\n\nYou can enable notifications later in system settings if needed.</string>
+    <!-- Button to acknowledge the warning and continue anyway -->
+    <string name="continue_anyway">Continue</string>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         DIALOGS — WSPR spots, received messages, and packages
+         ════════════════════════════════════════════════════════ -->
+
+    <!-- Packages / WSPR spots dialog -->
+    <!-- Legend entry explaining the Nahoft symbol in the spots list -->
+    <string name="nahoft_message_legend">= Nahoft message</string>
+    <!-- Empty state shown before any packets have been decoded -->
+    <string name="no_packets_yet">No packets decoded yet.\nListening for signals…</string>
+    <!-- Plural string for packet count header in the spots dialog -->
+    <plurals name="packet_count_format">
+        <item quantity="one">%d packet</item>
+        <item quantity="other">%d packets</item>
+    </plurals>
+
+    <!-- Received messages dialog -->
+    <string name="received_messages_title">Received Messages</string>
+    <string name="no_messages_this_session">No messages received this session</string>
+    <!-- Shown in place of message content when the app is locked -->
+    <string name="message_content_locked">Unlock app to view message</string>
+    <!-- Card label showing the count of messages received this session -->
+    <string name="messages_this_session">Messages</string>
+    <!-- Row header: %1$s = timestamp string, %2$d = number of WSPR packets used to decode the message -->
+    <string name="message_row_header">%1$s · decoded from %2$d packets</string>
+
 </resources>

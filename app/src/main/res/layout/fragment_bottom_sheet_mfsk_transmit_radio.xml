@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bkgd_blue_rect"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- ── Header ─────────────────────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!--
+            Dismiss button — only visible once TX is complete, failed, or cancelled.
+            Hidden during active transmission to prevent accidental dismissal.
+        -->
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/stop_button"
+            android:src="@drawable/btn_close_small_24"
+            android:visibility="gone"
+            app:tint="@color/white" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/mfsk_transmit_via_radio"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Spacer balances the close button and keeps the title centered -->
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+    <!-- ── Scrollable content ──────────────────────────────────────────── -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ── Base frequency section ─────────────────────────────────── -->
+            <!--
+                Shown before TX starts with the stepper enabled.
+                Once transmission begins, stepper is disabled (read-only).
+                Frequency is in Hz (not kHz) — MFSK uses audio-range frequencies.
+            -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/section_bkgd_dark_grey_8"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/mfsk_tx_base_frequency_hz"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <!-- Stepper row: [−] [EditText] [+] -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_mfsk_freq_minus"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/btn_bkgd_transparent_56"
+                        android:padding="0dp"
+                        android:text="−"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/et_mfsk_frequency"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/section_bkgd_dark_grey_8"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:padding="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/btn_mfsk_freq_plus"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/btn_bkgd_transparent_56"
+                        android:padding="0dp"
+                        android:text="+"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- ── Engine selection ───────────────────────────────────────────── -->
+            <!--
+                Selects between the fldigi C++ engine and the pure Kotlin encoder.
+                Editable before TX starts, disabled once transmission begins.
+            -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/section_bkgd_dark_grey_8"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <CheckBox
+                    android:id="@+id/cb_use_fldigi_engine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mfsk_use_fldigi_engine"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- ── Message preview ───────────────────────────────────────── -->
+            <!--
+                Plaintext is already in memory when the sheet opens.
+                Visible throughout all states — this is what's being transmitted.
+                Truncated to 2 lines; full text accessible by scrolling the sheet.
+            -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/section_bkgd_dark_grey_8"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:text="@string/message_label"
+                    android:textColor="@color/coolGrey"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_message_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <!-- ── DEBUG ONLY: hard-coded test message ─────────────────────────────
+             Sends a fixed plaintext through MFSKEncoder, bypassing encryption
+             and Base64. Used to verify TX pipeline correctness against fldigi.
+             Visibility set in code based on BuildConfig.DEBUG. -->
+            <Button
+                android:id="@+id/btn_debug_send_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/btn_bkgd_transparent_56"
+                android:text="@string/mfsk_debug_send_test"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+            <!-- ── State icon + status text ──────────────────────────────── -->
+            <ImageView
+                android:id="@+id/iv_state_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:contentDescription="@string/transmit_status"
+                android:src="@drawable/ic_nahoft_radio_transmit"
+                app:tint="@color/tangerine" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="@string/tap_start_to_transmit"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- ── Progress section ───────────────────────────────────────── -->
+            <!--
+                Hidden in Idle and Preparing states.
+                Shown once Transmitting begins; stays visible through Complete.
+                Progress bar is time-based (driven by totalDurationMs),
+                not symbol-based as in the WSPR TX sheet.
+            -->
+            <LinearLayout
+                android:id="@+id/progress_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/section_bkgd_dark_grey_8"
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:visibility="gone">
+
+                <!-- Transmission progress bar -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/tx_transmitting"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <!--
+                        Updated every 100ms by the fragment's progress coroutine.
+                        Format: "Xs / Ys" (elapsed / total).
+                    -->
+                    <TextView
+                        android:id="@+id/tv_time_elapsed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/tangerine"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progress_transmission"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp"
+                    android:max="1000"
+                    android:progress="0"
+                    android:progressBackgroundTint="#40FFFFFF"
+                    android:progressTint="@color/tangerine" />
+
+            </LinearLayout>
+
+            <!-- ── Terminal state card ────────────────────────────────────── -->
+            <!--
+                Shown only for Complete, Failed, and Cancelled states.
+                Title color changes with outcome (caribbeanGreen / madderLake / coolGrey).
+            -->
+            <LinearLayout
+                android:id="@+id/terminal_state_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/section_bkgd_dark_grey_8"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_terminal_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_terminal_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/coolGrey"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ── Primary action button — always visible below scroll ────────── -->
+    <!--
+        Label and behavior change with state:
+        Idle      → "Start" — launches TX pipeline
+        Preparing / Transmitting → "Stop" — cancels TX
+        Complete / Failed / Cancelled → "Dismiss" — close button also appears in header
+    -->
+    <Button
+        android:id="@+id/btn_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_bkgd_tangerine_8"
+        android:text="@string/start_transmission"
+        android:textColor="@color/white" />
+
+</LinearLayout>

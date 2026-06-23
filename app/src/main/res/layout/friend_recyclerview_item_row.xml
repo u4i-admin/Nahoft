@@ -8,16 +8,6 @@
     android:layout_marginVertical="@dimen/padding_half"
     android:filterTouchesWhenObscured="true">
 
-<!--    <ImageView-->
-<!--        android:id="@+id/friend_picture"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:src="@drawable/ic_nahoft_icons_profile_picture"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:contentDescription="@string/profile_picture" />-->
-
     <TextView
         android:id="@+id/friend_picture"
         android:layout_width="wrap_content"
@@ -30,6 +20,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/profile_picture" />
+
+    <ImageView
+        android:id="@+id/receiving_indicator"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:src="@drawable/ic_radio"
+        android:visibility="gone"
+        android:contentDescription="@string/receiving_indicator"
+        app:tint="@color/caribbeanGreen"
+        app:layout_constraintBottom_toBottomOf="@+id/friend_picture"
+        app:layout_constraintEnd_toEndOf="@+id/friend_picture"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/friend_name_text_view"

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_margin">16dp</dimen>
+    <dimen name="activity_half_margin">8dp</dimen>
+    <dimen name="layout_top_margin">4dp</dimen>
 
-    <dimen name="favorite_button_size">48dp</dimen>
+    <dimen name="min_touch_target">48dp</dimen>
     <dimen name="detail_name_text_size">24sp</dimen>
     <dimen name="detail_header_image_size">200dp</dimen>
     <dimen name="detail_planet_text_size">18sp</dimen>
@@ -18,11 +19,19 @@
     <dimen name="list_item_divider_height">2dp</dimen>
     <dimen name="list_item_with_divider_height">132dp</dimen>
     <dimen name="drag_handle_size">48dp</dimen>
+    <dimen name="padding_row_horizontal">14dp</dimen>
 
     <dimen name="button_height">32dp</dimen>
     <dimen name="button_width">144dp</dimen>
+    <dimen name="button_corner_radius">8dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+
+    <dimen name="input_field_text_size">18sp</dimen>
+    <dimen name="byte_counter_text_size">12sp</dimen>
+    <dimen name="byte_counter_seperator_size">14sp</dimen>
+
+    <dimen name="app_icon_preview_size">40dp</dimen>
 
 </resources>

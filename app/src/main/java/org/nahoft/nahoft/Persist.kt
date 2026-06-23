@@ -2,28 +2,52 @@ package org.nahoft.nahoft
 
 import android.app.Application
 import android.content.Context
+import android.os.SystemClock
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import org.nahoft.codex.PersistenceEncryption
-import org.nahoft.nahoft.LoginStatus
 import org.simpleframework.xml.core.Persister
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.lang.Exception
 import org.libsodium.jni.keys.PublicKey
-import kotlin.properties.Delegates
+import org.nahoft.nahoft.models.Friend
+import org.nahoft.nahoft.models.FriendStatus
+import org.nahoft.nahoft.models.Friends
+import org.nahoft.nahoft.models.LoginStatus
+import org.nahoft.nahoft.models.Message
+import org.nahoft.nahoft.models.Messages
+import org.nahoft.util.LockoutLogic
+import timber.log.Timber
+import java.security.SecureRandom
+import java.util.Calendar as JavaCalendar
+import java.io.RandomAccessFile
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import kotlin.random.Random
 
-class Persist {
-
-    companion object {
+class Persist
+{
+    companion object
+    {
+        const val sharedPrefImageSaveConsentShownKey = "NahoftImageSaveConsentShown"
 
         val publicKeyPreferencesKey = "NahoftPublicKey"
         val sharedPrefLoginStatusKey = "NahoftLoginStatus"
         val sharedPrefPasscodeKey = "NahoftPasscode"
         val sharedPrefSecondaryPasscodeKey = "NahoftSecondaryPasscode"
         val sharedPrefFailedLoginAttemptsKey = "NahoftFailedLogins"
-        val sharedPrefFailedLoginTimeKey = "NahoftFailedLoginTime"
-//        val sharedPrefUseSmsAsDefaultKey = "NahoftUseSmsAsDefault"
+        const val sharedPrefActiveIdentityKey = "NahoftActiveIdentity"
+
+        // Expiry-based lockout keys
+        val sharedPrefLockoutExpiryKey = "NahoftLockoutExpiry"
+        val sharedPrefLockoutElapsedKey = "NahoftLockoutElapsed"
+
+        const val sharedPrefTxFrequencyKHzKey = "NahoftTxFrequencyKHz"
+        const val sharedPrefRxFrequencyKHzKey = "NahoftRxFrequencyKHz"
+        const val sharedPrefMfskBaseFrequencyHzKey = "NahoftMfskBaseFrequencyHz"
+        const val sharedPrefMfskUseFldigiEngineKey = "NahoftMfskUseFldigiEngine"
+
         val sharedPrefAlreadySeeTutorialKey = "NahoftAlreadySeeTutorial"
 
         val sharedPrefFilename = "NahoftEncryptedPreferences"
@@ -76,20 +100,128 @@ class Persist {
                 .apply()
         }
 
-        fun saveLoginFailure(failedLoginAttempts: Int) {
+        /**
+         * Returns the lockout duration in milliseconds for a given number of failed attempts.
+         *
+         * Lockout schedule:
+         * - 0-5 attempts: no lockout
+         * - 6 attempts: 1 minute
+         * - 7 attempts: 5 minutes
+         * - 8 attempts: 15 minutes
+         * - 9+ attempts: 1000 minutes (triggers data wipe)
+         */
+        fun getLockoutDurationMillis(failedLoginAttempts: Int): Long
+        {
+            val minutes = when {
+                failedLoginAttempts >= 9 -> 1000
+                failedLoginAttempts == 8 -> 15
+                failedLoginAttempts == 7 -> 5
+                failedLoginAttempts == 6 -> 1
+                else -> 0
+            }
+
+            return minutes * 60 * 1000L
+        }
+
+
+        /**
+         * Checks if the current lockout has expired.
+         *
+         * Returns true if EITHER:
+         * - Wall clock is past the expiry time, OR
+         * - Enough real time (elapsedRealtime) has passed since lockout was set
+         *
+         * if the user travels and their wall clock moves backward,
+         * they can still log in once enough real time has passed.
+         *
+         * Reboot detection: If elapsedRealtime() is less than the stored value,
+         * the device has rebooted, fall back to wall clock only.
+         */
+        fun isLockoutExpired(failedLoginAttempts: Int): Boolean
+        {
+            return LockoutLogic.isLockoutExpired(
+                lockoutDuration = getLockoutDurationMillis(failedLoginAttempts),
+                lockoutExpiry = encryptedSharedPreferences.getLong(sharedPrefLockoutExpiryKey, 0L),
+                elapsedAtLockout = encryptedSharedPreferences.getLong(sharedPrefLockoutElapsedKey, 0L),
+                currentTimeMillis = System.currentTimeMillis(),
+                currentElapsedRealtime = SystemClock.elapsedRealtime()
+            )
+        }
+
+        /**
+         * Returns true if the wall clock shows the lockout has expired,
+         * but not enough real time has actually passed. This indicates
+         * the user moved their clock forward to bypass the lockout.
+         *
+         * Returns false if:
+         * - Device has rebooted (can't reliably detect manipulation)
+         * - No active lockout
+         * - No manipulation detected
+         */
+        fun isClockManipulationDetected(failedLoginAttempts: Int): Boolean
+        {
+            return LockoutLogic.isClockManipulationDetected(
+                lockoutDuration = getLockoutDurationMillis(failedLoginAttempts),
+                lockoutExpiry = encryptedSharedPreferences.getLong(sharedPrefLockoutExpiryKey, 0L),
+                elapsedAtLockout = encryptedSharedPreferences.getLong(sharedPrefLockoutElapsedKey, 0L),
+                currentTimeMillis = System.currentTimeMillis(),
+                currentElapsedRealtime = SystemClock.elapsedRealtime()
+            )
+        }
+
+        /**
+         * Returns the remaining lockout time in milliseconds.
+         * Uses the more accurate of wall clock or elapsed time remaining.
+         * Returns 0 if lockout has expired.
+         */
+        fun getRemainingLockoutMillis(failedLoginAttempts: Int): Long
+        {
+            return LockoutLogic.getRemainingLockoutMillis(
+                lockoutDuration = getLockoutDurationMillis(failedLoginAttempts),
+                lockoutExpiry = encryptedSharedPreferences.getLong(sharedPrefLockoutExpiryKey, 0L),
+                elapsedAtLockout = encryptedSharedPreferences.getLong(sharedPrefLockoutElapsedKey, 0L),
+                currentTimeMillis = System.currentTimeMillis(),
+                currentElapsedRealtime = SystemClock.elapsedRealtime()
+            )
+        }
+
+        /**
+         * Saves a login failure and sets up the lockout expiry.
+         *
+         * Stores:
+         * - Failed attempt count
+         * - Wall clock time when lockout expires
+         * - SystemClock.elapsedRealtime() at lockout creation (for manipulation detection)
+         *
+         * When failedLoginAttempts is 0, clears all lockout-related keys.
+         */
+        fun saveLoginFailure(failedLoginAttempts: Int)
+        {
             // Save number of failed login attempts
             encryptedSharedPreferences
                 .edit()
                 .putInt(sharedPrefFailedLoginAttemptsKey, failedLoginAttempts)
                 .apply()
 
-            if (failedLoginAttempts == 0) {
-                deleteKey(sharedPrefFailedLoginTimeKey)
-            } else {
-                // Save failure date
+            if (failedLoginAttempts == 0)
+            {
+                // Clear lockout state on successful login
                 encryptedSharedPreferences
                     .edit()
-                    .putLong(sharedPrefFailedLoginTimeKey, System.currentTimeMillis())
+                    .remove(sharedPrefLockoutExpiryKey)
+                    .remove(sharedPrefLockoutElapsedKey)
+                    .apply()
+            }
+            else
+            {
+                val lockoutDuration = getLockoutDurationMillis(failedLoginAttempts)
+                val lockoutExpiry = System.currentTimeMillis() + lockoutDuration
+                val elapsedAtLockout = SystemClock.elapsedRealtime()
+
+                encryptedSharedPreferences
+                    .edit()
+                    .putLong(sharedPrefLockoutExpiryKey, lockoutExpiry)
+                    .putLong(sharedPrefLockoutElapsedKey, elapsedAtLockout)
                     .apply()
             }
         }
@@ -124,17 +256,6 @@ class Persist {
             saveFriendsToFile(context)
         }
 
-        fun updateFriendsPhone(context: Context, friendToUpdate: Friend, newPhoneNumber: String) {
-
-            val oldFriend = friendList.find { it.name == friendToUpdate.name }
-
-//            oldFriend?.let {
-//                oldFriend.phone = newPhoneNumber
-//            }
-
-            saveFriendsToFile(context)
-        }
-
         // Save something to Encrypted Shared Preferences
         fun saveKey(key:String, value:String) {
             encryptedSharedPreferences
@@ -152,6 +273,17 @@ class Persist {
 
         fun loadBooleanKey(key: String): Boolean {
             return encryptedSharedPreferences.getBoolean(key, false)
+        }
+
+        fun saveIntKey(key: String, value: Int) {
+            encryptedSharedPreferences
+                .edit()
+                .putInt(key, value)
+                .apply()
+        }
+
+        fun loadIntKey(key: String, default: Int): Int {
+            return encryptedSharedPreferences.getInt(key, default)
         }
 
         // Remove something from Encrypted Shared Preferences
@@ -182,24 +314,82 @@ class Persist {
             saveMessagesToFile(context)
         }
 
-        fun clearAllData(secondaryCode: Boolean) {
-            if (friendsFile.exists()) { friendsFile.delete() }
-            if (messagesFile.exists()) { messagesFile.delete() }
+        fun secureDelete(file: File)
+        {
+            if (!file.exists()) return
+
+            try
+            {
+                val length = file.length()
+                val random = SecureRandom()
+
+                // Overwrite with random data multiple times
+                repeat(3)
+                {
+                    RandomAccessFile(file, "rws").use { raf ->
+                        val buffer = ByteArray(4096)
+
+                        var remaining = length
+
+                        while (remaining > 0)
+                        {
+                            val toWrite = minOf(remaining, buffer.size.toLong()).toInt()
+                            random.nextBytes(buffer)
+                            raf.write(buffer, 0, toWrite)
+                            remaining -= toWrite
+                        }
+
+                        raf.fd.sync()
+                    }
+                }
+
+                // Delete the file
+                file.delete()
+            }
+            catch (e: kotlin.Exception)
+            {
+                Timber.d("Error deleting a file: ${e.printStackTrace()}")
+            }
+        }
+
+        @OptIn(ExperimentalStdlibApi::class)
+        fun clearAllData(secondaryCode: Boolean)
+        {
+            secureDelete(friendsFile)
+            secureDelete(messagesFile)
+
+            for (friend in friendList)
+            {
+                overwriteFriend(friend)
+            }
             friendList.clear()
+
+
+            for ((index, message) in messageList.withIndex())
+            {
+                messageList[index] = overwriteMessage(message)
+            }
             messageList.clear()
 
             var passcode = ""
             if (secondaryCode) {
                 passcode = encryptedSharedPreferences.getString(sharedPrefSecondaryPasscodeKey, "").toString()
             }
-            // Overwrite the keys to EncryptedSharedPreferences
-            val keyHex = "0000000000000000000000000000000000000000000000000000000000000000"
 
-            encryptedSharedPreferences
-                .edit()
-                .putString("NahoftPrivateKey", keyHex)
-                .putString(publicKeyPreferencesKey, keyHex)
-                .apply()
+            // Overwrite the keys to EncryptedSharedPreferences
+            repeat(3)
+            {
+                val outputBytes = ByteArray(32)
+                val secRandom = SecureRandom.getInstanceStrong()
+                secRandom.nextBytes(outputBytes)
+                val keyHex = outputBytes.toHexString()
+
+                encryptedSharedPreferences
+                    .edit()
+                    .putString("NahoftPrivateKey", keyHex)
+                    .putString(publicKeyPreferencesKey, keyHex)
+                    .apply()
+            }
 
             // Remove Everything from EncryptedSharedPreferences
             encryptedSharedPreferences
@@ -207,13 +397,57 @@ class Persist {
                 .clear()
                 .apply()
 
-            if (secondaryCode) {
+            if (secondaryCode)
+            {
                 saveKey(sharedPrefPasscodeKey, passcode)
                 saveBooleanKey(sharedPrefAlreadySeeTutorialKey, true)
                 status = LoginStatus.LoggedIn
                 saveLoginStatus()
-            } else {
+            }
+            else
+            {
                 status = LoginStatus.NotRequired
+            }
+        }
+
+        @OptIn(ExperimentalStdlibApi::class)
+        fun overwriteFriend(friend: Friend)
+        {
+            val secRandom = SecureRandom.getInstanceStrong()
+
+            if (friend.publicKeyEncoded != null)
+            {
+                secRandom.nextBytes(friend.publicKeyEncoded)
+            }
+
+            val nameBytes = ByteArray(friend.name.length + secRandom.nextInt(10))
+            secRandom.nextBytes(nameBytes)
+            friend.name =  nameBytes.toHexString()
+            friend.status = FriendStatus.Default
+        }
+
+        fun overwriteMessage(message: Message): Message
+        {
+            val secRandom = SecureRandom.getInstanceStrong()
+            secRandom.nextBytes(message.cipherText)
+            val randomTimestamp = LocalDateTime.ofEpochSecond(
+                Random.nextLong(946684800, System.currentTimeMillis() / 1000),
+                0,
+                java.time.ZoneOffset.UTC
+            ).format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+
+            return Message(randomTimestamp, randomCalendar(), message.cipherText, false)
+        }
+
+        fun randomCalendar(): JavaCalendar
+        {
+            val minMillis = 946684800000L  // 2000-01-01
+            val maxMillis = System.currentTimeMillis()
+
+            val randomMillis = Random.nextLong(minMillis, maxMillis)
+
+            return JavaCalendar.getInstance().apply {
+                timeInMillis = randomMillis
             }
         }
 

@@ -90,7 +90,7 @@
         app:layout_constraintVertical_bias="0.85"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/alert_text_invitation_accepted" />
+        android:contentDescription="@string/approve_button" />
 
     <ImageButton
         android:id="@+id/decline_button"
