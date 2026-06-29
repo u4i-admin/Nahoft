@@ -35,6 +35,10 @@ android {
         versionName "3.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters 'arm64-v8a', 'x86_64'
+        }
     }
 
     buildTypes {
@@ -93,15 +97,15 @@ dependencies {
     }
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'com.github.joshjdevl.libsodiumjni:libsodium-jni-aar:2.0.2'
+    implementation files('libs/libsodium-jni.aar')
     implementation 'androidx.core:core-animation:1.0.0'
     implementation 'androidx.test.ext:junit-ktx:1.3.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
-    testImplementation 'com.github.joshjdevl.libsodiumjni:libsodium-jni-aar:2.0.2'
-    androidTestImplementation 'com.github.joshjdevl.libsodiumjni:libsodium-jni-aar:2.0.2'
+    testImplementation files('libs/libsodium-jni.aar')
+    androidTestImplementation files('libs/libsodium-jni.aar')
     androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
 
     implementation 'com.google.firebase:firebase-analytics:21.2.2'
